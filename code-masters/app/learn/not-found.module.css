@@ -1,0 +1,60 @@
+.main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 5rem) 1.25rem;
+  text-align: center;
+}
+
+.code {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.title {
+  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  letter-spacing: -0.03em;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.lead {
+  color: var(--muted-2);
+  line-height: 1.55;
+  margin-bottom: 1.65rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.05rem;
+  border-radius: 11px;
+  font-weight: 650;
+  background: color-mix(in oklab, var(--accent) 26%, var(--surface-2));
+  border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+.primary:hover {
+  background: color-mix(in oklab, var(--accent) 34%, var(--surface-2));
+}
+
+.subtle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  color: var(--muted-2);
+}
+
+.subtle:hover {
+  color: var(--foreground);
+}

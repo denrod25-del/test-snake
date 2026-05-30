@@ -1,0 +1,7 @@
+.env
+*.db
+__pycache__/
+.venv/
+_ucmr_data/
+backups/
+data/

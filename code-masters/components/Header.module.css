@@ -1,0 +1,127 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--background) 86%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.brandMark {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
+.brandText {
+  font-size: 1rem;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+@media (min-width: 860px) {
+  .nav {
+    display: flex;
+  }
+}
+
+.navLink {
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.navLink:hover {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--foreground) 6%, transparent);
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.feedback {
+  display: none;
+  padding: 0.45rem 0.65rem;
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+@media (min-width: 640px) {
+  .feedback {
+    display: inline-flex;
+  }
+}
+
+.feedback:hover {
+  color: var(--foreground);
+}
+
+.github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--foreground);
+  transition: border-color 120ms ease, transform 120ms ease,
+    background 120ms ease;
+}
+
+.github:hover {
+  border-color: color-mix(in oklab, var(--foreground) 22%, var(--border));
+  background: color-mix(in oklab, var(--surface-2) 80%, var(--foreground));
+}
+
+.github:active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .github {
+    transition: none;
+  }
+
+  .github:active {
+    transform: none;
+  }
+}
+
+.githubIcon {
+  width: 18px;
+  height: 18px;
+}

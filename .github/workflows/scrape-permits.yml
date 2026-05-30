@@ -1,0 +1,95 @@
+name: Scrape Florida Permits
+
+# Runs daily at 07:30 UTC (03:30 ET — quietest hours for county servers).
+# Permit data changes daily and stays useful even when only one county is
+# scraped, so this runs more frequently than the weekly sales scrape.
+#
+# Trigger manually from the Actions tab to run on demand, optionally
+# scoped to a single county.
+
+on:
+  schedule:
+    - cron: '30 7 * * *'
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Comma-separated county names (e.g. "Palm Beach,Orange"). Blank = all.'
+        required: false
+        default: ''
+      skip_network:
+        description: 'Skip network calls (refresh manual + index only)'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape-permits
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: 'scraper/requirements.txt'
+
+      - name: Install dependencies
+        working-directory: scraper
+        run: pip install -r requirements.txt
+
+      - name: Run permit scraper
+        working-directory: scraper
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.only }}" ]; then
+            ARGS="$ARGS --only \"${{ github.event.inputs.only }}\""
+          fi
+          if [ "${{ github.event.inputs.skip_network }}" = "true" ]; then
+            ARGS="$ARGS --skip-network"
+          fi
+          eval "python scrape_permits.py $ARGS"
+
+      - name: Rebuild static county SEO pages
+        # Pages are baked from sales.json + permits/index.json + region map.
+        # Re-running keeps the static HTML in sync with the day's scrape.
+        run: |
+          python scripts/build_county_pages.py ${SITE_BASE_URL:+--base-url "$SITE_BASE_URL"}
+        env:
+          SITE_BASE_URL: ${{ vars.SITE_BASE_URL }}
+
+      - name: Commit updated permit data + SEO pages
+        run: |
+          CHANGED=""
+          if [ -n "$(git status --porcelain data/permits counties sitemap.xml)" ]; then
+            CHANGED="yes"
+          fi
+          if [ -n "$CHANGED" ]; then
+            git config user.name  "tax-deed-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/permits counties sitemap.xml
+            git commit -m "chore(data): refresh permits + county pages [skip ci]"
+            git push
+          else
+            echo "No permit / SEO changes to commit"
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Permit scrape summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f data/permits/index.json ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Active counties:" >> $GITHUB_STEP_SUMMARY
+            python -c "import json; d=json.load(open('data/permits/index.json')); [print(f'- **{c[\"county\"]}** — {c.get(\"permitCount\",0)} permits ({c[\"status\"]})') for c in d['coverage'] if c['status'] in ('active','manual')]" >> $GITHUB_STEP_SUMMARY
+          fi

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filings — Florida Bankruptcy Tracker</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2338bdf8'/><text x='50%25' y='56%25' text-anchor='middle' font-family='Arial' font-size='28' font-weight='800' fill='%230b1120'>FL</text></svg>" />
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <main class="container">
+    <header class="page-head">
+      <span class="eyebrow">Filings explorer</span>
+      <h1>Search Florida bankruptcy filings</h1>
+      <p>Filter by district, chapter, status, debtor name, or filing window. Click any case number for the full record.</p>
+    </header>
+
+    <section class="card" style="margin-bottom: 16px;">
+      <div class="filters">
+        <div class="field">
+          <label for="q">Search debtor / case #</label>
+          <input id="q" type="text" placeholder="e.g. Smith, Sunshine Holdings, 24-04123" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="district">District</label>
+          <select id="district">
+            <option value="">All districts</option>
+            <option value="FLND">Northern (N.D. Fla.)</option>
+            <option value="FLMB">Middle (M.D. Fla.)</option>
+            <option value="FLSB">Southern (S.D. Fla.)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="chapter">Chapter</label>
+          <select id="chapter">
+            <option value="">All chapters</option>
+            <option value="7">Chapter 7</option>
+            <option value="11">Chapter 11</option>
+            <option value="13">Chapter 13</option>
+            <option value="15">Chapter 15</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="status">Status</label>
+          <select id="status">
+            <option value="">Any status</option>
+            <option value="Open">Open</option>
+            <option value="Discharged">Discharged</option>
+            <option value="Dismissed">Dismissed</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+        <button id="reset" class="btn secondary" type="button">Reset</button>
+      </div>
+
+      <div class="filters" style="grid-template-columns: 1fr 1fr 1fr auto;">
+        <div class="field">
+          <label for="from">Filed from</label>
+          <input id="from" type="date" />
+        </div>
+        <div class="field">
+          <label for="to">Filed to</label>
+          <input id="to" type="date" />
+        </div>
+        <div class="field">
+          <label for="debtorType">Debtor type</label>
+          <select id="debtorType">
+            <option value="">Any</option>
+            <option value="Individual">Individual</option>
+            <option value="Individual (Joint)">Individual (Joint)</option>
+            <option value="Business">Business</option>
+          </select>
+        </div>
+        <div style="display:flex; gap:8px; align-items:end;">
+          <button id="exportCsv" class="btn" type="button">Export CSV</button>
+        </div>
+      </div>
+    </section>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; color:var(--text-dim); font-size:13px;">
+      <div id="resultsSummary">Loading…</div>
+      <div>
+        Sort: <select id="sort" style="background:var(--bg-card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:6px 10px;">
+          <option value="filed_date_desc">Newest first</option>
+          <option value="filed_date_asc">Oldest first</option>
+          <option value="liabilities_desc">Liabilities (high → low)</option>
+          <option value="assets_desc">Assets (high → low)</option>
+          <option value="debtor_asc">Debtor A → Z</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="table-wrap">
+      <table class="filings">
+        <thead>
+          <tr>
+            <th>Case #</th>
+            <th>Filed</th>
+            <th>Debtor</th>
+            <th>Type</th>
+            <th>Chapter</th>
+            <th>District / Division</th>
+            <th>County</th>
+            <th>Liabilities</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="pagination">
+        <div id="pageInfo">—</div>
+        <div style="display:flex; gap:8px;">
+          <button id="prev">‹ Prev</button>
+          <button id="next">Next ›</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script>
+    (async function () {
+      const F = window.FLBK;
+      const data = await F.load();
+      const all = data.filings;
+
+      const els = {
+        q: document.getElementById("q"),
+        district: document.getElementById("district"),
+        chapter: document.getElementById("chapter"),
+        status: document.getElementById("status"),
+        from: document.getElementById("from"),
+        to: document.getElementById("to"),
+        debtorType: document.getElementById("debtorType"),
+        sort: document.getElementById("sort"),
+        rows: document.getElementById("rows"),
+        summary: document.getElementById("resultsSummary"),
+        pageInfo: document.getElementById("pageInfo"),
+        prev: document.getElementById("prev"),
+        next: document.getElementById("next"),
+        reset: document.getElementById("reset"),
+        exportCsv: document.getElementById("exportCsv"),
+      };
+
+      let page = 1;
+      const pageSize = 25;
+
+      function applyFilters() {
+        const q = els.q.value.trim().toLowerCase();
+        const dist = els.district.value;
+        const ch = els.chapter.value;
+        const st = els.status.value;
+        const from = els.from.value;
+        const to = els.to.value;
+        const dt = els.debtorType.value;
+
+        let out = all.filter((f) => {
+          if (dist && f.district_code !== dist) return false;
+          if (ch && f.chapter !== ch) return false;
+          if (st && f.status !== st) return false;
+          if (dt && f.debtor_type !== dt) return false;
+          if (from && f.filed_date < from) return false;
+          if (to   && f.filed_date > to)   return false;
+          if (q) {
+            const hay = (f.debtor + " " + f.case_number + " " + f.county + " " + f.attorney).toLowerCase();
+            if (!hay.includes(q)) return false;
+          }
+          return true;
+        });
+
+        const sort = els.sort.value;
+        out.sort((a, b) => {
+          switch (sort) {
+            case "filed_date_asc":   return a.filed_date.localeCompare(b.filed_date);
+            case "liabilities_desc": return b.total_liabilities - a.total_liabilities;
+            case "assets_desc":      return b.total_assets - a.total_assets;
+            case "debtor_asc":       return a.debtor.localeCompare(b.debtor);
+            default:                 return b.filed_date.localeCompare(a.filed_date);
+          }
+        });
+
+        return out;
+      }
+
+      function render() {
+        const filtered = applyFilters();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+        if (page > totalPages) page = totalPages;
+        const start = (page - 1) * pageSize;
+        const slice = filtered.slice(start, start + pageSize);
+
+        els.summary.textContent = `${filtered.length.toLocaleString()} matching filing${filtered.length === 1 ? "" : "s"}`;
+        els.pageInfo.textContent = filtered.length === 0
+          ? "No results"
+          : `Page ${page} of ${totalPages} · showing ${start + 1}–${Math.min(start + pageSize, filtered.length)}`;
+        els.prev.disabled = page <= 1;
+        els.next.disabled = page >= totalPages;
+
+        if (slice.length === 0) {
+          els.rows.innerHTML = `<tr><td colspan="9"><div class="empty">No filings match these filters.<br/>Try clearing the search box or expanding the date range.</div></td></tr>`;
+          return;
+        }
+
+        els.rows.innerHTML = slice.map((f) => `
+          <tr>
+            <td><a class="case-num" href="filing.html?id=${encodeURIComponent(f.id)}">${F.escapeHtml(f.case_number)}</a></td>
+            <td>${F.fmtDate(f.filed_date)}</td>
+            <td class="debtor">${F.escapeHtml(f.debtor)}</td>
+            <td>${F.escapeHtml(f.debtor_type)}</td>
+            <td>${F.chapterChip(f.chapter)}</td>
+            <td>${F.escapeHtml(f.district_short)} · ${F.escapeHtml(f.division)}</td>
+            <td>${F.escapeHtml(f.county)}</td>
+            <td>${F.fmtMoney(f.total_liabilities)}</td>
+            <td>${F.statusChip(f.status)}</td>
+          </tr>
+        `).join("");
+      }
+
+      function bindControls() {
+        const inputs = [els.q, els.district, els.chapter, els.status, els.from, els.to, els.debtorType, els.sort];
+        inputs.forEach((el) => {
+          el.addEventListener("input", () => { page = 1; render(); });
+          el.addEventListener("change", () => { page = 1; render(); });
+        });
+        els.prev.addEventListener("click", () => { page--; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+        els.next.addEventListener("click", () => { page++; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+        els.reset.addEventListener("click", () => {
+          [els.q, els.from, els.to].forEach((e) => (e.value = ""));
+          [els.district, els.chapter, els.status, els.debtorType].forEach((e) => (e.value = ""));
+          els.sort.value = "filed_date_desc";
+          page = 1;
+          render();
+        });
+        els.exportCsv.addEventListener("click", () => {
+          const rows = applyFilters().map((f) => ({
+            case_number: f.case_number,
+            filed_date: f.filed_date,
+            debtor: f.debtor,
+            debtor_type: f.debtor_type,
+            chapter: f.chapter,
+            district: f.district_short,
+            division: f.division,
+            county: f.county,
+            judge: f.judge,
+            attorney: f.attorney,
+            total_assets: f.total_assets,
+            total_liabilities: f.total_liabilities,
+            status: f.status,
+          }));
+          F.downloadCSV(rows, `florida-bankruptcy-filings-${new Date().toISOString().slice(0,10)}.csv`);
+        });
+      }
+
+      bindControls();
+      render();
+    })().catch((e) => {
+      console.error(e);
+      document.getElementById("rows").innerHTML =
+        `<tr><td colspan="9"><div class="empty" style="color:#fca5a5;">Failed to load data: ${e.message}</div></td></tr>`;
+    });
+  </script>
+</body>
+</html>

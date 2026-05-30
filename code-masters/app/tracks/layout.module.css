@@ -1,0 +1,9 @@
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrap > main {
+  flex: 1;
+}

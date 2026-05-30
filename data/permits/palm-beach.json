@@ -1,0 +1,88 @@
+{
+  "_comment": "Palm Beach County (UNINCORPORATED) permit data. The legacy eDSWeb scraper is DEFUNCT — the county migrated to a registration + reCAPTCHA-gated SPA in 2024 (see scraper/parsers_permits.py). These illustrative samples are kept so the UI has demo data; for live unincorporated PBC permits, use the new portal manually at the portalUrl below.",
+  "county": "Palm Beach",
+  "city": "UNINCORPORATED",
+  "slug": "palm-beach",
+  "generated": "2026-04-18T03:00:00Z",
+  "source": "SAMPLE DATA — legacy eDSWeb scraper is defunct (PBC portal migration)",
+  "portalUrl": "https://pbc.gov/ePZB.Admin.WebSPA/#/",
+  "platform": "PBC ePZB Admin SPA (registration required)",
+  "scope": "Sample illustrative permits — not real data",
+  "permitCount": 4,
+  "permitsByParcel": {
+    "00434409010050010": [
+      {
+        "permitNumber": "B-2025-012345",
+        "parcelId": "00434409010050010",
+        "address": "123 OCEAN BLVD, JUPITER, FL 33477",
+        "type": "Re-Roof",
+        "subtype": "Residential",
+        "description": "Replace asphalt shingles, full tear-off and re-deck",
+        "status": "Issued",
+        "applicantName": "ABC ROOFING LLC",
+        "contractor": "ABC ROOFING LLC (CCC1330000)",
+        "valuation": 18500,
+        "appliedDate": "2025-12-15",
+        "issuedDate": "2026-01-08",
+        "finalDate": null,
+        "expirationDate": "2026-07-08",
+        "url": "https://epzb.pbcgov.org/eDSWeb/PermitSearchResults.aspx?PermitNo=B-2025-012345"
+      },
+      {
+        "permitNumber": "E-2025-009987",
+        "parcelId": "00434409010050010",
+        "address": "123 OCEAN BLVD, JUPITER, FL 33477",
+        "type": "Electrical",
+        "subtype": "Residential",
+        "description": "200A service upgrade",
+        "status": "Final",
+        "applicantName": "OWNER",
+        "contractor": "BRIGHT ELECTRIC INC",
+        "valuation": 4200,
+        "appliedDate": "2025-09-02",
+        "issuedDate": "2025-09-12",
+        "finalDate": "2025-10-30",
+        "expirationDate": "2026-03-12",
+        "url": "https://epzb.pbcgov.org/eDSWeb/PermitSearchResults.aspx?PermitNo=E-2025-009987"
+      }
+    ],
+    "50434429050001234": [
+      {
+        "permitNumber": "B-2024-098765",
+        "parcelId": "50434429050001234",
+        "address": "4567 PALM AVE, WEST PALM BEACH, FL 33401",
+        "type": "Addition / Alteration",
+        "subtype": "Residential",
+        "description": "300 sq ft master suite addition (UNPERMITTED WORK NOTED)",
+        "status": "Open / Active",
+        "applicantName": "JOHN DOE",
+        "contractor": "DOE CONSTRUCTION (CGC1500000)",
+        "valuation": 87500,
+        "appliedDate": "2024-08-19",
+        "issuedDate": "2024-09-30",
+        "finalDate": null,
+        "expirationDate": "2025-09-30",
+        "url": "https://epzb.pbcgov.org/eDSWeb/PermitSearchResults.aspx?PermitNo=B-2024-098765"
+      }
+    ],
+    "00424323070000050": [
+      {
+        "permitNumber": "B-2025-007711",
+        "parcelId": "00424323070000050",
+        "address": "98 SEAGRAPE LN, BOYNTON BEACH, FL 33435",
+        "type": "Demolition",
+        "subtype": "Residential",
+        "description": "Partial demo — interior fire damage",
+        "status": "Expired",
+        "applicantName": "ESTATE OF SMITH",
+        "contractor": null,
+        "valuation": 12000,
+        "appliedDate": "2025-03-04",
+        "issuedDate": "2025-04-22",
+        "finalDate": null,
+        "expirationDate": "2025-10-22",
+        "url": "https://epzb.pbcgov.org/eDSWeb/PermitSearchResults.aspx?PermitNo=B-2025-007711"
+      }
+    ]
+  }
+}

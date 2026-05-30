@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Florida Bankruptcy Tracker — Dashboard</title>
+  <meta name="description" content="Track bankruptcy filings across the Northern, Middle, and Southern Districts of Florida." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2338bdf8'/><text x='50%25' y='56%25' text-anchor='middle' font-family='Arial' font-size='28' font-weight='800' fill='%230b1120'>FL</text></svg>" />
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <main class="container">
+    <header class="page-head">
+      <span class="eyebrow">Live snapshot</span>
+      <h1>Florida Bankruptcy Filings Dashboard</h1>
+      <p>Aggregated case activity across the Northern, Middle, and Southern federal bankruptcy districts of Florida — by chapter, district, and county.</p>
+    </header>
+
+    <div class="disclaimer">
+      Demo dataset. The structure mirrors PACER / CourtListener so the front-end can be re-pointed at live court data without changes. See the <a href="about.html">About page</a>.
+    </div>
+
+    <section class="stats" id="stats"></section>
+
+    <section class="grid-2" style="margin-bottom: 16px;">
+      <div class="card">
+        <div class="section-head">
+          <h2 style="font-size:18px;">Filings over the last 12 months</h2>
+        </div>
+        <div class="chart-wrap"><canvas id="chartTrend"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="section-head">
+          <h2 style="font-size:18px;">By chapter</h2>
+        </div>
+        <div class="chart-wrap"><canvas id="chartChapter"></canvas></div>
+      </div>
+    </section>
+
+    <section class="grid-2" style="margin-bottom: 16px;">
+      <div class="card">
+        <div class="section-head">
+          <h2 style="font-size:18px;">By district</h2>
+        </div>
+        <div class="chart-wrap"><canvas id="chartDistrict"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="section-head">
+          <h2 style="font-size:18px;">Top counties (last 90 days)</h2>
+        </div>
+        <div id="countyList" class="county-list"></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 24px;">
+      <div class="section-head">
+        <h2 style="font-size:18px;">Most recent filings</h2>
+        <a href="filings.html" class="btn secondary">View all →</a>
+      </div>
+      <div class="table-wrap" style="border-radius:10px;">
+        <table class="filings">
+          <thead>
+            <tr>
+              <th>Case #</th>
+              <th>Filed</th>
+              <th>Debtor</th>
+              <th>Chapter</th>
+              <th>District</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="recentBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    (async function () {
+      const { load, fmtDate, relDays, chapterChip, statusChip, escapeHtml } = window.FLBK;
+      const data = await load();
+      const filings = data.filings;
+
+      // ── Stats ───────────────────────────────────────
+      const now = new Date();
+      const startOfYear = new Date(now.getFullYear(), 0, 1);
+      const last30 = new Date(now.getTime() - 30 * 86400000);
+      const prev30Start = new Date(now.getTime() - 60 * 86400000);
+
+      const ytd      = filings.filter((f) => new Date(f.filed_date) >= startOfYear).length;
+      const last30N  = filings.filter((f) => new Date(f.filed_date) >= last30).length;
+      const prev30N  = filings.filter((f) => {
+        const d = new Date(f.filed_date);
+        return d >= prev30Start && d < last30;
+      }).length;
+      const open     = filings.filter((f) => f.status === "Open").length;
+      const business = filings.filter((f) => f.debtor_type === "Business").length;
+
+      const delta = prev30N === 0 ? null : Math.round(((last30N - prev30N) / prev30N) * 100);
+      const deltaStr = delta == null
+        ? ""
+        : (delta >= 0 ? "▲ +" : "▼ ") + delta + "% vs prior 30d";
+
+      document.getElementById("stats").innerHTML = `
+        <div class="stat"><div class="label">Total filings (dataset)</div>
+          <div class="value">${filings.length.toLocaleString()}</div>
+          <div class="sub">across all 3 FL districts</div></div>
+        <div class="stat"><div class="label">Filed YTD</div>
+          <div class="value">${ytd.toLocaleString()}</div>
+          <div class="sub">since Jan 1</div></div>
+        <div class="stat"><div class="label">Last 30 days</div>
+          <div class="value">${last30N.toLocaleString()}</div>
+          <div class="sub" style="color:${delta != null && delta >= 0 ? '#6ee7b7' : '#fca5a5'};">${deltaStr || ' '}</div></div>
+        <div class="stat"><div class="label">Open cases</div>
+          <div class="value">${open.toLocaleString()}</div>
+          <div class="sub">not yet discharged / closed</div></div>
+        <div class="stat"><div class="label">Business filings</div>
+          <div class="value">${business.toLocaleString()}</div>
+          <div class="sub">${Math.round(business / filings.length * 100)}% of all cases</div></div>
+      `;
+
+      // ── 12-month trend ──────────────────────────────
+      const months = [];
+      for (let i = 11; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        months.push({
+          key: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
+          label: d.toLocaleDateString("en-US", { month: "short" }),
+          year: d.getFullYear(),
+          month: d.getMonth(),
+        });
+      }
+      const counts = months.map((m) => filings.filter((f) => {
+        const fd = new Date(f.filed_date);
+        return fd.getFullYear() === m.year && fd.getMonth() === m.month;
+      }).length);
+
+      const baseFont = { family: "ui-sans-serif, system-ui", size: 12 };
+      const grid = { color: "#1f2c4c" };
+      const tickColor = "#8a96b3";
+
+      new Chart(document.getElementById("chartTrend"), {
+        type: "line",
+        data: {
+          labels: months.map((m) => m.label),
+          datasets: [{
+            data: counts,
+            borderColor: "#38bdf8",
+            backgroundColor: "rgba(56,189,248,0.18)",
+            tension: 0.35,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 3,
+            pointBackgroundColor: "#38bdf8",
+          }],
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: tickColor, font: baseFont } },
+            y: { grid, ticks: { color: tickColor, font: baseFont }, beginAtZero: true },
+          },
+        },
+      });
+
+      // ── By chapter (doughnut) ───────────────────────
+      const chapterCounts = {};
+      filings.forEach((f) => { chapterCounts[f.chapter] = (chapterCounts[f.chapter] || 0) + 1; });
+      const chapterOrder = ["7", "13", "11", "15"];
+      new Chart(document.getElementById("chartChapter"), {
+        type: "doughnut",
+        data: {
+          labels: chapterOrder.map((c) => "Chapter " + c),
+          datasets: [{
+            data: chapterOrder.map((c) => chapterCounts[c] || 0),
+            backgroundColor: ["#38bdf8", "#a5b4fc", "#fcd34d", "#f9a8d4"],
+            borderColor: "#15203a",
+            borderWidth: 2,
+          }],
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, cutout: "62%",
+          plugins: {
+            legend: { position: "bottom", labels: { color: "#e6ecf7", font: baseFont } },
+          },
+        },
+      });
+
+      // ── By district (bar) ───────────────────────────
+      const districtCounts = {};
+      filings.forEach((f) => { districtCounts[f.district_short] = (districtCounts[f.district_short] || 0) + 1; });
+      const dKeys = Object.keys(districtCounts);
+      new Chart(document.getElementById("chartDistrict"), {
+        type: "bar",
+        data: {
+          labels: dKeys,
+          datasets: [{
+            data: dKeys.map((k) => districtCounts[k]),
+            backgroundColor: ["#38bdf8", "#a5b4fc", "#34d399"],
+            borderRadius: 8,
+            borderSkipped: false,
+          }],
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, indexAxis: "y",
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid, ticks: { color: tickColor, font: baseFont }, beginAtZero: true },
+            y: { grid: { display: false }, ticks: { color: "#e6ecf7", font: baseFont } },
+          },
+        },
+      });
+
+      // ── Top counties (last 90d) ─────────────────────
+      const cutoff = new Date(now.getTime() - 90 * 86400000);
+      const countyMap = {};
+      filings.forEach((f) => {
+        if (new Date(f.filed_date) < cutoff) return;
+        countyMap[f.county] = (countyMap[f.county] || 0) + 1;
+      });
+      const top = Object.entries(countyMap).sort((a, b) => b[1] - a[1]).slice(0, 12);
+      const max = top.length ? top[0][1] : 1;
+      document.getElementById("countyList").innerHTML = top.map(([name, count]) => {
+        const pct = Math.max(6, Math.round((count / max) * 100));
+        return `
+          <div class="county-row">
+            <div class="name">${escapeHtml(name)}</div>
+            <div class="count">${count}</div>
+            <div class="bar"><span style="width:${pct}%"></span></div>
+          </div>`;
+      }).join("") || `<div class="empty">No filings in the last 90 days.</div>`;
+
+      // ── Recent filings table ────────────────────────
+      const recent = filings.slice(0, 10);
+      document.getElementById("recentBody").innerHTML = recent.map((f) => `
+        <tr>
+          <td><a class="case-num" href="filing.html?id=${encodeURIComponent(f.id)}">${escapeHtml(f.case_number)}</a></td>
+          <td>${fmtDate(f.filed_date)} <span style="color:var(--text-dim);">· ${relDays(f.filed_date)}</span></td>
+          <td class="debtor">${escapeHtml(f.debtor)}</td>
+          <td>${chapterChip(f.chapter)}</td>
+          <td>${escapeHtml(f.district_short)} · ${escapeHtml(f.division)}</td>
+          <td>${statusChip(f.status)}</td>
+        </tr>
+      `).join("");
+    })().catch((e) => {
+      console.error(e);
+      document.querySelector("main").innerHTML += `
+        <div class="card" style="margin-top:20px;color:#fca5a5;">
+          Failed to load data: ${String(e.message || e)}
+          <div style="color:var(--text-dim);font-size:13px;margin-top:8px;">
+            Tip: open this site via a local server (e.g. <code>python -m http.server</code>), not file://.
+          </div>
+        </div>`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+.main {
+  padding: 2rem 1.25rem 3.5rem;
+}
+
+.inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.breadcrumb a {
+  color: color-mix(in oklab, var(--foreground) 85%, var(--muted));
+}
+
+.breadcrumb a:hover {
+  color: var(--foreground);
+}
+
+.crumbSep {
+  margin: 0 0.45rem;
+  opacity: 0.5;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.kicker {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.title {
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 0.65rem;
+}
+
+.desc {
+  color: var(--muted-2);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  max-width: 68ch;
+}
+
+.meta {
+  margin-top: 0.65rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.65rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.05rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 88%, black);
+  transition: border-color 140ms ease, transform 140ms ease;
+}
+
+.card:hover {
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: border-color 140ms ease;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
+
+.cardTitle {
+  font-weight: 650;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.cardMeta {
+  font-size: 0.88rem;
+  color: var(--muted);
+}

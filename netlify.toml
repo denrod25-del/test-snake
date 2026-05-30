@@ -1,0 +1,77 @@
+# Two ways to deploy:
+#
+# 1. Vite app (recommended going forward) — uncomment the block below
+#      [build]
+#        base      = "app"
+#        command   = "npm install && npm run build"
+#        publish   = "app/dist"
+#        functions = "../netlify/functions"
+#
+# 2. Legacy single-file site (the original tax-deeds.html) — current default.
+#    The legacy site and the Vite app share the same Netlify Functions
+#    (Stripe + Supabase) because the API URLs are stable.
+
+[build]
+  publish   = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# The Stripe webhook needs the raw body for signature verification.
+# Netlify passes event.body as a string by default, which is what we want.
+[functions."stripe-webhook"]
+  included_files = []
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+# sales.json should never be cached — it's the live data feed
+[[headers]]
+  for = "/sales.json"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"
+
+# Pretty paths to functions
+[[redirects]]
+  from = "/api/checkout"
+  to   = "/.netlify/functions/create-checkout-session"
+  status = 200
+
+[[redirects]]
+  from = "/api/portal"
+  to   = "/.netlify/functions/create-portal-session"
+  status = 200
+
+[[redirects]]
+  from = "/api/stripe-webhook"
+  to   = "/.netlify/functions/stripe-webhook"
+  status = 200
+
+# ── Pro-only data APIs ─────────────────────────────────────────────────────
+# These functions verify the caller's Supabase JWT, confirm an active Pro
+# subscription, deduct one credit, and proxy to the upstream vendor (BatchData
+# or RentCast). They never run on free accounts.
+[[redirects]]
+  from = "/api/skip-trace"
+  to   = "/.netlify/functions/skip-trace"
+  status = 200
+
+[[redirects]]
+  from = "/api/avm-lookup"
+  to   = "/.netlify/functions/avm-lookup"
+  status = 200
+
+[[redirects]]
+  from = "/api/credits"
+  to   = "/.netlify/functions/credits-balance"
+  status = 200

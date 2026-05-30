@@ -1,0 +1,33 @@
+{
+  "_comment": "Manual surplus entries for counties without scrapeable sources, or to override/supplement scraped data. Use this for in-person counties and counties whose Clerk publishes surplus only as PDFs. Status values: unclaimed | claim_filed | paid | escheated",
+  "_template": {
+    "Some County": [
+      {
+        "sale_date":      "2026-03-04",
+        "parcel_id":      "23-22-30-1234-00-010",
+        "property_addr":  "1247 Magnolia Ave, Some City, FL",
+        "prior_owner":    "Williams Family Trust",
+        "surplus_amount": 18420.00,
+        "status":         "unclaimed",
+        "claim_deadline": "2026-07-02",
+        "source_url":     "https://example.com/surplus.pdf"
+      }
+    ]
+  },
+  "Baker":     [],
+  "Bradford":  [],
+  "Calhoun":   [],
+  "Dixie":     [],
+  "Franklin":  [],
+  "Gadsden":   [],
+  "Gilchrist": [],
+  "Glades":    [],
+  "Gulf":      [],
+  "Hamilton":  [],
+  "Holmes":    [],
+  "Jefferson": [],
+  "Lafayette": [],
+  "Liberty":   [],
+  "Madison":   [],
+  "Union":     []
+}

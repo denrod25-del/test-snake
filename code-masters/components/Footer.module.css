@@ -1,0 +1,92 @@
+.footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface-2) 80%, black);
+  padding: 2.5rem 1.25rem 2rem;
+}
+
+.inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    align-items: start;
+  }
+}
+
+.brandBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.wordmark {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  color: var(--muted-2);
+  line-height: 1.55;
+  max-width: 36ch;
+  font-size: 0.95rem;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+}
+
+.colTitle {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.55rem;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+}
+
+.links a {
+  color: color-mix(in oklab, var(--foreground) 78%, var(--muted));
+}
+
+.links a:hover {
+  color: var(--foreground);
+}
+
+.bottom {
+  max-width: var(--max);
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in oklab, var(--border) 88%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (min-width: 720px) {
+  .bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.credits {
+  color: var(--muted-2);
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trainer Adventure — Ash</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="trainer-page">
+    <main class="trainer-wrap">
+      <header class="trainer-hud">
+        <h1>Trainer Adventure</h1>
+        <p class="trainer-sub">
+          Play as <strong>Ash</strong> — explore tall grass, battle wild creatures, and win.
+        </p>
+        <div class="trainer-stats">
+          <span>Location: <strong id="locLabel">Route 1</strong></span>
+          <span>Party: <strong id="partyLabel">Flufflet Lv.5</strong></span>
+        </div>
+        <p id="trainerStatus" class="trainer-status">Arrow keys or WASD to walk. Enter grass for wild encounters.</p>
+      </header>
+      <canvas id="trainerCanvas" width="512" height="384" aria-label="Trainer adventure game"></canvas>
+      <div class="trainer-actions">
+        <a href="landing.html" class="aux-btn">Arcade menu</a>
+        <button id="trainerRestart" class="aux-btn" type="button">New game</button>
+      </div>
+    </main>
+    <script src="trainer.js"></script>
+  </body>
+</html>

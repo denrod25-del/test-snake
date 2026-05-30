@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palm Beach County Permit Search &mdash; Plumbing &amp; Water Filtration</title>
+<meta name="description" content="Keyword search of Palm Beach County, Florida building permits for water filtration, water heaters, and all plumbing work. Filter by date, status, contractor, city, and value. Free, no login, no API key." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%F0%9F%93%8B%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2230;
+    --panel-2: #232d3f;
+    --border: #2d3a4f;
+    --text: #e6edf3;
+    --muted: #8a97a8;
+    --accent: #4f9eff;
+    --accent-hover: #6bafff;
+    --success: #3fb950;
+    --error: #f85149;
+    --warn: #d29922;
+    --chip: #28344a;
+    --chip-active: #1b3a66;
+    --radius: 8px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  header {
+    padding: 28px 24px 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #131a25 0%, var(--bg) 100%);
+  }
+  header h1 { margin: 0 0 6px; font-size: 26px; font-weight: 600; letter-spacing: -0.4px; }
+  header p { margin: 0; color: var(--muted); font-size: 14px; }
+  header .source { margin-top: 6px; font-size: 12px; color: var(--muted); }
+  header .source a { color: var(--accent); text-decoration: none; }
+  header .source a:hover { text-decoration: underline; }
+  header nav { margin-top: 10px; font-size: 13px; }
+  header nav a { color: var(--muted); margin: 0 8px; text-decoration: none; }
+  header nav a:hover { color: var(--accent); }
+  main { max-width: 1280px; margin: 0 auto; padding: 20px; }
+
+  .data-banner {
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .data-banner.sample { background: #3a2d10; border: 1px solid #d29922; color: #ffd17a; }
+  .data-banner.live   { background: #112a1a; border: 1px solid #3fb950; color: #b7f5c4; }
+  .data-banner.warn   { background: #3a2d10; border: 1px solid #d29922; color: #ffd17a; }
+  .data-banner.mixed  { background: #1d2638; border: 1px solid #4f9eff; color: #cfe1ff; }
+  .data-banner.error  { background: #3a1414; border: 1px solid #f85149; color: #ffb6b1; }
+  .data-banner ul { margin: 6px 0 0; padding-left: 20px; }
+  .data-banner li { margin: 2px 0; font-size: 12px; }
+  .data-banner code { background: rgba(0,0,0,0.25); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+  .data-banner .grow { flex: 1; }
+  .data-banner button {
+    background: transparent; color: inherit; border: 1px solid currentColor;
+    border-radius: 6px; padding: 4px 10px; font-size: 12px; cursor: pointer;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab .count {
+    margin-left: 6px;
+    background: var(--panel-2);
+    color: var(--text);
+    border-radius: 99px;
+    padding: 1px 8px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .panel h2 { margin: 0 0 12px; font-size: 15px; font-weight: 600; color: var(--text); }
+  .panel h3 { margin: 16px 0 8px; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .field { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 6px; }
+  .field.wide { flex: 2; min-width: 320px; }
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  input[type="text"], input[type="date"], input[type="number"], select, textarea {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 9px 11px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 100px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+
+  button.primary, .btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  button.primary:hover, .btn:hover { background: var(--accent-hover); }
+  button.secondary {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  button.secondary:hover { border-color: var(--accent); }
+  button.ghost {
+    background: transparent;
+    color: var(--muted);
+    border: none;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  button.ghost:hover { color: var(--accent); }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    background: var(--chip);
+    color: var(--text);
+    border: 1px solid transparent;
+    border-radius: 99px;
+    padding: 5px 11px 5px 13px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip.active { background: var(--chip-active); color: #cfe2ff; border-color: var(--accent); }
+  .chip .x {
+    background: rgba(255,255,255,0.1);
+    border-radius: 99px;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    line-height: 1;
+  }
+  .chip .x:hover { background: var(--error); color: #fff; }
+  .preset-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
+  .preset-row .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px; }
+
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+  .actions .grow { flex: 1; }
+
+  .results-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .results-meta strong { color: var(--text); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr { background: var(--panel-2); }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  th:hover { color: var(--accent); }
+  th .sort-arrow { color: var(--accent); margin-left: 4px; }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:hover { background: rgba(79, 158, 255, 0.05); }
+  tbody tr.expanded { background: rgba(79, 158, 255, 0.08); }
+  td .desc { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  td a { color: var(--accent); text-decoration: none; }
+  td a:hover { text-decoration: underline; }
+  td .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--panel-2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  td .pill.issued, td .pill.final, td .pill.active, td .pill.open { color: #b7f5c4; border-color: #3fb950; background: #112a1a; }
+  td .pill.expired, td .pill.cancelled, td .pill.void { color: #ffb6b1; border-color: #f85149; background: #3a1414; }
+  td .pill.pending { color: #ffd17a; border-color: #d29922; background: #3a2d10; }
+  td .source-pill {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+    background: var(--chip); color: var(--accent);
+    border: 1px solid var(--border); text-transform: uppercase;
+  }
+  td .source-pill.scaffold { background: #3a2d10; color: #ffd17a; border-color: #d29922; }
+  td .source-pill.unsupported_paywall { background: #3a1414; color: #ffb6b1; border-color: #f85149; }
+  td .keyword-hit { background: rgba(255, 215, 92, 0.18); color: #ffe58f; padding: 0 2px; border-radius: 2px; }
+
+  .detail-panel {
+    padding: 14px 18px;
+    background: rgba(0,0,0,0.18);
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px 18px;
+    margin-bottom: 12px;
+  }
+  .detail-grid .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+  .detail-grid .v { font-size: 13px; color: var(--text); margin-top: 2px; word-break: break-word; }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  .empty-state h3 { color: var(--text); margin: 0 0 8px; font-weight: 500; }
+
+  #map { height: 600px; border-radius: var(--radius); border: 1px solid var(--border); }
+  .leaflet-popup-content-wrapper { background: var(--panel); color: var(--text); border-radius: 6px; }
+  .leaflet-popup-tip { background: var(--panel); }
+  .leaflet-popup-content { color: var(--text); margin: 10px 14px; }
+  .leaflet-popup-content a { color: var(--accent); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .stat-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+  }
+  .stat-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; }
+  .stat-card .value { font-size: 24px; font-weight: 600; }
+  .stat-card .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .bar-list { margin-top: 10px; }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 12px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .bar-row:last-child { border-bottom: none; }
+  .bar-row .name { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-row .count { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar-row .bar {
+    grid-column: 1 / -1;
+    height: 4px;
+    background: var(--panel);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: -2px;
+  }
+  .bar-row .bar > span {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+  }
+
+  .help { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .help code { background: var(--panel-2); padding: 1px 6px; border-radius: 4px; font-size: 11px; }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    align-items: center;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .pagination button {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  details.advanced summary {
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 16px 0 10px;
+    user-select: none;
+  }
+  details.advanced summary:hover { color: var(--accent); }
+
+  .legal {
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 24px;
+  }
+  .legal a { color: var(--muted); }
+
+  @media (max-width: 720px) {
+    .field { min-width: 100%; }
+    table { font-size: 12px; }
+    th, td { padding: 8px 6px; }
+    .hide-mobile { display: none; }
+    #map { height: 400px; }
+    main { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Palm Beach County Permit Search</h1>
+  <p>Plumbing &middot; Water Filtration &middot; Water Heaters &middot; All Trades</p>
+  <div class="source">
+    Aggregated permits across <span id="source-count">multiple</span> Palm Beach County portals
+    &middot; manifest <code>data/permits/sources.json</code>
+  </div>
+  <nav>
+    <a href="parcel-lookup.html">Parcel Lookup</a>
+    &middot; <a href="tax-deeds.html">Tax Deed Registry</a>
+    &middot; <a href="counties/index.html">County Directory</a>
+  </nav>
+</header>
+
+<main>
+  <div id="data-banner"></div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="search" role="tab" aria-selected="true">Search <span class="count" id="t-search-count">0</span></button>
+    <button class="tab" data-tab="map"    role="tab">Map</button>
+    <button class="tab" data-tab="stats"  role="tab">Stats</button>
+    <button class="tab" data-tab="manual" role="tab">Manual Upload</button>
+    <button class="tab" data-tab="help"   role="tab">How To Refresh</button>
+  </div>
+
+  <!-- ============== SEARCH TAB ============== -->
+  <section id="tab-search">
+    <div class="panel">
+      <h2>Keyword search</h2>
+
+      <div class="row">
+        <div class="field wide">
+          <label for="kw-input">Add keyword (matches description, type, subtype, contractor, address)</label>
+          <input id="kw-input" type="text" placeholder="Type a keyword and press Enter (e.g. filtration, softener, water heater)" />
+          <div class="chips" id="keyword-chips" style="margin-top: 8px;"></div>
+          <div class="preset-row">
+            <span class="label">Presets:</span>
+            <button class="chip" type="button" data-preset="filtration">Water filtration</button>
+            <button class="chip" type="button" data-preset="heater">Water heater</button>
+            <button class="chip" type="button" data-preset="plumbing">All plumbing</button>
+            <button class="chip" type="button" data-preset="gas">Gas lines</button>
+            <button class="chip" type="button" data-preset="sewer">Sewer / drain</button>
+            <button class="chip" type="button" data-preset="repipe">Repipe</button>
+            <button class="ghost" type="button" id="clear-keywords">Clear all</button>
+          </div>
+        </div>
+      </div>
+
+      <details class="advanced">
+        <summary>Advanced filters</summary>
+        <div class="row">
+          <div class="field">
+            <label for="f-applied-from">Applied from</label>
+            <input id="f-applied-from" type="date" />
+          </div>
+          <div class="field">
+            <label for="f-applied-to">Applied to</label>
+            <input id="f-applied-to" type="date" />
+          </div>
+          <div class="field">
+            <label for="f-issued-from">Issued from</label>
+            <input id="f-issued-from" type="date" />
+          </div>
+          <div class="field">
+            <label for="f-issued-to">Issued to</label>
+            <input id="f-issued-to" type="date" />
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+          <div class="field">
+            <label for="f-source">Data source</label>
+            <select id="f-source" multiple size="4"></select>
+          </div>
+          <div class="field">
+            <label for="f-status">Status</label>
+            <select id="f-status" multiple size="4"></select>
+          </div>
+          <div class="field">
+            <label for="f-type">Permit type</label>
+            <select id="f-type" multiple size="4"></select>
+          </div>
+          <div class="field">
+            <label for="f-city">City contains</label>
+            <input id="f-city" type="text" placeholder="WPB, Boynton, Boca, ..." />
+          </div>
+          <div class="field">
+            <label for="f-contractor">Contractor contains</label>
+            <input id="f-contractor" type="text" placeholder="ABC PLUMBING, ROTO-ROOTER, ..." />
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+          <div class="field">
+            <label for="f-val-min">Min valuation ($)</label>
+            <input id="f-val-min" type="number" min="0" step="100" placeholder="0" />
+          </div>
+          <div class="field">
+            <label for="f-val-max">Max valuation ($)</label>
+            <input id="f-val-max" type="number" min="0" step="100" placeholder="any" />
+          </div>
+          <div class="field">
+            <label for="f-keyword-mode">Keyword match mode</label>
+            <select id="f-keyword-mode">
+              <option value="any">ANY keyword (broader)</option>
+              <option value="all">ALL keywords (stricter)</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <div class="actions">
+        <button class="primary" id="run-search">Search</button>
+        <button class="secondary" id="reset-filters">Reset filters</button>
+        <div class="grow"></div>
+        <button class="secondary" id="export-csv">Export CSV</button>
+        <button class="secondary" id="copy-link">Copy share link</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="results-meta">
+        <div><strong id="r-count">0</strong> matching permits <span id="r-of"></span></div>
+        <div id="r-source-meta"></div>
+      </div>
+      <div style="overflow-x: auto;">
+        <table id="results-table">
+          <thead>
+            <tr>
+              <th data-sort="dataSource" class="hide-mobile">Source</th>
+              <th data-sort="permitNumber">Permit #</th>
+              <th data-sort="appliedDate">Applied</th>
+              <th data-sort="status">Status</th>
+              <th data-sort="address">Address</th>
+              <th data-sort="type">Type</th>
+              <th data-sort="contractor" class="hide-mobile">Contractor</th>
+              <th data-sort="valuation">Value</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+      <div id="empty-state" class="empty-state" style="display:none;">
+        <h3>No permits match.</h3>
+        <p>Try removing a keyword, broadening the date range, or switching keyword mode to ANY.</p>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
+
+  <!-- ============== MAP TAB ============== -->
+  <section id="tab-map" style="display:none;">
+    <div class="panel">
+      <h2>Map of matching permits</h2>
+      <p class="help">Pins are geocoded from each permit's address using OpenStreetMap Nominatim (free, no key). Geocoded coordinates are cached in your browser. First-time geocoding can take a few seconds per permit; subsequent loads are instant. <span id="geocode-status"></span></p>
+      <div class="actions" style="margin-bottom: 12px;">
+        <button class="secondary" id="map-geocode">Geocode visible permits</button>
+        <button class="ghost" id="map-clear-cache">Clear geocode cache</button>
+      </div>
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <!-- ============== STATS TAB ============== -->
+  <section id="tab-stats" style="display:none;">
+    <div class="panel">
+      <h2>Stats for current filter</h2>
+      <div class="stats-grid" id="stats-cards"></div>
+      <h3>Top contractors</h3>
+      <div id="stats-contractors" class="bar-list"></div>
+      <h3>Permits by status</h3>
+      <div id="stats-status" class="bar-list"></div>
+      <h3>Permits by type</h3>
+      <div id="stats-type" class="bar-list"></div>
+      <h3>Permits by city</h3>
+      <div id="stats-city" class="bar-list"></div>
+      <h3>Permits by data source</h3>
+      <div id="stats-source" class="bar-list"></div>
+    </div>
+  </section>
+
+  <!-- ============== MANUAL UPLOAD TAB ============== -->
+  <section id="tab-manual" style="display:none;">
+    <div class="panel">
+      <h2>Manual data upload</h2>
+      <p class="help">If the cached scrape is stale or you have permit data from another source (CSV export from a city portal, manually pasted records, etc.), drop it here. Data is merged into your in-memory dataset for this session only (does not modify any file in <code>data/permits/</code>). To make uploads persistent, save the JSON into the appropriate per-source file (e.g. <code>data/permits/west-palm-beach.json</code>).</p>
+
+      <h3>Paste JSON</h3>
+      <p class="help">Accepts the same shape as the per-source files in <code>data/permits/</code> (object with <code>permitsByParcel</code> OR <code>permits</code> array) OR a flat array of permit objects matching the schema in <code>data/permits/index.json</code>. Pasted permits are tagged with source <code>manual</code>.</p>
+      <textarea id="manual-json" placeholder='[{"permitNumber":"P-2026-0001","parcelId":"00000000000000000","address":"123 Main St, West Palm Beach, FL 33401","type":"Plumbing","subtype":"Residential","description":"Whole-house water filtration system installation","status":"Issued","contractor":"ACME WATER CO","valuation":3500,"appliedDate":"2026-04-01","issuedDate":"2026-04-05","url":"https://example.com/permit/P-2026-0001"}]'></textarea>
+      <div class="actions">
+        <button class="primary" id="manual-merge">Merge into search</button>
+        <button class="secondary" id="manual-clear">Clear pasted data</button>
+      </div>
+
+      <h3>Or drop a CSV file</h3>
+      <p class="help">CSV must include header row. Recognized columns (any subset): <code>permitNumber, parcelId, address, type, subtype, description, status, applicantName, contractor, valuation, appliedDate, issuedDate, finalDate, expirationDate, url</code>.</p>
+      <input type="file" id="csv-file" accept=".csv,text/csv" />
+      <div id="manual-status" class="help" style="margin-top: 10px;"></div>
+    </div>
+  </section>
+
+  <!-- ============== HELP TAB ============== -->
+  <section id="tab-help" style="display:none;">
+    <div class="panel">
+      <h2>How to refresh permit data</h2>
+      <p>This page is a multi-source aggregator. It reads <code>data/permits/sources.json</code> at boot, then loads every <code>dataFile</code> listed there in parallel. Each loaded permit is tagged with its origin so the <strong>Source</strong> filter can scope results to one or more portals.</p>
+
+      <h3>Currently registered sources</h3>
+      <p class="help">See the boot banner at the top of the page for the live status of each source. Status legend:</p>
+      <ul style="color: var(--muted); font-size: 13px; line-height: 1.8;">
+        <li><strong>live</strong> &mdash; scraper works, data is current</li>
+        <li><strong>sample</strong> &mdash; demo data only (scraper hasn't been run yet, or the cache is stale)</li>
+        <li><strong>scaffold</strong> &mdash; parser stub exists in <code>scraper/parsers_permits.py</code> but needs reverse-engineering before it can pull live data. Sample data shown.</li>
+        <li><strong>unsupported_paywall</strong> &mdash; the upstream portal now requires registration / paywalls / reCAPTCHA, so anonymous bulk scraping is not feasible. Use the portal manually.</li>
+      </ul>
+
+      <h3>Refreshing live sources</h3>
+      <pre style="background: var(--panel-2); padding: 14px; border-radius: 6px; overflow-x: auto; font-size: 12px;">cd scraper
+pip install -r requirements.txt
+python scrape_permits.py -v                 # all sources
+python scrape_permits.py --only "West Palm Beach" -v  # just one</pre>
+      <p class="help">Default lookback is 90 days (configurable per-parser in <code>parsers_permits.py</code>). After it finishes, hard-refresh this page (Ctrl+Shift+R) so the browser pulls the new JSON.</p>
+
+      <h3>Reality check on Florida municipal permit portals</h3>
+      <ul style="color: var(--muted); font-size: 13px; line-height: 1.8;">
+        <li>None of the public portals support keyword search of <em>work descriptions</em> natively. This page filters keywords <em>locally</em> after the scraper pulls underlying records.</li>
+        <li>Each city runs its own portal (Tyler EnerGov, CentralSquare Click2Gov, SagesGov, Accela, custom). Each needs its own parser.</li>
+        <li>Palm Beach County's legacy <code>eDSWeb</code> portal was retired in 2024. The replacement <a href="https://pbc.gov/ePZB.Admin.WebSPA/" target="_blank" rel="noopener">ePZB Admin SPA</a> requires registration + reCAPTCHA, and "Open Permit Searches" cost $63 each. Anonymous bulk scraping is no longer possible &mdash; use the portal manually for unincorporated PBC permits.</li>
+        <li>Some city portals (Click2Gov, SagesGov) only allow single-record lookups by permit number / address / contractor &mdash; no bulk listing. For those, build a seed list (contractors of interest, parcel addresses) and let the scraper iterate.</li>
+        <li>For older permits past the lookback window, file a <a href="https://discover.pbc.gov/pzb/pages/records-request.aspx" target="_blank" rel="noopener">public records request</a> with the relevant jurisdiction.</li>
+      </ul>
+
+      <h3>Adding a new city portal</h3>
+      <ol style="color: var(--muted); font-size: 13px; line-height: 1.8;">
+        <li>Add a parser function to <code>scraper/parsers_permits.py</code> and register it in <code>PERMIT_PARSERS</code>.</li>
+        <li>Add an entry to <code>scraper/sources_permits.json</code> (jurisdiction config for the scraper).</li>
+        <li>Add a matching entry to <code>data/permits/sources.json</code> (manifest the frontend reads).</li>
+        <li>Run the scraper; it'll write to the <code>dataFile</code> path. Refresh this page.</li>
+      </ol>
+    </div>
+  </section>
+
+  <p class="legal">
+    Permit data is a public record under Florida's Sunshine Law, sourced from each jurisdiction's permitting portal.
+    This tool searches a locally cached snapshot &mdash; not a live query. For authoritative records, visit each
+    jurisdiction's portal directly (links in the source banner above and on each result row).
+    No warranty of accuracy &mdash; verify any permit before relying on it.
+  </p>
+</main>
+
+<script>
+/* =========================================================================
+ * Palm Beach County Permit Search — single-file static app
+ *
+ * Loads data/permits/sources.json at boot, then fetches every source's
+ * dataFile in parallel and merges results into one searchable dataset.
+ * Each permit is tagged with its origin source so the Source filter can
+ * scope results.
+ *
+ * Match schema: data/permits/index.json -> schema.permit
+ * Keyword filtering happens client-side because no Florida municipal
+ * portal supports free-text search of "scope of work" natively.
+ * ========================================================================= */
+
+const KEYWORD_PRESETS = {
+  filtration: [
+    "filtration", "filter", "softener", "water softener", "ro system",
+    "reverse osmosis", "treatment system", "water treatment", "whole house water"
+  ],
+  heater: [
+    "water heater", "tankless", "hot water heater", "wh change", "wh changeout",
+    "water heater change", "water heater replacement"
+  ],
+  plumbing: [
+    "plumbing", "plumb", "repipe", "re-pipe", "drain", "sewer", "lateral",
+    "backflow", "fixture", "toilet", "shower", "faucet", "sink",
+    "water heater", "filtration", "softener", "ro system", "gas line", "gas piping"
+  ],
+  gas: ["gas line", "gas piping", "lp gas", "natural gas", "gas tank"],
+  sewer: ["sewer", "lateral", "drain", "cleanout", "septic", "lift station"],
+  repipe: ["repipe", "re-pipe", "pipe replacement", "copper repipe", "pex repipe"],
+};
+
+// Registry of permit data sources (loaded from data/permits/sources.json
+// at boot). Each entry is the manifest object plus a `loaded` flag,
+// `permits` array, and `loadError` if the fetch failed.
+const SOURCES = [];
+// Quick lookup: dataSource id -> manifest entry (with status, label, etc.)
+const SOURCE_BY_ID = {};
+
+const STATE = {
+  data: { permits: [], counts: { scraped: 0, manual: 0 } },
+  keywords: [],
+  keywordMode: "any",
+  filters: {
+    appliedFrom: "", appliedTo: "",
+    issuedFrom: "", issuedTo: "",
+    source: [], status: [], type: [],
+    city: "", contractor: "",
+    valMin: null, valMax: null,
+  },
+  sort: { col: "appliedDate", dir: "desc" },
+  page: 1,
+  pageSize: 25,
+  filtered: [],
+  expandedRow: null,
+  geocodeCache: {}, // address -> [lat, lng] | null
+  map: null,
+  markerLayer: null,
+  activeTab: "search",
+};
+
+// ---------------------------------------------------------------------------
+// Boot: load JSON, hydrate filters, render
+// ---------------------------------------------------------------------------
+async function boot() {
+  loadGeocodeCache();
+  loadStateFromUrl();
+  renderKeywordChips();
+  await loadData();
+  populateFilterSelects();
+  attachListeners();
+  applyFiltersAndRender();
+}
+
+async function loadData() {
+  setBanner({ kind: "live", html: "Loading permit data\u2026" });
+
+  let manifest;
+  try {
+    const r = await fetch("data/permits/sources.json", { cache: "no-cache" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    manifest = await r.json();
+  } catch (err) {
+    setBanner({
+      kind: "error",
+      html: `Could not load <code>data/permits/sources.json</code> (${err.message}).
+             Open this page from a static server (not <code>file://</code>):
+             <code>python -m http.server</code>, then visit
+             <code>http://localhost:8000/permit-search.html</code>.`,
+    });
+    return;
+  }
+
+  SOURCES.length = 0;
+  Object.keys(SOURCE_BY_ID).forEach((k) => delete SOURCE_BY_ID[k]);
+
+  const enabled = new Set(manifest.defaultEnabledIds || (manifest.sources || []).map((s) => s.id));
+
+  const fetches = (manifest.sources || []).map(async (src) => {
+    const entry = { ...src, permits: [], loaded: false, loadError: null, generated: null };
+    SOURCES.push(entry);
+    SOURCE_BY_ID[entry.id] = entry;
+    if (!enabled.has(entry.id)) {
+      entry.disabled = true;
+      return;
+    }
+    try {
+      const r = await fetch(entry.dataFile, { cache: "no-cache" });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const j = await r.json();
+      entry.generated = j.generated || null;
+      entry.fileScope = j.scope || entry.scope;
+      entry.fileSource = j.source || "";
+      const flat = [];
+      if (j.permitsByParcel && typeof j.permitsByParcel === "object") {
+        Object.values(j.permitsByParcel).forEach((arr) => {
+          (arr || []).forEach((p) => flat.push(normalizePermit(p, entry)));
+        });
+      } else if (Array.isArray(j.permits)) {
+        j.permits.forEach((p) => flat.push(normalizePermit(p, entry)));
+      }
+      entry.permits = flat;
+      entry.loaded = true;
+    } catch (err) {
+      entry.loadError = err.message || String(err);
+    }
+  });
+  await Promise.all(fetches);
+
+  // Flatten all loaded permits into the master dataset
+  const all = [];
+  for (const src of SOURCES) {
+    if (src.loaded) all.push(...src.permits);
+  }
+  STATE.data = {
+    permits: all,
+    counts: { scraped: all.length, manual: 0 },
+  };
+
+  document.getElementById("source-count").textContent =
+    SOURCES.filter((s) => s.loaded).length + " of " + SOURCES.length;
+
+  showFreshnessBanner();
+}
+
+function normalizePermit(p, source) {
+  const out = {
+    permitNumber: (p.permitNumber || "").trim(),
+    parcelId: (p.parcelId || "").trim(),
+    address: (p.address || "").trim(),
+    type: (p.type || "Unknown").trim(),
+    subtype: (p.subtype || "") || null,
+    description: (p.description || "") || null,
+    status: (p.status || "Unknown").trim(),
+    applicantName: p.applicantName || null,
+    contractor: p.contractor || null,
+    valuation: p.valuation == null ? null : Number(p.valuation),
+    appliedDate: p.appliedDate || null,
+    issuedDate: p.issuedDate || null,
+    finalDate: p.finalDate || null,
+    expirationDate: p.expirationDate || null,
+    url: p.url || null,
+    dataSource: source ? source.id : "manual",
+    dataSourceLabel: source ? source.label : "Manual upload",
+    dataSourceShort: source ? (source.shortLabel || source.label) : "MANUAL",
+    dataSourceStatus: source ? source.status : "manual",
+  };
+  out.searchBlob = [
+    out.permitNumber, out.address, out.type, out.subtype, out.description,
+    out.contractor, out.applicantName, out.status, out.dataSourceLabel,
+  ].filter(Boolean).join(" \u2502 ").toLowerCase();
+  out.city = extractCity(out.address) || (source && source.city) || "";
+  return out;
+}
+
+function extractCity(addr) {
+  if (!addr) return "";
+  // Naive: pick the second-to-last comma-segment, e.g. "..., WEST PALM BEACH, FL 33401" -> "WEST PALM BEACH"
+  const parts = addr.split(",").map((s) => s.trim()).filter(Boolean);
+  if (parts.length >= 3) return parts[parts.length - 2];
+  return "";
+}
+
+function showFreshnessBanner() {
+  const total = STATE.data.permits.length;
+  const loaded = SOURCES.filter((s) => s.loaded);
+  const failed = SOURCES.filter((s) => s.loadError);
+  const sampleSources = loaded.filter((s) => /sample/i.test(s.fileSource || "") || /sample/i.test(s.fileScope || ""));
+  const liveSources = loaded.filter((s) => !sampleSources.includes(s));
+  const scaffoldSources = loaded.filter((s) => s.status === "scaffold");
+  const paywallSources = loaded.filter((s) => s.status === "unsupported_paywall");
+
+  if (total === 0 && loaded.length === 0) {
+    setBanner({
+      kind: "error",
+      html: `No permits loaded. ${failed.length} source${failed.length === 1 ? "" : "s"} failed to load:
+             <ul>${failed.map((s) => `<li><strong>${escapeHtml(s.label)}</strong> (<code>${escapeHtml(s.dataFile)}</code>): ${escapeHtml(s.loadError)}</li>`).join("")}</ul>
+             Run <code>cd scraper &amp;&amp; python scrape_permits.py</code> to populate the data files.`,
+    });
+    return;
+  }
+
+  // Per-source line summary
+  const lines = SOURCES.map((s) => {
+    if (s.disabled) return null;
+    if (s.loadError) {
+      return `<li><strong>${escapeHtml(s.label)}</strong> (${escapeHtml(s.shortLabel)}) &mdash; <span style="color: #ffb6b1;">load failed: ${escapeHtml(s.loadError)}</span></li>`;
+    }
+    const ageDays = freshnessDays(s.generated);
+    const ageMsg = ageDays == null ? "" : `, ${ageDays}d old`;
+    const sampleTag = sampleSources.includes(s) ? ` <span style="color: #ffd17a;">(SAMPLE)</span>` : "";
+    const statusTag =
+      s.status === "scaffold" ? ` <span style="color: #ffd17a;">(scaffold)</span>` :
+      s.status === "unsupported_paywall" ? ` <span style="color: #ffb6b1;">(portal paywalled)</span>` :
+      "";
+    return `<li><strong>${escapeHtml(s.label)}</strong> (${escapeHtml(s.shortLabel)}): <strong>${s.permits.length.toLocaleString()}</strong> permit${s.permits.length === 1 ? "" : "s"}${ageMsg}${sampleTag}${statusTag}</li>`;
+  }).filter(Boolean);
+
+  // Banner kind: error if all failed, sample/warn if any sample/scaffold/paywall, live otherwise.
+  let kind = "live";
+  let header;
+  if (failed.length === SOURCES.length) {
+    kind = "error";
+    header = `<strong>All ${SOURCES.length} sources failed to load.</strong>`;
+  } else if (sampleSources.length || scaffoldSources.length || paywallSources.length) {
+    kind = sampleSources.length === loaded.length ? "sample" : "mixed";
+    const tags = [];
+    if (sampleSources.length) tags.push(`${sampleSources.length} with sample data`);
+    if (scaffoldSources.length) tags.push(`${scaffoldSources.length} scraper scaffold${scaffoldSources.length === 1 ? "" : "s"}`);
+    if (paywallSources.length) tags.push(`${paywallSources.length} paywalled portal${paywallSources.length === 1 ? "" : "s"}`);
+    header = `<strong>${total.toLocaleString()} permit${total === 1 ? "" : "s"}</strong> loaded across ${loaded.length} source${loaded.length === 1 ? "" : "s"} &mdash; <span>${tags.join(", ")}</span>. See "How To Refresh" tab for what to do.`;
+  } else {
+    header = `<strong>${total.toLocaleString()} permit${total === 1 ? "" : "s"}</strong> loaded across ${loaded.length} live source${loaded.length === 1 ? "" : "s"}.`;
+  }
+
+  setBanner({
+    kind,
+    html: `<div>${header}</div><ul>${lines.join("")}</ul>`,
+  });
+}
+
+function freshnessDays(iso) {
+  if (!iso) return null;
+  const t = Date.parse(iso);
+  if (isNaN(t)) return null;
+  return Math.max(0, Math.round((Date.now() - t) / 86400000));
+}
+
+function setBanner({ kind, html }) {
+  const el = document.getElementById("data-banner");
+  el.className = "data-banner " + kind;
+  el.innerHTML = `<div class="grow">${html}</div>`;
+}
+
+// ---------------------------------------------------------------------------
+// Keyword chips
+// ---------------------------------------------------------------------------
+function renderKeywordChips() {
+  const wrap = document.getElementById("keyword-chips");
+  if (!STATE.keywords.length) {
+    wrap.innerHTML = `<span style="color: var(--muted); font-size: 12px;">No keywords selected &mdash; results will include ALL permits. Click a preset below or type one above.</span>`;
+    return;
+  }
+  wrap.innerHTML = STATE.keywords
+    .map((k, i) => `<span class="chip active" data-i="${i}">${escapeHtml(k)}<span class="x" title="Remove">&times;</span></span>`)
+    .join("");
+  wrap.querySelectorAll(".chip .x").forEach((x) => {
+    x.addEventListener("click", (e) => {
+      const i = +e.target.parentElement.dataset.i;
+      STATE.keywords.splice(i, 1);
+      renderKeywordChips();
+      applyFiltersAndRender();
+    });
+  });
+}
+
+function addKeyword(kw) {
+  const v = (kw || "").trim().toLowerCase();
+  if (!v) return;
+  if (STATE.keywords.includes(v)) return;
+  STATE.keywords.push(v);
+  renderKeywordChips();
+  applyFiltersAndRender();
+}
+
+function applyPreset(name) {
+  const list = KEYWORD_PRESETS[name] || [];
+  list.forEach((k) => {
+    const v = k.toLowerCase();
+    if (!STATE.keywords.includes(v)) STATE.keywords.push(v);
+  });
+  renderKeywordChips();
+  applyFiltersAndRender();
+}
+
+// ---------------------------------------------------------------------------
+// Filter UI population
+// ---------------------------------------------------------------------------
+function populateFilterSelects() {
+  const statuses = uniq(STATE.data.permits.map((p) => p.status).filter(Boolean)).sort();
+  const types = uniq(STATE.data.permits.map((p) => p.type).filter(Boolean)).sort();
+
+  document.getElementById("f-status").innerHTML = statuses
+    .map((s) => `<option value="${escapeAttr(s)}">${escapeHtml(s)}</option>`).join("");
+  document.getElementById("f-type").innerHTML = types
+    .map((t) => `<option value="${escapeAttr(t)}">${escapeHtml(t)}</option>`).join("");
+
+  // Source dropdown: every loaded source becomes a selectable option,
+  // labelled with its shortLabel + permit count.
+  const sourceSel = document.getElementById("f-source");
+  sourceSel.innerHTML = SOURCES
+    .filter((s) => s.loaded)
+    .map((s) => {
+      const tag = s.status === "scaffold" ? " (scaffold)"
+        : s.status === "unsupported_paywall" ? " (paywalled)"
+        : "";
+      const lbl = `${s.label} (${s.shortLabel}) - ${s.permits.length.toLocaleString()}${tag}`;
+      const selected = STATE.filters.source.includes(s.id) ? " selected" : "";
+      return `<option value="${escapeAttr(s.id)}"${selected}>${escapeHtml(lbl)}</option>`;
+    }).join("");
+}
+
+// ---------------------------------------------------------------------------
+// Filtering
+// ---------------------------------------------------------------------------
+function applyFiltersAndRender() {
+  const f = STATE.filters;
+  let arr = STATE.data.permits.slice();
+
+  if (STATE.keywords.length) {
+    const mode = STATE.keywordMode;
+    arr = arr.filter((p) => {
+      const blob = p.searchBlob;
+      if (mode === "all") return STATE.keywords.every((k) => blob.includes(k));
+      return STATE.keywords.some((k) => blob.includes(k));
+    });
+  }
+
+  if (f.source.length) arr = arr.filter((p) => f.source.includes(p.dataSource));
+  if (f.appliedFrom) arr = arr.filter((p) => p.appliedDate && p.appliedDate >= f.appliedFrom);
+  if (f.appliedTo)   arr = arr.filter((p) => p.appliedDate && p.appliedDate <= f.appliedTo);
+  if (f.issuedFrom)  arr = arr.filter((p) => p.issuedDate && p.issuedDate >= f.issuedFrom);
+  if (f.issuedTo)    arr = arr.filter((p) => p.issuedDate && p.issuedDate <= f.issuedTo);
+  if (f.status.length) arr = arr.filter((p) => f.status.includes(p.status));
+  if (f.type.length)   arr = arr.filter((p) => f.type.includes(p.type));
+  if (f.city)        arr = arr.filter((p) => p.city.toLowerCase().includes(f.city.toLowerCase()));
+  if (f.contractor)  arr = arr.filter((p) => (p.contractor || "").toLowerCase().includes(f.contractor.toLowerCase()));
+  if (f.valMin != null) arr = arr.filter((p) => p.valuation != null && p.valuation >= f.valMin);
+  if (f.valMax != null) arr = arr.filter((p) => p.valuation != null && p.valuation <= f.valMax);
+
+  // Sort
+  const { col, dir } = STATE.sort;
+  arr.sort((a, b) => {
+    const av = a[col]; const bv = b[col];
+    if (av == null && bv == null) return 0;
+    if (av == null) return 1;
+    if (bv == null) return -1;
+    if (av < bv) return dir === "asc" ? -1 : 1;
+    if (av > bv) return dir === "asc" ? 1 : -1;
+    return 0;
+  });
+
+  STATE.filtered = arr;
+  STATE.page = Math.min(STATE.page, Math.max(1, Math.ceil(arr.length / STATE.pageSize)));
+  renderResults();
+  renderStats();
+  renderMapMarkers();
+  syncUrlFromState();
+  document.getElementById("t-search-count").textContent = arr.length.toLocaleString();
+}
+
+// ---------------------------------------------------------------------------
+// Rendering: results table
+// ---------------------------------------------------------------------------
+function renderResults() {
+  const arr = STATE.filtered;
+  const total = STATE.data.permits.length;
+  document.getElementById("r-count").textContent = arr.length.toLocaleString();
+  document.getElementById("r-of").textContent = total ? `of ${total.toLocaleString()} total` : "";
+  document.getElementById("r-source-meta").textContent = SOURCES.length
+    ? `${SOURCES.filter((s) => s.loaded).length} source${SOURCES.filter((s) => s.loaded).length === 1 ? "" : "s"} loaded`
+    : "";
+
+  document.getElementById("empty-state").style.display = arr.length ? "none" : "block";
+
+  // Pagination
+  const pageStart = (STATE.page - 1) * STATE.pageSize;
+  const pageEnd = Math.min(arr.length, pageStart + STATE.pageSize);
+  const slice = arr.slice(pageStart, pageEnd);
+
+  const tbody = document.getElementById("results-body");
+  tbody.innerHTML = slice.map((p, idx) => rowHtml(p, pageStart + idx)).join("");
+
+  // Re-render sort arrows
+  document.querySelectorAll("th[data-sort]").forEach((th) => {
+    const arrow = th.dataset.sort === STATE.sort.col ? (STATE.sort.dir === "asc" ? " \u25b2" : " \u25bc") : "";
+    th.innerHTML = th.textContent.replace(/[\u25b2\u25bc].*$/, "").trim() + (arrow ? `<span class="sort-arrow">${arrow}</span>` : "");
+  });
+
+  // Click handlers for rows
+  tbody.querySelectorAll("tr.permit-row").forEach((tr) => {
+    tr.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") return; // don't expand on link click
+      const id = tr.dataset.id;
+      STATE.expandedRow = STATE.expandedRow === id ? null : id;
+      renderResults();
+    });
+  });
+
+  renderPagination(arr.length);
+}
+
+function rowHtml(p, idx) {
+  const id = p.permitNumber || ("idx-" + idx);
+  const expanded = STATE.expandedRow === id;
+  const statusClass = (p.status || "").toLowerCase().split(/\W+/)[0] || "";
+  const valStr = p.valuation == null ? "&mdash;" : "$" + Math.round(p.valuation).toLocaleString();
+  const linkHtml = p.url ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">${escapeHtml(p.permitNumber || "(view)")}</a>` : escapeHtml(p.permitNumber || "");
+  const desc = p.description ? `<div class="desc">${highlight(p.description)}</div>` : "";
+  const src = SOURCE_BY_ID[p.dataSource] || {};
+  const sourcePill = `<span class="source-pill ${escapeAttr(p.dataSourceStatus || "")}" title="${escapeAttr(p.dataSourceLabel || "")}">${escapeHtml(p.dataSourceShort || "")}</span>`;
+  const portalBtn = src.portalUrl
+    ? `<a class="btn" href="${escapeAttr(src.portalUrl)}" target="_blank" rel="noopener">Open ${escapeHtml(p.dataSourceLabel || "portal")}</a>`
+    : "";
+  const main = `
+    <tr class="permit-row" data-id="${escapeAttr(id)}">
+      <td class="hide-mobile">${sourcePill}</td>
+      <td>${linkHtml}<div class="desc">${escapeHtml(p.parcelId || "")}</div></td>
+      <td>${escapeHtml(p.appliedDate || "&mdash;")}</td>
+      <td><span class="pill ${statusClass}">${escapeHtml(p.status)}</span></td>
+      <td>${highlight(p.address)}<div class="desc">${escapeHtml(p.city || "")}</div></td>
+      <td>${highlight(p.type)}${desc}</td>
+      <td class="hide-mobile">${highlight(p.contractor || "")}</td>
+      <td>${valStr}</td>
+    </tr>`;
+  if (!expanded) return main;
+  return main + `
+    <tr><td colspan="8" class="detail-panel">
+      <div class="detail-grid">
+        <div><div class="k">Source</div><div class="v">${escapeHtml(p.dataSourceLabel || "")} <span class="source-pill ${escapeAttr(p.dataSourceStatus || "")}">${escapeHtml(p.dataSourceShort || "")}</span></div></div>
+        <div><div class="k">Permit #</div><div class="v">${linkHtml}</div></div>
+        <div><div class="k">Parcel ID</div><div class="v">${escapeHtml(p.parcelId)}</div></div>
+        <div><div class="k">Type / Subtype</div><div class="v">${escapeHtml(p.type)} ${p.subtype ? "/ " + escapeHtml(p.subtype) : ""}</div></div>
+        <div><div class="k">Status</div><div class="v">${escapeHtml(p.status)}</div></div>
+        <div><div class="k">Applied</div><div class="v">${escapeHtml(p.appliedDate || "&mdash;")}</div></div>
+        <div><div class="k">Issued</div><div class="v">${escapeHtml(p.issuedDate || "&mdash;")}</div></div>
+        <div><div class="k">Final</div><div class="v">${escapeHtml(p.finalDate || "&mdash;")}</div></div>
+        <div><div class="k">Expires</div><div class="v">${escapeHtml(p.expirationDate || "&mdash;")}</div></div>
+        <div><div class="k">Valuation</div><div class="v">${valStr}</div></div>
+        <div><div class="k">Applicant</div><div class="v">${escapeHtml(p.applicantName || "&mdash;")}</div></div>
+        <div><div class="k">Contractor</div><div class="v">${highlight(p.contractor || "&mdash;")}</div></div>
+        <div><div class="k">Address</div><div class="v">${highlight(p.address)}</div></div>
+      </div>
+      ${p.description ? `<div class="k">Scope of work</div><div class="v" style="font-size: 13px;">${highlight(p.description)}</div>` : ""}
+      <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+        ${p.url ? `<a class="btn" href="${escapeAttr(p.url)}" target="_blank" rel="noopener">Open permit record</a>` : ""}
+        ${portalBtn}
+        ${p.parcelId ? `<a class="btn" href="parcel-lookup.html?mode=pcn&q=${encodeURIComponent(p.parcelId)}">Lookup parcel</a>` : ""}
+        ${p.address ? `<a class="btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.address)}" target="_blank" rel="noopener">Google Maps</a>` : ""}
+      </div>
+    </td></tr>`;
+}
+
+function highlight(text) {
+  if (!text) return "";
+  let html = escapeHtml(text);
+  if (!STATE.keywords.length) return html;
+  for (const k of STATE.keywords) {
+    if (!k) continue;
+    const re = new RegExp("(" + escapeRegex(k) + ")", "gi");
+    html = html.replace(re, '<span class="keyword-hit">$1</span>');
+  }
+  return html;
+}
+
+function renderPagination(n) {
+  const pages = Math.max(1, Math.ceil(n / STATE.pageSize));
+  const wrap = document.getElementById("pagination");
+  if (pages <= 1) { wrap.innerHTML = ""; return; }
+  wrap.innerHTML = `
+    <button id="prev-page" ${STATE.page <= 1 ? "disabled" : ""}>&larr; Prev</button>
+    <span>Page ${STATE.page} of ${pages}</span>
+    <button id="next-page" ${STATE.page >= pages ? "disabled" : ""}>Next &rarr;</button>
+  `;
+  const prev = document.getElementById("prev-page");
+  const next = document.getElementById("next-page");
+  if (prev) prev.addEventListener("click", () => { STATE.page--; renderResults(); });
+  if (next) next.addEventListener("click", () => { STATE.page++; renderResults(); });
+}
+
+// ---------------------------------------------------------------------------
+// Stats
+// ---------------------------------------------------------------------------
+function renderStats() {
+  const arr = STATE.filtered;
+  const cards = document.getElementById("stats-cards");
+  const totalVal = arr.reduce((s, p) => s + (p.valuation || 0), 0);
+  const issued = arr.filter((p) => /issued|final|active|open/i.test(p.status)).length;
+  const expired = arr.filter((p) => /expired|cancelled|void/i.test(p.status)).length;
+  const withContractor = arr.filter((p) => p.contractor).length;
+
+  cards.innerHTML = `
+    <div class="stat-card"><div class="label">Permits matched</div><div class="value">${arr.length.toLocaleString()}</div><div class="sub">of ${STATE.data.permits.length.toLocaleString()} cached</div></div>
+    <div class="stat-card"><div class="label">Total valuation</div><div class="value">$${Math.round(totalVal).toLocaleString()}</div><div class="sub">${arr.filter(p => p.valuation != null).length} permits with declared value</div></div>
+    <div class="stat-card"><div class="label">Active / issued</div><div class="value">${issued.toLocaleString()}</div><div class="sub">${expired} expired or cancelled</div></div>
+    <div class="stat-card"><div class="label">With contractor</div><div class="value">${withContractor.toLocaleString()}</div><div class="sub">${arr.length - withContractor} owner-builder or unknown</div></div>
+  `;
+
+  renderBarList("stats-contractors", countBy(arr, (p) => p.contractor || "(no contractor)"), 12);
+  renderBarList("stats-status",      countBy(arr, (p) => p.status), 8);
+  renderBarList("stats-type",        countBy(arr, (p) => p.type), 12);
+  renderBarList("stats-city",        countBy(arr, (p) => p.city || "(unknown)"), 12);
+  renderBarList("stats-source",      countBy(arr, (p) => p.dataSourceLabel || p.dataSource || "(unknown)"), 12);
+}
+
+function countBy(arr, fn) {
+  const m = new Map();
+  for (const p of arr) {
+    const k = fn(p);
+    m.set(k, (m.get(k) || 0) + 1);
+  }
+  return [...m.entries()].sort((a, b) => b[1] - a[1]);
+}
+
+function renderBarList(id, entries, limit) {
+  const wrap = document.getElementById(id);
+  if (!entries.length) { wrap.innerHTML = `<div class="help">No data.</div>`; return; }
+  const top = entries.slice(0, limit);
+  const max = top[0][1];
+  wrap.innerHTML = top.map(([name, count]) => `
+    <div class="bar-row">
+      <div class="name" title="${escapeAttr(name)}">${escapeHtml(name)}</div>
+      <div class="count">${count}</div>
+      <div class="bar"><span style="width:${Math.round(100 * count / max)}%"></span></div>
+    </div>
+  `).join("");
+}
+
+// ---------------------------------------------------------------------------
+// Map (Leaflet + Nominatim geocoding)
+// ---------------------------------------------------------------------------
+function ensureMap() {
+  if (STATE.map) return;
+  const L = window.L;
+  if (!L) { setTimeout(ensureMap, 200); return; }
+  STATE.map = L.map("map").setView([26.7, -80.1], 10); // PBC center-ish
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap',
+  }).addTo(STATE.map);
+  STATE.markerLayer = L.layerGroup().addTo(STATE.map);
+}
+
+function renderMapMarkers() {
+  if (STATE.activeTab !== "map" || !STATE.map) return;
+  const L = window.L;
+  STATE.markerLayer.clearLayers();
+  const arr = STATE.filtered.slice(0, 500);
+  let placed = 0;
+  const bounds = [];
+  for (const p of arr) {
+    const c = STATE.geocodeCache[p.address];
+    if (c && Array.isArray(c)) {
+      const m = L.marker(c).bindPopup(popupHtml(p));
+      m.addTo(STATE.markerLayer);
+      bounds.push(c);
+      placed++;
+    }
+  }
+  if (bounds.length) STATE.map.fitBounds(bounds, { padding: [30, 30], maxZoom: 14 });
+  document.getElementById("geocode-status").textContent =
+    placed ? `${placed} of ${arr.length} mapped` : "Click \"Geocode visible permits\" to plot pins.";
+}
+
+function popupHtml(p) {
+  return `
+    <strong>${escapeHtml(p.permitNumber)}</strong>
+    <span class="source-pill ${escapeAttr(p.dataSourceStatus || "")}">${escapeHtml(p.dataSourceShort || "")}</span><br>
+    ${escapeHtml(p.address)}<br>
+    ${escapeHtml(p.type)} &middot; ${escapeHtml(p.status)}<br>
+    ${p.url ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">Open record &rarr;</a>` : ""}
+  `;
+}
+
+async function geocodeVisible() {
+  const arr = STATE.filtered.slice(0, 100); // be polite, max 100 per click
+  const status = document.getElementById("geocode-status");
+  let done = 0; let cached = 0; let added = 0;
+  for (const p of arr) {
+    if (!p.address) continue;
+    if (STATE.geocodeCache[p.address] !== undefined) { cached++; continue; }
+    status.textContent = `Geocoding ${++done} / ${arr.length}\u2026 (1 req/sec, please wait)`;
+    try {
+      const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encodeURIComponent(p.address + ", Florida");
+      const r = await fetch(url, { headers: { "Accept": "application/json" } });
+      const j = await r.json();
+      if (Array.isArray(j) && j.length) {
+        STATE.geocodeCache[p.address] = [parseFloat(j[0].lat), parseFloat(j[0].lon)];
+        added++;
+      } else {
+        STATE.geocodeCache[p.address] = null;
+      }
+    } catch (e) {
+      STATE.geocodeCache[p.address] = null;
+    }
+    saveGeocodeCache();
+    await new Promise((r) => setTimeout(r, 1100)); // Nominatim free tier: 1 req/sec max
+  }
+  status.textContent = `Done. ${added} new pin${added === 1 ? "" : "s"} added (${cached} were already cached).`;
+  renderMapMarkers();
+}
+
+function loadGeocodeCache() {
+  try {
+    const raw = localStorage.getItem("pbc-permit-geocode-v1");
+    if (raw) STATE.geocodeCache = JSON.parse(raw) || {};
+  } catch (e) { STATE.geocodeCache = {}; }
+}
+function saveGeocodeCache() {
+  try { localStorage.setItem("pbc-permit-geocode-v1", JSON.stringify(STATE.geocodeCache)); } catch (e) {}
+}
+
+// ---------------------------------------------------------------------------
+// CSV export
+// ---------------------------------------------------------------------------
+function exportCsv() {
+  const cols = ["dataSource","dataSourceLabel","permitNumber","parcelId","address","city","type","subtype","description","status","applicantName","contractor","valuation","appliedDate","issuedDate","finalDate","expirationDate","url"];
+  const rows = [cols.join(",")];
+  for (const p of STATE.filtered) {
+    rows.push(cols.map((c) => csvCell(p[c])).join(","));
+  }
+  const blob = new Blob([rows.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+  const a = document.createElement("a");
+  const ts = new Date().toISOString().slice(0, 10);
+  a.href = URL.createObjectURL(blob);
+  a.download = `pbc-permits-${ts}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+}
+
+function csvCell(v) {
+  if (v == null) return "";
+  const s = String(v);
+  if (/[,"\r\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
+  return s;
+}
+
+// ---------------------------------------------------------------------------
+// Manual upload (JSON paste / CSV file)
+// ---------------------------------------------------------------------------
+function mergeManualJson(text) {
+  const status = document.getElementById("manual-status");
+  let parsed;
+  try { parsed = JSON.parse(text); }
+  catch (e) { status.textContent = "Invalid JSON: " + e.message; status.style.color = "var(--error)"; return; }
+
+  let added = [];
+  if (Array.isArray(parsed)) {
+    added = parsed.map(normalizePermit);
+  } else if (parsed && parsed.permitsByParcel && typeof parsed.permitsByParcel === "object") {
+    for (const arr of Object.values(parsed.permitsByParcel)) {
+      (arr || []).forEach((p) => added.push(normalizePermit(p)));
+    }
+  } else if (parsed && Array.isArray(parsed.permits)) {
+    added = parsed.permits.map(normalizePermit);
+  } else {
+    status.textContent = "Could not find permits in pasted JSON. Expected an array or an object with permitsByParcel/permits.";
+    status.style.color = "var(--error)";
+    return;
+  }
+
+  const before = STATE.data.permits.length;
+  // Register a synthetic 'manual' source on first upload so manual permits
+  // are filterable in the Source dropdown and countable in stats. It's kept
+  // in sync with whatever's currently in STATE.data.permits tagged 'manual'.
+  if (!SOURCE_BY_ID.manual) {
+    const manualEntry = {
+      id: "manual", label: "Manual uploads", shortLabel: "MANUAL",
+      kind: "manual", status: "manual", dataFile: null, portalUrl: null,
+      scope: "Permits you pasted / uploaded this session. Not persisted.",
+      permits: [], loaded: true, generated: null,
+    };
+    SOURCES.push(manualEntry);
+    SOURCE_BY_ID.manual = manualEntry;
+  }
+  // De-dup by permitNumber (manual wins)
+  const seen = new Map(STATE.data.permits.map((p) => [p.permitNumber, p]));
+  for (const p of added) seen.set(p.permitNumber, p);
+  STATE.data.permits = [...seen.values()];
+  STATE.data.counts.manual += added.length;
+  // Keep the synthetic manual source's own permit list in sync
+  SOURCE_BY_ID.manual.permits = STATE.data.permits.filter((p) => p.dataSource === "manual");
+
+  status.textContent = `Merged ${added.length} permit${added.length === 1 ? "" : "s"}. Total cached now: ${STATE.data.permits.length} (was ${before}).`;
+  status.style.color = "var(--success)";
+  document.getElementById("source-count").textContent =
+    SOURCES.filter((s) => s.loaded).length + " of " + SOURCES.length;
+  populateFilterSelects();
+  applyFiltersAndRender();
+}
+
+function parseCsv(text) {
+  // Minimal RFC 4180-ish parser
+  const out = [];
+  let row = []; let cur = ""; let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+      if (ch === '"' && text[i + 1] === '"') { cur += '"'; i++; }
+      else if (ch === '"') { inQuotes = false; }
+      else cur += ch;
+    } else {
+      if (ch === '"') inQuotes = true;
+      else if (ch === ",") { row.push(cur); cur = ""; }
+      else if (ch === "\r") {} // skip
+      else if (ch === "\n") { row.push(cur); out.push(row); row = []; cur = ""; }
+      else cur += ch;
+    }
+  }
+  if (cur || row.length) { row.push(cur); out.push(row); }
+  return out.filter((r) => r.length && r.some((c) => c !== ""));
+}
+
+function mergeManualCsv(text) {
+  const status = document.getElementById("manual-status");
+  const rows = parseCsv(text);
+  if (rows.length < 2) { status.textContent = "CSV needs a header row and at least one data row."; status.style.color = "var(--error)"; return; }
+  const header = rows[0].map((h) => h.trim());
+  const known = new Set(["permitNumber","parcelId","address","type","subtype","description","status","applicantName","contractor","valuation","appliedDate","issuedDate","finalDate","expirationDate","url"]);
+  const objs = rows.slice(1).map((r) => {
+    const o = {};
+    header.forEach((h, i) => { if (known.has(h)) o[h] = r[i] || ""; });
+    return o;
+  });
+  mergeManualJson(JSON.stringify(objs));
+}
+
+// ---------------------------------------------------------------------------
+// URL state sync
+// ---------------------------------------------------------------------------
+function syncUrlFromState() {
+  const params = new URLSearchParams();
+  if (STATE.keywords.length) params.set("kw", STATE.keywords.join(","));
+  if (STATE.keywordMode !== "any") params.set("mode", STATE.keywordMode);
+  for (const [k, v] of Object.entries(STATE.filters)) {
+    if (Array.isArray(v) && v.length) params.set(k, v.join("|"));
+    else if (typeof v === "string" && v) params.set(k, v);
+    else if (typeof v === "number") params.set(k, String(v));
+  }
+  if (STATE.activeTab !== "search") params.set("tab", STATE.activeTab);
+  const qs = params.toString();
+  const newUrl = location.pathname + (qs ? "?" + qs : "");
+  history.replaceState(null, "", newUrl);
+}
+
+function loadStateFromUrl() {
+  const params = new URLSearchParams(location.search);
+  if (params.has("kw")) STATE.keywords = params.get("kw").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+  if (params.has("mode")) STATE.keywordMode = params.get("mode") === "all" ? "all" : "any";
+  for (const k of ["appliedFrom","appliedTo","issuedFrom","issuedTo","city","contractor"]) {
+    if (params.has(k)) STATE.filters[k] = params.get(k);
+  }
+  for (const k of ["source","status","type"]) {
+    if (params.has(k)) STATE.filters[k] = params.get(k).split("|").filter(Boolean);
+  }
+  for (const k of ["valMin","valMax"]) {
+    if (params.has(k)) STATE.filters[k] = Number(params.get(k));
+  }
+  if (params.has("tab")) STATE.activeTab = params.get("tab");
+}
+
+function applyUrlToInputs() {
+  document.getElementById("f-applied-from").value = STATE.filters.appliedFrom;
+  document.getElementById("f-applied-to").value   = STATE.filters.appliedTo;
+  document.getElementById("f-issued-from").value  = STATE.filters.issuedFrom;
+  document.getElementById("f-issued-to").value    = STATE.filters.issuedTo;
+  document.getElementById("f-city").value         = STATE.filters.city;
+  document.getElementById("f-contractor").value   = STATE.filters.contractor;
+  document.getElementById("f-val-min").value      = STATE.filters.valMin ?? "";
+  document.getElementById("f-val-max").value      = STATE.filters.valMax ?? "";
+  document.getElementById("f-keyword-mode").value = STATE.keywordMode;
+  for (const opt of document.getElementById("f-source").options) opt.selected = STATE.filters.source.includes(opt.value);
+  for (const opt of document.getElementById("f-status").options) opt.selected = STATE.filters.status.includes(opt.value);
+  for (const opt of document.getElementById("f-type").options)   opt.selected = STATE.filters.type.includes(opt.value);
+}
+
+// ---------------------------------------------------------------------------
+// Listeners + tabs
+// ---------------------------------------------------------------------------
+function attachListeners() {
+  document.getElementById("kw-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); addKeyword(e.target.value); e.target.value = ""; }
+  });
+  document.querySelectorAll("[data-preset]").forEach((btn) => {
+    btn.addEventListener("click", () => applyPreset(btn.dataset.preset));
+  });
+  document.getElementById("clear-keywords").addEventListener("click", () => {
+    STATE.keywords = []; renderKeywordChips(); applyFiltersAndRender();
+  });
+  document.getElementById("run-search").addEventListener("click", readFiltersFromInputs);
+  document.getElementById("reset-filters").addEventListener("click", () => {
+    STATE.filters = { appliedFrom:"", appliedTo:"", issuedFrom:"", issuedTo:"", source:[], status:[], type:[], city:"", contractor:"", valMin:null, valMax:null };
+    STATE.keywords = []; STATE.keywordMode = "any";
+    applyUrlToInputs(); renderKeywordChips(); applyFiltersAndRender();
+  });
+  document.getElementById("export-csv").addEventListener("click", exportCsv);
+  document.getElementById("copy-link").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(location.href); flashBtn("copy-link", "Copied!"); }
+    catch { flashBtn("copy-link", "Copy failed"); }
+  });
+  document.querySelectorAll("th[data-sort]").forEach((th) => {
+    th.addEventListener("click", () => {
+      const col = th.dataset.sort;
+      if (STATE.sort.col === col) STATE.sort.dir = STATE.sort.dir === "asc" ? "desc" : "asc";
+      else { STATE.sort.col = col; STATE.sort.dir = "asc"; }
+      applyFiltersAndRender();
+    });
+  });
+  document.querySelectorAll(".tab").forEach((t) => {
+    t.addEventListener("click", () => switchTab(t.dataset.tab));
+  });
+  document.getElementById("manual-merge").addEventListener("click", () => {
+    mergeManualJson(document.getElementById("manual-json").value);
+  });
+  document.getElementById("manual-clear").addEventListener("click", () => {
+    document.getElementById("manual-json").value = "";
+    document.getElementById("manual-status").textContent = "";
+  });
+  document.getElementById("csv-file").addEventListener("change", (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => mergeManualCsv(String(reader.result));
+    reader.readAsText(f);
+  });
+  document.getElementById("map-geocode").addEventListener("click", geocodeVisible);
+  document.getElementById("map-clear-cache").addEventListener("click", () => {
+    if (!confirm("Clear all cached geocoded coordinates?")) return;
+    STATE.geocodeCache = {}; saveGeocodeCache(); renderMapMarkers();
+    document.getElementById("geocode-status").textContent = "Cache cleared.";
+  });
+
+  applyUrlToInputs();
+  switchTab(STATE.activeTab);
+}
+
+function readFiltersFromInputs() {
+  STATE.filters.appliedFrom = document.getElementById("f-applied-from").value || "";
+  STATE.filters.appliedTo   = document.getElementById("f-applied-to").value || "";
+  STATE.filters.issuedFrom  = document.getElementById("f-issued-from").value || "";
+  STATE.filters.issuedTo    = document.getElementById("f-issued-to").value || "";
+  STATE.filters.city        = document.getElementById("f-city").value || "";
+  STATE.filters.contractor  = document.getElementById("f-contractor").value || "";
+  const vmin = document.getElementById("f-val-min").value;
+  const vmax = document.getElementById("f-val-max").value;
+  STATE.filters.valMin = vmin === "" ? null : Number(vmin);
+  STATE.filters.valMax = vmax === "" ? null : Number(vmax);
+  STATE.filters.source = [...document.getElementById("f-source").selectedOptions].map((o) => o.value);
+  STATE.filters.status = [...document.getElementById("f-status").selectedOptions].map((o) => o.value);
+  STATE.filters.type   = [...document.getElementById("f-type").selectedOptions].map((o) => o.value);
+  STATE.keywordMode    = document.getElementById("f-keyword-mode").value === "all" ? "all" : "any";
+  STATE.page = 1;
+  applyFiltersAndRender();
+}
+
+function switchTab(tab) {
+  STATE.activeTab = tab;
+  document.querySelectorAll(".tab").forEach((t) => {
+    const active = t.dataset.tab === tab;
+    t.classList.toggle("active", active);
+    t.setAttribute("aria-selected", active ? "true" : "false");
+  });
+  document.querySelectorAll("section[id^='tab-']").forEach((s) => {
+    s.style.display = s.id === ("tab-" + tab) ? "" : "none";
+  });
+  if (tab === "map") {
+    ensureMap();
+    setTimeout(() => { if (STATE.map) STATE.map.invalidateSize(); renderMapMarkers(); }, 60);
+  }
+  syncUrlFromState();
+}
+
+function flashBtn(id, msg) {
+  const el = document.getElementById(id);
+  const orig = el.textContent;
+  el.textContent = msg;
+  setTimeout(() => { el.textContent = orig; }, 1500);
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+function uniq(arr) { return [...new Set(arr)]; }
+function escapeHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+function escapeAttr(s) { return escapeHtml(s); }
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+boot();
+</script>
+</body>
+</html>

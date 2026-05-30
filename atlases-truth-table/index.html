@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Truth Table — Atlases</title>
+    <meta
+      name="description"
+      content="Interactive truth table builder and animated solver — Atlases discrete mathematics tools."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Atlases home">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4 18V6l8-3 8 3v12l-8 3-8-3Z"
+                stroke="#E8B84A"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 3v18M4 6l8 3 8-3M4 12l8 3 8-3"
+                stroke="#3ECFB2"
+                stroke-width="1.2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <span class="brand-name">Atlases</span>
+            <span class="brand-tag">Truth Table Lab</span>
+          </div>
+        </a>
+        <p class="topbar-meta">Interactive animated demonstration</p>
+      </header>
+
+      <div class="layout">
+        <aside class="panel palette" aria-label="Logic symbols">
+          <h2>Symbols</h2>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Propositions</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="p">p</button>
+              <button type="button" class="symbol-btn" data-insert="q">q</button>
+              <button type="button" class="symbol-btn" data-insert="r">r</button>
+              <button type="button" class="symbol-btn" data-insert="s">s</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Parentheses</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="(">(</button>
+              <button type="button" class="symbol-btn" data-insert=")">)</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Negation</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="~">~</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">And</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="&">&amp;</button>
+              <button type="button" class="symbol-btn" data-insert="∧">∧</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Nand</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="nand">NAND</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Or</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="v">v</button>
+              <button type="button" class="symbol-btn" data-insert="∨">∨</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Nor</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="nor">NOR</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Conditional</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="=>">=&gt;</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Biconditional</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="<=>">&lt;=&gt;</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Exclusive or</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="xor">XOR</button>
+            </div>
+          </section>
+        </aside>
+
+        <main class="workspace">
+          <div class="workspace-head">
+            <h2>Compound proposition</h2>
+            <div id="expressionBox" class="expression-box empty">
+              Click symbols to build a proposition, or choose an exercise.
+            </div>
+            <div class="expression-actions">
+              <button type="button" class="btn btn-primary" id="displayBtn">Display</button>
+              <button type="button" class="btn" id="clearBtn">Clear</button>
+              <button type="button" class="btn" id="showAllBtn">Show All</button>
+              <button type="button" class="btn btn-danger" id="backspaceBtn">Backspace</button>
+            </div>
+          </div>
+
+          <div id="errorBanner" class="error-banner" role="alert"></div>
+
+          <div class="table-wrap">
+            <div id="statusBar" class="status-bar" hidden></div>
+            <div id="tableHost"></div>
+          </div>
+
+          <div class="playback">
+            <div class="playback-group" aria-label="Playback controls">
+              <button type="button" class="playback-btn" id="restartBtn" title="Restart" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 12a9 9 0 1 0 3-6.7" />
+                  <path d="M3 4v5h5" />
+                </svg>
+              </button>
+              <button type="button" class="playback-btn" id="backBtn" title="Back" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button type="button" class="playback-btn" id="playBtn" title="Play" disabled>
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+              <button type="button" class="playback-btn" id="nextBtn" title="Next" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+              <button type="button" class="btn" id="solveBtn" disabled>Solve</button>
+            </div>
+
+            <div class="mode-toggle" role="group" aria-label="Reveal mode">
+              <button type="button" id="modeColumn" class="active">By column</button>
+              <button type="button" id="modeRow">By row</button>
+            </div>
+          </div>
+        </main>
+
+        <aside class="panel exercises" aria-label="Exercises">
+          <h2>Exercises</h2>
+          <div id="exerciseList" class="exercise-list"></div>
+          <div class="exercise-hint">
+            Select an exercise, then press <strong>Play</strong> to animate the truth table step
+            by step. Use <strong>Solve</strong> to reveal everything at once.
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galaxy Strike Pinball - Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="game-page">
+    <main class="game-wrap">
+      <header class="hud">
+        <h1>Galaxy Strike Pinball</h1>
+        <div class="hud-stats">
+          <span>Score <strong id="score">0</strong></span>
+          <span>Balls <strong id="balls">3</strong></span>
+          <span>Best <strong id="best">0</strong></span>
+        </div>
+        <p id="status">Hold Space to pull plunger — release to launch</p>
+        <div class="mission-panel" aria-live="polite">
+          <span class="mission-kicker">Current mission</span>
+          <strong id="missionTitle" class="mission-title">—</strong>
+          <p id="missionDetail" class="mission-detail"></p>
+        </div>
+        <div class="audio-row">
+          <button id="muteBtn" type="button" class="mute-btn" aria-pressed="false" title="Mute cinematic audio">
+            Sound on
+          </button>
+        </div>
+      </header>
+      <canvas id="gameCanvas" width="520" height="760" aria-label="Pinball playfield"></canvas>
+      <div class="game-actions">
+        <a href="landing.html" class="aux-btn">Back to Landing</a>
+        <button id="restartBtn" class="aux-btn" type="button">Restart Game</button>
+      </div>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>

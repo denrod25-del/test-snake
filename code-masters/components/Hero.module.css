@@ -1,0 +1,39 @@
+.hero {
+  padding: 2.5rem 1.25rem 1.5rem;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.lead {
+  max-width: 48ch;
+  color: var(--muted-2);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.inlineStrong {
+  color: var(--foreground);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 65%, transparent);
+  text-underline-offset: 3px;
+}
+
+.inlineStrong:hover {
+  color: color-mix(in oklab, var(--foreground) 90%, var(--accent));
+}

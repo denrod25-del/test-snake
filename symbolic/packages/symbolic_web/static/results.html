@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SYMBOLIC — results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="results">
+  <header class="results-header">
+    <a href="/" class="brand-small">SYMBOLIC</a>
+    <form class="search-box small" action="/results" method="get">
+      <svg viewBox="0 0 24 24" class="icon"><path d="M10 2a8 8 0 1 1-5.3 13.94L1 19.6l-1.4-1.4 3.66-3.66A8 8 0 0 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg>
+      <input type="search" id="q" name="q" autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
+  </header>
+
+  <main class="results-main">
+    <div id="meta" class="meta"></div>
+    <section id="ads" class="ads"></section>
+    <section id="hits" class="hits"></section>
+    <p id="empty" class="empty" style="display:none">No results. Try crawling a few sites first via the console.</p>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+.main {
+  padding: 2rem 1.25rem 3rem;
+}
+
+.inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.breadcrumb a {
+  color: color-mix(in oklab, var(--foreground) 85%, var(--muted));
+}
+
+.breadcrumb a:hover {
+  color: var(--foreground);
+}
+
+.crumbSep {
+  margin: 0 0.45rem;
+  opacity: 0.5;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: clamp(1.65rem, 3.2vw, 2.25rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 0.65rem;
+}
+
+.desc {
+  color: var(--muted-2);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  max-width: 68ch;
+  margin-bottom: 0.75rem;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.hint {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--muted-2);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  max-width: 72ch;
+}
+
+.syllabusTitle {
+  font-size: 1.1rem;
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.02em;
+}
+
+.sliceNote {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+}
+
+.sliceNote strong {
+  color: var(--muted-2);
+}
+
+.stageList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.55rem;
+}
+
+.stageLink {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 88%, black);
+  transition: border-color 140ms ease, transform 140ms ease;
+}
+
+.stageLink:hover {
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stageLink {
+    transition: border-color 140ms ease;
+  }
+
+  .stageLink:hover {
+    transform: none;
+  }
+}
+
+.stageNum {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.stageTitle {
+  font-size: 0.98rem;
+  color: var(--foreground);
+  line-height: 1.35;
+}

@@ -1,0 +1,26 @@
+{
+  "_comment": "Use this file to enter sales manually for any county whose source URL fails to scrape, or for counties that don't publish online lists. The merge_manual.py step writes these into the final sales.json on every run.",
+  "_format_example": {
+    "County Name": [
+      { "date": "2026-05-13", "count": 8, "opening": "$10,400 floor" },
+      { "date": "2026-05-20", "count": 5 }
+    ]
+  },
+
+  "Baker":     [],
+  "Bradford":  [],
+  "Calhoun":   [],
+  "Dixie":     [],
+  "Franklin":  [],
+  "Gadsden":   [],
+  "Gilchrist": [],
+  "Glades":    [],
+  "Gulf":      [],
+  "Hamilton":  [],
+  "Holmes":    [],
+  "Jefferson": [],
+  "Lafayette": [],
+  "Liberty":   [],
+  "Madison":   [],
+  "Union":     []
+}

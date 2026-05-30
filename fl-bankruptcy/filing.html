@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filing detail — Florida Bankruptcy Tracker</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2338bdf8'/><text x='50%25' y='56%25' text-anchor='middle' font-family='Arial' font-size='28' font-weight='800' fill='%230b1120'>FL</text></svg>" />
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <main class="container" id="root">
+    <header class="page-head">
+      <span class="eyebrow">Filing detail</span>
+      <h1 id="title">Loading…</h1>
+      <p id="subtitle" style="font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--text-dim);">&nbsp;</p>
+    </header>
+    <div id="content"></div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script>
+    (async function () {
+      const F = window.FLBK;
+      const id = F.getQueryParam("id");
+      const data = await F.load();
+      const f = data.filings.find((x) => x.id === id);
+
+      const titleEl = document.getElementById("title");
+      const subEl   = document.getElementById("subtitle");
+      const root    = document.getElementById("content");
+
+      if (!f) {
+        titleEl.textContent = "Filing not found";
+        subEl.textContent = id ? "Unknown ID: " + id : "No filing ID provided.";
+        root.innerHTML = `<div class="card"><a class="btn secondary" href="filings.html">← Back to all filings</a></div>`;
+        return;
+      }
+
+      titleEl.textContent = f.debtor;
+      subEl.innerHTML = `Case <strong style="color:var(--accent);">${F.escapeHtml(f.case_number)}</strong> · ${F.escapeHtml(f.district_name)} · ${F.escapeHtml(f.division)} Division`;
+
+      const ratio = f.total_assets > 0 ? (f.total_liabilities / f.total_assets) : null;
+      const ratioStr = ratio == null ? "—" : ratio.toFixed(2) + "×";
+
+      root.innerHTML = `
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+          ${F.chapterChip(f.chapter)}
+          ${F.statusChip(f.status)}
+          <span class="chip">${F.escapeHtml(f.debtor_type)}</span>
+          <span class="chip">${F.escapeHtml(f.nature_of_debt)}</span>
+        </div>
+
+        <section class="card" style="margin-bottom:16px;">
+          <h2 style="font-size:18px;margin-bottom:18px;">Case overview</h2>
+          <div class="kv">
+            <div><div class="k">Filed</div><div class="v">${F.fmtDate(f.filed_date)} <span style="color:var(--text-dim);">· ${F.relDays(f.filed_date)}</span></div></div>
+            <div><div class="k">Chapter</div><div class="v">${F.escapeHtml(f.chapter_label)}</div></div>
+            <div><div class="k">Status</div><div class="v">${F.escapeHtml(f.status)}</div></div>
+            <div><div class="k">Debtor type</div><div class="v">${F.escapeHtml(f.debtor_type)}</div></div>
+
+            <div><div class="k">District</div><div class="v">${F.escapeHtml(f.district_name)}</div></div>
+            <div><div class="k">Division</div><div class="v">${F.escapeHtml(f.division)}</div></div>
+            <div><div class="k">County</div><div class="v">${F.escapeHtml(f.county)} County</div></div>
+            <div><div class="k">Presiding judge</div><div class="v">${F.escapeHtml(f.judge)}</div></div>
+
+            <div><div class="k">Debtor's attorney</div><div class="v">${F.escapeHtml(f.attorney)}</div></div>
+            <div><div class="k">Nature of debt</div><div class="v">${F.escapeHtml(f.nature_of_debt)}</div></div>
+            <div><div class="k">Case number</div><div class="v" style="font-family:ui-monospace,Menlo,Consolas,monospace;">${F.escapeHtml(f.case_number)}</div></div>
+            <div><div class="k">Internal ID</div><div class="v" style="font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--text-dim);">${F.escapeHtml(f.id)}</div></div>
+          </div>
+        </section>
+
+        <section class="grid-3" style="margin-bottom:16px;">
+          <div class="stat">
+            <div class="label">Total assets</div>
+            <div class="value">${F.fmtMoney(f.total_assets)}</div>
+            <div class="sub">as scheduled</div>
+          </div>
+          <div class="stat">
+            <div class="label">Total liabilities</div>
+            <div class="value">${F.fmtMoney(f.total_liabilities)}</div>
+            <div class="sub">as scheduled</div>
+          </div>
+          <div class="stat">
+            <div class="label">Liabilities / assets</div>
+            <div class="value">${ratioStr}</div>
+            <div class="sub">${ratio == null ? "" : (ratio > 1 ? "Insolvent on schedules" : "Assets exceed liabilities")}</div>
+          </div>
+        </section>
+
+        <section class="card" style="margin-bottom:16px;">
+          <div class="section-head">
+            <h2 style="font-size:18px;margin:0;">Docket activity (illustrative)</h2>
+            <span style="color:var(--text-dim); font-size:12px;">Synthetic — not real court entries</span>
+          </div>
+          <div class="table-wrap" style="border-radius:10px;">
+            <table class="filings">
+              <thead>
+                <tr><th>Date</th><th>#</th><th>Entry</th></tr>
+              </thead>
+              <tbody>
+                ${buildDocket(f).map((d) => `
+                  <tr>
+                    <td>${F.fmtDate(d.date)}</td>
+                    <td style="font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--text-dim);">${d.num}</td>
+                    <td class="debtor">${F.escapeHtml(d.entry)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:30px;">
+          <a class="btn secondary" href="filings.html">← Back to all filings</a>
+          <button class="btn" id="copyLink">Copy link to this filing</button>
+        </div>
+      `;
+
+      document.getElementById("copyLink").addEventListener("click", () => {
+        navigator.clipboard.writeText(location.href).then(() => {
+          const b = document.getElementById("copyLink");
+          const old = b.textContent;
+          b.textContent = "Copied!";
+          setTimeout(() => (b.textContent = old), 1500);
+        });
+      });
+
+      function buildDocket(f) {
+        // Deterministic-ish synthetic docket so each case has a coherent timeline.
+        const seedDate = new Date(f.filed_date + "T00:00:00");
+        const items = [
+          { offset:  0, entry: `Voluntary petition (Chapter ${f.chapter}) filed by ${f.debtor}` },
+          { offset:  1, entry: "Notice of meeting of creditors (341) issued" },
+          { offset:  3, entry: "Order setting deadlines and bar dates" },
+          { offset: 14, entry: "Schedules and Statement of Financial Affairs filed" },
+        ];
+        if (f.chapter === "13") {
+          items.push({ offset: 21, entry: "Chapter 13 plan filed" });
+          items.push({ offset: 60, entry: "Confirmation hearing scheduled" });
+        } else if (f.chapter === "11") {
+          items.push({ offset:  7, entry: "First-day motions filed" });
+          items.push({ offset: 30, entry: "Order approving DIP financing" });
+          items.push({ offset: 90, entry: "Disclosure statement filed" });
+        } else if (f.chapter === "7") {
+          items.push({ offset: 30, entry: "Trustee's notice of assets / no-asset report" });
+        }
+        if (f.status === "Discharged") items.push({ offset: 120, entry: "Discharge of debtor entered" });
+        if (f.status === "Dismissed")  items.push({ offset:  85, entry: "Order dismissing case" });
+        if (f.status === "Closed")     items.push({ offset: 200, entry: "Final decree — case closed" });
+
+        return items.map((it, i) => {
+          const d = new Date(seedDate.getTime() + it.offset * 86400000);
+          // Don't render docket entries dated in the future
+          const today = new Date();
+          if (d > today) return null;
+          return {
+            date: d.toISOString().slice(0, 10),
+            num:  String(i + 1).padStart(3, "0"),
+            entry: it.entry,
+          };
+        }).filter(Boolean);
+      }
+    })().catch((e) => {
+      console.error(e);
+      document.getElementById("content").innerHTML =
+        `<div class="card" style="color:#fca5a5;">Failed to load filing: ${e.message}</div>`;
+    });
+  </script>
+</body>
+</html>

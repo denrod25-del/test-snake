@@ -1,0 +1,71 @@
+{
+  "_comment": "Royal Palm Beach permit data. SAMPLE entries — the Click2Gov scraper is a scaffold (see scraper/parsers_permits.py). Click2Gov has no bulk listing, so the scraper requires a contractor or address seed list. Add names to sources_permits.json[Royal Palm Beach].contractors and finish parse_click2gov().",
+  "county": "Palm Beach",
+  "city": "ROYAL PALM BEACH",
+  "slug": "royal-palm-beach",
+  "generated": "2026-04-21T00:00:00Z",
+  "source": "SAMPLE DATA — Click2Gov scraper is a scaffold (needs contractor seed list)",
+  "portalUrl": "https://click2gov.royalpalmbeach.com/Click2GovBP/selectpermit.html",
+  "platform": "CentralSquare Click2Gov",
+  "scope": "Sample illustrative permits — not real data",
+  "permitCount": 3,
+  "permitsByParcel": {
+    "72414336020010130": [
+      {
+        "permitNumber": "B25-1102",
+        "parcelId": "72414336020010130",
+        "address": "131 CRESTWOOD BLVD N, ROYAL PALM BEACH, FL 33411",
+        "type": "Plumbing",
+        "subtype": "Residential",
+        "description": "Water heater changeout, 50gal electric to 50gal electric, like-for-like",
+        "status": "Final",
+        "applicantName": "OWNER",
+        "contractor": "WESTLAKE PLUMBING INC",
+        "valuation": 1850,
+        "appliedDate": "2026-02-18",
+        "issuedDate": "2026-02-19",
+        "finalDate": "2026-03-04",
+        "expirationDate": "2026-08-19",
+        "url": "https://click2gov.royalpalmbeach.com/Click2GovBP/permitdetails.html?permitNumber=B25-1102"
+      }
+    ],
+    "72414327030020055": [
+      {
+        "permitNumber": "B25-1410",
+        "parcelId": "72414327030020055",
+        "address": "10825 SANDALFOOT BLVD, ROYAL PALM BEACH, FL 33411",
+        "type": "Plumbing",
+        "subtype": "Residential",
+        "description": "Whole-house water softener install (40k grain) and bypass valve",
+        "status": "Issued",
+        "applicantName": "OWNER",
+        "contractor": "GULFSTREAM WATER TREATMENT LLC",
+        "valuation": 3200,
+        "appliedDate": "2026-03-08",
+        "issuedDate": "2026-03-11",
+        "finalDate": null,
+        "expirationDate": "2026-09-11",
+        "url": "https://click2gov.royalpalmbeach.com/Click2GovBP/permitdetails.html?permitNumber=B25-1410"
+      }
+    ],
+    "72414401010100015": [
+      {
+        "permitNumber": "B25-1577",
+        "parcelId": "72414401010100015",
+        "address": "1004 OAKMONT ESTATES DR, ROYAL PALM BEACH, FL 33411",
+        "type": "Plumbing",
+        "subtype": "Residential",
+        "description": "Tankless gas water heater install plus 1/2 inch gas line extension",
+        "status": "Active",
+        "applicantName": "OWNER",
+        "contractor": "WESTLAKE PLUMBING INC",
+        "valuation": 4400,
+        "appliedDate": "2026-03-25",
+        "issuedDate": "2026-03-30",
+        "finalDate": null,
+        "expirationDate": "2026-09-30",
+        "url": "https://click2gov.royalpalmbeach.com/Click2GovBP/permitdetails.html?permitNumber=B25-1577"
+      }
+    ]
+  }
+}

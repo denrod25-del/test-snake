@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>All Florida Counties — Tax Deed Registry</title>
+<meta name="description" content="Tax-deed sale dates, permit records, and surplus-funds resources for every Florida county. Updated daily." />
+<link rel="canonical" href="counties/index.html" />
+<meta property="og:title" content="Browse all 67 Florida counties" />
+<meta property="og:description" content="Tax-deed sale dates, permit records, and surplus-funds resources for every Florida county. Updated daily." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="counties/index.html" />
+<meta name="twitter:card" content="summary" />
+<meta name="robots" content="index, follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Florida Counties \u2014 Tax Deed Registry",
+  "url": "counties/"
+}
+</script>
+<style>
+  :root {
+    --paper:    #fbf6ec;
+    --paper-2:  #f4ede0;
+    --ink:      #1f1a13;
+    --accent-ink: #7a6240;
+    --accent:   #8b5a2b;
+    --rule:     #b3a17e;
+    --rule-soft:#d8cdb4;
+    --muted:    #6e6147;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid rgba(122,98,64,.3); }
+  a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent-ink); }
+  h1 { font-size: 38px; margin: 0 0 8px; line-height: 1.15; letter-spacing: -0.01em; }
+  h2 { font-size: 26px; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule-soft); }
+  h3 { font-size: 19px; margin: 24px 0 6px; }
+  p  { margin: 0 0 14px; }
+  .topbar {
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 28px;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .topbar a { color: var(--accent-ink); border: 0; }
+  main { max-width: 920px; margin: 0 auto; padding: 36px 28px 80px; }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 8px;
+  }
+  .lede {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    color: var(--ink);
+    line-height: 1.45;
+    margin: 0 0 28px;
+    max-width: 660px;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 24px 0 32px;
+  }
+  .stat {
+    padding: 16px 18px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule-soft);
+    border-left: 3px solid var(--accent-ink);
+    border-radius: 2px;
+  }
+  .stat .lbl {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 6px;
+  }
+  .stat .val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .sub {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 18px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--rule-soft); font-size: 14px; }
+  th {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  ul.cities {
+    columns: 3;
+    column-gap: 32px;
+    list-style: none;
+    padding: 0;
+    font-size: 13.5px;
+  }
+  ul.cities li { break-inside: avoid; padding: 2px 0; }
+  .cta {
+    margin: 32px 0 8px;
+    padding: 18px 22px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .cta .cta-msg { flex: 1 1 380px; }
+  .cta .cta-msg strong { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--accent-ink); }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--accent-ink);
+    color: var(--paper);
+    border: 0;
+    text-decoration: none;
+    border-bottom: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  .btn:hover { background: var(--ink); color: var(--paper); border-bottom-color: transparent; }
+  footer {
+    border-top: 1px solid var(--rule-soft);
+    padding: 32px 28px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .small { font-size: 12.5px; color: var(--muted); }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule-soft);
+    border-radius: 10px;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    margin-left: 6px;
+  }
+  .badge.ok { background: #ecf2e6; border-color: #aac199; color: #2f4a2a; }
+  .badge.warn { background: #faecdb; border-color: #d8b58a; color: #6b3e1f; }
+  .badge.muted { opacity: .6; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <span><a href="../index.html">Florida Tax Deed Registry</a></span>
+    <span><a href="../tax-deeds.html">Registry &amp; tools →</a></span>
+  </div>
+
+  <main>
+    <p class="eyebrow">Florida → Browse by region</p>
+    <h1>All Florida Counties</h1>
+    <p class="lede">Public-record summaries for every Florida county, organized by region. Each county page aggregates upcoming tax-deed sales, building-permit coverage, and surplus-funds links.</p>
+
+    <h2>Southeast</h2><ul class="cities"><li><a href="broward.html">Broward</a></li>
+<li><a href="indian-river.html">Indian River</a></li>
+<li><a href="martin.html">Martin</a></li>
+<li><a href="miami-dade.html">Miami-Dade</a></li>
+<li><a href="monroe.html">Monroe</a></li>
+<li><a href="palm-beach.html">Palm Beach</a> <span class="small">· 4 permits</span></li>
+<li><a href="st-lucie.html">St. Lucie</a></li></ul>
+<h2>Southwest</h2><ul class="cities"><li><a href="charlotte.html">Charlotte</a></li>
+<li><a href="collier.html">Collier</a></li>
+<li><a href="glades.html">Glades</a></li>
+<li><a href="hendry.html">Hendry</a></li>
+<li><a href="lee.html">Lee</a></li>
+<li><a href="sarasota.html">Sarasota</a></li></ul>
+<h2>Tampa Bay</h2><ul class="cities"><li><a href="hernando.html">Hernando</a></li>
+<li><a href="hillsborough.html">Hillsborough</a></li>
+<li><a href="manatee.html">Manatee</a></li>
+<li><a href="pasco.html">Pasco</a></li>
+<li><a href="pinellas.html">Pinellas</a></li></ul>
+<h2>Central</h2><ul class="cities"><li><a href="brevard.html">Brevard</a></li>
+<li><a href="citrus.html">Citrus</a></li>
+<li><a href="desoto.html">DeSoto</a></li>
+<li><a href="hardee.html">Hardee</a></li>
+<li><a href="highlands.html">Highlands</a></li>
+<li><a href="lake.html">Lake</a></li>
+<li><a href="marion.html">Marion</a></li>
+<li><a href="okeechobee.html">Okeechobee</a></li>
+<li><a href="orange.html">Orange</a></li>
+<li><a href="osceola.html">Osceola</a></li>
+<li><a href="polk.html">Polk</a></li>
+<li><a href="seminole.html">Seminole</a></li>
+<li><a href="sumter.html">Sumter</a></li>
+<li><a href="volusia.html">Volusia</a></li></ul>
+<h2>Northeast</h2><ul class="cities"><li><a href="baker.html">Baker</a></li>
+<li><a href="clay.html">Clay</a></li>
+<li><a href="duval.html">Duval</a></li>
+<li><a href="flagler.html">Flagler</a></li>
+<li><a href="nassau.html">Nassau</a></li>
+<li><a href="putnam.html">Putnam</a></li>
+<li><a href="st-johns.html">St. Johns</a></li></ul>
+<h2>North Central</h2><ul class="cities"><li><a href="alachua.html">Alachua</a></li>
+<li><a href="bradford.html">Bradford</a></li>
+<li><a href="columbia.html">Columbia</a></li>
+<li><a href="dixie.html">Dixie</a></li>
+<li><a href="gilchrist.html">Gilchrist</a></li>
+<li><a href="hamilton.html">Hamilton</a></li>
+<li><a href="lafayette.html">Lafayette</a></li>
+<li><a href="levy.html">Levy</a></li>
+<li><a href="madison.html">Madison</a></li>
+<li><a href="suwannee.html">Suwannee</a></li>
+<li><a href="taylor.html">Taylor</a></li>
+<li><a href="union.html">Union</a></li></ul>
+<h2>Northwest</h2><ul class="cities"><li><a href="bay.html">Bay</a></li>
+<li><a href="calhoun.html">Calhoun</a></li>
+<li><a href="escambia.html">Escambia</a></li>
+<li><a href="franklin.html">Franklin</a></li>
+<li><a href="gadsden.html">Gadsden</a></li>
+<li><a href="gulf.html">Gulf</a></li>
+<li><a href="holmes.html">Holmes</a></li>
+<li><a href="jackson.html">Jackson</a></li>
+<li><a href="jefferson.html">Jefferson</a></li>
+<li><a href="leon.html">Leon</a></li>
+<li><a href="liberty.html">Liberty</a></li>
+<li><a href="okaloosa.html">Okaloosa</a></li>
+<li><a href="santa-rosa.html">Santa Rosa</a></li>
+<li><a href="wakulla.html">Wakulla</a></li>
+<li><a href="walton.html">Walton</a></li>
+<li><a href="washington.html">Washington</a></li></ul>
+
+    <div class="cta">
+      <div class="cta-msg">
+        <strong>Researching parcels in Florida County?</strong><br />
+        <span class="small">Open the live registry for upcoming auctions, statute references, and a personal research notebook.</span>
+      </div>
+      <a class="btn" href="../tax-deeds.html#/county/">Open registry →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      Generated April 19, 2026 from public county data.
+      <a href="../tax-deeds.html">Live tools</a> ·
+      <a href="../parcel-lookup.html">Palm Beach parcel lookup</a> ·
+      <a href="index.html">All counties</a>
+    </p>
+    <p class="small">
+      This is an information resource, not legal advice. Tax-deed investing carries real risk; always verify
+      current statute text at <a href="https://www.flsenate.gov/Laws/Statutes/2024/Chapter197" target="_blank" rel="noopener">flsenate.gov</a>
+      and consult an attorney before bidding.
+    </p>
+  </footer>
+</body>
+</html>

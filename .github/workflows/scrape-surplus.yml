@@ -1,0 +1,29 @@
+name: Scrape surplus funds
+
+# Runs weekly on Tuesdays at 07:30 UTC (offset from sales scraper to avoid load)
+# and is also manually triggerable from the Actions tab.
+on:
+  schedule:
+    - cron: "30 7 * * 2"
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        working-directory: scraper
+        run: pip install -r requirements.txt
+
+      - name: Run surplus scraper
+        working-directory: scraper
+        env:
+          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python scrape_surplus.py --verbose

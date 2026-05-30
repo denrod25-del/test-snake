@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: #0a0e14;
+  color: #cdd6e4;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e14;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2733;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3442;
+}
+
+/* HUD utility classes */
+@layer components {
+  .hud-panel {
+    @apply bg-hud-panel border border-hud-border rounded-md;
+  }
+  .hud-panel-header {
+    @apply px-4 py-2 border-b border-hud-border flex items-center justify-between text-xs uppercase tracking-widest text-hud-dim font-mono;
+  }
+  .hud-stat-label {
+    @apply text-[11px] uppercase tracking-widest text-hud-dim font-mono;
+  }
+  .hud-stat-value {
+    @apply text-3xl font-mono font-bold text-hud-text;
+  }
+  .hud-tag {
+    @apply text-[10px] uppercase tracking-widest font-mono px-1.5 py-0.5 rounded border;
+  }
+  .nav-link {
+    @apply flex items-center gap-3 px-3 py-2 rounded text-sm text-hud-dim hover:bg-hud-panel2 hover:text-hud-text transition-colors;
+  }
+  .nav-link-active {
+    @apply bg-hud-panel2 text-hud-text border-l-2 border-hud-accent;
+  }
+}
+
+/* Leaflet dark tweaks */
+.leaflet-container {
+  background: #0a0e14;
+  font-family: "Inter", sans-serif;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #161c25;
+  color: #cdd6e4;
+  border: 1px solid #1f2733;
+}
+.leaflet-control-attribution {
+  background: rgba(10, 14, 20, 0.8) !important;
+  color: #6b7689 !important;
+}
+.leaflet-control-attribution a {
+  color: #5db5ff !important;
+}

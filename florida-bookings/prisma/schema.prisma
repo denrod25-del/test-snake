@@ -1,0 +1,71 @@
+// Florida booking aggregator — Prisma schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum County {
+  ORANGE
+  MIAMI_DADE
+  PALM_BEACH
+  MULTI_COUNTY_SEED
+}
+
+enum CommentStatus {
+  pending
+  approved
+  rejected
+}
+
+model BookingRecord {
+  id                 String    @id @default(uuid())
+  county             County
+  sourceSystem       String
+  externalId         String
+  personName         String
+  bookingDate        DateTime?
+  chargesText        String?
+  mugshotUrl         String?
+  mugshotStorageKey  String?
+  officialSourceUrl  String?
+  rawMetadata        Json?
+  firstSeenAt        DateTime  @default(now())
+  lastSeenAt         DateTime  @updatedAt
+  lastSyncedAt       DateTime?
+
+  comments Comment[]
+
+  @@unique([county, sourceSystem, externalId])
+  @@index([county, personName])
+  @@index([bookingDate])
+}
+
+model Comment {
+  id                String        @id @default(uuid())
+  bookingRecordId   String
+  bookingRecord     BookingRecord @relation(fields: [bookingRecordId], references: [id], onDelete: Cascade)
+  authorUserId      String
+  body              String
+  status            CommentStatus @default(pending)
+  moderatedByUserId String?
+  moderatedAt       DateTime?
+  createdAt         DateTime      @default(now())
+
+  @@index([status])
+  @@index([bookingRecordId])
+}
+
+model SyncRun {
+  id              String    @id @default(uuid())
+  county          County
+  startedAt       DateTime  @default(now())
+  finishedAt      DateTime?
+  status          String
+  errorMessage    String?
+  recordsUpserted Int       @default(0)
+}

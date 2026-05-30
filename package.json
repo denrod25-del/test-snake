@@ -1,0 +1,14 @@
+{
+  "name": "test-snake",
+  "version": "1.0.0",
+  "description": "Static web tools for Palm Beach County property and permit research (PCN/address lookup, tax-deed registry, multi-source permit search).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "python -m http.server 8765",
+    "test:e2e": "node tests/permit-search.e2e.mjs"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.11.1"
+  }
+}

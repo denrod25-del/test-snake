@@ -1,0 +1,73 @@
+{
+  "_comment": "Permit data-source manifest for permit-search.html. The page loads this file at boot, then fetches every entry's `dataFile` in parallel and merges the permits into one searchable dataset. Each permit is tagged with the entry's `id` so the dataSource filter can scope results.",
+  "_schema": {
+    "id":         "Stable identifier used as the dataSource tag on each permit (e.g. 'wpb', 'royal-palm-beach'). Don't rename after launch — it goes into shareable URLs.",
+    "label":      "Human-friendly name shown in the UI dropdown.",
+    "shortLabel": "Compact tag shown in the results table 'Source' column.",
+    "kind":       "'county' or 'municipality'.",
+    "county":     "Florida county the source belongs to (always 'Palm Beach' here).",
+    "city":       "Optional city name; matches the `city` field on each permit.",
+    "platform":   "Underlying portal platform (eDSWeb, Tyler EnerGov, Click2Gov, SagesGov, ...).",
+    "dataFile":   "Relative path to the JSON file (same shape as palm-beach.json).",
+    "portalUrl":  "Public portal URL for one-off lookups.",
+    "status":     "active | scaffold | manual | unsupported_paywall — drives banner color and warning copy.",
+    "scope":      "Free-text description of what's actually in the dataFile."
+  },
+  "version": 1,
+  "generated": "2026-04-21T00:00:00Z",
+  "defaultEnabledIds": ["palm-beach", "wpb", "royal-palm-beach", "boynton-beach"],
+  "sources": [
+    {
+      "id":         "palm-beach",
+      "label":      "Palm Beach County (unincorporated)",
+      "shortLabel": "PBC",
+      "kind":       "county",
+      "county":     "Palm Beach",
+      "city":       "UNINCORPORATED",
+      "platform":   "PBC ePZB Admin SPA",
+      "dataFile":   "data/permits/palm-beach.json",
+      "portalUrl":  "https://pbc.gov/ePZB.Admin.WebSPA/#/",
+      "status":     "unsupported_paywall",
+      "scope":      "Legacy eDSWeb scraper is DEFUNCT (county migrated 2024). Sample data only; use the portal manually for live lookups."
+    },
+    {
+      "id":         "wpb",
+      "label":      "West Palm Beach",
+      "shortLabel": "WPB",
+      "kind":       "municipality",
+      "county":     "Palm Beach",
+      "city":       "WEST PALM BEACH",
+      "platform":   "Tyler EnerGov SelfService",
+      "dataFile":   "data/permits/west-palm-beach.json",
+      "portalUrl":  "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
+      "status":     "active",
+      "scope":      "Live Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those."
+    },
+    {
+      "id":         "royal-palm-beach",
+      "label":      "Royal Palm Beach",
+      "shortLabel": "RPB",
+      "kind":       "municipality",
+      "county":     "Palm Beach",
+      "city":       "ROYAL PALM BEACH",
+      "platform":   "CentralSquare Click2Gov",
+      "dataFile":   "data/permits/royal-palm-beach.json",
+      "portalUrl":  "https://click2gov.royalpalmbeach.com/Click2GovBP/selectpermit.html",
+      "status":     "scaffold",
+      "scope":      "Click2Gov has no bulk listing — needs a contractor or address seed list. Sample data only."
+    },
+    {
+      "id":         "boynton-beach",
+      "label":      "Boynton Beach",
+      "shortLabel": "BB",
+      "kind":       "municipality",
+      "county":     "Palm Beach",
+      "city":       "BOYNTON BEACH",
+      "platform":   "SagesGov (Sages Networks)",
+      "dataFile":   "data/permits/boynton-beach.json",
+      "portalUrl":  "https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx",
+      "status":     "scaffold",
+      "scope":      "SagesGov is anti-bot ASP.NET WebForms; recommended path is to export CSV from the portal and merge via the upload UI. Sample data only."
+    }
+  ]
+}

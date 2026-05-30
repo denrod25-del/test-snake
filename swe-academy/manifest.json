@@ -1,0 +1,26 @@
+{
+  "name": "SWE Academy",
+  "short_name": "SWE Academy",
+  "description": "Interactive full-stack software engineering curriculum",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0f",
+  "theme_color": "#161824",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "./icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "./icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ]
+}

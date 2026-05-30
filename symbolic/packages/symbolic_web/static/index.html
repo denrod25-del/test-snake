@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SYMBOLIC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body class="home">
+  <main class="home-main">
+    <h1 class="brand">SYMBOLIC</h1>
+    <p class="tagline">Hybrid neural + symbolic search.</p>
+    <form class="search-box" action="/results" method="get">
+      <svg viewBox="0 0 24 24" class="icon"><path d="M10 2a8 8 0 1 1-5.3 13.94L1 19.6l-1.4-1.4 3.66-3.66A8 8 0 0 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg>
+      <input type="search" name="q" autocomplete="off" autofocus placeholder="Search the index" />
+      <button type="submit">Search</button>
+    </form>
+    <div class="suggestions">
+      <span>Try:</span>
+      <a href="/results?q=transformer+architecture">transformer architecture</a>
+      <a href="/results?q=climate+change+causes">climate change causes</a>
+      <a href="/results?q=how+does+dns+work">how does dns work</a>
+    </div>
+    <footer class="home-footer">
+      <a href="/health">api</a> · <a href="http://localhost:8003" target="_blank">console</a> · v0.1.0
+    </footer>
+  </main>
+</body>
+</html>

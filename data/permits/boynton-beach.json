@@ -1,0 +1,71 @@
+{
+  "_comment": "Boynton Beach permit data. SAMPLE entries — the SagesGov scraper is a scaffold (see scraper/parsers_permits.py). SagesGov is JS-protected ASP.NET; recommended workflow is to export CSV from sagesgov.com and merge it via the manual-upload UI on permit-search.html.",
+  "county": "Palm Beach",
+  "city": "BOYNTON BEACH",
+  "slug": "boynton-beach",
+  "generated": "2026-04-21T00:00:00Z",
+  "source": "SAMPLE DATA — SagesGov scraper is a scaffold (recommend manual CSV import)",
+  "portalUrl": "https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx",
+  "platform": "SagesGov (Sages Networks)",
+  "scope": "Sample illustrative permits — not real data",
+  "permitCount": 3,
+  "permitsByParcel": {
+    "08434521030011110": [
+      {
+        "permitNumber": "26-00412",
+        "parcelId": "08434521030011110",
+        "address": "2410 N FEDERAL HWY, BOYNTON BEACH, FL 33435",
+        "type": "Plumbing",
+        "subtype": "Commercial",
+        "description": "Reverse osmosis system + water softener for medical office, includes drain lines",
+        "status": "Issued",
+        "applicantName": "BOYNTON MEDICAL PLAZA LLC",
+        "contractor": "SOUTH FLORIDA WATER FILTRATION CO",
+        "valuation": 12800,
+        "appliedDate": "2026-02-26",
+        "issuedDate": "2026-03-12",
+        "finalDate": null,
+        "expirationDate": "2026-09-12",
+        "url": "https://www.sagesgov.com/boyntonbeach-fl/portal/permit.aspx?id=26-00412"
+      }
+    ],
+    "08434428040020450": [
+      {
+        "permitNumber": "26-00501",
+        "parcelId": "08434428040020450",
+        "address": "850 SW 17TH AVE, BOYNTON BEACH, FL 33426",
+        "type": "Plumbing",
+        "subtype": "Residential",
+        "description": "Hybrid heat-pump water heater changeout (electric, 50gal)",
+        "status": "Final",
+        "applicantName": "OWNER",
+        "contractor": "EVERGLADES PLUMBING SERVICES INC",
+        "valuation": 3950,
+        "appliedDate": "2026-01-22",
+        "issuedDate": "2026-01-25",
+        "finalDate": "2026-02-08",
+        "expirationDate": "2026-07-25",
+        "url": "https://www.sagesgov.com/boyntonbeach-fl/portal/permit.aspx?id=26-00501"
+      }
+    ],
+    "08434515020010240": [
+      {
+        "permitNumber": "26-00633",
+        "parcelId": "08434515020010240",
+        "address": "1247 N CONGRESS AVE, BOYNTON BEACH, FL 33426",
+        "type": "Plumbing",
+        "subtype": "Residential",
+        "description": "Whole-house repipe (PEX), 3-bath single-family, includes valve replacements",
+        "status": "Active",
+        "applicantName": "OWNER",
+        "contractor": "EVERGLADES PLUMBING SERVICES INC",
+        "valuation": 8400,
+        "appliedDate": "2026-04-02",
+        "issuedDate": "2026-04-08",
+        "finalDate": null,
+        "expirationDate": "2026-10-08",
+        "url": "https://www.sagesgov.com/boyntonbeach-fl/portal/permit.aspx?id=26-00633"
+      }
+    ]
+  }
+}

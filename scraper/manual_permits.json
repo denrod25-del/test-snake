@@ -1,0 +1,24 @@
+{
+  "_comment": "Manual overrides. For counties without a working scraper, you can add seed permit data here. Entries follow the same per-permit schema as scraped data. Useful for spot-checking the UI or maintaining critical-parcel watchlists by hand. Manual entries are merged into the per-county output file alongside scraped entries; manual entries WIN when permitNumber collides.",
+  "_schema_example": {
+    "_County Name": [
+      {
+        "permitNumber": "B-2025-XXXXXX",
+        "parcelId": "00000000000000000",
+        "address": "123 EXAMPLE ST, CITY, FL ZZZZZ",
+        "type": "Re-Roof",
+        "subtype": "Residential",
+        "description": "Free-text description",
+        "status": "Issued | Final | Open / Active | Expired | Cancelled",
+        "applicantName": "...",
+        "contractor": "...",
+        "valuation": 0,
+        "appliedDate": "YYYY-MM-DD",
+        "issuedDate": "YYYY-MM-DD or null",
+        "finalDate": "YYYY-MM-DD or null",
+        "expirationDate": "YYYY-MM-DD or null",
+        "url": "https://..."
+      }
+    ]
+  }
+}

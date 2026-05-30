@@ -1,0 +1,78 @@
+.banner {
+  margin: -0.75rem auto 2rem;
+  max-width: var(--max);
+  padding-inline: 1.25rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in oklab, var(--accent) 38%, var(--border));
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--surface-2) 82%, var(--accent)),
+    var(--surface-2)
+  );
+}
+
+.kicker {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.title {
+  font-weight: 650;
+  font-size: 1.05rem;
+  margin-top: 0.2rem;
+  letter-spacing: -0.02em;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 650;
+  font-size: 0.92rem;
+  background: color-mix(in oklab, var(--accent) 28%, var(--surface-2));
+  border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
+.primary:hover {
+  background: color-mix(in oklab, var(--accent) 36%, var(--surface-2));
+}
+
+.subtle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.95rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  color: var(--muted-2);
+  border: 1px solid var(--border);
+}
+
+.subtle:hover {
+  color: var(--foreground);
+  border-color: color-mix(in oklab, var(--foreground) 18%, var(--border));
+}

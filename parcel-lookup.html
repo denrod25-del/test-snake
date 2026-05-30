@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palm Beach County Parcel &rarr; Address Lookup</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2230;
+    --panel-2: #232d3f;
+    --border: #2d3a4f;
+    --text: #e6edf3;
+    --muted: #8a97a8;
+    --accent: #4f9eff;
+    --accent-hover: #6bafff;
+    --success: #3fb950;
+    --error: #f85149;
+    --warn: #d29922;
+    --radius: 8px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  header {
+    padding: 32px 24px 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #131a25 0%, var(--bg) 100%);
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+  }
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  header .source {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  header .source a { color: var(--accent); text-decoration: none; }
+  header .source a:hover { text-decoration: underline; }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .field { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 6px; }
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  input[type="text"], select, textarea {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  button.btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  button.btn:hover:not(:disabled) { background: var(--accent-hover); }
+  button.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.btn.secondary {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  button.btn.secondary:hover:not(:disabled) { background: #2a3548; }
+
+  .samples {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    align-items: center;
+  }
+  .samples button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  .samples button:hover { background: var(--panel-2); }
+
+  .file-drop {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .file-drop:hover, .file-drop.dragover {
+    border-color: var(--accent);
+    background: rgba(79, 158, 255, 0.05);
+  }
+  .file-drop input { display: none; }
+
+  .status {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .status.info { background: rgba(79, 158, 255, 0.1); color: var(--accent); border: 1px solid rgba(79, 158, 255, 0.3); }
+  .status.error { background: rgba(248, 81, 73, 0.1); color: var(--error); border: 1px solid rgba(248, 81, 73, 0.3); }
+  .status.success { background: rgba(63, 185, 80, 0.1); color: var(--success); border: 1px solid rgba(63, 185, 80, 0.3); }
+
+  .spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .results-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .results-header .count { color: var(--muted); font-weight: 400; font-size: 14px; }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead {
+    background: var(--panel-2);
+    position: sticky;
+    top: 0;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; }
+  th.num-th, td.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  td .value-strong {
+    color: var(--success);
+    font-weight: 600;
+  }
+  td .value-empty { color: var(--muted); }
+  td .legal { color: var(--muted); font-size: 12px; max-width: 320px; }
+  td a.map-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  td a.map-link:hover { text-decoration: underline; }
+  td.map-cell { white-space: nowrap; display: flex; flex-direction: column; gap: 4px; min-width: 110px; }
+  button.save-btn {
+    background: rgba(79, 158, 255, 0.08);
+    border: 1px solid rgba(79, 158, 255, 0.4);
+    color: var(--accent);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: center;
+  }
+  button.save-btn:hover { background: rgba(79, 158, 255, 0.18); border-color: var(--accent); }
+  button.save-btn.saved {
+    background: rgba(76, 175, 80, 0.12);
+    border-color: rgba(76, 175, 80, 0.5);
+    color: #6cba6c;
+    cursor: default;
+  }
+  /* Notebook queue banner shown at the top once parcels have been saved */
+  .notebook-queue-bar {
+    margin: 12px 0 0;
+    padding: 12px 16px;
+    background: rgba(79, 158, 255, 0.08);
+    border: 1px solid rgba(79, 158, 255, 0.35);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .notebook-queue-bar .nq-text { color: var(--text); }
+  .notebook-queue-bar .nq-count {
+    display: inline-block;
+    background: var(--accent);
+    color: #0b1117;
+    border-radius: 999px;
+    padding: 1px 9px;
+    font-weight: 600;
+    margin-right: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .notebook-queue-bar .nq-actions { display: flex; gap: 8px; }
+  .notebook-queue-bar a, .notebook-queue-bar button {
+    background: var(--accent);
+    color: #0b1117;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .notebook-queue-bar button.nq-clear {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .notebook-queue-bar a:hover, .notebook-queue-bar button:hover { filter: brightness(1.15); }
+  button.expand-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  button.expand-toggle:hover { background: var(--panel-2); }
+  button.expand-toggle.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  tr.expand-row > td { padding: 0; background: #0a0e14; }
+  /* Per-row expanded panel: map + details side by side */
+  .expand-panel {
+    display: flex;
+    gap: 0;
+    background: #0a0e14;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .expand-panel .map-side { flex: 1 1 60%; min-width: 0; }
+  .expand-panel .details-side {
+    flex: 1 1 40%;
+    min-width: 0;
+    padding: 14px 18px;
+    border-left: 1px solid var(--border);
+    background: var(--panel);
+  }
+  .leaflet-map {
+    width: 100%;
+    height: 320px;
+    background: #0a0e14;
+  }
+  .details-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 6px 14px;
+    font-size: 13px;
+  }
+  .details-grid dt {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-size: 11px;
+    align-self: center;
+  }
+  .details-grid dd { margin: 0; color: var(--text); }
+  .details-grid dd.num { font-variant-numeric: tabular-nums; }
+  .details-grid dd.muted { color: var(--muted); font-style: italic; }
+  .details-section-title {
+    margin: 0 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .details-side .copy-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    cursor: pointer;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .details-side .copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .details-side .copy-btn.copied { color: var(--success); border-color: var(--success); }
+  @media (max-width: 700px) {
+    .expand-panel { flex-direction: column; }
+    .expand-panel .details-side { border-left: none; border-top: 1px solid var(--border); }
+  }
+
+  /* Advanced filters */
+  details.advanced {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel-2);
+    margin-top: 12px;
+  }
+  details.advanced > summary {
+    cursor: pointer;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    list-style: none;
+    user-select: none;
+  }
+  details.advanced > summary::-webkit-details-marker { display: none; }
+  details.advanced > summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.15s;
+    font-size: 10px;
+  }
+  details.advanced[open] > summary::before { transform: rotate(90deg); }
+  details.advanced > summary:hover { color: var(--text); }
+  details.advanced > summary .filter-count {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 11px;
+    margin-left: 8px;
+  }
+  .filter-grid {
+    padding: 8px 14px 14px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .filter-grid .filter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .filter-grid label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--muted);
+  }
+  .filter-grid input, .filter-grid select {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 7px 10px;
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+  }
+  .filter-grid input:focus, .filter-grid select:focus { border-color: var(--accent); }
+  .filter-grid .range { display: flex; gap: 6px; align-items: center; }
+  .filter-grid .range input { flex: 1; min-width: 0; }
+  .filter-grid .range span { color: var(--muted); font-size: 11px; }
+  .filter-actions {
+    padding: 0 14px 14px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .filter-actions button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .filter-actions button:hover { color: var(--text); }
+
+  /* Combined results map */
+  .combined-map-wrap {
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--panel);
+  }
+  .combined-map-wrap.hidden-map { display: none; }
+  .combined-map-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--panel-2);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .combined-map { height: 380px; width: 100%; background: #0a0e14; }
+  tr.row-highlight > td {
+    background: rgba(79, 158, 255, 0.12) !important;
+    transition: background 0.3s;
+  }
+
+  /* Leaflet popup tweaks for dark theme */
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: var(--panel) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .leaflet-popup-content { margin: 10px 14px; font-size: 13px; }
+  .leaflet-popup-content a { color: var(--accent); text-decoration: none; }
+  .leaflet-popup-content a:hover { text-decoration: underline; }
+  .leaflet-container a.leaflet-popup-close-button { color: var(--muted); }
+  .leaflet-bar a { background-color: var(--panel) !important; color: var(--text) !important; border-color: var(--border) !important; }
+  .leaflet-bar a:hover { background-color: var(--panel-2) !important; }
+  .leaflet-control-attribution { background: rgba(15, 20, 25, 0.8) !important; color: var(--muted) !important; }
+  .leaflet-control-attribution a { color: var(--accent) !important; }
+
+  tr.not-found td { color: var(--warn); font-style: italic; }
+  td .score-pill {
+    display: inline-block;
+    background: rgba(63, 185, 80, 0.15);
+    color: var(--success);
+    border: 1px solid rgba(63, 185, 80, 0.3);
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 32px;
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 22px; }
+    main { padding: 16px; }
+    .panel { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Palm Beach County Parcel &rarr; Address Lookup</h1>
+  <p>Convert PCNs (Parcel Control Numbers), legal descriptions, or owner names into property addresses.</p>
+  <div class="source">
+    Live data from the
+    <a href="https://opendata2-pbcgov.opendata.arcgis.com/" target="_blank" rel="noopener">Palm Beach County GIS Open Data</a>
+    parcels feature service
+  </div>
+</header>
+
+<main>
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="single" role="tab">Single Lookup</button>
+    <button class="tab" data-tab="bulk" role="tab">Bulk Lookup</button>
+  </div>
+
+  <!-- Single Lookup Panel -->
+  <section id="tab-single" class="panel">
+    <div class="row">
+      <div class="field" style="flex: 0 0 180px;">
+        <label for="search-mode">Search by</label>
+        <select id="search-mode">
+          <option value="pcn">PCN / Parcel Number (exact)</option>
+          <option value="pcn-prefix">PCN Prefix (starts with)</option>
+          <option value="legal">Legal Description (text)</option>
+          <option value="owner">Owner Name (fuzzy)</option>
+          <option value="subdiv">Subdivision Name</option>
+          <option value="address">Site Address</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="search-input">Query</label>
+        <input type="text" id="search-input" placeholder="Enter PCN, e.g. 00434132140002130" autocomplete="off" />
+      </div>
+      <button class="btn" id="search-btn">Look up</button>
+    </div>
+    <div class="samples">
+      <span>Try:</span>
+      <button class="sample-btn" data-mode="pcn" data-q="00434132140002130">00434132140002130</button>
+      <button class="sample-btn" data-mode="pcn-prefix" data-q="004341321400">prefix: 004341321400</button>
+      <button class="sample-btn" data-mode="owner" data-q="WOODSON MARNIE">owner: WOODSON MARNIE</button>
+      <button class="sample-btn" data-mode="legal" data-q="FRENCHMEN'S LANDING">legal: FRENCHMEN'S LANDING</button>
+      <button class="sample-btn" data-mode="subdiv" data-q="FRENCHMENS LANDING">subdivision: FRENCHMENS LANDING</button>
+    </div>
+
+    <details class="advanced" id="advanced-filters">
+      <summary>
+        Advanced filters
+        <span class="filter-count hidden" id="filter-count">0</span>
+      </summary>
+      <div class="filter-grid">
+        <div class="filter">
+          <label for="f-municipality">Municipality / City contains</label>
+          <input type="text" id="f-municipality" placeholder="e.g. PALM BEACH GARDENS" autocomplete="off" />
+        </div>
+        <div class="filter">
+          <label for="f-property-use">Property use contains</label>
+          <input type="text" id="f-property-use" placeholder="e.g. SINGLE FAMILY" autocomplete="off" />
+        </div>
+        <div class="filter">
+          <label>Year built</label>
+          <div class="range">
+            <input type="number" id="f-yr-min" placeholder="min" min="1800" max="2100" step="1" />
+            <span>–</span>
+            <input type="number" id="f-yr-max" placeholder="max" min="1800" max="2100" step="1" />
+          </div>
+        </div>
+        <div class="filter">
+          <label>Acres</label>
+          <div class="range">
+            <input type="number" id="f-ac-min" placeholder="min" min="0" step="0.01" />
+            <span>–</span>
+            <input type="number" id="f-ac-max" placeholder="max" min="0" step="0.01" />
+          </div>
+        </div>
+        <div class="filter">
+          <label>Sale date</label>
+          <div class="range">
+            <input type="date" id="f-sd-min" />
+            <span>–</span>
+            <input type="date" id="f-sd-max" />
+          </div>
+        </div>
+        <div class="filter">
+          <label>Sale price ($)</label>
+          <div class="range">
+            <input type="number" id="f-sp-min" placeholder="min" min="0" step="1000" />
+            <span>–</span>
+            <input type="number" id="f-sp-max" placeholder="max" min="0" step="1000" />
+          </div>
+        </div>
+        <div class="filter">
+          <label>Total market value ($)</label>
+          <div class="range">
+            <input type="number" id="f-tm-min" placeholder="min" min="0" step="1000" />
+            <span>–</span>
+            <input type="number" id="f-tm-max" placeholder="max" min="0" step="1000" />
+          </div>
+        </div>
+        <div class="filter">
+          <label for="f-homestead">Homestead</label>
+          <select id="f-homestead">
+            <option value="">Any</option>
+            <option value="Y">Homestead only</option>
+            <option value="N">Non-homestead only</option>
+          </select>
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button type="button" id="filter-clear">Clear filters</button>
+      </div>
+    </details>
+  </section>
+
+  <!-- Bulk Lookup Panel -->
+  <section id="tab-bulk" class="panel hidden">
+    <div class="field" style="margin-bottom: 14px;">
+      <label>Upload CSV (one PCN per row, header optional) or drag-and-drop</label>
+      <label class="file-drop" id="file-drop">
+        <input type="file" id="file-input" accept=".csv,.txt" />
+        <div><strong>Click to choose</strong> or drag a CSV / TXT file here</div>
+        <div style="font-size: 12px; margin-top: 6px;">First column should contain PCNs</div>
+      </label>
+    </div>
+    <div class="field">
+      <label for="bulk-textarea">…or paste PCNs (one per line, comma-separated, or whitespace-separated)</label>
+      <textarea id="bulk-textarea" placeholder="00434132140002130&#10;00404236000007980&#10;..."></textarea>
+    </div>
+    <div class="row" style="margin-top: 12px;">
+      <button class="btn" id="bulk-btn">Look up batch</button>
+      <button class="btn secondary" id="bulk-clear">Clear</button>
+    </div>
+  </section>
+
+  <!-- Notebook queue (persisted in localStorage; rendered by updateNotebookQueueUI) -->
+  <div id="notebook-queue-bar" class="notebook-queue-bar" style="display:none;">
+    <div class="nq-text"><span class="nq-count" id="nq-count">0</span><span id="nq-msg">parcel queued for the Tax Deed research notebook.</span></div>
+    <div class="nq-actions">
+      <a href="tax-deeds.html#/research" id="nq-open">Open notebook →</a>
+      <button class="nq-clear" type="button" id="nq-clear" title="Clear the queue">Clear</button>
+    </div>
+  </div>
+
+  <!-- Status -->
+  <div id="status" class="status hidden"></div>
+
+  <!-- Results -->
+  <section id="results" class="hidden">
+    <div class="results-header">
+      <h2>Results <span class="count" id="results-count"></span></h2>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn secondary" id="map-all-btn">Map all results</button>
+        <button class="btn secondary" id="export-btn">Export CSV</button>
+      </div>
+    </div>
+    <div class="combined-map-wrap hidden-map" id="combined-map-wrap">
+      <div class="combined-map-toolbar">
+        <span id="combined-map-info">All result polygons shown on the map. Click a polygon to jump to its row.</span>
+        <button class="btn secondary" id="map-all-close" style="padding:4px 10px; font-size:12px;">Close map</button>
+      </div>
+      <div class="combined-map" id="combined-map"></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>PCN</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>ZIP</th>
+            <th>Owner</th>
+            <th class="num-th">Market Value</th>
+            <th>Subdivision</th>
+            <th>Legal Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Data source: Palm Beach County Property Appraiser via the public GIS Open Data ArcGIS FeatureServer.
+  Addresses are situs (location) addresses as recorded by the County. Updated monthly.
+</footer>
+
+<script>
+(() => {
+  const ENDPOINT = "https://services1.arcgis.com/zsFpTOq1dFgzIjQg/arcgis/rest/services/CollectionDays_Parcels/FeatureServer/21/query";
+  const OUT_FIELDS = [
+    "PCN", "PARID", "PARCEL_NUMBER",
+    "SITE_ADDR_STR", "CITYNAME", "MUNICIPALITY", "STATE", "ZIP1", "ZIP2",
+    "LEGAL1", "LEGAL2", "LEGAL3",
+    "OWNER_NAME1", "OWNER_NAME2",
+    "SUBDIV_NAME", "PROPERTY_USE", "YRBLT", "ACRES",
+    "SALE_DATE", "PRICE", "BOOK", "PAGE",
+    "TOTAL_MARKET", "LAND_MARKET", "IMPRV_MRKT",
+    "ASSESSED_VAL", "EXEMPTION", "TOTAL_TAXABLE", "HMSTD_FLG"
+  ].join(",");
+  const MAX_BULK = 500;
+
+  // ---- DOM helpers ----
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  // ---- Tab switching ----
+  $$(".tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      $$(".tab").forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      const which = tab.dataset.tab;
+      $("#tab-single").classList.toggle("hidden", which !== "single");
+      $("#tab-bulk").classList.toggle("hidden", which !== "bulk");
+    });
+  });
+
+  // ---- Search mode placeholder updates ----
+  const placeholders = {
+    pcn: "Enter full 17-digit PCN, e.g. 00434132140002130",
+    "pcn-prefix": "Enter the first N digits, e.g. 004341321400 (matches all parcels starting with this)",
+    legal: "Enter words from the legal description, e.g. LOT 5",
+    owner: "Owner name — order doesn't matter, e.g. JOHN SMITH or SMITH JOHN",
+    subdiv: "Enter subdivision name, e.g. FRENCHMENS LANDING",
+    address: "Enter site address, e.g. 2824 BIARRITZ",
+  };
+  $("#search-mode").addEventListener("change", (e) => {
+    $("#search-input").placeholder = placeholders[e.target.value] || "";
+  });
+
+  // ---- Sample buttons ----
+  $$(".sample-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      $("#search-mode").value = btn.dataset.mode;
+      $("#search-input").value = btn.dataset.q;
+      $("#search-input").placeholder = placeholders[btn.dataset.mode] || "";
+      runSingleSearch();
+    });
+  });
+
+  // ---- Status helpers ----
+  const statusEl = $("#status");
+  function setStatus(kind, html) {
+    statusEl.className = "status " + kind;
+    statusEl.innerHTML = html;
+    statusEl.classList.remove("hidden");
+  }
+  function clearStatus() { statusEl.classList.add("hidden"); }
+
+  // ---- Build WHERE clause for ArcGIS ----
+  // ArcGIS string literals: single quote escaped by doubling.
+  function esc(s) { return String(s).replace(/'/g, "''"); }
+
+  function buildWhere(mode, q) {
+    const v = q.trim();
+    if (!v) return null;
+    switch (mode) {
+      case "pcn": {
+        const clean = v.replace(/[^0-9]/g, "");
+        if (!clean) return null;
+        return `PCN='${esc(clean)}' OR PARID='${esc(clean)}' OR PARCEL_NUMBER='${esc(clean)}'`;
+      }
+      case "pcn-prefix": {
+        const clean = v.replace(/[^0-9]/g, "");
+        if (!clean) return null;
+        if (clean.length < 4) {
+          // Avoid hammering the API with overly broad prefixes.
+          throw new Error("Please enter at least 4 digits for a prefix search.");
+        }
+        const p = esc(clean);
+        return `PCN LIKE '${p}%' OR PARID LIKE '${p}%' OR PARCEL_NUMBER LIKE '${p}%'`;
+      }
+      case "legal": {
+        const u = esc(v.toUpperCase());
+        return `UPPER(LEGAL1) LIKE '%${u}%' OR UPPER(LEGAL2) LIKE '%${u}%' OR UPPER(LEGAL3) LIKE '%${u}%'`;
+      }
+      case "owner": {
+        // Token-based AND search: every token (>=2 chars) must appear in OWNER_NAME1 or OWNER_NAME2.
+        // Order-independent; client-side ranks results by similarity.
+        const tokens = tokenize(v);
+        if (!tokens.length) return null;
+        const clauses = tokens.map((t) => {
+          const u = esc(t);
+          return `(UPPER(OWNER_NAME1) LIKE '%${u}%' OR UPPER(OWNER_NAME2) LIKE '%${u}%')`;
+        });
+        return clauses.join(" AND ");
+      }
+      case "subdiv": {
+        const u = esc(v.toUpperCase());
+        return `UPPER(SUBDIV_NAME) LIKE '%${u}%'`;
+      }
+      case "address": {
+        const u = esc(v.toUpperCase());
+        return `UPPER(SITE_ADDR_STR) LIKE '%${u}%'`;
+      }
+    }
+    return null;
+  }
+
+  // Split a free-text query into uppercase alphanumeric tokens of length >= 2.
+  function tokenize(s) {
+    return String(s)
+      .toUpperCase()
+      .split(/[^A-Z0-9&]+/)
+      .filter((t) => t.length >= 2);
+  }
+
+  // Score how well an owner string matches the query tokens (higher = better).
+  function ownerScore(ownerStr, queryTokens, queryRaw) {
+    if (!ownerStr) return 0;
+    const owner = ownerStr.toUpperCase();
+    let score = 0;
+    // Exact substring of full query is best.
+    if (queryRaw && owner.includes(queryRaw.toUpperCase().trim())) score += 100;
+    // Each token-prefix appearing as a whole word boundary scores higher than mid-word.
+    for (const t of queryTokens) {
+      const idx = owner.indexOf(t);
+      if (idx === -1) continue;
+      score += 10;
+      const prevCh = idx === 0 ? " " : owner[idx - 1];
+      if (!/[A-Z0-9]/.test(prevCh)) score += 5; // word boundary
+    }
+    // Penalize very long owner names (less specific match).
+    score -= Math.min(20, owner.length * 0.05);
+    return score;
+  }
+
+  // ---- ArcGIS query (paginated) ----
+  // Returns objects of shape {...attributes, __geom: {rings: [...]} | null}.
+  async function queryArcGIS(where, { max = 200, withGeometry = true } = {}) {
+    const out = [];
+    const pageSize = 200;
+    let offset = 0;
+    while (out.length < max) {
+      const params = new URLSearchParams({
+        where,
+        outFields: OUT_FIELDS,
+        f: "json",
+        returnGeometry: withGeometry ? "true" : "false",
+        outSR: "4326",
+        resultOffset: String(offset),
+        resultRecordCount: String(Math.min(pageSize, max - out.length)),
+        orderByFields: "PCN ASC",
+      });
+      const url = `${ENDPOINT}?${params.toString()}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message || "ArcGIS error");
+      const feats = data.features || [];
+      for (const f of feats) {
+        out.push({ ...f.attributes, __geom: f.geometry || null });
+      }
+      if (feats.length < pageSize || !data.exceededTransferLimit) break;
+      offset += pageSize;
+    }
+    return out;
+  }
+
+  // Compute a simple centroid (mean of vertices) of an ArcGIS polygon's first ring.
+  // Geometry is in WGS84 (lon, lat) because we requested outSR=4326.
+  function centroidOf(geom) {
+    if (!geom || !geom.rings || !geom.rings.length) return null;
+    const ring = geom.rings[0];
+    if (!ring || ring.length < 2) return null;
+    let sx = 0, sy = 0, n = 0;
+    // The last vertex equals the first in a closed ring; skip it.
+    const limit = ring.length > 1 && ring[0][0] === ring[ring.length - 1][0] && ring[0][1] === ring[ring.length - 1][1]
+      ? ring.length - 1 : ring.length;
+    for (let i = 0; i < limit; i++) {
+      sx += ring[i][0];
+      sy += ring[i][1];
+      n++;
+    }
+    if (!n) return null;
+    return { lon: sx / n, lat: sy / n };
+  }
+
+  function osmFullUrl(lat, lon) {
+    return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
+  }
+
+  // Build a Google Street View deep-link. Prefers coordinates (most reliable);
+  // falls back to address geocoding by Google. Both open the public Street View
+  // viewer in a new tab — no API key required.
+  function streetViewUrl(centroid, address) {
+    if (centroid && isFinite(centroid.lat) && isFinite(centroid.lon)) {
+      // The cbll= param drops the user directly at the requested pano location.
+      return `https://www.google.com/maps?q=&layer=c&cbll=${centroid.lat},${centroid.lon}&cbp=11,0,0,0,0`;
+    }
+    if (address) {
+      return `https://www.google.com/maps?q=${encodeURIComponent(address)}&layer=c`;
+    }
+    return "";
+  }
+
+  // Aerial-only Google Maps deep-link (satellite + labels).
+  function aerialUrl(centroid, address) {
+    if (centroid && isFinite(centroid.lat) && isFinite(centroid.lon)) {
+      return `https://www.google.com/maps/@${centroid.lat},${centroid.lon},19z/data=!3m1!1e3`;
+    }
+    if (address) {
+      return `https://www.google.com/maps/place/${encodeURIComponent(address)}/@?data=!3m1!1e3`;
+    }
+    return "";
+  }
+
+  // Convert ArcGIS polygon rings ([lon,lat] in WGS84) to Leaflet latlngs ([lat,lon]).
+  // Returns an array of rings; first is outer, rest are holes (Leaflet handles this).
+  function arcgisRingsToLatLngs(geom) {
+    if (!geom || !geom.rings) return null;
+    const out = geom.rings.map((ring) => ring.map(([x, y]) => [y, x]));
+    return out.length ? out : null;
+  }
+
+  // ---- Display formatters ----
+  // Some records have PCN null but PARID/PARCEL_NUMBER populated; fall back so we always show an ID.
+  function parcelId(r) {
+    return r.PCN || r.PARID || r.PARCEL_NUMBER || "";
+  }
+
+  function fmtMoney(n) {
+    if (n == null || n === "" || isNaN(n)) return "";
+    return "$" + Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 });
+  }
+  function fmtDate(ms) {
+    if (ms == null || ms === "") return "";
+    const d = new Date(ms);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  }
+  function fmtAcres(n) {
+    if (n == null || n === "" || isNaN(n)) return "";
+    return Number(n).toLocaleString("en-US", { maximumFractionDigits: 3 }) + " ac";
+  }
+  function fmtNum(n) {
+    if (n == null || n === "" || isNaN(n)) return "";
+    return Number(n).toLocaleString("en-US");
+  }
+  function fmtHomestead(v) {
+    if (!v) return "No";
+    const s = String(v).trim().toUpperCase();
+    if (s === "Y" || s === "YES" || s === "1" || s === "T") return "Yes";
+    if (s === "N" || s === "NO" || s === "0" || s === "F" || s === "") return "No";
+    return v;
+  }
+
+  // ---- Render results ----
+  function fmtAddress(a) {
+    const parts = [a.SITE_ADDR_STR].filter(Boolean);
+    return parts.join(" ").trim();
+  }
+  function fmtCity(a) { return (a.CITYNAME || a.MUNICIPALITY || "").trim(); }
+  function fmtZip(a) {
+    if (!a.ZIP1) return "";
+    return a.ZIP2 ? `${a.ZIP1}-${a.ZIP2}` : a.ZIP1;
+  }
+  function fmtLegal(a) {
+    return [a.LEGAL1, a.LEGAL2, a.LEGAL3].filter(Boolean).join(" ").trim();
+  }
+  function fmtOwner(a) {
+    return [a.OWNER_NAME1, a.OWNER_NAME2].filter(Boolean).join(" / ").trim();
+  }
+  function fullAddressOneLine(a) {
+    const street = fmtAddress(a);
+    const city = fmtCity(a);
+    const zip = fmtZip(a);
+    const tail = [city, "FL", zip].filter(Boolean).join(" ");
+    return [street, tail].filter(Boolean).join(", ");
+  }
+
+  let lastResults = [];
+
+  function escHtml(s) {
+    return String(s ?? "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function renderResults(rows, opts = {}) {
+    lastResults = rows;
+    const tbody = $("#results-body");
+    tbody.innerHTML = "";
+    if (!rows.length) {
+      $("#results").classList.add("hidden");
+      return;
+    }
+    const showScore = !!opts.showScore;
+    for (const r of rows) {
+      const tr = document.createElement("tr");
+      if (r.__notFound) {
+        tr.className = "not-found";
+        tr.innerHTML = `
+          <td class="mono">${escHtml(r.PCN || r.__query)}</td>
+          <td colspan="8">No parcel found</td>
+        `;
+        tbody.appendChild(tr);
+        continue;
+      }
+      const fullAddr = fullAddressOneLine(r);
+      const gmapsUrl = fullAddr ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddr)}` : "";
+      const centroid = centroidOf(r.__geom);
+      const svUrl = streetViewUrl(centroid, fullAddr);
+      const ownerHtml = escHtml(fmtOwner(r)) +
+        (showScore && r.__score != null ? `<span class="score-pill">match ${Math.round(r.__score)}</span>` : "");
+      const canExpand = centroid || hasAnyDetails(r);
+      const pid = parcelId(r);
+      const mv = r.TOTAL_MARKET;
+      const mvHtml = mv != null && mv !== "" && !isNaN(mv)
+        ? `<span class="value-strong">${escHtml(fmtMoney(mv))}</span>`
+        : `<span class="value-empty">—</span>`;
+      const saveBtn = pid
+        ? `<button class="save-btn" type="button" data-pcn="${escHtml(pid)}" title="Add to Tax Deed research notebook">+ Notebook</button>`
+        : "";
+      tr.innerHTML = `
+        <td class="mono">${escHtml(pid)}</td>
+        <td>${escHtml(fmtAddress(r) || "—")}</td>
+        <td>${escHtml(fmtCity(r))}</td>
+        <td>${escHtml(fmtZip(r))}</td>
+        <td>${ownerHtml}</td>
+        <td class="num">${mvHtml}</td>
+        <td>${escHtml(r.SUBDIV_NAME || "")}</td>
+        <td><div class="legal">${escHtml(fmtLegal(r))}</div></td>
+        <td class="map-cell">
+          ${canExpand ? `<button class="expand-toggle" type="button">Details &amp; map</button>` : ""}
+          ${gmapsUrl ? `<a class="map-link" href="${gmapsUrl}" target="_blank" rel="noopener">Maps ↗</a>` : ""}
+          ${svUrl   ? `<a class="map-link" href="${svUrl}" target="_blank" rel="noopener">Street View ↗</a>` : ""}
+          ${saveBtn}
+        </td>
+      `;
+      tbody.appendChild(tr);
+      // Identifier so combined-map can locate this row.
+      tr.dataset.pcn = pid;
+
+      if (canExpand) wireExpandToggle(tr, r, centroid);
+    }
+    $("#results-count").textContent = `(${rows.length})`;
+    $("#results").classList.remove("hidden");
+    // Reset combined-map state on new results.
+    closeCombinedMap();
+    // Mark Save buttons that point at parcels already queued for the notebook.
+    if (typeof refreshSaveButtonStates === "function") refreshSaveButtonStates();
+  }
+
+  function hasAnyDetails(r) {
+    return r.SALE_DATE || r.PRICE || r.TOTAL_MARKET || r.ASSESSED_VAL || r.TOTAL_TAXABLE
+      || r.YRBLT || r.ACRES != null || r.PROPERTY_USE || r.HMSTD_FLG;
+  }
+
+  // Build the expandable panel: Leaflet map on the left, details grid on the right.
+  function wireExpandToggle(tr, r, centroid) {
+    const btn = tr.querySelector("button.expand-toggle");
+    let panelRow = null;
+    let leafletMap = null;
+    btn.addEventListener("click", () => {
+      if (panelRow && panelRow.parentNode) {
+        if (leafletMap) { leafletMap.remove(); leafletMap = null; }
+        panelRow.parentNode.removeChild(panelRow);
+        panelRow = null;
+        btn.classList.remove("active");
+        btn.textContent = "Details & map";
+        return;
+      }
+
+      panelRow = document.createElement("tr");
+      panelRow.className = "expand-row";
+      const td = document.createElement("td");
+      td.colSpan = 9;
+
+      const fullAddr = fullAddressOneLine(r);
+      const gmapsUrl = fullAddr ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddr)}` : "";
+      const lat = centroid ? centroid.lat.toFixed(6) : "";
+      const lon = centroid ? centroid.lon.toFixed(6) : "";
+
+      td.innerHTML = `
+        <div class="expand-panel">
+          ${centroid ? `<div class="map-side"><div class="leaflet-map" id="map-${parcelId(r) || Math.random().toString(36).slice(2)}"></div></div>` : ""}
+          <div class="details-side">
+            <div class="details-section-title">Property details</div>
+            <dl class="details-grid">
+              <dt>PCN</dt><dd class="num">${escHtml(parcelId(r))} <button class="copy-btn" data-copy="${escHtml(parcelId(r))}">copy</button></dd>
+              <dt>Address</dt><dd>${escHtml(fullAddr || "—")}${fullAddr ? ` <button class="copy-btn" data-copy="${escHtml(fullAddr)}">copy</button>` : ""}</dd>
+              <dt>Owner</dt><dd>${escHtml(fmtOwner(r) || "—")}</dd>
+              <dt>Subdivision</dt><dd>${escHtml(r.SUBDIV_NAME || "—")}</dd>
+              <dt>Property use</dt><dd>${escHtml(r.PROPERTY_USE || "—")}</dd>
+              <dt>Year built</dt><dd class="num">${escHtml(r.YRBLT || "—")}</dd>
+              <dt>Acreage</dt><dd class="num">${escHtml(fmtAcres(r.ACRES) || "—")}</dd>
+              <dt>Homestead</dt><dd>${escHtml(fmtHomestead(r.HMSTD_FLG))}</dd>
+            </dl>
+            <div class="details-section-title" style="margin-top:14px;">Valuation</div>
+            <dl class="details-grid">
+              <dt>Total market</dt><dd class="num">${escHtml(fmtMoney(r.TOTAL_MARKET) || "—")}</dd>
+              <dt>Land market</dt><dd class="num">${escHtml(fmtMoney(r.LAND_MARKET) || "—")}</dd>
+              <dt>Improvements</dt><dd class="num">${escHtml(fmtMoney(r.IMPRV_MRKT) || "—")}</dd>
+              <dt>Assessed</dt><dd class="num">${escHtml(fmtMoney(r.ASSESSED_VAL) || "—")}</dd>
+              <dt>Exemption</dt><dd class="num">${escHtml(fmtMoney(r.EXEMPTION) || "—")}</dd>
+              <dt>Taxable</dt><dd class="num">${escHtml(fmtMoney(r.TOTAL_TAXABLE) || "—")}</dd>
+            </dl>
+            <div class="details-section-title" style="margin-top:14px;">Last sale</div>
+            <dl class="details-grid">
+              <dt>Sale date</dt><dd class="num">${escHtml(fmtDate(r.SALE_DATE) || "—")}</dd>
+              <dt>Sale price</dt><dd class="num">${escHtml(fmtMoney(r.PRICE) || "—")}</dd>
+              <dt>Book/Page</dt><dd class="num">${escHtml([r.BOOK, r.PAGE].filter(Boolean).join(" / ") || "—")}</dd>
+            </dl>
+            ${centroid ? `
+              <div class="details-section-title" style="margin-top:14px;">Coordinates &amp; views</div>
+              <dl class="details-grid">
+                <dt>Lat / Lon</dt><dd class="num">${lat}, ${lon}
+                  <button class="copy-btn" data-copy="${lat}, ${lon}">copy</button>
+                </dd>
+                <dt>External</dt><dd>
+                  <a class="map-link" href="${osmFullUrl(centroid.lat, centroid.lon)}" target="_blank" rel="noopener">OpenStreetMap ↗</a>
+                  ${gmapsUrl ? ` &nbsp;·&nbsp; <a class="map-link" href="${gmapsUrl}" target="_blank" rel="noopener">Google Maps ↗</a>` : ""}
+                  &nbsp;·&nbsp; <a class="map-link" href="${aerialUrl(centroid, fullAddr)}" target="_blank" rel="noopener">Aerial ↗</a>
+                  &nbsp;·&nbsp; <a class="map-link" href="${streetViewUrl(centroid, fullAddr)}" target="_blank" rel="noopener">Street View ↗</a>
+                </dd>
+              </dl>
+            ` : ""}
+          </div>
+        </div>
+      `;
+      panelRow.appendChild(td);
+      tr.parentNode.insertBefore(panelRow, tr.nextSibling);
+      btn.classList.add("active");
+      btn.textContent = "Hide details";
+
+      // Wire copy buttons
+      panelRow.querySelectorAll("button.copy-btn").forEach((b) => {
+        b.addEventListener("click", () => {
+          const v = b.dataset.copy || "";
+          if (!v) return;
+          navigator.clipboard?.writeText(v).then(() => {
+            const orig = b.textContent;
+            b.textContent = "copied";
+            b.classList.add("copied");
+            setTimeout(() => { b.textContent = orig; b.classList.remove("copied"); }, 1200);
+          }).catch(() => {});
+        });
+      });
+
+      // Build Leaflet map (deferred so the DOM has dimensions).
+      if (centroid && window.L) {
+        const mapEl = panelRow.querySelector(".leaflet-map");
+        leafletMap = L.map(mapEl, { zoomControl: true, attributionControl: true })
+          .setView([centroid.lat, centroid.lon], 18);
+        // Use Esri World Imagery as base by default (better for parcel context).
+        const imagery = L.tileLayer(
+          "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+          { maxZoom: 20, attribution: "Imagery © Esri" }
+        );
+        const streets = L.tileLayer(
+          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          { maxZoom: 19, attribution: "© OpenStreetMap" }
+        );
+        imagery.addTo(leafletMap);
+        L.control.layers({ "Aerial (Esri)": imagery, "Streets (OSM)": streets }, null,
+          { position: "topright", collapsed: true }).addTo(leafletMap);
+        const rings = arcgisRingsToLatLngs(r.__geom);
+        if (rings) {
+          const poly = L.polygon(rings, { color: "#4f9eff", weight: 2, fillColor: "#4f9eff", fillOpacity: 0.18 })
+            .addTo(leafletMap);
+          leafletMap.fitBounds(poly.getBounds(), { padding: [20, 20] });
+        } else {
+          L.marker([centroid.lat, centroid.lon]).addTo(leafletMap);
+        }
+        // Fix size after the DOM settles.
+        setTimeout(() => leafletMap.invalidateSize(), 50);
+      }
+    });
+  }
+
+  // ---- Advanced filters ----
+  // Each filter id maps to a tuple [paramKey, fieldName, kind, transform?].
+  // kind: 'like' | 'minNum' | 'maxNum' | 'minDate' | 'maxDate' | 'eq' | 'minStr' | 'maxStr'
+  const FILTER_DEFS = [
+    { id: "f-municipality", key: "mu", build: (v) => `(UPPER(MUNICIPALITY) LIKE '%${esc(v.toUpperCase())}%' OR UPPER(CITYNAME) LIKE '%${esc(v.toUpperCase())}%')` },
+    { id: "f-property-use", key: "pu", build: (v) => `UPPER(PROPERTY_USE) LIKE '%${esc(v.toUpperCase())}%'` },
+    { id: "f-yr-min", key: "yb_min", build: (v) => /^\d{1,4}$/.test(v.trim()) ? `YRBLT >= '${esc(String(v.trim()).padStart(4, "0"))}'` : null },
+    { id: "f-yr-max", key: "yb_max", build: (v) => /^\d{1,4}$/.test(v.trim()) ? `YRBLT <= '${esc(String(v.trim()).padStart(4, "0"))}' AND YRBLT <> ''` : null },
+    { id: "f-ac-min", key: "ac_min", build: (v) => isFinite(+v) ? `ACRES >= ${+v}` : null },
+    { id: "f-ac-max", key: "ac_max", build: (v) => isFinite(+v) ? `ACRES <= ${+v}` : null },
+    { id: "f-sd-min", key: "sd_min", build: (v) => isValidIsoDate(v) ? `SALE_DATE >= DATE '${v}'` : null },
+    { id: "f-sd-max", key: "sd_max", build: (v) => isValidIsoDate(v) ? `SALE_DATE <= DATE '${v}'` : null },
+    { id: "f-sp-min", key: "sp_min", build: (v) => isFinite(+v) ? `PRICE >= ${+v}` : null },
+    { id: "f-sp-max", key: "sp_max", build: (v) => isFinite(+v) ? `PRICE <= ${+v}` : null },
+    { id: "f-tm-min", key: "tm_min", build: (v) => isFinite(+v) ? `TOTAL_MARKET >= ${+v}` : null },
+    { id: "f-tm-max", key: "tm_max", build: (v) => isFinite(+v) ? `TOTAL_MARKET <= ${+v}` : null },
+    { id: "f-homestead", key: "hs", build: (v) => v === "Y" ? `HMSTD_FLG = 'Y'` : v === "N" ? `(HMSTD_FLG IS NULL OR HMSTD_FLG <> 'Y')` : null },
+  ];
+
+  function isValidIsoDate(s) { return /^\d{4}-\d{2}-\d{2}$/.test(String(s).trim()); }
+
+  function getActiveFilters() {
+    const out = [];
+    for (const def of FILTER_DEFS) {
+      const el = $(`#${def.id}`);
+      const v = (el && el.value || "").trim();
+      if (!v) continue;
+      const clause = def.build(v);
+      if (clause) out.push({ key: def.key, value: v, clause });
+    }
+    return out;
+  }
+
+  function updateFilterCount() {
+    const n = getActiveFilters().length;
+    const badge = $("#filter-count");
+    badge.textContent = String(n);
+    badge.classList.toggle("hidden", n === 0);
+    if (n > 0) $("#advanced-filters").open = true;
+  }
+  // Re-count whenever any filter changes.
+  FILTER_DEFS.forEach((def) => {
+    const el = $(`#${def.id}`);
+    if (el) el.addEventListener("input", updateFilterCount);
+    if (el) el.addEventListener("change", updateFilterCount);
+  });
+  $("#filter-clear").addEventListener("click", () => {
+    FILTER_DEFS.forEach((def) => { const el = $(`#${def.id}`); if (el) el.value = ""; });
+    updateFilterCount();
+  });
+
+  // ---- URL state ----
+  let suppressUrlWrite = false;
+  function writeUrl(params) {
+    if (suppressUrlWrite) return;
+    const url = new URL(window.location.href);
+    // Clear all our keys first.
+    const ours = new Set(["tab", "mode", "q", "bulk", ...FILTER_DEFS.map((f) => f.key)]);
+    [...url.searchParams.keys()].forEach((k) => { if (ours.has(k)) url.searchParams.delete(k); });
+    Object.entries(params).forEach(([k, v]) => {
+      if (v != null && v !== "") url.searchParams.set(k, v);
+    });
+    history.replaceState(null, "", url.toString());
+  }
+  function readUrl() {
+    const u = new URL(window.location.href);
+    const obj = {};
+    u.searchParams.forEach((v, k) => { obj[k] = v; });
+    return obj;
+  }
+  function applyFiltersFromUrl(params) {
+    let any = false;
+    for (const def of FILTER_DEFS) {
+      if (params[def.key] != null) {
+        const el = $(`#${def.id}`);
+        if (el) { el.value = params[def.key]; any = true; }
+      }
+    }
+    if (any) updateFilterCount();
+    return any;
+  }
+
+  // ---- Single search ----
+  async function runSingleSearch(opts = {}) {
+    const mode = $("#search-mode").value;
+    const q = $("#search-input").value;
+
+    // Build main where (may be empty if user is doing a filter-only search).
+    let mainWhere = null;
+    if (q.trim()) {
+      try { mainWhere = buildWhere(mode, q); }
+      catch (e) { setStatus("error", escHtml(e.message)); return; }
+    }
+
+    // Combine with active advanced filters.
+    const filters = getActiveFilters();
+    const filterClauses = filters.map((f) => f.clause);
+    let where;
+    if (mainWhere && filterClauses.length) {
+      where = `(${mainWhere}) AND ${filterClauses.join(" AND ")}`;
+    } else if (mainWhere) {
+      where = mainWhere;
+    } else if (filterClauses.length) {
+      where = filterClauses.join(" AND ");
+    } else {
+      setStatus("error", "Enter a query or set at least one advanced filter.");
+      return;
+    }
+
+    const btn = $("#search-btn");
+    btn.disabled = true;
+    setStatus("info", `<span class="spinner"></span> Searching…`);
+    try {
+      const cap = mode === "pcn-prefix" ? 1000 : 500;
+      let rows = await queryArcGIS(where, { max: cap });
+      if (!rows.length) {
+        setStatus("error", "No matching parcels found.");
+        $("#results").classList.add("hidden");
+        return;
+      }
+
+      let renderOpts = {};
+      if (mode === "owner" && q.trim()) {
+        const tokens = tokenize(q);
+        rows = rows
+          .map((r) => {
+            const owner = `${r.OWNER_NAME1 || ""} ${r.OWNER_NAME2 || ""}`;
+            r.__score = ownerScore(owner, tokens, q);
+            return r;
+          })
+          .sort((a, b) => (b.__score || 0) - (a.__score || 0));
+        renderOpts.showScore = true;
+      }
+
+      const cappedNote = rows.length >= cap
+        ? ` <em>(showing first ${cap}; refine your query to see more)</em>`
+        : "";
+      const filterNote = filters.length ? ` (with ${filters.length} filter${filters.length === 1 ? "" : "s"})` : "";
+      setStatus("success", `Found ${rows.length} parcel${rows.length === 1 ? "" : "s"}${filterNote}.${cappedNote}`);
+      renderResults(rows, renderOpts);
+
+      // Persist to URL.
+      const urlParams = { tab: "single", mode, q };
+      filters.forEach((f) => { urlParams[f.key] = f.value; });
+      writeUrl(urlParams);
+    } catch (e) {
+      setStatus("error", `Lookup failed: ${escHtml(e.message)}`);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+  $("#search-btn").addEventListener("click", () => runSingleSearch());
+  $("#search-input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") runSingleSearch();
+  });
+
+  // ---- Bulk lookup ----
+  function parsePcnList(text) {
+    if (!text) return [];
+    const tokens = text.split(/[\s,;]+/);
+    const seen = new Set();
+    const out = [];
+    for (const t of tokens) {
+      const clean = t.replace(/[^0-9]/g, "");
+      if (clean && !seen.has(clean)) {
+        seen.add(clean);
+        out.push(clean);
+      }
+    }
+    return out;
+  }
+
+  // Concurrency-limited Promise.all helper.
+  async function pMapLimit(items, limit, mapper) {
+    const results = new Array(items.length);
+    let next = 0;
+    async function worker() {
+      while (true) {
+        const i = next++;
+        if (i >= items.length) return;
+        results[i] = await mapper(items[i], i);
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+    return results;
+  }
+
+  async function lookupBulkPcns(pcns) {
+    // Chunk into IN(...) clauses; ArcGIS WHERE has a length limit, so use small batches.
+    const CHUNK = 50;
+    const CONCURRENCY = 4;
+    const chunks = [];
+    for (let i = 0; i < pcns.length; i += CHUNK) chunks.push(pcns.slice(i, i + CHUNK));
+
+    const found = new Map();
+    let processed = 0;
+    await pMapLimit(chunks, CONCURRENCY, async (chunk) => {
+      const list = chunk.map((p) => `'${esc(p)}'`).join(",");
+      const where = `PCN IN (${list}) OR PARID IN (${list}) OR PARCEL_NUMBER IN (${list})`;
+      const rows = await queryArcGIS(where, { max: chunk.length * 2 });
+      for (const r of rows) {
+        const key = r.PCN || r.PARID || r.PARCEL_NUMBER;
+        if (key) found.set(key, r);
+      }
+      processed += chunk.length;
+      setStatus("info", `<span class="spinner"></span> Looked up ${processed} of ${pcns.length}…`);
+    });
+    return pcns.map((p) => found.get(p) || { __notFound: true, __query: p, PCN: p });
+  }
+
+  async function runBulk() {
+    const text = $("#bulk-textarea").value;
+    const pcns = parsePcnList(text);
+    if (!pcns.length) {
+      setStatus("error", "No PCNs detected. Paste PCNs into the textarea or upload a CSV.");
+      return;
+    }
+    if (pcns.length > MAX_BULK) {
+      setStatus("error", `Too many PCNs (${pcns.length}). Maximum batch size is ${MAX_BULK}.`);
+      return;
+    }
+    const btn = $("#bulk-btn");
+    btn.disabled = true;
+    const t0 = performance.now();
+    try {
+      const rows = await lookupBulkPcns(pcns);
+      const foundCount = rows.filter((r) => !r.__notFound).length;
+      const ms = Math.round(performance.now() - t0);
+      setStatus("success", `Done — found ${foundCount} of ${pcns.length} parcels in ${ms} ms.`);
+      renderResults(rows);
+
+      // Persist to URL (cap at 100 PCNs to stay within URL length limits).
+      const urlPcns = pcns.slice(0, 100).join(",");
+      writeUrl({ tab: "bulk", bulk: urlPcns });
+    } catch (e) {
+      setStatus("error", `Bulk lookup failed: ${escHtml(e.message)}`);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+  $("#bulk-btn").addEventListener("click", runBulk);
+  $("#bulk-clear").addEventListener("click", () => {
+    $("#bulk-textarea").value = "";
+    $("#file-input").value = "";
+    clearStatus();
+    $("#results").classList.add("hidden");
+  });
+
+  // ---- File upload ----
+  const drop = $("#file-drop");
+  const fileInput = $("#file-input");
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) handleFile(file);
+  });
+  ["dragenter", "dragover"].forEach((ev) =>
+    drop.addEventListener(ev, (e) => {
+      e.preventDefault();
+      drop.classList.add("dragover");
+    })
+  );
+  ["dragleave", "drop"].forEach((ev) =>
+    drop.addEventListener(ev, (e) => {
+      e.preventDefault();
+      drop.classList.remove("dragover");
+    })
+  );
+  drop.addEventListener("drop", (e) => {
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  });
+
+  function handleFile(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const text = String(reader.result || "");
+      // Take first column of each row (CSV-ish).
+      const lines = text.split(/\r?\n/);
+      const firstCol = lines.map((l) => (l.split(",")[0] || "").trim()).filter(Boolean);
+      $("#bulk-textarea").value = firstCol.join("\n");
+      const count = parsePcnList(firstCol.join("\n")).length;
+      setStatus("info", `Loaded ${count} PCN${count === 1 ? "" : "s"} from <strong>${escHtml(file.name)}</strong>. Click "Look up batch" to search.`);
+    };
+    reader.onerror = () => setStatus("error", "Failed to read file.");
+    reader.readAsText(file);
+  }
+
+  // ---- CSV export ----
+  function toCsv(rows) {
+    const headers = [
+      "PCN", "Address", "City", "State", "ZIP",
+      "Owner", "Subdivision", "Legal Description",
+      "Property Use", "Year Built", "Acres",
+      "Sale Date", "Sale Price",
+      "Total Market", "Land Market", "Improvements",
+      "Assessed Value", "Exemption", "Total Taxable",
+      "Homestead", "Latitude", "Longitude"
+    ];
+    const csvEsc = (v) => {
+      const s = String(v ?? "");
+      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const body = rows.map((r) => {
+      if (r.__notFound) {
+        return [r.PCN || r.__query, "NOT FOUND", ...Array(headers.length - 2).fill("")].map(csvEsc).join(",");
+      }
+      const c = centroidOf(r.__geom);
+      return [
+        parcelId(r),
+        fmtAddress(r),
+        fmtCity(r),
+        r.STATE || "FL",
+        fmtZip(r),
+        fmtOwner(r),
+        r.SUBDIV_NAME || "",
+        fmtLegal(r),
+        r.PROPERTY_USE || "",
+        r.YRBLT || "",
+        r.ACRES != null ? r.ACRES : "",
+        r.SALE_DATE ? new Date(r.SALE_DATE).toISOString().slice(0, 10) : "",
+        r.PRICE != null ? r.PRICE : "",
+        r.TOTAL_MARKET != null ? r.TOTAL_MARKET : "",
+        r.LAND_MARKET != null ? r.LAND_MARKET : "",
+        r.IMPRV_MRKT != null ? r.IMPRV_MRKT : "",
+        r.ASSESSED_VAL != null ? r.ASSESSED_VAL : "",
+        r.EXEMPTION != null ? r.EXEMPTION : "",
+        r.TOTAL_TAXABLE != null ? r.TOTAL_TAXABLE : "",
+        fmtHomestead(r.HMSTD_FLG),
+        c ? c.lat.toFixed(6) : "",
+        c ? c.lon.toFixed(6) : "",
+      ].map(csvEsc).join(",");
+    });
+    return [headers.join(","), ...body].join("\n");
+  }
+  $("#export-btn").addEventListener("click", () => {
+    if (!lastResults.length) return;
+    const csv = toCsv(lastResults);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `pbc-parcel-lookup-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // ---- Combined "Map all results" view ----
+  let combinedMap = null;
+  let combinedLayer = null;
+  let highlightTimer = null;
+
+  function openCombinedMap() {
+    const wrap = $("#combined-map-wrap");
+    wrap.classList.remove("hidden-map");
+    if (!window.L) {
+      $("#combined-map-info").textContent = "Map library failed to load. Check your network connection.";
+      return;
+    }
+    if (!combinedMap) {
+      combinedMap = L.map("combined-map", { zoomControl: true })
+        .setView([26.7056, -80.0364], 10); // PBC center
+      const imagery = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        { maxZoom: 20, attribution: "Imagery © Esri" }
+      );
+      const streets = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        { maxZoom: 19, attribution: "© OpenStreetMap" }
+      );
+      streets.addTo(combinedMap);
+      L.control.layers({ "Streets (OSM)": streets, "Aerial (Esri)": imagery }, null,
+        { position: "topright", collapsed: true }).addTo(combinedMap);
+    }
+    if (combinedLayer) { combinedMap.removeLayer(combinedLayer); combinedLayer = null; }
+
+    const features = [];
+    let withGeom = 0;
+    for (const r of lastResults) {
+      if (r.__notFound) continue;
+      const rings = arcgisRingsToLatLngs(r.__geom);
+      if (!rings) continue;
+      withGeom++;
+      const poly = L.polygon(rings, {
+        color: "#4f9eff", weight: 1.5, fillColor: "#4f9eff", fillOpacity: 0.18,
+      });
+      const fullAddr = fullAddressOneLine(r);
+      const pcn = parcelId(r);
+      poly.bindPopup(`
+        <div>
+          <div style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;">${escHtml(pcn)}</div>
+          <div style="margin-top:4px;"><strong>${escHtml(fmtAddress(r) || "—")}</strong></div>
+          <div style="font-size:12px;color:#8a97a8;">${escHtml(fmtCity(r))} ${escHtml(fmtZip(r))}</div>
+          <div style="margin-top:6px;"><a href="#" data-jump="${escHtml(pcn)}">Jump to row ↓</a></div>
+        </div>
+      `);
+      poly.on("popupopen", (e) => {
+        const link = e.popup._contentNode.querySelector("a[data-jump]");
+        if (link) {
+          link.addEventListener("click", (ev) => {
+            ev.preventDefault();
+            jumpToRow(link.dataset.jump);
+          });
+        }
+      });
+      poly.on("click", () => jumpToRow(pcn));
+      features.push(poly);
+    }
+
+    if (!features.length) {
+      $("#combined-map-info").textContent = "None of the current results have geometry available.";
+      return;
+    }
+    combinedLayer = L.featureGroup(features).addTo(combinedMap);
+    combinedMap.fitBounds(combinedLayer.getBounds(), { padding: [20, 20] });
+    setTimeout(() => combinedMap.invalidateSize(), 50);
+    $("#combined-map-info").textContent =
+      `Showing ${withGeom} of ${lastResults.length} results on the map. Click a polygon to jump to its row.`;
+  }
+
+  function closeCombinedMap() {
+    $("#combined-map-wrap").classList.add("hidden-map");
+  }
+
+  function jumpToRow(pcn) {
+    if (!pcn) return;
+    const row = document.querySelector(`#results-body tr[data-pcn="${CSS.escape(pcn)}"]`);
+    if (!row) return;
+    row.scrollIntoView({ behavior: "smooth", block: "center" });
+    row.classList.add("row-highlight");
+    if (highlightTimer) clearTimeout(highlightTimer);
+    highlightTimer = setTimeout(() => row.classList.remove("row-highlight"), 1800);
+  }
+
+  $("#map-all-btn").addEventListener("click", openCombinedMap);
+  $("#map-all-close").addEventListener("click", closeCombinedMap);
+
+  // ---- Bootstrap: restore state from URL on first load ----
+  function bootstrap() {
+    const params = readUrl();
+    suppressUrlWrite = true;
+    try {
+      // Apply tab.
+      if (params.tab === "bulk") {
+        $$(".tab").forEach((t) => t.classList.toggle("active", t.dataset.tab === "bulk"));
+        $("#tab-single").classList.add("hidden");
+        $("#tab-bulk").classList.remove("hidden");
+      }
+
+      // Apply filters (single-tab).
+      const hadFilters = applyFiltersFromUrl(params);
+
+      // Apply single search.
+      if (params.tab !== "bulk" && (params.q || params.mode || hadFilters)) {
+        if (params.mode) $("#search-mode").value = params.mode;
+        if (params.q) $("#search-input").value = params.q;
+        $("#search-input").placeholder = placeholders[$("#search-mode").value] || "";
+        suppressUrlWrite = false;
+        runSingleSearch();
+        return;
+      }
+
+      // Apply bulk search.
+      if (params.tab === "bulk" && params.bulk) {
+        $("#bulk-textarea").value = params.bulk.split(",").join("\n");
+        suppressUrlWrite = false;
+        runBulk();
+        return;
+      }
+    } finally {
+      suppressUrlWrite = false;
+    }
+  }
+
+  // Update URL on tab switch (so a fresh visitor lands on the right tab next time).
+  $$(".tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      writeUrl({ tab: tab.dataset.tab });
+    });
+  });
+
+  // Run bootstrap after Leaflet has had a chance to load (it's deferred).
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrap);
+  } else {
+    bootstrap();
+  }
+
+  // ===== Notebook handoff: parcel-lookup → tax-deeds.html =====
+  // Same-origin localStorage is shared between the two pages, so we just stage
+  // a queue of parcel records here and let tax-deeds.html consume them on
+  // load (it shows an "Import N parcels" banner and adds them to Palm Beach
+  // since this lookup tool is PB-specific).
+  const NOTEBOOK_QUEUE_KEY = "tdr_notebook_queue_v1";
+
+  function loadNotebookQueue() {
+    try { return JSON.parse(localStorage.getItem(NOTEBOOK_QUEUE_KEY) || "[]"); }
+    catch { return []; }
+  }
+  function saveNotebookQueue(arr) {
+    try { localStorage.setItem(NOTEBOOK_QUEUE_KEY, JSON.stringify(arr)); } catch {}
+    updateNotebookQueueUI();
+  }
+  function findInQueue(queue, pcn) {
+    return queue.findIndex(e => (e.parcelId || "").toUpperCase() === pcn.toUpperCase());
+  }
+
+  function recordToQueueEntry(r) {
+    const fullAddr = fullAddressOneLine(r);
+    const centroid = centroidOf(r.__geom);
+    return {
+      countySlug: "palm-beach",
+      parcelId:   parcelId(r),
+      address:    fullAddr || fmtAddress(r) || "",
+      owner:      fmtOwner(r) || "",
+      assessed:   r.ASSESSED_VAL != null ? Number(r.ASSESSED_VAL) : null,
+      market:     r.TOTAL_MARKET != null ? Number(r.TOTAL_MARKET) : null,
+      yearBuilt:  r.YRBLT || "",
+      lat:        centroid ? centroid.lat : null,
+      lon:        centroid ? centroid.lon : null,
+      addedAt:    new Date().toISOString(),
+      source:     "parcel-lookup",
+    };
+  }
+
+  function saveParcelToNotebook(r, btn) {
+    const pcn = parcelId(r);
+    if (!pcn) return;
+    const queue = loadNotebookQueue();
+    if (findInQueue(queue, pcn) >= 0) {
+      btn?.classList.add("saved");
+      btn && (btn.textContent = "✓ Queued");
+      return;
+    }
+    queue.push(recordToQueueEntry(r));
+    saveNotebookQueue(queue);
+    if (btn) {
+      btn.classList.add("saved");
+      btn.textContent = "✓ Queued";
+    }
+  }
+
+  function updateNotebookQueueUI() {
+    const queue = loadNotebookQueue();
+    const bar = $("#notebook-queue-bar");
+    if (!bar) return;
+    if (!queue.length) { bar.style.display = "none"; return; }
+    bar.style.display = "flex";
+    const cnt = $("#nq-count");
+    const msg = $("#nq-msg");
+    if (cnt) cnt.textContent = String(queue.length);
+    if (msg) msg.textContent = queue.length === 1
+      ? " parcel queued for the Tax Deed research notebook."
+      : " parcels queued for the Tax Deed research notebook.";
+  }
+
+  // Re-mark "Queued" any save buttons whose PCN is already in the queue.
+  function refreshSaveButtonStates() {
+    const queue = loadNotebookQueue();
+    const queued = new Set(queue.map(e => (e.parcelId || "").toUpperCase()));
+    document.querySelectorAll("#results-body button.save-btn").forEach(b => {
+      const pcn = (b.dataset.pcn || "").toUpperCase();
+      if (queued.has(pcn)) {
+        b.classList.add("saved");
+        b.textContent = "✓ Queued";
+      }
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest && e.target.closest("button.save-btn");
+    if (!btn) return;
+    const pcn = btn.dataset.pcn;
+    if (!pcn) return;
+    const r = (lastResults || []).find(x => parcelId(x) === pcn);
+    if (!r) return;
+    saveParcelToNotebook(r, btn);
+  });
+
+  $("#nq-clear")?.addEventListener("click", () => {
+    if (confirm("Clear all queued parcels? They have not been imported to the notebook yet.")) {
+      saveNotebookQueue([]);
+    }
+  });
+
+  updateNotebookQueueUI();
+})();
+</script>
+</body>
+</html>

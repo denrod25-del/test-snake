@@ -1,0 +1,32 @@
+[
+  {
+    "county": "ORANGE",
+    "sourceSystem": "demo_seed",
+    "externalId": "seed-orange-1",
+    "personName": "Doe, Jane A",
+    "bookingDate": "2026-05-01T14:00:00.000Z",
+    "chargesText": "Example charge line for UI demo only — not a real record.",
+    "mugshotUrl": null,
+    "officialSourceUrl": "https://netapps.ocfl.net/BestJail/Home/Inmates"
+  },
+  {
+    "county": "MIAMI_DADE",
+    "sourceSystem": "demo_seed",
+    "externalId": "seed-md-1",
+    "personName": "Sample, Dev User",
+    "bookingDate": "2026-05-01T09:30:00.000Z",
+    "chargesText": "Example charge line for UI demo only.",
+    "mugshotUrl": null,
+    "officialSourceUrl": "https://www.miamidade.gov/Apps/mdcr/inmateSearch/"
+  },
+  {
+    "county": "PALM_BEACH",
+    "sourceSystem": "demo_seed",
+    "externalId": "seed-pb-1",
+    "personName": "Demo, Record Holder",
+    "bookingDate": "2026-04-30T18:15:00.000Z",
+    "chargesText": "Example charge line for UI demo only.",
+    "mugshotUrl": null,
+    "officialSourceUrl": "https://www3.pbso.org/blotter/"
+  }
+]

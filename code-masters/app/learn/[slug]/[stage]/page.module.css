@@ -1,0 +1,130 @@
+.main {
+  padding: 2rem 1.25rem 4rem;
+}
+
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.breadcrumb a {
+  color: color-mix(in oklab, var(--foreground) 85%, var(--muted));
+}
+
+.breadcrumb a:hover {
+  color: var(--foreground);
+}
+
+.crumbSep {
+  margin: 0 0.45rem;
+  opacity: 0.5;
+}
+
+.trackBanner {
+  font-size: 0.88rem;
+  color: var(--muted-2);
+  border-left: 3px solid color-mix(in oklab, var(--accent) 65%, transparent);
+  padding: 0.4rem 0.65rem;
+  margin-bottom: 1.25rem;
+  background: color-mix(in oklab, var(--surface-2) 92%, var(--accent));
+  border-radius: 0 8px 8px 0;
+}
+
+.header {
+  margin-bottom: 1.75rem;
+}
+
+.kicker {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.title {
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.section {
+  margin-bottom: 1.75rem;
+}
+
+.h2 {
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+
+.list {
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--muted-2);
+  line-height: 1.5;
+}
+
+.p {
+  color: var(--muted-2);
+  line-height: 1.65;
+  margin-bottom: 0.85rem;
+  font-size: 1.02rem;
+}
+
+.lessonNav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.navBtn {
+  font-weight: 650;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  text-align: center;
+}
+
+.navBtn:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
+}
+
+.navOutline {
+  font-size: 0.92rem;
+  color: var(--muted);
+  padding: 0.45rem 0.65rem;
+  text-align: center;
+}
+
+.navOutline:hover {
+  color: var(--foreground);
+}
+
+.navSpacer {
+  min-height: 1px;
+}
+
+@media (max-width: 640px) {
+  .lessonNav {
+    grid-template-columns: 1fr;
+  }
+
+  .navOutline {
+    order: -1;
+  }
+}

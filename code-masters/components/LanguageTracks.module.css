@@ -1,0 +1,143 @@
+.section {
+  padding: 0 1.25rem 3.5rem;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.head {
+  margin-bottom: 1.35rem;
+}
+
+.heading {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.sub {
+  color: var(--muted-2);
+  max-width: 62ch;
+  line-height: 1.55;
+}
+
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.card {
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  padding: 0.95rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.card:hover {
+  border-color: color-mix(in oklab, var(--foreground) 20%, var(--border));
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: border-color 160ms ease;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.langName {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 650;
+}
+
+.popular {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.22rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent);
+  color: color-mix(in oklab, var(--accent-strong) 80%, white);
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.stagesWord {
+  font-size: 0.85rem;
+  color: var(--muted-2);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.start {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 70%, var(--foreground));
+  color: var(--foreground);
+  font-weight: 650;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+  text-decoration: none;
+}
+
+.start:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
+  background: color-mix(in oklab, var(--surface) 55%, var(--accent));
+}
+
+.anchorNote,
+.feedback {
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px dashed color-mix(in oklab, var(--border) 75%, var(--muted));
+  color: var(--muted-2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.anchorNote {
+  margin-top: 2.25rem;
+}
+
+.anchorNote + .anchorNote {
+  margin-top: 0.85rem;
+}
+
+.feedback {
+  margin-top: 0.85rem;
+}
+
+.anchorNote strong,
+.feedback strong {
+  color: var(--muted);
+  font-weight: 600;
+}

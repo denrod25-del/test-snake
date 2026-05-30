@@ -1,0 +1,70 @@
+{
+  "regions": {
+    "Southeast": ["Miami-Dade", "Broward", "Palm Beach", "Martin", "St. Lucie", "Indian River", "Monroe"],
+    "Southwest": ["Collier", "Lee", "Charlotte", "Glades", "Hendry", "Sarasota"],
+    "Tampa Bay": ["Hillsborough", "Pinellas", "Pasco", "Hernando", "Manatee"],
+    "Central":   ["Orange", "Seminole", "Lake", "Osceola", "Polk", "Sumter", "Citrus", "Marion", "Brevard", "Volusia", "Hardee", "DeSoto", "Highlands", "Okeechobee"],
+    "Northeast": ["Duval", "St. Johns", "Clay", "Nassau", "Baker", "Putnam", "Flagler"],
+    "North Central": ["Alachua", "Bradford", "Columbia", "Dixie", "Gilchrist", "Hamilton", "Lafayette", "Levy", "Madison", "Suwannee", "Taylor", "Union"],
+    "Northwest": ["Escambia", "Santa Rosa", "Okaloosa", "Walton", "Bay", "Holmes", "Washington", "Jackson", "Calhoun", "Gulf", "Liberty", "Franklin", "Gadsden", "Leon", "Wakulla", "Jefferson"]
+  },
+  "cityToCounty": {
+    "Miami": "Miami-Dade", "Miami Beach": "Miami-Dade", "Hialeah": "Miami-Dade", "Miami Gardens": "Miami-Dade", "Homestead": "Miami-Dade", "Doral": "Miami-Dade", "Aventura": "Miami-Dade", "Cutler Bay": "Miami-Dade", "North Miami": "Miami-Dade", "North Miami Beach": "Miami-Dade", "Hialeah Gardens": "Miami-Dade", "Sunny Isles Beach": "Miami-Dade", "Coral Gables": "Miami-Dade", "Kendall": "Miami-Dade", "Pinecrest": "Miami-Dade", "Palmetto Bay": "Miami-Dade",
+    "Fort Lauderdale": "Broward", "Pembroke Pines": "Broward", "Hollywood": "Broward", "Miramar": "Broward", "Coral Springs": "Broward", "Pompano Beach": "Broward", "Davie": "Broward", "Sunrise": "Broward", "Plantation": "Broward", "Deerfield Beach": "Broward", "Lauderhill": "Broward", "Tamarac": "Broward", "Weston": "Broward", "Coconut Creek": "Broward", "Margate": "Broward", "Hallandale Beach": "Broward", "Oakland Park": "Broward", "Parkland": "Broward", "Dania Beach": "Broward", "North Lauderdale": "Broward", "Cooper City": "Broward",
+    "West Palm Beach": "Palm Beach", "Boca Raton": "Palm Beach", "Wellington": "Palm Beach", "Boynton Beach": "Palm Beach", "Jupiter": "Palm Beach", "Palm Beach Gardens": "Palm Beach", "Royal Palm Beach": "Palm Beach", "Greenacres": "Palm Beach", "Lake Worth Beach": "Palm Beach", "Riviera Beach": "Palm Beach", "Belle Glade": "Palm Beach",
+    "Stuart": "Martin", "Hobe Sound": "Martin",
+    "Port St. Lucie": "St. Lucie", "Fort Pierce": "St. Lucie",
+    "Vero Beach": "Indian River",
+    "Key West": "Monroe", "Marathon": "Monroe", "Key Largo": "Monroe",
+
+    "Naples": "Collier", "Marco Island": "Collier",
+    "Cape Coral": "Lee", "Fort Myers": "Lee", "Bonita Springs": "Lee", "Estero": "Lee", "North Fort Myers": "Lee", "Lehigh Acres": "Lee",
+    "Port Charlotte": "Charlotte", "Punta Gorda": "Charlotte",
+    "Sarasota": "Sarasota", "North Port": "Sarasota", "Venice": "Sarasota",
+
+    "Tampa": "Hillsborough", "Brandon": "Hillsborough", "Riverview": "Hillsborough", "Plant City": "Hillsborough", "Town 'n' Country": "Hillsborough", "Carrollwood": "Hillsborough", "Citrus Park": "Hillsborough",
+    "St. Petersburg": "Pinellas", "Clearwater": "Pinellas", "Largo": "Pinellas", "Pinellas Park": "Pinellas", "Dunedin": "Pinellas", "Tarpon Springs": "Pinellas", "Palm Harbor": "Pinellas",
+    "Spring Hill": "Hernando", "Brooksville": "Hernando",
+    "Wesley Chapel": "Pasco", "New Port Richey": "Pasco", "Zephyrhills": "Pasco", "Land O' Lakes": "Pasco", "Dade City": "Pasco",
+    "Bradenton": "Manatee",
+
+    "Orlando": "Orange", "Apopka": "Orange", "Ocoee": "Orange", "Winter Garden": "Orange", "Winter Park": "Orange",
+    "Sanford": "Seminole", "Altamonte Springs": "Seminole", "Casselberry": "Seminole", "Winter Springs": "Seminole", "Lake Mary": "Seminole",
+    "Kissimmee": "Osceola", "St. Cloud": "Osceola", "Poinciana": "Osceola", "Buenaventura Lakes": "Osceola",
+    "Lakeland": "Polk", "Winter Haven": "Polk", "Auburndale": "Polk",
+    "Clermont": "Lake", "Mount Dora": "Lake", "Eustis": "Lake", "Leesburg": "Lake",
+    "The Villages": "Sumter",
+    "Inverness": "Citrus", "Crystal River": "Citrus",
+    "Ocala": "Marion",
+    "Palm Bay": "Brevard", "Melbourne": "Brevard", "Titusville": "Brevard", "Rockledge": "Brevard",
+    "Daytona Beach": "Volusia", "Deltona": "Volusia", "Port Orange": "Volusia", "Ormond Beach": "Volusia", "DeLand": "Volusia", "New Smyrna Beach": "Volusia", "Edgewater": "Volusia",
+    "Sebring": "Highlands", "Avon Park": "Highlands",
+    "Okeechobee": "Okeechobee",
+
+    "Jacksonville": "Duval",
+    "St. Augustine": "St. Johns",
+    "Orange Park": "Clay",
+    "Fernandina Beach": "Nassau",
+    "Palatka": "Putnam",
+    "Palm Coast": "Flagler",
+
+    "Gainesville": "Alachua",
+    "Lake City": "Columbia",
+    "Live Oak": "Suwannee",
+    "Perry": "Taylor",
+    "Williston": "Levy",
+    "Starke": "Bradford",
+
+    "Tallahassee": "Leon",
+    "Pensacola": "Escambia", "Cantonment": "Escambia", "Ferry Pass": "Escambia",
+    "Milton": "Santa Rosa", "Pace": "Santa Rosa", "Gulf Breeze": "Santa Rosa",
+    "Crestview": "Okaloosa", "Fort Walton Beach": "Okaloosa", "Niceville": "Okaloosa", "Destin": "Okaloosa",
+    "DeFuniak Springs": "Walton",
+    "Panama City": "Bay", "Panama City Beach": "Bay",
+    "Marianna": "Jackson",
+    "Chipley": "Washington",
+    "Quincy": "Gadsden",
+    "Monticello": "Jefferson",
+    "Madison": "Madison"
+  }
+}

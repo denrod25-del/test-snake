@@ -1,0 +1,26 @@
+.wrap {
+  margin-bottom: 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in oklab, var(--accent) 35%, var(--border));
+  background: color-mix(in oklab, var(--surface-2) 88%, var(--accent));
+}
+
+.line {
+  font-size: 0.94rem;
+  color: var(--muted-2);
+  line-height: 1.45;
+}
+
+.line strong {
+  color: var(--foreground);
+}
+
+.link {
+  color: var(--accent-strong);
+  font-weight: 650;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

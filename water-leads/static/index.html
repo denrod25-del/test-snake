@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AquaLeads — Water Filtration Lead Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">💧</div>
+      <div class="brand-text">
+        <div class="brand-name">AquaLeads</div>
+        <div class="brand-sub" id="brandSub">Water filtration leads · Palm Beach County, FL</div>
+      </div>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab active" data-view="systems">
+        <span>Water systems</span>
+        <span class="count" id="tabSystems">0</span>
+      </button>
+      <button class="tab" data-view="zips">
+        <span>Target ZIPs</span>
+        <span class="count" id="tabZips">0</span>
+      </button>
+      <button class="tab" data-view="map">
+        <span>Map</span>
+      </button>
+      <button class="tab" data-view="pipeline">
+        <span>Pipeline</span>
+        <span class="count" id="tabPipeline">0</span>
+      </button>
+    </nav>
+
+    <div class="topbar-right">
+      <button class="icon-btn alert-btn" id="alertBtn" title="Recent alerts">
+        <span>🔔</span>
+        <span id="alertBadge" class="alert-badge" style="display:none">0</span>
+      </button>
+      <div class="broker-chip" id="syncChip" title="Last sync">
+        <span id="syncDot" style="color:var(--muted)">●</span>
+        <span id="syncLabel">No sync yet</span>
+      </div>
+      <button class="btn btn-primary btn-sm" id="syncBtn">↻ Refresh from EPA</button>
+      <button class="icon-btn" id="themeToggle" title="Toggle dark mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div id="syncNotice" class="alert" style="display:none">
+      <span class="alert-icon">ℹ</span>
+      <div id="syncNoticeText"></div>
+    </div>
+
+    <div id="alertPanel" class="alert-panel" style="display:none">
+      <div class="alert-panel-head">
+        <strong>Recent alerts</strong>
+        <div>
+          <button class="btn btn-ghost btn-sm" id="alertMarkAllBtn">Mark all read</button>
+          <button class="btn btn-ghost btn-sm" id="alertCloseBtn">Close</button>
+        </div>
+      </div>
+      <div id="alertPanelBody" class="alert-panel-body">
+        <div class="dim">Loading…</div>
+      </div>
+    </div>
+
+    <!-- ============ SYSTEMS TAB ============ -->
+    <section id="view-systems" class="view active">
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Water systems</div>
+          <div class="stat-value" id="statSystems">0</div>
+        </div>
+        <div class="stat accent">
+          <div class="stat-label">Population served</div>
+          <div class="stat-value" id="statPop">0</div>
+        </div>
+        <div class="stat warn">
+          <div class="stat-label">Active MCL violations</div>
+          <div class="stat-value" id="statMCL">0</div>
+        </div>
+        <div class="stat danger">
+          <div class="stat-label">Lead/Copper exceedances</div>
+          <div class="stat-value" id="statLCR">0</div>
+        </div>
+        <div class="stat danger">
+          <div class="stat-label">PFAS ZIPs</div>
+          <div class="stat-value" id="statPFAS">0</div>
+        </div>
+        <div class="stat danger">
+          <div class="stat-label">High lead-risk ZIPs</div>
+          <div class="stat-value" id="statLeadHigh">0</div>
+        </div>
+      </div>
+
+      <div class="list-toolbar">
+        <div class="list-toolbar-row">
+          <input type="text" class="search-input" id="sysSearch" placeholder="Search PWSID, name, city…" />
+          <select id="sysIssueType" style="width:auto">
+            <option value="">Any issue</option>
+            <option value="mcl">MCL / MRDL violations</option>
+            <option value="tt">Treatment technique</option>
+            <option value="lcr">Lead / Copper exceedance</option>
+          </select>
+        </div>
+        <div class="list-toolbar-row">
+          <label class="checkbox">
+            <input type="checkbox" id="sysFlaggedOnly">
+            Flagged only
+          </label>
+          <label class="checkbox">
+            Min pop
+            <input type="number" id="sysMinPop" value="0" min="0" step="1000" style="width:100px;margin-left:6px">
+          </label>
+          <button class="btn btn-ghost btn-sm" id="sysRefresh">Apply filters</button>
+        </div>
+      </div>
+
+      <div class="results-card">
+        <div style="overflow-x:auto">
+          <table class="compact-table" id="systemsTable">
+            <thead>
+              <tr>
+                <th>PWSID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th style="text-align:right">Pop served</th>
+                <th>Issues</th>
+                <th>City</th>
+              </tr>
+            </thead>
+            <tbody id="systemsBody">
+              <tr><td colspan="6">
+                <div class="empty">
+                  <div class="empty-icon">💧</div>
+                  <p>No data yet. Click <strong>↻ Refresh from EPA</strong> to pull the latest SDWIS records for your county.</p>
+                </div>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ TARGET ZIPS TAB ============ -->
+    <section id="view-zips" class="view">
+
+      <div class="list-toolbar">
+        <div class="list-toolbar-row">
+          <input type="text" class="search-input" id="zipSearch" placeholder="Search ZIP or city…" />
+          <select id="zipSort" style="width:auto">
+            <option value="score_desc">Top risk score</option>
+            <option value="opportunity_desc">Opportunity (risk × income)</option>
+            <option value="income_desc">Median household income</option>
+            <option value="population">Population impacted</option>
+            <option value="zip_asc">ZIP A–Z</option>
+            <option value="updated_desc">Recently updated</option>
+          </select>
+        </div>
+        <div class="list-toolbar-row">
+          <label class="checkbox">
+            <input type="checkbox" id="zipFlaggedOnly" checked>
+            Flagged only (risk &gt; 0)
+          </label>
+          <button class="btn btn-ghost btn-sm" id="zipRefresh">Apply filters</button>
+          <button class="btn btn-ghost btn-sm" id="exportBtn">⬇ Export CSV</button>
+          <label class="btn btn-ghost btn-sm" for="ucmrFile" title="Upload EPA UCMR5_All.txt to enable PFAS flags">
+            📥 Import UCMR 5
+          </label>
+          <input type="file" id="ucmrFile" style="display:none" accept=".txt,.csv,.tsv">
+          <span id="ucmrStatus" class="dim" style="font-size:12px"></span>
+        </div>
+      </div>
+
+      <div class="results-card">
+        <div style="overflow-x:auto">
+          <table class="compact-table" id="zipsTable">
+            <thead>
+              <tr>
+                <th>ZIP</th>
+                <th>City</th>
+                <th style="text-align:right">Risk</th>
+                <th style="text-align:right">Opp.</th>
+                <th style="text-align:right">Median HHI</th>
+                <th style="text-align:right">Population</th>
+                <th>Top issue</th>
+                <th>Flags</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="zipsBody">
+              <tr><td colspan="9">
+                <div class="empty">
+                  <div class="empty-icon">🎯</div>
+                  <p>Run a sync first, then target ZIPs will rank here by risk score.</p>
+                </div>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ MAP TAB ============ -->
+    <section id="view-map" class="view">
+      <div class="list-toolbar">
+        <div class="list-toolbar-row">
+          <label class="checkbox">
+            <input type="checkbox" id="mapFlaggedOnly" checked>
+            Flagged only (risk &gt; 0)
+          </label>
+          <button class="btn btn-ghost btn-sm" id="mapResolveBtn">⟳ Resolve more ZIPs</button>
+          <span id="mapStatus" class="dim" style="font-size:12px"></span>
+        </div>
+        <div class="list-toolbar-row">
+          <span class="dim" style="font-size:12px">
+            Marker size = population impacted · color = risk score · red ring = PFAS detected
+          </span>
+        </div>
+      </div>
+      <div class="results-card" style="padding:0">
+        <div id="map" style="height:600px;border-radius:10px"></div>
+      </div>
+    </section>
+
+    <!-- ============ PIPELINE TAB ============ -->
+    <section id="view-pipeline" class="view">
+
+      <div class="stats" id="pipelineStats">
+        <!-- filled by JS -->
+      </div>
+
+      <div class="split">
+        <div class="split-left">
+          <div class="list-toolbar">
+            <div class="list-toolbar-row">
+              <input type="text" class="search-input" id="pipeSearch" placeholder="Search ZIP or city…" />
+              <select id="pipeStatus" style="width:auto">
+                <option value="">All statuses</option>
+                <option value="new">New</option>
+                <option value="researching">Researching</option>
+                <option value="campaign_live">Campaign live</option>
+                <option value="converted">Converted</option>
+                <option value="skip">Skip</option>
+              </select>
+            </div>
+          </div>
+          <div class="lead-list" id="pipelineList">
+            <div class="empty">
+              <div class="empty-icon">📋</div>
+              <p>Pipeline rows show up here after you sync + target some ZIPs.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-right" id="detailPane">
+          <div class="detail-empty">
+            <div class="detail-empty-icon">👈</div>
+            <p>Select a ZIP to see the systems, violations, and outreach copy.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

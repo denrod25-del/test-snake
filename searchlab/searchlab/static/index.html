@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SearchLab</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">SL</span>
+      <span class="title">SearchLab</span>
+      <span class="subtitle">design &middot; rank &middot; compare</span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="data">Data</button>
+      <button class="tab" data-tab="search">Search</button>
+      <button class="tab" data-tab="compare">Compare</button>
+      <button class="tab" data-tab="experiments">A/B</button>
+      <button class="tab" data-tab="algorithms">Algorithms</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- DATA -->
+    <section class="panel active" id="tab-data">
+      <div class="grid">
+        <div class="card">
+          <h2>Built-in sample</h2>
+          <p class="muted">Load the hand-curated <code>ir-classics</code> corpus with judged queries.</p>
+          <button class="primary" id="load-sample">Load ir-classics</button>
+        </div>
+
+        <div class="card">
+          <h2>Generate synthetic</h2>
+          <div class="row">
+            <label>Name <input id="syn-name" value="synthetic-1" /></label>
+            <label>Docs <input id="syn-docs" type="number" value="200" min="5" max="20000" /></label>
+          </div>
+          <div class="row">
+            <label>Graph
+              <select id="syn-graph">
+                <option value="scale_free">scale_free</option>
+                <option value="small_world">small_world</option>
+              </select>
+            </label>
+            <label>Seed <input id="syn-seed" type="number" value="42" /></label>
+          </div>
+          <button class="primary" id="gen-syn">Generate</button>
+        </div>
+
+        <div class="card">
+          <h2>Crawl the web</h2>
+          <p class="muted">Polite BFS crawler. Respects robots.txt.</p>
+          <label>Name <input id="cr-name" value="crawl-1" /></label>
+          <label>Seed URLs (one per line)
+            <textarea id="cr-seeds" rows="3" placeholder="https://example.com/"></textarea>
+          </label>
+          <div class="row">
+            <label>Max pages <input id="cr-max" type="number" value="30" min="1" max="2000" /></label>
+            <label>Max depth <input id="cr-depth" type="number" value="2" min="0" max="8" /></label>
+          </div>
+          <label class="checkbox">
+            <input type="checkbox" id="cr-same" checked /> Same-domain only
+          </label>
+          <button class="primary" id="run-crawl">Crawl</button>
+        </div>
+
+        <div class="card">
+          <h2>Upload corpus</h2>
+          <p class="muted">JSON (preferred) or CSV. See README for shapes.</p>
+          <input type="file" id="up-file" accept=".json,.csv" />
+          <label>Name (CSV only) <input id="up-name" value="uploaded" /></label>
+          <button class="primary" id="run-upload">Upload</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Corpora</h2>
+        <div id="corpora-list" class="list"></div>
+      </div>
+    </section>
+
+    <!-- SEARCH -->
+    <section class="panel" id="tab-search">
+      <div class="card">
+        <div class="row">
+          <label>Corpus <select id="s-corpus"></select></label>
+          <label>Algorithm <select id="s-algo"></select></label>
+          <label>Top-k <input id="s-k" type="number" value="10" min="1" max="200" /></label>
+        </div>
+        <label>Query <input id="s-q" placeholder="e.g. ranking algorithms" /></label>
+        <details>
+          <summary>Algorithm parameters (JSON)</summary>
+          <textarea id="s-params" rows="3" placeholder='{"k1": 1.5, "b": 0.75}'></textarea>
+        </details>
+        <button class="primary" id="run-search">Search</button>
+      </div>
+      <div id="search-results"></div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="panel" id="tab-compare">
+      <div class="card">
+        <div class="row">
+          <label>Corpus <select id="c-corpus"></select></label>
+          <label>Top-k <input id="c-k" type="number" value="10" min="1" max="50" /></label>
+        </div>
+        <label>Query <input id="c-q" placeholder="e.g. pagerank" /></label>
+        <label>Algorithms
+          <select id="c-algos" multiple size="6"></select>
+          <span class="hint">Ctrl/Cmd-click to select multiple</span>
+        </label>
+        <button class="primary" id="run-compare">Compare</button>
+      </div>
+      <div id="compare-results"></div>
+    </section>
+
+    <!-- EXPERIMENTS -->
+    <section class="panel" id="tab-experiments">
+      <div class="card">
+        <h2>Run A/B experiment</h2>
+        <div class="row">
+          <label>Name <input id="e-name" value="exp-1" /></label>
+          <label>Corpus <select id="e-corpus"></select></label>
+          <label>Top-k <input id="e-k" type="number" value="10" min="1" max="100" /></label>
+        </div>
+        <div class="row">
+          <label>Algo A <select id="e-algo-a"></select></label>
+          <label>Params A (JSON) <input id="e-params-a" placeholder="{}"/></label>
+        </div>
+        <div class="row">
+          <label>Algo B <select id="e-algo-b"></select></label>
+          <label>Params B (JSON) <input id="e-params-b" placeholder="{}"/></label>
+        </div>
+        <label>Queries (one per line, judged queries are auto-suggested below)
+          <textarea id="e-queries" rows="4"></textarea>
+        </label>
+        <div class="hint" id="e-judged-hint"></div>
+        <button class="primary" id="run-experiment">Run experiment</button>
+      </div>
+      <div id="experiment-output"></div>
+
+      <div class="card">
+        <h2>Past experiments</h2>
+        <div id="experiments-list" class="list"></div>
+      </div>
+    </section>
+
+    <!-- ALGORITHMS -->
+    <section class="panel" id="tab-algorithms">
+      <div class="card">
+        <h2>Registered algorithms</h2>
+        <p class="muted">
+          Built-ins live in <code>searchlab/algorithms/</code>. Custom plugins go in
+          <code>plugins/*.py</code>. Subclass <code>RankingAlgorithm</code>, set <code>name</code>,
+          and implement <code>score(query, index)</code>. See README.
+        </p>
+        <button class="primary" id="reload-algos">Reload plugins</button>
+        <div id="algos-list" class="list"></div>
+        <div id="algos-errors"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — Florida Bankruptcy Tracker</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2338bdf8'/><text x='50%25' y='56%25' text-anchor='middle' font-family='Arial' font-size='28' font-weight='800' fill='%230b1120'>FL</text></svg>" />
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <main class="container">
+    <header class="page-head">
+      <span class="eyebrow">About this project</span>
+      <h1>How the tracker works</h1>
+      <p>This is a front-end for federal bankruptcy filings in Florida. It ships with a synthetic dataset so the UI is functional out-of-the-box — wire it to a real source whenever you're ready.</p>
+    </header>
+
+    <div class="disclaimer">
+      <strong>Important:</strong> the bundled data in <code>data/filings.json</code> is <em>illustrative only</em> — names, case numbers, and amounts are randomly generated. Nothing on this page should be treated as a real court record.
+    </div>
+
+    <section class="card" style="margin-bottom: 16px;">
+      <h2 style="font-size: 20px; margin-bottom: 12px;">The three Florida bankruptcy districts</h2>
+      <p style="color: var(--text-dim); margin-top: 0;">Bankruptcy in the U.S. is filed in federal court. Florida is split across three districts, each with multiple divisional offices:</p>
+      <div class="grid-3">
+        <div class="card" style="background: var(--bg-elev);">
+          <h3>Northern District (N.D. Fla.)</h3>
+          <p style="color: var(--text-dim); font-size: 14px; margin: 0;">Tallahassee, Pensacola, Panama City, Gainesville. Covers the Panhandle and north-central counties.</p>
+        </div>
+        <div class="card" style="background: var(--bg-elev);">
+          <h3>Middle District (M.D. Fla.)</h3>
+          <p style="color: var(--text-dim); font-size: 14px; margin: 0;">Tampa, Orlando, Jacksonville, Fort Myers, Ocala. The largest district by caseload.</p>
+        </div>
+        <div class="card" style="background: var(--bg-elev);">
+          <h3>Southern District (S.D. Fla.)</h3>
+          <p style="color: var(--text-dim); font-size: 14px; margin: 0;">Miami, Fort Lauderdale, West Palm Beach. Covers the southeast plus the Keys.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-bottom: 16px;">
+      <h2 style="font-size: 20px; margin-bottom: 12px;">Replacing the demo data with real filings</h2>
+      <p style="color: var(--text-dim);">The front-end only depends on the shape of <code>data/filings.json</code>. Any pipeline that writes that file (or an API endpoint with the same JSON) will work. Sensible options:</p>
+      <ul style="color: var(--text); line-height: 1.7;">
+        <li>
+          <strong><a href="https://www.courtlistener.com/recap/" target="_blank" rel="noopener">CourtListener / RECAP</a></strong> — a free archive of PACER documents maintained by the Free Law Project. Has an open REST API and is the cheapest practical source.
+        </li>
+        <li>
+          <strong><a href="https://pacer.uscourts.gov/" target="_blank" rel="noopener">PACER</a></strong> — the official federal court records system. Authoritative but charges $0.10/page (capped at $3/document). Each district has its own bankruptcy court endpoint (FLNB, FLMB, FLSB).
+        </li>
+        <li>
+          <strong>Court RSS feeds</strong> — each Florida bankruptcy court publishes a free, last-24-hours RSS feed of new filings (limited fields).
+        </li>
+        <li>
+          <strong>Commercial aggregators</strong> — e.g. Epiq, Stretto, BankruptcyData. Faster onboarding, paid.
+        </li>
+      </ul>
+      <p style="color: var(--text-dim); margin-bottom: 0;">
+        A typical pipeline runs nightly: fetch new filings → normalize into the schema below → overwrite <code>data/filings.json</code>.
+      </p>
+    </section>
+
+    <section class="card" style="margin-bottom: 16px;">
+      <h2 style="font-size: 20px; margin-bottom: 12px;">Schema</h2>
+      <p style="color: var(--text-dim);">Each entry in the <code>filings</code> array looks like:</p>
+      <pre style="background: var(--bg-elev); padding: 16px; border-radius: 10px; overflow-x: auto; font-size: 13px; line-height: 1.55; color: var(--text);">{
+  "id":              "flbk-00001",
+  "case_number":     "26-04001",
+  "filed_date":      "2026-04-12",
+  "chapter":         "7",
+  "chapter_label":   "Chapter 7 — Liquidation",
+  "district_code":   "FLMB",
+  "district_name":   "Middle District of Florida",
+  "district_short":  "M.D. Fla.",
+  "division":        "Tampa",
+  "county":          "Hillsborough",
+  "judge":           "Hon. Catherine Peek McEwen",
+  "debtor":          "Jane Doe",
+  "debtor_type":     "Individual",
+  "nature_of_debt":  "Consumer / Non-Business",
+  "attorney":        "Stephanie Lieb",
+  "total_assets":     42500,
+  "total_liabilities":118300,
+  "status":          "Open"
+}</pre>
+    </section>
+
+    <section class="card" style="margin-bottom: 16px;">
+      <h2 style="font-size: 20px; margin-bottom: 12px;">Legal notes</h2>
+      <ul style="color: var(--text); line-height: 1.7;">
+        <li>U.S. bankruptcy filings are <strong>public records</strong> by statute (11 U.S.C. § 107).</li>
+        <li>Personally identifying information (full SSNs, full account numbers, minors' names, etc.) must be redacted under <strong>Fed. R. Bankr. P. 9037</strong> before publication.</li>
+        <li>Republishing PACER content is permitted; many fields are also free via court RSS.</li>
+      </ul>
+    </section>
+
+    <section class="card" style="margin-bottom: 24px;">
+      <h2 style="font-size: 20px; margin-bottom: 12px;">Running locally</h2>
+      <p style="color: var(--text-dim);">The site is a static folder — no build step. Browsers block <code>fetch()</code> on <code>file://</code>, so serve it with any static server:</p>
+      <pre style="background: var(--bg-elev); padding: 16px; border-radius: 10px; font-size: 13px; color: var(--text);">cd fl-bankruptcy
+python -m http.server 8000
+# then open http://localhost:8000</pre>
+      <p style="color: var(--text-dim);">Regenerate the demo data with:</p>
+      <pre style="background: var(--bg-elev); padding: 16px; border-radius: 10px; font-size: 13px; color: var(--text);">python scripts/generate_mock_data.py</pre>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="js/data.js"></script>
+</body>
+</html>

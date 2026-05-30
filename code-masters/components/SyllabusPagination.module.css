@@ -1,0 +1,43 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.jump {
+  font-weight: 650;
+  font-size: 0.92rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.jump:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--border));
+}
+
+.disabled {
+  font-size: 0.92rem;
+  padding: 0.45rem 0.75rem;
+  color: color-mix(in oklab, var(--muted) 55%, transparent);
+  opacity: 0.55;
+}
+
+.indicator {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jump {
+    transition: none;
+  }
+
+  .jump:hover {
+    transform: none;
+  }
+}

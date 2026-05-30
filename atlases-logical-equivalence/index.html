@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logical Equivalence — Atlases</title>
+    <meta
+      name="description"
+      content="Interactive logical equivalence chain builder and animated proof — Atlases discrete mathematics tools."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Atlases home">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4 18V6l8-3 8 3v12l-8 3-8-3Z"
+                stroke="#E8B84A"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 3v18M4 6l8 3 8-3M4 12l8 3 8-3"
+                stroke="#3ECFB2"
+                stroke-width="1.2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <span class="brand-name">Atlases</span>
+            <span class="brand-tag">Logical Equivalence Lab</span>
+          </div>
+        </a>
+        <div class="topbar-actions">
+          <a href="#" class="topbar-link" id="identitiesLink">Logical identities</a>
+          <p class="topbar-meta">Interactive animated demonstration</p>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="panel palette" aria-label="Logic symbols">
+          <h2>Symbols</h2>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Propositions</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="p">p</button>
+              <button type="button" class="symbol-btn" data-insert="q">q</button>
+              <button type="button" class="symbol-btn" data-insert="r">r</button>
+              <button type="button" class="symbol-btn" data-insert="s">s</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Parentheses</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="(">(</button>
+              <button type="button" class="symbol-btn" data-insert=")">)</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Negation</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="~">~</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">And</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="&">&amp;</button>
+              <button type="button" class="symbol-btn" data-insert="∧">∧</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Nand</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="nand">NAND</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Or</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn" data-insert="v">v</button>
+              <button type="button" class="symbol-btn" data-insert="∨">∨</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Nor</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="nor">NOR</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Conditional</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="=>">=&gt;</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Biconditional</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="<=>">&lt;=&gt;</button>
+            </div>
+          </section>
+
+          <section class="symbol-group">
+            <p class="symbol-group-title">Exclusive or</p>
+            <div class="symbol-grid">
+              <button type="button" class="symbol-btn wide" data-insert="xor">XOR</button>
+            </div>
+          </section>
+        </aside>
+
+        <main class="workspace">
+          <div class="workspace-head">
+            <div class="workspace-title-row">
+              <h2>Equivalence chain</h2>
+              <p class="workspace-hint">Click a row to focus it, then insert symbols from the palette.</p>
+            </div>
+
+            <div id="lawBanner" class="law-banner" hidden></div>
+
+            <div class="chain-wrap">
+              <div id="chainHost" class="chain-host" aria-label="Equivalence chain"></div>
+            </div>
+
+            <div class="expression-actions">
+              <button type="button" class="btn btn-primary" id="verifyBtn">Verify</button>
+              <button type="button" class="btn" id="clearBtn">Clear</button>
+              <button type="button" class="btn" id="addSlotBtn">Next row</button>
+              <button type="button" class="btn btn-danger" id="backspaceBtn">Backspace</button>
+            </div>
+          </div>
+
+          <div id="errorBanner" class="error-banner" role="alert"></div>
+          <div id="statusBar" class="status-bar" hidden></div>
+
+          <div class="compare-wrap">
+            <div id="compareHost"></div>
+          </div>
+
+          <div class="playback">
+            <div class="playback-group" aria-label="Playback controls">
+              <button type="button" class="playback-btn" id="restartBtn" title="Restart" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 12a9 9 0 1 0 3-6.7" />
+                  <path d="M3 4v5h5" />
+                </svg>
+              </button>
+              <button type="button" class="playback-btn" id="backBtn" title="Back" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button type="button" class="playback-btn" id="playBtn" title="Play">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+              <button type="button" class="playback-btn" id="nextBtn" title="Next" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+              <button type="button" class="btn" id="solveBtn" disabled>Solve</button>
+            </div>
+          </div>
+        </main>
+
+        <aside class="panel exercises" aria-label="Exercises">
+          <h2>Exercises</h2>
+          <div id="exerciseList" class="exercise-list"></div>
+          <div class="exercise-hint">
+            Select an exercise, then press <strong>Play</strong> to animate each step of the
+            equivalence proof. Use <strong>Solve</strong> to reveal the full chain at once.
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div id="identitiesPanel" class="modal" hidden role="dialog" aria-labelledby="identitiesTitle">
+      <div class="modal-card">
+        <div class="modal-head">
+          <h2 id="identitiesTitle">Logical identities</h2>
+          <button type="button" class="modal-close" id="closeIdentities" aria-label="Close">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="identity-list">
+            <li><strong>De Morgan:</strong> ¬(p ∨ q) ≡ ¬p ∧ ¬q &nbsp;·&nbsp; ¬(p ∧ q) ≡ ¬p ∨ ¬q</li>
+            <li><strong>Double negation:</strong> ¬¬p ≡ p</li>
+            <li><strong>Implication:</strong> p → q ≡ ¬p ∨ q</li>
+            <li><strong>Biconditional:</strong> p ↔ q ≡ (p → q) ∧ (q → p)</li>
+            <li><strong>Commutative:</strong> p ∧ q ≡ q ∧ p &nbsp;·&nbsp; p ∨ q ≡ q ∨ p</li>
+            <li><strong>Associative:</strong> (p ∧ q) ∧ r ≡ p ∧ (q ∧ r) &nbsp;·&nbsp; (p ∨ q) ∨ r ≡ p ∨ (q ∨ r)</li>
+            <li><strong>Distributive:</strong> p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)</li>
+            <li><strong>Identity:</strong> p ∧ T ≡ p &nbsp;·&nbsp; p ∨ F ≡ p</li>
+            <li><strong>Domination:</strong> p ∨ T ≡ T &nbsp;·&nbsp; p ∧ F ≡ F</li>
+            <li><strong>Idempotence:</strong> p ∨ p ≡ p &nbsp;·&nbsp; p ∧ p ≡ p</li>
+            <li><strong>Absorption:</strong> p ∨ (p ∧ q) ≡ p &nbsp;·&nbsp; p ∧ (p ∨ q) ≡ p</li>
+            <li><strong>Negation:</strong> p ∨ ¬p ≡ T &nbsp;·&nbsp; p ∧ ¬p ≡ F</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

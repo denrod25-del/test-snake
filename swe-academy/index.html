@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#161824" />
+  <meta name="description" content="An interactive, zero-to-hero curriculum for becoming a senior full-stack software engineer." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>SWE Academy — Become a Full-Stack Developer</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="icon-192.svg" />
+  <link rel="apple-touch-icon" href="icon-192.svg" />
+</head>
+<body>
+  <!-- Onboarding -->
+  <div id="onboardingOverlay" class="modal-overlay" hidden>
+    <div class="modal-box modal-box--welcome">
+      <button type="button" class="modal-close" id="obClose" aria-label="Close welcome dialog">×</button>
+      <h2>Welcome — set your pace</h2>
+      <p>Unlike apps that lock features behind paywalls, SWE Academy stays fully usable in your browser. Pick a rhythm so the <strong>Today's focus</strong> panel can suggest a realistic mix of lessons, drills, and spaced review.</p>
+      <label for="obName" style="display:block;font-size:12px;color:var(--text-dim);margin-bottom:6px;">Display name (for your certificate)</label>
+      <input type="text" id="obName" placeholder="Alex" maxlength="60" />
+      <p style="font-size:13px;margin-bottom:10px;">How much time can you give most days?</p>
+      <div class="goal-grid" id="goalGrid"></div>
+      <div class="modal-actions">
+        <button type="button" class="nav-btn" id="obSkip">Later</button>
+        <button type="button" class="nav-btn primary" id="obSave">Save & start</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Printable certificate -->
+  <div id="certOverlay" class="modal-overlay" hidden>
+    <div class="modal-box" style="max-width:760px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+        <h2 style="margin:0;">Milestone certificate</h2>
+        <div>
+          <button type="button" class="btn-copy" id="certPrintBtn">Print / Save PDF</button>
+          <button type="button" class="btn-copy" id="certCloseBtn">Close</button>
+        </div>
+      </div>
+      <p style="font-size:13px;">Honest signal: this proves <em>your</em> discipline in this app — not an accredited degree. Pair it with repos and capstones for employers.</p>
+      <div id="certBody" class="cert-print"></div>
+    </div>
+  </div>
+
+  <div id="app">
+    <section id="home" class="home">
+      <div class="home-inner">
+        <div class="badge">Senior SWE Roadmap · 2026</div>
+        <h1 class="hero-title">Become a <span class="grad">Full-Stack Developer</span><br/>from absolute zero.</h1>
+        <p class="hero-sub">Depth that mobile apps skip: architecture, cloud, system design, and job signal — with bite-sized checkpoints, spaced repetition, auto-graded drills, and zero subscription wall.</p>
+
+        <div id="todayPanelHost"></div>
+
+        <div class="home-grid" id="moduleGrid"></div>
+
+        <div class="home-cta">
+          <button class="cta-btn" id="startBtn">Start learning →</button>
+          <button class="cta-btn ghost" id="resumeBtn" hidden>Resume where you left off</button>
+          <button class="cta-btn ghost" id="todayReviewBtn" hidden>🧠 Review due cards</button>
+        </div>
+
+        <div class="home-stats" id="homeStats"></div>
+
+        <div class="badges-strip" id="badgesStrip"></div>
+
+        <div class="home-actions">
+          <button class="cta-btn ghost" type="button" id="openCapstonesBtn">Job-signal capstones</button>
+          <button class="cta-btn ghost" type="button" id="openCertBtn">Milestone certificate</button>
+          <button class="cta-btn ghost" type="button" id="openGoalsBtn">Goals & name</button>
+        </div>
+
+        <div class="home-extras">
+          <div class="he-card" data-go="practice"><div class="he-icon" style="color:#86efac">⚡</div><div><div class="he-title">Practice arena</div><div class="he-desc">Challenges & bug hunts</div></div></div>
+          <div class="he-card" data-go="projects"><div class="he-icon" style="color:#fbbf24">🛠</div><div><div class="he-title">Build-along projects</div><div class="he-desc">Ship real apps step by step</div></div></div>
+          <div class="he-card" data-go="cheats"><div class="he-icon" style="color:#a78bfa">📋</div><div><div class="he-title">Cheatsheets</div><div class="he-desc">JS, SQL, HTTP, Git, Docker…</div></div></div>
+          <div class="he-card" data-go="review"><div class="he-icon" style="color:#5eead4">🧠</div><div><div class="he-title">Daily review</div><div class="he-desc">Due cards first—real spaced repetition</div></div></div>
+        </div>
+
+        <div class="community-row" id="communityHost"></div>
+      </div>
+    </section>
+
+    <section id="learn" class="learn" hidden>
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <button class="logo-btn" id="logoBtn" title="Back to home"><span class="logo-mark">◆</span><span class="logo-text">SWE Academy</span></button>
+          <div class="streak-row" id="streakRow"></div>
+          <div class="overall-progress">
+            <div class="progress-bar"><div class="progress-fill" id="overallFill"></div></div>
+            <div class="progress-text"><span id="overallPct">0%</span> complete · <span id="xpVal">0</span> XP</div>
+          </div>
+        </div>
+
+        <div class="nav-tabs" id="navTabs">
+          <button class="nav-tab active" data-view="lessons">Lessons</button>
+          <button class="nav-tab" data-view="capstones">Capstones</button>
+          <button class="nav-tab" data-view="practice">Practice</button>
+          <button class="nav-tab" data-view="projects">Projects</button>
+          <button class="nav-tab" data-view="cheats">Cheats</button>
+          <button class="nav-tab" data-view="review">Review</button>
+        </div>
+
+        <nav class="modules" id="modulesNav"></nav>
+        <div class="sidebar-foot">
+          <button class="reset-btn" id="resetBtn">Reset progress</button>
+        </div>
+      </aside>
+
+      <main class="content" id="content"></main>
+    </section>
+  </div>
+
+  <script src="curriculum.js"></script>
+  <script src="challenges.js"></script>
+  <script src="flashcards.js"></script>
+  <script src="cheatsheets.js"></script>
+  <script src="projects.js"></script>
+  <script src="resources.js"></script>
+  <script src="community.js"></script>
+  <script src="capstones.js"></script>
+  <script src="badges.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

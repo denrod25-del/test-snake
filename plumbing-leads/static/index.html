@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PalmLeads — Plumbing Lead Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============== TOPBAR ============== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div class="brand-text">
+        <div class="brand-name">PalmLeads</div>
+        <div class="brand-sub">Plumbing leads · Palm Beach County</div>
+      </div>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab active" data-view="search">
+        <span>Find</span>
+      </button>
+      <button class="tab" data-view="pipeline">
+        <span>Pipeline</span>
+        <span class="count" id="tabCount">0</span>
+      </button>
+      <button class="tab" data-view="map">
+        <span>Map</span>
+      </button>
+    </nav>
+
+    <div class="topbar-right">
+      <div class="broker-chip" id="brokerChip">
+        <span style="color:var(--green)">●</span>
+        <span id="brokerLabel">—</span>
+      </div>
+      <button class="icon-btn" id="themeToggle" title="Toggle dark mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div id="apiNotice" class="alert" style="display:none">
+      <span class="alert-icon">⚠</span>
+      <div>
+        <strong>Server is missing GOOGLE_API_KEY.</strong>
+        Add it to <code>.env</code> and restart. Get one at
+        <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a>
+        (enable <em>Places API (New)</em> + <em>Geocoding API</em>).
+      </div>
+    </div>
+
+    <!-- ====================================================
+         FIND VIEW
+         ==================================================== -->
+    <section id="view-search" class="view active">
+
+      <div class="search-card">
+        <h2>Find plumbing businesses</h2>
+        <p class="sub">Search a city + radius. New businesses auto-save to your pipeline; duplicates are skipped.</p>
+
+        <div class="fields">
+          <div class="field">
+            <label class="field-label">Location</label>
+            <input type="text" id="location" value="West Palm Beach, FL" placeholder="City, State" />
+          </div>
+          <div class="field">
+            <label class="field-label">Radius (mi)</label>
+            <input type="number" id="radius" value="15" min="1" max="31" />
+          </div>
+          <div class="field">
+            <label class="field-label">Keyword</label>
+            <input type="text" id="keyword" value="plumber" />
+          </div>
+          <div class="field">
+            <label class="field-label">Min rating</label>
+            <select id="minRating">
+              <option value="0">Any</option>
+              <option value="3">3.0+</option>
+              <option value="3.5">3.5+</option>
+              <option value="4" selected>4.0+</option>
+              <option value="4.5">4.5+</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label">Max</label>
+            <select id="maxResults">
+              <option value="20">20</option>
+              <option value="40">40</option>
+              <option value="60" selected>60</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field-label">&nbsp;</label>
+            <button class="btn btn-primary" id="searchBtn">Run search →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="statusbar">
+        <span class="dot idle" id="statusDot"></span>
+        <span id="statusText">Ready — set parameters and click Run search</span>
+      </div>
+
+      <div class="results-card">
+        <div class="results-head">
+          <h3>Latest results</h3>
+          <span id="resultsHeadCount">—</span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="compact-table" id="searchResultsTable">
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Score</th>
+                <th>Rating</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody id="searchResultsBody">
+              <tr><td colspan="6">
+                <div class="empty">
+                  <div class="empty-icon">🔍</div>
+                  <p>No search yet. Set parameters above and click <strong>Run search</strong>.</p>
+                </div>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================
+         PIPELINE VIEW
+         ==================================================== -->
+    <section id="view-pipeline" class="view">
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">Total</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">New</div>
+          <div class="stat-value" id="statNew">0</div>
+        </div>
+        <div class="stat accent">
+          <div class="stat-label">Contacted</div>
+          <div class="stat-value" id="statContacted">0</div>
+        </div>
+        <div class="stat success">
+          <div class="stat-label">Qualified</div>
+          <div class="stat-value" id="statQualified">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Closed</div>
+          <div class="stat-value" id="statClosed">0</div>
+        </div>
+        <div class="stat accent">
+          <div class="stat-label">No website</div>
+          <div class="stat-value" id="statNoSite">0</div>
+        </div>
+      </div>
+
+      <div class="split">
+
+        <!-- LEFT: list + filters -->
+        <div class="split-left">
+          <div class="list-toolbar">
+            <div class="list-toolbar-row">
+              <input type="text" class="search-input" id="pipeSearch" placeholder="Search name, address…" />
+              <select id="pipeStatus" style="width:auto">
+                <option value="">All statuses</option>
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="qualified">Qualified</option>
+                <option value="closed">Closed</option>
+                <option value="dead">Dead</option>
+              </select>
+            </div>
+            <div class="list-toolbar-row">
+              <select id="pipeSort" style="width:auto">
+                <option value="score_desc">Top score first</option>
+                <option value="created_desc">Newest first</option>
+                <option value="rating_desc">Best rated</option>
+                <option value="reviews_desc">Most reviewed</option>
+                <option value="name_asc">Name A–Z</option>
+              </select>
+              <label class="checkbox">
+                <input type="checkbox" id="pipeNoSite">
+                No website
+              </label>
+              <button class="btn btn-ghost btn-sm" id="exportBtn" title="Download CSV">⬇ CSV</button>
+            </div>
+          </div>
+          <div class="lead-list" id="leadList">
+            <div class="empty">
+              <div class="empty-icon">📋</div>
+              <p>No leads yet. Run a search on the <strong>Find</strong> tab.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: detail pane -->
+        <div class="split-right" id="detailPane">
+          <div class="detail-empty">
+            <div class="detail-empty-icon">👈</div>
+            <p>Select a lead to see details, notes, and outreach templates.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ====================================================
+         MAP VIEW
+         ==================================================== -->
+    <section id="view-map" class="view">
+      <div class="map-container">
+        <div class="map-controls">
+          <span style="font-size:12px;color:var(--muted);font-weight:600">FILTER:</span>
+          <button class="chip active" data-mapfilter="all">All</button>
+          <button class="chip" data-mapfilter="new">New</button>
+          <button class="chip" data-mapfilter="contacted">Contacted</button>
+          <button class="chip" data-mapfilter="qualified">Qualified</button>
+          <button class="chip" data-mapfilter="no_site">No website</button>
+          <span style="margin-left:auto;font-size:12px;color:var(--muted)" id="mapCount">0 leads</span>
+        </div>
+        <div id="map"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

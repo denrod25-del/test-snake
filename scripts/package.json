@@ -1,0 +1,16 @@
+{
+  "name": "fl-plumbing-ingest",
+  "version": "1.0.0",
+  "description": "Ingest Florida plumbing companies from Google Places API into companies.json",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "ingest": "node ingest.mjs",
+    "ingest:dry": "node ingest.mjs --dry-run",
+    "ingest:resume": "node ingest.mjs --resume",
+    "clean": "node -e \"import('node:fs/promises').then(f=>{f.rm('../data/.ingest-progress.json',{force:true});f.rm('../data/.ingest-cache.json',{force:true});})\""
+  }
+}
