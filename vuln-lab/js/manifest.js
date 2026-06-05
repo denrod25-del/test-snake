@@ -15,6 +15,7 @@ export const BUG_MODULES = [
   "../bugs/os-command-injection.js",
   "../bugs/ssrf.js",
   "../bugs/xxe.js",
+  "../bugs/insecure-deserialization.js",
   // "../bugs/xss.js",
   // "../bugs/os-command-injection.js",
   // "../bugs/ssrf.js",

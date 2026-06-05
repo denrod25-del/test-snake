@@ -109,7 +109,8 @@ XSS can genuinely fire while staying jailed.
 - ✅ #4 OS Command Injection — mock shell (operators, substitution)
 - ✅ #5 Server-Side Request Forgery (SSRF) — mock network (DNS + IP zones)
 - ✅ #6 XML External Entity (XXE) — mock XML/DTD engine (multiline input)
-- ⬜ Insecure Deserialization, CSRF, Open Redirect, ReDoS
+- ✅ #7 Insecure Deserialization — simulated revival/RCE + prototype pollution
+- ⬜ CSRF, Open Redirect, ReDoS
 
 ## Disclaimer
 
