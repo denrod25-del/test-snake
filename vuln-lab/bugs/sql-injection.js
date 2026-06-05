@@ -113,7 +113,13 @@ function parse(sql) {
 
 function resolve(node, row) {
   if (node.t === "val") {
-    if (node.kind === "col") return row[node.value]; // column reference
+    if (node.kind === "col") {
+      // A real database rejects references to columns that don't exist, rather
+      // than silently treating them as NULL — so model that. (Without this,
+      // "a = a" would compare undefined == undefined and wrongly match.)
+      if (!(node.value in row)) throw new SqlError(`no such column: ${node.value}`);
+      return row[node.value];
+    }
     return node.value; // literal string/number
   }
   return toBool(evaluate(node, row)); // a parenthesized/boolean subexpression
@@ -258,12 +264,18 @@ export default {
       { label: "alice (legit)", value: "alice" },
       { label: "dump table: ' OR 1=1 --", value: "' OR 1=1 --" },
       { label: "target admin: admin' --", value: "admin' --" },
-      { label: "always-true: ' OR '1'='1", value: "x' OR '1'='1' --" },
+      { label: "always-true: ' OR '1'='1' --", value: "' OR '1'='1' --" },
       { label: "error-based: '", value: "'" },
     ],
 
     run(input, { patched }) {
-      const v = lookupVulnerable(input); // also used to label the patched case
+      // The UI always passes a string (from a text field); coerce defensively
+      // so a non-string never reaches the string-building below.
+      input = typeof input === "string" ? input : String(input);
+      // Evaluate the vulnerable query in both modes: in patched mode its outcome
+      // is only used to decide whether this input WAS an attack (→ "blocked") or
+      // simply benign (→ "safe"). lookupVulnerable can't throw — it wraps errors.
+      const v = lookupVulnerable(input);
       const intended = USERS.filter((r) => r.username === input);
       const exploited = !!v.error || !sameRowSet(v.rows, intended);
 
@@ -271,7 +283,7 @@ export default {
         const p = lookupPatched(input);
         const steps = [
           { label: "Parameterized query", value: p.sql, flag: "good" },
-          { label: "Bound parameter ($1)", value: JSON.stringify(p.param), flag: "good" },
+          { label: "Bound parameter (?)", value: JSON.stringify(p.param), flag: "good" },
           { label: "Treated as", value: "a literal username value — never parsed as SQL" },
           { label: "Rows returned", value: String(p.rows.length) },
           { label: "Result set", value: formatRows(p.rows) },
@@ -283,8 +295,11 @@ export default {
             ? "Same payload, neutralized: the driver bound it as a literal username " +
               "string, found no user with that exact name, and returned 0 rows. The " +
               "query structure was fixed before any value was attached."
-            : "Legitimate lookup — the value matched a real username and returned only " +
-              "that row, exactly as intended.",
+            : p.rows.length
+            ? "Legitimate lookup — the value matched a real username and returned only " +
+              "that row, exactly as intended."
+            : "No user has that exact name, so 0 rows came back. The value was bound as " +
+              "a literal, so even if it were a payload there was nothing to exploit.",
         };
       }
 
