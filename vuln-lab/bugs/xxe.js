@@ -24,21 +24,43 @@ function fetchResource(uri) {
 
 // ---- A tiny XML/DTD engine --------------------------------------------------
 
-function hasDoctype(xml) {
-  return /<!DOCTYPE/i.test(xml);
-}
-
-// Pull the internal subset "[ ... ]" out of the DOCTYPE, plus any external DTD.
-function getDoctype(xml) {
-  const internal = xml.match(/<!DOCTYPE\s+\S+\s*\[([\s\S]*?)\]\s*>/i);
-  const externalDtd = xml.match(/<!DOCTYPE\s+\S+\s+(?:SYSTEM|PUBLIC)\s+[^>\[]*>/i);
-  return { internalSubset: internal ? internal[1] : "", externalDtd: externalDtd ? externalDtd[0] : null };
+// Extract the DOCTYPE: whether one is present, its internal subset "[ ... ]",
+// and the document body with the DOCTYPE removed. Scans quote-aware so a "]>"
+// or ">" inside a quoted entity value doesn't end the subset prematurely.
+function extractDoctype(xml) {
+  const m = /<!DOCTYPE\b/i.exec(xml);
+  if (!m) return { hasDoctype: false, internalSubset: "", body: xml };
+  const start = m.index;
+  let i = start + m[0].length;
+  let quote = null, bracket = -1, end = -1;
+  for (; i < xml.length; i++) {
+    const c = xml[i];
+    if (quote) { if (c === quote) quote = null; continue; }
+    if (c === '"' || c === "'") { quote = c; continue; }
+    if (c === "[") { bracket = i; break; }
+    if (c === ">") { end = i; break; }
+  }
+  let internalSubset = "";
+  if (bracket >= 0) {
+    let j = bracket + 1;
+    for (; j < xml.length; j++) {
+      const c = xml[j];
+      if (quote) { if (c === quote) quote = null; continue; }
+      if (c === '"' || c === "'") { quote = c; continue; }
+      if (c === "]") break;
+    }
+    internalSubset = xml.slice(bracket + 1, j);
+    end = xml.indexOf(">", j);
+  }
+  const body = end >= 0 ? xml.slice(0, start) + xml.slice(end + 1) : xml.slice(0, start);
+  return { hasDoctype: true, internalSubset, body };
 }
 
 // Parse <!ENTITY ...> declarations from the internal subset.
 function parseEntities(subset) {
   const entities = {};
-  const re = /<!ENTITY\s+(%\s+)?([A-Za-z_][\w.-]*)\s+(?:SYSTEM\s+"([^"]*)"|PUBLIC\s+"[^"]*"\s+"([^"]*)"|"([^"]*)")\s*>/g;
+  // XML allows single OR double quotes around system IDs and entity values.
+  const re = /<!ENTITY\s+(%\s+)?([A-Za-z_][\w.-]*)\s+(?:SYSTEM\s+["']([^"']*)["']|PUBLIC\s+["'][^"']*["']\s+["']([^"']*)["']|["']([^"']*)["'])\s*>/g;
   let m;
   while ((m = re.exec(subset))) {
     const [, isParam, name, sysUri, pubUri, literal] = m;
@@ -53,12 +75,13 @@ function parseEntities(subset) {
 // Analytically compute how large `&name;` expands to, WITHOUT expanding it, so
 // billion-laughs is detected without doing exponential work or hanging.
 function expansionSize(name, entities, memo, depth) {
-  if (depth > 60) return Infinity;
+  if (depth > 80) return Infinity;
   const ent = entities[name];
   if (!ent) return name.length + 2;
   if (ent.type === "external") return 256; // external content size estimate
+  if (memo[name] === "pending") return Infinity; // cycle (self/mutual ref) → unbounded
   if (memo[name] != null) return memo[name];
-  memo[name] = 0; // guard against self-reference cycles
+  memo[name] = "pending"; // sentinel so a reference back to `name` reads as Infinity
   let size = 0;
   const parts = ent.value.split(/&([A-Za-z_][\w.-]*);/);
   for (let i = 0; i < parts.length; i++) {
@@ -73,18 +96,14 @@ const EXPANSION_LIMIT = 1_000_000; // ~1 MB projected = treat as a DoS payload
 
 // Expand entity references in the body. Returns leaked content + what it touched.
 function processXml(xml) {
-  const doctype = hasDoctype(xml);
-  const { internalSubset, externalDtd } = getDoctype(xml);
+  const { hasDoctype: doctype, internalSubset, body: rawBody } = extractDoctype(xml);
   const entities = parseEntities(internalSubset);
-  const body = xml
-    .replace(/<\?xml[\s\S]*?\?>/i, "")
-    .replace(/<!DOCTYPE[\s\S]*?\]\s*>/i, "")
-    .replace(/<!DOCTYPE[\s\S]*?>/i, "")
-    .trim();
+  const body = rawBody.replace(/<\?xml[\s\S]*?\?>/i, "").trim();
 
   const refs = [...body.matchAll(/&([A-Za-z_][\w.-]*);/g)].map((m) => m[1]);
 
-  // Billion-laughs check (analytical, no expansion performed).
+  // Billion-laughs check (analytical, no expansion performed). A cyclic entity
+  // projects to Infinity, so self/mutual references are caught here too.
   const memo = {};
   let projected = 0;
   for (const r of refs) projected += expansionSize(r, entities, memo, 0);
@@ -92,15 +111,19 @@ function processXml(xml) {
     return { doctype, entities, dos: true, projected, external: [], body };
   }
 
-  // Bounded expansion (safe — projected size is under the limit).
+  // Bounded expansion. The analytical check above is the primary guard; this
+  // loop additionally caps total output size and total substitutions so a
+  // payload it under-counts (e.g. a deep entity chain) can never hang it.
   const external = [];
   let out = body;
-  for (let i = 0; i < 60; i++) {
+  let work = 0;
+  for (let i = 0; i < 80; i++) {
     let changed = false;
     out = out.replace(/&([A-Za-z_][\w.-]*);/g, (whole, n) => {
       const e = entities[n];
       if (!e) return whole;
       changed = true;
+      work++;
       if (e.type === "external") {
         external.push(e.uri);
         return fetchResource(e.uri);
@@ -108,8 +131,11 @@ function processXml(xml) {
       return e.value;
     });
     if (!changed) break;
+    if (out.length > EXPANSION_LIMIT || work > EXPANSION_LIMIT) {
+      return { doctype, entities, dos: true, projected: Math.max(out.length, work), external: [...new Set(external)], body };
+    }
   }
-  return { doctype, entities, dos: false, external: [...new Set(external)], expanded: out, body, externalDtd };
+  return { doctype, entities, dos: false, external: [...new Set(external)], expanded: out, body };
 }
 
 function entityList(entities) {
@@ -286,16 +312,18 @@ app.post("/import", (req, res) => {
       ];
 
       if (r.dos) {
-        const mb = Math.round(r.projected / 1_000_000);
-        steps.push({ label: "Expansion analysis", value: `recursive entities expand to ~${mb.toLocaleString()} MB before any output`, flag: "bad" });
-        steps.push({ label: "Result", value: "parser allocates until memory is exhausted — denial of service", flag: "bad" });
+        const size = Number.isFinite(r.projected)
+          ? `~${Math.round(r.projected / 1_000_000).toLocaleString()} MB`
+          : "an unbounded amount";
+        steps.push({ label: "Expansion analysis", value: `nested / cyclic entities expand to ${size} — refused before building it`, flag: "bad" });
+        steps.push({ label: "Result", value: "a real parser allocates until memory is exhausted — denial of service", flag: "bad" });
         return {
           verdict: "exploited",
           steps,
           note:
-            "Billion Laughs: a handful of nested entities expand exponentially (here ~" + mb +
-            " MB) and exhaust the server's memory. The fix here didn't expand it — it computed " +
-            "the size and refused.",
+            "Entity-expansion DoS (billion laughs): a few nested or self-referencing entities expand to " +
+            size + ", exhausting the server's memory. This sandbox detected the blow-up analytically and " +
+            "refused to expand it.",
         };
       }
 
@@ -303,10 +331,15 @@ app.post("/import", (req, res) => {
         steps.push({ label: "External resources fetched", value: r.external.join("\n"), flag: "bad" });
         steps.push({ label: "Parsed <name> (entity expanded)", value: r.expanded, flag: "bad" });
         const isSsrf = r.external.some((u) => u.startsWith("http"));
+        const retrieved = !/\(could not retrieve /.test(r.expanded);
         return {
           verdict: "exploited",
           steps,
-          note: isSsrf
+          note: !retrieved
+            ? "XXE confirmed: the parser made an outbound request for the SYSTEM entity (the access " +
+              "attempt itself is the vulnerability). This particular target isn't present in the " +
+              "sandbox, but a real file or internal URL would be fetched and echoed back."
+            : isSsrf
             ? "XXE became SSRF: the parser fetched an internal URL and handed back the response — " +
               "here, live cloud credentials. The same entity could read local files instead."
             : "XXE file disclosure: the parser read a file off the server's disk and substituted its " +

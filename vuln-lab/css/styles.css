@@ -310,6 +310,7 @@ a:hover { text-decoration: underline; }
   padding: 9px 18px;
   border-radius: 8px;
   cursor: pointer;
+  align-self: flex-start; /* don't stretch to a tall textarea's height */
 }
 .run-btn:hover { background: var(--accent); }
 

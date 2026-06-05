@@ -178,7 +178,8 @@ export function sandboxPanel(sandbox) {
   panel.querySelector(".run-btn").addEventListener("click", run);
   input.addEventListener("keydown", (e) => {
     // Plain input: Enter runs. Textarea: Enter inserts a newline, Ctrl/Cmd+Enter runs.
-    if (e.key === "Enter" && (!sandbox.multiline || e.ctrlKey || e.metaKey)) {
+    // Skip while an IME composition is active so Enter can commit candidates.
+    if (e.key === "Enter" && !e.isComposing && (!sandbox.multiline || e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       run();
     }
