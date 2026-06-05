@@ -22,6 +22,7 @@ Monorepo of web apps and static sites built in this workspace. Each folder is an
 | `atlases-truth-table/` | Truth table generator lab |
 | `build-your-own-x/` | Build-your-own-X reference |
 | `swe-academy/` | SWE Academy landing |
+| `vuln-lab/` | Vuln Lab — interactive client-side security-bug learning sandboxes |
 | `openart/` | OpenArt gallery |
 | `fl-bankruptcy/` | Florida bankruptcy lookup |
 | `counties/` | County data browser |
