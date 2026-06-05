@@ -21,7 +21,7 @@ const FS = {
   "/home/app/.ssh/id_rsa": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAA…(snip)…\n-----END OPENSSH PRIVATE KEY-----",
 };
 
-// ---- A tiny POSIX path resolver (mirrors Node's path.join + normalize) ------
+// ---- A tiny POSIX path resolver (mirrors Node's path.resolve + normalize) ----
 
 function normalizePosix(p) {
   const isAbsolute = p.startsWith("/");
@@ -39,10 +39,16 @@ function normalizePosix(p) {
   return (isAbsolute ? "/" : "") + out.join("/");
 }
 
-// What `path.join(base, userInput)` effectively does: concatenate, then
-// collapse "." and ".." segments.
-function joinPosix(base, input) {
-  return normalizePosix(base + "/" + input);
+// What `path.resolve(base, userInput)` does: if userInput is itself absolute
+// (starts with "/") it becomes the new root and `base` is discarded; otherwise
+// it's appended to base. Either way, "." and ".." are then collapsed. This is
+// why path.resolve can be escaped by BOTH "../../.." AND a leading-slash
+// absolute path — which is exactly what the patched code below must defend
+// against. (path.join, by contrast, would keep an absolute second arg inside
+// base; relying on that quirk is fragile, so the lesson uses resolve.)
+function resolvePosix(base, input) {
+  const combined = input.startsWith("/") ? input : base + "/" + input;
+  return normalizePosix(combined);
 }
 
 function isInside(base, resolved) {
@@ -53,7 +59,7 @@ function isInside(base, resolved) {
 
 // VULNERABLE: trusts the user-supplied name and reads whatever it resolves to.
 function serveFileVulnerable(input) {
-  const resolved = joinPosix(BASE, input);
+  const resolved = resolvePosix(BASE, input);
   const escaped = !isInside(BASE, resolved);
   const exists = resolved in FS;
   return { resolved, escaped, exists, blocked: false };
@@ -61,7 +67,7 @@ function serveFileVulnerable(input) {
 
 // PATCHED: resolve first, then verify the result is still inside BASE.
 function serveFilePatched(input) {
-  const resolved = joinPosix(BASE, input);
+  const resolved = resolvePosix(BASE, input);
   const escaped = !isInside(BASE, resolved);
   if (escaped) return { resolved, escaped, exists: false, blocked: true };
   const exists = resolved in FS;
@@ -97,6 +103,15 @@ export default {
     overwriting a config or planting a script that later runs.</p>
     <p>The root cause in both cases: the path is resolved <em>after</em> the
     decision to trust it, instead of <em>before</em>.</p>
+    <p><strong>Why no path function saves you.</strong> Two escapes exist:
+    relative (<code>../../etc/passwd</code>) and absolute
+    (<code>/etc/passwd</code>). <code>path.resolve(base, input)</code> is
+    vulnerable to <em>both</em> — an absolute <code>input</code> discards
+    <code>base</code> entirely and re-roots at <code>/</code>.
+    <code>path.join</code> happens to contain a leading-slash absolute name, but
+    is still escaped by <code>../</code>. So you can't pick a "safe" join
+    function — you must resolve, then explicitly verify the result is still
+    inside the base directory.</p>
   `,
 
   vulnerable: {
@@ -105,16 +120,17 @@ export default {
     code: `const BASE = "/srv/app/uploads";
 
 app.get("/download", (req, res) => {
-  // ❌ user-controlled name is joined straight onto the base path
-  const filePath = path.join(BASE, req.query.name);
-  // path.join collapses "../" segments, so the result can escape BASE
+  // ❌ user-controlled name is resolved straight against the base path
+  const filePath = path.resolve(BASE, req.query.name);
+  // "../../etc/passwd" walks out; "/etc/passwd" (absolute) re-roots entirely.
+  // Either way path.resolve can land OUTSIDE BASE — and we never check.
   res.sendFile(filePath);            // serves whatever it resolved to
 });
 
 // Zip Slip — same mistake during extraction:
 for (const entry of zip.entries) {
-  const dest = path.join(targetDir, entry.name);  // ❌ entry.name is attacker data
-  fs.writeFileSync(dest, entry.data);              // can write outside targetDir
+  const dest = path.resolve(targetDir, entry.name); // ❌ entry.name is attacker data
+  fs.writeFileSync(dest, entry.data);               // can WRITE outside targetDir
 }`,
   },
 
@@ -164,9 +180,10 @@ app.get("/download", (req, res) => {
     presets: [
       { label: "avatar.png (legit)", value: "avatar.png" },
       { label: "../ .env (secrets)", value: "../.env" },
-      { label: "escape to /etc/passwd", value: "../../../../etc/passwd" },
+      { label: "relative → /etc/passwd", value: "../../../../etc/passwd" },
+      { label: "absolute → /etc/passwd", value: "/etc/passwd" },
       { label: "steal SSH key", value: "../../../home/app/.ssh/id_rsa" },
-      { label: "Zip Slip entry", value: "../../../../etc/passwd" },
+      { label: "Zip Slip: plant /etc/cron.d/evil", value: "../../../../etc/cron.d/evil" },
     ],
 
     run(input, { patched }) {
@@ -175,7 +192,7 @@ app.get("/download", (req, res) => {
       const steps = [
         { label: "Sandbox base dir", value: BASE },
         { label: "Attacker input", value: input || "(empty)" },
-        { label: "path.join(base, input)", value: r.resolved },
+        { label: "path.resolve(base, input)", value: r.resolved },
         {
           label: "Resolved path inside base?",
           value: r.escaped ? "NO — escaped the sandbox" : "yes",
@@ -202,8 +219,11 @@ app.get("/download", (req, res) => {
           verdict: r.escaped ? "exploited" : "safe",
           steps,
           note: r.escaped
-            ? "The path escaped the sandbox; this exact technique reaches real files " +
-              "that happen to exist on a target server, even though this demo path is empty."
+            ? "The access-control boundary was breached: the resolved path is OUTSIDE the " +
+              "base directory. There's no demo file there, so this read 404s — but the escape " +
+              "is the vulnerability. A real file at that path would be leaked, and the exact " +
+              "same escaped path in an archive extractor (Zip Slip) is where the attacker's " +
+              "entry gets WRITTEN — planting or overwriting a file on the server."
             : "No such file in the upload directory — but the request stayed safely inside it.",
         };
       }

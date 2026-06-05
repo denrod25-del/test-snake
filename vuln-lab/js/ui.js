@@ -54,15 +54,18 @@ export function codeBlock(code, { lang = "", label = "", variant = "" } = {}) {
  *   demo (optional) = { type:'iframe', srcdoc, label }
  */
 export function renderResult(result) {
+  // Default for a malformed result (a module's run() that omits verdict) so the
+  // badge never renders the literal string "undefined".
+  const verdict = result.verdict || "exploited";
   const verdictLabel = {
     exploited: "⚠️  Exploited — the attack succeeded",
     blocked: "✓  Blocked — the attack was stopped",
     safe: "✓  Safe — input handled correctly",
-  }[result.verdict] || result.verdict;
+  }[verdict] || verdict;
 
   const box = el(`<div class="result"></div>`);
   box.appendChild(
-    el(`<span class="verdict ${escapeHtml(result.verdict)}">${escapeHtml(verdictLabel)}</span>`)
+    el(`<span class="verdict ${escapeHtml(verdict)}">${escapeHtml(verdictLabel)}</span>`)
   );
 
   if (Array.isArray(result.steps) && result.steps.length) {
@@ -70,8 +73,8 @@ export function renderResult(result) {
     for (const step of result.steps) {
       const flagClass = step.flag === "bad" ? "flag-bad" : step.flag === "good" ? "flag-good" : "";
       const row = el(`<div class="trace-row"><div class="k"></div><div class="v ${flagClass}"></div></div>`);
-      row.querySelector(".k").textContent = step.label;
-      row.querySelector(".v").textContent = step.value;
+      row.querySelector(".k").textContent = step.label ?? "";
+      row.querySelector(".v").textContent = step.value ?? "";
       trace.appendChild(row);
     }
     box.appendChild(trace);
@@ -149,7 +152,10 @@ export function sandboxPanel(sandbox) {
     patched = toPatched;
     vulnBtn.classList.toggle("on", !patched);
     safeBtn.classList.toggle("on", patched);
-    if (input.value) run(); // re-run the same input through the other mode
+    // Re-run so the result always reflects the active mode. If a result was
+    // already shown, re-run it through the other mode; otherwise clear any
+    // stale result so it can't contradict the toggle.
+    if (resultHost.childElementCount) run();
   }
   vulnBtn.addEventListener("click", () => setMode(false));
   safeBtn.addEventListener("click", () => setMode(true));

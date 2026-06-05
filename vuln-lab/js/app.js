@@ -14,7 +14,12 @@ let byId = new Map();
 
 function currentId() {
   const m = location.hash.match(/^#\/(.+)$/);
-  return m ? decodeURIComponent(m[1]) : null;
+  if (!m) return null;
+  try {
+    return decodeURIComponent(m[1]);
+  } catch {
+    return null; // malformed percent-escape (e.g. "#/%") → fall back to home
+  }
 }
 
 /* ---------- Sidebar ---------- */
