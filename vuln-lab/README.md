@@ -108,7 +108,8 @@ XSS can genuinely fire while staying jailed.
 - ✅ #3 Cross-Site Scripting (XSS) — live sandboxed-iframe demo
 - ✅ #4 OS Command Injection — mock shell (operators, substitution)
 - ✅ #5 Server-Side Request Forgery (SSRF) — mock network (DNS + IP zones)
-- ⬜ XXE, Insecure Deserialization, CSRF, Open Redirect, ReDoS
+- ✅ #6 XML External Entity (XXE) — mock XML/DTD engine (multiline input)
+- ⬜ Insecure Deserialization, CSRF, Open Redirect, ReDoS
 
 ## Disclaimer
 

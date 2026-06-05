@@ -288,7 +288,8 @@ a:hover { text-decoration: underline; }
 
 .sandbox label.field-label { font-size: 13px; color: var(--text-dim); display: block; margin-bottom: 6px; }
 .sandbox .input-row { display: flex; gap: 8px; }
-.sandbox input.payload {
+.sandbox input.payload,
+.sandbox textarea.payload {
   flex: 1;
   font-family: var(--mono);
   font-size: 13px;
@@ -298,7 +299,9 @@ a:hover { text-decoration: underline; }
   border-radius: 8px;
   color: var(--text);
 }
-.sandbox input.payload:focus { outline: 2px solid var(--accent-dim); border-color: var(--accent); }
+.sandbox textarea.payload { resize: vertical; line-height: 1.45; white-space: pre; }
+.sandbox input.payload:focus,
+.sandbox textarea.payload:focus { outline: 2px solid var(--accent-dim); border-color: var(--accent); }
 .run-btn {
   background: var(--accent-dim);
   border: 0;

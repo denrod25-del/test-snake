@@ -120,7 +120,11 @@ export function sandboxPanel(sandbox) {
       </div>
       <label class="field-label" for="payload-input"></label>
       <div class="input-row">
-        <input id="payload-input" class="payload" type="text" autocomplete="off" spellcheck="false" />
+        ${
+          sandbox.multiline
+            ? '<textarea id="payload-input" class="payload" rows="8" autocomplete="off" spellcheck="false"></textarea>'
+            : '<input id="payload-input" class="payload" type="text" autocomplete="off" spellcheck="false" />'
+        }
         <button type="button" class="run-btn">Run ▸</button>
       </div>
       <div class="presets"></div>
@@ -173,7 +177,11 @@ export function sandboxPanel(sandbox) {
   }
   panel.querySelector(".run-btn").addEventListener("click", run);
   input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") run();
+    // Plain input: Enter runs. Textarea: Enter inserts a newline, Ctrl/Cmd+Enter runs.
+    if (e.key === "Enter" && (!sandbox.multiline || e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      run();
+    }
   });
 
   return panel;
