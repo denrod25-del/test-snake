@@ -26,44 +26,56 @@ function pingOutput(host) {
   );
 }
 
-// One mock command. Returns its stdout as a string.
+// One mock command. Returns { stdout, code } where code is the exit status
+// (0 = success), so the shell can model && / || short-circuiting.
 function execOne(argv) {
   const cmd = argv[0];
   const args = argv.slice(1);
+  const ok = (stdout) => ({ stdout, code: 0 });
   switch (cmd) {
     case "ping": {
       // host is the token after "-c <count>", or the last arg if no -c flag
       const ci = args.indexOf("-c");
       const host = (ci >= 0 ? args[ci + 2] : args[args.length - 1]) || "";
-      return pingOutput(host);
+      // A real ping exits non-zero when given no/garbage host — this matters for &&/||
+      return host ? { stdout: pingOutput(host), code: 0 } : { stdout: "ping: usage error: Destination address required", code: 2 };
     }
-    case "cat":
-      return args.map((f) => FS[f] ?? `cat: ${f}: No such file or directory`).join("\n");
+    case "cat": {
+      let code = 0;
+      const stdout = args
+        .map((f) => (f in FS ? FS[f] : ((code = 1), `cat: ${f}: No such file or directory`)))
+        .join("\n");
+      return { stdout, code };
+    }
     case "id":
-      return "uid=33(www-data) gid=33(www-data) groups=33(www-data)";
+      return ok("uid=33(www-data) gid=33(www-data) groups=33(www-data)");
     case "whoami":
-      return "www-data";
+      return ok("www-data");
     case "hostname":
-      return "web-prod-01";
+      return ok("web-prod-01");
     case "uname":
-      return "Linux web-prod-01 5.15.0-generic x86_64 GNU/Linux";
+      return ok("Linux web-prod-01 5.15.0-generic x86_64 GNU/Linux");
     case "ls":
-      return "app.js  node_modules  package.json  uploads";
+      return ok("app.js  node_modules  package.json  uploads");
     case "env":
-      return "PATH=/usr/local/bin:/usr/bin\nDB_PASSWORD=hunter2\nAWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG";
+      return ok("PATH=/usr/local/bin:/usr/bin\nDB_PASSWORD=hunter2\nAWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG");
     case "echo":
-      return args.join(" ");
+      return ok(args.join(" "));
     case "curl":
     case "wget":
-      return `(connected to ${args[args.length - 1] || "host"} — exfiltrating to attacker-controlled server)`;
-    case "rm":
-      return ""; // rm is silent on success — that's what makes it scary
+      return ok(`(connected to ${args[args.length - 1] || "host"} — exfiltrating to attacker-controlled server)`);
+    case "rm": {
+      // Real rm is silent on success; we synthesize a line so the demo's most
+      // destructive payload doesn't read as a harmless no-op.
+      const target = args.filter((a) => !a.startsWith("-")).pop() || "/";
+      return ok(`rm: '${target}' and everything under it permanently deleted (recursive, no confirmation, no recovery)`);
+    }
     case "nc":
     case "bash":
     case "sh":
-      return "(reverse shell established)";
+      return ok("(reverse shell established to attacker host)");
     default:
-      return `${cmd}: command not found`;
+      return { stdout: `${cmd}: command not found`, code: 127 };
   }
 }
 
@@ -93,50 +105,72 @@ function parseArgv(s) {
   return argv;
 }
 
-// Split a command line into commands on top-level ; && || | (respecting quotes).
+// Split a command line into commands on top-level separators, returning each
+// command with the operator that PRECEDES it. Separators: ; newline (both run
+// unconditionally), && (run if previous succeeded), || (run if previous
+// failed), & (background — next runs immediately), | (pipe). Quotes respected.
 function splitTopLevel(s) {
   const out = [];
-  let cur = "", quote = null;
+  let cur = "", quote = null, op = "";
+  const flush = (nextOp) => {
+    const cmd = cur.trim();
+    if (cmd) out.push({ op, cmd });
+    op = nextOp;
+    cur = "";
+  };
   for (let i = 0; i < s.length; i++) {
     const ch = s[i];
     if (quote) { cur += ch; if (ch === quote) quote = null; continue; }
     if (ch === "'" || ch === '"') { quote = ch; cur += ch; continue; }
-    if (ch === ";") { out.push(cur); cur = ""; continue; }
-    if ((ch === "&" && s[i + 1] === "&") || (ch === "|" && s[i + 1] === "|")) { out.push(cur); cur = ""; i++; continue; }
-    if (ch === "|") { out.push(cur); cur = ""; continue; }
+    if (ch === ";" || ch === "\n" || ch === "\r") { flush(";"); continue; }
+    if (ch === "&" && s[i + 1] === "&") { flush("&&"); i++; continue; }
+    if (ch === "|" && s[i + 1] === "|") { flush("||"); i++; continue; }
+    if (ch === "&") { flush("&"); continue; } // background → following command runs
+    if (ch === "|") { flush("|"); continue; }
     cur += ch;
   }
-  out.push(cur);
-  return out.map((c) => c.trim()).filter(Boolean);
+  flush("");
+  return out;
 }
 
 // Run one command line (used at top level and inside $()/``). Records every
-// command name it executes into `run.commands`. Returns combined stdout.
+// command it actually executes into `run.commands`, honoring && / || short-
+// circuiting via exit codes. Returns combined stdout.
 function runLine(line, run, joinWith) {
   const resolved = resolveSubstitutions(line, run);
   const segs = splitTopLevel(resolved);
   const outs = [];
+  let lastCode = 0;
   for (const seg of segs) {
-    const argv = parseArgv(seg);
+    if (seg.op === "&&" && lastCode !== 0) continue; // previous failed → skip
+    if (seg.op === "||" && lastCode === 0) continue; // previous succeeded → skip
+    const argv = parseArgv(seg.cmd);
     if (!argv.length) continue;
     run.commands.push(argv[0]);
-    outs.push(execOne(argv));
+    const { stdout, code } = execOne(argv);
+    lastCode = code;
+    outs.push(stdout);
   }
   return { resolved, output: outs.join(joinWith) };
 }
 
 // Replace $(...) and `...` with the (whitespace-collapsed) stdout of running
-// the inner command line — exactly what a shell does before executing.
+// the inner command line — exactly what a shell does before executing. The
+// regexes are GLOBAL so every substitution at one nesting level resolves in a
+// single pass (the outer do/while only re-runs to peel nested layers), keeping
+// this linear instead of O(n^2) on inputs with many substitutions. The depth
+// guard is belt-and-suspenders against pathological nesting.
 function resolveSubstitutions(s, run) {
-  let prev;
+  let prev, depth = 0;
   do {
     prev = s;
-    s = s.replace(/\$\(([^()]*)\)/, (_, inner) => runLine(inner, run, " ").output.replace(/\s+/g, " ").trim());
-  } while (s !== prev);
+    s = s.replace(/\$\(([^()]*)\)/g, (_, inner) => runLine(inner, run, " ").output.replace(/\s+/g, " ").trim());
+  } while (s !== prev && ++depth < 100);
+  depth = 0;
   do {
     prev = s;
-    s = s.replace(/`([^`]*)`/, (_, inner) => runLine(inner, run, " ").output.replace(/\s+/g, " ").trim());
-  } while (s !== prev);
+    s = s.replace(/`([^`]*)`/g, (_, inner) => runLine(inner, run, " ").output.replace(/\s+/g, " ").trim());
+  } while (s !== prev && ++depth < 100);
   return s;
 }
 
@@ -159,7 +193,7 @@ function pingPatched(input) {
     return { rejected: true };
   }
   // execFile("ping", ["-c","1", input]) — input is ONE argument, no shell parses it.
-  return { rejected: false, output: execOne(["ping", "-c", "1", input]) };
+  return { rejected: false, output: execOne(["ping", "-c", "1", input]).stdout };
 }
 
 // ---- Module definition ------------------------------------------------------
@@ -261,7 +295,23 @@ app.get("/ping", (req, res) => {
     ],
 
     run(input, { patched }) {
-      input = typeof input === "string" ? input : String(input);
+      // Coerce defensively; String() can throw only for an object with a hostile
+      // toString (never produced by the text-input UI) — treat that as empty.
+      try {
+        input = typeof input === "string" ? input : String(input);
+      } catch {
+        input = "";
+      }
+
+      // Empty input runs nothing — keep both modes consistent (don't report the
+      // patched side as a "blocked attack" when there's no input at all).
+      if (!input.trim()) {
+        return {
+          verdict: "safe",
+          steps: [{ label: "Your input", value: "(empty)" }],
+          note: "Nothing entered — no command is run.",
+        };
+      }
 
       if (patched) {
         const p = pingPatched(input);
