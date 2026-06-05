@@ -50,15 +50,26 @@ function buildFrame(input, patched) {
 }
 
 // ---- Static classification of the payload (for the trace) -------------------
+// Mirrors what the browser actually does when the input is assigned to
+// innerHTML, so the trace never contradicts the live frame:
+//   - a "<" is only a tag when followed by a letter, "!", "?", or "/"
+//     (so "5 > 3" or "a < b" is plain text, not injected markup);
+//   - of the inline handlers, onerror reliably FIRES via innerHTML (a broken
+//     <img>/<video> dispatches error synchronously-ish), whereas onload /
+//     <script> do NOT run when parsed from innerHTML — they only fire when a
+//     server reflects them into the document at page-load time;
+//   - a javascript: URI executes when the injected link is clicked.
 function classify(input) {
-  const hasMarkup = /[<>]/.test(input);
-  const eventHandler = /\bon\w+\s*=/i.test(input); // onerror=, onload=, ...
+  const TAG = /<[a-zA-Z!/?]/;
+  const hasTag = TAG.test(input);
+  const autoFires = /\bonerror\s*=/i.test(input); // fires on innerHTML insertion
+  const handler = /\bon\w+\s*=/i.test(input); // any inline event handler
+  const jsUri = /javascript:/i.test(input); // runs on click/navigation
   const scriptTag = /<script\b/i.test(input);
-  const jsUri = /javascript:/i.test(input);
-  // Inserted via innerHTML, event-handler attributes fire immediately, but a
-  // bare <script> element does NOT execute. That distinction is the lesson.
-  const willExecute = eventHandler;
-  return { hasMarkup, eventHandler, scriptTag, jsUri, willExecute };
+  // Markup other than a <script> element (i.e. something that actually renders
+  // or carries a vector) — used to tell "defacement" from an inert <script>.
+  const otherMarkup = TAG.test(input.replace(/<\/?script\b[^>]*>/gi, ""));
+  return { hasTag, autoFires, handler, jsUri, scriptTag, otherMarkup };
 }
 
 // ---- Module definition ------------------------------------------------------
@@ -78,19 +89,24 @@ export default {
     JavaScript</strong> instead of plain text. The browser can't tell that the
     comment, username, or URL parameter was supposed to be <em>data</em> — if it
     looks like markup, it gets parsed like markup.</p>
-    <p>The instant a value containing <code>&lt;img src=x onerror=…&gt;</code> or
-    <code>&lt;svg onload=…&gt;</code> reaches a sink like
-    <code>element.innerHTML</code> or an unescaped server template, the attacker's
-    JavaScript runs <strong>in the victim's session, on your origin</strong>. From
-    there it can read cookies and tokens, make authenticated requests as the user,
-    keylog, or rewrite the page (fake logins).</p>
+    <p>The instant a value containing <code>&lt;img src=x onerror=…&gt;</code>
+    reaches a sink like <code>element.innerHTML</code> (or an unescaped server
+    template emits <code>&lt;svg onload=…&gt;</code> into the page), the
+    attacker's JavaScript runs <strong>in the victim's session, on your
+    origin</strong>. From there it can read cookies and tokens, make
+    authenticated requests as the user, keylog, or rewrite the page (fake
+    logins).</p>
     <p>It comes in three flavors: <strong>reflected</strong> (payload echoed from
     the request), <strong>stored</strong> (payload saved and served to others —
     the worst), and <strong>DOM-based</strong> (client-side JS feeds input into a
-    sink). One nuance worth knowing: a bare <code>&lt;script&gt;</code> inserted
-    via <code>innerHTML</code> does <em>not</em> run — but event-handler vectors
-    like <code>onerror</code>/<code>onload</code> do, which is why blocklisting
-    "script" is never enough.</p>
+    sink). One nuance worth knowing: how a payload fires depends on the sink. A
+    bare <code>&lt;script&gt;</code> — and handlers like
+    <code>&lt;svg onload&gt;</code> — execute when a <em>server</em> reflects
+    them into the page and the HTML parser runs at load time, but do
+    <em>not</em> run when assigned through <code>innerHTML</code>. An
+    <code>&lt;img src=x onerror&gt;</code>, by contrast, fires even via
+    <code>innerHTML</code> — which is why blocklisting the word "script" is
+    never enough.</p>
   `,
 
   vulnerable: {
@@ -151,8 +167,8 @@ app.get("/guestbook", (req, res) => {
     presets: [
       { label: "benign comment", value: "Hello! 😀" },
       { label: "HTML injection: <b>", value: "<b>injected markup</b>" },
-      { label: "fire via onerror", value: "<img src=x onerror=\"out.innerHTML='💥 XSS executed'\">" },
-      { label: "fire via <svg onload>", value: "<svg onload=\"out.innerHTML='💥 svg onload fired'\">" },
+      { label: "auto-fire via onerror", value: "<img src=x onerror=\"out.innerHTML='💥 XSS executed'\">" },
+      { label: "click vector (javascript:)", value: "<a href=\"javascript:out.innerHTML='💥 clicked: code ran'\">click me</a>" },
       { label: "steal session token", value: "<img src=x onerror=\"out.innerHTML='💀 stole token: '+window.SESSION\">" },
       { label: "<script> (won't run via innerHTML)", value: "<script>out.innerHTML='ran'</script>" },
     ],
@@ -161,25 +177,48 @@ app.get("/guestbook", (req, res) => {
       input = typeof input === "string" ? input : String(input);
       const c = classify(input);
 
+      // Classify what the vulnerable (innerHTML) sink would actually do, so the
+      // verdict and the live frame always agree:
+      //   executes  → code runs (now, or on click)        → exploited
+      //   defaced   → visible HTML injected, no code       → exploited
+      //   inert     → only a <script>, which innerHTML won't run, nothing shown
+      //   (no tag)  → plain text                           → safe
+      const executes = c.autoFires || c.handler || c.jsUri;
+      const defaced = c.otherMarkup && !c.autoFires && !c.handler && !c.jsUri;
+      const vulnVerdict = !c.hasTag ? "safe" : executes || defaced ? "exploited" : "inert";
+
       const sinkStep = patched
         ? { label: "Sink", value: "out.textContent = input", flag: "good" }
         : { label: "Sink", value: "out.innerHTML = input", flag: "bad" };
 
       const parsedStep = patched
         ? { label: "Browser parses input as", value: "text — markup is shown literally, not interpreted" }
-        : { label: "Browser parses input as", value: "HTML — any markup is parsed and rendered", flag: c.hasMarkup ? "bad" : undefined };
+        : { label: "Browser parses input as", value: "HTML — markup is parsed and rendered", flag: c.hasTag ? "bad" : undefined };
+
+      const vectorValue = !c.hasTag
+        ? "none — plain text"
+        : c.autoFires
+        ? "yes — onerror handler runs JavaScript on render (broken image)"
+        : c.jsUri
+        ? "javascript: URI — runs JavaScript when the link is clicked"
+        : c.handler
+        ? "inline event handler — runs JavaScript on user interaction (e.g. click)"
+        : c.scriptTag && !c.otherMarkup
+        ? "<script> only — injected, but innerHTML does NOT execute it"
+        : "HTML injected (renders, but no script vector)";
 
       const vectorStep = {
         label: "Active vector",
-        value: !c.hasMarkup
-          ? "none — plain text"
-          : c.willExecute
-          ? "yes — event handler (on…=) runs JavaScript"
-          : c.scriptTag
-          ? "<script> present (note: innerHTML won't execute it) + HTML injected"
-          : "HTML injected (no script vector)",
-        flag: patched ? "good" : c.hasMarkup ? "bad" : undefined,
+        value: vectorValue,
+        flag: patched ? "good" : c.hasTag ? "bad" : undefined,
       };
+
+      const steps = [
+        { label: "Your input", value: input || "(empty)" },
+        sinkStep,
+        parsedStep,
+        vectorStep,
+      ];
 
       const demo = {
         type: "iframe",
@@ -189,48 +228,38 @@ app.get("/guestbook", (req, res) => {
 
       if (patched) {
         return {
-          verdict: c.hasMarkup ? "blocked" : "safe",
-          steps: [
-            { label: "Your input", value: input || "(empty)" },
-            sinkStep,
-            parsedStep,
-            vectorStep,
-          ],
+          verdict: c.hasTag ? "blocked" : "safe",
+          steps,
           demo,
-          note: c.hasMarkup
-            ? "Same payload, inert: textContent renders the markup as literal characters, " +
-              "so the browser never parses or executes it. Look at the frame — the tags " +
-              "appear as visible text, not as a fired payload."
+          note: c.hasTag
+            ? "Same payload, neutralized: textContent stores the value as a literal text " +
+              "node — the browser never parses it as markup, so there is nothing to escape " +
+              "and nothing runs. Look at the frame: the tags appear as visible text."
             : "Plain text with no markup — rendered safely either way.",
-          // (textContent path: the value is escaped before it ever becomes markup.)
         };
       }
 
-      const note = !c.hasMarkup
+      const note = !c.hasTag
         ? "Plain text, no markup — nothing was injected this time. But the same sink " +
           "(innerHTML) will parse any markup you give it; try a payload preset."
-        : c.willExecute
-        ? "JavaScript executed inside the page — see the frame. Against a real victim this " +
-          "runs on your origin in their session: reading cookies/tokens, acting as them, or " +
-          "defacing the page. (Here it's jailed to the sandboxed iframe.)"
-        : c.scriptTag
-        ? "The markup was injected, but a <script> element added via innerHTML does NOT run — " +
-          "this is why blocklisting the word 'script' fails. Switch to an onerror/onload vector " +
-          "to see code actually execute."
+        : c.autoFires
+        ? "JavaScript executed inside the page on render — see the frame. Against a real " +
+          "victim this runs on your origin in their session: reading cookies/tokens, acting " +
+          "as them, or defacing the page. (Here it is jailed to the sandboxed iframe.)"
+        : c.jsUri || c.handler
+        ? "A working vector was injected — it runs when the victim interacts (clicking the " +
+          "link / element). Click it in the frame to fire it. Same impact as an auto-firing " +
+          "payload, just one interaction away."
+        : c.scriptTag && !c.otherMarkup
+        ? "The <script> was injected into the DOM, but a <script> added via innerHTML does " +
+          "NOT execute — which is exactly why blocklisting the word 'script' is useless. The " +
+          "sink is still vulnerable; switch to the onerror preset to see code actually run. " +
+          "(<script> and <svg onload> only fire when a server reflects them into the page " +
+          "at parse time, not through this innerHTML sink.)"
         : "Arbitrary HTML was injected into the page (defacement, fake login forms, phishing) — " +
-          "this is XSS even without a <script> tag.";
+          "this is XSS even without code execution.";
 
-      return {
-        verdict: c.hasMarkup ? "exploited" : "safe",
-        steps: [
-          { label: "Your input", value: input || "(empty)" },
-          sinkStep,
-          parsedStep,
-          vectorStep,
-        ],
-        demo,
-        note,
-      };
+      return { verdict: vulnVerdict, steps, demo, note };
     },
   },
 

@@ -61,6 +61,7 @@ export function renderResult(result) {
     exploited: "⚠️  Exploited — the attack succeeded",
     blocked: "✓  Blocked — the attack was stopped",
     safe: "✓  Safe — input handled correctly",
+    inert: "◐  Inert — markup was injected, but nothing executed",
   }[verdict] || verdict;
 
   const box = el(`<div class="result"></div>`);
