@@ -17,7 +17,7 @@
  */
 import { createWriteStream } from "node:fs";
 import { mkdir, stat, rename, rm } from "node:fs/promises";
-import { dirname, join, basename } from "node:path";
+import { dirname, join, basename, resolve, sep } from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { homedir } from "node:os";
@@ -169,6 +169,21 @@ function relPath(rootUrl, fileUrl) {
 }
 
 /**
+ * Guard against directory traversal. A crafted listing can encode separators
+ * or dot-segments (e.g. `%2e%2e%2f` → `../`) that survive `new URL()` but are
+ * decoded by relPath(); without this check `join(out, path)` could write
+ * outside the install directory. Reject absolute paths, Windows drives, and
+ * any `..` segment.
+ */
+function isSafeRelPath(p) {
+  if (!p) return false;
+  const norm = p.replace(/\\/g, "/");
+  if (norm.startsWith("/")) return false;
+  if (/^[a-zA-Z]:/.test(norm)) return false;
+  return norm.split("/").every((seg) => seg !== "..");
+}
+
+/**
  * Walk the listing, collecting every .pdf. When recursive, descend into
  * subdirectories (breadth-first, deduped). Returns sorted pdf entries.
  */
@@ -208,6 +223,10 @@ async function crawl(rootUrl, { recursive, retries }) {
         }
       } else if (/\.pdf$/i.test(href)) {
         const path = relPath(root, abs);
+        if (!isSafeRelPath(path)) {
+          console.error(`  ! skipping unsafe path (would escape --out): ${path}`);
+          continue;
+        }
         pdfs.push({ url: abs, path, name: basename(path) });
       }
     }
@@ -247,6 +266,13 @@ async function fileSize(path) {
  */
 async function downloadOne(pdf, opts) {
   const dest = join(opts.out, pdf.path);
+  // Defense in depth: never write outside the chosen output directory, even
+  // if a path slipped past isSafeRelPath().
+  const outRoot = resolve(opts.out);
+  const resolved = resolve(dest);
+  if (resolved !== outRoot && !resolved.startsWith(outRoot + sep)) {
+    throw new Error(`refusing to write outside output dir: ${pdf.path}`);
+  }
   await mkdir(dirname(dest), { recursive: true });
 
   const res = await fetchWithRetry(pdf.url, {}, opts.retries);
