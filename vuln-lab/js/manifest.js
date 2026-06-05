@@ -10,7 +10,7 @@
  */
 export const BUG_MODULES = [
   "../bugs/path-traversal.js",
-  // "../bugs/sql-injection.js",
+  "../bugs/sql-injection.js",
   // "../bugs/xss.js",
   // "../bugs/os-command-injection.js",
   // "../bugs/ssrf.js",

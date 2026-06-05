@@ -104,8 +104,9 @@ XSS can genuinely fire while staying jailed.
 
 - ✅ Scaffold + architecture
 - ✅ #1 Path Traversal / Zip Slip
-- ⬜ SQL Injection, XSS, OS Command Injection, SSRF, XXE, Insecure
-  Deserialization, CSRF, Open Redirect, ReDoS
+- ✅ #2 SQL Injection
+- ⬜ XSS, OS Command Injection, SSRF, XXE, Insecure Deserialization, CSRF,
+  Open Redirect, ReDoS
 
 ## Disclaimer
 
