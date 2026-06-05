@@ -107,7 +107,8 @@ XSS can genuinely fire while staying jailed.
 - ✅ #2 SQL Injection
 - ✅ #3 Cross-Site Scripting (XSS) — live sandboxed-iframe demo
 - ✅ #4 OS Command Injection — mock shell (operators, substitution)
-- ⬜ SSRF, XXE, Insecure Deserialization, CSRF, Open Redirect, ReDoS
+- ✅ #5 Server-Side Request Forgery (SSRF) — mock network (DNS + IP zones)
+- ⬜ XXE, Insecure Deserialization, CSRF, Open Redirect, ReDoS
 
 ## Disclaimer
 
