@@ -64,6 +64,8 @@ function classifyIp(ip) {
   if (a === 172 && b >= 16 && b <= 31) return "private";
   if (a === 192 && b === 168) return "private";
   if (a === 169 && b === 254) return "link-local"; // includes 169.254.169.254 metadata
+  if (a === 100 && b >= 64 && b <= 127) return "cgnat"; // 100.64.0.0/10 shared (RFC 6598)
+  if (a === 198 && (b === 18 || b === 19)) return "benchmark"; // 198.18.0.0/15
   if (a === 0) return "reserved";
   return "public";
 }
@@ -79,7 +81,7 @@ function serverResponse(scheme, ip, port, path) {
     return "ami-id\nhostname\niam/\ninstance-id\nlocal-ipv4\n(EC2 instance metadata index)";
   }
   const cls = classifyIp(ip);
-  if (cls === "loopback" || cls === "private") {
+  if (cls !== "public") {
     if (port === "6379") return "# Redis 7.0 (internal cache, no auth)\nredis_version:7.0.11\nrole:master";
     if (port === "8080" || /admin/i.test(path)) return "<h1>Internal Admin Panel</h1>\nUsers, secrets, and deploy controls — trusts requests from the internal network, no auth.";
     return `(connected to internal service at ${ip}:${port || "80"})`;
@@ -89,15 +91,22 @@ function serverResponse(scheme, ip, port, path) {
 
 // ---- URL parsing ------------------------------------------------------------
 
+// Real URL schemes we recognize. If new URL() parses something else as the
+// "scheme" (e.g. "localhost:6379" -> scheme "localhost:"), it's really a bare
+// host:port and we re-parse with an http:// prefix.
+const URL_SCHEMES = new Set(["http:", "https:", "file:", "ftp:", "gopher:", "dict:", "ws:", "wss:", "ldap:", "sftp:", "tftp:"]);
+
 function parseUrl(input) {
-  let raw = input.trim();
-  if (!raw.includes("://")) raw = "http://" + raw; // forgive "localhost:6379"
-  let u;
-  try {
-    u = new URL(raw);
-  } catch {
-    return null;
-  }
+  const raw = input.trim();
+  const tryUrl = (s) => {
+    try { return new URL(s); } catch { return null; }
+  };
+  // Parse as-is first (handles "https:/example.com", "http:example.com", real
+  // schemes). Only assume http:// when there's no recognized scheme — which
+  // also correctly handles "localhost:6379" and "example.com/x?u=http://...".
+  let u = tryUrl(raw);
+  if (!u || !URL_SCHEMES.has(u.protocol)) u = tryUrl("http://" + raw) || u;
+  if (!u) return null;
   return {
     scheme: u.protocol.replace(/:$/, ""),
     host: u.hostname.replace(/^\[|\]$/g, ""), // strip IPv6 brackets
@@ -210,10 +219,12 @@ export default {
     code: `const dns = require("dns").promises;
 const ALLOWED = new Set(["http:", "https:"]);
 
-function isBlockedIp(ip) {            // loopback / private / link-local / reserved
+function isBlockedIp(ip) {            // loopback / private / link-local / shared / reserved
   return /^(127\\.|10\\.|169\\.254\\.|0\\.)/.test(ip)
       || /^172\\.(1[6-9]|2\\d|3[01])\\./.test(ip)
       || /^192\\.168\\./.test(ip)
+      || /^100\\.(6[4-9]|[7-9]\\d|1[01]\\d|12[0-7])\\./.test(ip)  // 100.64/10 CGNAT
+      || /^198\\.1[89]\\./.test(ip)                               // 198.18/15 benchmark
       || ip === "::1";
 }
 
@@ -238,7 +249,10 @@ app.get("/fetch", async (req, res) => {
       it at an internal address and watch it pull back data it should never reach.
       Flip to <em>Patched</em> and the same URL is checked by scheme <em>and</em>
       resolved IP. Note the <code>evil.attacker.com</code> preset: a public-looking
-      hostname that resolves to the metadata IP — only the IP check stops it.</p>
+      hostname that resolves to the metadata IP — only the IP check stops it.
+      <em>(The sandbox models the scheme + resolved-IP check; the redirect
+      re-validation and IP-pinning in the fix below are described, not
+      simulated.)</em></p>
     `,
     inputLabel: "URL to fetch (the ?url= value)",
     placeholder: "e.g. https://example.com",
@@ -253,7 +267,13 @@ app.get("/fetch", async (req, res) => {
     ],
 
     run(input, { patched }) {
-      input = typeof input === "string" ? input : String(input);
+      // String() can throw only for an object with a hostile toString (never
+      // produced by the text-input UI) — treat that as empty.
+      try {
+        input = typeof input === "string" ? input : String(input);
+      } catch {
+        input = "";
+      }
 
       // Empty input fetches nothing — keep both modes consistent.
       if (!input.trim()) {
@@ -268,7 +288,7 @@ app.get("/fetch", async (req, res) => {
         const r = fetchPatched(input);
         const steps = [{ label: "Requested URL", value: input || "(empty)" }];
         if (r.u) {
-          steps.push({ label: "Scheme allow-listed (http/https)?", value: ALLOWED_SCHEMES.has(r.u.scheme) ? "yes" : `no — "${r.u.scheme}:"`, flag: "good" });
+          steps.push({ label: "Scheme allow-listed (http/https)?", value: ALLOWED_SCHEMES.has(r.u.scheme) ? "yes" : `no — "${r.u.scheme}:"`, flag: ALLOWED_SCHEMES.has(r.u.scheme) ? "good" : undefined });
           if (r.ip) {
             steps.push({ label: "DNS resolves host to", value: `${r.u.host} → ${r.ip} (${r.zone})`, flag: "good" });
           }
