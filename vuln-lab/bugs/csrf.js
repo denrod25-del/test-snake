@@ -196,7 +196,7 @@ app.post("/transfer", requireLogin, (req, res) => {
         baseSteps.push({
           label: "Token matches this session?",
           value: r.executed ? "yes" : "no — missing or wrong",
-          flag: r.executed ? "good" : "good", // both are "good" outcomes for the defender
+          flag: "good", // both outcomes are correct defender behavior
         });
         if (!r.executed) {
           baseSteps.push({ label: "Server decision", value: "403 — bad or missing CSRF token", flag: "good" });

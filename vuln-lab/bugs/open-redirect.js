@@ -11,7 +11,7 @@
  * new URL(value, base), so the famous bypasses behave correctly:
  *   //evil.com        -> protocol-relative, goes off-site
  *   /\evil.com        -> backslashes normalize to //, goes off-site
- *   https:evil.com    -> scheme with no slashes, still off-site
+ *   (tab)//evil.com   -> a leading control char is stripped, then protocol-relative -> off-site
  *   https://trusted.app.evil.com   -> suffix trick, off-site
  *   https://trusted.app@evil.com   -> userinfo trick, host is evil.com
  *   javascript:...    -> not an http(s) navigation at all
@@ -177,7 +177,8 @@ function safeNext(next) {
   if (typeof next !== "string") return SAFE_FALLBACK;
   // must be a local path: one leading slash, no scheme, no "//" or backslash
   if (!/^\\/[^/\\\\]/.test(next)) return SAFE_FALLBACK;
-  if (next.includes("\\\\") || /\\s/.test(next)) return SAFE_FALLBACK; // also reject control chars
+  if (next.includes("\\\\") || /\\s/.test(next)) return SAFE_FALLBACK;
+  if ([...next].some((c) => c.charCodeAt(0) < 0x20 || c.charCodeAt(0) === 0x7f)) return SAFE_FALLBACK; // reject control chars
   // resolve and confirm it really stays on our origin
   const u = new URL(next, APP_ORIGIN);
   return u.origin === APP_ORIGIN ? u.pathname + u.search + u.hash : SAFE_FALLBACK;
@@ -207,7 +208,7 @@ app.get("/login", (req, res) => {
       { label: "//evil.example (protocol-relative)", value: "//evil.example/login" },
       { label: "/\\evil.example (backslash)", value: "/\\evil.example/login" },
       { label: "https://evil.example (absolute)", value: "https://evil.example/login" },
-      { label: "https:evil.example (no slashes)", value: "https:evil.example" },
+      { label: "tab-smuggled //evil (control char)", value: "\t//evil.example/login" },
       { label: "userinfo @evil trick", value: "https://trusted.app@evil.example/login" },
       { label: "suffix trick", value: "https://trusted.app.evil.example/login" },
       { label: "javascript: URL", value: "javascript:alert(document.domain)" },
