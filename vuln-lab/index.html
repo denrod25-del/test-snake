@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="Vuln Lab — an interactive, client-side playground for learning how common security vulnerabilities work and how to defend against them."
+    />
+    <title>Vuln Lab — Learn security bugs hands-on</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='88'>🧪</text></svg>"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Vuln Lab — Learn security bugs hands-on" />
+    <meta
+      property="og:description"
+      content="An interactive, client-side playground for learning how common web vulnerabilities work — and how to defend against them."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Vuln Lab — Learn security bugs hands-on" />
+    <meta
+      name="twitter:description"
+      content="An interactive, client-side playground for learning how common web vulnerabilities work — and how to defend against them."
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <a class="brand" href="#/">
+        <span class="brand-mark" aria-hidden="true">🧪</span>
+        <span class="brand-text">Vuln<span class="brand-acc">Lab</span></span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a class="topnav-link" href="#/">Bugs</a>
+        <a class="topnav-link" href="https://github.com/denrod25-del/test-snake/tree/master/vuln-lab" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="topnav-cta" href="#/path-traversal">Start →</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <nav class="sidebar" aria-label="Vulnerability catalog">
+        <input
+          id="filter"
+          class="filter"
+          type="search"
+          placeholder="Filter bugs…"
+          aria-label="Filter vulnerabilities"
+          autocomplete="off"
+        />
+        <div id="nav-list" class="nav-list"><!-- populated by app.js --></div>
+        <footer class="sidebar-foot">
+          <p>
+            Everything here is a <strong>simulation</strong> that runs
+            client-side. No real systems are attacked. For defensive education
+            only.
+          </p>
+        </footer>
+      </nav>
+
+      <main id="main" class="content" tabindex="-1">
+        <!-- populated by app.js -->
+      </main>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
