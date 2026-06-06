@@ -199,7 +199,10 @@ function renderBug(bug) {
 /* ---------- Router ---------- */
 function route() {
   const id = currentId();
-  if (id && byId.has(id)) {
+  const isBug = id && byId.has(id);
+  document.body.classList.toggle("route-home", !isBug);
+  document.body.classList.toggle("route-bug", !!isBug);
+  if (isBug) {
     renderBug(byId.get(id));
   } else {
     renderHome();

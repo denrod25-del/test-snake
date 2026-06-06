@@ -103,27 +103,37 @@ a:hover { color: var(--accent-dim); }
 /* ---------- Layout ---------- */
 .layout {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  min-height: calc(100vh - 57px);
+  grid-template-columns: 290px 1fr;
+  min-height: calc(100vh - 58px);
 }
 .sidebar {
   border-right: 1px solid var(--border);
   background: var(--bg-elev);
-  padding: 16px 12px;
+  padding: 18px 14px;
   position: sticky;
-  top: 57px;
-  height: calc(100vh - 57px);
+  top: 58px;
+  height: calc(100vh - 58px);
   overflow-y: auto;
 }
 .content {
-  padding: 28px 34px 80px;
-  max-width: 980px;
+  padding: 0;
   outline: none;
 }
 
+/* Home: hide sidebar, content spans full width */
+body.route-home .layout { grid-template-columns: 1fr; }
+body.route-home .sidebar { display: none; }
+
+/* Bug pages: content gets reading width + padding */
+body.route-bug .content {
+  padding: 28px 40px 90px;
+  max-width: var(--maxw);
+}
+
 @media (max-width: 820px) {
-  .layout { grid-template-columns: 1fr; }
+  .layout, body.route-home .layout { grid-template-columns: 1fr; }
   .sidebar { position: static; height: auto; }
+  body.route-bug .content { padding: 24px 20px 70px; }
 }
 
 /* ---------- Sidebar nav ---------- */
