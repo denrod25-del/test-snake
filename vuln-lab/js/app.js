@@ -4,6 +4,7 @@
  */
 import { loadBugs, groupBySeverity, SEVERITY_ORDER } from "./registry.js";
 import { el, escapeHtml, codeBlock, sandboxPanel, severityClass } from "./ui.js";
+import { revealOnScroll } from "./reveal.js";
 
 const navList = document.getElementById("nav-list");
 const content = document.getElementById("main");
@@ -119,6 +120,7 @@ function renderHome() {
     catalog.appendChild(grp);
   }
   content.appendChild(catalog);
+  revealOnScroll(content);
 }
 
 /* ---------- Bug page ---------- */
@@ -219,6 +221,8 @@ function renderBug(bug) {
     content.appendChild(s);
   }
 
+  content.querySelectorAll(":scope > .section, :scope > .bug-head").forEach((n) => n.classList.add("reveal"));
+  revealOnScroll(content);
   content.focus();
   content.scrollTop = 0;
 }
