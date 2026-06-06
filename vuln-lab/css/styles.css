@@ -478,7 +478,7 @@ body.route-bug .content {
 .refs { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 .refs li { font-size: 14px; }
 
-.notfound { text-align: center; padding: 60px 0; color: var(--text-dim); }
+.notfound { text-align: center; padding: 70px 0; color: var(--text-dim); }
 
 /* ---------- Reveal-on-scroll ---------- */
 /* Hidden state is gated behind .js-reveal (added by reveal.js) so content is

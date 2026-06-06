@@ -33,6 +33,9 @@ python -m http.server 8000
 Zero build step. Plain HTML + CSS + vanilla ES modules. No framework, no
 bundler, no dependencies.
 
+The UI uses a dark-editorial theme (Space Grotesk + Inter, hot-magenta accent).
+Fonts load from Google Fonts; everything else is local and build-free.
+
 ## Project layout
 
 ```
