@@ -64,34 +64,61 @@ function buildNav(filterText = "") {
 function renderHome() {
   content.innerHTML = "";
   const hero = el(`
-    <div class="home-hero">
-      <h1>Vuln Lab</h1>
-      <p>
-        An interactive, fully client-side playground for learning how classic
-        security bugs work — and how to defend against them. Each module gives you
-        a plain-English explanation, the vulnerable code pattern, a live
-        <strong>simulated</strong> sandbox you can attack, a vulnerable⟷patched
-        toggle, and the fixed code. Pick a bug to begin.
+    <header class="hero reveal">
+      <p class="eyebrow">Interactive security playground</p>
+      <h1 class="hero-title">Break it.<br />Then patch it.</h1>
+      <p class="hero-lede">
+        Ten classic web vulnerabilities, each a live in-browser simulation.
+        Feed it a real exploit, watch it break, then flip one switch and watch
+        the fix neutralize the exact same input.
       </p>
-    </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#/path-traversal">Start the lab →</a>
+        <a class="btn btn-ghost" href="#catalog">Browse the catalog ↓</a>
+      </div>
+      <dl class="stats">
+        <div class="stat"><dt>10</dt><dd>Vuln modules</dd></div>
+        <div class="stat"><dt>100%</dt><dd>Client-side</dd></div>
+        <div class="stat"><dt>0</dt><dd>Real systems harmed</dd></div>
+      </dl>
+    </header>
   `);
   content.appendChild(hero);
 
-  const grid = el(`<div class="card-grid"></div>`);
-  BUGS.forEach((bug, i) => {
-    const card = el(`
-      <a class="card" href="#/${encodeURIComponent(bug.id)}">
-        <span class="num">#${String(i + 1).padStart(2, "0")}</span>
-        <span class="badge sev-${severityClass(bug.severity)}">${escapeHtml(bug.severity)}</span>
-        <h3></h3>
-        <p></p>
-      </a>
-    `);
-    card.querySelector("h3").textContent = bug.title;
-    card.querySelector("p").textContent = bug.summary;
-    grid.appendChild(card);
-  });
-  content.appendChild(grid);
+  const catalog = el(`
+    <section class="catalog" id="catalog">
+      <div class="section-label">
+        <span class="label-l">The catalog</span>
+        <span class="label-r">By severity ↓</span>
+      </div>
+    </section>
+  `);
+  for (const group of groupBySeverity(BUGS)) {
+    const grp = el(`<div class="cat-group reveal"></div>`);
+    grp.appendChild(
+      el(`<p class="cat-group-label ${severityClass(group.severity)}">${escapeHtml(group.severity)} severity</p>`)
+    );
+    const grid = el(`<div class="card-grid"></div>`);
+    for (const bug of group.bugs) {
+      const i = BUGS.indexOf(bug) + 1;
+      const card = el(`
+        <a class="card" href="#/${encodeURIComponent(bug.id)}">
+          <div class="card-top">
+            <span class="num">${String(i).padStart(2, "0")}</span>
+            <span class="badge sev-${severityClass(bug.severity)}">${escapeHtml(bug.severity)}</span>
+          </div>
+          <h3></h3>
+          <p></p>
+        </a>
+      `);
+      card.querySelector("h3").textContent = bug.title;
+      card.querySelector("p").textContent = bug.summary;
+      grid.appendChild(card);
+    }
+    grp.appendChild(grid);
+    catalog.appendChild(grp);
+  }
+  content.appendChild(catalog);
 }
 
 /* ---------- Bug page ---------- */
