@@ -110,7 +110,9 @@ XSS can genuinely fire while staying jailed.
 - ✅ #5 Server-Side Request Forgery (SSRF) — mock network (DNS + IP zones)
 - ✅ #6 XML External Entity (XXE) — mock XML/DTD engine (multiline input)
 - ✅ #7 Insecure Deserialization — simulated revival/RCE + prototype pollution
-- ⬜ CSRF, Open Redirect, ReDoS
+- ✅ #8 Cross-Site Request Forgery (CSRF) — ambient cookie authority + token defense
+- ✅ #9 Open Redirect — browser-accurate URL resolution (//, /\, userinfo, scheme tricks)
+- ✅ #10 ReDoS — catastrophic backtracking modelled analytically (never executed)
 
 ## Disclaimer
 
