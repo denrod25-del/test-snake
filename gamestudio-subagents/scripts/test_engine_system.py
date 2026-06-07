@@ -148,7 +148,7 @@ def test_folder_structures():
     for engine, method_name in engines.items():
         try:
             method = getattr(initializer, method_name)
-            structure = method()
+            structure = method("Test Project")
             
             if not structure or len(structure) == 0:
                 print(f"FAIL: {engine} structure is empty")
@@ -192,18 +192,20 @@ def test_project_files():
     
     initializer = ProjectInitializer()
     
-    engines = ["Godot", "Unity", "Unreal"]
-    
+    engines = ["Godot", "Unity", "Unreal Engine"]
+    project_name = "Test Project"
+
     for engine in engines:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir) / "test-project"
             temp_path.mkdir(parents=True)
-            
+
             try:
                 # Create engine-specific files
-                initializer.create_engine_files(temp_path, engine)
-                
-                source_path = temp_path / "source"
+                initializer.create_engine_files(temp_path, engine, project_name)
+
+                # Files are created under source/project-<slug> to match init_project.py
+                source_path = temp_path / "source" / f"project-{project_name.lower().replace(' ', '-')}"
                 
                 if engine == "Godot":
                     project_file = source_path / "project.godot"
@@ -231,8 +233,8 @@ def test_project_files():
                         print(f"FAIL: {engine} - manifest.json invalid content")
                         return False
                 
-                elif engine == "Unreal":
-                    uproject_file = source_path / f"{temp_path.name}.uproject"
+                elif engine == "Unreal Engine":
+                    uproject_file = source_path / f"{project_name.replace(' ', '')}.uproject"
                     if not uproject_file.exists():
                         print(f"FAIL: {engine} - .uproject not created")
                         return False

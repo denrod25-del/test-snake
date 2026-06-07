@@ -31,7 +31,7 @@ class ProjectInitializer:
         # Engine-specific directory structure
         if engine == "Unity":
             directories = self.get_unity_structure(project_name)
-        elif engine == "Unreal":
+        elif engine == "Unreal Engine":
             directories = self.get_unreal_structure(project_name)
         else:  # Godot default
             directories = self.get_godot_structure(project_name)
