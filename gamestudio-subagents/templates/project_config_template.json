@@ -1,0 +1,152 @@
+{
+  "project": {
+    "name": "[Project Name]",
+    "concept": "[One sentence game concept]", 
+    "genre": "[Primary Genre]",
+    "platform": "[PC/Mobile/Console/Web/VR/AR]",
+    "audience": "[Casual/Core/Hardcore/Kids]",
+    "timeline": "[Rapid/Short/Medium/Long]",
+    "engine": "[Godot/Unity/Unreal Engine]",
+    "engine_version": "[Engine Version]",
+    "mode": "[design/prototype/development]",
+    "competitors": "[List of 3-5 competitor games]",
+    "unique_selling_point": "[What makes this game special]",
+    "version": "1.0.0",
+    "created": "[ISO timestamp]",
+    "phase": "[Market Analysis/Design/Development/Polish/Launch]",
+    "status": "[active/paused/frozen/completed/cancelled]"
+  },
+  "market_intelligence": {
+    "analyst": "market_analyst",
+    "market_size": "[TAM/SAM/SOM analysis]",
+    "target_audience_size": "[Number of potential players]",
+    "competitive_analysis": {
+      "direct_competitors": ["[Game 1]", "[Game 2]", "[Game 3]"],
+      "indirect_competitors": ["[Game A]", "[Game B]"],
+      "market_gaps": ["[Opportunity 1]", "[Opportunity 2]"],
+      "differentiation": "[How we stand out]"
+    },
+    "monetization": {
+      "model": "[Premium/F2P/Subscription/DLC]",
+      "revenue_projections": "[Expected revenue streams]",
+      "pricing_strategy": "[Pricing approach]"
+    },
+    "go_no_go_decision": "[Go/No-Go with rationale]",
+    "market_risks": ["[Risk 1]", "[Risk 2]"],
+    "recommendations": ["[Recommendation 1]", "[Recommendation 2]"]
+  },
+  "analytics_framework": {
+    "data_scientist": "data_scientist",
+    "core_metrics": {
+      "engagement": {
+        "session_length_target": "[X minutes]",
+        "retention_targets": {
+          "day_1": "[X%]",
+          "day_7": "[X%]", 
+          "day_30": "[X%]"
+        },
+        "key_actions": ["[Action 1]", "[Action 2]"]
+      },
+      "performance": {
+        "target_fps": "[60 FPS]",
+        "max_load_time": "[X seconds]",
+        "crash_rate_threshold": "[X%]"
+      },
+      "business": {
+        "download_targets": "[X downloads]",
+        "revenue_targets": "[$ amount]",
+        "user_acquisition_cost": "[$ per user]"
+      }
+    },
+    "telemetry_events": [
+      {
+        "event_name": "[event_name]",
+        "description": "[What this measures]",
+        "parameters": ["[param1]", "[param2]"]
+      }
+    ],
+    "ab_testing_framework": {
+      "test_categories": ["[Core Mechanics]", "[UI/UX]", "[Monetization]"],
+      "statistical_significance": "[95%]",
+      "minimum_sample_size": "[X users per variant]"
+    }
+  },
+  "team": {
+    "orchestrator": "master_orchestrator",
+    "lead_agent": "producer_agent", 
+    "active_agents": [
+      "market_analyst",
+      "data_scientist",
+      "sr_game_designer",
+      "mid_game_designer",
+      "mechanics_developer",
+      "game_feel_developer",
+      "qa_agent",
+      "sr_game_artist", 
+      "technical_artist",
+      "ui_ux_agent"
+    ],
+    "agent_assignments": {
+      "market_analyst": ["competitive_analysis", "market_validation"],
+      "data_scientist": ["analytics_setup", "telemetry_design"],
+      "sr_game_designer": ["vision", "core_systems"],
+      "mid_game_designer": ["content_design", "mechanics_specification"],
+      "mechanics_developer": ["core_gameplay", "systems_implementation"],
+      "game_feel_developer": ["polish", "juice", "feedback_systems"],
+      "sr_game_artist": ["art_direction", "visual_style"],
+      "technical_artist": ["shaders", "vfx", "optimization"],
+      "ui_ux_agent": ["interface_design", "user_experience"],
+      "qa_agent": ["testing", "quality_assurance", "validation"]
+    }
+  },
+  "engine_configuration": {
+    "engine": "[Godot/Unity/Unreal Engine]",
+    "version": "[Engine Version]",
+    "target_platforms": ["[Platform 1]", "[Platform 2]"],
+    "performance_targets": {
+      "fps": "[60]",
+      "memory_limit": "[X MB]",
+      "build_size": "[X MB]"
+    },
+    "engine_specific_settings": {
+      "comment": "Populated automatically based on engine choice"
+    }
+  },
+  "milestones": [
+    {
+      "name": "[Milestone Name]",
+      "target_date": "[YYYY-MM-DD]",
+      "deliverables": ["[Deliverable 1]", "[Deliverable 2]"],
+      "success_criteria": ["[Criteria 1]", "[Criteria 2]"],
+      "responsible_agents": ["[Agent 1]", "[Agent 2]"],
+      "status": "[pending/in_progress/completed]"
+    }
+  ],
+  "metrics": {
+    "velocity_target": "[X tasks/week]",
+    "bug_threshold": "[X critical, Y minor]",
+    "performance_target": "[60 FPS, <3s load]",
+    "quality_gates": {
+      "code_review": true,
+      "testing_required": true,
+      "performance_validation": true,
+      "market_validation": true
+    }
+  },
+  "risks": [
+    {
+      "risk": "[Risk Description]",
+      "probability": "[Low/Medium/High]",
+      "impact": "[Low/Medium/High]",
+      "mitigation": "[Mitigation Strategy]",
+      "owner": "[Responsible Agent]",
+      "status": "[identified/mitigated/resolved]"
+    }
+  ],
+  "project_notes": {
+    "created_by": "Game Studio Sub-Agents v1.0",
+    "configuration_template_version": "1.0",
+    "last_updated": "[ISO timestamp]",
+    "notes": "[Any additional project-specific notes]"
+  }
+}

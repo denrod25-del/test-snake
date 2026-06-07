@@ -1,0 +1,122 @@
+{
+  "engine": "Unreal Engine",
+  "version": "5.3",
+  "project_structure": {
+    "source": {
+      "Content": {
+        "Blueprints": "Blueprint classes and logic",
+        "Maps": "Game levels and scenes",
+        "Materials": "Material assets and shaders",
+        "Meshes": "Static and skeletal meshes",
+        "Textures": "Texture assets",
+        "Audio": "Sound waves and audio",
+        "Animations": "Animation sequences and blueprints",
+        "UI": "UMG widgets and HUD",
+        "Particles": "Niagara particle systems",
+        "Characters": "Character blueprints and assets"
+      },
+      "Source": {
+        "Public": "Header files (.h)",
+        "Private": "Implementation files (.cpp)",
+        "Config": "Configuration files"
+      },
+      "Plugins": "Third-party and custom plugins",
+      "Config": "Project configuration files"
+    }
+  },
+  "required_files": [
+    "ProjectName.uproject",
+    "Config/DefaultEngine.ini",
+    "Content/Maps/DefaultMap.umap"
+  ],
+  "best_practices": {
+    "naming_conventions": {
+      "blueprints": "BP_ObjectName (BP_PlayerCharacter)",
+      "materials": "M_MaterialName (M_Stone)",
+      "textures": "T_TextureName (T_Stone_Diffuse)",
+      "meshes": "SM_MeshName (SM_Rock) or SK_SkeletalMesh",
+      "animations": "A_AnimationName (A_Jump)",
+      "sounds": "S_SoundName (S_Footstep)",
+      "variables": "camelCase or PascalCase",
+      "functions": "PascalCase (GetPlayerHealth)"
+    },
+    "project_settings": {
+      "rendering": "Choose rendering features (Lumen, Nanite)",
+      "physics": "Configure physics simulation settings",
+      "input": "Set up Enhanced Input system",
+      "audio": "Configure audio settings and occlusion",
+      "networking": "Set up multiplayer if needed"
+    },
+    "blueprint_organization": {
+      "inheritance": "Use proper blueprint inheritance",
+      "interfaces": "Use blueprint interfaces for common functions",
+      "components": "Use component-based architecture",
+      "data_tables": "Use data tables for game data"
+    },
+    "cpp_organization": {
+      "modules": "Organize code into logical modules",
+      "headers": "Keep headers clean and minimal",
+      "forward_declarations": "Use forward declarations when possible",
+      "reflection": "Use UE reflection system properly"
+    },
+    "performance": {
+      "lod": "Set up LOD for meshes and materials",
+      "culling": "Use frustum and occlusion culling",
+      "instancing": "Use instanced static meshes",
+      "blueprints": "Optimize blueprint execution"
+    }
+  },
+  "agent_specializations": {
+    "mechanics_developer": {
+      "focus": ["C++ programming", "Blueprint scripting", "Gameplay Framework"],
+      "tools": ["Visual Studio", "Blueprint Editor", "Gameplay Debugger"]
+    },
+    "game_feel_developer": {
+      "focus": ["Animation Blueprint", "Niagara", "Audio", "Post-processing"],
+      "tools": ["Animation Blueprint", "Niagara Editor", "Audio mixer", "Post-process"]
+    },
+    "technical_artist": {
+      "focus": ["Material Editor", "Niagara", "Lighting", "Shaders"],
+      "tools": ["Material Editor", "Niagara", "World Partition", "Lumen"]
+    },
+    "ui_ux_agent": {
+      "focus": ["UMG", "Widget blueprints", "HUD", "Input system"],
+      "tools": ["UMG Designer", "Widget Blueprint", "Enhanced Input"]
+    }
+  },
+  "platforms": {
+    "PC": {
+      "target": "Windows",
+      "features": ["Full C++ support", "DirectX 12", "Hardware raytracing"],
+      "optimization": ["Texture streaming", "World partition"]
+    },
+    "Console": {
+      "target": "PlayStation 5/Xbox Series X",
+      "features": ["Platform-specific features", "High-end rendering"],
+      "optimization": ["Platform-specific optimizations", "Memory management"]
+    },
+    "Mobile": {
+      "target": "Android/iOS",
+      "features": ["Touch input", "Mobile rendering"],
+      "optimization": ["Mobile-specific rendering", "Battery optimization"]
+    }
+  },
+  "plugins": {
+    "essential": [
+      "Enhanced Input",
+      "Gameplay Abilities",
+      "Common UI",
+      "State Machine"
+    ],
+    "rendering": [
+      "Lumen",
+      "Nanite",
+      "Chaos Physics",
+      "Niagara"
+    ],
+    "audio": [
+      "MetaSounds",
+      "Audio Modulation"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+# CODEOWNERS for Game Studio Sub-Agents
+# This file defines who owns and must approve changes to this repository
+# All changes require approval from Tuna Pamir
+
+# Global ownership - Tuna Pamir owns everything
+* @pamirtuna
+
+# Specific ownership patterns (optional, but adds extra protection)
+/agents/ @pamirtuna
+/scripts/ @pamirtuna
+/templates/ @pamirtuna
+/engine_configs/ @pamirtuna
+*.py @pamirtuna
+*.md @pamirtuna
+
+# No one else can approve changes without explicit permission

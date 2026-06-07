@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Pamir"
+    given-names: "Tuna"
+    orcid: ""
+title: "Game Studio Sub-Agents: AI-Powered Game Development Team"
+version: 1.0.0
+date-released: 2024-01-01
+url: "https://github.com/pamirtuna/gamestudio-subagents"
+repository-code: "https://github.com/pamirtuna/gamestudio-subagents"
+license: MIT
+keywords:
+  - game development
+  - artificial intelligence
+  - ai agents
+  - godot
+  - unity
+  - unreal engine
+  - automation
+  - development tools
+abstract: >-
+  Game Studio Sub-Agents is an AI-powered game development system that provides
+  developers with a team of 12 specialized AI agents. Each agent handles specific
+  aspects of game development from market analysis to QA testing, supporting
+  Godot, Unity, and Unreal Engine with engine-specific optimizations and best
+  practices. The system enables market-driven, data-informed game development
+  accessible to developers of all skill levels.

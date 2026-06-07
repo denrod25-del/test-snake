@@ -1,0 +1,121 @@
+{
+  "engine": "Unity",
+  "version": "2023.2 LTS",
+  "project_structure": {
+    "source": {
+      "Scripts": "C# scripts and components",
+      "Scenes": "Unity scene files (.unity)",
+      "Prefabs": "Reusable game objects",
+      "Materials": "Rendering materials",
+      "Textures": "2D textures and sprites",
+      "Models": "3D models and animations",
+      "Audio": "Sound clips and music",
+      "Animations": "Animation clips and controllers",
+      "Shaders": "Custom shaders and materials",
+      "StreamingAssets": "Files loaded at runtime",
+      "Editor": "Editor-only scripts and tools",
+      "Resources": "Assets loaded via Resources.Load",
+      "Plugins": "Third-party plugins and packages"
+    }
+  },
+  "required_files": [
+    "ProjectSettings/ProjectSettings.asset",
+    "Packages/manifest.json",
+    "Assets/Scenes/SampleScene.unity"
+  ],
+  "best_practices": {
+    "naming_conventions": {
+      "scripts": "PascalCase (PlayerController.cs)",
+      "gameobjects": "PascalCase (MainCamera)",
+      "variables": "camelCase (playerSpeed)",
+      "constants": "UPPER_CASE (MAX_HEALTH)",
+      "folders": "PascalCase (Scripts/, Prefabs/)"
+    },
+    "project_settings": {
+      "quality": "Set up quality levels for different platforms",
+      "physics": "Configure physics timestep and collision layers",
+      "input": "Use new Input System package",
+      "graphics": "Configure rendering pipeline (URP/HDRP)",
+      "audio": "Set up audio mixer groups"
+    },
+    "scene_organization": {
+      "hierarchy": "Group objects logically (Environment, UI, Managers)",
+      "prefabs": "Use prefab variants for customization",
+      "lighting": "Use baked lighting when possible"
+    },
+    "script_organization": {
+      "components": "Follow single responsibility principle",
+      "interfaces": "Use interfaces for common behaviors",
+      "scriptableobjects": "Use ScriptableObjects for data",
+      "singletons": "Avoid singletons, use dependency injection"
+    },
+    "performance": {
+      "object_pooling": "Pool frequently instantiated objects",
+      "texture_atlasing": "Combine textures into atlases",
+      "occlusion_culling": "Use occlusion culling for 3D",
+      "profiler": "Regular profiling with Unity Profiler"
+    }
+  },
+  "agent_specializations": {
+    "mechanics_developer": {
+      "focus": ["C# scripting", "Component system", "Physics", "Input"],
+      "tools": ["Visual Studio", "Unity Editor", "Package Manager"]
+    },
+    "game_feel_developer": {
+      "focus": ["Animation", "Particles", "Post-processing", "Audio"],
+      "tools": ["Animator", "VFX Graph", "Post-process Volume", "Audio Mixer"]
+    },
+    "technical_artist": {
+      "focus": ["Shaders", "VFX", "Lighting", "Optimization"],
+      "tools": ["Shader Graph", "VFX Graph", "Lighting window", "Profiler"]
+    },
+    "ui_ux_agent": {
+      "focus": ["UGUI", "UI Toolkit", "Canvas", "Responsive design"],
+      "tools": ["UI Builder", "Canvas component", "Event System"]
+    }
+  },
+  "platforms": {
+    "PC": {
+      "build_target": "StandaloneWindows64",
+      "features": ["Full .NET support", "Native plugins"],
+      "optimization": ["IL2CPP", "Managed stripping"]
+    },
+    "Mobile": {
+      "build_target": "Android/iOS",
+      "features": ["Touch input", "Device sensors", "Platform stores"],
+      "optimization": ["Texture compression", "GPU instancing", "Mobile shaders"]
+    },
+    "Console": {
+      "build_target": "PlayStation/Xbox/Switch",
+      "features": ["Platform-specific APIs", "Achievements"],
+      "optimization": ["Platform-specific rendering", "Memory optimization"]
+    },
+    "WebGL": {
+      "build_target": "WebGL",
+      "features": ["Browser compatibility", "WebAssembly"],
+      "optimization": ["Compression", "Memory management", "Loading optimization"]
+    }
+  },
+  "packages": {
+    "essential": [
+      "com.unity.inputsystem",
+      "com.unity.cinemachine",
+      "com.unity.timeline",
+      "com.unity.addressables"
+    ],
+    "2d": [
+      "com.unity.2d.sprite",
+      "com.unity.2d.tilemap",
+      "com.unity.2d.animation"
+    ],
+    "3d": [
+      "com.unity.render-pipelines.universal",
+      "com.unity.postprocessing",
+      "com.unity.probuilder"
+    ],
+    "mobile": [
+      "com.unity.mobile.notifications",
+      "com.unity.purchasing"
+    ]
+  }
+}

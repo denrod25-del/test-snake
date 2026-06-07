@@ -1,0 +1,93 @@
+{
+  "engine": "Godot",
+  "version": "4.4.1",
+  "project_structure": {
+    "source": {
+      "scenes": "Main game scenes (.tscn files)",
+      "scripts": "GDScript files (.gd)",
+      "assets": {
+        "sprites": "2D textures and sprites",
+        "models": "3D models (.gltf, .fbx)",
+        "audio": "Sound effects and music (.ogg, .wav)",
+        "ui": "UI themes and textures",
+        "shaders": "Custom shaders (.gdshader)",
+        "fonts": "Font files (.ttf, .otf)"
+      },
+      "autoload": "Global scripts and singletons",
+      "export_presets": "Platform export configurations"
+    }
+  },
+  "required_files": [
+    "project.godot",
+    "export_presets.cfg"
+  ],
+  "best_practices": {
+    "naming_conventions": {
+      "scenes": "PascalCase (MainMenu.tscn)",
+      "scripts": "snake_case (player_controller.gd)",
+      "resources": "snake_case (fire_spell.tres)",
+      "folders": "lowercase (textures/, models/)"
+    },
+    "project_settings": {
+      "physics": {
+        "2d_default_gravity": 980,
+        "3d_default_gravity": 9.8
+      },
+      "rendering": {
+        "environment": "Use Environment resource for lighting",
+        "msaa": "2x or 4x for better quality"
+      },
+      "input_map": "Define all inputs in Project Settings"
+    },
+    "scene_structure": {
+      "main_scene": "Set a main scene in Project Settings",
+      "node_organization": "Group related nodes under parent nodes",
+      "naming": "Use descriptive node names"
+    },
+    "script_organization": {
+      "class_name": "Use class_name for reusable scripts",
+      "signals": "Prefer signals over direct references",
+      "exports": "Use @export for inspector variables"
+    },
+    "performance": {
+      "object_pooling": "Pool frequently created/destroyed objects",
+      "texture_import": "Optimize texture import settings",
+      "audio_import": "Use OGG for music, WAV for short sounds"
+    }
+  },
+  "agent_specializations": {
+    "mechanics_developer": {
+      "focus": ["GDScript", "Node system", "Signals", "Scenes"],
+      "tools": ["Godot Script Editor", "Scene Dock", "Inspector"]
+    },
+    "game_feel_developer": {
+      "focus": ["Tweens", "Particles", "Shaders", "Audio"],
+      "tools": ["Tween nodes", "GPUParticles2D/3D", "Shader editor"]
+    },
+    "technical_artist": {
+      "focus": ["Shaders", "Lighting", "Post-processing", "Optimization"],
+      "tools": ["Shader editor", "Environment", "Import dock"]
+    },
+    "ui_ux_agent": {
+      "focus": ["Control nodes", "Themes", "Responsive design"],
+      "tools": ["UI editor", "Theme editor", "Anchor system"]
+    }
+  },
+  "platforms": {
+    "PC": {
+      "export_template": "Windows Desktop",
+      "features": ["Full OpenGL/Vulkan support", "Multiple monitors"],
+      "optimization": ["Texture streaming", "LOD systems"]
+    },
+    "Mobile": {
+      "export_template": "Android/iOS",
+      "features": ["Touch input", "Accelerometer", "In-app purchases"],
+      "optimization": ["Mobile renderer", "Texture compression", "Battery efficiency"]
+    },
+    "Web": {
+      "export_template": "HTML5",
+      "features": ["WebGL rendering", "Browser compatibility"],
+      "optimization": ["Asset streaming", "Memory management"]
+    }
+  }
+}

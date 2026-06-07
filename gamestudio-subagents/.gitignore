@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Projects (user-created, not part of repo)
+projects/*/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+.cache/
+
+# Environment variables
+.env
+.env.local
+
+# Claude specific
+.claude/
+CLAUDE.md
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# Archive (old versions)
+archive/
+
+# Build outputs
+dist/
+build/
+*.egg-info/

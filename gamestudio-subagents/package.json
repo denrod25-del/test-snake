@@ -1,0 +1,38 @@
+{
+  "name": "gamestudio-subagents",
+  "version": "1.0.0",
+  "description": "AI-Powered Game Development Team - Transform your game ideas into reality with specialized AI agents",
+  "author": {
+    "name": "Tuna Pamir",
+    "url": "https://github.com/pamirtuna"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pamirtuna/gamestudio-subagents.git"
+  },
+  "keywords": [
+    "game-development",
+    "ai-agents",
+    "godot",
+    "unity",
+    "unreal-engine",
+    "game-design",
+    "artificial-intelligence",
+    "development-tools",
+    "automation",
+    "game-studio"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pamirtuna/gamestudio-subagents/issues"
+  },
+  "homepage": "https://github.com/pamirtuna/gamestudio-subagents#readme",
+  "engines": {
+    "python": ">=3.8"
+  },
+  "scripts": {
+    "init": "python scripts/init_project.py",
+    "manage": "python scripts/project_manager.py",
+    "test": "python scripts/test_project_workflow.py && python scripts/test_engine_system.py"
+  }
+}
