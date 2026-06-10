@@ -2,35 +2,70 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galaxy Strike Pinball - Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>iSnake</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="game-page">
-    <main class="game-wrap">
-      <header class="hud">
-        <h1>Galaxy Strike Pinball</h1>
-        <div class="hud-stats">
-          <span>Score <strong id="score">0</strong></span>
-          <span>Balls <strong id="balls">3</strong></span>
-          <span>Best <strong id="best">0</strong></span>
+    <main class="iphone-device">
+      <div class="iphone-bezel">
+        <div class="dynamic-island" aria-hidden="true"></div>
+        <div class="status-bar" aria-hidden="true">
+          <span>9:41</span>
+          <span class="status-icons">●●● ▮▮▮</span>
         </div>
-        <p id="status">Hold Space to pull plunger — release to launch</p>
-        <div class="mission-panel" aria-live="polite">
-          <span class="mission-kicker">Current mission</span>
-          <strong id="missionTitle" class="mission-title">—</strong>
-          <p id="missionDetail" class="mission-detail"></p>
+
+        <header class="app-header">
+          <a href="landing.html" class="back-link" aria-label="Back to landing">‹</a>
+          <h1>iSnake</h1>
+        </header>
+
+        <section class="screen">
+          <div class="hud">
+            <span>
+              Score <strong id="score">0</strong> · Best <strong id="highScore">0</strong>
+            </span>
+            <span id="stage">Hatchling</span>
+          </div>
+          <p id="status" class="status-line">Tap ⏯ or press Space to start</p>
+          <canvas
+            id="gameCanvas"
+            width="360"
+            height="360"
+            aria-label="Snake game area"
+          ></canvas>
+        </section>
+
+        <div class="settings-row">
+          <label for="modeSelect">Mode</label>
+          <select id="modeSelect" aria-label="Select game mode">
+            <option value="classic">Classic</option>
+            <option value="wrap">Wrap</option>
+            <option value="obstacles">Obstacles</option>
+          </select>
         </div>
-        <div class="audio-row">
-          <button id="muteBtn" type="button" class="mute-btn" aria-pressed="false" title="Mute cinematic audio">
-            Sound on
-          </button>
+
+        <div class="ability-panel" aria-label="Stage abilities">
+          <span class="ability-chip" id="abilityBurst">Burst: Locked</span>
+          <span class="ability-chip" id="abilityBonus">Bonus: Locked</span>
+          <span class="ability-chip" id="abilityControl">Control: Locked</span>
+          <button id="burstBtn" class="ios-btn" type="button" disabled>Activate Burst</button>
         </div>
-      </header>
-      <canvas id="gameCanvas" width="520" height="760" aria-label="Pinball playfield"></canvas>
-      <div class="game-actions">
-        <a href="landing.html" class="aux-btn">Back to Landing</a>
-        <button id="restartBtn" class="aux-btn" type="button">Restart Game</button>
+
+        <div class="touch-controls" aria-label="Mobile controls">
+          <button class="touch-btn" data-dir="up" aria-label="Move up">▲</button>
+          <div class="touch-middle">
+            <button class="touch-btn" data-dir="left" aria-label="Move left">◀</button>
+            <button class="touch-btn touch-btn-action" data-action="pause">⏯</button>
+            <button class="touch-btn" data-dir="right" aria-label="Move right">▶</button>
+          </div>
+          <button class="touch-btn" data-dir="down" aria-label="Move down">▼</button>
+        </div>
+
+        <p class="controls-hint">
+          Arrows to move · Space pause · B burst · Enter restart
+        </p>
+        <div class="home-indicator" aria-hidden="true"></div>
       </div>
     </main>
     <script src="game.js"></script>

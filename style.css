@@ -2,316 +2,393 @@
   box-sizing: border-box;
 }
 
+:root {
+  --iphone-width: min(92vw, 390px);
+  --bezel-radius: 52px;
+  --screen-radius: 44px;
+  --titanium: linear-gradient(145deg, #3a3a3e 0%, #1c1c1e 45%, #2c2c30 100%);
+  --glass: rgba(255, 255, 255, 0.72);
+  --ios-blue: #007aff;
+  --ios-green: #34c759;
+  --text: #1c1c1e;
+  --text-secondary: #636366;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #eef3ff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  color: var(--text);
   background:
-    radial-gradient(circle at 20% 10%, rgba(70, 120, 255, 0.2), transparent 45%),
-    radial-gradient(circle at 80% 80%, rgba(255, 80, 80, 0.16), transparent 40%),
-    linear-gradient(160deg, #050813 0%, #090f1f 45%, #130d20 100%);
+    radial-gradient(circle at 30% 20%, rgba(120, 180, 255, 0.35), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(180, 140, 255, 0.25), transparent 45%),
+    linear-gradient(165deg, #e8ecf4 0%, #d4dce8 50%, #c8d2e0 100%);
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(2px 2px at 30px 40px, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(2px 2px at 140px 200px, rgba(255, 255, 255, 0.25), transparent),
-    radial-gradient(2px 2px at 260px 90px, rgba(255, 255, 255, 0.2), transparent);
-  background-size: 300px 260px;
-  opacity: 0.5;
-}
-
-.landing-page {
+.landing-page,
+.game-page {
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: 24px 16px;
+  min-height: 100vh;
 }
 
-.landing-wrap {
-  width: min(780px, 100%);
+/* iPhone 17 device frame */
+.iphone-device {
+  width: var(--iphone-width);
+  position: relative;
 }
 
-.hero-panel {
-  padding: clamp(26px, 4vw, 40px);
-  border-radius: 24px;
-  border: 1px solid rgba(140, 189, 255, 0.4);
-  background: linear-gradient(165deg, rgba(15, 25, 50, 0.88), rgba(25, 15, 40, 0.9));
+.iphone-device::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--bezel-radius) + 4px);
+  background: var(--titanium);
   box-shadow:
-    0 0 45px rgba(79, 142, 255, 0.2),
-    inset 0 0 30px rgba(255, 112, 112, 0.1);
+    0 28px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  z-index: 0;
+}
+
+.iphone-bezel {
+  position: relative;
+  z-index: 1;
+  margin: 3px;
+  padding: 14px 16px 10px;
+  border-radius: var(--bezel-radius);
+  background: linear-gradient(180deg, #fafafa 0%, #f2f2f7 100%);
+  overflow: hidden;
+  min-height: 680px;
+}
+
+.iphone-device--hero .iphone-bezel {
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dynamic-island {
+  width: 126px;
+  height: 37px;
+  margin: 0 auto 8px;
+  border-radius: 20px;
+  background: #000;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.status-icons {
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.home-indicator {
+  width: 134px;
+  height: 5px;
+  margin: 12px auto 4px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* Landing hero */
+.hero-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px 20px;
+  text-align: center;
 }
 
 .kicker {
   margin: 0;
-  font-size: 0.85rem;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #8bc2ff;
+  color: var(--ios-blue);
 }
 
-h1 {
-  margin: 12px 0 16px;
-  font-size: clamp(2rem, 7vw, 3.3rem);
-  line-height: 1.05;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #f6f9ff;
-  text-shadow: 0 0 18px rgba(120, 178, 255, 0.55);
+.hero-panel h1 {
+  margin: 10px 0 14px;
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #1c1c1e 0%, #48484a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero-copy {
   margin: 0;
-  max-width: 56ch;
-  color: #d8e4ff;
-  line-height: 1.6;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  font-size: 1rem;
 }
 
 .launch-btn {
   display: inline-block;
-  margin-top: 26px;
-  padding: 12px 26px;
-  border-radius: 999px;
-  border: 1px solid rgba(145, 198, 255, 0.7);
-  background: linear-gradient(95deg, #2f63ff, #e6476a);
-  color: #ffffff;
+  margin: 28px auto 0;
+  padding: 14px 32px;
+  border-radius: 14px;
+  background: var(--ios-blue);
+  color: #fff;
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  box-shadow: 0 8px 24px rgba(70, 116, 255, 0.45);
+  font-weight: 600;
+  font-size: 1.05rem;
+  box-shadow: 0 8px 24px rgba(0, 122, 255, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .launch-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(77, 138, 255, 0.5);
+  transform: scale(1.02);
+  box-shadow: 0 10px 28px rgba(0, 122, 255, 0.45);
 }
 
-.note {
-  margin-top: 18px;
-  color: #bed2fb;
-  font-size: 0.95rem;
-}
-
-.game-page {
-  display: grid;
-  place-items: center;
-  padding: 14px;
-}
-
-.game-wrap {
-  width: min(560px, 100%);
-  border-radius: 18px;
-  padding: 14px;
-  background: linear-gradient(180deg, rgba(15, 28, 57, 0.92), rgba(14, 10, 27, 0.95));
-  border: 1px solid rgba(143, 182, 255, 0.35);
-  box-shadow:
-    0 0 26px rgba(96, 157, 255, 0.25),
-    inset 0 0 24px rgba(255, 97, 130, 0.08);
-}
-
-.hud h1 {
-  margin: 2px 0 10px;
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.hud-stats {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 0.98rem;
-  margin-bottom: 8px;
-}
-
-#status {
-  margin: 0 0 8px;
-  text-align: center;
-  color: #b9cdfb;
+.feature-list {
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
   font-size: 0.92rem;
+  color: var(--text-secondary);
 }
 
-.mission-panel {
-  margin-bottom: 10px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(120, 175, 255, 0.35);
-  background: linear-gradient(135deg, rgba(20, 40, 92, 0.35), rgba(60, 20, 58, 0.3));
-  text-align: center;
+.feature-list li {
+  padding: 8px 0 8px 28px;
+  position: relative;
 }
 
-.mission-kicker {
-  display: block;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #8db6ff;
-  margin-bottom: 4px;
-}
-
-.mission-title {
-  display: block;
-  font-size: 1rem;
-  color: #f2f7ff;
+.feature-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--ios-green);
   font-weight: 700;
 }
 
-.mission-detail {
-  margin: 6px 0 0;
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: #c8d9fa;
-}
-
-.audio-row {
+/* Game screen */
+.app-header {
   display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
-.mute-btn {
-  border: 1px solid rgba(140, 190, 255, 0.55);
-  border-radius: 999px;
-  padding: 6px 14px;
+.back-link {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ios-blue);
+  text-decoration: none;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.screen {
+  border-radius: var(--screen-radius);
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: box-shadow 0.2s ease;
+}
+
+.screen.is-running {
+  box-shadow:
+    0 0 0 2px rgba(0, 122, 255, 0.25),
+    0 8px 32px rgba(0, 122, 255, 0.12);
+}
+
+.screen.is-burst {
+  box-shadow:
+    0 0 0 2px rgba(255, 149, 0, 0.45),
+    0 8px 32px rgba(255, 149, 0, 0.2);
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
   font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.hud strong {
+  color: var(--text);
+}
+
+#stage {
   font-weight: 600;
-  cursor: pointer;
-  background: rgba(12, 24, 52, 0.6);
-  color: #dbe6ff;
-  transition: background 0.15s ease, box-shadow 0.15s ease;
+  color: var(--ios-blue);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.mute-btn:hover {
-  background: rgba(30, 55, 120, 0.55);
-  box-shadow: 0 0 12px rgba(100, 170, 255, 0.25);
-}
-
-.mute-btn[aria-pressed="true"] {
-  opacity: 0.75;
+.status-line {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-align: center;
 }
 
 #gameCanvas {
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  border: 2px solid rgba(117, 165, 255, 0.55);
-  background: #071224;
   display: block;
+  border-radius: 20px;
+  background: #e8f5e9;
+  image-rendering: pixelated;
 }
 
-.game-actions {
+.settings-row {
   margin-top: 12px;
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.aux-btn {
-  flex: 1;
-  border: 1px solid rgba(126, 177, 255, 0.65);
-  border-radius: 10px;
-  background: linear-gradient(150deg, rgba(40, 77, 175, 0.88), rgba(90, 38, 127, 0.88));
-  color: #f4f8ff;
-  text-decoration: none;
-  min-height: 40px;
-  display: inline-flex;
-  justify-content: center;
   align-items: center;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.secondary-actions {
-  margin: 18px 0 0;
-}
-
-.trainer-link {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(120, 200, 140, 0.55);
-  background: rgba(20, 60, 40, 0.55);
-  color: #c8f5d4;
-  text-decoration: none;
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-
-.trainer-link:hover {
-  background: rgba(35, 90, 55, 0.65);
-  transform: translateY(-1px);
-}
-
-.trainer-page {
-  display: grid;
-  place-items: center;
-  padding: 14px;
-}
-
-.trainer-wrap {
-  width: min(560px, 100%);
-  border-radius: 18px;
-  padding: 14px;
-  background: linear-gradient(180deg, rgba(18, 42, 32, 0.92), rgba(12, 22, 38, 0.95));
-  border: 1px solid rgba(120, 200, 150, 0.35);
-  box-shadow:
-    0 0 26px rgba(96, 200, 140, 0.18),
-    inset 0 0 24px rgba(80, 140, 255, 0.06);
-}
-
-.trainer-hud h1 {
-  margin: 2px 0 8px;
-  font-size: 1.35rem;
-  text-align: center;
-  text-transform: none;
-  letter-spacing: 0.02em;
-}
-
-.trainer-sub {
-  margin: 0 0 10px;
-  text-align: center;
-  color: #c8e6d4;
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-
-.trainer-stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px 20px;
-  font-size: 0.9rem;
-  margin-bottom: 8px;
-  color: #b8d4c8;
-}
-
-.trainer-status {
-  margin: 0 0 10px;
-  text-align: center;
-  color: #a8c8ff;
-  font-size: 0.88rem;
-  line-height: 1.4;
-}
-
-#trainerCanvas {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  border: 2px solid rgba(120, 190, 150, 0.55);
-  background: #0a1520;
-  display: block;
-}
-
-.trainer-actions {
-  margin-top: 12px;
-  display: flex;
   justify-content: space-between;
   gap: 10px;
+  font-size: 0.9rem;
+}
+
+#modeSelect {
+  flex: 1;
+  max-width: 180px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+  color: var(--text);
+  appearance: none;
+}
+
+.ability-panel {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ability-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.05);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.ability-chip.unlocked {
+  background: rgba(0, 122, 255, 0.12);
+  color: var(--ios-blue);
+}
+
+.ios-btn {
+  grid-column: span 2;
+  min-height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: var(--ios-blue);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.ios-btn:hover:not(:disabled) {
+  transform: scale(1.01);
+}
+
+.ios-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.touch-controls {
+  margin-top: 14px;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.touch-middle {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  gap: 6px;
+}
+
+.touch-btn {
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.07);
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.1s ease, transform 0.08s ease;
+}
+
+.touch-btn:active {
+  background: rgba(0, 122, 255, 0.2);
+  transform: scale(0.96);
+}
+
+.touch-btn-action {
+  font-size: 1rem;
+}
+
+.controls-hint {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 380px) {
+  .iphone-bezel {
+    padding: 12px 12px 8px;
+  }
+
+  .touch-middle {
+    grid-template-columns: repeat(3, 50px);
+  }
+
+  .touch-btn {
+    width: 50px;
+    height: 50px;
+  }
 }
