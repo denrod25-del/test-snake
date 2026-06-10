@@ -44,4 +44,9 @@ yarn-error.log*
 
 # OS
 Thumbs.db
+
+# Tooling
 .superpowers/
+
+# Vendored third-party clones (have their own .git, not part of this repo)
+space-cadet-pinball/
