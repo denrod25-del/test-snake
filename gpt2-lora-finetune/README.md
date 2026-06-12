@@ -14,8 +14,18 @@ The architecture being tuned is the decoder-only Transformer from
 |------|---------|
 | `train_lora.py` | Fine-tunes a LoRA adapter on your data |
 | `generate.py` | Generates text from base model + adapter (with a `--base_only` mode for before/after comparison) |
+| `gpt2_lora_colab.ipynb` | Ready-to-run Colab notebook (self-contained; train + compare in the browser on a free GPU) |
 | `data/sample.jsonl` | A small demo dataset (a pirate-speak assistant) so you can see the effect immediately |
 | `requirements.txt` | Python dependencies |
+
+## Run it in Google Colab (no local setup)
+
+The fastest path with no environment hassle: open **`gpt2_lora_colab.ipynb`** in
+[Google Colab](https://colab.research.google.com/) (*File → Upload notebook*),
+choose a GPU runtime (*Runtime → Change runtime type → T4 GPU*), and run all
+cells. It's self-contained — the dataset and training code are inline, so there's
+nothing to clone — and the whole fine-tune finishes in under a minute on a T4.
+Colab has open network access, so the GPT-2 download just works there.
 
 ## Requirements / network note
 
