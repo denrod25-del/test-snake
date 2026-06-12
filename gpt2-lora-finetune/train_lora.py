@@ -98,10 +98,23 @@ def build_instruct_dataset(path, tokenizer, max_length):
             completion + tokenizer.eos_token, add_special_tokens=False
         )["input_ids"]
 
-        input_ids = (prompt_ids + completion_ids)[:max_length]
+        # Always preserve the completion tokens (the only part that carries a
+        # learning signal). If prompt + completion overflows max_length, truncate
+        # the prompt from the left so its "### Response:" tail and the completion
+        # survive; the completion itself is only trimmed if it alone is too long.
+        # This avoids all-(-100) rows, which give no gradient and can produce nan
+        # loss when a batch contains no trainable labels.
+        completion_ids = completion_ids[:max_length]
+        max_prompt_len = max_length - len(completion_ids)
+        if max_prompt_len <= 0:
+            prompt_ids = []
+        elif len(prompt_ids) > max_prompt_len:
+            prompt_ids = prompt_ids[-max_prompt_len:]
+
+        input_ids = prompt_ids + completion_ids
         # -100 tells the loss to ignore those positions (i.e. don't train on the
         # prompt, only on the response the model is supposed to produce).
-        labels = ([-100] * len(prompt_ids) + completion_ids)[:max_length]
+        labels = [-100] * len(prompt_ids) + completion_ids
 
         pad_len = max_length - len(input_ids)
         attention_mask = [1] * len(input_ids) + [0] * pad_len
