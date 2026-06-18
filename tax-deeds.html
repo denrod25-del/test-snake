@@ -17,8 +17,12 @@
     window.FTDR_CONFIG = {
       SUPABASE_URL:      "https://YOUR-PROJECT.supabase.co",
       SUPABASE_ANON_KEY: "YOUR_SUPABASE_ANON_KEY",
-      PRO_PRICE_DISPLAY: "$49",
-      AUTH_ENABLED:      true   // set to false to disable auth UI entirely (preview mode)
+      PRO_PRICE_DISPLAY: "$29",
+      AUTH_ENABLED:      true,
+      FEATURES: {
+        // Flip to true after RentCast + BatchData accounts are funded and tested.
+        advanced_lookups: false
+      }
     };
   </script>
   <style>
@@ -2282,6 +2286,19 @@
       font-weight: 600 !important;
     }
 
+    /* External tools in the primary nav (peer apps, not hash routes). */
+    nav.primary a.nav-ext {
+      color: var(--muted);
+      font-style: italic;
+    }
+    nav.primary a.nav-ext:hover { color: var(--ink); }
+    nav.primary a.nav-ext::after {
+      content: " \2197";
+      font-style: normal;
+      font-size: 0.85em;
+      opacity: 0.55;
+    }
+
     /* ---------- Auth modal ---------- */
     .auth-overlay {
       position: fixed; inset: 0;
@@ -2881,6 +2898,8 @@
         <a href="#/surplus" data-nav="surplus">Surplus</a>
         <a href="#/statute" data-nav="statute">Statute &sect;197</a>
         <a href="#/research" data-nav="research">Research</a>
+        <a href="counties/index.html" class="nav-ext" title="Browse all 67 Florida counties">Counties</a>
+        <a href="parcel-lookup.html" class="nav-ext" title="Palm Beach parcel &rarr; address lookup">Parcel Lookup</a>
         <a href="#/pricing" data-nav="pricing" class="nav-pro">Pro</a>
       </nav>
     </div>
@@ -5378,6 +5397,16 @@
                projectedProfitAtMax, projectedProfitAtOpening, exceedsRecommended };
     }
 
+    function renderComingSoon(label) {
+      return `
+        <div class="coming-soon-block" style="margin:18px 0;padding:18px 20px;border:1px dashed var(--rule);background:var(--paper-2);border-radius:4px;text-align:center;">
+          <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Coming soon</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;color:var(--ink);">${label}</div>
+          <div style="font-size:12.5px;color:var(--muted);margin-top:6px;">This feature is being prepared for launch. Pro subscribers get it first.</div>
+        </div>
+      `;
+    }
+
     function renderBidCalc(p) {
       const params = getBidParams(p);
       const result = calcBidResult(params, p.opening, p.max);
@@ -5673,8 +5702,9 @@
     function parcelCard(p) {
       const liveBlock = renderLiveBlock(p);
       const permitsBlock = renderPermitsBlock(p);
-      const riskBlock = renderRiskBlock(p);
-      const bidBlock = renderBidCalc(p);
+      const advLookupsOn = !!window.FTDR_CONFIG?.FEATURES?.advanced_lookups;
+      const riskBlock = advLookupsOn ? renderRiskBlock(p) : renderComingSoon('Risk & skip-trace analysis');
+      const bidBlock  = advLookupsOn ? renderBidCalc(p)   : renderComingSoon('Bid calculator with AVM');
       const svLinks = streetViewLinks(p);
       return `
         <div class="parcel-card" data-status="${p.status}" data-parcel-id="${p.id}">
@@ -6915,6 +6945,51 @@
 
     loadMedianValuesFromCache();
     rerenderAll();
+
+    /* ---------- Deep link: ?parcel=<PCN>&county=<slug>&address=…&owner=…
+       Lets external pages (parcel-lookup, county static pages, share links)
+       drop a single parcel straight into the research notebook. Adds the card
+       if it isn't already in the notebook, then routes to #/research. */
+    (function consumeDeepLinkParcel() {
+      const params = new URLSearchParams(window.location.search);
+      const rawPcn = (params.get('parcel') || '').trim();
+      if (!rawPcn) return;
+      const slug = (params.get('county') || 'palm-beach').toLowerCase();
+      const address = (params.get('address') || '').trim();
+      const owner   = (params.get('owner')   || '').trim();
+
+      const norm = rawPcn.replace(/[^0-9A-Za-z]/g, '').toUpperCase();
+      const all = loadParcels();
+      const dup = all.some(p =>
+        p.countySlug === slug &&
+        (p.parcelId || '').replace(/[^0-9A-Za-z]/g, '').toUpperCase() === norm
+      );
+      if (!dup && norm) {
+        all.push({
+          id: newParcelId(),
+          countySlug: slug,
+          parcelId: rawPcn,
+          address: address,
+          owner: owner,
+          assessed: '',
+          opening: '', max: '', liens: '', notes: '',
+          status: 'researching',
+          created: Date.now(),
+          updated: Date.now(),
+          source: 'deep-link',
+        });
+        saveParcels(all);
+      }
+
+      // Strip our deep-link params from the URL, preserve any hash, then route to research.
+      ['parcel', 'county', 'address', 'owner'].forEach(k => params.delete(k));
+      const cleanSearch = params.toString();
+      const newUrl = window.location.pathname
+                   + (cleanSearch ? '?' + cleanSearch : '')
+                   + '#/research';
+      history.replaceState(null, '', newUrl);
+    })();
+
     route();
 
     if (!medianValuesLoaded) {
