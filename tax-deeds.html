@@ -3584,9 +3584,39 @@
     // For most counties, surplus claims are handled by the Clerk's tax-deed
     // department. Override here when a county has a dedicated surplus page.
     // ----------------------------------------------------------------
+    // Curated per-county surplus-funds destinations. Verified against the
+    // Clerks' (or Comptroller's, for Orange) current public surplus pages.
+    // When a county runs surplus through RealAuction, we link to the
+    // platform; otherwise we link to the Clerk's dedicated surplus page.
     const SURPLUS_OVERRIDES = {
-      // example:
-      // "Orange": { url: "https://myorangeclerk.com/Divisions/Tax-Deeds/Surplus-Funds", label: "Orange Clerk Surplus Funds" }
+      "Alachua":      { url: "https://alachua.realtaxdeed.com/",                                                                                              label: "Alachua Tax Deed Surplus" },
+      "Bay":          { url: "https://bay.realtaxdeed.com/",                                                                                                  label: "Bay Tax Deed Surplus" },
+      "Brevard":      { url: "https://www.brevardclerk.us/tax-deed-surplus",                                                                                  label: "Brevard Clerk \u2014 Tax Deed Surplus" },
+      "Broward":      { url: "https://www.browardclerk.org/Divisions/RealEstate/SurplusFunds",                                                                label: "Broward Clerk \u2014 Surplus Funds" },
+      "Charlotte":    { url: "https://taxdeeds.charlotteclerk.com/",                                                                                          label: "Charlotte Tax Deed Services" },
+      "Citrus":       { url: "https://citrus.realtaxdeed.com/",                                                                                               label: "Citrus Tax Deed Surplus" },
+      "Clay":         { url: "https://clay.realtaxdeed.com/",                                                                                                 label: "Clay Tax Deed Surplus" },
+      "Collier":      { url: "https://www.collierclerk.com/tax-deed-sales/tax-deed-surplus/",                                                                 label: "Collier Clerk \u2014 Tax Deed Surplus" },
+      "Duval":        { url: "https://www.duvalclerk.com/court-records/tax-deeds/surplus-funds",                                                              label: "Duval Clerk \u2014 Surplus Funds" },
+      "Escambia":     { url: "https://www.escambiaclerk.com/176/Surplus-Funds",                                                                               label: "Escambia Clerk \u2014 Surplus Funds" },
+      "Hernando":     { url: "https://hernandoclerk.com/additional-services/tax-deeds/",                                                                      label: "Hernando Clerk \u2014 Tax Deeds & Surplus" },
+      "Hillsborough": { url: "https://www.hillsclerk.com/taxdeeds",                                                                                           label: "Hillsborough Clerk \u2014 Tax Deeds & Surplus" },
+      "Lake":         { url: "https://www.lakecountyclerk.org/court_services/tax_deed_surplus_funds.aspx",                                                    label: "Lake Clerk \u2014 Tax Deed Surplus" },
+      "Lee":          { url: "https://www.leeclerk.org/records-and-information/tax-deeds/tax-deed-surplus-funds",                                             label: "Lee Clerk \u2014 Tax Deed Surplus" },
+      "Manatee":      { url: "https://www.manateeclerk.com/departments/tax-deeds/list-of-unclaimed-funds/",                                                   label: "Manatee Clerk \u2014 Unclaimed Tax Deed Funds" },
+      "Marion":       { url: "https://www.marioncountyclerk.org/departments/records-recording/tax-deeds-and-lands-available-for-taxes/unclaimed-funds/",      label: "Marion Clerk \u2014 Unclaimed Surplus" },
+      "Miami-Dade":   { url: "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",                                                                  label: "Miami-Dade Clerk \u2014 Property Tax Deeds" },
+      "Orange":       { url: "https://www.occompt.com/191/Tax-Deed-Sales",                                                                                    label: "Orange County Comptroller \u2014 Tax Deed Sales" },
+      "Osceola":      { url: "https://osceolaclerk.com/tax-deeds/",                                                                                           label: "Osceola Clerk \u2014 Tax Deed Surplus" },
+      "Palm Beach":   { url: "https://www.mypalmbeachclerk.com/departments/courts/tax-deeds/sale-information",                                                label: "Palm Beach Clerk \u2014 Tax Deed Surplus" },
+      "Pasco":        { url: "https://pascoclerk.com/839/Tax-Deed-Surplus",                                                                                   label: "Pasco Clerk \u2014 Tax Deed Surplus" },
+      "Pinellas":     { url: "https://www.mypinellasclerk.gov/Home/TaxDeedSurplus",                                                                           label: "Pinellas Clerk \u2014 Tax Deed Surplus" },
+      "Polk":         { url: "https://apps.polkcountyclerk.net/browserviewtd/",                                                                               label: "Polk Clerk \u2014 Tax Deed Search & Surplus" },
+      "Sarasota":     { url: "https://www.sarasotaclerk.com/Home-and-Property/Tax-Deeds/Surplus-Funds-from-Tax-Deed-Sale",                                    label: "Sarasota Clerk \u2014 Tax Deed Surplus" },
+      "Seminole":     { url: "https://www.seminoleclerk.org/online-services/property-auctions/tax-deed-sales/",                                               label: "Seminole Clerk \u2014 Tax Deed Sales & Surplus" },
+      "St. Johns":    { url: "https://stjohnsclerk.com/foreclosure/tax-deeds-2/",                                                                             label: "St. Johns Clerk \u2014 Tax Deeds & Surplus" },
+      "St. Lucie":    { url: "https://www.stlucieclerk.com/tax-deeds/surplus-funds",                                                                          label: "St. Lucie Clerk \u2014 Tax Deed Surplus" },
+      "Volusia":      { url: "https://www.clerk.org/tax-deeds/surplus-funds",                                                                                 label: "Volusia Clerk \u2014 Surplus Funds" }
     };
 
     function todayISO() { return new Date().toISOString().slice(0,10); }
