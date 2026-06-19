@@ -11,6 +11,7 @@ Monorepo of web apps and static sites built in this workspace. Each folder is an
 | `gentoomen-hub/` | Gentoomen Hub — learning hub |
 | `forge-path/` | Forge Path — interactive learning paths |
 | `js-quest/` | JavaScript quest / tutorial app |
+| `plomeria-hub/` | Plomería Hub — Florida Plumbing Code (FBC-P) reference with synced notes/bookmarks (Next.js + Supabase) |
 | `app/` | Main Vite/React app |
 | `school-shooting-tracker/` | School shooting tracker |
 
