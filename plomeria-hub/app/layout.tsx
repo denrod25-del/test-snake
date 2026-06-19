@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ConversionAttribution } from "@/components/code/ConversionAttribution";
+import { AuthStatus } from "@/components/AuthStatus";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,13 +20,16 @@ export default function RootLayout({
         {/* Captures ?ref=code&seccion=... from code.bsymbolic.com traffic */}
         <ConversionAttribution />
         <header className="border-b border-zinc-300 bg-white">
-          <div className="mx-auto max-w-4xl px-6 py-4 flex items-baseline justify-between">
+          <div className="mx-auto max-w-4xl px-6 py-4 flex items-center justify-between gap-4">
             <a href="/" className="font-display text-xl font-semibold tracking-tight">
               Plomería<span className="text-amber-700">Hub</span>
             </a>
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-              FBC-P · Florida
-            </span>
+            <div className="flex items-center gap-4">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500 hidden sm:inline">
+                FBC-P · Florida
+              </span>
+              <AuthStatus />
+            </div>
           </div>
         </header>
         <main className="mx-auto max-w-4xl px-6 py-10">{children}</main>

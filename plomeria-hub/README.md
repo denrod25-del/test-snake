@@ -50,9 +50,21 @@ npm run start    # http://localhost:3000
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
    ```
 
-> Note: this app ships the **data + UI** for notes/bookmarks. It does not include a login screen
-> — wiring Supabase Auth (e.g. magic-link sign-in) is the one remaining step to let real users
-> sign in. Until a user is authenticated, every page renders in anonymous mode.
+4. **Configure auth redirect URLs** in Supabase → **Authentication → URL Configuration**:
+   - **Site URL**: your deployed URL (e.g. `https://plomeria-hub.vercel.app`)
+   - **Redirect URLs**: add both `http://localhost:3000/**` and `https://YOUR-DOMAIN/**`
+     so the magic-link `/auth/confirm` callback is allowed.
+
+### Sign-in (magic link)
+
+This app includes passwordless **magic-link** auth:
+
+- **Sign in** at `/login` — enter an email, Supabase emails a one-click link.
+- The link lands on `/auth/confirm`, which verifies the token and sets the session.
+- `middleware.ts` keeps the session fresh; the header shows the signed-in email with a **Salir** (sign-out) button.
+
+Once signed in, each code section shows the synced **notes editor** and **bookmark** button. Signed-out
+visitors get the same code content, read-only. No extra setup beyond the Supabase env vars and redirect URLs above.
 
 ---
 
