@@ -6277,6 +6277,17 @@
       return false;
     };
 
+    function getAuthRedirectUrl() {
+      const u = new URL(window.location.href);
+      if (!u.pathname.endsWith('tax-deeds.html')) {
+        const dir = u.pathname.replace(/\/[^/]*$/, '');
+        u.pathname = (dir || '') + '/tax-deeds.html';
+      }
+      u.search = '';
+      u.hash = '#/account';
+      return u.href;
+    }
+
     window.doSignUp = async function(ev) {
       ev.preventDefault();
       if (!sb) return false;
@@ -6286,7 +6297,10 @@
       errEl.style.display = 'none'; okEl.style.display = 'none';
       const { data, error } = await sb.auth.signUp({
         email: f.email.value, password: f.password.value,
-        options: { data: { full_name: f.full_name.value } }
+        options: {
+          data: { full_name: f.full_name.value },
+          emailRedirectTo: getAuthRedirectUrl()
+        }
       });
       if (error) {
         errEl.textContent = error.message;
@@ -6294,7 +6308,7 @@
         return false;
       }
       if (data?.user && !data.session) {
-        okEl.innerHTML = '<strong>Check your inbox.</strong> We sent a confirmation email to ' + f.email.value + '. Click the link to activate your account.';
+        okEl.innerHTML = '<strong>Check your inbox.</strong> We sent a confirmation email to ' + escapeHtml(f.email.value) + '. Click the link — you should land back on DeedScout, signed in. Then go to Pro pricing to subscribe.';
         okEl.style.display = 'block';
       } else {
         closeAuth();
