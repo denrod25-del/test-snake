@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState, useCallback, type React
 import type { User } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { pullCloudParcels } from '../lib/parcels';
+import { getAuthRedirectUrl } from '../lib/config';
 import type { Profile } from '../lib/types';
 
 interface AuthValue {
@@ -78,13 +79,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = async (email: string, password: string) => {
     if (!supabase) return { error: 'Auth not configured' };
     const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error && /not confirmed|email.*confirm/i.test(error.message)) {
+      return { error: 'Email not confirmed yet. Check your inbox for the confirmation link, then sign in again.' };
+    }
     return { error: error?.message ?? null };
   };
 
   const signUp = async (email: string, password: string, full_name: string) => {
     if (!supabase) return { error: 'Auth not configured', needsConfirm: false };
     const { data, error } = await supabase.auth.signUp({
-      email, password, options: { data: { full_name } },
+      email,
+      password,
+      options: {
+        data: { full_name },
+        emailRedirectTo: getAuthRedirectUrl(),
+      },
     });
     if (error) return { error: error.message, needsConfirm: false };
     return { error: null, needsConfirm: !!data.user && !data.session };
@@ -97,6 +106,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const startCheckout = async () => {
     if (!supabase) return;
+    await supabase.auth.refreshSession();
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return;
     const r = await fetch('/api/checkout', {

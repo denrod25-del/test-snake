@@ -17,6 +17,8 @@
     window.FTDR_CONFIG = {
       SUPABASE_URL:      "https://wmkbksqztpofxoqbyrdd.supabase.co",
       SUPABASE_ANON_KEY: "sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDjj",
+      // Always use production for email-confirm / OAuth redirects (not deploy-preview URLs).
+      SITE_URL:          "https://deedscout.netlify.app",
       PRO_PRICE_DISPLAY: "$29",
       AUTH_ENABLED:      true,
       FEATURES: {
@@ -6269,7 +6271,11 @@
         email: f.email.value, password: f.password.value
       });
       if (error) {
-        errEl.textContent = error.message;
+        var msg = error.message;
+        if (/not confirmed|email.*confirm/i.test(msg)) {
+          msg = 'Email not confirmed yet. Check your inbox for the confirmation link, then sign in again.';
+        }
+        errEl.textContent = msg;
         errEl.style.display = 'block';
         return false;
       }
@@ -6278,15 +6284,27 @@
     };
 
     function getAuthRedirectUrl() {
-      const u = new URL(window.location.href);
-      if (!u.pathname.endsWith('tax-deeds.html')) {
-        const dir = u.pathname.replace(/\/[^/]*$/, '');
-        u.pathname = (dir || '') + '/tax-deeds.html';
+      var host = window.location.hostname;
+      var isLocal = host === 'localhost' || host === '127.0.0.1';
+      if (isLocal) {
+        var u = new URL(window.location.href);
+        if (!u.pathname.endsWith('tax-deeds.html')) {
+          u.pathname = u.pathname.replace(/\/?$/, '/tax-deeds.html');
+        }
+        u.search = '';
+        u.hash = '#/account';
+        return u.href;
       }
-      u.search = '';
-      u.hash = '#/account';
-      return u.href;
+      var base = (FTDR_CONFIG.SITE_URL || 'https://deedscout.netlify.app').replace(/\/+$/, '');
+      return base + '/tax-deeds.html#/account';
     }
+
+    function warnIfDeployPreview() {
+      if (window.location.hostname.includes('--deedscout.netlify.app')) {
+        console.warn('DeedScout deploy preview: use https://deedscout.netlify.app for sign-in (sessions do not carry over between preview URLs).');
+      }
+    }
+    warnIfDeployPreview();
 
     window.doSignUp = async function(ev) {
       ev.preventDefault();

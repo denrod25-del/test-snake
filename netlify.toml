@@ -31,6 +31,11 @@
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
 [[headers]]
+  for = "/tax-deeds.html"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=300, must-revalidate"
