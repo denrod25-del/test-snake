@@ -44,10 +44,45 @@ function getSupabaseServiceKey() {
   return key;
 }
 
+function getSupabasePublishableKey() {
+  // Prefer Netlify env vars; fall back to the public client key from tax-deeds.html.
+  return (
+    cleanEnv('SUPABASE_ANON_KEY') ||
+    cleanEnv('SUPABASE_PUBLISHABLE_KEY') ||
+    'sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDjj'
+  );
+}
+
+function createSupabasePublishableClient() {
+  return createClient(getSupabaseUrl(), getSupabasePublishableKey(), {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+}
+
 function createSupabaseAdminClient() {
   return createClient(getSupabaseUrl(), getSupabaseServiceKey(), {
     auth: { autoRefreshToken: false, persistSession: false },
   });
+}
+
+/** Verify a browser access token. Tries publishable key first (matches client JWTs). */
+async function verifyAccessToken(accessToken) {
+  const pub = createSupabasePublishableClient();
+  const pubResult = await pub.auth.getUser(accessToken);
+  if (!pubResult.error && pubResult.data?.user) {
+    return { user: pubResult.data.user, error: null };
+  }
+
+  try {
+    const admin = createSupabaseAdminClient();
+    const adminResult = await admin.auth.getUser(accessToken);
+    if (!adminResult.error && adminResult.data?.user) {
+      return { user: adminResult.data.user, error: null };
+    }
+    return { user: null, error: adminResult.error || pubResult.error };
+  } catch (err) {
+    return { user: null, error: pubResult.error || err };
+  }
 }
 
 function getSiteUrl(event) {
@@ -61,6 +96,9 @@ module.exports = {
   cleanEnv,
   getSupabaseUrl,
   getSupabaseServiceKey,
+  getSupabasePublishableKey,
   createSupabaseAdminClient,
+  createSupabasePublishableClient,
+  verifyAccessToken,
   getSiteUrl,
 };

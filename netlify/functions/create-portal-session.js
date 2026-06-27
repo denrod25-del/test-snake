@@ -10,7 +10,7 @@
 // ----------------------------------------------------------------------------
 
 const Stripe = require('stripe');
-const { createSupabaseAdminClient, getSiteUrl, cleanEnv } = require('./_lib/config');
+const { createSupabaseAdminClient, getSiteUrl, cleanEnv, verifyAccessToken } = require('./_lib/config');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -23,17 +23,17 @@ exports.handler = async (event) => {
       return { statusCode: 400, body: JSON.stringify({ error: 'Missing accessToken' }) };
     }
 
-    const supabase = createSupabaseAdminClient();
-
-    const { data: userData, error: userErr } = await supabase.auth.getUser(accessToken);
-    if (userErr || !userData?.user) {
-      return { statusCode: 401, body: JSON.stringify({ error: 'Invalid session' }) };
+    const { user, error: authErr } = await verifyAccessToken(accessToken);
+    if (authErr || !user) {
+      return { statusCode: 401, body: JSON.stringify({ error: 'Invalid session — please sign in again.' }) };
     }
+
+    const supabase = createSupabaseAdminClient();
 
     const { data: profile } = await supabase
       .from('profiles')
       .select('stripe_customer_id')
-      .eq('id', userData.user.id)
+      .eq('id', user.id)
       .single();
 
     if (!profile?.stripe_customer_id) {

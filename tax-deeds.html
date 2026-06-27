@@ -6397,8 +6397,14 @@
       if (!sb) { alert('Auth not configured'); return; }
       if (!currentUser) { openAuth('signup'); return; }
       try {
-        const { data: { session } } = await sb.auth.getSession();
-        if (!session?.access_token) { openAuth('signin'); return; }
+        const { data: refreshData, error: refreshErr } = await sb.auth.refreshSession();
+        if (refreshErr) console.warn('session refresh', refreshErr.message);
+        const session = refreshData?.session ?? (await sb.auth.getSession()).data.session;
+        if (!session?.access_token) {
+          alert('Please confirm your email, then sign in again before subscribing.');
+          openAuth('signin');
+          return;
+        }
         const r = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -6416,7 +6422,9 @@
 
     window.openBillingPortal = async function() {
       if (!sb || !currentUser) return;
-      const { data: { session } } = await sb.auth.getSession();
+      const { data: refreshData } = await sb.auth.refreshSession();
+      const session = refreshData?.session ?? (await sb.auth.getSession()).data.session;
+      if (!session?.access_token) { openAuth('signin'); return; }
       const r = await fetch('/api/portal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -10,7 +10,7 @@
 // "isPro" hints for spending decisions.
 // ----------------------------------------------------------------------------
 
-const { createSupabaseAdminClient } = require('./config');
+const { createSupabaseAdminClient, verifyAccessToken } = require('./config');
 
 let _client = null;
 function client() {
@@ -58,10 +58,9 @@ function extractAccessToken(event) {
 async function authenticate(event) {
   const { token, body } = extractAccessToken(event);
   if (!token) return { error: json(401, { error: 'Missing access token' }) };
-  const sb = client();
-  const { data, error } = await sb.auth.getUser(token);
-  if (error || !data?.user) return { error: json(401, { error: 'Invalid session' }) };
-  return { user: data.user, body };
+  const { user, error } = await verifyAccessToken(token);
+  if (error || !user) return { error: json(401, { error: 'Invalid session' }) };
+  return { user, body };
 }
 
 /**
