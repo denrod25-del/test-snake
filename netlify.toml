@@ -75,3 +75,15 @@
   from = "/api/credits"
   to   = "/.netlify/functions/credits-balance"
   status = 200
+
+# DeedScout uses hash routes inside tax-deeds.html. Supabase Auth often
+# redirects to /account or /pricing — serve shim pages that forward tokens.
+[[redirects]]
+  from = "/account"
+  to   = "/account.html"
+  status = 200
+
+[[redirects]]
+  from = "/pricing"
+  to   = "/pricing.html"
+  status = 200
