@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PBC PZB Plat PDF Index</title>
+<meta name="description" content="Searchable index of recorded plat PDF sheets from Palm Beach County Planning, Zoning & Building — with new-since-last-scrape highlights." />
+<style>
+  :root {
+    --bg: #0f1419; --panel: #1a2230; --panel-2: #232d3f; --border: #2d3a4f;
+    --text: #e6edf3; --muted: #8a97a8; --accent: #4f9eff; --success: #3fb950; --radius: 8px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+  .app-switch { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 10px; background: #0b0f15; border-bottom: 1px solid var(--border); font-size: 12px; }
+  .app-switch a, .app-switch .current { padding: 4px 12px; border-radius: 999px; color: var(--muted); text-decoration: none; }
+  .app-switch .current { border: 1px solid var(--accent); color: var(--text); }
+  header { text-align: center; padding: 28px 20px 16px; border-bottom: 1px solid var(--border); }
+  header h1 { margin: 0 0 8px; font-size: 26px; }
+  header p { margin: 0; color: var(--muted); font-size: 14px; max-width: 680px; margin-inline: auto; }
+  main { max-width: 1000px; margin: 0 auto; padding: 20px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+  .field { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 4px; }
+  label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+  input, select, button { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 9px 11px; font: inherit; }
+  button.btn { background: var(--accent); border: none; color: #fff; font-weight: 600; cursor: pointer; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-bottom: 14px; }
+  .stat { background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; }
+  .stat .num { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .stat .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+  .changelog { background: rgba(63,185,80,.08); border: 1px solid rgba(63,185,80,.35); border-radius: var(--radius); padding: 12px; margin-bottom: 14px; font-size: 13px; color: #b8e6bf; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 9px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { background: var(--panel-2); font-size: 11px; color: var(--muted); text-transform: uppercase; }
+  .name-cell { font-size: 13px; max-width: 280px; }
+  .name-primary { color: var(--text); font-weight: 600; }
+  .name-alt { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .name-match { font-size: 11px; color: #9be9a8; margin-top: 3px; }
+  .name-none { font-size: 11px; color: var(--muted); font-style: italic; }
+  .badge-new { font-size: 10px; background: rgba(63,185,80,.2); border: 1px solid var(--success); color: #9be9a8; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
+  a { color: var(--accent); }
+  .preset-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .preset-btn { background: var(--panel-2); border: 1px solid var(--border); color: var(--muted); border-radius: 999px; padding: 5px 12px; font-size: 12px; cursor: pointer; }
+  .preset-btn.active { border-color: var(--success); color: #9be9a8; }
+</style>
+</head>
+<body>
+<nav class="app-switch">
+  <a href="tax-deeds.html">Registry</a>
+  <a href="subdivision-index.html">Subdivisions</a>
+  <span class="current">Plat Index</span>
+  <a href="permit-search.html">Permit Search</a>
+  <a href="parcel-lookup.html">Parcel Lookup</a>
+</nav>
+<header>
+  <h1>PBC PZB Plat PDF Index</h1>
+  <p>Every recorded plat sheet linked from the county Planning, Zoning &amp; Building site. New sheets are flagged when the monthly scraper finds PDFs that weren't in the last run — often <em>before</em> they appear on the PAO tax roll. Where OCR has run, subdivision names are read directly off the plat PDF title block.</p>
+  <p style="margin-top:8px;font-size:12px;color:var(--muted)">Source: <a href="https://discover.pbc.gov/pzb/Pages/Plats.aspx" target="_blank" rel="noopener">PZB Plat Map Index</a> · <a href="https://discover.pbc.gov/pzb/PDF/plat_index.pdf" target="_blank" rel="noopener">Cross-reference PDF</a> · <span id="generated-date">loading…</span></p>
+</header>
+<main>
+  <div class="changelog" id="changelog" hidden></div>
+  <div class="stats" id="stats" hidden></div>
+  <section class="panel">
+    <div class="row">
+      <div class="field" style="flex:2"><label for="search">Search plat ID or name</label><input id="search" placeholder="e.g. 130-045 or Pelican Square" /></div>
+      <div class="field"><label for="book">Book</label><select id="book"><option value="">All books</option></select></div>
+      <div class="field"><label for="sort">Sort</label><select id="sort"><option value="book-desc">Newest books first</option><option value="book-asc">Oldest books first</option><option value="id-asc">Plat ID A→Z</option></select></div>
+      <button class="btn" type="button" id="export-btn" disabled>Export CSV</button>
+    </div>
+    <div class="preset-row">
+      <button type="button" class="preset-btn" data-preset="has-names">Has OCR names</button>
+      <button type="button" class="preset-btn" data-preset="new-run">New since last scrape</button>
+      <button type="button" class="preset-btn" data-preset="new-month">New this month</button>
+      <button type="button" class="preset-btn" data-preset="">Clear</button>
+    </div>
+  </section>
+  <p id="result-count" style="color:var(--muted);font-size:13px">Loading…</p>
+  <div style="overflow-x:auto;border:1px solid var(--border);border-radius:8px">
+    <table><thead><tr><th>#</th><th>Plat ID</th><th>Book</th><th>Names (OCR)</th><th>PDF</th></tr></thead><tbody id="body"><tr><td colspan="5">Loading…</td></tr></tbody></table>
+  </div>
+</main>
+<script>
+(() => {
+  const DATA = "./data/plats/palm-beach.json";
+  const DIFF = "./data/plats/palm-beach-diff.json";
+  const EXTRACTS = "./data/plats/extract-index.json";
+  const PAGE = 150;
+  let all = [], filtered = [], preset = "", page = 1, extractByPlat = {};
+  const $ = (s) => document.querySelector(s);
+
+  function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+
+  function namesFor(r) {
+    if (r.subdivision_names?.length) return r.subdivision_names;
+    const ext = extractByPlat[r.plat_id];
+    return ext?.subdivision_names || [];
+  }
+
+  function primaryFor(r) {
+    if (r.primary_name) return r.primary_name;
+    const ext = extractByPlat[r.plat_id];
+    return ext?.primary_name || null;
+  }
+
+  function matchedFor(r) {
+    if (r.matched_subdivisions?.length) return r.matched_subdivisions;
+    const ext = extractByPlat[r.plat_id];
+    return ext?.matched_subdivisions || [];
+  }
+
+  function renderNames(r) {
+    const primary = primaryFor(r);
+    const names = namesFor(r);
+    const matched = matchedFor(r);
+    if (!primary && !names.length) return '<span class="name-none">Not extracted</span>';
+    let html = primary ? `<div class="name-primary">${esc(primary)}</div>` : "";
+    const alts = names.filter((n) => n !== primary);
+    if (alts.length) html += `<div class="name-alt">${alts.slice(0, 3).map(esc).join(" · ")}${alts.length > 3 ? " …" : ""}</div>`;
+    if (matched.length) {
+      html += `<div class="name-match">PAO: ${matched.slice(0, 2).map((m) =>
+        `<a href="subdivision-index.html?q=${encodeURIComponent(m)}">${esc(m)}</a>`
+      ).join(", ")}${matched.length > 2 ? " …" : ""}</div>`;
+    }
+    return html;
+  }
+
+  function apply() {
+    const q = $("#search").value.trim().toUpperCase();
+    const book = $("#book").value;
+    filtered = all.filter((r) => {
+      const names = namesFor(r).join(" ").toUpperCase();
+      const primary = (primaryFor(r) || "").toUpperCase();
+      if (q && !r.plat_id.toUpperCase().includes(q) && !names.includes(q) && !primary.includes(q)) return false;
+      if (book && r.book !== book) return false;
+      if (preset === "has-names" && !namesFor(r).length && !primaryFor(r)) return false;
+      if (preset === "new-run" && !r.is_new) return false;
+      if (preset === "new-month" && !r.is_new_this_month) return false;
+      return true;
+    });
+    const sort = $("#sort").value;
+    if (sort === "book-asc") filtered.sort((a,b) => +a.book - +b.book || a.plat_id.localeCompare(b.plat_id));
+    else if (sort === "id-asc") filtered.sort((a,b) => a.plat_id.localeCompare(b.plat_id));
+    else filtered.sort((a,b) => +b.book - +a.book || b.plat_id.localeCompare(a.plat_id));
+    page = 1; render();
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
+    if (book) params.set("book", book);
+    if (preset) params.set("preset", preset);
+    history.replaceState(null, "", params.toString() ? "?" + params : location.pathname);
+  }
+
+  function render() {
+    const start = (page - 1) * PAGE;
+    const slice = filtered.slice(start, start + PAGE);
+    $("#result-count").textContent = filtered.length.toLocaleString() + " plat sheets" + (filtered.length !== all.length ? " (filtered)" : "");
+    $("#body").innerHTML = slice.length ? slice.map((r, i) => `<tr>
+      <td>${start + i + 1}</td>
+      <td>${esc(r.plat_id)}${r.is_new ? '<span class="badge-new">NEW</span>' : ""}</td>
+      <td>${esc(r.book)}</td>
+      <td class="name-cell">${renderNames(r)}</td>
+      <td><a href="${esc(r.pdf_url)}" target="_blank" rel="noopener">Open PDF</a></td>
+    </tr>`).join("") : `<tr><td colspan="5">No matches</td></tr>`;
+  }
+
+  function renderChangelog(diff) {
+    if (!diff?.new_count) { $("#changelog").hidden = true; return; }
+    $("#changelog").innerHTML = `<strong>${diff.new_count} new plat PDF(s)</strong> since last scrape: ` +
+      diff.new.slice(0, 10).map((p) => `<a href="${esc(p.pdf_url)}" target="_blank" rel="noopener">${esc(p.plat_id)}</a>`).join(", ") +
+      (diff.new_count > 10 ? ` …+${diff.new_count - 10} more` : "");
+    $("#changelog").hidden = false;
+  }
+
+  async function init() {
+    const params = new URLSearchParams(location.search);
+    if (params.get("q")) $("#search").value = params.get("q");
+    if (params.get("preset")) preset = params.get("preset");
+    try {
+      const [main, diff, extracts] = await Promise.all([
+        fetch(DATA),
+        fetch(DIFF).catch(() => null),
+        fetch(EXTRACTS).catch(() => null),
+      ]);
+      if (!main.ok) throw new Error("HTTP " + main.status);
+      const data = await main.json();
+      all = data.plats || [];
+      const s = data.stats || {};
+      if (extracts?.ok) {
+        const ex = await extracts.json();
+        extractByPlat = ex.plats || {};
+        if (ex.stats?.with_names_count) {
+          s.names_with_subdivisions = ex.stats.with_names_count;
+        }
+      }
+      if (diff?.ok) renderChangelog(await diff.json());
+      $("#stats").innerHTML = [
+        ["plat_count", "Plat sheets"],
+        ["book_count", "Books"],
+        ["names_with_subdivisions", "With OCR names"],
+        ["new_since_last_run", "New since scrape"],
+        ["new_this_month", "New this month"],
+      ].map(([k,l]) => `<div class="stat"><div class="num">${(s[k]||0).toLocaleString()}</div><div class="lbl">${l}</div></div>`).join("");
+      $("#stats").hidden = false;
+      if (data.generated) $("#generated-date").textContent = "Last built " + new Date(data.generated).toLocaleString();
+      for (const b of s.books || []) {
+        const o = document.createElement("option"); o.value = String(b); o.textContent = "Book " + b; $("#book").appendChild(o);
+      }
+      if (params.get("book")) $("#book").value = params.get("book");
+      $$(".preset-btn").forEach((b) => b.classList.toggle("active", b.dataset.preset === preset));
+      $("#export-btn").disabled = false;
+      apply();
+    } catch (e) {
+      $("#body").innerHTML = `<tr><td colspan="5">Load ${DATA} failed — run <code>python scraper/scrape_plats.py</code>. ${esc(e.message)}</td></tr>`;
+    }
+  }
+
+  const $$ = (s) => document.querySelectorAll(s);
+  $("#search").addEventListener("input", () => { clearTimeout($("#search")._t); $("#search")._t = setTimeout(apply, 200); });
+  $("#book").addEventListener("change", apply);
+  $("#sort").addEventListener("change", apply);
+  $$(".preset-btn").forEach((b) => b.addEventListener("click", () => { preset = b.dataset.preset || ""; $$(".preset-btn").forEach((x) => x.classList.toggle("active", x === b && preset)); apply(); }));
+  $("#export-btn").addEventListener("click", () => {
+    const lines = ["plat_id,book,primary_name,subdivision_names,matched_subdivisions,pdf_url,is_new,is_new_this_month", ...filtered.map((r) =>
+      [r.plat_id, r.book, `"${primaryFor(r) || ""}"`, `"${namesFor(r).join("; ")}"`, `"${matchedFor(r).join("; ")}"`, `"${r.pdf_url}"`, r.is_new ? "Y" : "N", r.is_new_this_month ? "Y" : "N"].join(",")
+    )];
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([lines.join("\n")], {type:"text/csv"}));
+    a.download = "pbc-plat-index.csv"; a.click();
+  });
+  init();
+})();
+</script>
+</body>
+</html>

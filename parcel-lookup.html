@@ -35,6 +35,52 @@
     line-height: 1.5;
   }
 
+  /* Cross-app navigation: links to peer tools (Registry, Counties).
+     Lives in a thin bar above the header so it never competes with
+     parcel-search controls but is always one click away. */
+  .app-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 16px;
+    background: #0b0f15;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    flex-wrap: wrap;
+  }
+  .app-switch .label {
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    margin-right: 10px;
+  }
+  .app-switch a, .app-switch .current {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .app-switch a:hover {
+    color: var(--text);
+    background: var(--panel);
+    border-color: var(--border);
+  }
+  .app-switch .current {
+    color: var(--text);
+    background: var(--panel);
+    border-color: var(--accent);
+    font-weight: 500;
+    cursor: default;
+  }
+  .app-switch .sep { color: var(--border); margin: 0 2px; }
+
   header {
     padding: 32px 24px 16px;
     text-align: center;
@@ -273,6 +319,10 @@
     white-space: nowrap;
   }
   td a.map-link:hover { text-decoration: underline; }
+  td a.map-link.registry-link {
+    color: var(--success);
+    font-weight: 500;
+  }
   td.map-cell { white-space: nowrap; display: flex; flex-direction: column; gap: 4px; min-width: 110px; }
   button.save-btn {
     background: rgba(79, 158, 255, 0.08);
@@ -565,6 +615,16 @@
 </style>
 </head>
 <body>
+<nav class="app-switch" aria-label="Switch app">
+  <span class="label">Florida Tax Deed Suite</span>
+  <a href="tax-deeds.html" title="Statewide registry, research notebook, statute">Registry</a>
+  <span class="sep">·</span>
+  <a href="counties/index.html" title="Browse all 67 Florida counties">Counties</a>
+  <span class="sep">·</span>
+  <a href="subdivision-index.html" title="All legal subdivision names in PBC">Subdivisions</a>
+  <span class="sep">·</span>
+  <span class="current" aria-current="page">Parcel Lookup</span>
+</nav>
 <header>
   <h1>Palm Beach County Parcel &rarr; Address Lookup</h1>
   <p>Convert PCNs (Parcel Control Numbers), legal descriptions, or owner names into property addresses.</p>
@@ -1080,6 +1140,18 @@
       const saveBtn = pid
         ? `<button class="save-btn" type="button" data-pcn="${escHtml(pid)}" title="Add to Tax Deed research notebook">+ Notebook</button>`
         : "";
+      // Open-in-Registry deep-link: lands directly on the research notebook with
+      // this parcel already added as a card (handled by tax-deeds.html's
+      // consumeDeepLinkParcel on load).
+      const registryHref = pid
+        ? `tax-deeds.html?parcel=${encodeURIComponent(pid)}&county=palm-beach`
+          + (fmtAddress(r) ? `&address=${encodeURIComponent(fmtAddress(r))}` : '')
+          + (fmtOwner(r)   ? `&owner=${encodeURIComponent(fmtOwner(r))}`     : '')
+          + '#/research'
+        : '';
+      const registryBtn = registryHref
+        ? `<a class="map-link registry-link" href="${registryHref}" title="Open this parcel in the Tax Deed research notebook">Registry ↗</a>`
+        : "";
       tr.innerHTML = `
         <td class="mono">${escHtml(pid)}</td>
         <td>${escHtml(fmtAddress(r) || "—")}</td>
@@ -1094,6 +1166,7 @@
           ${gmapsUrl ? `<a class="map-link" href="${gmapsUrl}" target="_blank" rel="noopener">Maps ↗</a>` : ""}
           ${svUrl   ? `<a class="map-link" href="${svUrl}" target="_blank" rel="noopener">Street View ↗</a>` : ""}
           ${saveBtn}
+          ${registryBtn}
         </td>
       `;
       tbody.appendChild(tr);
@@ -1678,6 +1751,21 @@
   // ---- Bootstrap: restore state from URL on first load ----
   function bootstrap() {
     const params = readUrl();
+
+    // Friendly aliases for external links coming from other apps.
+    //   ?pcn=<PCN>          → single PCN lookup
+    //   ?owner=<name>       → owner-name search
+    //   ?address=<text>     → site-address search
+    //   ?legal=<text>       → legal-description search
+    //   ?subdiv=<name>      → subdivision search
+    if (!params.q && !params.mode && !params.bulk) {
+      if (params.pcn)     { params.mode = "pcn";    params.q = params.pcn; }
+      else if (params.owner)   { params.mode = "owner";   params.q = params.owner; }
+      else if (params.address) { params.mode = "address"; params.q = params.address; }
+      else if (params.legal)   { params.mode = "legal";   params.q = params.legal; }
+      else if (params.subdiv)  { params.mode = "subdiv";  params.q = params.subdiv; }
+    }
+
     suppressUrlWrite = true;
     try {
       // Apply tab.

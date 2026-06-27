@@ -1,0 +1,26 @@
+{
+  "plat_id": "130-053",
+  "book": "130",
+  "pdf_url": "https://discover.pbc.gov/pzb/Plats-130-139/130-053.pdf",
+  "extracted_at": "2026-06-26T23:49:28+00:00",
+  "method": "ocr",
+  "ocr_scale": 1.25,
+  "ocr_line_count": 601,
+  "subdivision_names": [
+    {
+      "name": "CASA DEL SOL",
+      "source": "quoted",
+      "confidence": "high"
+    },
+    {
+      "name": "PALM BEACH PLANTATIONS MODEL LAND COMPANY SUBDIVISION",
+      "source": "subdivision_line",
+      "confidence": "medium"
+    }
+  ],
+  "primary_name": "CASA DEL SOL",
+  "matched_subdivisions": [
+    "CASA DEL SOL"
+  ],
+  "duration_sec": 106.1
+}

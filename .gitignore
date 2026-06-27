@@ -50,3 +50,6 @@ Thumbs.db
 
 # Vendored third-party clones (have their own .git, not part of this repo)
 space-cadet-pinball/
+
+# Plat PDF download cache (indexes in data/plats/*.json are kept)
+data/plats/cache/

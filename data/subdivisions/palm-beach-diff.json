@@ -1,0 +1,15 @@
+{
+  "generated": "2026-06-26T22:33:43+00:00",
+  "previous_run": "2026-06-26T22:31:59+00:00",
+  "baseline_at": "2026-06-26T22:16:34+00:00",
+  "new_count": 0,
+  "removed_count": 0,
+  "new_this_month_count": 0,
+  "new": [],
+  "removed": [],
+  "notes": [
+    "new = subdivision names absent from the previous palm-beach.json scrape.",
+    "new_this_month_count uses manifest first_seen within the last 30 days.",
+    "Removed names may reflect PAO relabeling or data cleanup, not demolition."
+  ]
+}

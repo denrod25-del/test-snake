@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palm Beach County Subdivision Index — Contractor &amp; Investor Research</title>
+<meta name="description" content="Searchable index of 11,000+ legal subdivisions in Palm Beach County with municipality, residential mix, and homestead/investor signals for contractor leads and tax-deed research." />
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2230;
+    --panel-2: #232d3f;
+    --border: #2d3a4f;
+    --text: #e6edf3;
+    --muted: #8a97a8;
+    --accent: #4f9eff;
+    --accent-hover: #6bafff;
+    --success: #3fb950;
+    --warn: #d29922;
+    --radius: 8px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  .app-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 16px;
+    background: #0b0f15;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+    flex-wrap: wrap;
+  }
+  .app-switch .label {
+    color: var(--muted);
+    text-transform: uppercase;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    margin-right: 10px;
+  }
+  .app-switch a, .app-switch .current {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .app-switch a:hover {
+    color: var(--text);
+    background: var(--panel);
+    border-color: var(--border);
+  }
+  .app-switch .current {
+    color: var(--text);
+    background: var(--panel);
+    border-color: var(--accent);
+    font-weight: 500;
+    cursor: default;
+  }
+  header {
+    padding: 32px 24px 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #131a25 0%, var(--bg) 100%);
+  }
+  header h1 { margin: 0 0 8px; font-size: 28px; font-weight: 600; letter-spacing: -0.4px; }
+  header p { margin: 0; color: var(--muted); font-size: 14px; max-width: 720px; margin-inline: auto; }
+  header .source { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  header .source a { color: var(--accent); text-decoration: none; }
+  header .source a:hover { text-decoration: underline; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .notice {
+    background: rgba(210, 153, 34, 0.08);
+    border: 1px solid rgba(210, 153, 34, 0.35);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #e8d5a3;
+    margin-bottom: 16px;
+  }
+  .notice strong { color: #f0dfae; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .stat {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+  }
+  .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .field { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 6px; }
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  input[type="text"], select {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+  }
+  input[type="text"]:focus, select:focus { border-color: var(--accent); }
+  button.btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  button.btn:hover:not(:disabled) { background: var(--accent-hover); }
+  button.btn.secondary {
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .tag-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .preset-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+  .preset-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+  .preset-btn {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .preset-btn.active {
+    background: rgba(63, 185, 80, 0.12);
+    border-color: var(--success);
+    color: #9be9a8;
+  }
+  .preset-btn.investor.active {
+    background: rgba(79, 158, 255, 0.12);
+    border-color: var(--accent);
+    color: #9ec5ff;
+  }
+  .pct { font-variant-numeric: tabular-nums; }
+  .pct.good { color: var(--success); }
+  .pct.mid { color: var(--warn); }
+  .pct.low { color: var(--muted); }
+  .muni { font-size: 13px; color: var(--text); }
+  .muni span { color: var(--muted); font-size: 11px; }
+  .actions { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+  .tag-btn {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .tag-btn.active {
+    background: rgba(79, 158, 255, 0.15);
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .meta-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th {
+    background: var(--panel-2);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    position: sticky;
+    top: 0;
+  }
+  tr:hover td { background: rgba(79, 158, 255, 0.04); }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .tag.condo { border-color: #6b4f9e; color: #c4b5fd; }
+  .tag.unrecorded { border-color: var(--warn); color: #f0c674; }
+  a.lookup {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  a.lookup:hover { text-decoration: underline; }
+  .pager { display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 14px; }
+  .pager button { min-width: 36px; }
+  .loading, .error {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--muted);
+  }
+  .error { color: #f85149; }
+  .changelog {
+    background: rgba(63, 185, 80, 0.08);
+    border: 1px solid rgba(63, 185, 80, 0.35);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #b8e6bf;
+    margin-bottom: 16px;
+  }
+  .changelog strong { color: #d4f5d9; }
+  .changelog ul { margin: 8px 0 0; padding-left: 18px; }
+  .changelog li { margin: 4px 0; }
+  .changelog .meta { color: #8a97a8; font-size: 12px; margin-top: 8px; }
+  .badge-new {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(63, 185, 80, 0.2);
+    border: 1px solid var(--success);
+    color: #9be9a8;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  tr.row-new td:first-child + td { border-left: 3px solid var(--success); }
+  .preset-btn.new-preset.active {
+    background: rgba(63, 185, 80, 0.12);
+    border-color: var(--success);
+    color: #9be9a8;
+  }
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 32px;
+  }
+  @media (max-width: 768px) {
+    th:nth-child(7), td:nth-child(7) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="app-switch" aria-label="Related tools">
+  <span class="label">PBC tools</span>
+  <a href="tax-deeds.html">Tax Deed Registry</a>
+  <a href="parcel-lookup.html">Parcel Lookup</a>
+  <span class="current">Subdivision Index</span>
+  <a href="permit-search.html">Permit Search</a>
+  <a href="plat-index.html">Plat Index</a>
+</nav>
+
+<header>
+  <h1>Palm Beach County Subdivision Index</h1>
+  <p>
+    Phase 3 — every legal subdivision with city, residential mix, homestead/investor signals,
+    and a <strong>monthly diff</strong> highlighting newly recorded plat names (closest proxy for new development without PZB scraping).
+  </p>
+  <p class="source">
+    Data: <a href="https://opendata2-pbcgov.opendata.arcgis.com/" target="_blank" rel="noopener">PBC GIS Open Data</a>
+    · Refreshed by <code>scraper/scrape_subdivisions.py</code>
+    · <span id="generated-date">loading…</span>
+  </p>
+</header>
+
+<main>
+  <div class="notice" id="scope-notice">
+    <strong>How to use this for leads &amp; research.</strong>
+    <em>Contractor leads</em> — filter by city, pick subdivisions that are mostly residential (80%+), export CSV, then open parcels for permit history.
+    <em>Investor research</em> — look for high non-homestead % (landlord/rental proxy) combined with your target city.
+    Homestead flags are a rough signal, not verified owner records.
+  </div>
+
+  <div class="changelog" id="changelog" hidden></div>
+
+  <div class="stats" id="stats" hidden></div>
+
+  <section class="panel">
+    <div class="row">
+      <div class="field" style="flex:2">
+        <label for="search">Search name</label>
+        <input type="text" id="search" placeholder="e.g. WELLINGTON, ABACOA, FRENCHMENS LANDING" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="municipality">City / municipality</label>
+        <select id="municipality">
+          <option value="">All municipalities</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sort">Sort by</label>
+        <select id="sort">
+          <option value="new-first">Newest first (first seen)</option>
+          <option value="parcels-desc">Most parcels first</option>
+          <option value="residential-desc">Most residential %</option>
+          <option value="investor-desc">Most investor % (non-homestead)</option>
+          <option value="name-asc">Name A → Z</option>
+          <option value="name-desc">Name Z → A</option>
+          <option value="parcels-asc">Fewest parcels first</option>
+        </select>
+      </div>
+      <button class="btn secondary" id="export-btn" type="button" disabled>Export CSV</button>
+    </div>
+    <div class="preset-row">
+      <span class="preset-label">Presets</span>
+      <button type="button" class="preset-btn new-preset" data-preset="new-run">New since last scrape</button>
+      <button type="button" class="preset-btn new-preset" data-preset="new-month">New this month</button>
+      <button type="button" class="preset-btn" id="preset-contractor" data-preset="contractor">Contractor leads (≥80% residential, ≥50 parcels)</button>
+      <button type="button" class="preset-btn investor" id="preset-investor" data-preset="investor">Investor research (≥50% non-homestead, ≥20 parcels)</button>
+      <button type="button" class="preset-btn" id="preset-clear" data-preset="">Clear preset</button>
+    </div>
+    <div class="tag-filters" id="tag-filters"></div>
+  </section>
+
+  <div class="meta-bar">
+    <span id="result-count">Loading index…</span>
+    <span id="page-info"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Subdivision name</th>
+          <th>Primary city</th>
+          <th>Parcels</th>
+          <th>Residential</th>
+          <th>Investor*</th>
+          <th>Tags</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="results-body">
+        <tr><td colspan="8" class="loading">Loading subdivision index…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pager" id="pager" hidden>
+    <button class="btn secondary" id="prev-page" type="button">← Prev</button>
+    <span id="pager-label"></span>
+    <button class="btn secondary" id="next-page" type="button">Next →</button>
+  </div>
+</main>
+
+<footer>
+<footer>
+  *Investor % = non-homestead parcels (HMSTD_FLG ≠ Y) — a rough landlord/rental proxy, not verified investor ownership.<br />
+  Data from Palm Beach County Property Appraiser GIS. Auto-refreshed monthly via GitHub Actions
+  (<code>.github/workflows/scrape-subdivisions.yml</code>) or run <code>python scraper/scrape_subdivisions.py</code> locally.
+</footer>
+
+<script>
+(() => {
+  const DATA_URL = "./data/subdivisions/palm-beach.json";
+  const DIFF_URL = "./data/subdivisions/palm-beach-diff.json";
+  const PAGE_SIZE = 100;
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => document.querySelectorAll(sel);
+
+  let all = [];
+  let filtered = [];
+  let diffData = null;
+  let activeTags = new Set();
+  let activePreset = "";
+  let page = 1;
+
+  const PRESETS = {
+    contractor: (row) =>
+      (row.residential_pct ?? 0) >= 80 &&
+      row.parcel_count >= 50 &&
+      !row.tags.includes("address_based"),
+    investor: (row) =>
+      (row.investor_pct ?? 0) >= 50 &&
+      row.parcel_count >= 20,
+    "new-run": (row) => row.is_new === true,
+    "new-month": (row) => row.is_new_this_month === true,
+  };
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function pctClass(val, invert) {
+    if (val == null) return "low";
+    if (invert) return val >= 50 ? "good" : val >= 30 ? "mid" : "low";
+    return val >= 80 ? "good" : val >= 50 ? "mid" : "low";
+  }
+
+  function fmtPct(val) {
+    return val == null ? "—" : val.toFixed(1) + "%";
+  }
+
+  function renderStats(meta) {
+    const el = $("#stats");
+    const s = meta.stats || {};
+    el.innerHTML = [
+      ["named_subdivisions", "Subdivisions"],
+      ["new_since_last_run", "New since last scrape"],
+      ["new_this_month", "New this month"],
+      ["subdivisions_80pct_residential", "≥80% residential"],
+    ].map(([k, lbl]) => `
+      <div class="stat">
+        <div class="num">${(s[k] ?? 0).toLocaleString()}</div>
+        <div class="lbl">${lbl}</div>
+      </div>
+    `).join("");
+    el.hidden = false;
+    if (meta.generated) {
+      const d = new Date(meta.generated);
+      let txt = "Last built " + d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+      if (s.previous_run) {
+        const p = new Date(s.previous_run);
+        txt += " (prev " + p.toLocaleDateString(undefined, { dateStyle: "medium" }) + ")";
+      }
+      $("#generated-date").textContent = txt;
+    }
+  }
+
+  function renderChangelog(diff) {
+    const el = $("#changelog");
+    if (!diff || (!diff.new_count && !diff.removed_count)) {
+      el.hidden = true;
+      return;
+    }
+    const items = (diff.new || []).slice(0, 12).map((row) => {
+      const m = row.primary_municipality || "?";
+      const n = row.parcel_count != null ? row.parcel_count.toLocaleString() + " parcels" : "";
+      return `<li><strong>${esc(row.name)}</strong> — ${esc(m)}${n ? ", " + n : ""}</li>`;
+    }).join("");
+    const more = diff.new_count > 12 ? `<li>…and ${diff.new_count - 12} more (use “New since last scrape” filter)</li>` : "";
+    const removed = diff.removed_count
+      ? `<p class="meta">${diff.removed_count} name(s) dropped from the roll since last scrape (possible relabeling).</p>`
+      : "";
+    el.innerHTML = `
+      <strong>${diff.new_count.toLocaleString()} new subdivision name${diff.new_count === 1 ? "" : "s"} since last scrape</strong>
+      ${diff.previous_run ? `<span class="meta"> — compared to ${esc(new Date(diff.previous_run).toLocaleDateString(undefined, { dateStyle: "medium" }))}</span>` : ""}
+      <ul>${items}${more}</ul>
+      ${removed}
+    `;
+    el.hidden = false;
+  }
+
+  function renderMunicipalityFilter(muniCounts) {
+    const sel = $("#municipality");
+    const entries = Object.entries(muniCounts || {}).sort((a, b) => b[1] - a[1]);
+    for (const [name, count] of entries) {
+      const opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = `${name} (${count.toLocaleString()})`;
+      sel.appendChild(opt);
+    }
+  }
+
+  function renderTagFilters(tagCounts) {
+    const wrap = $("#tag-filters");
+    const entries = Object.entries(tagCounts || {}).sort((a, b) => b[1] - a[1]);
+    wrap.innerHTML = entries.map(([tag, count]) =>
+      `<button type="button" class="tag-btn" data-tag="${esc(tag)}">${esc(tag)} (${count.toLocaleString()})</button>`
+    ).join("");
+    wrap.querySelectorAll(".tag-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tag = btn.dataset.tag;
+        if (activeTags.has(tag)) {
+          activeTags.delete(tag);
+          btn.classList.remove("active");
+        } else {
+          activeTags.add(tag);
+          btn.classList.add("active");
+        }
+        applyFilters();
+      });
+    });
+  }
+
+  function sortItems(items) {
+    const mode = $("#sort").value;
+    const copy = items.slice();
+    if (mode === "name-asc") copy.sort((a, b) => a.name.localeCompare(b.name));
+    else if (mode === "name-desc") copy.sort((a, b) => b.name.localeCompare(a.name));
+    else if (mode === "parcels-asc") copy.sort((a, b) => a.parcel_count - b.parcel_count);
+    else if (mode === "residential-desc") copy.sort((a, b) => (b.residential_pct ?? -1) - (a.residential_pct ?? -1));
+    else if (mode === "investor-desc") copy.sort((a, b) => (b.investor_pct ?? -1) - (a.investor_pct ?? -1));
+    else if (mode === "new-first") copy.sort((a, b) => {
+      const da = a.first_seen ? new Date(a.first_seen).getTime() : 0;
+      const db = b.first_seen ? new Date(b.first_seen).getTime() : 0;
+      return db - da || b.parcel_count - a.parcel_count;
+    });
+    else copy.sort((a, b) => b.parcel_count - a.parcel_count);
+    return copy;
+  }
+
+  function rowMatchesMunicipality(row, muni) {
+    if (!muni) return true;
+    return (row.municipalities || []).some((m) => m.name === muni);
+  }
+
+  function applyFilters() {
+    const q = $("#search").value.trim().toUpperCase();
+    const muni = $("#municipality").value;
+    const presetFn = PRESETS[activePreset];
+
+    filtered = all.filter((row) => {
+      if (q && !row.name.toUpperCase().includes(q)) return false;
+      if (activeTags.size && !row.tags.some((t) => activeTags.has(t))) return false;
+      if (!rowMatchesMunicipality(row, muni)) return false;
+      if (presetFn && !presetFn(row)) return false;
+      return true;
+    });
+    filtered = sortItems(filtered);
+    page = 1;
+    renderTable();
+    syncUrl();
+  }
+
+  function parcelLinks(row) {
+    const subdiv = encodeURIComponent(row.name);
+    const muni = row.primary_municipality && row.primary_municipality !== "Unknown"
+      ? "&mu=" + encodeURIComponent(row.primary_municipality)
+      : "";
+    const allUrl = `parcel-lookup.html?subdiv=${subdiv}${muni}`;
+    const investorUrl = `parcel-lookup.html?subdiv=${subdiv}${muni}&hs=N`;
+    return { allUrl, investorUrl };
+  }
+
+  function renderTable() {
+    const total = filtered.length;
+    const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    if (page > pages) page = pages;
+    const start = (page - 1) * PAGE_SIZE;
+    const slice = filtered.slice(start, start + PAGE_SIZE);
+
+    $("#result-count").textContent = total.toLocaleString() + " subdivision" + (total === 1 ? "" : "s") +
+      (total !== all.length ? " (filtered from " + all.length.toLocaleString() + ")" : "");
+    $("#page-info").textContent = total ? `Showing ${start + 1}–${Math.min(start + PAGE_SIZE, total)}` : "";
+
+    const tbody = $("#results-body");
+    if (!total) {
+      tbody.innerHTML = `<tr><td colspan="8" class="loading">No matches. Try clearing filters or a shorter search.</td></tr>`;
+      $("#pager").hidden = true;
+      return;
+    }
+
+    tbody.innerHTML = slice.map((row, i) => {
+      const tags = row.tags.map((t) => `<span class="tag ${esc(t)}">${esc(t)}</span>`).join("");
+      const muniExtra = row.municipality_count > 1
+        ? ` <span>+${row.municipality_count - 1} city</span>`
+        : "";
+      const { allUrl, investorUrl } = parcelLinks(row);
+      const newBadge = row.is_new ? `<span class="badge-new">NEW</span>` : "";
+      const rowClass = row.is_new ? "row-new" : "";
+      return `<tr class="${rowClass}">
+        <td>${start + i + 1}</td>
+        <td>${esc(row.name)}${newBadge}</td>
+        <td class="muni">${esc(row.primary_municipality || "—")}${muniExtra}</td>
+        <td>${row.parcel_count.toLocaleString()}</td>
+        <td class="pct ${pctClass(row.residential_pct)}">${fmtPct(row.residential_pct)}</td>
+        <td class="pct ${pctClass(row.investor_pct, true)}">${fmtPct(row.investor_pct)}</td>
+        <td><div class="tags">${tags}</div></td>
+        <td class="actions">
+          <a class="lookup" href="${allUrl}">All parcels →</a>
+          <a class="lookup" href="${investorUrl}">Non-homestead →</a>
+        </td>
+      </tr>`;
+    }).join("");
+
+    const pager = $("#pager");
+    pager.hidden = pages <= 1;
+    $("#pager-label").textContent = `Page ${page} of ${pages}`;
+    $("#prev-page").disabled = page <= 1;
+    $("#next-page").disabled = page >= pages;
+  }
+
+  function exportCsv() {
+    const header = [
+      "name", "primary_municipality", "parcel_count",
+      "residential_pct", "homestead_pct", "investor_pct",
+      "is_new", "is_new_this_month", "first_seen",
+      "single_family", "condo", "vacant", "commercial", "tags",
+    ];
+    const lines = [header.join(",")];
+    for (const row of filtered) {
+      const u = row.use_summary || {};
+      lines.push([
+        `"${row.name.replace(/"/g, '""')}"`,
+        `"${(row.primary_municipality || "").replace(/"/g, '""')}"`,
+        row.parcel_count,
+        row.residential_pct ?? "",
+        row.homestead_pct ?? "",
+        row.investor_pct ?? "",
+        row.is_new ? "Y" : "N",
+        row.is_new_this_month ? "Y" : "N",
+        row.first_seen || "",
+        u.single_family ?? 0,
+        u.condo ?? 0,
+        u.vacant ?? 0,
+        u.commercial ?? 0,
+        `"${row.tags.join("; ")}"`,
+      ].join(","));
+    }
+    const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "palm-beach-subdivisions-phase2.csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  function setPreset(name) {
+    activePreset = name || "";
+    $$(".preset-btn[data-preset]").forEach((btn) => {
+      const on = btn.dataset.preset === activePreset && activePreset;
+      btn.classList.toggle("active", !!on);
+    });
+    if (activePreset === "new-run" || activePreset === "new-month") {
+      $("#sort").value = "new-first";
+    }
+    applyFilters();
+  }
+
+  function syncUrl() {
+    const params = new URLSearchParams();
+    const q = $("#search").value.trim();
+    if (q) params.set("q", q);
+    const muni = $("#municipality").value;
+    if (muni) params.set("muni", muni);
+    if ($("#sort").value !== "parcels-desc") params.set("sort", $("#sort").value);
+    if (activeTags.size) params.set("tags", [...activeTags].sort().join(","));
+    if (activePreset) params.set("preset", activePreset);
+    if (page > 1) params.set("page", String(page));
+    const qs = params.toString();
+    history.replaceState(null, "", qs ? "?" + qs : location.pathname);
+  }
+
+  function readUrl() {
+    const params = new URLSearchParams(location.search);
+    if (params.get("q")) $("#search").value = params.get("q");
+    if (params.get("sort")) $("#sort").value = params.get("sort");
+    if (params.get("tags")) activeTags = new Set(params.get("tags").split(",").filter(Boolean));
+    if (params.get("preset")) activePreset = params.get("preset");
+    if (params.get("page")) page = Math.max(1, parseInt(params.get("page"), 10) || 1);
+    return params.get("muni") || "";
+  }
+
+  async function init() {
+    const urlMuni = readUrl();
+    try {
+      const [mainRes, diffRes] = await Promise.all([
+        fetch(DATA_URL),
+        fetch(DIFF_URL).catch(() => null),
+      ]);
+      if (!mainRes.ok) throw new Error("HTTP " + mainRes.status);
+      const data = await mainRes.json();
+      if (diffRes && diffRes.ok) {
+        diffData = await diffRes.json();
+        renderChangelog(diffData);
+      }
+      all = data.subdivisions || [];
+      renderStats(data);
+      renderMunicipalityFilter(data.stats?.municipality_subdivision_counts);
+      renderTagFilters(data.stats?.tag_counts);
+      if (urlMuni) $("#municipality").value = urlMuni;
+      $("#export-btn").disabled = false;
+
+      activeTags.forEach((tag) => {
+        const btn = document.querySelector(`.tag-btn[data-tag="${CSS.escape(tag)}"]`);
+        if (btn) btn.classList.add("active");
+      });
+      if (activePreset) setPreset(activePreset);
+
+      applyFilters();
+    } catch (err) {
+      $("#results-body").innerHTML =
+        `<tr><td colspan="8" class="error">Could not load ${DATA_URL}. ` +
+        `Serve this folder with a local server (e.g. python -m http.server 8765) and run ` +
+        `<code>python scraper/scrape_subdivisions.py</code> first.<br><br>${esc(err.message)}</td></tr>`;
+    }
+  }
+
+  $("#search").addEventListener("input", () => { clearTimeout($("#search")._t); $("#search")._t = setTimeout(applyFilters, 180); });
+  $("#municipality").addEventListener("change", applyFilters);
+  $("#sort").addEventListener("change", applyFilters);
+  $("#export-btn").addEventListener("click", exportCsv);
+  $("#prev-page").addEventListener("click", () => { page--; renderTable(); syncUrl(); });
+  $("#next-page").addEventListener("click", () => { page++; renderTable(); syncUrl(); });
+  $$(".preset-btn[data-preset]").forEach((btn) => {
+    btn.addEventListener("click", () => setPreset(btn.dataset.preset));
+  });
+
+  init();
+})();
+</script>
+</body>
+</html>

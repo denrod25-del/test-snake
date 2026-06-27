@@ -1,0 +1,83 @@
+name: Scrape PBC Development Index
+
+# Monthly: PAO subdivisions + PZB plat PDF index + permit cross-alert build.
+
+on:
+  schedule:
+    - cron: '0 8 5 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape-pbc-development
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: 'scraper/requirements.txt'
+
+      - name: Install dependencies
+        working-directory: scraper
+        run: pip install -r requirements.txt
+
+      - name: Run subdivision scraper
+        working-directory: scraper
+        run: python scrape_subdivisions.py
+
+      - name: Run PZB plat index scraper
+        working-directory: scraper
+        run: python scrape_plats.py
+
+      - name: OCR new plat PDFs for subdivision names
+        working-directory: scraper
+        run: python extract_plat_names.py --new-only
+
+      - name: Build development alerts
+        working-directory: scraper
+        run: python build_development_alerts.py
+
+      - name: Commit updated data
+        run: |
+          if [ -n "$(git status --porcelain data/subdivisions data/plats)" ]; then
+            git config user.name  "tax-deed-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/subdivisions data/plats
+            NEW=$(python -c "import json; d=json.load(open('data/subdivisions/palm-beach-diff.json')); print(d.get('new_count',0))")
+            PLAT=$(python -c "import json; d=json.load(open('data/plats/palm-beach-diff.json')); print(d.get('new_count',0))" 2>/dev/null || echo 0)
+            git commit -m "chore(data): refresh PBC subdivisions (+${NEW}) plats (+${PLAT}) [skip ci]"
+            git push
+          else
+            echo "No development index changes to commit"
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## PBC development index summary" >> $GITHUB_STEP_SUMMARY
+          python -c "
+import json
+from pathlib import Path
+sd = json.load(open('data/subdivisions/palm-beach-diff.json'))
+print(f\"- **New subdivisions:** {sd.get('new_count', 0)}\")
+print(f\"- **New this month (subdiv):** {sd.get('new_this_month_count', 0)}\")
+if Path('data/plats/palm-beach-diff.json').exists():
+    pd = json.load(open('data/plats/palm-beach-diff.json'))
+    print(f\"- **New plat PDFs:** {pd.get('new_count', 0)}\")
+if Path('data/subdivisions/alerts.json').exists():
+    al = json.load(open('data/subdivisions/alerts.json'))
+    s = al.get('summary', {})
+    print(f\"- **Permit matches in watch areas:** {s.get('permits_matched', 0)}\")
+" >> $GITHUB_STEP_SUMMARY

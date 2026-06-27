@@ -1,0 +1,74 @@
+{
+  "plat_id": "129-165",
+  "book": "129",
+  "pdf_url": "https://discover.pbc.gov/pzb/Plats-120-129/129-165.pdf",
+  "extracted_at": "2026-06-26T23:47:38+00:00",
+  "method": "ocr",
+  "ocr_scale": 1.25,
+  "ocr_line_count": 264,
+  "subdivision_names": [
+    {
+      "name": "BRIDGES-MIZNER PUD",
+      "source": "pud",
+      "confidence": "high"
+    },
+    {
+      "name": "NORTHWAY",
+      "source": "quoted",
+      "confidence": "high"
+    },
+    {
+      "name": "BRIDGES SOUTHPLAT ONE",
+      "source": "title_block",
+      "confidence": "medium"
+    },
+    {
+      "name": "FOUR",
+      "source": "title_block",
+      "confidence": "medium"
+    },
+    {
+      "name": "PUD - BRIDGES",
+      "source": "title_block",
+      "confidence": "medium"
+    }
+  ],
+  "primary_name": "BRIDGES-MIZNER PUD",
+  "matched_subdivisions": [
+    "BOCA DEL MAR PUD BANYAN COVE AT MIZNER V",
+    "BOCA DEL MAR PUD COPPER COVE AT MIZNER V",
+    "BOCA DEL MAR PUD MADISON COVE AT MIZNER",
+    "BOCA DEL MAR PUD SAPPHIRE COVE AT MIZNER",
+    "BOCA DEL MAR PUD VILLAGE CTR AT MIZNER V",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PL SIX",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PLAT FI",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PLAT FO",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PLAT ON",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PLAT SE",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PLAT SI",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PLAT TH",
+    "BRIDGES MIZNER PUD BRIDGES SOUTH PLAT TW",
+    "MIZNER COURT",
+    "MIZNER COURT COND I DECL FILED 2-12-88 I",
+    "MIZNER DEV CORP PL 1",
+    "MIZNER DEV CORP PL 2",
+    "MIZNER ESTATES OF PALM BEACH POLO & COUN",
+    "MIZNER FALLS",
+    "MIZNER GRAND COND",
+    "MIZNER GRANDE ESTATES",
+    "MIZNER LAKE ESTATES",
+    "MIZNER LUXURY TOWNHOMES PUD",
+    "MIZNER PARK",
+    "MIZNER PLACE",
+    "MIZNER POINTE OF BOCA VIA ANCHO",
+    "MIZNER TOWER COND DECL FILED 2-17-89 IN",
+    "MIZNER VILLAGE",
+    "MIZNERS PRESERVE",
+    "MIZNERS PRESERVE PL 2",
+    "MIZNERS PRESERVE PL 3",
+    "MIZNERS PRESERVE PUD PARC CHANDON",
+    "REVE DEL MIZNER PLAT",
+    "VIA MIZNER NORTH & SOUTH CONDOS"
+  ],
+  "duration_sec": 52.5
+}

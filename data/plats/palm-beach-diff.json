@@ -1,0 +1,14 @@
+{
+  "generated": "2026-06-26T23:00:30+00:00",
+  "previous_run": "2026-06-26T22:58:16+00:00",
+  "baseline_at": "2026-06-26T22:58:16+00:00",
+  "new_count": 0,
+  "removed_count": 0,
+  "new_this_month_count": 0,
+  "new": [],
+  "removed": [],
+  "notes": [
+    "Plat sheet IDs (e.g. 130-053) link to recorded plat PDFs at PZB.",
+    "New sheets often appear on the county roll before SUBDIV_NAME hits the PAO GIS index."
+  ]
+}

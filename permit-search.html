@@ -75,6 +75,26 @@
     background: transparent; color: inherit; border: 1px solid currentColor;
     border-radius: 6px; padding: 4px 10px; font-size: 12px; cursor: pointer;
   }
+  .dev-alerts {
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    background: rgba(79, 158, 255, 0.08);
+    border: 1px solid rgba(79, 158, 255, 0.35);
+    color: #cfe1ff;
+  }
+  .dev-alerts strong { color: #e6edf3; }
+  .dev-alerts ul { margin: 8px 0 0; padding-left: 18px; }
+  .dev-alerts li { margin: 6px 0; }
+  .dev-alerts .actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .dev-alerts .btn-link {
+    display: inline-block; font-size: 12px; color: var(--accent); text-decoration: none;
+    border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px;
+  }
+  .dev-alerts .btn-link:hover { background: var(--panel-2); }
+  .dev-alerts .meta { color: var(--muted); font-size: 12px; margin-top: 8px; }
+  .chip.watch-on { background: var(--chip-active); border-color: var(--accent); color: #fff; }
 
   .tabs {
     display: flex;
@@ -405,12 +425,15 @@
   </div>
   <nav>
     <a href="parcel-lookup.html">Parcel Lookup</a>
+    &middot; <a href="subdivision-index.html">Subdivisions</a>
+    &middot; <a href="plat-index.html">Plat Index</a>
     &middot; <a href="tax-deeds.html">Tax Deed Registry</a>
     &middot; <a href="counties/index.html">County Directory</a>
   </nav>
 </header>
 
 <main>
+  <div id="dev-alerts" class="dev-alerts" hidden></div>
   <div id="data-banner"></div>
 
   <div class="tabs" role="tablist">
@@ -439,6 +462,7 @@
             <button class="chip" type="button" data-preset="gas">Gas lines</button>
             <button class="chip" type="button" data-preset="sewer">Sewer / drain</button>
             <button class="chip" type="button" data-preset="repipe">Repipe</button>
+            <button class="chip" type="button" id="preset-new-subdivs">New subdivisions</button>
             <button class="ghost" type="button" id="clear-keywords">Clear all</button>
           </div>
         </div>
@@ -705,6 +729,8 @@ const STATE = {
   map: null,
   markerLayer: null,
   activeTab: "search",
+  subdivWatch: [],
+  developmentAlerts: null,
 };
 
 // ---------------------------------------------------------------------------
@@ -714,10 +740,111 @@ async function boot() {
   loadGeocodeCache();
   loadStateFromUrl();
   renderKeywordChips();
+  await loadDevelopmentAlerts();
   await loadData();
   populateFilterSelects();
   attachListeners();
   applyFiltersAndRender();
+}
+
+async function loadDevelopmentAlerts() {
+  try {
+    const r = await fetch("data/subdivisions/alerts.json", { cache: "no-cache" });
+    if (!r.ok) return;
+    STATE.developmentAlerts = await r.json();
+    renderDevelopmentAlerts();
+    if (new URLSearchParams(location.search).get("newSubdivs") === "1" && !STATE.subdivWatch.length) {
+      const names = (STATE.developmentAlerts.new_subdivisions || [])
+        .filter((a) => a.is_new || a.is_new_this_month)
+        .map((a) => a.name);
+      if (names.length) STATE.subdivWatch = names;
+    }
+  } catch (_) { /* optional file */ }
+}
+
+function renderDevelopmentAlerts() {
+  const el = document.getElementById("dev-alerts");
+  const al = STATE.developmentAlerts;
+  if (!al) { el.hidden = true; return; }
+
+  const s = al.summary || {};
+  const subs = al.new_subdivisions || [];
+  const plats = al.new_plats || [];
+  const hasNew = (s.new_subdivisions_since_last_scrape || 0) > 0 || (s.new_plats_since_last_scrape || 0) > 0;
+  const hasWatch = subs.length > 0;
+
+  if (!hasNew && !hasWatch && !plats.length) {
+    el.hidden = true;
+    return;
+  }
+
+  let html = "";
+  if (hasNew) {
+    html += `<strong>Development watch</strong> — `;
+    html += `${s.new_subdivisions_since_last_scrape || 0} new subdivision name(s), `;
+    html += `${s.new_plats_since_last_scrape || 0} new plat PDF(s), `;
+    html += `${s.permits_matched || 0} matching cached permit(s). `;
+    html += `<a class="btn-link" href="subdivision-index.html?preset=new-run">Subdivision index</a> `;
+    html += `<a class="btn-link" href="plat-index.html?preset=new-run">Plat index</a>`;
+  } else if (hasWatch) {
+    html += `<strong>Subdivision watchlist</strong> — ${subs.length} area(s) tracked; ${s.permits_matched || 0} permit match(es) in cache. `;
+  }
+
+  if (subs.length) {
+    html += "<ul>";
+    for (const row of subs.slice(0, 8)) {
+      const permits = row.permit_count ? `${row.permit_count} permit${row.permit_count === 1 ? "" : "s"}` : "no cached permits";
+      html += `<li><strong>${escapeHtml(row.name)}</strong> (${escapeHtml(row.primary_municipality || "?")}, ${permits})`;
+      html += `<div class="actions">`;
+      html += `<a class="btn-link" href="#" data-watch-subdiv="${escapeAttr(row.name)}">Filter permits here</a>`;
+      html += `<a class="btn-link" href="parcel-lookup.html?subdiv=${encodeURIComponent(row.name)}">Parcels</a>`;
+      html += `<a class="btn-link" href="subdivision-index.html?q=${encodeURIComponent(row.name)}">Details</a>`;
+      html += `</div></li>`;
+    }
+    if (subs.length > 8) html += `<li>…and ${subs.length - 8} more in <a class="btn-link" href="subdivision-index.html">subdivision index</a></li>`;
+    html += "</ul>";
+  }
+
+  if (plats.length) {
+    html += `<p class="meta"><strong>New plat sheets:</strong> `;
+    html += plats.slice(0, 6).map((p) => {
+      const label = p.primary_name ? `${p.plat_id} (${p.primary_name})` : p.plat_id;
+      return `<a class="btn-link" href="${escapeAttr(p.pdf_url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>`;
+    }).join(" ");
+    if (plats.length > 6) html += ` +${plats.length - 6} more`;
+    html += `</p>`;
+  }
+
+  el.innerHTML = html;
+  el.hidden = false;
+  el.querySelectorAll("[data-watch-subdiv]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      watchSubdivisions([a.dataset.watchSubdiv]);
+    });
+  });
+}
+
+function watchSubdivisions(names) {
+  STATE.subdivWatch = names.filter(Boolean);
+  applyFiltersAndRender();
+  renderKeywordChips();
+  document.getElementById("tab-search").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function permitMatchesSubdivWatch(p) {
+  if (!STATE.subdivWatch.length) return true;
+  const blob = p.searchBlob;
+  for (const name of STATE.subdivWatch) {
+    const u = name.toUpperCase();
+    if (blob.includes(name.toLowerCase())) return true;
+    const tokens = u.match(/[A-Z0-9]{4,}/g) || [];
+    const sig = tokens.filter((t) => !/^(PL|PLAT|PHASE|COND|REPL)$/.test(t));
+    if (sig.length >= 2 && sig.filter((t) => blob.includes(t.toLowerCase())).length >= 2) return true;
+    const alertRow = (STATE.developmentAlerts?.new_subdivisions || []).find((a) => a.name === name);
+    if (alertRow?.permits?.some((m) => m.permitNumber === p.permitNumber)) return true;
+  }
+  return false;
 }
 
 async function loadData() {
@@ -905,17 +1032,31 @@ function setBanner({ kind, html }) {
 // ---------------------------------------------------------------------------
 function renderKeywordChips() {
   const wrap = document.getElementById("keyword-chips");
-  if (!STATE.keywords.length) {
-    wrap.innerHTML = `<span style="color: var(--muted); font-size: 12px;">No keywords selected &mdash; results will include ALL permits. Click a preset below or type one above.</span>`;
+  const parts = [];
+  if (STATE.subdivWatch.length) {
+    for (const name of STATE.subdivWatch) {
+      parts.push(`<span class="chip watch-on active" data-watch="${escapeAttr(name)}">${escapeHtml(name)} <span class="x" title="Clear subdivision watch">&times;</span></span>`);
+    }
+  }
+  if (STATE.keywords.length) {
+    parts.push(...STATE.keywords.map((k, i) =>
+      `<span class="chip active" data-i="${i}">${escapeHtml(k)}<span class="x" title="Remove">&times;</span></span>`
+    ));
+  }
+  if (!parts.length) {
+    wrap.innerHTML = `<span style="color: var(--muted); font-size: 12px;">No filters — all permits shown. Use presets, new-subdivision alerts, or type keywords above.</span>`;
     return;
   }
-  wrap.innerHTML = STATE.keywords
-    .map((k, i) => `<span class="chip active" data-i="${i}">${escapeHtml(k)}<span class="x" title="Remove">&times;</span></span>`)
-    .join("");
+  wrap.innerHTML = parts.join("");
   wrap.querySelectorAll(".chip .x").forEach((x) => {
     x.addEventListener("click", (e) => {
-      const i = +e.target.parentElement.dataset.i;
-      STATE.keywords.splice(i, 1);
+      const chip = e.target.parentElement;
+      if (chip.dataset.watch) {
+        STATE.subdivWatch = STATE.subdivWatch.filter((n) => n !== chip.dataset.watch);
+      } else {
+        const i = +chip.dataset.i;
+        STATE.keywords.splice(i, 1);
+      }
       renderKeywordChips();
       applyFiltersAndRender();
     });
@@ -995,6 +1136,7 @@ function applyFiltersAndRender() {
   if (f.contractor)  arr = arr.filter((p) => (p.contractor || "").toLowerCase().includes(f.contractor.toLowerCase()));
   if (f.valMin != null) arr = arr.filter((p) => p.valuation != null && p.valuation >= f.valMin);
   if (f.valMax != null) arr = arr.filter((p) => p.valuation != null && p.valuation <= f.valMax);
+  if (STATE.subdivWatch.length) arr = arr.filter((p) => permitMatchesSubdivWatch(p));
 
   // Sort
   const { col, dir } = STATE.sort;
@@ -1397,6 +1539,7 @@ function syncUrlFromState() {
     else if (typeof v === "number") params.set(k, String(v));
   }
   if (STATE.activeTab !== "search") params.set("tab", STATE.activeTab);
+  if (STATE.subdivWatch.length) params.set("watchSubdiv", STATE.subdivWatch.join("|"));
   const qs = params.toString();
   const newUrl = location.pathname + (qs ? "?" + qs : "");
   history.replaceState(null, "", newUrl);
@@ -1416,6 +1559,10 @@ function loadStateFromUrl() {
     if (params.has(k)) STATE.filters[k] = Number(params.get(k));
   }
   if (params.has("tab")) STATE.activeTab = params.get("tab");
+  if (params.get("newSubdivs") === "1") { /* applied after alerts load */ }
+  if (params.has("watchSubdiv")) {
+    STATE.subdivWatch = params.get("watchSubdiv").split("|").map((s) => s.trim()).filter(Boolean);
+  }
 }
 
 function applyUrlToInputs() {
@@ -1444,12 +1591,19 @@ function attachListeners() {
     btn.addEventListener("click", () => applyPreset(btn.dataset.preset));
   });
   document.getElementById("clear-keywords").addEventListener("click", () => {
-    STATE.keywords = []; renderKeywordChips(); applyFiltersAndRender();
+    STATE.keywords = []; STATE.subdivWatch = []; renderKeywordChips(); applyFiltersAndRender();
+  });
+  document.getElementById("preset-new-subdivs").addEventListener("click", () => {
+    const names = (STATE.developmentAlerts?.new_subdivisions || [])
+      .filter((a) => a.is_new || a.is_new_this_month)
+      .map((a) => a.name);
+    if (names.length) watchSubdivisions(names);
+    else alert("No new subdivisions in alerts.json — run scrape_subdivisions.py and build_development_alerts.py first.");
   });
   document.getElementById("run-search").addEventListener("click", readFiltersFromInputs);
   document.getElementById("reset-filters").addEventListener("click", () => {
     STATE.filters = { appliedFrom:"", appliedTo:"", issuedFrom:"", issuedTo:"", source:[], status:[], type:[], city:"", contractor:"", valMin:null, valMax:null };
-    STATE.keywords = []; STATE.keywordMode = "any";
+    STATE.keywords = []; STATE.keywordMode = "any"; STATE.subdivWatch = [];
     applyUrlToInputs(); renderKeywordChips(); applyFiltersAndRender();
   });
   document.getElementById("export-csv").addEventListener("click", exportCsv);

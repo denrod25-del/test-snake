@@ -1,0 +1,34 @@
+# Dependencies & build artifacts
+node_modules
+**/.next
+**/out
+**/dist
+**/.venv
+**/venv
+**/__pycache__
+
+# Scraper tooling (not needed for static site)
+scraper
+.github
+
+# Large plat PDF caches (JSON indexes are kept)
+data/plats/cache
+data/plats/samples
+
+# Vendored clones & unrelated subprojects
+space-cadet-pinball
+heaterquote
+Next-js-Boilerplate
+code-masters
+symbolic
+searchlab
+gentoomen-hub
+forge-path
+js-quest
+florida-bookings
+school-shooting-tracker
+vuln-lab
+openart
+swe-academy
+plumbing-leads
+water-leads

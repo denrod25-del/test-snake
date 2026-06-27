@@ -1,0 +1,36 @@
+{
+  "plat_id": "130-001",
+  "book": "130",
+  "pdf_url": "https://discover.pbc.gov/pzb/Plats-130-139/130-001.pdf",
+  "extracted_at": "2026-06-26T23:40:39+00:00",
+  "method": "ocr",
+  "ocr_scale": 1.25,
+  "ocr_line_count": 235,
+  "subdivision_names": [
+    {
+      "name": "PELICAN SQUARE",
+      "source": "quoted",
+      "confidence": "high"
+    },
+    {
+      "name": "REGIONS TEQUESTA",
+      "source": "replat_of",
+      "confidence": "high"
+    },
+    {
+      "name": "JUPITER HEIGHTS",
+      "source": "plat_of",
+      "confidence": "medium"
+    },
+    {
+      "name": "SHEMN R",
+      "source": "title_block",
+      "confidence": "medium"
+    }
+  ],
+  "primary_name": "PELICAN SQUARE",
+  "matched_subdivisions": [
+    "JUPITER HEIGHTS IN"
+  ],
+  "duration_sec": 121.4
+}
