@@ -62,27 +62,8 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-    align-items: center;
   }
   .topbar a { color: var(--accent-ink); border: 0; }
-  .app-switch { display: inline-flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-  .app-switch a, .app-switch .current {
-    padding: 3px 10px;
-    border-radius: 12px;
-    border: 1px solid transparent;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    font-size: 11px;
-  }
-  .app-switch a:hover { background: var(--paper); border-color: var(--rule-soft); }
-  .app-switch .current {
-    background: var(--paper);
-    border-color: var(--accent-ink);
-    color: var(--accent-ink);
-    font-weight: 600;
-    cursor: default;
-  }
-  .app-switch .sep { color: var(--rule); margin: 0 1px; }
   main { max-width: 920px; margin: 0 auto; padding: 36px 28px 80px; }
   .eyebrow {
     font-family: 'Inter', sans-serif;
@@ -208,13 +189,7 @@
 <body>
   <div class="topbar">
     <span><a href="../index.html">Florida Tax Deed Registry</a></span>
-    <nav class="app-switch" aria-label="Switch app">
-      <a href="../tax-deeds.html" title="Statewide registry &amp; research notebook">Registry</a>
-      <span class="sep">·</span>
-      <span class="current" aria-current="page">Counties</span>
-      <span class="sep">·</span>
-      <a href="../parcel-lookup.html" title="Palm Beach parcel → address lookup">Parcel Lookup</a>
-    </nav>
+    <span><a href="../tax-deeds.html">Registry &amp; tools →</a></span>
   </div>
 
   <main>
@@ -304,7 +279,7 @@
 
   <footer>
     <p>
-      Generated June 26, 2026 from public county data.
+      Generated June 27, 2026 from public county data.
       <a href="../tax-deeds.html">Live tools</a> ·
       <a href="../parcel-lookup.html">Palm Beach parcel lookup</a> ·
       <a href="index.html">All counties</a>
