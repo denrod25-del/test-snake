@@ -6299,10 +6299,24 @@
       return base + '/tax-deeds.html#/account';
     }
 
+    function isDeployPreview() {
+      return window.location.hostname.includes('--deedscout.netlify.app');
+    }
+
+    function getLiveSiteUrl() {
+      return (FTDR_CONFIG.SITE_URL || 'https://deedscout.netlify.app').replace(/\/+$/, '');
+    }
+
     function warnIfDeployPreview() {
-      if (window.location.hostname.includes('--deedscout.netlify.app')) {
-        console.warn('DeedScout deploy preview: use https://deedscout.netlify.app for sign-in (sessions do not carry over between preview URLs).');
-      }
+      if (!isDeployPreview()) return;
+      console.warn('DeedScout deploy preview: use ' + getLiveSiteUrl() + '/tax-deeds.html for sign-in and checkout.');
+      var bar = document.getElementById('previewBanner');
+      if (bar) return;
+      bar = document.createElement('div');
+      bar.id = 'previewBanner';
+      bar.style.cssText = 'background:#3d2e14;color:#f6f2e9;text-align:center;padding:10px 16px;font-size:13px;border-bottom:1px solid #7a6240;';
+      bar.innerHTML = 'Deploy preview — sign in and subscribe on the <a href="' + getLiveSiteUrl() + '/tax-deeds.html#/pricing" style="color:#fff;font-weight:600;">live site</a>.';
+      document.body.prepend(bar);
     }
     warnIfDeployPreview();
 
@@ -6425,22 +6439,38 @@
     // ----------------------------------------------------------------
     // CHECKOUT + BILLING PORTAL
     // ----------------------------------------------------------------
+    async function getCheckoutAccessToken() {
+      const { data: refreshData, error: refreshErr } = await sb.auth.refreshSession();
+      if (refreshErr) console.warn('session refresh', refreshErr.message);
+      const session = refreshData?.session ?? (await sb.auth.getSession()).data.session;
+      if (!session?.access_token) return null;
+      const { error: tokenErr } = await sb.auth.getUser(session.access_token);
+      if (tokenErr) {
+        console.warn('local token check failed', tokenErr.message);
+        return null;
+      }
+      return session.access_token;
+    }
+
     window.startCheckout = async function() {
       if (!sb) { alert('Auth not configured'); return; }
+      if (isDeployPreview()) {
+        alert('Deploy previews cannot complete checkout. Opening the live DeedScout site — sign in there, then subscribe.');
+        window.location.href = getLiveSiteUrl() + '/tax-deeds.html#/pricing';
+        return;
+      }
       if (!currentUser) { openAuth('signup'); return; }
       try {
-        const { data: refreshData, error: refreshErr } = await sb.auth.refreshSession();
-        if (refreshErr) console.warn('session refresh', refreshErr.message);
-        const session = refreshData?.session ?? (await sb.auth.getSession()).data.session;
-        if (!session?.access_token) {
-          alert('Please confirm your email, then sign in again before subscribing.');
+        const accessToken = await getCheckoutAccessToken();
+        if (!accessToken) {
+          alert('Your session expired or email is not confirmed. Sign out, confirm your email, then sign in again.');
           openAuth('signin');
           return;
         }
         const r = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ accessToken: session.access_token })
+          body: JSON.stringify({ accessToken })
         });
         let j;
         try { j = await r.json(); } catch { alert('Could not start checkout (server returned an invalid response).'); return; }

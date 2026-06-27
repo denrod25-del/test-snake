@@ -7,26 +7,44 @@ function cleanEnv(name) {
   return String(raw).trim().replace(/^["']|["']$/g, '');
 }
 
-function getSupabaseUrl() {
+const DEEDSCOUT_PROJECT_URL = 'https://wmkbksqztpofxoqbyrdd.supabase.co';
+const DEEDSCOUT_PUBLISHABLE_KEY = 'sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDjj';
+
+function getSupabaseUrlCandidates() {
+  const urls = [];
   const raw = cleanEnv('SUPABASE_URL');
-  if (!raw) {
+  if (raw) {
+    let url = raw;
+    if (!/^https?:\/\//i.test(url)) url = `https://${url.replace(/^\/+/, '')}`;
+    try {
+      new URL(url);
+      urls.push(url.replace(/\/+$/, ''));
+    } catch { /* ignore bad env */ }
+  }
+  urls.push(DEEDSCOUT_PROJECT_URL);
+  return [...new Set(urls)];
+}
+
+function getSupabaseUrl() {
+  const urls = getSupabaseUrlCandidates();
+  if (!urls.length) {
     throw new Error(
       'Server misconfigured: SUPABASE_URL is missing in Netlify env vars. Set it to https://YOUR-PROJECT.supabase.co (include https://), then redeploy.'
     );
   }
-  let url = raw;
-  if (!/^https?:\/\//i.test(url)) {
-    url = `https://${url.replace(/^\/+/, '')}`;
-  }
-  try {
-    // eslint-disable-next-line no-new
-    new URL(url);
-  } catch {
-    throw new Error(
-      `Server misconfigured: SUPABASE_URL is not a valid URL (got "${raw}"). Use https://YOUR-PROJECT.supabase.co`
-    );
-  }
-  return url.replace(/\/+$/, '');
+  return urls[0];
+}
+
+function getPublishableKeyCandidates() {
+  return [...new Set([
+    DEEDSCOUT_PUBLISHABLE_KEY,
+    cleanEnv('SUPABASE_ANON_KEY'),
+    cleanEnv('SUPABASE_PUBLISHABLE_KEY'),
+  ].filter(Boolean))];
+}
+
+function getSupabasePublishableKey() {
+  return getPublishableKeyCandidates()[0];
 }
 
 function getSupabaseServiceKey() {
@@ -44,15 +62,6 @@ function getSupabaseServiceKey() {
   return key;
 }
 
-function getSupabasePublishableKey() {
-  // Prefer Netlify env vars; fall back to the public client key from tax-deeds.html.
-  return (
-    cleanEnv('SUPABASE_ANON_KEY') ||
-    cleanEnv('SUPABASE_PUBLISHABLE_KEY') ||
-    'sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDjj'
-  );
-}
-
 function createSupabasePublishableClient() {
   return createClient(getSupabaseUrl(), getSupabasePublishableKey(), {
     auth: { autoRefreshToken: false, persistSession: false },
@@ -65,12 +74,18 @@ function createSupabaseAdminClient() {
   });
 }
 
-/** Verify a browser access token. Tries publishable key first (matches client JWTs). */
+/** Verify a browser access token. Tries all known publishable keys + project URLs. */
 async function verifyAccessToken(accessToken) {
-  const pub = createSupabasePublishableClient();
-  const pubResult = await pub.auth.getUser(accessToken);
-  if (!pubResult.error && pubResult.data?.user) {
-    return { user: pubResult.data.user, error: null };
+  let lastError = null;
+  for (const url of getSupabaseUrlCandidates()) {
+    for (const key of getPublishableKeyCandidates()) {
+      const client = createClient(url, key, {
+        auth: { autoRefreshToken: false, persistSession: false },
+      });
+      const { data, error } = await client.auth.getUser(accessToken);
+      if (!error && data?.user) return { user: data.user, error: null };
+      lastError = error;
+    }
   }
 
   try {
@@ -79,9 +94,9 @@ async function verifyAccessToken(accessToken) {
     if (!adminResult.error && adminResult.data?.user) {
       return { user: adminResult.data.user, error: null };
     }
-    return { user: null, error: adminResult.error || pubResult.error };
+    return { user: null, error: adminResult.error || lastError };
   } catch (err) {
-    return { user: null, error: pubResult.error || err };
+    return { user: null, error: lastError || err };
   }
 }
 
