@@ -64,10 +64,15 @@ exports.handler = async (event) => {
 
     const siteUrl = getSiteUrl(event);
 
+    const priceId = cleanEnv('STRIPE_PRICE_ID_PRO');
+    if (!priceId) {
+      return { statusCode: 500, body: JSON.stringify({ error: 'Server misconfigured: STRIPE_PRICE_ID_PRO is missing in Netlify env vars.' }) };
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       customer: customerId,
-      line_items: [{ price: process.env.STRIPE_PRICE_ID_PRO, quantity: 1 }],
+      line_items: [{ price: priceId, quantity: 1 }],
       allow_promotion_codes: true,
       billing_address_collection: 'auto',
       success_url: `${siteUrl}/tax-deeds.html#/account?checkout=success`,

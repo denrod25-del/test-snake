@@ -6394,9 +6394,10 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ accessToken: session.access_token })
       });
-      const j = await r.json();
+      let j;
+      try { j = await r.json(); } catch { alert('Could not start checkout (server returned an invalid response).'); return; }
       if (j.url) window.location.href = j.url;
-      else alert(j.error || 'Could not start checkout.');
+      else alert(j.error || j.errorMessage || `Could not start checkout (HTTP ${r.status}).`);
     };
 
     window.openBillingPortal = async function() {
