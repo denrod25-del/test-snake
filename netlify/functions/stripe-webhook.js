@@ -21,7 +21,7 @@
 // ----------------------------------------------------------------------------
 
 const Stripe = require('stripe');
-const { createClient } = require('@supabase/supabase-js');
+const { createSupabaseAdminClient } = require('./_lib/config');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -43,11 +43,7 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: `Webhook Error: ${err.message}` };
   }
 
-  const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY,
-    { auth: { autoRefreshToken: false, persistSession: false } }
-  );
+  const supabase = createSupabaseAdminClient();
 
   // Monthly grants for Pro subscribers — kept here so the migration and the
   // webhook can't drift. Bump these together if you change the bundle.

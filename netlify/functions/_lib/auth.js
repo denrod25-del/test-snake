@@ -10,16 +10,12 @@
 // "isPro" hints for spending decisions.
 // ----------------------------------------------------------------------------
 
-const { createClient } = require('@supabase/supabase-js');
+const { createSupabaseAdminClient } = require('./config');
 
 let _client = null;
 function client() {
   if (_client) return _client;
-  _client = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY,
-    { auth: { autoRefreshToken: false, persistSession: false } }
-  );
+  _client = createSupabaseAdminClient();
   return _client;
 }
 

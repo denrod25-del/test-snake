@@ -10,7 +10,7 @@
 // ----------------------------------------------------------------------------
 
 const Stripe = require('stripe');
-const { createClient } = require('@supabase/supabase-js');
+const { createSupabaseAdminClient, getSiteUrl, cleanEnv } = require('./_lib/config');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -23,11 +23,7 @@ exports.handler = async (event) => {
       return { statusCode: 400, body: JSON.stringify({ error: 'Missing accessToken' }) };
     }
 
-    const supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_KEY,
-      { auth: { autoRefreshToken: false, persistSession: false } }
-    );
+    const supabase = createSupabaseAdminClient();
 
     const { data: userData, error: userErr } = await supabase.auth.getUser(accessToken);
     if (userErr || !userData?.user) {
@@ -44,8 +40,12 @@ exports.handler = async (event) => {
       return { statusCode: 400, body: JSON.stringify({ error: 'No Stripe customer for this user' }) };
     }
 
-    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-    const siteUrl = process.env.PUBLIC_SITE_URL || `https://${event.headers.host}`;
+    const stripeKey = cleanEnv('STRIPE_SECRET_KEY');
+    if (!stripeKey) {
+      return { statusCode: 500, body: JSON.stringify({ error: 'Server misconfigured: STRIPE_SECRET_KEY is missing in Netlify env vars.' }) };
+    }
+    const stripe = Stripe(stripeKey);
+    const siteUrl = getSiteUrl(event);
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer:    profile.stripe_customer_id,
