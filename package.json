@@ -8,6 +8,10 @@
     "serve": "python -m http.server 8765",
     "test:e2e": "node tests/permit-search.e2e.mjs"
   },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "stripe": "^17.0.0"
+  },
   "devDependencies": {
     "puppeteer": "^23.11.1"
   }
