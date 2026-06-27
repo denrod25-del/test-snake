@@ -2878,7 +2878,7 @@
         <span id="dataStamp">Sample data &middot; configure scraper for live updates</span>
         <span id="creditsBadge"></span>
         <span class="topbar-divider">|</span>
-        <span id="authSlot"><a href="#" id="signInBtn">Sign In</a></span>
+        <span id="authSlot"><a href="#" id="signInBtn" onclick="openAuth();return false;">Sign In</a></span>
       </span>
     </div>
   </div>
@@ -6104,6 +6104,14 @@
       window.scrollTo({ top: 0 });
     }
     window.addEventListener('hashchange', route);
+    document.querySelectorAll('.primary a[href^="#/"]').forEach(link => {
+      link.addEventListener('click', () => {
+        const target = link.getAttribute('href');
+        if (target && window.location.hash === target) {
+          setTimeout(route, 0);
+        }
+      });
+    });
 
     let activeFilter = 'all';
     function applyFilters() {
@@ -6244,6 +6252,13 @@
       document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
     };
 
+    renderAuthSlot();
+
+    if (sb) {
+      sb.auth.getSession().then(({ data }) => handleAuthChange(data.session));
+      sb.auth.onAuthStateChange((_evt, session) => handleAuthChange(session));
+    }
+
     window.doSignIn = async function(ev) {
       ev.preventDefault();
       if (!sb) return false;
@@ -6375,29 +6390,28 @@
       if (isPro()) deleteParcelFromCloud(id);
     };
 
-    if (sb) {
-      sb.auth.getSession().then(({ data }) => handleAuthChange(data.session));
-      sb.auth.onAuthStateChange((_evt, session) => handleAuthChange(session));
-    } else {
-      renderAuthSlot();
-    }
-
     // ----------------------------------------------------------------
     // CHECKOUT + BILLING PORTAL
     // ----------------------------------------------------------------
     window.startCheckout = async function() {
       if (!sb) { alert('Auth not configured'); return; }
       if (!currentUser) { openAuth('signup'); return; }
-      const { data: { session } } = await sb.auth.getSession();
-      const r = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ accessToken: session.access_token })
-      });
-      let j;
-      try { j = await r.json(); } catch { alert('Could not start checkout (server returned an invalid response).'); return; }
-      if (j.url) window.location.href = j.url;
-      else alert(j.error || j.errorMessage || `Could not start checkout (HTTP ${r.status}).`);
+      try {
+        const { data: { session } } = await sb.auth.getSession();
+        if (!session?.access_token) { openAuth('signin'); return; }
+        const r = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ accessToken: session.access_token })
+        });
+        let j;
+        try { j = await r.json(); } catch { alert('Could not start checkout (server returned an invalid response).'); return; }
+        if (j.url) window.location.href = j.url;
+        else alert(j.error || j.errorMessage || `Could not start checkout (HTTP ${r.status}).`);
+      } catch (err) {
+        console.error('checkout failed', err);
+        alert(err.message || 'Could not start checkout.');
+      }
     };
 
     window.openBillingPortal = async function() {
