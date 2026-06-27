@@ -36,11 +36,12 @@ function getSupabaseUrl() {
 }
 
 function getPublishableKeyCandidates() {
+  const envKeys = [cleanEnv('SUPABASE_ANON_KEY'), cleanEnv('SUPABASE_PUBLISHABLE_KEY')].filter(Boolean);
+  const safeEnvKeys = envKeys.filter((k) => !k.startsWith('sb_secret_'));
   return [...new Set([
     DEEDSCOUT_PUBLISHABLE_KEY,
-    cleanEnv('SUPABASE_ANON_KEY'),
-    cleanEnv('SUPABASE_PUBLISHABLE_KEY'),
-  ].filter(Boolean))];
+    ...safeEnvKeys,
+  ])];
 }
 
 function getSupabasePublishableKey() {

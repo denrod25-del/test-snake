@@ -12,7 +12,10 @@
   <script>
     // ---------------------------------------------------------------
     // CLIENT CONFIG  -- replace these with your real keys before deploy
-    // (Supabase anon key is safe to expose; row-level security protects data)
+    // (Supabase publishable key is safe to expose; row-level security protects data)
+    // Sign-in reads ONLY these values — NOT Netlify env vars.
+    // Netlify SUPABASE_ANON_KEY is optional (checkout API only); leave it unset or
+    // set to the same publishable key below. Never put sb_secret_ here.
     // ---------------------------------------------------------------
     window.FTDR_CONFIG = {
       SUPABASE_URL:      "https://wmkbksqztpofxoqbyrdd.supabase.co",
@@ -6272,8 +6275,12 @@
       });
       if (error) {
         var msg = error.message;
-        if (/not confirmed|email.*confirm/i.test(msg)) {
-          msg = 'Email not confirmed yet. Check your inbox for the confirmation link, then sign in again.';
+        if (/invalid api key/i.test(msg)) {
+          msg = 'Supabase key is wrong in tax-deeds.html. In Supabase → Settings → API, copy the publishable key (sb_publishable_...) into SUPABASE_ANON_KEY here. Netlify env vars do not control sign-in. Never paste the secret (sb_secret_) key in the browser config.';
+        } else if (/not confirmed|email.*confirm/i.test(msg)) {
+          msg = 'Email not confirmed yet. Check your inbox for the confirmation link (use the live site deedscout.netlify.app), then sign in again.';
+        } else if (/invalid login credentials/i.test(msg)) {
+          msg = 'Wrong email or password. If you just signed up, confirm your email first.';
         }
         errEl.textContent = msg;
         errEl.style.display = 'block';
