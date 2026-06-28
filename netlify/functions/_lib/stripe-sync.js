@@ -2,13 +2,54 @@
 const PRO_SKIP_TRACE_GRANT = Number(process.env.PRO_SKIP_TRACE_GRANT || 50);
 const PRO_AVM_GRANT = Number(process.env.PRO_AVM_GRANT || 200);
 
+async function resolveStripeCustomerId(supabase, stripe, userId, email) {
+  if (!email) return null;
+
+  try {
+    const search = await stripe.customers.search({
+      query: `metadata['supabase_user_id']:'${userId}'`,
+      limit: 1,
+    });
+    if (search.data[0]?.id) {
+      await supabase
+        .from('profiles')
+        .update({ stripe_customer_id: search.data[0].id, updated_at: new Date().toISOString() })
+        .eq('id', userId);
+      return search.data[0].id;
+    }
+  } catch (err) {
+    console.warn('customer search by metadata failed', err.message);
+  }
+
+  const byEmail = await stripe.customers.list({ email, limit: 10 });
+  const customer =
+    byEmail.data.find((c) => c.metadata?.supabase_user_id === userId) ||
+    byEmail.data[0];
+
+  if (customer?.id) {
+    await supabase
+      .from('profiles')
+      .update({ stripe_customer_id: customer.id, updated_at: new Date().toISOString() })
+      .eq('id', userId);
+    return customer.id;
+  }
+
+  return null;
+}
+
+function subscriptionPeriodEnd(subscription) {
+  const end = subscription.current_period_end
+    || subscription.items?.data?.[0]?.current_period_end;
+  return end ? new Date(end * 1000).toISOString() : null;
+}
+
 async function applySubscriptionToProfile(supabase, userId, subscription) {
   const isActive = ['active', 'trialing'].includes(subscription.status);
   const update = {
     stripe_subscription_id: subscription.id,
     subscription_status: subscription.status,
     subscription_plan: isActive ? 'pro' : 'free',
-    current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+    current_period_end: subscriptionPeriodEnd(subscription),
     updated_at: new Date().toISOString(),
   };
 
@@ -38,13 +79,17 @@ async function resolveUserId(supabase, subscription) {
   return profile?.id || null;
 }
 
-async function syncSubscriptionForUser(supabase, stripe, userId, stripeCustomerId) {
-  if (!stripeCustomerId) {
-    return { synced: false, reason: 'no_stripe_customer' };
+async function syncSubscriptionForUser(supabase, stripe, userId, email, stripeCustomerId) {
+  let customerId = stripeCustomerId;
+  if (!customerId) {
+    customerId = await resolveStripeCustomerId(supabase, stripe, userId, email);
+  }
+  if (!customerId) {
+    return { synced: false, reason: 'no_stripe_customer', message: 'No Stripe customer linked to this account yet.' };
   }
 
   const subs = await stripe.subscriptions.list({
-    customer: stripeCustomerId,
+    customer: customerId,
     status: 'all',
     limit: 10,
   });
@@ -54,7 +99,13 @@ async function syncSubscriptionForUser(supabase, stripe, userId, stripeCustomerI
     subs.data[0];
 
   if (!subscription) {
-    return { synced: false, reason: 'no_subscription', plan: 'free', status: 'free' };
+    return {
+      synced: false,
+      reason: 'no_subscription',
+      plan: 'free',
+      status: 'free',
+      message: 'Stripe customer exists but no subscription was found.',
+    };
   }
 
   if (!subscription.metadata?.supabase_user_id) {
@@ -72,11 +123,13 @@ async function syncSubscriptionForUser(supabase, stripe, userId, stripeCustomerI
     synced: true,
     plan: update.subscription_plan,
     status: update.subscription_status,
+    message: 'Subscription synced from Stripe.',
   };
 }
 
 module.exports = {
   applySubscriptionToProfile,
   resolveUserId,
+  resolveStripeCustomerId,
   syncSubscriptionForUser,
 };

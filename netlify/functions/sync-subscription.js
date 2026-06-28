@@ -30,16 +30,22 @@ exports.handler = async (event) => {
     const supabase = createSupabaseAdminClient();
     const stripe = Stripe(stripeKey);
 
-    const { data: profile } = await supabase
+    const { data: profile, error: profileErr } = await supabase
       .from('profiles')
-      .select('stripe_customer_id')
+      .select('stripe_customer_id, email')
       .eq('id', user.id)
       .single();
+
+    if (profileErr) {
+      console.error('profile lookup failed', profileErr);
+      return { statusCode: 500, body: JSON.stringify({ error: 'Could not load profile', detail: profileErr.message }) };
+    }
 
     const result = await syncSubscriptionForUser(
       supabase,
       stripe,
       user.id,
+      user.email || profile?.email,
       profile?.stripe_customer_id
     );
 

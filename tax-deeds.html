@@ -6284,9 +6284,8 @@
     async function handleAuthChange(session) {
       currentUser = session?.user || null;
       await refreshProfile();
-      if (currentUser && !isPro() &&
-          (currentProfile?.stripe_customer_id || getCheckoutReturnStatus() === 'success')) {
-        await syncSubscriptionFromStripe();
+      if (currentUser && !isPro()) {
+        await syncSubscriptionFromStripe(true);
       }
       renderAuthSlot();
       if (isPro()) await syncParcelsFromCloud();
@@ -6494,44 +6493,60 @@
     // ----------------------------------------------------------------
     // CHECKOUT + BILLING PORTAL
     // ----------------------------------------------------------------
-    async function getCheckoutAccessToken() {
+    async function getAccessTokenForApi() {
       const { data: refreshData, error: refreshErr } = await sb.auth.refreshSession();
       if (refreshErr) console.warn('session refresh', refreshErr.message);
       const session = refreshData?.session ?? (await sb.auth.getSession()).data.session;
-      if (!session?.access_token) return null;
-      const { error: tokenErr } = await sb.auth.getUser(session.access_token);
+      return session?.access_token || null;
+    }
+
+    async function getCheckoutAccessToken() {
+      const token = await getAccessTokenForApi();
+      if (!token) return null;
+      const { error: tokenErr } = await sb.auth.getUser(token);
       if (tokenErr) {
         console.warn('local token check failed', tokenErr.message);
         return null;
       }
-      return session.access_token;
+      return token;
     }
 
-    async function syncSubscriptionFromStripe() {
+    async function syncSubscriptionFromStripe(silent) {
       if (!sb || !currentUser) return false;
       try {
-        const accessToken = await getCheckoutAccessToken();
-        if (!accessToken) return false;
+        const accessToken = await getAccessTokenForApi();
+        if (!accessToken) {
+          if (!silent) alert('Sign in again to refresh your subscription status.');
+          return false;
+        }
         const r = await fetch('/api/sync-subscription', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ accessToken }),
         });
-        const j = await r.json();
+        let j;
+        try { j = await r.json(); } catch { j = { error: 'Invalid server response' }; }
         if (j.synced) {
           await refreshProfile();
           renderAuthSlot();
+          if (!silent) console.info('Pro subscription synced', j);
           return true;
         }
-        console.warn('subscription sync', j.reason || j.error || j);
+        console.warn('subscription sync', j);
+        if (!silent) {
+          alert(j.message || j.error || j.reason || 'Could not sync subscription from Stripe. Check Netlify STRIPE_SECRET_KEY and SUPABASE_SERVICE_KEY.');
+        }
         return false;
       } catch (e) {
         console.warn('sync subscription failed', e);
+        if (!silent) alert(e.message || 'Sync failed.');
         return false;
       }
     }
 
-    window.syncSubscriptionFromStripe = syncSubscriptionFromStripe;
+    window.syncSubscriptionFromStripe = function() {
+      return syncSubscriptionFromStripe(false);
+    };
 
     window.startCheckout = async function() {
       if (!sb) { alert('Auth not configured'); return; }
@@ -6889,8 +6904,8 @@
               ${ isPro()
                 ? `<button class="btn-primary" onclick="openBillingPortal()">Manage Billing &nearr;</button>`
                 : `<a class="btn-primary" href="#/pricing" style="text-decoration:none;display:inline-block;margin-right:8px;">View Plans &rarr;</a>
-                   ${ currentProfile?.stripe_customer_id
-                     ? `<button class="btn-secondary" onclick="syncSubscriptionFromStripe().then(function(){ route(); })">Refresh subscription status</button>`
+                   ${ currentProfile?.stripe_customer_id || currentUser
+                     ? `<button class="btn-secondary" onclick="syncSubscriptionFromStripe()">Refresh subscription status</button>`
                      : '' }` }
             </div>
             <div class="detail-block">
