@@ -108,6 +108,11 @@ function getSiteUrl(event) {
   return host ? `https://${host}` : 'https://deedscout.netlify.app';
 }
 
+/** Stripe success/cancel URLs must always hit production — not deploy previews. */
+function getCanonicalSiteUrl() {
+  return (cleanEnv('PUBLIC_SITE_URL') || 'https://deedscout.netlify.app').replace(/\/+$/, '');
+}
+
 module.exports = {
   cleanEnv,
   getSupabaseUrl,
@@ -117,4 +122,5 @@ module.exports = {
   createSupabasePublishableClient,
   verifyAccessToken,
   getSiteUrl,
+  getCanonicalSiteUrl,
 };

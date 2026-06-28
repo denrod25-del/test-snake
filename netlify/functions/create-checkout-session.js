@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------------
 
 const Stripe = require('stripe');
-const { createSupabaseAdminClient, getSiteUrl, cleanEnv, verifyAccessToken } = require('./_lib/config');
+const { createSupabaseAdminClient, getCanonicalSiteUrl, cleanEnv, verifyAccessToken } = require('./_lib/config');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -65,7 +65,7 @@ exports.handler = async (event) => {
         .eq('id', user.id);
     }
 
-    const siteUrl = getSiteUrl(event);
+    const siteUrl = getCanonicalSiteUrl();
 
     const priceId = cleanEnv('STRIPE_PRICE_ID_PRO');
     if (!priceId) {
@@ -78,8 +78,8 @@ exports.handler = async (event) => {
       line_items: [{ price: priceId, quantity: 1 }],
       allow_promotion_codes: true,
       billing_address_collection: 'auto',
-      success_url: `${siteUrl}/tax-deeds.html#/account?checkout=success`,
-      cancel_url:  `${siteUrl}/tax-deeds.html#/pricing?checkout=cancelled`,
+      success_url: `${siteUrl}/tax-deeds.html?checkout=success#/account`,
+      cancel_url:  `${siteUrl}/tax-deeds.html?checkout=cancelled#/pricing`,
       subscription_data: {
         metadata: { supabase_user_id: user.id }
       },

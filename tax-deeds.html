@@ -6202,6 +6202,7 @@
     let sb = null;
     let currentUser = null;
     let currentProfile = null;
+    let authReady = false;
 
     if (window.FTDR_CONFIG?.AUTH_ENABLED && window.supabase &&
         FTDR_CONFIG.SUPABASE_URL && !FTDR_CONFIG.SUPABASE_URL.includes('YOUR-PROJECT')) {
@@ -6259,9 +6260,57 @@
 
     renderAuthSlot();
 
+    function getCheckoutReturnStatus() {
+      var fromQuery = new URLSearchParams(window.location.search).get('checkout');
+      if (fromQuery) return fromQuery;
+      var hashPart = (window.location.hash.split('?')[1] || '');
+      return new URLSearchParams(hashPart).get('checkout');
+    }
+
+    function normalizeCheckoutReturnUrl() {
+      var status = getCheckoutReturnStatus();
+      if (!status) return status;
+      var hashBase = (window.location.hash.split('?')[0] || '');
+      if (!hashBase || hashBase === '#') {
+        window.location.hash = status === 'success' ? '#/account' : '#/pricing';
+      }
+      try {
+        history.replaceState(null, '', window.location.pathname + window.location.hash);
+      } catch (e) { /* ignore */ }
+      return status;
+    }
+
+    async function handleAuthChange(session) {
+      currentUser = session?.user || null;
+      await refreshProfile();
+      renderAuthSlot();
+      if (isPro()) await syncParcelsFromCloud();
+      if (authReady) route();
+    }
+
     if (sb) {
-      sb.auth.getSession().then(({ data }) => handleAuthChange(data.session));
-      sb.auth.onAuthStateChange((_evt, session) => handleAuthChange(session));
+      normalizeCheckoutReturnUrl();
+      (async function initAuth() {
+        try {
+          if (getCheckoutReturnStatus() === 'success') {
+            try { await sb.auth.refreshSession(); } catch (e) { console.warn('post-checkout refresh', e); }
+          }
+          const { data: { session } } = await sb.auth.getSession();
+          authReady = true;
+          await handleAuthChange(session);
+        } catch (e) {
+          console.error('auth init failed', e);
+          authReady = true;
+          route();
+        }
+      })();
+      sb.auth.onAuthStateChange(function(_evt, session) {
+        if (!authReady) return;
+        void handleAuthChange(session);
+      });
+    } else {
+      authReady = true;
+      normalizeCheckoutReturnUrl();
     }
 
     window.doSignIn = async function(ev) {
@@ -6360,13 +6409,7 @@
       await sb.auth.signOut();
     };
 
-    async function handleAuthChange(session) {
-      currentUser = session?.user || null;
-      await refreshProfile();
-      renderAuthSlot();
-      if (isPro()) await syncParcelsFromCloud();
-      route();
-    }
+    // handleAuthChange defined above in initAuth block
 
     // ----------------------------------------------------------------
     // CLOUD SYNC FOR PRO WATCHLISTS
@@ -6757,6 +6800,16 @@
     // ACCOUNT VIEW
     // ----------------------------------------------------------------
     function renderAccount() {
+      if (!authReady) {
+        accountView.innerHTML = `
+          <div class="detail-inner">
+            <a class="back-link" href="#/">&larr; Back to Registry</a>
+            <div class="empty-research" style="text-align:center;padding:60px;">
+              <p style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#666;">Loading your account&hellip;</p>
+            </div>
+          </div>`;
+        return;
+      }
       if (!currentUser) {
         accountView.innerHTML = `
           <div class="detail-inner">
@@ -6769,7 +6822,7 @@
         return;
       }
 
-      const checkoutNote = new URLSearchParams(window.location.hash.split('?')[1] || '').get('checkout');
+      const checkoutNote = getCheckoutReturnStatus();
       const banner = checkoutNote === 'success'
         ? '<div class="pricing-notice success"><strong>Welcome to Pro.</strong> Your subscription is now active. It may take up to a minute for all features to unlock.</div>' : '';
 
@@ -6789,7 +6842,7 @@
             </div>
             <div class="detail-meta">
               <div class="meta-row"><span class="meta-lbl">Email</span><span class="meta-val">${currentUser.email}</span></div>
-              <div class="meta-row"><span class="meta-lbl">Plan</span><span class="meta-val">${isPro() ? 'Pro &mdash; $49/mo' : 'Free'}</span></div>
+              <div class="meta-row"><span class="meta-lbl">Plan</span><span class="meta-val">${isPro() ? 'Pro &mdash; ' + FTDR_CONFIG.PRO_PRICE_DISPLAY + '/mo' : 'Free'}</span></div>
               <div class="meta-row"><span class="meta-lbl">Status</span><span class="meta-val">${currentProfile?.subscription_status || 'free'}</span></div>
               ${isPro() ? `<div class="meta-row"><span class="meta-lbl">Renews</span><span class="meta-val">${renew}</span></div>` : ''}
             </div>
@@ -7112,7 +7165,7 @@
       history.replaceState(null, '', newUrl);
     })();
 
-    route();
+    if (!sb) route();
 
     if (!medianValuesLoaded) {
       fetchMedianValues().then(() => rerenderAll());

@@ -8,6 +8,9 @@
     (function () {
       var q = window.location.search || '';
       var h = window.location.hash || '#/account';
+      if (q.indexOf('checkout=') >= 0 && (!h || h === '#/account')) {
+        h = q.indexOf('checkout=success') >= 0 ? '#/account' : h;
+      }
       window.location.replace('tax-deeds.html' + q + h);
     })();
   </script>
