@@ -62,6 +62,11 @@
   to   = "/.netlify/functions/stripe-webhook"
   status = 200
 
+[[redirects]]
+  from = "/api/sync-subscription"
+  to   = "/.netlify/functions/sync-subscription"
+  status = 200
+
 # ── Pro-only data APIs ─────────────────────────────────────────────────────
 # These functions verify the caller's Supabase JWT, confirm an active Pro
 # subscription, deduct one credit, and proxy to the upstream vendor (BatchData

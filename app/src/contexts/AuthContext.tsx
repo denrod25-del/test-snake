@@ -40,6 +40,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setProfile(await fetchProfile(user.id));
   }, [user]);
 
+  const syncSubscription = useCallback(async (userId?: string) => {
+    const uid = userId ?? user?.id;
+    if (!supabase || !uid) return false;
+    await supabase.auth.refreshSession();
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return false;
+    const r = await fetch('/api/sync-subscription', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ accessToken: session.access_token }),
+    });
+    const j = await r.json();
+    if (j.synced) {
+      setProfile(await fetchProfile(uid));
+      return true;
+    }
+    return false;
+  }, [user]);
+
   useEffect(() => {
     if (!supabase) { setLoading(false); return; }
 
@@ -49,8 +68,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const u = data.session?.user ?? null;
       setUser(u);
       if (u) {
-        const p = await fetchProfile(u.id);
+        let p = await fetchProfile(u.id);
         if (cancelled) return;
+        if (p && p.subscription_plan !== 'pro' && p.stripe_customer_id) {
+          await syncSubscription(u.id);
+          p = await fetchProfile(u.id);
+        }
         setProfile(p);
         if (p?.subscription_plan === 'pro') await pullCloudParcels(u.id);
       }

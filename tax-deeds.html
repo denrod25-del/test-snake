@@ -6108,6 +6108,7 @@
       }
       window.scrollTo({ top: 0 });
     }
+    window.route = route;
     window.addEventListener('hashchange', route);
     document.querySelectorAll('.primary a[href^="#/"]').forEach(link => {
       link.addEventListener('click', () => {
@@ -6283,6 +6284,10 @@
     async function handleAuthChange(session) {
       currentUser = session?.user || null;
       await refreshProfile();
+      if (currentUser && !isPro() &&
+          (currentProfile?.stripe_customer_id || getCheckoutReturnStatus() === 'success')) {
+        await syncSubscriptionFromStripe();
+      }
       renderAuthSlot();
       if (isPro()) await syncParcelsFromCloud();
       if (authReady) route();
@@ -6501,6 +6506,32 @@
       }
       return session.access_token;
     }
+
+    async function syncSubscriptionFromStripe() {
+      if (!sb || !currentUser) return false;
+      try {
+        const accessToken = await getCheckoutAccessToken();
+        if (!accessToken) return false;
+        const r = await fetch('/api/sync-subscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ accessToken }),
+        });
+        const j = await r.json();
+        if (j.synced) {
+          await refreshProfile();
+          renderAuthSlot();
+          return true;
+        }
+        console.warn('subscription sync', j.reason || j.error || j);
+        return false;
+      } catch (e) {
+        console.warn('sync subscription failed', e);
+        return false;
+      }
+    }
+
+    window.syncSubscriptionFromStripe = syncSubscriptionFromStripe;
 
     window.startCheckout = async function() {
       if (!sb) { alert('Auth not configured'); return; }
@@ -6857,7 +6888,10 @@
                 : 'You\'re on the Free plan. Upgrade to Pro for unlimited watchlists, alerts, and the surplus-funds database.' }</p>
               ${ isPro()
                 ? `<button class="btn-primary" onclick="openBillingPortal()">Manage Billing &nearr;</button>`
-                : `<a class="btn-primary" href="#/pricing" style="text-decoration:none;display:inline-block;">View Plans &rarr;</a>` }
+                : `<a class="btn-primary" href="#/pricing" style="text-decoration:none;display:inline-block;margin-right:8px;">View Plans &rarr;</a>
+                   ${ currentProfile?.stripe_customer_id
+                     ? `<button class="btn-secondary" onclick="syncSubscriptionFromStripe().then(function(){ route(); })">Refresh subscription status</button>`
+                     : '' }` }
             </div>
             <div class="detail-block">
               <div class="block-num">02</div>

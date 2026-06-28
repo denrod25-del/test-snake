@@ -21,23 +21,27 @@
 // ----------------------------------------------------------------------------
 
 const Stripe = require('stripe');
-const { createSupabaseAdminClient } = require('./_lib/config');
+const { createSupabaseAdminClient, cleanEnv } = require('./_lib/config');
+const { applySubscriptionToProfile, resolveUserId } = require('./_lib/stripe-sync');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
   }
 
-  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+  const stripeKey = cleanEnv('STRIPE_SECRET_KEY');
+  const webhookSecret = cleanEnv('STRIPE_WEBHOOK_SECRET');
+  if (!stripeKey || !webhookSecret) {
+    console.error('Webhook misconfigured: STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET missing');
+    return { statusCode: 500, body: 'Webhook not configured' };
+  }
+
+  const stripe = Stripe(stripeKey);
   const sig = event.headers['stripe-signature'] || event.headers['Stripe-Signature'];
 
   let stripeEvent;
   try {
-    stripeEvent = stripe.webhooks.constructEvent(
-      event.body,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+    stripeEvent = stripe.webhooks.constructEvent(event.body, sig, webhookSecret);
   } catch (err) {
     console.error('Webhook signature verification failed:', err.message);
     return { statusCode: 400, body: `Webhook Error: ${err.message}` };
@@ -45,59 +49,20 @@ exports.handler = async (event) => {
 
   const supabase = createSupabaseAdminClient();
 
-  // Monthly grants for Pro subscribers — kept here so the migration and the
-  // webhook can't drift. Bump these together if you change the bundle.
-  const PRO_SKIP_TRACE_GRANT = Number(process.env.PRO_SKIP_TRACE_GRANT || 50);
-  const PRO_AVM_GRANT        = Number(process.env.PRO_AVM_GRANT        || 200);
-
-  async function resolveUserId(subscription) {
-    const userId = subscription.metadata?.supabase_user_id;
-    if (userId) return userId;
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('stripe_customer_id', subscription.customer)
-      .single();
-    return profile?.id || null;
-  }
-
   async function syncSubscription(subscription) {
-    const userId = await resolveUserId(subscription);
+    const userId = await resolveUserId(supabase, subscription);
     if (!userId) {
       console.warn('No profile found for customer', subscription.customer);
       return null;
     }
-
-    const isActive = ['active', 'trialing'].includes(subscription.status);
-    const update = {
-      stripe_subscription_id: subscription.id,
-      subscription_status:    subscription.status,
-      subscription_plan:      isActive ? 'pro' : 'free',
-      current_period_end:     new Date(subscription.current_period_end * 1000).toISOString(),
-      updated_at:             new Date().toISOString()
-    };
-
-    await supabase.from('profiles').update(update).eq('id', userId);
-
-    // First-time Pro upgrade → create the credit buckets so we have
-    // somewhere to refill into. Idempotent (ON CONFLICT in the RPC).
-    if (isActive) {
-      await supabase.rpc('ensure_credit_buckets', {
-        p_user_id:     userId,
-        p_skip_grant:  PRO_SKIP_TRACE_GRANT,
-        p_avm_grant:   PRO_AVM_GRANT,
-      });
-    }
-
+    await applySubscriptionToProfile(supabase, userId, subscription);
     return userId;
   }
 
   async function refillCreditsFor(userId) {
     if (!userId) return;
-    // RPC is idempotent within ~25 days, so it's safe to call on every paid
-    // invoice (initial signup, renewal, retried-after-failure, etc.).
     const { error } = await supabase.rpc('refill_monthly_credits', { p_user_id: userId });
-    if (error) console.error('refill_monthly_credits failed', error);
+    if (error) console.warn('refill_monthly_credits skipped', error.message);
   }
 
   try {
