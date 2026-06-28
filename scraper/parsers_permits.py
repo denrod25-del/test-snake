@@ -199,26 +199,30 @@ _TYLER_BROWSER_UA = (
 )
 
 
-def _tyler_fetch_tenant(session, host):
+def _tyler_fetch_tenant(session, host, base_path="/apps/selfservice"):
     """Discover the tenant id/name/url for a Tyler EnerGov host.
 
-    All public Tyler SelfService installations expose
-    /apps/selfservice/api/tenants/gettenantslist without auth, which returns
-    exactly one tenant per site. Cached per-session via a private attribute
-    so a scraper run only hits this endpoint once per host.
+    Tyler-hosted tenants live at <slug>.tylerhost.net/apps/selfservice/...
+    while self-hosted ones (cities running their own Tyler box) use paths
+    like cds.jupiter.fl.us/EnerGov_Prod/selfservice/... — pass `base_path`
+    accordingly via source_cfg['basePath'].
+
+    Cached per-session via a private attribute keyed by (host, base_path)
+    so a scraper run only hits this endpoint once per tenant.
 
     Tyler's CDN rejects non-browser User-Agents with an HTML challenge page,
     so we always send a realistic Chrome UA for Tyler hosts.
     """
     cache = getattr(session, "_tyler_tenant_cache", {})
-    if host in cache:
-        return cache[host]
+    key = (host, base_path)
+    if key in cache:
+        return cache[key]
 
-    url = f"https://{host}/apps/selfservice/api/tenants/gettenantslist"
+    url = f"https://{host}{base_path}/api/tenants/gettenantslist"
     resp = session.get(url, timeout=30, headers={
         "User-Agent": _TYLER_BROWSER_UA,
         "Accept": "application/json, text/plain, */*",
-        "Referer": f"https://{host}/Apps/SelfService",
+        "Referer": f"https://{host}{base_path.replace('/selfservice', '')}/SelfService",
     })
     resp.raise_for_status()
     ct = resp.headers.get("Content-Type", "")
@@ -240,8 +244,9 @@ def _tyler_fetch_tenant(session, host):
         "name":      t["TenantName"],
         "url":       t["TenantUrl"],
         "isActive":  bool(t.get("IsActive", True)),
+        "basePath":  base_path,
     }
-    cache[host] = resolved
+    cache[key] = resolved
     session._tyler_tenant_cache = cache  # pylint: disable=protected-access
     return resolved
 
@@ -256,16 +261,19 @@ def _tyler_iso_date(s):
         return None
 
 
-def _tyler_normalize(entity, host, tenant_url):
+def _tyler_normalize(entity, host, tenant_url, base_path="/apps/selfservice"):
     """Map one Tyler EntityResult dict to our permit schema."""
     addr = entity.get("Address") or {}
     city = (addr.get("City") or "").strip()
     case_id = entity.get("CaseId")
-    # The Angular route at /Apps/SelfService#/permit/:id takes the CaseId.
+    # The Angular route is at <base>/SelfService#/permit/:id where <base> is
+    # the base_path without "/selfservice" — e.g. /apps for tylerhost.net and
+    # /EnerGov_Prod for self-hosted Jupiter.
+    portal_root = base_path.replace("/selfservice", "")
     detail_url = (
-        f"https://{host}/Apps/SelfService#/permit/{case_id}"
+        f"https://{host}{portal_root}/SelfService#/permit/{case_id}"
         if case_id else
-        f"https://{host}/Apps/SelfService#/search"
+        f"https://{host}{portal_root}/SelfService#/search"
     )
     return {
         "permitNumber":   (entity.get("CaseNumber") or "").strip(),
@@ -317,8 +325,9 @@ def parse_tyler_energov(session, source_cfg):
     lookback = int(source_cfg.get("lookbackDays") or TYLER_LOOKBACK_DAYS)
     page_size = int(source_cfg.get("pageSize") or TYLER_PAGE_SIZE)
     keyword = (source_cfg.get("keyword") or "").strip()
+    base_path = source_cfg.get("basePath") or "/apps/selfservice"
 
-    tenant = _tyler_fetch_tenant(session, host)
+    tenant = _tyler_fetch_tenant(session, host, base_path)
     if not tenant["isActive"]:
         raise NoPermitDataError(
             f"Tyler tenant {tenant['name']} on {host} is marked inactive."
@@ -328,13 +337,14 @@ def parse_tyler_energov(session, source_cfg):
     date_from = (today - timedelta(days=lookback)).isoformat()
     date_to   = today.isoformat()
 
-    endpoint = f"https://{host}/apps/selfservice/api/energov/search/search"
+    endpoint = f"https://{host}{base_path}/api/energov/search/search"
+    referer_root = base_path.replace("/selfservice", "")
     headers = {
         "Content-Type": "application/json;charset=UTF-8",
         "Accept": "application/json, text/plain, */*",
         "User-Agent": _TYLER_BROWSER_UA,
         "Origin":  f"https://{host}",
-        "Referer": f"https://{host}/apps/selfservice/{tenant['url']}",
+        "Referer": f"https://{host}{base_path}/{tenant['url']}",
         "tenantId":        tenant["id"],
         "tenantName":      tenant["name"],
         "Tyler-TenantUrl": tenant["url"],
@@ -375,7 +385,7 @@ def parse_tyler_energov(session, source_cfg):
             if case_id and case_id in seen_case_ids:
                 continue
             seen_case_ids.add(case_id)
-            permits.append(_tyler_normalize(e, host, tenant["url"]))
+            permits.append(_tyler_normalize(e, host, tenant["url"], base_path))
             added_this_page += 1
 
         if len(ents) < page_size:

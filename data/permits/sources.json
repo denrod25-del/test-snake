@@ -15,7 +15,7 @@
   },
   "version": 1,
   "generated": "2026-04-21T00:00:00Z",
-  "defaultEnabledIds": ["palm-beach", "wpb", "royal-palm-beach", "boynton-beach"],
+  "defaultEnabledIds": ["palm-beach", "wpb", "boca-raton", "jupiter", "st-lucie", "royal-palm-beach", "boynton-beach"],
   "sources": [
     {
       "id":         "palm-beach",
@@ -44,17 +44,56 @@
       "scope":      "Live Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those."
     },
     {
+      "id":         "boca-raton",
+      "label":      "Boca Raton",
+      "shortLabel": "BOCA",
+      "kind":       "municipality",
+      "county":     "Palm Beach",
+      "city":       "BOCA RATON",
+      "platform":   "Tyler EnerGov SelfService (Boca eHub)",
+      "dataFile":   "data/permits/boca-raton.json",
+      "portalUrl":  "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
+      "status":     "active",
+      "scope":      "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API."
+    },
+    {
+      "id":         "jupiter",
+      "label":      "Jupiter",
+      "shortLabel": "JUP",
+      "kind":       "municipality",
+      "county":     "Palm Beach",
+      "city":       "JUPITER",
+      "platform":   "Tyler EnerGov (self-hosted, JupiterFLProd)",
+      "dataFile":   "data/permits/jupiter.json",
+      "portalUrl":  "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
+      "status":     "active",
+      "scope":      "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API."
+    },
+    {
+      "id":         "st-lucie",
+      "label":      "St. Lucie County",
+      "shortLabel": "SLC",
+      "kind":       "county",
+      "county":     "St. Lucie",
+      "city":       "ST. LUCIE COUNTY",
+      "platform":   "Tyler EnerGov SelfService",
+      "dataFile":   "data/permits/st-lucie-county.json",
+      "portalUrl":  "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
+      "status":     "active",
+      "scope":      "Most recent 4,000 permits sorted by apply date (SLC's API ignores date filter, so cap gives ~3 months of unincorporated St. Lucie County data)."
+    },
+    {
       "id":         "royal-palm-beach",
       "label":      "Royal Palm Beach",
       "shortLabel": "RPB",
       "kind":       "municipality",
       "county":     "Palm Beach",
       "city":       "ROYAL PALM BEACH",
-      "platform":   "CentralSquare Click2Gov",
+      "platform":   "CentralSquare Click2Gov (legacy) + Avolve ProjectDox (new)",
       "dataFile":   "data/permits/royal-palm-beach.json",
       "portalUrl":  "https://click2gov.royalpalmbeach.com/Click2GovBP/selectpermit.html",
-      "status":     "scaffold",
-      "scope":      "Click2Gov has no bulk listing — needs a contractor or address seed list. Sample data only."
+      "status":     "unsupported_paywall",
+      "scope":      "Click2Gov has no bulk listing; new submissions go through ProjectDox which requires an account. Sample data only — use the portal link directly."
     },
     {
       "id":         "boynton-beach",
@@ -63,11 +102,11 @@
       "kind":       "municipality",
       "county":     "Palm Beach",
       "city":       "BOYNTON BEACH",
-      "platform":   "SagesGov (Sages Networks)",
+      "platform":   "SagesGov",
       "dataFile":   "data/permits/boynton-beach.json",
       "portalUrl":  "https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx",
-      "status":     "scaffold",
-      "scope":      "SagesGov is anti-bot ASP.NET WebForms; recommended path is to export CSV from the portal and merge via the upload UI. Sample data only."
+      "status":     "unsupported_paywall",
+      "scope":      "SagesGov requires login for search and is anti-bot. Sample data only. To pull live, export CSV from your portal account and use the Manual Upload tab."
     }
   ]
 }

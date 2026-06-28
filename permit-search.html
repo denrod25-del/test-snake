@@ -360,6 +360,155 @@
     background: var(--accent);
   }
 
+  .trend-panel {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .trend-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+    margin: 12px 0 16px;
+  }
+  .trend-controls .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 140px;
+  }
+  .trend-controls label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--muted);
+  }
+  .trend-controls select {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font: inherit;
+  }
+  .trend-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .trend-chip {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .trend-chip .k { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .trend-chip .v { font-size: 18px; font-weight: 600; margin-top: 4px; }
+  .trend-chip .sub { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .trend-chip.up .v { color: var(--success); }
+  .trend-chip.down .v { color: var(--warn); }
+  .trend-chart-wrap {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 8px 4px;
+    overflow-x: auto;
+  }
+  .trend-chart {
+    min-width: 320px;
+    height: 240px;
+  }
+  .trend-chart svg { width: 100%; height: 100%; display: block; }
+  .trend-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .trend-legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .trend-legend i {
+    width: 10px; height: 10px; border-radius: 2px; display: inline-block;
+  }
+  .trend-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* --- Plumbing Watch --- */
+  .hotspot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .hotspot-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hotspot-card.rank-1 { border-color: #f85149; box-shadow: 0 0 0 1px #f8514955 inset; }
+  .hotspot-card.rank-2 { border-color: #d29922; }
+  .hotspot-card.rank-3 { border-color: #4f9eff; }
+  .hotspot-card .rank-badge {
+    position: absolute; top: 8px; right: 10px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .hotspot-card .zip {
+    font-size: 22px; font-weight: 700; color: var(--text);
+    letter-spacing: 0.04em;
+  }
+  .hotspot-card .ratio {
+    font-size: 28px; font-weight: 700; margin-top: 6px;
+    color: var(--success);
+  }
+  .hotspot-card .ratio.flat { color: var(--muted); }
+  .hotspot-card .ratio.down { color: var(--warn); }
+  .hotspot-card .sub {
+    color: var(--muted); font-size: 11px; margin-top: 4px; line-height: 1.5;
+  }
+  .hotspot-card .spark { margin-top: 10px; height: 36px; }
+  .hotspot-card .spark svg { width: 100%; height: 100%; display: block; }
+  .hotspot-card .top-types {
+    margin-top: 10px; font-size: 11px; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: 8px;
+  }
+
+  .zip-table-wrap {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .zip-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .zip-table th, .zip-table td {
+    padding: 8px 12px; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .zip-table th {
+    background: var(--panel); color: var(--muted);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+    cursor: pointer; user-select: none;
+  }
+  .zip-table th:hover { color: var(--text); }
+  .zip-table th.num, .zip-table td.num { text-align: right; }
+  .zip-table tbody tr:last-child td { border-bottom: none; }
+  .zip-table tbody tr:hover { background: var(--panel); }
+  .zip-table .growth-up   { color: var(--success); font-weight: 600; }
+  .zip-table .growth-flat { color: var(--muted); }
+  .zip-table .growth-down { color: var(--warn); }
+  .zip-table .spark-cell { width: 80px; }
+  .zip-table .spark-cell svg { width: 80px; height: 22px; display: block; margin-left: auto; }
+
   .help { font-size: 12px; color: var(--muted); margin-top: 6px; }
   .help code { background: var(--panel-2); padding: 1px 6px; border-radius: 4px; font-size: 11px; }
 
@@ -439,7 +588,8 @@
   <div class="tabs" role="tablist">
     <button class="tab active" data-tab="search" role="tab" aria-selected="true">Search <span class="count" id="t-search-count">0</span></button>
     <button class="tab" data-tab="map"    role="tab">Map</button>
-    <button class="tab" data-tab="stats"  role="tab">Stats</button>
+    <button class="tab" data-tab="stats"  role="tab">Trends &amp; Stats</button>
+    <button class="tab" data-tab="plumbing" role="tab">Plumbing Watch <span class="count" id="t-plumbing-count">0</span></button>
     <button class="tab" data-tab="manual" role="tab">Manual Upload</button>
     <button class="tab" data-tab="help"   role="tab">How To Refresh</button>
   </div>
@@ -584,9 +734,54 @@
   <!-- ============== STATS TAB ============== -->
   <section id="tab-stats" style="display:none;">
     <div class="panel">
-      <h2>Stats for current filter</h2>
+      <h2>Trends &amp; stats for current filter</h2>
+      <p class="help" style="margin-top:0">Charts update when you change keywords, dates, or other filters on the Search tab. Most live data is West Palm Beach (last ~90 days of applications).</p>
+
       <div class="stats-grid" id="stats-cards"></div>
-      <h3>Top contractors</h3>
+
+      <div class="trend-panel">
+        <h3>Permit trends over time</h3>
+        <div class="trend-controls">
+          <div class="field">
+            <label for="trend-metric">Metric</label>
+            <select id="trend-metric">
+              <option value="count">Permit count</option>
+              <option value="valuation">Total valuation ($)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="trend-grain">Group by</label>
+            <select id="trend-grain">
+              <option value="month">Month</option>
+              <option value="week">Week</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="trend-split">Break down by</label>
+            <select id="trend-split">
+              <option value="none">None (single series)</option>
+              <option value="source">Data source</option>
+              <option value="type">Permit type</option>
+              <option value="status">Status</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="trend-date">Date field</label>
+            <select id="trend-date">
+              <option value="applied">Applied date</option>
+              <option value="issued">Issued date</option>
+            </select>
+          </div>
+        </div>
+        <div class="trend-summary" id="trend-summary"></div>
+        <div class="trend-chart-wrap">
+          <div class="trend-chart" id="trend-chart" aria-label="Permit trend chart"></div>
+        </div>
+        <div class="trend-legend" id="trend-legend"></div>
+        <p class="trend-note" id="trend-note"></p>
+      </div>
+
+      <h3 style="margin-top:24px">Top contractors</h3>
       <div id="stats-contractors" class="bar-list"></div>
       <h3>Permits by status</h3>
       <div id="stats-status" class="bar-list"></div>
@@ -596,6 +791,68 @@
       <div id="stats-city" class="bar-list"></div>
       <h3>Permits by data source</h3>
       <div id="stats-source" class="bar-list"></div>
+    </div>
+  </section>
+
+  <!-- ============== PLUMBING WATCH TAB ============== -->
+  <section id="tab-plumbing" style="display:none;">
+    <div class="panel">
+      <h2>Plumbing Watch</h2>
+      <p class="help" style="margin-top:0">
+        Tracks every plumbing-related permit across all loaded sources (Plumbing Sub-Permit, Water Heater Changeout, Backflow, Water Filter, Sewer, Repipe, etc.).
+        The <strong>hotspot prediction</strong> ranks ZIP codes by the ratio of plumbing permits in the last 30 days vs. the prior 30 days &mdash; a sustained ratio &gt; 1 suggests aging infrastructure or a developing trend.
+        <em>Not machine learning</em>: it's a transparent recency-weighted growth ranking on the data you've loaded.
+        Ignores active Search-tab filters; this view is always full-population.
+      </p>
+
+      <div class="stats-grid" id="plumbing-cards"></div>
+
+      <div class="trend-panel">
+        <h3>Daily plumbing-permit volume</h3>
+        <div class="trend-controls">
+          <div class="field">
+            <label for="plumb-window">Window</label>
+            <select id="plumb-window">
+              <option value="30">Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90" selected>Last 90 days</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="plumb-smooth">Overlay</label>
+            <select id="plumb-smooth">
+              <option value="7" selected>7-day moving avg</option>
+              <option value="14">14-day moving avg</option>
+              <option value="0">Raw only</option>
+            </select>
+          </div>
+        </div>
+        <div class="trend-chart-wrap">
+          <div class="trend-chart" id="plumb-chart" aria-label="Plumbing permit daily volume"></div>
+        </div>
+        <p class="trend-note" id="plumb-note"></p>
+      </div>
+
+      <h3 style="margin-top:24px">Predicted next-hotspot ZIPs <span class="help" style="font-weight:normal">(top 3 by 30/30 growth ratio, min 5 prior permits)</span></h3>
+      <div id="plumbing-hotspots" class="hotspot-grid"></div>
+
+      <h3 style="margin-top:24px">All ZIPs &mdash; full ranking</h3>
+      <div class="zip-table-wrap">
+        <table class="zip-table" id="plumbing-zip-table">
+          <thead><tr>
+            <th data-zsort="zip">ZIP</th>
+            <th data-zsort="count30" class="num">Last 30d</th>
+            <th data-zsort="countPrior" class="num">Prior 30d</th>
+            <th data-zsort="growth" class="num">Growth</th>
+            <th data-zsort="total" class="num">Total in window</th>
+            <th class="num">Spark</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:24px">Plumbing permit types in window</h3>
+      <div id="plumbing-types" class="bar-list"></div>
     </div>
   </section>
 
@@ -729,8 +986,10 @@ const STATE = {
   map: null,
   markerLayer: null,
   activeTab: "search",
+  trend: { metric: "count", grain: "month", split: "none", dateField: "applied" },
   subdivWatch: [],
   developmentAlerts: null,
+  plumbing: { windowDays: 90, smoothing: 7, zipSort: { col: "growth", dir: "desc" } },
 };
 
 // ---------------------------------------------------------------------------
@@ -1157,6 +1416,11 @@ function applyFiltersAndRender() {
   renderMapMarkers();
   syncUrlFromState();
   document.getElementById("t-search-count").textContent = arr.length.toLocaleString();
+  // Plumbing-watch count is dataset-wide (ignores filters); refresh badge cheaply.
+  const plumbCount = STATE.data.permits.reduce((n, p) => n + (isPlumbingPermit(p) ? 1 : 0), 0);
+  document.getElementById("t-plumbing-count").textContent = plumbCount.toLocaleString();
+  // Re-render the tab if it's currently visible so manual uploads show immediately.
+  if (STATE.activeTab === "plumbing") renderPlumbingWatch();
 }
 
 // ---------------------------------------------------------------------------
@@ -1301,6 +1565,475 @@ function renderStats() {
   renderBarList("stats-type",        countBy(arr, (p) => p.type), 12);
   renderBarList("stats-city",        countBy(arr, (p) => p.city || "(unknown)"), 12);
   renderBarList("stats-source",      countBy(arr, (p) => p.dataSourceLabel || p.dataSource || "(unknown)"), 12);
+  renderTrends(arr);
+}
+
+const TREND_COLORS = ["#4f9eff", "#3fb950", "#d29922", "#bc8cff", "#f85149", "#56d4dd", "#ff9bce", "#8a97a8"];
+
+function permitTrendDate(p, field) {
+  if (field === "issued") return p.issuedDate || p.appliedDate || null;
+  return p.appliedDate || p.issuedDate || null;
+}
+
+function trendPeriodKey(iso, grain) {
+  if (!iso || iso.length < 10) return null;
+  if (grain === "month") return iso.slice(0, 7);
+  const d = new Date(iso.slice(0, 10) + "T12:00:00Z");
+  if (Number.isNaN(d.getTime())) return null;
+  const day = d.getUTCDay();
+  const mon = new Date(d);
+  mon.setUTCDate(d.getUTCDate() - ((day + 6) % 7));
+  return mon.toISOString().slice(0, 10);
+}
+
+function formatPeriodLabel(key, grain) {
+  if (grain === "week") return key.slice(5);
+  const [y, m] = key.split("-");
+  const names = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${names[+m - 1] || m} ${y.slice(2)}`;
+}
+
+function trendSplitValue(p, split) {
+  if (split === "source") return p.dataSourceLabel || p.dataSource || "Unknown";
+  if (split === "type") return p.type || "(no type)";
+  if (split === "status") return p.status || "(no status)";
+  return "All";
+}
+
+function buildTrendSeries(arr, opts) {
+  const periods = new Map();
+  const seriesNames = new Set();
+  let dated = 0;
+  for (const p of arr) {
+    const iso = permitTrendDate(p, opts.dateField);
+    const period = trendPeriodKey(iso, opts.grain);
+    if (!period) continue;
+    dated++;
+    const splitKey = opts.split === "none" ? "All" : trendSplitValue(p, opts.split);
+    seriesNames.add(splitKey);
+    if (!periods.has(period)) periods.set(period, new Map());
+    const bucket = periods.get(period);
+    const prev = bucket.get(splitKey) || { count: 0, valuation: 0 };
+    prev.count += 1;
+    prev.valuation += p.valuation || 0;
+    bucket.set(splitKey, prev);
+  }
+  const labels = [...periods.keys()].sort();
+  const series = [...seriesNames].sort();
+  if (opts.split === "none") series.length = 1;
+  return { labels, series, periods, dated, total: arr.length };
+}
+
+function renderTrends(arr) {
+  const opts = STATE.trend;
+  const data = buildTrendSeries(arr, opts);
+  const summary = document.getElementById("trend-summary");
+  const chart = document.getElementById("trend-chart");
+  const legend = document.getElementById("trend-legend");
+  const note = document.getElementById("trend-note");
+
+  if (!data.labels.length) {
+    summary.innerHTML = "";
+    chart.innerHTML = `<div class="help" style="padding:40px;text-align:center">No dated permits in the current filter. Try clearing date filters or switching the date field to Issued.</div>`;
+    legend.innerHTML = "";
+    note.textContent = `${data.dated} of ${data.total} matching permits have a usable date.`;
+    return;
+  }
+
+  const metricKey = opts.metric === "valuation" ? "valuation" : "count";
+  const totals = data.labels.map((label) => {
+    const bucket = data.periods.get(label);
+    let n = 0;
+    for (const s of data.series) {
+      n += (bucket.get(s) || {})[metricKey] || 0;
+    }
+    return n;
+  });
+  const peakIdx = totals.indexOf(Math.max(...totals));
+  const latest = totals[totals.length - 1] || 0;
+  const prior = totals.length > 1 ? totals[totals.length - 2] : 0;
+  const pct = prior ? Math.round(((latest - prior) / prior) * 100) : null;
+  const peakLabel = formatPeriodLabel(data.labels[peakIdx], opts.grain);
+  const rangeLabel = `${formatPeriodLabel(data.labels[0], opts.grain)} – ${formatPeriodLabel(data.labels[data.labels.length - 1], opts.grain)}`;
+
+  summary.innerHTML = `
+    <div class="trend-chip"><div class="k">Date range</div><div class="v" style="font-size:15px">${escapeHtml(rangeLabel)}</div><div class="sub">${data.labels.length} ${opts.grain === "week" ? "weeks" : "months"}</div></div>
+    <div class="trend-chip"><div class="k">Peak period</div><div class="v" style="font-size:15px">${escapeHtml(peakLabel)}</div><div class="sub">${opts.metric === "valuation" ? "$" + Math.round(totals[peakIdx]).toLocaleString() : totals[peakIdx].toLocaleString() + " permits"}</div></div>
+    <div class="trend-chip ${pct == null ? "" : pct >= 0 ? "up" : "down"}"><div class="k">Latest vs prior</div><div class="v">${pct == null ? "—" : (pct >= 0 ? "+" : "") + pct + "%"}</div><div class="sub">${opts.metric === "valuation" ? "$" + Math.round(latest).toLocaleString() : latest.toLocaleString()} in most recent period</div></div>
+    <div class="trend-chip"><div class="k">With dates</div><div class="v">${data.dated.toLocaleString()}</div><div class="sub">of ${arr.length.toLocaleString()} filtered permits</div></div>
+  `;
+
+  chart.innerHTML = renderTrendSvg(data, opts, metricKey);
+  if (data.series.length > 1 && opts.split !== "none") {
+    legend.innerHTML = data.series.map((name, i) =>
+      `<span><i style="background:${TREND_COLORS[i % TREND_COLORS.length]}"></i>${escapeHtml(name)}</span>`
+    ).join("");
+  } else {
+    legend.innerHTML = "";
+  }
+  note.textContent = `Trends reflect your active search filters. Live WPB data covers ~90 days; older months appear when sample/manual sources are included. ${data.total - data.dated} permit(s) in this filter lack a date and are omitted from the chart.`;
+}
+
+function renderTrendSvg(data, opts, metricKey) {
+  const W = Math.max(480, data.labels.length * 44);
+  const H = 220;
+  const padL = 48, padR = 12, padT = 12, padB = 36;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const n = data.labels.length;
+  const series = data.series;
+  const stacked = opts.split !== "none" && series.length > 1;
+
+  let maxVal = 0;
+  for (const label of data.labels) {
+    const bucket = data.periods.get(label);
+    if (stacked) {
+      let sum = 0;
+      for (const s of series) sum += (bucket.get(s) || {})[metricKey] || 0;
+      maxVal = Math.max(maxVal, sum);
+    } else {
+      maxVal = Math.max(maxVal, (bucket.get("All") || {})[metricKey] || 0);
+    }
+  }
+  maxVal = maxVal || 1;
+  const slot = innerW / n;
+  const barW = Math.min(28, slot * 0.72);
+  let bars = "";
+
+  data.labels.forEach((label, i) => {
+    const bucket = data.periods.get(label);
+    const x = padL + i * slot + (slot - barW) / 2;
+    if (stacked) {
+      let yBase = padT + innerH;
+      series.forEach((s, si) => {
+        const val = (bucket.get(s) || {})[metricKey] || 0;
+        const h = (val / maxVal) * innerH;
+        yBase -= h;
+        if (h <= 0) return;
+        bars += `<rect x="${x.toFixed(1)}" y="${yBase.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${TREND_COLORS[si % TREND_COLORS.length]}" opacity="0.92"><title>${escapeAttr(s)}: ${metricKey === "valuation" ? "$" + Math.round(val).toLocaleString() : val} (${formatPeriodLabel(label, opts.grain)})</title></rect>`;
+      });
+    } else {
+      const val = (bucket.get("All") || {})[metricKey] || 0;
+      const h = (val / maxVal) * innerH;
+      const y = padT + innerH - h;
+      bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${TREND_COLORS[0]}" opacity="0.92"><title>${metricKey === "valuation" ? "$" + Math.round(val).toLocaleString() : val + " permits"} (${formatPeriodLabel(label, opts.grain)})</title></rect>`;
+    }
+  });
+
+  const yTicks = 4;
+  let grid = "";
+  for (let t = 0; t <= yTicks; t++) {
+    const val = maxVal * (1 - t / yTicks);
+    const y = padT + (innerH * t) / yTicks;
+    const lbl = metricKey === "valuation"
+      ? (val >= 1e6 ? "$" + (val / 1e6).toFixed(1) + "M" : "$" + Math.round(val / 1000) + "k")
+      : Math.round(val).toLocaleString();
+    grid += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="#2d3a4f" stroke-width="1"/>`;
+    grid += `<text x="${padL - 6}" y="${(y + 4).toFixed(1)}" text-anchor="end" fill="#8a97a8" font-size="10">${lbl}</text>`;
+  }
+
+  let xLabels = "";
+  data.labels.forEach((label, i) => {
+    const x = padL + i * slot + slot / 2;
+    xLabels += `<text x="${x.toFixed(1)}" y="${H - 8}" text-anchor="middle" fill="#8a97a8" font-size="10">${escapeHtml(formatPeriodLabel(label, opts.grain))}</text>`;
+  });
+
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Permit trend chart">${grid}${bars}${xLabels}</svg>`;
+}
+
+// ---------------------------------------------------------------------------
+// Plumbing Watch  (separate analytical view, ignores active search filters)
+// ---------------------------------------------------------------------------
+//
+// What counts as plumbing? Any permit whose type/subtype/description matches
+// PLUMBING_RE below. Tuned for Tyler EnerGov + Click2Gov + SagesGov + Accela
+// labels seen across Florida portals. Intentionally generous (Backflow,
+// Water Heater, Sewer, etc. all count) so the trend signal is robust to
+// jurisdiction-specific naming.
+//
+// "Prediction" = recency-weighted growth: ratio of permits in the last
+// `windowDays/3` days vs the prior `windowDays/3` days (so for a 90-day
+// window we compare last 30 vs prior 30). Top-3 hotspots require at least
+// PLUMB_MIN_PRIOR permits in the prior window so a single new ZIP doesn't
+// fake a "1500% increase".
+
+const PLUMBING_RE = /\b(plumb|plumbing|repipe|re-pipe|water heater|tankless|water filter|filtration|softener|reverse osmosis|backflow|sewer|septic|lateral|drain|sump|grease trap|water service|water main|gas line|gas piping|fixture)\b/i;
+const PLUMB_MIN_PRIOR = 5;
+
+function isPlumbingPermit(p) {
+  const hay = `${p.type || ""} ${p.subtype || ""} ${p.description || ""}`;
+  return PLUMBING_RE.test(hay);
+}
+
+function extractZip(address) {
+  // Match the last 5-digit number in the address (handles "33401" and "33401-1234").
+  // Restrict to FL ZIPs (32xxx-34xxx) so stray "12345 Main St" street numbers
+  // don't get mistaken for ZIPs.
+  const m = String(address || "").match(/\b(3[2-4]\d{3})(?:-\d{4})?\b/g);
+  return m ? m[m.length - 1].slice(0, 5) : null;
+}
+
+function startOfDayUtc(s) {
+  // Accept "YYYY-MM-DD" or ISO; return epoch-day integer (days since 1970-01-01 UTC).
+  if (!s) return null;
+  const d = new Date(s.length <= 10 ? s + "T00:00:00Z" : s);
+  if (isNaN(d.getTime())) return null;
+  return Math.floor(d.getTime() / 86400000);
+}
+
+function computePlumbingWatch() {
+  const windowDays = STATE.plumbing.windowDays;
+  const halfWindow = Math.floor(windowDays / 3);  // 30 for 90, 20 for 60, 10 for 30
+  const all = STATE.data.permits;
+
+  // 1) Filter to plumbing-only with a usable applied date
+  const plumbing = [];
+  for (const p of all) {
+    if (!isPlumbingPermit(p)) continue;
+    const day = startOfDayUtc(p.appliedDate);
+    if (day == null) continue;
+    plumbing.push({ ...p, _day: day, _zip: extractZip(p.address) });
+  }
+
+  // Anchor "today" to the most recent permit day (the freshest data we have),
+  // not wall-clock today — otherwise after a stale scrape every count looks zero.
+  const anchorDay = plumbing.length
+    ? plumbing.reduce((m, p) => p._day > m ? p._day : m, plumbing[0]._day)
+    : Math.floor(Date.now() / 86400000);
+  const windowStart = anchorDay - windowDays + 1;
+  const recentStart = anchorDay - halfWindow + 1;
+  const priorStart  = recentStart - halfWindow;
+  const priorEnd    = recentStart - 1;
+
+  // 2) Daily series (full window)
+  const daily = new Array(windowDays).fill(0);
+  const inWindow = [];
+  for (const p of plumbing) {
+    if (p._day < windowStart || p._day > anchorDay) continue;
+    inWindow.push(p);
+    daily[p._day - windowStart]++;
+  }
+
+  // 3) Per-ZIP buckets
+  const byZip = new Map(); // zip -> { count30, countPrior, total, daily[windowDays], types: Map }
+  for (const p of inWindow) {
+    const zip = p._zip || "UNK";
+    let b = byZip.get(zip);
+    if (!b) {
+      b = { zip, count30: 0, countPrior: 0, total: 0,
+            daily: new Array(windowDays).fill(0), types: new Map() };
+      byZip.set(zip, b);
+    }
+    b.total++;
+    b.daily[p._day - windowStart]++;
+    if (p._day >= recentStart) b.count30++;
+    else if (p._day >= priorStart && p._day <= priorEnd) b.countPrior++;
+    b.types.set(p.type || "Unknown", (b.types.get(p.type || "Unknown") || 0) + 1);
+  }
+
+  // 4) Growth metric — Laplace-smoothed ratio to avoid /0 explosions on tiny ZIPs
+  for (const b of byZip.values()) {
+    b.growth = (b.count30 + 1) / (b.countPrior + 1);  // 1.0 = flat
+    b.eligible = b.countPrior >= PLUMB_MIN_PRIOR;
+    b.topTypes = [...b.types.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2);
+  }
+
+  // 5) Top-3 predicted hotspots: eligible ZIPs sorted by growth ratio
+  const zipList = [...byZip.values()];
+  const hotspots = zipList
+    .filter((b) => b.eligible && b.zip !== "UNK")
+    .sort((a, b) => b.growth - a.growth)
+    .slice(0, 3);
+
+  // 6) Stats cards summary
+  const totalWindow = inWindow.length;
+  const last30 = inWindow.filter((p) => p._day >= recentStart).length;
+  const prior30 = inWindow.filter((p) => p._day >= priorStart && p._day <= priorEnd).length;
+  const deltaPct = prior30 ? Math.round(((last30 - prior30) / prior30) * 100) : null;
+  const anchorDate = new Date(anchorDay * 86400000).toISOString().slice(0, 10);
+  const windowStartDate = new Date(windowStart * 86400000).toISOString().slice(0, 10);
+
+  // 7) Type breakdown across the window
+  const typeCounts = new Map();
+  for (const p of inWindow) typeCounts.set(p.type || "Unknown", (typeCounts.get(p.type || "Unknown") || 0) + 1);
+  const types = [...typeCounts.entries()].sort((a, b) => b[1] - a[1]);
+
+  return {
+    windowDays, halfWindow, anchorDate, windowStartDate,
+    totalPlumbing: plumbing.length, totalWindow, last30, prior30, deltaPct,
+    daily, hotspots, zipList, types,
+  };
+}
+
+function movingAverage(arr, k) {
+  if (k <= 1) return null;
+  const out = new Array(arr.length).fill(null);
+  for (let i = k - 1; i < arr.length; i++) {
+    let sum = 0;
+    for (let j = i - k + 1; j <= i; j++) sum += arr[j];
+    out[i] = sum / k;
+  }
+  return out;
+}
+
+function renderPlumbingLineSvg(w) {
+  const W = Math.max(560, w.daily.length * 8);
+  const H = 240;
+  const padL = 44, padR = 12, padT = 12, padB = 32;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const n = w.daily.length;
+  const maxVal = Math.max(1, ...w.daily);
+
+  const xOf = (i) => padL + (n === 1 ? innerW / 2 : (i / (n - 1)) * innerW);
+  const yOf = (v) => padT + innerH - (v / maxVal) * innerH;
+
+  // Bars for raw daily count
+  let bars = "";
+  const barW = Math.max(1, (innerW / n) * 0.65);
+  w.daily.forEach((v, i) => {
+    const h = (v / maxVal) * innerH;
+    bars += `<rect x="${(xOf(i) - barW / 2).toFixed(1)}" y="${yOf(v).toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="1" fill="#4f9eff" opacity="0.5"><title>${v} permit(s)</title></rect>`;
+  });
+
+  // Smoothed overlay line
+  const ma = movingAverage(w.daily, STATE.plumbing.smoothing);
+  let line = "";
+  if (ma) {
+    const pts = ma.map((v, i) => v == null ? null : `${xOf(i).toFixed(1)},${yOf(v).toFixed(1)}`).filter(Boolean);
+    if (pts.length > 1) {
+      line = `<polyline fill="none" stroke="#3fb950" stroke-width="2" points="${pts.join(" ")}"/>`;
+    }
+  }
+
+  // Y grid + labels
+  let grid = "";
+  const yTicks = 4;
+  for (let t = 0; t <= yTicks; t++) {
+    const val = maxVal * (1 - t / yTicks);
+    const y = padT + (innerH * t) / yTicks;
+    grid += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="#2d3a4f" stroke-width="1"/>`;
+    grid += `<text x="${padL - 6}" y="${(y + 4).toFixed(1)}" text-anchor="end" fill="#8a97a8" font-size="10">${Math.round(val)}</text>`;
+  }
+
+  // X labels (every ~10th day + first + last)
+  const step = Math.max(1, Math.floor(n / 8));
+  let xLabels = "";
+  for (let i = 0; i < n; i += step) {
+    const day = new Date((startOfDayUtc(w.windowStartDate) + i) * 86400000).toISOString().slice(5, 10);
+    xLabels += `<text x="${xOf(i).toFixed(1)}" y="${H - 8}" text-anchor="middle" fill="#8a97a8" font-size="10">${day}</text>`;
+  }
+  // Always include last day
+  const lastDay = new Date((startOfDayUtc(w.windowStartDate) + n - 1) * 86400000).toISOString().slice(5, 10);
+  xLabels += `<text x="${xOf(n - 1).toFixed(1)}" y="${H - 8}" text-anchor="middle" fill="#8a97a8" font-size="10">${lastDay}</text>`;
+
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Plumbing daily volume">${grid}${bars}${line}${xLabels}</svg>`;
+}
+
+function renderSparklineSvg(daily, color) {
+  const W = 120, H = 32, pad = 2;
+  const n = daily.length;
+  if (!n) return "";
+  const max = Math.max(1, ...daily);
+  const xOf = (i) => pad + (n === 1 ? (W - 2 * pad) / 2 : (i / (n - 1)) * (W - 2 * pad));
+  const yOf = (v) => pad + (H - 2 * pad) - (v / max) * (H - 2 * pad);
+  const pts = daily.map((v, i) => `${xOf(i).toFixed(1)},${yOf(v).toFixed(1)}`).join(" ");
+  // Area fill under the line
+  const area = `M ${pad},${H - pad} L ${pts} L ${(W - pad)},${H - pad} Z`;
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${area}" fill="${color}" opacity="0.18"/><polyline fill="none" stroke="${color}" stroke-width="1.5" points="${pts}"/></svg>`;
+}
+
+function renderPlumbingWatch() {
+  const w = computePlumbingWatch();
+  document.getElementById("t-plumbing-count").textContent = w.totalPlumbing.toLocaleString();
+
+  // --- Summary cards ---
+  const cards = document.getElementById("plumbing-cards");
+  const deltaCls = w.deltaPct == null ? "" : (w.deltaPct >= 5 ? "up" : (w.deltaPct <= -5 ? "down" : ""));
+  const deltaTxt = w.deltaPct == null ? "—" : (w.deltaPct >= 0 ? "+" : "") + w.deltaPct + "%";
+  cards.innerHTML = `
+    <div class="trend-chip"><div class="k">All plumbing permits</div><div class="v">${w.totalPlumbing.toLocaleString()}</div><div class="sub">across every loaded source</div></div>
+    <div class="trend-chip"><div class="k">Window</div><div class="v" style="font-size:15px">${w.windowStartDate} → ${w.anchorDate}</div><div class="sub">${w.windowDays} days, anchored on freshest permit</div></div>
+    <div class="trend-chip"><div class="k">Last ${w.halfWindow}d</div><div class="v">${w.last30.toLocaleString()}</div><div class="sub">vs ${w.prior30.toLocaleString()} prior ${w.halfWindow}d</div></div>
+    <div class="trend-chip ${deltaCls}"><div class="k">Trend</div><div class="v">${deltaTxt}</div><div class="sub">recent vs prior window</div></div>
+  `;
+
+  // --- Daily chart ---
+  const chartEl = document.getElementById("plumb-chart");
+  const noteEl = document.getElementById("plumb-note");
+  if (w.totalWindow === 0) {
+    chartEl.innerHTML = `<div class="help" style="padding:40px;text-align:center">No plumbing permits in the current data within the ${w.windowDays}-day window. Re-run the scraper (<code>python scrape_permits.py</code>) or expand the window.</div>`;
+    noteEl.textContent = "";
+    document.getElementById("plumbing-hotspots").innerHTML = `<div class="help">No data to predict from yet.</div>`;
+    document.querySelector("#plumbing-zip-table tbody").innerHTML = "";
+    document.getElementById("plumbing-types").innerHTML = "";
+    return;
+  }
+  chartEl.innerHTML = renderPlumbingLineSvg(w);
+  noteEl.textContent = `${w.totalWindow.toLocaleString()} plumbing permits in window (${w.totalPlumbing.toLocaleString()} total with any date). Bars = raw daily count, green line = ${STATE.plumbing.smoothing}-day moving average. Window anchored on the most recent permit date in the data, not wall-clock today.`;
+
+  // --- Hotspot cards ---
+  const hot = document.getElementById("plumbing-hotspots");
+  if (!w.hotspots.length) {
+    hot.innerHTML = `<div class="help">Not enough data to predict hotspots — no ZIP has at least ${PLUMB_MIN_PRIOR} permits in the prior ${w.halfWindow}-day window. Try a larger window or load more sources.</div>`;
+  } else {
+    hot.innerHTML = w.hotspots.map((b, i) => {
+      const pct = Math.round((b.growth - 1) * 100);
+      const ratioCls = pct > 20 ? "" : pct < -20 ? "down" : "flat";
+      const ratioTxt = (pct >= 0 ? "+" : "") + pct + "%";
+      const types = b.topTypes.map(([t, n]) => `${escapeHtml(t)} (${n})`).join(", ");
+      return `
+        <div class="hotspot-card rank-${i + 1}">
+          <div class="rank-badge">#${i + 1} predicted</div>
+          <div class="zip">${escapeHtml(b.zip)}</div>
+          <div class="ratio ${ratioCls}">${ratioTxt}</div>
+          <div class="sub">${b.count30} permit${b.count30 === 1 ? "" : "s"} in last ${w.halfWindow}d &middot; was ${b.countPrior} in prior ${w.halfWindow}d</div>
+          <div class="spark">${renderSparklineSvg(b.daily, "#f85149")}</div>
+          <div class="top-types">Top types: ${types || "—"}</div>
+        </div>`;
+    }).join("");
+  }
+
+  // --- Full ZIP table ---
+  renderPlumbingZipTable(w);
+
+  // --- Type breakdown ---
+  const max = Math.max(1, ...w.types.map(([, n]) => n));
+  document.getElementById("plumbing-types").innerHTML = w.types.slice(0, 15).map(([t, n]) =>
+    `<div class="bar-row"><div class="bar-label">${escapeHtml(t)}</div><div class="bar-track"><div class="bar-fill" style="width:${(n / max) * 100}%"></div></div><div class="bar-num">${n}</div></div>`
+  ).join("");
+}
+
+function renderPlumbingZipTable(w) {
+  const tbody = document.querySelector("#plumbing-zip-table tbody");
+  const { col, dir } = STATE.plumbing.zipSort;
+  const cmp = (a, b) => {
+    const av = a[col], bv = b[col];
+    if (av === bv) return 0;
+    if (col === "zip") return dir === "asc" ? String(av).localeCompare(String(bv)) : String(bv).localeCompare(String(av));
+    return dir === "asc" ? av - bv : bv - av;
+  };
+  const rows = [...w.zipList].sort(cmp);
+  tbody.innerHTML = rows.map((b) => {
+    const pct = Math.round((b.growth - 1) * 100);
+    const cls = pct > 20 ? "growth-up" : pct < -20 ? "growth-down" : "growth-flat";
+    const eligibleMark = b.eligible ? "" : ` <span class="help" title="Fewer than ${PLUMB_MIN_PRIOR} prior permits — growth ratio is unreliable">*</span>`;
+    return `<tr>
+      <td>${escapeHtml(b.zip)}${eligibleMark}</td>
+      <td class="num">${b.count30}</td>
+      <td class="num">${b.countPrior}</td>
+      <td class="num ${cls}">${(pct >= 0 ? "+" : "") + pct}%</td>
+      <td class="num">${b.total}</td>
+      <td class="num spark-cell">${renderSparklineSvg(b.daily, "#8a97a8")}</td>
+    </tr>`;
+  }).join("");
+  // Header indicators
+  document.querySelectorAll("#plumbing-zip-table th[data-zsort]").forEach((th) => {
+    const k = th.dataset.zsort;
+    th.style.color = k === col ? "var(--text)" : "";
+    th.textContent = th.textContent.replace(/ [↑↓]$/, "");
+    if (k === col) th.textContent += dir === "asc" ? " ↑" : " ↓";
+  });
 }
 
 function countBy(arr, fn) {
@@ -1607,6 +2340,33 @@ function attachListeners() {
     applyUrlToInputs(); renderKeywordChips(); applyFiltersAndRender();
   });
   document.getElementById("export-csv").addEventListener("click", exportCsv);
+  for (const id of ["trend-metric", "trend-grain", "trend-split", "trend-date"]) {
+    document.getElementById(id).addEventListener("change", (e) => {
+      const key = id.replace("trend-", "");
+      const map = { metric: "metric", grain: "grain", split: "split", date: "dateField" };
+      const field = map[key] || key;
+      if (field === "dateField") STATE.trend.dateField = e.target.value;
+      else STATE.trend[field] = e.target.value;
+      renderTrends(STATE.filtered);
+    });
+  }
+  // Plumbing Watch controls
+  document.getElementById("plumb-window").addEventListener("change", (e) => {
+    STATE.plumbing.windowDays = Number(e.target.value) || 90;
+    renderPlumbingWatch();
+  });
+  document.getElementById("plumb-smooth").addEventListener("change", (e) => {
+    STATE.plumbing.smoothing = Number(e.target.value) || 0;
+    renderPlumbingWatch();
+  });
+  document.querySelectorAll("#plumbing-zip-table th[data-zsort]").forEach((th) => {
+    th.addEventListener("click", () => {
+      const col = th.dataset.zsort;
+      if (STATE.plumbing.zipSort.col === col) STATE.plumbing.zipSort.dir = STATE.plumbing.zipSort.dir === "asc" ? "desc" : "asc";
+      else { STATE.plumbing.zipSort.col = col; STATE.plumbing.zipSort.dir = "desc"; }
+      renderPlumbingWatch();
+    });
+  });
   document.getElementById("copy-link").addEventListener("click", async () => {
     try { await navigator.clipboard.writeText(location.href); flashBtn("copy-link", "Copied!"); }
     catch { flashBtn("copy-link", "Copy failed"); }
@@ -1680,6 +2440,7 @@ function switchTab(tab) {
     ensureMap();
     setTimeout(() => { if (STATE.map) STATE.map.invalidateSize(); renderMapMarkers(); }, 60);
   }
+  if (tab === "plumbing") renderPlumbingWatch();
   syncUrlFromState();
 }
 

@@ -39,14 +39,54 @@
     "portalUrl":   "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home"
   },
 
+  "Boca Raton": {
+    "kind":         "municipality",
+    "county":       "Palm Beach",
+    "city":         "BOCA RATON",
+    "parser":       "tyler_energov",
+    "host":         "bocaratonfl-energovpub.tylerhost.net",
+    "lookbackDays": 90,
+    "url":          "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/search",
+    "status":       "active",
+    "scope":        "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' — no contractor/valuation in public API)",
+    "portalUrl":    "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home"
+  },
+
+  "Jupiter": {
+    "kind":         "municipality",
+    "county":       "Palm Beach",
+    "city":         "JUPITER",
+    "parser":       "tyler_energov",
+    "host":         "cds.jupiter.fl.us",
+    "basePath":     "/EnerGov_Prod/selfservice",
+    "lookbackDays": 90,
+    "url":          "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/search",
+    "status":       "active",
+    "scope":        "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
+    "portalUrl":    "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home"
+  },
+
+  "St. Lucie County": {
+    "kind":         "county",
+    "county":       "St. Lucie",
+    "city":         "ST. LUCIE COUNTY",
+    "parser":       "tyler_energov",
+    "host":         "stluciecountyfl-energovpub.tylerhost.net",
+    "lookbackDays": 90,
+    "url":          "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/search",
+    "status":       "active",
+    "scope":        "Most recent 4,000 permits sorted by apply date (live Tyler EnerGov; SLC's API ignores date filter so we cap at 4k which gives ~3 months coverage for an unincorporated county of ~350k people)",
+    "portalUrl":    "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home"
+  },
+
   "Royal Palm Beach": {
     "kind":      "municipality",
     "county":    "Palm Beach",
     "city":      "ROYAL PALM BEACH",
     "parser":    "click2gov",
     "url":       "https://click2gov.royalpalmbeach.com/Click2GovBP/",
-    "status":    "scaffold",
-    "scope":     "Building permits — needs contractor or address seed list",
+    "status":    "unsupported_paywall",
+    "scope":     "Building permits — Click2Gov has no bulk listing AND new submissions go through ProjectDox (Avolve), which requires login. Use portal directly.",
     "portalUrl": "https://click2gov.royalpalmbeach.com/Click2GovBP/selectpermit.html",
     "contractors": []
   },
@@ -57,8 +97,8 @@
     "city":      "BOYNTON BEACH",
     "parser":    "sagesgov",
     "url":       "https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx",
-    "status":    "scaffold",
-    "scope":     "Building permits — manual CSV upload recommended (anti-bot SPA)",
+    "status":    "unsupported_paywall",
+    "scope":     "SagesGov requires login for search. No public bulk endpoint. Use the manual upload tab with a CSV exported from your account.",
     "portalUrl": "https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx"
   },
 

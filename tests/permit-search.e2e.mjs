@@ -182,13 +182,29 @@ const csvData = await page.evaluate(async () => {
   HTMLAnchorElement.prototype.click = origClick;
   if (!blobCaptured) return { error: "no blob created" };
   const text = await blobCaptured.text();
-  return { header: text.split("\n")[0], rowCount: text.split("\n").length - 1, firstRow: text.split("\n")[1] };
+  // Proper RFC-4180 row count: only count \r\n that occur OUTSIDE a quoted field.
+  // Walk character-by-character tracking quote state. This handles description
+  // fields with embedded newlines correctly (which naive split does not).
+  let rows = 0, inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === '"') {
+      // Doubled quote inside quoted field is an escape, skip pair
+      if (inQuotes && text[i + 1] === '"') { i++; continue; }
+      inQuotes = !inQuotes;
+    } else if (ch === "\n" && !inQuotes) {
+      rows++;
+    }
+  }
+  return { header: text.split("\n")[0], rowCount: rows, firstRow: text.split(/\r?\n/)[1] };
 });
 check("CSV header starts with dataSource,dataSourceLabel",
   csvData.header && csvData.header.startsWith("dataSource,dataSourceLabel"),
   JSON.stringify(csvData).slice(0, 160));
-// Manual permit pushes total by 1, but the trailing blank line after the last \n makes rowCount match exactly
-check(`CSV has 1 row per loaded permit (${TOTAL + 1})`, csvData.rowCount === TOTAL + 1, `rows=${csvData.rowCount}`);
+// Row count uses a quote-aware parser, so embedded newlines in description fields
+// don't inflate the count. Expected = TOTAL+1 (every loaded permit + manual upload).
+check(`CSV has exactly ${TOTAL + 1} rows (quote-aware count)`,
+  csvData.rowCount === TOTAL + 1, `rows=${csvData.rowCount}`);
 const knownIds = manifest.sources.map((s) => s.id).concat(["manual"]).join("|");
 check("First CSV data row begins with a known source id", csvData.firstRow && new RegExp(`^(${knownIds}),`).test(csvData.firstRow), (csvData.firstRow || "").slice(0, 80));
 

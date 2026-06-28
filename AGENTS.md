@@ -8,13 +8,14 @@
 - Beginner-level developer: wants plain-language, step-by-step instructions for setup and deployment tasks (e.g. GitHub Pages).
 - Likes clarifying questions and honest pushback on feasibility before a new project is built; kickoff prompts often include "ask me any questions for clarity".
 - Expects real working content and data, not placeholders; has repeatedly pushed back on generic lesson text, dead links, and non-functional features — verify things actually work before reporting done.
+- For Palm Beach / Florida static HTML tools, wants them deployed to Vercel (`bsymbolic/test-snake`) with GitHub-connected auto-deploy after commit and push (use `npx.cmd vercel`, not blocked `npm.ps1`); DeedScout (`tax-deeds.html`) is the exception — it deploys to Netlify.
 
 ## Learned Workspace Facts
 
 - `C:\Users\skyea\projects\test snake` is a monorepo of many unrelated mini-projects: snake game, pinball, Florida tax-deed registry, Palm Beach GIS tools (parcel lookup, subdivision index, permits), plumbing/water-filtration/heater lead generators, and SWE learning apps (e.g. `code-masters`).
 - `heaterquote/` is a Next.js + Tailwind + Supabase MVP for water heater replacement cost estimates and lead capture (`/estimate`, `/admin`).
-- `subdivision-index.html` and `scraper/scrape_subdivisions.py` provide a searchable index of legal Palm Beach County subdivision/plat names from Property Appraiser GIS (`data/subdivisions/palm-beach.json`).
-- Root `index.html` redirects to `tax-deeds.html` (Florida Tax Deed Registry); the snake game ("iSnake", iPhone 17 styled) lives in `landing.html` / `game.html`.
+- PBC research tools (`subdivision-index.html`, `plat-index.html`, `permit-search.html`, `parcel-lookup.html`) deploy to Vercel at `https://test-snake-eight.vercel.app` (short routes `/subdivisions`, `/plats`, `/permits`, `/parcels`); `scraper/` and monthly GitHub Actions refresh `data/subdivisions/` and `data/plats/`; plat PDF names OCR'd via `extract_plat_names.py` (PyMuPDF + RapidOCR); `permit-search.html` has Trends & Stats charts.
+- Root `index.html` redirects to `tax-deeds.html` (DeedScout freemium MVP on Netlify at `https://deedscout.netlify.app/tax-deeds.html`, target brand domain `deedscout.app`; Supabase auth + Stripe checkout via `netlify/functions/` with `"type": "commonjs"` in `netlify/functions/package.json`; Pro paywall; schema in `supabase/schema.sql`; Supabase Auth Site URL and redirect URLs must use the Netlify site host, not the supabase.co dashboard URL); the snake game ("iSnake", iPhone 17 styled) lives in `landing.html` / `game.html`.
 - A `space-cadet-pinball` clone is checked out in the workspace with a built exe at `space-cadet-pinball\bin\Release\SpaceCadetPinball.exe` (game data files not included).
 - Machine tooling: Visual Studio Community 2026, VS Build Tools 2026/2022, CMake 4.3.2, msys64 MinGW, winget, Python, and Node.js/npm.
 - CMake may wrongly pick up the msys64 MinGW toolchain; MSVC SDL paths must be forced explicitly when configuring C++ builds.
