@@ -3,17 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DeedScout — Pro Pricing</title>
-  <script>
-    (function () {
-      var q = window.location.search || '';
-      var h = window.location.hash || '#/pricing';
-      window.location.replace('tax-deeds.html' + q + h);
-    })();
-  </script>
-  <meta http-equiv="refresh" content="0;url=tax-deeds.html#/pricing" />
+  <title>Pricing — DeedScout</title>
+  <meta name="description" content="DeedScout pricing: Free county research, Pro watchlists and alerts, Investor Pro with AVM and skip trace, and Team plans for firms." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/deedscout.css" />
 </head>
-<body>
-  <p>Redirecting to <a href="tax-deeds.html#/pricing">Pro pricing</a>&hellip;</p>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:48px;">
+  <div class="ds-section-head" style="text-align:center;max-width:640px;margin:0 auto 40px;">
+    <p class="ds-section-label">Pricing</p>
+    <h1>County data is free. The workflow is what you pay for.</h1>
+    <p>DeedScout does not sell public records. It sells speed, organization, monitoring, alerts, filtering, exports, and research workflows.</p>
+  </div>
+
+  <div class="ds-pricing-grid">
+    <div class="ds-pricing-card">
+      <div class="ds-pricing-tier">Free</div>
+      <div class="ds-pricing-price">$0<span>/month</span></div>
+      <p class="ds-pricing-desc">Start researching with official county sources.</p>
+      <ul class="ds-pricing-list">
+        <li>County directory (67 counties)</li>
+        <li>Official source links</li>
+        <li>Basic tax deed search</li>
+        <li>Basic parcel lookup</li>
+        <li>Basic permit search</li>
+        <li>Public research education</li>
+      </ul>
+      <a class="ds-btn ds-btn-secondary" href="tax-deeds.html" style="width:100%;">Start Free</a>
+    </div>
+
+    <div class="ds-pricing-card featured">
+      <div class="ds-pricing-tier">Pro</div>
+      <div class="ds-pricing-price">$49<span>/month</span></div>
+      <p class="ds-pricing-desc">For active investors monitoring multiple counties.</p>
+      <ul class="ds-pricing-list">
+        <li>Watchlists</li>
+        <li>Email alerts</li>
+        <li>Saved parcels</li>
+        <li>Parcel notebook</li>
+        <li>County alerts</li>
+        <li>CSV exports</li>
+        <li>Upcoming sale alerts</li>
+        <li>Basic surplus alerts</li>
+      </ul>
+      <a class="ds-btn ds-btn-primary" href="tax-deeds.html#/pricing" style="width:100%;">Upgrade to Pro</a>
+    </div>
+
+    <div class="ds-pricing-card">
+      <div class="ds-pricing-tier">Investor Pro</div>
+      <div class="ds-pricing-price">$149<span>/month</span></div>
+      <p class="ds-pricing-desc">Full research stack for serious deal flow.</p>
+      <ul class="ds-pricing-list">
+        <li>Everything in Pro</li>
+        <li>AVM lookups</li>
+        <li>Skip trace credits</li>
+        <li>Permit history per parcel</li>
+        <li>Advanced parcel filters</li>
+        <li>Saved county filters</li>
+        <li>Deal notes</li>
+        <li>Investor research dashboard</li>
+        <li>Exportable lead lists</li>
+      </ul>
+      <a class="ds-btn ds-btn-secondary" href="contact.html" style="width:100%;">Start Investor Pro</a>
+    </div>
+
+    <div class="ds-pricing-card">
+      <div class="ds-pricing-tier">Team / Enterprise</div>
+      <div class="ds-pricing-price">Custom</div>
+      <p class="ds-pricing-desc">For firms, lenders, and service companies.</p>
+      <ul class="ds-pricing-list">
+        <li>Shared workspace</li>
+        <li>Team watchlists</li>
+        <li>Multi-user accounts</li>
+        <li>API access</li>
+        <li>Bulk exports</li>
+        <li>Lender &amp; title tools</li>
+        <li>Contractor lead tools</li>
+        <li>Priority support</li>
+      </ul>
+      <a class="ds-btn ds-btn-secondary" href="contact.html" style="width:100%;">Contact Sales</a>
+    </div>
+  </div>
+
+  <section class="ds-section ds-faq">
+    <div class="ds-section-head"><h2>Frequently asked</h2></div>
+    <details><summary>Why would people pay if county records are free?</summary><p>Because the records are free, but the research process is slow, fragmented, and inconsistent. DeedScout saves time by organizing county sources into one workflow.</p></details>
+    <details><summary>Can I use DeedScout instead of official county records?</summary><p>No. DeedScout is a research layer only. Always verify sale dates, parcel details, bid rules, and legal status with the official county source before acting.</p></details>
+    <details><summary>What's included in live checkout today?</summary><p>Pro checkout is live in the app via Stripe. Investor Pro and Team tiers are rolling out — contact us to join the waitlist.</p></details>
+  </section>
+
+  <section class="ds-section" id="disclaimer">
+    <div class="ds-disclaimer"><strong>Research disclaimer</strong>DeedScout organizes public-record information for research purposes only. It does not replace official county records, legal due diligence, title searches, investment advice, or professional verification.</div>
+  </section>
+</main>
+<script src="assets/deedscout.js"></script>
 </body>
 </html>
