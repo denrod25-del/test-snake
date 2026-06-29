@@ -46,7 +46,9 @@ COUNTY_REGIONS  = DATA_DIR / "county-regions.json"
 SALES_PATH      = ROOT / "sales.json"
 SURPLUS_PATH    = ROOT / "surplus.json"
 SOURCES_SALES   = ROOT / "scraper" / "sources.json"
+SOURCES_SURPLUS = ROOT / "scraper" / "sources_surplus.json"
 SOURCES_PERMITS = ROOT / "scraper" / "sources_permits.json"
+STATS_PATH      = DATA_DIR / "counties" / "stats.json"
 SITEMAP_PATH    = ROOT / "sitemap.xml"
 
 
@@ -77,6 +79,66 @@ def fmt_date_iso(s):
         return d.strftime("%B %-d, %Y") if sys.platform != "win32" else d.strftime("%B %#d, %Y")
     except (ValueError, TypeError):
         return s or ""
+
+
+def fmt_date_short(iso):
+    """Compact label for home-page badges, e.g. Jul 15."""
+    try:
+        d = datetime.strptime(iso, "%Y-%m-%d")
+        return d.strftime("%b %-d") if sys.platform != "win32" else d.strftime("%b %#d")
+    except (ValueError, TypeError):
+        return iso or ""
+
+
+def pick_next_sale(sales_entries):
+    """Return the nearest upcoming sale entry, or None."""
+    today = datetime.now(timezone.utc).date()
+    future = []
+    for entry in sales_entries or []:
+        try:
+            sale_date = datetime.strptime(entry["date"], "%Y-%m-%d").date()
+        except (ValueError, TypeError, KeyError):
+            continue
+        if sale_date >= today:
+            future.append(entry)
+    future.sort(key=lambda x: x["date"])
+    return future[0] if future else None
+
+
+def surplus_source_for(county, surplus_by_county, surplus_sources):
+    """Resolve surplus portal metadata from scraped surplus.json or sources."""
+    entry = surplus_by_county.get(county) if isinstance(surplus_by_county, dict) else None
+    if not entry:
+        entry = surplus_sources.get(county) if isinstance(surplus_sources, dict) else None
+    if not entry or not entry.get("url"):
+        return None
+    return {"url": entry["url"], "parser": entry.get("parser")}
+
+
+def build_stats_entry(county, slug, region, sales_entries, surplus_meta, permit_coverage):
+    next_sale = pick_next_sale(sales_entries)
+    permit_status = (permit_coverage or {}).get("status", "available")
+    permit_count = (permit_coverage or {}).get("permitCount")
+    stats = {
+        "county": county,
+        "slug": slug,
+        "region": region or None,
+        "nextSale": None,
+        "surplusPortal": bool(surplus_meta),
+        "surplusUrl": surplus_meta["url"] if surplus_meta else None,
+        "permits": {
+            "status": permit_status,
+            "count": permit_count if permit_count is not None else None,
+        },
+    }
+    if next_sale:
+        stats["nextSale"] = {
+            "date": next_sale["date"],
+            "label": fmt_date_iso(next_sale["date"]),
+            "shortLabel": fmt_date_short(next_sale["date"]),
+            "count": next_sale.get("count"),
+        }
+    return stats
 
 
 def html_escape(s):
@@ -319,7 +381,7 @@ def build_county_body(county, region, cities, sales_entries, surplus_entry,
     parts = []
 
     # ----- Stat grid -----
-    next_sale = sales_entries[0] if sales_entries else None
+    next_sale = pick_next_sale(sales_entries)
     next_sale_str = fmt_date_iso(next_sale["date"]) if next_sale else "Not currently scheduled"
     next_sale_count = next_sale.get("count") if next_sale else None
     permit_status = (permit_coverage or {}).get("status", "available")
@@ -588,6 +650,7 @@ def main():
     permits_doc     = load_json(PERMITS_INDEX, default={"coverage": []})
     regions_doc     = load_json(COUNTY_REGIONS, default={"regions": {}, "cityToCounty": {}})
     sales_sources   = load_json(SOURCES_SALES, default={})
+    surplus_sources = load_json(SOURCES_SURPLUS, default={})
     permits_sources = load_json(SOURCES_PERMITS, default={})
 
     sales_by_county = sales_doc.get("sales") or {}
@@ -632,26 +695,31 @@ def main():
 
     COUNTIES_DIR.mkdir(parents=True, exist_ok=True)
     counties_data = []
+    stats_by_slug = {}
     for county in sorted(real_counties):
         slug = slugify(county)
         region = county_region.get(county) or ""
         cities = cities_by_county.get(county, [])
         sales_entries = sales_by_county.get(county) or []
-        surplus_entry = surplus_by_county.get(county)
+        surplus_entry = surplus_source_for(county, surplus_by_county, surplus_sources)
         permit_coverage = permits_coverage_by_slug.get(slug)
         sales_src = (sales_sources.get(county) or {}).get("url") if isinstance(sales_sources.get(county), dict) else None
         permit_src = (permits_sources.get(county) or {}).get("portalUrl") if isinstance(permits_sources.get(county), dict) else None
+        next_sale = pick_next_sale(sales_entries)
 
         page_html = render_page(county, slug, region, cities, sales_entries, surplus_entry,
                                 permit_coverage, sales_src, permit_src, base_url)
         out = COUNTIES_DIR / f"{slug}.html"
         out.write_text(page_html, encoding="utf-8")
+        stats_by_slug[slug] = build_stats_entry(
+            county, slug, region, sales_entries, surplus_entry, permit_coverage
+        )
         counties_data.append({
             "county": county,
             "slug":   slug,
             "region": region,
             "permit_count": (permit_coverage or {}).get("permitCount"),
-            "next_sale": sales_entries[0]["date"] if sales_entries else None,
+            "next_sale": next_sale["date"] if next_sale else None,
         })
         print(f"  wrote counties/{slug}.html  ({region or 'no region'}, "
               f"{len(sales_entries)} sales, "
@@ -661,11 +729,21 @@ def main():
     # them when we did a complete run (i.e. no --only filter). With --only the
     # `counties_data` list is partial and would produce a stale/wrong manifest.
     if only:
-        print("  (--only) skipped writing counties/index.html and sitemap.xml")
+        print("  (--only) skipped writing counties/index.html, stats.json, and sitemap.xml")
     else:
         index_html = render_index_page(counties_data, base_url)
         (COUNTIES_DIR / "index.html").write_text(index_html, encoding="utf-8")
         print(f"  wrote counties/index.html")
+
+        STATS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        stats_doc = {
+            "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "salesGenerated": sales_doc.get("generated"),
+            "featuredSlugs": ["palm-beach", "broward", "miami-dade", "orange"],
+            "counties": stats_by_slug,
+        }
+        STATS_PATH.write_text(json.dumps(stats_doc, indent=2), encoding="utf-8")
+        print(f"  wrote {STATS_PATH.relative_to(ROOT)}")
 
         if not args.no_sitemap:
             sitemap = render_sitemap(counties_data, base_url)

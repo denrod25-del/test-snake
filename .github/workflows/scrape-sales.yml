@@ -45,14 +45,20 @@ jobs:
             python scrape_sales.py
           fi
 
-      - name: Commit updated sales.json
+      - name: Rebuild static county SEO pages + stats manifest
         run: |
-          if [ -n "$(git status --porcelain sales.json)" ]; then
+          python scripts/build_county_pages.py ${SITE_BASE_URL:+--base-url "$SITE_BASE_URL"}
+        env:
+          SITE_BASE_URL: ${{ vars.SITE_BASE_URL }}
+
+      - name: Commit updated sales.json + county pages
+        run: |
+          if [ -n "$(git status --porcelain sales.json counties data/counties sitemap.xml)" ]; then
             git config user.name  "tax-deed-bot"
             git config user.email "actions@users.noreply.github.com"
-            git add sales.json
-            git commit -m "chore(data): refresh sales.json [skip ci]"
+            git add sales.json counties data/counties sitemap.xml
+            git commit -m "chore(data): refresh sales.json + county pages [skip ci]"
             git push
           else
-            echo "No changes to sales.json"
+            echo "No changes to sales.json / county pages"
           fi

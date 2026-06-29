@@ -1,0 +1,888 @@
+{
+  "generated": "2026-06-29T00:49:30Z",
+  "salesGenerated": "2026-06-22T08:36:59Z",
+  "featuredSlugs": [
+    "palm-beach",
+    "broward",
+    "miami-dade",
+    "orange"
+  ],
+  "counties": {
+    "alachua": {
+      "county": "Alachua",
+      "slug": "alachua",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://alachua.realtaxdeed.com/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "baker": {
+      "county": "Baker",
+      "slug": "baker",
+      "region": "Northeast",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "bay": {
+      "county": "Bay",
+      "slug": "bay",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://bay.realtaxdeed.com/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "boca-raton": {
+      "county": "Boca Raton",
+      "slug": "boca-raton",
+      "region": null,
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "available",
+        "count": null
+      }
+    },
+    "boynton-beach": {
+      "county": "Boynton Beach",
+      "slug": "boynton-beach",
+      "region": null,
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "stale",
+        "count": 3
+      }
+    },
+    "bradford": {
+      "county": "Bradford",
+      "slug": "bradford",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "brevard": {
+      "county": "Brevard",
+      "slug": "brevard",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.brevardclerk.us/tax-deed-surplus",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "broward": {
+      "county": "Broward",
+      "slug": "broward",
+      "region": "Southeast",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.browardclerk.org/Divisions/RealEstate/SurplusFunds",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "calhoun": {
+      "county": "Calhoun",
+      "slug": "calhoun",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "charlotte": {
+      "county": "Charlotte",
+      "slug": "charlotte",
+      "region": "Southwest",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://taxdeeds.charlotteclerk.com/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "citrus": {
+      "county": "Citrus",
+      "slug": "citrus",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://citrus.realtaxdeed.com/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "clay": {
+      "county": "Clay",
+      "slug": "clay",
+      "region": "Northeast",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://clay.realtaxdeed.com/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "collier": {
+      "county": "Collier",
+      "slug": "collier",
+      "region": "Southwest",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.collierclerk.com/tax-deed-sales/tax-deed-surplus/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "columbia": {
+      "county": "Columbia",
+      "slug": "columbia",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "desoto": {
+      "county": "DeSoto",
+      "slug": "desoto",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "dixie": {
+      "county": "Dixie",
+      "slug": "dixie",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "duval": {
+      "county": "Duval",
+      "slug": "duval",
+      "region": "Northeast",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.duvalclerk.com/court-records/tax-deeds/surplus-funds",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "escambia": {
+      "county": "Escambia",
+      "slug": "escambia",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.escambiaclerk.com/176/Surplus-Funds",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "flagler": {
+      "county": "Flagler",
+      "slug": "flagler",
+      "region": "Northeast",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "franklin": {
+      "county": "Franklin",
+      "slug": "franklin",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "gadsden": {
+      "county": "Gadsden",
+      "slug": "gadsden",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "gilchrist": {
+      "county": "Gilchrist",
+      "slug": "gilchrist",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "glades": {
+      "county": "Glades",
+      "slug": "glades",
+      "region": "Southwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "gulf": {
+      "county": "Gulf",
+      "slug": "gulf",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "hamilton": {
+      "county": "Hamilton",
+      "slug": "hamilton",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "hardee": {
+      "county": "Hardee",
+      "slug": "hardee",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "hendry": {
+      "county": "Hendry",
+      "slug": "hendry",
+      "region": "Southwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "hernando": {
+      "county": "Hernando",
+      "slug": "hernando",
+      "region": "Tampa Bay",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://hernandoclerk.com/additional-services/tax-deeds/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "highlands": {
+      "county": "Highlands",
+      "slug": "highlands",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "hillsborough": {
+      "county": "Hillsborough",
+      "slug": "hillsborough",
+      "region": "Tampa Bay",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.hillsclerk.com/taxdeeds",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "holmes": {
+      "county": "Holmes",
+      "slug": "holmes",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "indian-river": {
+      "county": "Indian River",
+      "slug": "indian-river",
+      "region": "Southeast",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "jackson": {
+      "county": "Jackson",
+      "slug": "jackson",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "jefferson": {
+      "county": "Jefferson",
+      "slug": "jefferson",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "jupiter": {
+      "county": "Jupiter",
+      "slug": "jupiter",
+      "region": null,
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "available",
+        "count": null
+      }
+    },
+    "lafayette": {
+      "county": "Lafayette",
+      "slug": "lafayette",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "lake": {
+      "county": "Lake",
+      "slug": "lake",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.lakecountyclerk.org/court_services/tax_deed_surplus_funds.aspx",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "lee": {
+      "county": "Lee",
+      "slug": "lee",
+      "region": "Southwest",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.leeclerk.org/records-and-information/tax-deeds/tax-deed-surplus-funds",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "leon": {
+      "county": "Leon",
+      "slug": "leon",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "levy": {
+      "county": "Levy",
+      "slug": "levy",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "liberty": {
+      "county": "Liberty",
+      "slug": "liberty",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "madison": {
+      "county": "Madison",
+      "slug": "madison",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "manatee": {
+      "county": "Manatee",
+      "slug": "manatee",
+      "region": "Tampa Bay",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.manateeclerk.com/departments/tax-deeds/list-of-unclaimed-funds/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "marion": {
+      "county": "Marion",
+      "slug": "marion",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.marioncountyclerk.org/departments/records-recording/tax-deeds-and-lands-available-for-taxes/unclaimed-funds/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "martin": {
+      "county": "Martin",
+      "slug": "martin",
+      "region": "Southeast",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "miami-dade": {
+      "county": "Miami-Dade",
+      "slug": "miami-dade",
+      "region": "Southeast",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "monroe": {
+      "county": "Monroe",
+      "slug": "monroe",
+      "region": "Southeast",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "nassau": {
+      "county": "Nassau",
+      "slug": "nassau",
+      "region": "Northeast",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "okaloosa": {
+      "county": "Okaloosa",
+      "slug": "okaloosa",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "okeechobee": {
+      "county": "Okeechobee",
+      "slug": "okeechobee",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "orange": {
+      "county": "Orange",
+      "slug": "orange",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.occompt.com/191/Tax-Deed-Sales",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "osceola": {
+      "county": "Osceola",
+      "slug": "osceola",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://osceolaclerk.com/tax-deeds/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "palm-beach": {
+      "county": "Palm Beach",
+      "slug": "palm-beach",
+      "region": "Southeast",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.mypalmbeachclerk.com/departments/courts/tax-deeds/sale-information",
+      "permits": {
+        "status": "stale",
+        "count": 4
+      }
+    },
+    "pasco": {
+      "county": "Pasco",
+      "slug": "pasco",
+      "region": "Tampa Bay",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://pascoclerk.com/839/Tax-Deed-Surplus",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "pinellas": {
+      "county": "Pinellas",
+      "slug": "pinellas",
+      "region": "Tampa Bay",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.mypinellasclerk.gov/Home/TaxDeedSurplus",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "polk": {
+      "county": "Polk",
+      "slug": "polk",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://apps.polkcountyclerk.net/browserviewtd/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "putnam": {
+      "county": "Putnam",
+      "slug": "putnam",
+      "region": "Northeast",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "royal-palm-beach": {
+      "county": "Royal Palm Beach",
+      "slug": "royal-palm-beach",
+      "region": null,
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "stale",
+        "count": 3
+      }
+    },
+    "santa-rosa": {
+      "county": "Santa Rosa",
+      "slug": "santa-rosa",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "sarasota": {
+      "county": "Sarasota",
+      "slug": "sarasota",
+      "region": "Southwest",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.sarasotaclerk.com/Home-and-Property/Tax-Deeds/Surplus-Funds-from-Tax-Deed-Sale",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "seminole": {
+      "county": "Seminole",
+      "slug": "seminole",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.seminoleclerk.org/online-services/property-auctions/tax-deed-sales/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "st-johns": {
+      "county": "St. Johns",
+      "slug": "st-johns",
+      "region": "Northeast",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://stjohnsclerk.com/foreclosure/tax-deeds-2/",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "st-lucie": {
+      "county": "St. Lucie",
+      "slug": "st-lucie",
+      "region": "Southeast",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.stlucieclerk.com/tax-deeds/surplus-funds",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "st-lucie-county": {
+      "county": "St. Lucie County",
+      "slug": "st-lucie-county",
+      "region": null,
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "available",
+        "count": null
+      }
+    },
+    "sumter": {
+      "county": "Sumter",
+      "slug": "sumter",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "suwannee": {
+      "county": "Suwannee",
+      "slug": "suwannee",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "taylor": {
+      "county": "Taylor",
+      "slug": "taylor",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "union": {
+      "county": "Union",
+      "slug": "union",
+      "region": "North Central",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "volusia": {
+      "county": "Volusia",
+      "slug": "volusia",
+      "region": "Central",
+      "nextSale": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.clerk.org/tax-deeds/surplus-funds",
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "wakulla": {
+      "county": "Wakulla",
+      "slug": "wakulla",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "walton": {
+      "county": "Walton",
+      "slug": "walton",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "manual",
+        "count": null
+      }
+    },
+    "washington": {
+      "county": "Washington",
+      "slug": "washington",
+      "region": "Northwest",
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "unsupported",
+        "count": null
+      }
+    },
+    "west-palm-beach": {
+      "county": "West Palm Beach",
+      "slug": "west-palm-beach",
+      "region": null,
+      "nextSale": null,
+      "surplusPortal": false,
+      "surplusUrl": null,
+      "permits": {
+        "status": "active",
+        "count": 4000
+      }
+    }
+  }
+}

@@ -208,6 +208,47 @@
       color: var(--accent);
       font-weight: 600;
     }
+    .county-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+      min-height: 22px;
+    }
+    .county-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      line-height: 1.2;
+    }
+    .county-badge.sale {
+      background: rgba(79, 158, 255, 0.15);
+      color: #6bafff;
+      border: 1px solid rgba(79, 158, 255, 0.35);
+    }
+    .county-badge.surplus {
+      background: rgba(72, 199, 142, 0.12);
+      color: #5fd99a;
+      border: 1px solid rgba(72, 199, 142, 0.35);
+    }
+    .county-badge.muted {
+      background: rgba(138, 151, 168, 0.1);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+    .county-badge.loading {
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      background: transparent;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+    }
     .browse-all {
       margin-top: 16px;
       display: inline-block;
@@ -297,33 +338,37 @@
   </div>
 
   <h2 class="section-title" style="margin-top:40px;">Popular DeedScout counties</h2>
-  <div class="county-grid">
-    <a class="county-card" href="counties/palm-beach.html">
+  <div class="county-grid" id="featured-counties">
+    <a class="county-card" href="counties/palm-beach.html" data-county-slug="palm-beach">
       <div class="county-name">Palm Beach</div>
       <div class="county-region">Southeast Florida</div>
       <div class="county-pop"><strong>~1.5M</strong> residents</div>
       <div class="county-pop">West Palm Beach, Boca Raton, Wellington</div>
+      <div class="county-badges" aria-live="polite"><span class="county-badge loading">Loading stats…</span></div>
       <div class="county-cta">View county &rarr;</div>
     </a>
-    <a class="county-card" href="counties/broward.html">
+    <a class="county-card" href="counties/broward.html" data-county-slug="broward">
       <div class="county-name">Broward</div>
       <div class="county-region">Southeast Florida</div>
       <div class="county-pop"><strong>~1.9M</strong> residents</div>
       <div class="county-pop">Fort Lauderdale, Hollywood, Pembroke Pines</div>
+      <div class="county-badges" aria-live="polite"><span class="county-badge loading">Loading stats…</span></div>
       <div class="county-cta">View county &rarr;</div>
     </a>
-    <a class="county-card" href="counties/miami-dade.html">
+    <a class="county-card" href="counties/miami-dade.html" data-county-slug="miami-dade">
       <div class="county-name">Miami-Dade</div>
       <div class="county-region">Southeast Florida</div>
       <div class="county-pop"><strong>~2.7M</strong> residents</div>
       <div class="county-pop">Miami, Hialeah, Coral Gables, Homestead</div>
+      <div class="county-badges" aria-live="polite"><span class="county-badge loading">Loading stats…</span></div>
       <div class="county-cta">View county &rarr;</div>
     </a>
-    <a class="county-card" href="counties/orange.html">
+    <a class="county-card" href="counties/orange.html" data-county-slug="orange">
       <div class="county-name">Orange</div>
       <div class="county-region">Central Florida</div>
       <div class="county-pop"><strong>~1.4M</strong> residents</div>
       <div class="county-pop">Orlando, Winter Park, Apopka</div>
+      <div class="county-badges" aria-live="polite"><span class="county-badge loading">Loading stats…</span></div>
       <div class="county-cta">View county &rarr;</div>
     </a>
   </div>
@@ -342,5 +387,44 @@
     </div>
   </footer>
 </main>
+<script>
+(function () {
+  function renderCountyBadges(stats) {
+    document.querySelectorAll("[data-county-slug]").forEach(function (card) {
+      var slug = card.getAttribute("data-county-slug");
+      var box = card.querySelector(".county-badges");
+      if (!box) return;
+
+      var entry = stats && stats.counties ? stats.counties[slug] : null;
+      if (!entry) {
+        box.innerHTML = '<span class="county-badge muted">Stats unavailable</span>';
+        return;
+      }
+
+      var badges = [];
+      if (entry.nextSale && entry.nextSale.shortLabel) {
+        var saleText = "Next sale · " + entry.nextSale.shortLabel;
+        if (entry.nextSale.count) saleText += " · " + entry.nextSale.count + " parcels";
+        badges.push('<span class="county-badge sale">' + saleText + "</span>");
+      } else {
+        badges.push('<span class="county-badge muted">No sale scheduled</span>');
+      }
+
+      if (entry.surplusPortal) {
+        badges.push('<span class="county-badge surplus">Surplus claims portal</span>');
+      }
+
+      box.innerHTML = badges.join("");
+    });
+  }
+
+  fetch("data/counties/stats.json", { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject("missing stats.json"); })
+    .then(renderCountyBadges)
+    .catch(function () {
+      renderCountyBadges(null);
+    });
+})();
+</script>
 </body>
 </html>

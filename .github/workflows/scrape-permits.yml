@@ -71,13 +71,13 @@ jobs:
       - name: Commit updated permit data + SEO pages
         run: |
           CHANGED=""
-          if [ -n "$(git status --porcelain data/permits counties sitemap.xml)" ]; then
+          if [ -n "$(git status --porcelain data/permits counties data/counties sitemap.xml)" ]; then
             CHANGED="yes"
           fi
           if [ -n "$CHANGED" ]; then
             git config user.name  "tax-deed-bot"
             git config user.email "actions@users.noreply.github.com"
-            git add data/permits counties sitemap.xml
+            git add data/permits counties data/counties sitemap.xml
             git commit -m "chore(data): refresh permits + county pages [skip ci]"
             git push
           else

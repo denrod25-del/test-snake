@@ -1,9 +1,9 @@
 {
-  "generated": "2026-06-22T08:36:59Z",
+  "generated": "2026-06-29T00:50:03Z",
   "stats": {
     "scraped": 0,
     "manual": 0,
-    "failed": 42,
+    "failed": 4,
     "skipped": 0
   },
   "sales": {}
