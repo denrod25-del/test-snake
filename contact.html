@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — DeedScout</title>
   <meta name="description" content="Contact DeedScout for pricing, partnerships, investor inquiries, and data questions." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/deedscout.css" />
 </head>
 <body class="ds-body">
@@ -16,13 +16,13 @@
     <p>For legal, privacy, data, pricing, partnership, or investor inquiries — use the form below.</p>
   </div>
 
-  <form class="ds-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="background:var(--ds-panel);border:1px solid var(--ds-border);border-radius:var(--ds-radius);padding:28px;">
+  <form class="ds-form ds-form-light" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="background:var(--paper-2);border:1px solid var(--rule);padding:28px;box-shadow:var(--shadow);">
     <input type="hidden" name="form-name" value="contact" />
     <p hidden><label>Don't fill: <input name="bot-field" /></label></p>
-    <label style="color:var(--ds-ink-2);">Name<input type="text" name="name" required style="background:#fff;color:var(--ds-ink);border-color:var(--ds-border);" /></label>
-    <label style="color:var(--ds-ink-2);">Email<input type="email" name="email" required style="background:#fff;color:var(--ds-ink);border-color:var(--ds-border);" /></label>
-    <label style="color:var(--ds-ink-2);">Topic
-      <select name="topic" required style="background:#fff;color:var(--ds-ink);border-color:var(--ds-border);">
+    <label style="color:var(--muted);">Name<input type="text" name="name" required /></label>
+    <label style="color:var(--muted);">Email<input type="email" name="email" required /></label>
+    <label style="color:var(--muted);">Topic
+      <select name="topic" required>
         <option value="">Select…</option>
         <option>General question</option>
         <option>Pro / billing</option>
@@ -32,7 +32,7 @@
         <option>Data correction</option>
       </select>
     </label>
-    <label style="color:var(--ds-ink-2);">Message<textarea name="message" rows="5" required style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--ds-border);font-family:inherit;font-size:14px;"></textarea></label>
+    <label style="color:var(--muted);">Message<textarea name="message" rows="5" required style="width:100%;padding:12px 14px;border:1px solid var(--rule);font-family:inherit;font-size:14px;background:var(--paper-2);color:var(--text);"></textarea></label>
     <button type="submit" class="ds-btn ds-btn-primary" style="width:100%;">Send message</button>
   </form>
 

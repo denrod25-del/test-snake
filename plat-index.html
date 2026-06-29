@@ -5,31 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PBC PZB Plat PDF Index</title>
 <meta name="description" content="Searchable index of recorded plat PDF sheets from Palm Beach County Planning, Zoning & Building — with new-since-last-scrape highlights." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deedscout.css">
 <style>
   :root {
-    --bg: #0f1419; --panel: #1a2230; --panel-2: #232d3f; --border: #2d3a4f;
-    --text: #e6edf3; --muted: #8a97a8; --accent: #4f9eff; --success: #3fb950; --radius: 8px;
+    --bg: #f6f2e9; --panel: #ffffff; --panel-2: #fdfcf7; --border: #d9d4c7;
+    --text: #1a1a1a; --muted: #6b6b6b; --accent: #7a6240; --accent-hover: #4a3a25; --success: #2f5a3a; --radius: 4px;
+    --shadow: 0 1px 0 rgba(12,19,32,.04), 0 8px 24px rgba(12,19,32,.06);
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
-  .app-switch { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 10px; background: #0b0f15; border-bottom: 1px solid var(--border); font-size: 12px; }
-  .app-switch a, .app-switch .current { padding: 4px 12px; border-radius: 999px; color: var(--muted); text-decoration: none; }
-  .app-switch .current { border: 1px solid var(--accent); color: var(--text); }
-  header { text-align: center; padding: 28px 20px 16px; border-bottom: 1px solid var(--border); }
-  header h1 { margin: 0 0 8px; font-size: 26px; }
-  header p { margin: 0; color: var(--muted); font-size: 14px; max-width: 680px; margin-inline: auto; }
-  main { max-width: 1000px; margin: 0 auto; padding: 20px; }
+  body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+  .legacy-app-switch, header.tool-header { display: none !important; }
+  .app-switch { display: none; }
+  header { display: none; }
+  main.tool-main { max-width: 1000px; margin: 0 auto; padding: 20px 32px 72px; }
   .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
   .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
   .field { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 4px; }
   label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
   input, select, button { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 9px 11px; font: inherit; }
-  button.btn { background: var(--accent); border: none; color: #fff; font-weight: 600; cursor: pointer; }
+  button.btn { background: #0c1320; border: none; color: #fff; font-weight: 600; cursor: pointer; letter-spacing: .08em; text-transform: uppercase; font-size: 11px; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-bottom: 14px; }
   .stat { background: var(--panel-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; }
-  .stat .num { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .stat .num { font-size: 20px; font-weight: 700; color: #4a3a25; }
   .stat .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; }
-  .changelog { background: rgba(63,185,80,.08); border: 1px solid rgba(63,185,80,.35); border-radius: var(--radius); padding: 12px; margin-bottom: 14px; font-size: 13px; color: #b8e6bf; }
+  .changelog { background: #ecf2e6; border: 1px solid #aac199; border-radius: var(--radius); padding: 12px; margin-bottom: 14px; font-size: 13px; color: #2f4a2a; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { padding: 9px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
   th { background: var(--panel-2); font-size: 11px; color: var(--muted); text-transform: uppercase; }
@@ -45,20 +46,22 @@
   .preset-btn.active { border-color: var(--success); color: #9be9a8; }
 </style>
 </head>
-<body>
-<nav class="app-switch">
+<body class="ds-body ds-tool">
+<nav class="app-switch legacy-app-switch">
   <a href="tax-deeds.html">Registry</a>
   <a href="subdivision-index.html">Subdivisions</a>
   <span class="current">Plat Index</span>
   <a href="permit-search.html">Permit Search</a>
   <a href="parcel-lookup.html">Parcel Lookup</a>
 </nav>
-<header>
+<header class="tool-header">
   <h1>PBC PZB Plat PDF Index</h1>
   <p>Every recorded plat sheet linked from the county Planning, Zoning &amp; Building site. New sheets are flagged when the monthly scraper finds PDFs that weren't in the last run — often <em>before</em> they appear on the PAO tax roll. Where OCR has run, subdivision names are read directly off the plat PDF title block.</p>
   <p style="margin-top:8px;font-size:12px;color:var(--muted)">Source: <a href="https://discover.pbc.gov/pzb/Pages/Plats.aspx" target="_blank" rel="noopener">PZB Plat Map Index</a> · <a href="https://discover.pbc.gov/pzb/PDF/plat_index.pdf" target="_blank" rel="noopener">Cross-reference PDF</a> · <span id="generated-date">loading…</span></p>
 </header>
-<main>
+<main class="tool-main">
+  <h1 class="tool-page-title">PBC PZB Plat PDF Index</h1>
+  <p class="tool-page-sub">Recorded plat sheets from Palm Beach County Planning, Zoning &amp; Building — with OCR subdivision names and new-since-last-scrape flags.</p>
   <div class="changelog" id="changelog" hidden></div>
   <div class="stats" id="stats" hidden></div>
   <section class="panel">
@@ -229,5 +232,6 @@
   init();
 })();
 </script>
+<script src="assets/deedscout.js"></script>
 </body>
 </html>

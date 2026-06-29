@@ -174,14 +174,16 @@ PAGE_TEMPLATE = """<!doctype html>
 </script>
 <style>
   :root {{
-    --paper:    #fbf6ec;
-    --paper-2:  #f4ede0;
-    --ink:      #1f1a13;
-    --accent-ink: #7a6240;
-    --accent:   #8b5a2b;
-    --rule:     #b3a17e;
-    --rule-soft:#d8cdb4;
-    --muted:    #6e6147;
+    --ink:        #0c1320;
+    --ink-soft:   #1a2233;
+    --rule:       #d9d4c7;
+    --rule-soft:  #ece8dc;
+    --paper:      #f6f2e9;
+    --paper-2:    #ffffff;
+    --muted:      #6b6b6b;
+    --text:       #1a1a1a;
+    --accent:     #7a6240;
+    --accent-ink: #4a3a25;
   }}
   * {{ box-sizing: border-box; }}
   body {{
@@ -200,19 +202,20 @@ PAGE_TEMPLATE = """<!doctype html>
   h3 {{ font-size: 19px; margin: 24px 0 6px; }}
   p  {{ margin: 0 0 14px; }}
   .topbar {{
-    background: var(--paper-2);
-    border-bottom: 1px solid var(--rule);
-    padding: 12px 28px;
+    background: var(--ink);
+    color: #c9c6bd;
+    border-bottom: none;
+    padding: 10px 28px;
     font-size: 12px;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--muted);
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
   }}
-  .topbar a {{ color: var(--accent-ink); border: 0; }}
+  .topbar a {{ color: #c9c6bd; border: 0; }}
+  .topbar a:hover {{ color: #fff; }}
   main {{ max-width: 920px; margin: 0 auto; padding: 36px 28px 80px; }}
   .eyebrow {{
     font-family: 'Inter', sans-serif;
@@ -298,8 +301,8 @@ PAGE_TEMPLATE = """<!doctype html>
   .btn {{
     display: inline-block;
     padding: 10px 20px;
-    background: var(--accent-ink);
-    color: var(--paper);
+    background: var(--ink);
+    color: #fff;
     border: 0;
     text-decoration: none;
     border-bottom: 0;
@@ -307,9 +310,9 @@ PAGE_TEMPLATE = """<!doctype html>
     font-size: 12px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    border-radius: 2px;
+    border-radius: 0;
   }}
-  .btn:hover {{ background: var(--ink); color: var(--paper); border-bottom-color: transparent; }}
+  .btn:hover {{ background: var(--accent-ink); color: #fff; border-bottom-color: transparent; }}
   footer {{
     border-top: 1px solid var(--rule-soft);
     padding: 32px 28px;
@@ -337,8 +340,8 @@ PAGE_TEMPLATE = """<!doctype html>
 </head>
 <body>
   <div class="topbar">
-    <span><a href="../index.html">Florida Tax Deed Registry</a></span>
-    <span><a href="../tax-deeds.html">Registry &amp; tools →</a></span>
+    <span><a href="../index.html">DeedScout</a> &mdash; Florida Property Intelligence</span>
+    <span><a href="../tax-deeds.html">Open registry</a> &nbsp;|&nbsp; <a href="../index.html">Home</a></span>
   </div>
 
   <main>
@@ -523,7 +526,7 @@ def build_jsonld(county, slug, base_url, region, sales_entries, permit_coverage,
             "name": f"{county} County, Florida",
             "containedInPlace": {"@type": "State", "name": "Florida"},
         },
-        "publisher": {"@type": "Organization", "name": "Florida Tax Deed Registry"},
+        "publisher": {"@type": "Organization", "name": "DeedScout"},
         "datePublished": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
     }
     if sales_entries:

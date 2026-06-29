@@ -8,105 +8,39 @@
   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/deedscout.css">
 <style>
   :root {
-    --bg: #0f1419;
-    --panel: #1a2230;
-    --panel-2: #232d3f;
-    --border: #2d3a4f;
-    --text: #e6edf3;
-    --muted: #8a97a8;
-    --accent: #4f9eff;
-    --accent-hover: #6bafff;
-    --success: #3fb950;
-    --error: #f85149;
-    --warn: #d29922;
-    --radius: 8px;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --bg: #f6f2e9;
+    --panel: #ffffff;
+    --panel-2: #fdfcf7;
+    --border: #d9d4c7;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #7a6240;
+    --accent-hover: #4a3a25;
+    --success: #2f5a3a;
+    --error: #8b3a2a;
+    --warn: #6b3e1f;
+    --radius: 4px;
+    --shadow: 0 1px 0 rgba(12,19,32,.04), 0 8px 24px rgba(12,19,32,.06);
   }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     line-height: 1.5;
   }
 
-  /* Cross-app navigation: links to peer tools (Registry, Counties).
-     Lives in a thin bar above the header so it never competes with
-     parcel-search controls but is always one click away. */
-  .app-switch {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 10px 16px;
-    background: #0b0f15;
-    border-bottom: 1px solid var(--border);
-    font-size: 12.5px;
-    letter-spacing: 0.04em;
-    flex-wrap: wrap;
-  }
-  .app-switch .label {
-    color: var(--muted);
-    text-transform: uppercase;
-    font-size: 10.5px;
-    letter-spacing: 0.14em;
-    margin-right: 10px;
-  }
-  .app-switch a, .app-switch .current {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 12px;
-    border-radius: 999px;
-    color: var(--muted);
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-  }
-  .app-switch a:hover {
-    color: var(--text);
-    background: var(--panel);
-    border-color: var(--border);
-  }
-  .app-switch .current {
-    color: var(--text);
-    background: var(--panel);
-    border-color: var(--accent);
-    font-weight: 500;
-    cursor: default;
-  }
-  .app-switch .sep { color: var(--border); margin: 0 2px; }
+  .legacy-app-switch, header.tool-header { display: none !important; }
 
-  header {
-    padding: 32px 24px 16px;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, #131a25 0%, var(--bg) 100%);
-  }
-  header h1 {
-    margin: 0 0 8px;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.4px;
-  }
-  header p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 14px;
-  }
-  header .source {
-    margin-top: 6px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  header .source a { color: var(--accent); text-decoration: none; }
-  header .source a:hover { text-decoration: underline; }
-
-  main {
+  main.tool-main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
@@ -614,8 +548,8 @@
   }
 </style>
 </head>
-<body>
-<nav class="app-switch" aria-label="Switch app">
+<body class="ds-body ds-tool">
+<nav class="app-switch legacy-app-switch" aria-label="Switch app">
   <span class="label">Florida Tax Deed Suite</span>
   <a href="tax-deeds.html" title="Statewide registry, research notebook, statute">Registry</a>
   <span class="sep">·</span>
@@ -625,7 +559,7 @@
   <span class="sep">·</span>
   <span class="current" aria-current="page">Parcel Lookup</span>
 </nav>
-<header>
+<header class="tool-header">
   <h1>Palm Beach County Parcel &rarr; Address Lookup</h1>
   <p>Convert PCNs (Parcel Control Numbers), legal descriptions, or owner names into property addresses.</p>
   <div class="source">
@@ -635,7 +569,9 @@
   </div>
 </header>
 
-<main>
+<main class="tool-main">
+  <h1 class="tool-page-title">Palm Beach County Parcel &rarr; Address Lookup</h1>
+  <p class="tool-page-sub">Convert PCNs, legal descriptions, or owner names into property addresses — live Palm Beach County GIS data.</p>
   <div class="tabs" role="tablist">
     <button class="tab active" data-tab="single" role="tab">Single Lookup</button>
     <button class="tab" data-tab="bulk" role="tab">Bulk Lookup</button>
@@ -1914,5 +1850,6 @@
   updateNotebookQueueUI();
 })();
 </script>
+<script src="assets/deedscout.js"></script>
 </body>
 </html>

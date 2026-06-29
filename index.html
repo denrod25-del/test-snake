@@ -7,9 +7,9 @@
   <meta name="description" content="Search Florida tax deeds, parcels, permits, subdivisions, plats, and surplus signals from one workflow. Built for investors, contractors, and title researchers." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/deedscout.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14' fill='%232563eb'%3EDS%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f6f2e9'/%3E%3Ctext y='13' x='2' font-size='12' font-family='Georgia' fill='%230c1320'%3ED%3C/text%3E%3C/svg%3E" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -33,26 +33,25 @@
 <main class="ds-main">
 
   <section class="ds-hero">
-    <div>
-      <p class="ds-hero-eyebrow">Florida property intelligence from public records</p>
-      <h1>Find Florida property opportunities before they become obvious.</h1>
-      <p class="ds-hero-lede">
-        Search tax deeds, parcels, permits, subdivisions, plats, and surplus records across Florida county sources — built for investors, contractors, and title researchers.
-      </p>
-      <div class="ds-hero-ctas">
-        <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Search Tax Deeds</a>
-        <a class="ds-btn ds-btn-secondary" href="parcel-lookup.html">Try Parcel Lookup</a>
-        <a class="ds-btn ds-btn-secondary" href="#newsletter">Join Weekly Investor Alerts</a>
+    <div class="ds-hero-inner">
+      <div>
+        <p class="ds-hero-eyebrow">The investor's reference</p>
+        <h1>Find Florida property <em>opportunities</em> before they become obvious.</h1>
+        <p class="ds-hero-lede">
+          Search tax deeds, parcels, permits, subdivisions, plats, and surplus records across Florida county sources — built for investors, contractors, and title researchers.
+        </p>
+        <div class="ds-hero-ctas">
+          <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Search Tax Deeds</a>
+          <a class="ds-btn ds-btn-secondary" href="parcel-lookup.html">Try Parcel Lookup</a>
+          <a class="ds-btn ds-btn-secondary" href="#newsletter">Join Weekly Alerts</a>
+        </div>
+        <p class="ds-hero-tagline">Free search · Official county sources · Pro tools for watchlists, alerts, and exports</p>
       </div>
-      <p class="ds-hero-tagline">Free search · Official county sources · Pro tools for watchlists, alerts, and exports</p>
-    </div>
-    <div class="ds-hero-card">
-      <h3>Platform coverage</h3>
-      <div class="ds-stat-row">
-        <div class="ds-stat"><div class="lbl">Counties</div><div class="val">67</div></div>
-        <div class="ds-stat"><div class="lbl">Permit cities</div><div class="val">4+</div></div>
-        <div class="ds-stat"><div class="lbl">Tools</div><div class="val">6</div></div>
-        <div class="ds-stat"><div class="lbl">Workflow</div><div class="val">1</div></div>
+      <div class="ds-hero-stats">
+        <div class="ds-stat"><div class="val">67</div><div class="lbl">Counties</div></div>
+        <div class="ds-stat"><div class="val">4+</div><div class="lbl">Permit cities</div></div>
+        <div class="ds-stat"><div class="val">6</div><div class="lbl">Research tools</div></div>
+        <div class="ds-stat"><div class="val">1</div><div class="lbl">Workflow</div></div>
       </div>
     </div>
   </section>
@@ -214,10 +213,7 @@
 <script>
 (function () {
   function badgeHtml(cls, text) {
-    return '<span style="font-size:10px;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:999px;' +
-      (cls === "sale" ? "background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;" :
-       cls === "surplus" ? "background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;" :
-       "background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0;") + '">' + text + "</span>";
+    return '<span class="county-badge ' + cls + '">' + text + "</span>";
   }
 
   function renderCountyBadges(stats) {
