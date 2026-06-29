@@ -1,12 +1,32 @@
 {
   "county": "St. Lucie County",
   "slug": "st-lucie-county",
-  "generated": "2026-06-28T23:15:03Z",
+  "generated": "2026-06-29T09:30:52Z",
   "source": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Most recent 4,000 permits sorted by apply date (live Tyler EnerGov; SLC's API ignores date filter so we cap at 4k which gives ~3 months coverage for an unincorporated county of ~350k people)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "450270200120005": [
+      {
+        "permitNumber": "CLSR-2606-002511",
+        "parcelId": "450270200120005",
+        "address": "9960 S Ocean Dr Unit: 402 Jensen Beach FL 34957",
+        "city": "Jensen Beach",
+        "type": "Code Lien Search Request",
+        "subtype": "Code Lien Search Request",
+        "description": "9960 S OCEAN DR 402",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-29",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/19600137-5c52-45a1-bb50-4e137087fc75"
+      }
+    ],
     "450262001130002": [
       {
         "permitNumber": "BLDC-2606-004512",
@@ -17446,7 +17466,7 @@
         "type": "Electrical Residential - Service Change",
         "subtype": "Service Change",
         "description": "Pedestal change",
-        "status": "Notified",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -53369,24 +53389,6 @@
         "finalDate": "2026-04-14",
         "expirationDate": null,
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/bbb882c8-df6f-4b37-b6d0-f1f07f2b281e"
-      },
-      {
-        "permitNumber": "ROOFR-2604-009958",
-        "parcelId": "230250002340007",
-        "address": "1013 Garden Grove Cir Fort Pierce FL 34947",
-        "city": "Fort Pierce",
-        "type": "Roof (Residential) - Sub Permit ",
-        "subtype": "Sub Permit ",
-        "description": "New SFR- 2-story, 4 bedrooms/ 3.5 bathrooms; 2-car garage; shingle roof, 4,120 Sq. Ft.\n\nELEV. CERT. / FLOOD ZONE INFO. ON FILE                              \nOCCUPANCY TYPE: SINGLE FAMILY RESIDENCE\nCONSTRUCTION TYPE: VB\nOCCUPANT LOAD: 8\nSPRINKLERED: NO",
-        "status": "Sub Permit",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-14",
-        "issuedDate": null,
-        "finalDate": "2026-04-14",
-        "expirationDate": null,
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/b9c731fb-4dc6-409d-880a-c70d4db61c32"
       }
     ],
     "232660000070008": [

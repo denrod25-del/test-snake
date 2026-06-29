@@ -1,12 +1,32 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-06-28T22:36:44Z",
+  "generated": "2026-06-29T09:15:50Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "06424723300010010": [
+      {
+        "permitNumber": "BPQ-2026-01600",
+        "parcelId": "06424723300010010",
+        "address": "5080  Pointe Alexis Dr   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "A/c changeout ",
+        "description": "AC Change out not ductwork",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-28",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b87f539e-1548-411f-a3d5-52439605b132"
+      }
+    ],
     "06424722110020100": [
       {
         "permitNumber": "BPQ-2026-01599",
@@ -752,7 +772,7 @@
         "type": "Interior Only Alteration - Building (Commercial)",
         "subtype": "Interior Only Alteration",
         "description": "Interior renovation",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -2749,24 +2769,6 @@
         "finalDate": null,
         "expirationDate": "2027-04-28",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/e1a08360-561e-4aa1-8b16-6f28d1e6607f"
-      },
-      {
-        "permitNumber": "FRS-2026-00138",
-        "parcelId": "06424712060010010",
-        "address": "4660  Communication Ave  100 Unit: 100 Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Fire Overtime Inspection",
-        "subtype": "FRS- Overtime Inspections",
-        "description": "6am OT inspection",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-18",
-        "issuedDate": null,
-        "finalDate": "2026-03-18",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/fe088f5b-c58c-4c7e-afc2-3c0deb39cf75"
       }
     ],
     "06424715090060441": [
@@ -8312,7 +8314,7 @@
         "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "A/c changeout ",
         "description": "exact a/c change out",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -8964,7 +8966,7 @@
         "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "Re-roof ",
         "description": "Roof replacement ",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,

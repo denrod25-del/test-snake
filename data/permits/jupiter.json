@@ -1,12 +1,70 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-06-28T22:48:58Z",
+  "generated": "2026-06-29T09:27:54Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434106300000070": [
+      {
+        "permitNumber": "26-096053-BLDR",
+        "parcelId": "30434106300000070",
+        "address": "221  FISHERMANS WAY  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "demo existing pool shell and remove tiki hut",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-29",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/8c4e18db-97d2-464d-976c-27150b2b2e1f"
+      }
+    ],
+    "30424111100001220": [
+      {
+        "permitNumber": "26-009768-ROOF-R",
+        "parcelId": "30424111100001220",
+        "address": "111  ECHO DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "WE WILL BE REMOVING AN EXISTING TILE ROOF AND INSTALLING A NEW TILE ROOF SYSTEM",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-28",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/237e893a-2bca-447c-bb09-09465fa5b2d9"
+      },
+      {
+        "permitNumber": "26-092635-GASR",
+        "parcelId": "30424111100001220",
+        "address": "111  ECHO DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Gas Lines",
+        "subtype": "Gas Lines",
+        "description": "Running gas line to new generator (MASTER 25-091826-GEN)",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-01-15",
+        "issuedDate": "2026-01-30",
+        "finalDate": "2026-03-03",
+        "expirationDate": "2026-08-31",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/aade3e03-e301-46b3-baf6-97006cb22b50"
+      }
+    ],
     "30434117020001287": [
       {
         "permitNumber": "26-096052-MECHR",
@@ -75689,26 +75747,6 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/8e776eaa-fd80-4540-bfc9-356ba9e8bf36"
       }
     ],
-    "30424111100001220": [
-      {
-        "permitNumber": "26-092635-GASR",
-        "parcelId": "30424111100001220",
-        "address": "111  ECHO DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Gas Lines",
-        "subtype": "Gas Lines",
-        "description": "Running gas line to new generator (MASTER 25-091826-GEN)",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-15",
-        "issuedDate": "2026-01-30",
-        "finalDate": "2026-03-03",
-        "expirationDate": "2026-08-31",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/aade3e03-e301-46b3-baf6-97006cb22b50"
-      }
-    ],
     "30424115020000760": [
       {
         "permitNumber": "26-092634-AC",
@@ -76895,46 +76933,6 @@
         "finalDate": "2026-02-04",
         "expirationDate": "2026-08-03",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/42771e6f-2702-4b7f-9d39-c46cd75acee2"
-      }
-    ],
-    "30424124040001050": [
-      {
-        "permitNumber": "26-092562-PLUMR",
-        "parcelId": "30424124040001050",
-        "address": "198  HONEYSUCKLE DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Plumbing",
-        "subtype": "Plumbing",
-        "description": "Double Detector Check Replacement",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-13",
-        "issuedDate": "2026-02-02",
-        "finalDate": "2026-02-06",
-        "expirationDate": "2026-08-04",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4677d64f-eb63-4b9d-9205-bacf4607d1d2"
-      }
-    ],
-    "30424110330055015": [
-      {
-        "permitNumber": "26-092561-BLDR",
-        "parcelId": "30424110330055015",
-        "address": "501  MUIRFIELD CT  Unit: E JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "add \"remove and replace 2 SGD size for size impact to existing permit \"25-091882-BLDR\"",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-13",
-        "issuedDate": "2026-01-28",
-        "finalDate": "2026-02-18",
-        "expirationDate": "2026-08-17",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/02d171f5-425a-4cac-bdd8-d559d713a48d"
       }
     ]
   }
