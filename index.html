@@ -3,16 +3,254 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Florida Tax Deed Registry</title>
+  <title>Florida Real Estate &amp; Permit Research Tools</title>
+  <meta name="description" content="A suite of free Florida public-records tools: tax-deed registry, building permit search with plumbing hotspot prediction, Palm Beach subdivision/plat/parcel lookups." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%F0%9F%8F%9D%EF%B8%8F%3C/text%3E%3C/svg%3E" />
   <script>
+    // Preserve legacy redirect behavior for inbound deep links (Supabase auth
+    // callbacks, Stripe redirects, anything with ?query or #hash) so users
+    // who bookmarked '/' as DeedScout still land on tax-deeds.html.
+    // Naked '/' visits get the new navigation home page below.
     (function () {
       var q = window.location.search || '';
       var h = window.location.hash || '';
-      window.location.replace('tax-deeds.html' + q + h);
+      if (q || h) window.location.replace('tax-deeds.html' + q + h);
     })();
   </script>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a2230;
+      --panel-2: #232d3f;
+      --border: #2d3a4f;
+      --text: #e6edf3;
+      --muted: #8a97a8;
+      --accent: #4f9eff;
+      --accent-hover: #6bafff;
+      --radius: 10px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+    }
+    main {
+      max-width: 1100px; margin: 0 auto; padding: 56px 24px 80px;
+    }
+    header h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+    header p.tagline {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0 0 8px;
+      max-width: 640px;
+    }
+    header .data-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0 0 40px;
+    }
+    section.featured {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    section.featured .meta { min-width: 0; }
+    section.featured h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      color: var(--text);
+    }
+    section.featured .badge {
+      display: inline-block;
+      background: #1f3a4d;
+      color: #6bafff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    section.featured p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #0f1419;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background 0.12s ease;
+    }
+    .btn:hover { background: var(--accent-hover); }
+    .btn.secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn.secondary:hover { background: rgba(79, 158, 255, 0.08); }
+    h2.section-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.12s ease, transform 0.12s ease;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .card .title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+    .card .desc {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 14px;
+      flex-grow: 1;
+    }
+    .card .stat {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .card .arrow {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    @media (max-width: 600px) {
+      main { padding: 32px 16px 60px; }
+      section.featured { grid-template-columns: 1fr; }
+      section.featured .btn { width: 100%; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-  <p>Redirecting to <a href="tax-deeds.html">Florida Tax Deed Registry</a>&hellip;</p>
+<main>
+  <header>
+    <h1>Florida Public-Records Tools</h1>
+    <p class="tagline">
+      A small suite of free research tools for Florida real estate, plumbing, and county-records work.
+      Built on live data scraped directly from county and municipal portals &mdash; no signup required for any search.
+    </p>
+    <p class="data-note">Data is a locally cached snapshot, not a live query. For authoritative records, always confirm with the county's own portal.</p>
+  </header>
+
+  <!-- DeedScout gets a featured slot since it's the flagship and has the Pro tier -->
+  <section class="featured">
+    <div class="meta">
+      <h2>DeedScout <span class="badge">Pro tier available</span></h2>
+      <p>Florida tax-deed sale registry, organized by county. Free unlimited search; Pro unlocks skip-trace + AVM lookups per parcel.</p>
+    </div>
+    <a class="btn" href="tax-deeds.html">Open DeedScout &rarr;</a>
+  </section>
+
+  <h2 class="section-title">Palm Beach &amp; Treasure Coast research</h2>
+  <div class="grid">
+    <a class="card" href="permit-search.html">
+      <div class="title">Permit Search</div>
+      <div class="desc">Search 15,000+ live building permits across West Palm Beach, Boca Raton, Jupiter, St. Lucie County and more. Includes a Plumbing Watch tab with ZIP-level hotspot prediction.</div>
+      <div class="stat">4 live cities &middot; updated via scraper</div>
+      <div class="arrow">Open &rarr;</div>
+    </a>
+
+    <a class="card" href="parcel-lookup.html">
+      <div class="title">Parcel Lookup</div>
+      <div class="desc">Fast Palm Beach County parcel-info lookup by address or parcel control number (PCN). Reads directly from PBC Property Appraiser data.</div>
+      <div class="stat">PBC only</div>
+      <div class="arrow">Open &rarr;</div>
+    </a>
+
+    <a class="card" href="subdivision-index.html">
+      <div class="title">Subdivision Index</div>
+      <div class="desc">Searchable index of every legal subdivision name in Palm Beach County, scraped from the Property Appraiser's GIS layer.</div>
+      <div class="stat">PBC only</div>
+      <div class="arrow">Open &rarr;</div>
+    </a>
+
+    <a class="card" href="plat-index.html">
+      <div class="title">Plat Index</div>
+      <div class="desc">Palm Beach County plat book lookup. Plat-name extraction OCR'd from PBC's plat PDF archive with PyMuPDF + RapidOCR.</div>
+      <div class="stat">PBC only</div>
+      <div class="arrow">Open &rarr;</div>
+    </a>
+
+    <a class="card" href="plumbing-reviews.html">
+      <div class="title">Plumbing Reviews</div>
+      <div class="desc">South Florida plumbing contractor reviews and lead-gen experiments.</div>
+      <div class="stat">Experimental</div>
+      <div class="arrow">Open &rarr;</div>
+    </a>
+  </div>
+
+  <footer>
+    <div>
+      &copy; 2026 &middot; All tools are free for unlimited search.
+      Data sourced from public county portals under Florida's Sunshine Law (FS 119).
+    </div>
+    <div>
+      <a href="pricing.html">Pricing</a> &middot;
+      <a href="account.html">Account</a> &middot;
+      <a href="terms.html">Terms</a> &middot;
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </footer>
+</main>
 </body>
 </html>
