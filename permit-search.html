@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Palm Beach County Permit Search &mdash; Plumbing &amp; Water Filtration</title>
-<meta name="description" content="Keyword search of Palm Beach County, Florida building permits for water filtration, water heaters, and all plumbing work. Filter by date, status, contractor, city, and value. Free, no login, no API key." />
+<title>DeedScout Permit Search — Palm Beach Area</title>
+<meta name="description" content="Cached permit search across West Palm Beach, Boca Raton, Jupiter, St. Lucie, and labeled sample sources. Filter by keyword, date, contractor, and city. Always verify on official portals." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%F0%9F%93%8B%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -558,24 +558,26 @@
 <body class="ds-body ds-tool">
 
 <header class="tool-header">
-  <h1>Palm Beach County Permit Search</h1>
-  <p>Plumbing &middot; Water Filtration &middot; Water Heaters &middot; All Trades</p>
-  <div class="source">
-    Aggregated permits across <span id="source-count">multiple</span> Palm Beach County portals
-    &middot; manifest <code>data/permits/sources.json</code>
-  </div>
+  <h1>DeedScout Permit Search</h1>
+  <p>Palm Beach area &middot; plumbing, water filtration, all trades</p>
   <nav>
-    <a href="parcel-lookup.html">Parcel Lookup</a>
-    &middot; <a href="subdivision-index.html">Subdivisions</a>
-    &middot; <a href="plat-index.html">Plat Index</a>
-    &middot; <a href="tax-deeds.html">DeedScout Tax Deeds</a>
-    &middot; <a href="counties/index.html">County Directory</a>
+    <a href="index.html">Home</a>
+    &middot; <a href="parcel-lookup.html">Parcel Lookup</a>
+    &middot; <a href="tax-deeds.html">Tax Deeds</a>
+    &middot; <a href="counties/index.html">Counties</a>
+    &middot; <a href="data-sources.html">Data Sources</a>
+    &middot; <a href="status.html">Status</a>
   </nav>
 </header>
 
 <main class="tool-main">
-  <h1 class="tool-page-title">DeedScout Permits — Palm Beach Area</h1>
-  <p class="tool-page-sub">4 live Tyler cities (WPB, Boca, Jupiter, St. Lucie) · 3 sample/blocked sources clearly labeled · Not legal or investment advice</p>
+  <h1 class="tool-page-title">DeedScout Permit Search</h1>
+  <p class="tool-page-sub">Cached permit search across selected municipal sources. Not a live query. Always verify with the city or county portal.</p>
+  <p class="ds-trust-inline">Independent research tool. Not affiliated with any county or municipality. Permit data is a research signal, not proof of work needed or job availability.</p>
+  <div id="sample-warning-banner" class="ds-sample-banner" hidden>
+    <strong>Sample data only — not real permit records.</strong>
+    One or more selected sources contain illustrative demo permits only (e.g. Palm Beach County unincorporated has 4 sample records while West Palm Beach alone has ~4,000 cached Tyler permits). Do not rely on sample rows for outreach or bidding decisions.
+  </div>
   <div id="dev-alerts" class="dev-alerts" hidden></div>
   <div id="data-banner"></div>
   <div id="source-health-table" style="margin-bottom:16px;"></div>
@@ -585,8 +587,6 @@
     <button class="tab" data-tab="map"    role="tab">Map</button>
     <button class="tab" data-tab="stats"  role="tab">Trends &amp; Stats</button>
     <button class="tab" data-tab="plumbing" role="tab">Plumbing Watch <span class="count" id="t-plumbing-count">0</span></button>
-    <button class="tab" data-tab="manual" role="tab">Manual Upload</button>
-    <button class="tab" data-tab="help"   role="tab">How To Refresh</button>
   </div>
 
   <!-- ============== SEARCH TAB ============== -->
@@ -707,8 +707,9 @@
       </div>
       <div id="empty-state" class="empty-state" style="display:none;">
         <h3>No permits match your filters.</h3>
-        <p><strong>Why no results?</strong> You may have keywords that exclude all rows, disabled live sources, or only sample sources selected. West Palm Beach alone has ~4,000 live permits — try clearing filters or searching <code>plumbing</code>.</p>
-        <p>Sample sources (PBC unincorporated, Royal Palm Beach, Boynton) contain only demo records. See the source health table above.</p>
+        <p><strong>Why am I seeing no results?</strong> Your keywords may exclude every row, date filters may be too narrow, or you may have only sample/blocked sources selected with no matching demo records.</p>
+        <p>Try a preset below — <strong>All plumbing</strong> or <strong>Water heater</strong> usually return rows when West Palm Beach cached data is loaded (~4,000 permits). Clear advanced filters and confirm Tyler sources show <em>Cached</em> in the source health table.</p>
+        <p>Sample sources (PBC unincorporated, Royal Palm Beach, Boynton) contain only demo records — not real permit history.</p>
       </div>
       <div class="pagination" id="pagination"></div>
     </div>
@@ -731,7 +732,7 @@
   <section id="tab-stats" style="display:none;">
     <div class="panel">
       <h2>Trends &amp; stats for current filter</h2>
-      <p class="help" style="margin-top:0">Charts update when you change keywords, dates, or other filters on the Search tab. Most live data is West Palm Beach (last ~90 days of applications).</p>
+      <p class="help" style="margin-top:0">Charts update when you change keywords, dates, or other filters on the Search tab. Most cached Tyler data is West Palm Beach (last ~90 days of applications).</p>
 
       <div class="stats-grid" id="stats-cards"></div>
 
@@ -852,73 +853,12 @@
     </div>
   </section>
 
-  <!-- ============== MANUAL UPLOAD TAB ============== -->
-  <section id="tab-manual" style="display:none;">
-    <div class="panel">
-      <h2>Manual data upload</h2>
-      <p class="help">If the cached scrape is stale or you have permit data from another source (CSV export from a city portal, manually pasted records, etc.), drop it here. Data is merged into your in-memory dataset for this session only (does not modify any file in <code>data/permits/</code>). To make uploads persistent, save the JSON into the appropriate per-source file (e.g. <code>data/permits/west-palm-beach.json</code>).</p>
-
-      <h3>Paste JSON</h3>
-      <p class="help">Accepts the same shape as the per-source files in <code>data/permits/</code> (object with <code>permitsByParcel</code> OR <code>permits</code> array) OR a flat array of permit objects matching the schema in <code>data/permits/index.json</code>. Pasted permits are tagged with source <code>manual</code>.</p>
-      <textarea id="manual-json" placeholder='[{"permitNumber":"P-2026-0001","parcelId":"00000000000000000","address":"123 Main St, West Palm Beach, FL 33401","type":"Plumbing","subtype":"Residential","description":"Whole-house water filtration system installation","status":"Issued","contractor":"ACME WATER CO","valuation":3500,"appliedDate":"2026-04-01","issuedDate":"2026-04-05","url":"https://example.com/permit/P-2026-0001"}]'></textarea>
-      <div class="actions">
-        <button class="primary" id="manual-merge">Merge into search</button>
-        <button class="secondary" id="manual-clear">Clear pasted data</button>
-      </div>
-
-      <h3>Or drop a CSV file</h3>
-      <p class="help">CSV must include header row. Recognized columns (any subset): <code>permitNumber, parcelId, address, type, subtype, description, status, applicantName, contractor, valuation, appliedDate, issuedDate, finalDate, expirationDate, url</code>.</p>
-      <input type="file" id="csv-file" accept=".csv,text/csv" />
-      <div id="manual-status" class="help" style="margin-top: 10px;"></div>
-    </div>
-  </section>
-
-  <!-- ============== HELP TAB ============== -->
-  <section id="tab-help" style="display:none;">
-    <div class="panel">
-      <h2>How to refresh permit data</h2>
-      <p>This page is a multi-source aggregator. It reads <code>data/permits/sources.json</code> at boot, then loads every <code>dataFile</code> listed there in parallel. Each loaded permit is tagged with its origin so the <strong>Source</strong> filter can scope results to one or more portals.</p>
-
-      <h3>Currently registered sources</h3>
-      <p class="help">See the boot banner at the top of the page for the live status of each source. Status legend:</p>
-      <ul style="color: var(--muted); font-size: 13px; line-height: 1.8;">
-        <li><strong>live</strong> &mdash; scraper works, data is current</li>
-        <li><strong>sample</strong> &mdash; demo data only (scraper hasn't been run yet, or the cache is stale)</li>
-        <li><strong>scaffold</strong> &mdash; parser stub exists in <code>scraper/parsers_permits.py</code> but needs reverse-engineering before it can pull live data. Sample data shown.</li>
-        <li><strong>unsupported_paywall</strong> &mdash; the upstream portal now requires registration / paywalls / reCAPTCHA, so anonymous bulk scraping is not feasible. Use the portal manually.</li>
-      </ul>
-
-      <h3>Refreshing live sources</h3>
-      <pre style="background: var(--panel-2); padding: 14px; border-radius: 6px; overflow-x: auto; font-size: 12px;">cd scraper
-pip install -r requirements.txt
-python scrape_permits.py -v                 # all sources
-python scrape_permits.py --only "West Palm Beach" -v  # just one</pre>
-      <p class="help">Default lookback is 90 days (configurable per-parser in <code>parsers_permits.py</code>). After it finishes, hard-refresh this page (Ctrl+Shift+R) so the browser pulls the new JSON.</p>
-
-      <h3>Reality check on Florida municipal permit portals</h3>
-      <ul style="color: var(--muted); font-size: 13px; line-height: 1.8;">
-        <li>None of the public portals support keyword search of <em>work descriptions</em> natively. This page filters keywords <em>locally</em> after the scraper pulls underlying records.</li>
-        <li>Each city runs its own portal (Tyler EnerGov, CentralSquare Click2Gov, SagesGov, Accela, custom). Each needs its own parser.</li>
-        <li>Palm Beach County's legacy <code>eDSWeb</code> portal was retired in 2024. The replacement <a href="https://pbc.gov/ePZB.Admin.WebSPA/" target="_blank" rel="noopener">ePZB Admin SPA</a> requires registration + reCAPTCHA, and "Open Permit Searches" cost $63 each. Anonymous bulk scraping is no longer possible &mdash; use the portal manually for unincorporated PBC permits.</li>
-        <li>Some city portals (Click2Gov, SagesGov) only allow single-record lookups by permit number / address / contractor &mdash; no bulk listing. For those, build a seed list (contractors of interest, parcel addresses) and let the scraper iterate.</li>
-        <li>For older permits past the lookback window, file a <a href="https://discover.pbc.gov/pzb/pages/records-request.aspx" target="_blank" rel="noopener">public records request</a> with the relevant jurisdiction.</li>
-      </ul>
-
-      <h3>Adding a new city portal</h3>
-      <ol style="color: var(--muted); font-size: 13px; line-height: 1.8;">
-        <li>Add a parser function to <code>scraper/parsers_permits.py</code> and register it in <code>PERMIT_PARSERS</code>.</li>
-        <li>Add an entry to <code>scraper/sources_permits.json</code> (jurisdiction config for the scraper).</li>
-        <li>Add a matching entry to <code>data/permits/sources.json</code> (manifest the frontend reads).</li>
-        <li>Run the scraper; it'll write to the <code>dataFile</code> path. Refresh this page.</li>
-      </ol>
-    </div>
-  </section>
-
   <p class="legal">
     Permit data is a public record under Florida's Sunshine Law, sourced from each jurisdiction's permitting portal.
-    This tool searches a locally cached snapshot &mdash; not a live query. For authoritative records, visit each
-    jurisdiction's portal directly (links in the source banner above and on each result row).
-    No warranty of accuracy &mdash; verify any permit before relying on it.
+    This tool searches a locally cached snapshot — not a live query. For authoritative records, visit each
+    jurisdiction's official portal (links in the source health table and on each result row).
+    Permit data is a research signal, not proof of work needed or job availability. No warranty of accuracy — verify any permit before relying on it.
+    Dataset inventory: <a href="data-sources.html">Data Sources</a> · <a href="status.html">System Status</a>.
   </p>
 </main>
 
@@ -1107,7 +1047,7 @@ function permitMatchesSubdivWatch(p) {
 }
 
 async function loadData() {
-  setBanner({ kind: "live", html: "Loading permit data\u2026" });
+  setBanner({ kind: "cached", html: "Loading cached permit data\u2026" });
 
   let manifest;
   try {
@@ -1171,10 +1111,14 @@ async function loadData() {
     counts: { scraped: all.length, manual: 0 },
   };
 
-  document.getElementById("source-count").textContent =
-    SOURCES.filter((s) => s.loaded).length + " of " + SOURCES.length;
-
   showFreshnessBanner();
+  setSourceCountLabel();
+}
+
+function setSourceCountLabel() {
+  const el = document.getElementById("source-count");
+  if (!el) return;
+  el.textContent = SOURCES.filter((s) => s.loaded).length + " of " + SOURCES.length;
 }
 
 function normalizePermit(p, source) {
@@ -1227,9 +1171,8 @@ function showFreshnessBanner() {
   if (total === 0 && loaded.length === 0) {
     setBanner({
       kind: "error",
-      html: `No permits loaded. ${failed.length} source${failed.length === 1 ? "" : "s"} failed to load:
-             <ul>${failed.map((s) => `<li><strong>${escapeHtml(s.label)}</strong> (<code>${escapeHtml(s.dataFile)}</code>): ${escapeHtml(s.loadError)}</li>`).join("")}</ul>
-             Run <code>cd scraper &amp;&amp; python scrape_permits.py</code> to populate the data files.`,
+      html: `No permits loaded. ${failed.length} source${failed.length === 1 ? "" : "s"} failed to load.
+             Check the <a href="status.html">system status</a> page or try again later.`,
     });
     return;
   }
@@ -1250,21 +1193,21 @@ function showFreshnessBanner() {
     return `<li><strong>${escapeHtml(s.label)}</strong> (${escapeHtml(s.shortLabel)}): <strong>${s.permits.length.toLocaleString()}</strong> permit${s.permits.length === 1 ? "" : "s"}${ageMsg}${sampleTag}${statusTag}</li>`;
   }).filter(Boolean);
 
-  // Banner kind: error if all failed, sample/warn if any sample/scaffold/paywall, live otherwise.
-  let kind = "live";
+  // Banner kind: error if all failed, sample/warn if any sample/scaffold/paywall, cached otherwise.
+  let kind = "cached";
   let header;
   if (failed.length === SOURCES.length) {
     kind = "error";
-    header = `<strong>All ${SOURCES.length} sources failed to load.</strong>`;
+    header = `<strong>All ${SOURCES.length} sources failed to load.</strong> See <a href="status.html">system status</a>.`;
   } else if (sampleSources.length || scaffoldSources.length || paywallSources.length) {
     kind = sampleSources.length === loaded.length ? "sample" : "mixed";
     const tags = [];
-    if (sampleSources.length) tags.push(`${sampleSources.length} with sample data`);
-    if (scaffoldSources.length) tags.push(`${scaffoldSources.length} scraper scaffold${scaffoldSources.length === 1 ? "" : "s"}`);
-    if (paywallSources.length) tags.push(`${paywallSources.length} paywalled portal${paywallSources.length === 1 ? "" : "s"}`);
-    header = `<strong>${total.toLocaleString()} permit${total === 1 ? "" : "s"}</strong> loaded across ${loaded.length} source${loaded.length === 1 ? "" : "s"} &mdash; <span>${tags.join(", ")}</span>. See "How To Refresh" tab for what to do.`;
+    if (sampleSources.length) tags.push(`${sampleSources.length} sample source${sampleSources.length === 1 ? "" : "s"}`);
+    if (scaffoldSources.length) tags.push(`${scaffoldSources.length} scaffold source${scaffoldSources.length === 1 ? "" : "s"}`);
+    if (paywallSources.length) tags.push(`${paywallSources.length} blocked portal${paywallSources.length === 1 ? "" : "s"}`);
+    header = `<strong>${total.toLocaleString()} cached permit${total === 1 ? "" : "s"}</strong> across ${loaded.length} source${loaded.length === 1 ? "" : "s"} &mdash; <span>${tags.join(", ")}</span>. Not a live query — verify on official portals.`;
   } else {
-    header = `<strong>${total.toLocaleString()} permit${total === 1 ? "" : "s"}</strong> loaded across ${loaded.length} live source${loaded.length === 1 ? "" : "s"}.`;
+    header = `<strong>${total.toLocaleString()} cached permit${total === 1 ? "" : "s"}</strong> across ${loaded.length} municipal source${loaded.length === 1 ? "" : "s"}. Not a live query — always verify with the city or county portal.`;
   }
 
   setBanner({
@@ -1290,8 +1233,17 @@ function showFreshnessBanner() {
         scope: s.scope || s.fileScope,
       };
     });
-    DeedScoutTrust.mount("#source-health-table", "<h2 style=\"font-size:18px;font-family:'Cormorant Garamond',serif;margin:0 0 8px;\">Source health</h2>" + DeedScoutTrust.renderSourceTable(rows));
+    DeedScoutTrust.mount("#source-health-table", "<h2 style=\"font-size:18px;font-family:'Cormorant Garamond',serif;margin:0 0 8px;\">Source health</h2><p class=\"help\" style=\"margin:0 0 12px;color:var(--muted);font-size:13px;\">Cached municipal scrapes — not live queries. Full inventory on <a href=\"data-sources.html\">Data Sources</a>.</p>" + DeedScoutTrust.renderSourceTable(rows));
   }
+
+  updateSampleWarningBanner(sampleSources, paywallSources);
+}
+
+function updateSampleWarningBanner(sampleSources, paywallSources) {
+  const el = document.getElementById("sample-warning-banner");
+  if (!el) return;
+  const hasSample = (sampleSources && sampleSources.length) || (paywallSources && paywallSources.length);
+  el.hidden = !hasSample;
 }
 
 function freshnessDays(iso) {
@@ -2238,8 +2190,7 @@ function mergeManualJson(text) {
 
   status.textContent = `Merged ${added.length} permit${added.length === 1 ? "" : "s"}. Total cached now: ${STATE.data.permits.length} (was ${before}).`;
   status.style.color = "var(--success)";
-  document.getElementById("source-count").textContent =
-    SOURCES.filter((s) => s.loaded).length + " of " + SOURCES.length;
+  setSourceCountLabel();
   populateFilterSelects();
   applyFiltersAndRender();
 }
@@ -2402,20 +2353,6 @@ function attachListeners() {
   });
   document.querySelectorAll(".tab").forEach((t) => {
     t.addEventListener("click", () => switchTab(t.dataset.tab));
-  });
-  document.getElementById("manual-merge").addEventListener("click", () => {
-    mergeManualJson(document.getElementById("manual-json").value);
-  });
-  document.getElementById("manual-clear").addEventListener("click", () => {
-    document.getElementById("manual-json").value = "";
-    document.getElementById("manual-status").textContent = "";
-  });
-  document.getElementById("csv-file").addEventListener("change", (e) => {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = () => mergeManualCsv(String(reader.result));
-    reader.readAsText(f);
   });
   document.getElementById("map-geocode").addEventListener("click", geocodeVisible);
   document.getElementById("map-clear-cache").addEventListener("click", () => {

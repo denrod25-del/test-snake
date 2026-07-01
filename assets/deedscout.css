@@ -782,7 +782,28 @@ body.ds-tool .ds-form-light textarea {
   text-decoration: none;
 }
 body.ds-body .ds-nav-labs-menu a { border-bottom: none; color: var(--ink); }
-.ds-nav-labs-menu a:hover { background: var(--rule-soft); }
+  .ds-nav-labs-menu a:hover { background: var(--rule-soft); }
+
+/* ---------- Public beta + trust banners ---------- */
+.ds-beta-link { color: #ffd17a !important; border-bottom: 1px solid rgba(255,209,122,.4) !important; }
+.ds-beta-footer a { color: var(--accent-ink); border: none; }
+.ds-sample-banner {
+  background: #faecdb;
+  border: 2px solid #d8b58a;
+  color: #6b3e1f;
+  padding: 16px 20px;
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+.ds-sample-banner strong { display: block; font-size: 15px; margin-bottom: 6px; }
+.ds-trust-inline {
+  font-size: 13px;
+  color: var(--muted);
+  border-left: 3px solid var(--accent);
+  padding: 10px 14px;
+  margin: 0 0 20px;
+  background: var(--paper-2);
+}
 
 /* ---------- Conversion examples ---------- */
 .ds-example-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }

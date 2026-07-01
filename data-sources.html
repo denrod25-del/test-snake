@@ -8,30 +8,146 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/deedscout.css" />
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Dataset","name":"DeedScout Permit Sources","description":"Municipal permit coverage for DeedScout Permits module","url":"https://deedscout.netlify.app/data-sources.html"}
+  {"@context":"https://schema.org","@type":"Dataset","name":"DeedScout Data Sources","description":"Public inventory of DeedScout datasets and trust labels","url":"https://deedscout.netlify.app/data-sources.html"}
   </script>
 </head>
 <body class="ds-body">
 <main class="ds-main" style="padding-top:48px;">
-  <div class="ds-section-head"><p class="ds-section-label">Transparency</p><h1>Data sources</h1>
-  <p>Every module links to official county or municipal portals. DeedScout aggregates and labels — it does not replace official records.</p></div>
-  <div id="permit-sources-table"><p>Loading permit source inventory…</p></div>
+  <div class="ds-section-head">
+    <p class="ds-section-label">Transparency</p>
+    <h1>Data sources</h1>
+    <p>Every module links to official county or municipal portals. DeedScout aggregates and labels — it does not replace official records. Status meanings: <strong>Live</strong> (refreshed within 72h), <strong>Cached</strong> (real data, older), <strong>Sample</strong> (demo only), <strong>Blocked</strong> (portal paywall/reCAPTCHA), <strong>Broken</strong> (scraper failing), <strong>Coming Soon</strong> (UI only).</p>
+  </div>
+  <div id="dataset-inventory"><p>Loading dataset inventory…</p></div>
   <div class="ds-prose" style="margin-top:32px;">
-    <p><strong>Tax deeds (67 counties):</strong> Clerk tax deed pages and auction platforms (RealAuction, LienHub, DeedAuction, in-person). Sale date scrapes depend on upstream availability — see <a href="status.html">system status</a>.</p>
-    <p><strong>Surplus funds:</strong> County surplus claim portals where published; linked from county pages and Tax Deeds surplus registry.</p>
-    <p><strong>Subdivisions &amp; plats:</strong> Palm Beach County public records indexes — cached reference data, not live clerk filings.</p>
+    <p><strong>Categories covered:</strong> tax deed county links, auction platforms, parcel lookup, permit search, subdivision index, plat index, surplus funds.</p>
+    <p>Operational health and known outages: <a href="status.html">System status</a>.</p>
+    <p class="ds-trust-inline">Independent research tool. Not affiliated with any county or auction platform. Not legal, tax, title, or investment advice.</p>
   </div>
 </main>
 <script src="assets/data-trust.js"></script>
 <script src="assets/deedscout.js"></script>
 <script>
-fetch("data/permits/sources.json").then(function(r){return r.json();}).then(function(doc){
-  var rows = (doc.sources || []).map(function(s){
-    var st = DeedScoutTrust.permitTrustStatus({ status: s.status, scope: s.scope, lastUpdated: doc.generated });
-    return { label: s.label, status: st, count: null, lastRefreshed: doc.generated, portalUrl: s.portalUrl, scope: s.scope };
+(function () {
+  function permitRows(doc) {
+    return (doc.sources || []).map(function (s) {
+      var st = DeedScoutTrust.permitTrustStatus({ status: s.status, scope: s.scope, lastUpdated: doc.generated });
+      return {
+        name: "Permit search — " + s.label,
+        jurisdiction: (s.city ? s.city + ", " : "") + (s.county || "FL"),
+        sourceUrl: s.portalUrl,
+        status: st,
+        count: null,
+        lastSuccess: doc.generated,
+        lastAttempt: doc.generated,
+        limitations: s.scope || "",
+        verification: st === "sample" || st === "blocked"
+          ? "Sample or blocked — use official portal manually."
+          : "Cached municipal scrape — verify on official portal before outreach."
+      };
+    });
+  }
+
+  Promise.all([
+    fetch("data/permits/sources.json").then(function (r) { return r.json(); }),
+    fetch("sales.json").then(function (r) { return r.json(); }).catch(function () { return null; }),
+    fetch("data/subdivisions/manifest.json").then(function (r) { return r.json(); }).catch(function () { return null; }),
+    fetch("data/plats/manifest.json").then(function (r) { return r.json(); }).catch(function () { return null; })
+  ]).then(function (res) {
+    var permitsDoc = res[0];
+    var sales = res[1];
+    var subdiv = res[2];
+    var plats = res[3];
+    var rows = [];
+
+    rows.push({
+      name: "Tax deed county links",
+      jurisdiction: "Florida — 67 counties",
+      sourceUrl: "https://deedscout.netlify.app/tax-deeds.html",
+      status: "cached",
+      count: 67,
+      lastSuccess: "2026-04-18",
+      lastAttempt: sales && sales.generated,
+      limitations: "Manual link verification; sale date scraper broken upstream.",
+      verification: "Official clerk, PA, and auction source required before bidding."
+    });
+
+    rows.push({
+      name: "Auction platforms directory",
+      jurisdiction: "Florida statewide",
+      sourceUrl: "https://www.realauction.com",
+      status: "cached",
+      count: null,
+      lastSuccess: null,
+      lastAttempt: sales && sales.generated,
+      limitations: "Platform links only; automated sale calendar scrape failing (403).",
+      verification: "Confirm auction rules and sale list on vendor site."
+    });
+
+    rows.push({
+      name: "Parcel lookup",
+      jurisdiction: "Palm Beach County",
+      sourceUrl: "https://deedscout.netlify.app/parcel-lookup.html",
+      status: "cached",
+      count: null,
+      lastSuccess: null,
+      lastAttempt: null,
+      limitations: "Query-time GIS lookup; not a bulk export.",
+      verification: "Cross-check with Property Appraiser."
+    });
+
+    rows = rows.concat(permitRows(permitsDoc));
+
+    if (subdiv && subdiv.names) {
+      var subdivKeys = Object.keys(subdiv.names);
+      rows.push({
+        name: "Subdivision index",
+        jurisdiction: "Palm Beach County",
+        sourceUrl: "https://deedscout.netlify.app/subdivision-index.html",
+        status: "cached",
+        count: subdivKeys.length,
+        lastSuccess: subdivKeys.length ? subdiv.names[subdivKeys[0]].last_seen : null,
+        lastAttempt: subdivKeys.length ? subdiv.names[subdivKeys[0]].last_seen : null,
+        limitations: "Cached reference from public records index.",
+        verification: "Verify legal description with clerk or PA."
+      });
+    }
+
+    if (plats && plats.plat_ids) {
+      var platKeys = Object.keys(plats.plat_ids);
+      rows.push({
+        name: "Plat index",
+        jurisdiction: "Palm Beach County",
+        sourceUrl: "https://deedscout.netlify.app/plat-index.html",
+        status: "cached",
+        count: platKeys.length,
+        lastSuccess: platKeys.length ? plats.plat_ids[platKeys[0]].last_seen : null,
+        lastAttempt: platKeys.length ? plats.plat_ids[platKeys[0]].last_seen : null,
+        limitations: "Plat PDFs + OCR names; may contain errors.",
+        verification: "Use recorded plat at clerk."
+      });
+    }
+
+    rows.push({
+      name: "Surplus funds links",
+      jurisdiction: "Florida counties (where published)",
+      sourceUrl: "https://deedscout.netlify.app/tax-deeds.html#/surplus",
+      status: "cached",
+      count: null,
+      lastSuccess: null,
+      lastAttempt: null,
+      limitations: "Curated portal links; not claim filing automation.",
+      verification: "Follow county surplus claim procedures."
+    });
+
+    DeedScoutTrust.mount(
+      "#dataset-inventory",
+      DeedScoutTrust.renderDatasetTable(rows)
+    );
+  }).catch(function () {
+    document.getElementById("dataset-inventory").innerHTML = "<p>Could not load source manifest.</p>";
   });
-  DeedScoutTrust.mount("#permit-sources-table", "<h2 style=\"font-family:'Cormorant Garamond',serif;\">DeedScout Permits — source inventory</h2>" + DeedScoutTrust.renderSourceTable(rows));
-}).catch(function(){ document.getElementById("permit-sources-table").innerHTML = "<p>Could not load source manifest.</p>"; });
+})();
 </script>
 </body>
 </html>

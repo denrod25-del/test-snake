@@ -1,0 +1,1074 @@
+{
+  "Alachua": {
+    "region": "North Central",
+    "pa": {
+      "url": "https://www.acpafl.org",
+      "label": "acpafl.org"
+    },
+    "clerk": {
+      "url": "https://www.alachuaclerk.org/court_records/tax_deeds.aspx",
+      "label": "Alachua Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://alachua.realtaxdeed.com",
+      "label": "alachua.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Baker": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.bakerpa.com",
+      "label": "bakerpa.com"
+    },
+    "clerk": {
+      "url": "https://www.bakercountyfl.org/clerk-of-court",
+      "label": "Baker Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.bakercountyfl.org/clerk-of-court",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Bay": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.baypa.net",
+      "label": "baypa.net"
+    },
+    "clerk": {
+      "url": "https://www.baycoclerk.com/court-records/tax-deeds/",
+      "label": "Bay Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://bay.realtaxdeed.com",
+      "label": "bay.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Bradford": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.bradfordappraiser.com",
+      "label": "bradfordappraiser.com"
+    },
+    "clerk": {
+      "url": "https://www.bradford-co-fla.org",
+      "label": "Bradford Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.bradford-co-fla.org",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Brevard": {
+    "region": "East Central",
+    "pa": {
+      "url": "https://www.bcpao.us",
+      "label": "bcpao.us"
+    },
+    "clerk": {
+      "url": "https://www.brevardclerk.us/tax-deeds",
+      "label": "Brevard Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://brevard.realtaxdeed.com",
+      "label": "brevard.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Broward": {
+    "region": "Southeast",
+    "pa": {
+      "url": "https://web.bcpa.net",
+      "label": "bcpa.net"
+    },
+    "clerk": {
+      "url": "https://www.browardclerk.org/Divisions/RealEstate",
+      "label": "Broward Clerk &mdash; Real Estate"
+    },
+    "auction": {
+      "url": "https://broward.deedauction.net",
+      "label": "broward.deedauction.net"
+    },
+    "taxCollector": null
+  },
+  "Calhoun": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.calhounpa.net",
+      "label": "calhounpa.net"
+    },
+    "clerk": {
+      "url": "https://www.calhounclerk.com",
+      "label": "Calhoun Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.calhounclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Charlotte": {
+    "region": "Southwest",
+    "pa": {
+      "url": "https://www.ccappraiser.com",
+      "label": "ccappraiser.com"
+    },
+    "clerk": {
+      "url": "https://www.charlotteclerk.com/departments/recording/tax-deeds",
+      "label": "Charlotte Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://charlotte.realtaxdeed.com",
+      "label": "charlotte.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Citrus": {
+    "region": "West Central",
+    "pa": {
+      "url": "https://www.citruspa.org",
+      "label": "citruspa.org"
+    },
+    "clerk": {
+      "url": "https://www.citrusclerk.org/186/Tax-Deed-Sales",
+      "label": "Citrus Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://citrus.realtaxdeed.com",
+      "label": "citrus.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Clay": {
+    "region": "Northeast",
+    "pa": {
+      "url": "https://www.ccpao.com",
+      "label": "ccpao.com"
+    },
+    "clerk": {
+      "url": "https://www.clayclerk.com/courts/tax-deeds/",
+      "label": "Clay Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://clay.realtaxdeed.com",
+      "label": "clay.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Collier": {
+    "region": "Southwest",
+    "pa": {
+      "url": "https://www.collierappraiser.com",
+      "label": "collierappraiser.com"
+    },
+    "clerk": {
+      "url": "https://www.collierclerk.com/finance/tax-deeds/",
+      "label": "Collier Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://collier.realtaxdeed.com",
+      "label": "collier.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Columbia": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.columbia.floridapa.com",
+      "label": "columbia.floridapa.com"
+    },
+    "clerk": {
+      "url": "https://www.columbiaclerk.com/tax-deed-sales",
+      "label": "Columbia Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://columbia.realtaxdeed.com",
+      "label": "columbia.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "DeSoto": {
+    "region": "South Central",
+    "pa": {
+      "url": "https://www.desotopa.com",
+      "label": "desotopa.com"
+    },
+    "clerk": {
+      "url": "https://www.desotoclerk.com",
+      "label": "DeSoto Clerk of Court"
+    },
+    "auction": {
+      "url": "https://desoto.realtaxdeed.com",
+      "label": "desoto.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Dixie": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.dixiepa.com",
+      "label": "dixiepa.com"
+    },
+    "clerk": {
+      "url": "https://www.dixieclerk.com",
+      "label": "Dixie Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.dixieclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Duval": {
+    "region": "Northeast",
+    "pa": {
+      "url": "https://paopropertysearch.coj.net",
+      "label": "coj.net (PA Search)"
+    },
+    "clerk": {
+      "url": "https://www.duvalclerk.com/court-records/tax-deeds",
+      "label": "Duval Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://duval.realtaxdeed.com",
+      "label": "duval.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Escambia": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.escpa.org",
+      "label": "escpa.org"
+    },
+    "clerk": {
+      "url": "https://www.escambiaclerk.com/175/Tax-Deeds",
+      "label": "Escambia Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://escambia.realtaxdeed.com",
+      "label": "escambia.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Flagler": {
+    "region": "East Central",
+    "pa": {
+      "url": "https://www.flaglerpa.com",
+      "label": "flaglerpa.com"
+    },
+    "clerk": {
+      "url": "https://www.flaglerclerk.com/199/Tax-Deeds",
+      "label": "Flagler Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://flagler.realtaxdeed.com",
+      "label": "flagler.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Franklin": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.franklincountypa.net",
+      "label": "franklincountypa.net"
+    },
+    "clerk": {
+      "url": "https://www.franklinclerk.com",
+      "label": "Franklin Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.franklinclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Gadsden": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.gadsdenpa.com",
+      "label": "gadsdenpa.com"
+    },
+    "clerk": {
+      "url": "https://www.gadsdenclerk.com",
+      "label": "Gadsden Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.gadsdenclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Gilchrist": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.gilchrist.fl.us",
+      "label": "gilchrist.fl.us (PA)"
+    },
+    "clerk": {
+      "url": "https://www.gilchristclerk.com",
+      "label": "Gilchrist Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.gilchristclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Glades": {
+    "region": "South Central",
+    "pa": {
+      "url": "https://www.gladespa.com",
+      "label": "gladespa.com"
+    },
+    "clerk": {
+      "url": "https://www.gladesclerk.com",
+      "label": "Glades Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.gladesclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Gulf": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.gulfpa.com",
+      "label": "gulfpa.com"
+    },
+    "clerk": {
+      "url": "https://www.gulfclerk.com",
+      "label": "Gulf Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.gulfclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Hamilton": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.hamiltonpa.com",
+      "label": "hamiltonpa.com"
+    },
+    "clerk": {
+      "url": "https://www.hamiltonclerk.com",
+      "label": "Hamilton Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.hamiltonclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Hardee": {
+    "region": "South Central",
+    "pa": {
+      "url": "https://www.hardeepa.com",
+      "label": "hardeepa.com"
+    },
+    "clerk": {
+      "url": "https://www.hardeeclerk.com",
+      "label": "Hardee Clerk of Court"
+    },
+    "auction": {
+      "url": "https://hardee.realtaxdeed.com",
+      "label": "hardee.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Hendry": {
+    "region": "Southwest",
+    "pa": {
+      "url": "https://www.hendryprop.com",
+      "label": "hendryprop.com"
+    },
+    "clerk": {
+      "url": "https://www.hendryclerk.org",
+      "label": "Hendry Clerk of Court"
+    },
+    "auction": {
+      "url": "https://hendry.realtaxdeed.com",
+      "label": "hendry.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Hernando": {
+    "region": "West Central",
+    "pa": {
+      "url": "https://www.hernandopa-fl.us",
+      "label": "hernandopa-fl.us"
+    },
+    "clerk": {
+      "url": "https://www.hernandoclerk.com/261/Tax-Deeds",
+      "label": "Hernando Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://hernando.realtaxdeed.com",
+      "label": "hernando.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Highlands": {
+    "region": "South Central",
+    "pa": {
+      "url": "https://www.appraiser.co.highlands.fl.us",
+      "label": "appraiser.co.highlands.fl.us"
+    },
+    "clerk": {
+      "url": "https://www.hcclerk.org/Default/Tax-Deeds",
+      "label": "Highlands Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://highlands.realtaxdeed.com",
+      "label": "highlands.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Hillsborough": {
+    "region": "West Central",
+    "pa": {
+      "url": "https://www.hcpafl.org",
+      "label": "hcpafl.org"
+    },
+    "clerk": {
+      "url": "https://www.hillsclerk.com/court-records/tax-deeds",
+      "label": "Hillsborough Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://hillsborough.realtaxdeed.com",
+      "label": "hillsborough.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Holmes": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.holmespa.org",
+      "label": "holmespa.org"
+    },
+    "clerk": {
+      "url": "https://www.holmesclerk.com",
+      "label": "Holmes Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.holmesclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Indian River": {
+    "region": "East Central",
+    "pa": {
+      "url": "https://www.ircpa.org",
+      "label": "ircpa.org"
+    },
+    "clerk": {
+      "url": "https://www.clerk.indian-river.org/i-want-to/learn-about/tax-deeds",
+      "label": "IRC Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://indian-river.realtaxdeed.com",
+      "label": "indian-river.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Jackson": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.jacksoncountyfl.net",
+      "label": "jacksoncountyfl.net"
+    },
+    "clerk": {
+      "url": "https://www.jacksonclerk.com",
+      "label": "Jackson Clerk of Court"
+    },
+    "auction": {
+      "url": "https://jackson.realtaxdeed.com",
+      "label": "jackson.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Jefferson": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.jeffersonpa.net",
+      "label": "jeffersonpa.net"
+    },
+    "clerk": {
+      "url": "https://www.jeffersonclerk.com",
+      "label": "Jefferson Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.jeffersonclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Lafayette": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.lafayettepa.com",
+      "label": "lafayettepa.com"
+    },
+    "clerk": {
+      "url": "https://www.lafayetteclerk.com",
+      "label": "Lafayette Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.lafayetteclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Lake": {
+    "region": "Central",
+    "pa": {
+      "url": "https://www.lakecopropappr.com",
+      "label": "lakecopropappr.com"
+    },
+    "clerk": {
+      "url": "https://www.lakecountyclerk.org/court_services/tax_deeds.aspx",
+      "label": "Lake Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://lake.realtaxdeed.com",
+      "label": "lake.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Lee": {
+    "region": "Southwest",
+    "pa": {
+      "url": "https://www.leepa.org",
+      "label": "leepa.org"
+    },
+    "clerk": {
+      "url": "https://www.leeclerk.org/records-and-information/tax-deeds",
+      "label": "Lee Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://lee.realtaxdeed.com",
+      "label": "lee.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Leon": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.leonpa.gov",
+      "label": "leonpa.gov"
+    },
+    "clerk": {
+      "url": "https://cvweb.leonclerk.com/public/online_services/tax_deed_search/",
+      "label": "Leon Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://leon.realtaxdeed.com",
+      "label": "leon.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Levy": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.levypa.com",
+      "label": "levypa.com"
+    },
+    "clerk": {
+      "url": "https://www.levyclerk.com",
+      "label": "Levy Clerk of Court"
+    },
+    "auction": {
+      "url": "https://levy.realtaxdeed.com",
+      "label": "levy.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Liberty": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.libertypa.org",
+      "label": "libertypa.org"
+    },
+    "clerk": {
+      "url": "https://www.libertyclerk.com",
+      "label": "Liberty Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.libertyclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Madison": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.madisonpa.com",
+      "label": "madisonpa.com"
+    },
+    "clerk": {
+      "url": "https://www.madisonclerk.com",
+      "label": "Madison Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.madisonclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Manatee": {
+    "region": "West Central",
+    "pa": {
+      "url": "https://www.manateepao.gov",
+      "label": "manateepao.gov"
+    },
+    "clerk": {
+      "url": "https://www.manateeclerk.com/Departments/Recording/TaxDeeds",
+      "label": "Manatee Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://manatee.realtaxdeed.com",
+      "label": "manatee.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Marion": {
+    "region": "North Central",
+    "pa": {
+      "url": "https://www.pa.marion.fl.us",
+      "label": "pa.marion.fl.us"
+    },
+    "clerk": {
+      "url": "https://www.marioncountyclerk.org/public-records/tax-deeds/",
+      "label": "Marion Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://marion.realtaxdeed.com",
+      "label": "marion.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Martin": {
+    "region": "Treasure Coast",
+    "pa": {
+      "url": "https://www.pa.martin.fl.us",
+      "label": "pa.martin.fl.us"
+    },
+    "clerk": {
+      "url": "https://www.martinclerk.com/tax-deeds",
+      "label": "Martin Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://martin.realtaxdeed.com",
+      "label": "martin.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Miami-Dade": {
+    "region": "Southeast",
+    "pa": {
+      "url": "https://www.miamidade.gov/pa",
+      "label": "miamidade.gov/pa"
+    },
+    "clerk": {
+      "url": "https://www.miamidadeclerk.gov/clerk/tax-deeds.page",
+      "label": "Miami-Dade Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://miamidade.realtaxdeed.com",
+      "label": "miamidade.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Monroe": {
+    "region": "Florida Keys",
+    "pa": {
+      "url": "https://www.mcpafl.org",
+      "label": "mcpafl.org"
+    },
+    "clerk": {
+      "url": "https://www.monroe-clerk.com/tax-deed-sales",
+      "label": "Monroe Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://monroe.realtaxdeed.com",
+      "label": "monroe.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Nassau": {
+    "region": "Northeast",
+    "pa": {
+      "url": "https://www.nassauflpa.com",
+      "label": "nassauflpa.com"
+    },
+    "clerk": {
+      "url": "https://www.nassauclerk.com/tax-deed-sales",
+      "label": "Nassau Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://nassau.realtaxdeed.com",
+      "label": "nassau.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Okaloosa": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.okaloosapa.com",
+      "label": "okaloosapa.com"
+    },
+    "clerk": {
+      "url": "https://www.okaloosaclerk.com/courts/tax-deed-sales/",
+      "label": "Okaloosa Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://okaloosa.realtaxdeed.com",
+      "label": "okaloosa.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Okeechobee": {
+    "region": "South Central",
+    "pa": {
+      "url": "https://www.okeechobeepa.com",
+      "label": "okeechobeepa.com"
+    },
+    "clerk": {
+      "url": "https://www.clerk.co.okeechobee.fl.us",
+      "label": "Okeechobee Clerk of Court"
+    },
+    "auction": {
+      "url": "https://okeechobee.realtaxdeed.com",
+      "label": "okeechobee.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Orange": {
+    "region": "Central",
+    "pa": {
+      "url": "https://www.ocpafl.org",
+      "label": "ocpafl.org"
+    },
+    "clerk": {
+      "url": "https://myorangeclerk.com/Divisions/Tax-Deeds",
+      "label": "Orange Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://orange.realtaxdeed.com",
+      "label": "orange.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Osceola": {
+    "region": "Central",
+    "pa": {
+      "url": "https://www.property-appraiser.org",
+      "label": "property-appraiser.org"
+    },
+    "clerk": {
+      "url": "https://www.osceolaclerk.com/civil/tax-deeds.html",
+      "label": "Osceola Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://osceola.realtaxdeed.com",
+      "label": "osceola.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Palm Beach": {
+    "region": "Southeast",
+    "pa": {
+      "url": "https://www.pbcpao.gov",
+      "label": "pbcpao.gov"
+    },
+    "clerk": {
+      "url": "https://www.mypalmbeachclerk.com/departments/finance/tax-deed-sales",
+      "label": "PB Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://palmbeach.realtaxdeed.com",
+      "label": "palmbeach.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Pasco": {
+    "region": "West Central",
+    "pa": {
+      "url": "https://www.pascopa.com",
+      "label": "pascopa.com"
+    },
+    "clerk": {
+      "url": "https://www.pascoclerk.com/253/Tax-Deeds",
+      "label": "Pasco Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://pasco.realtaxdeed.com",
+      "label": "pasco.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Pinellas": {
+    "region": "West Central",
+    "pa": {
+      "url": "https://www.pcpao.gov",
+      "label": "pcpao.gov"
+    },
+    "clerk": {
+      "url": "https://www.mypinellasclerk.gov/Home/TaxDeed",
+      "label": "Pinellas Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://pinellas.realtaxdeed.com",
+      "label": "pinellas.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Polk": {
+    "region": "Central",
+    "pa": {
+      "url": "https://www.polkpa.org",
+      "label": "polkpa.org"
+    },
+    "clerk": {
+      "url": "https://www.polkcountyclerk.net/319/Tax-Deeds",
+      "label": "Polk Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://polk.realtaxdeed.com",
+      "label": "polk.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Putnam": {
+    "region": "Northeast",
+    "pa": {
+      "url": "https://www.pa.putnam-fl.com",
+      "label": "pa.putnam-fl.com"
+    },
+    "clerk": {
+      "url": "https://www.putnam-fl.com/coc/tax-deeds",
+      "label": "Putnam Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://putnam.realtaxdeed.com",
+      "label": "putnam.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "St. Johns": {
+    "region": "Northeast",
+    "pa": {
+      "url": "https://www.sjcpa.gov",
+      "label": "sjcpa.gov"
+    },
+    "clerk": {
+      "url": "https://www.stjohnsclerk.com/tax-deeds/",
+      "label": "St. Johns Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://stjohns.realtaxdeed.com",
+      "label": "stjohns.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "St. Lucie": {
+    "region": "Treasure Coast",
+    "pa": {
+      "url": "https://www.paslc.gov",
+      "label": "paslc.gov"
+    },
+    "clerk": {
+      "url": "https://www.stlucieclerk.com/tax-deeds",
+      "label": "St. Lucie Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://stlucie.realtaxdeed.com",
+      "label": "stlucie.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Santa Rosa": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.srcpa.org",
+      "label": "srcpa.org"
+    },
+    "clerk": {
+      "url": "https://www.santarosaclerk.com/tax-deeds",
+      "label": "Santa Rosa Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://santarosa.realtaxdeed.com",
+      "label": "santarosa.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Sarasota": {
+    "region": "Southwest",
+    "pa": {
+      "url": "https://www.sc-pa.com",
+      "label": "sc-pa.com"
+    },
+    "clerk": {
+      "url": "https://www.sarasotaclerk.com/court-records/civil-court-records/tax-deeds",
+      "label": "Sarasota Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://sarasota.realtaxdeed.com",
+      "label": "sarasota.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Seminole": {
+    "region": "Central",
+    "pa": {
+      "url": "https://www.scpafl.org",
+      "label": "scpafl.org"
+    },
+    "clerk": {
+      "url": "https://www.seminoleclerk.org/Pages/Tax-Deeds.aspx",
+      "label": "Seminole Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://seminole.realtaxdeed.com",
+      "label": "seminole.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Sumter": {
+    "region": "Central",
+    "pa": {
+      "url": "https://www.sumterpa.com",
+      "label": "sumterpa.com"
+    },
+    "clerk": {
+      "url": "https://www.sumterclerk.com/tax-deeds",
+      "label": "Sumter Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://sumter.realtaxdeed.com",
+      "label": "sumter.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Suwannee": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.suwanneepa.com",
+      "label": "suwanneepa.com"
+    },
+    "clerk": {
+      "url": "https://www.suwanneeclerk.com",
+      "label": "Suwannee Clerk of Court"
+    },
+    "auction": {
+      "url": "https://suwannee.realtaxdeed.com",
+      "label": "suwannee.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Taylor": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.taylorcountypa.com",
+      "label": "taylorcountypa.com"
+    },
+    "clerk": {
+      "url": "https://www.taylorclerk.com",
+      "label": "Taylor Clerk of Court"
+    },
+    "auction": {
+      "url": "https://taylor.realtaxdeed.com",
+      "label": "taylor.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Union": {
+    "region": "North",
+    "pa": {
+      "url": "https://www.unionpa.com",
+      "label": "unionpa.com"
+    },
+    "clerk": {
+      "url": "https://www.unionclerk.com",
+      "label": "Union Clerk of Court"
+    },
+    "auction": {
+      "url": "https://www.unionclerk.com",
+      "label": "In-Person at Courthouse"
+    },
+    "taxCollector": null
+  },
+  "Volusia": {
+    "region": "East Central",
+    "pa": {
+      "url": "https://vcpa.vcgov.org",
+      "label": "vcpa.vcgov.org"
+    },
+    "clerk": {
+      "url": "https://www.clerk.org/tax-deeds",
+      "label": "Volusia Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://volusia.realtaxdeed.com",
+      "label": "volusia.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Wakulla": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.mywakullapa.com",
+      "label": "mywakullapa.com"
+    },
+    "clerk": {
+      "url": "https://www.wakullaclerk.com",
+      "label": "Wakulla Clerk of Court"
+    },
+    "auction": {
+      "url": "https://wakulla.realtaxdeed.com",
+      "label": "wakulla.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Walton": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.waltonpa.com",
+      "label": "waltonpa.com"
+    },
+    "clerk": {
+      "url": "https://www.waltonclerk.com/tax-deeds",
+      "label": "Walton Clerk &mdash; Tax Deeds"
+    },
+    "auction": {
+      "url": "https://walton.realtaxdeed.com",
+      "label": "walton.realtaxdeed.com"
+    },
+    "taxCollector": null
+  },
+  "Washington": {
+    "region": "Panhandle",
+    "pa": {
+      "url": "https://www.washingtonflpa.org",
+      "label": "washingtonflpa.org"
+    },
+    "clerk": {
+      "url": "https://www.washingtonclerk.com",
+      "label": "Washington Clerk of Court"
+    },
+    "auction": {
+      "url": "https://washington.realtaxdeed.com",
+      "label": "washington.realtaxdeed.com"
+    },
+    "taxCollector": null
+  }
+}

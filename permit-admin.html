@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Permit Data Admin — DeedScout (internal)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/deedscout.css" />
+</head>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:48px;max-width:900px;">
+  <div class="ds-section-head">
+    <p class="ds-section-label">Internal</p>
+    <h1>Permit data refresh (admin)</h1>
+    <p>Developer and operator notes for refreshing cached permit JSON. Not linked from public Permit Search — use <a href="permit-search.html">public search</a> for research.</p>
+  </div>
+
+  <div class="ds-prose">
+    <h2>How to refresh permit data</h2>
+    <p>The public page reads <code>data/permits/sources.json</code> at boot, then loads each entry's <code>dataFile</code> in parallel. After a scrape, hard-refresh the public page (Ctrl+Shift+R).</p>
+
+    <h3>Scraper commands</h3>
+    <pre class="ds-example">cd scraper
+pip install -r requirements.txt
+python scrape_permits.py -v
+python scrape_permits.py --only "West Palm Beach" -v</pre>
+    <p>Default lookback is 90 days (configurable in <code>parsers_permits.py</code>). Output paths match <code>dataFile</code> in the manifest.</p>
+
+    <h3>File paths</h3>
+    <ul>
+      <li><code>data/permits/sources.json</code> — frontend manifest</li>
+      <li><code>scraper/sources_permits.json</code> — scraper jurisdiction config</li>
+      <li><code>data/permits/west-palm-beach.json</code>, <code>boca-raton.json</code>, etc. — cached permit files</li>
+      <li><code>scraper/parsers_permits.py</code> — Tyler / Click2Gov / SagesGov parsers</li>
+    </ul>
+
+    <h3>Status legend</h3>
+    <ul>
+      <li><strong>active</strong> — scraper works; file is real cached municipal data</li>
+      <li><strong>sample / unsupported_paywall</strong> — demo or blocked portal; do not label as live on public pages</li>
+      <li><strong>scaffold</strong> — parser stub; sample data until reverse-engineered</li>
+    </ul>
+
+    <h3>Adding a new city portal</h3>
+    <ol>
+      <li>Add parser in <code>scraper/parsers_permits.py</code> and register in <code>PERMIT_PARSERS</code>.</li>
+      <li>Add entry to <code>scraper/sources_permits.json</code>.</li>
+      <li>Add matching entry to <code>data/permits/sources.json</code>.</li>
+      <li>Run scraper; verify JSON shape with <code>scraper/tests/test_permit_output_shape.py</code>.</li>
+    </ol>
+
+    <h3>Manual upload (session-only)</h3>
+    <p>Paste JSON or CSV below to test merges locally. Does not write to disk.</p>
+    <textarea id="manual-json" rows="8" style="width:100%;font-family:monospace;font-size:12px;"></textarea>
+    <p><button class="ds-btn ds-btn-secondary" type="button" id="manual-hint">Open public search after merge — use browser devtools on permit-admin only for testing.</button></p>
+  </div>
+
+  <p class="ds-trust-inline"><a href="status.html">System status</a> · <a href="data-sources.html">Data sources inventory</a></p>
+</main>
+<script src="assets/deedscout.js"></script>
+</body>
+</html>

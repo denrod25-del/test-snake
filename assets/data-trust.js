@@ -200,6 +200,35 @@
     );
   }
 
+  /** Full dataset inventory table (data-sources / status pages) */
+  function renderDatasetTable(rows) {
+    if (!rows || !rows.length) return "";
+    var head =
+      "<thead><tr><th>Dataset</th><th>Jurisdiction</th><th>Status</th><th>Records</th><th>Last success</th><th>Last attempt</th><th>Limitations</th><th>Verify</th></tr></thead>";
+    var body = rows
+      .map(function (r) {
+        return (
+          "<tr>" +
+          "<td><strong>" + escapeHtml(r.name || r.label) + "</strong>" +
+          (r.sourceUrl ? '<div class="ds-status-sub"><a href="' + escapeHtml(r.sourceUrl) + '" target="_blank" rel="noopener">' + escapeHtml(r.sourceUrl.replace(/^https?:\/\//, "")) + "</a></div>" : "") +
+          "</td>" +
+          "<td>" + escapeHtml(r.jurisdiction || "—") + "</td>" +
+          "<td>" + renderBadge(r.status, { compact: true }) + "</td>" +
+          "<td>" + (r.count != null ? escapeHtml(String(r.count)) : "—") + "</td>" +
+          "<td>" + escapeHtml(r.lastSuccess ? formatDate(r.lastSuccess) : "—") + "</td>" +
+          "<td>" + escapeHtml(r.lastAttempt ? formatDate(r.lastAttempt) : "—") + "</td>" +
+          "<td>" + escapeHtml(r.limitations || "—") + "</td>" +
+          "<td>" + escapeHtml(r.verification || "Official county/municipal source required") + "</td>" +
+          "</tr>"
+        );
+      })
+      .join("");
+    return (
+      '<div class="ds-table-wrap"><table class="ds-source-table ds-dataset-table">' +
+      head + "<tbody>" + body + "</tbody></table></div>"
+    );
+  }
+
   function mount(selector, html) {
     var el = typeof selector === "string" ? document.querySelector(selector) : selector;
     if (el) el.innerHTML = html;
@@ -213,6 +242,7 @@
     renderBadge: renderBadge,
     renderTrustPanel: renderTrustPanel,
     renderSourceTable: renderSourceTable,
+    renderDatasetTable: renderDatasetTable,
     mount: mount,
     escapeHtml: escapeHtml,
   };

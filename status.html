@@ -4,32 +4,167 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>System Status — DeedScout</title>
-  <meta name="description" content="DeedScout scraper health, source status, and known issues." />
+  <meta name="description" content="DeedScout dataset health, scraper status, and known issues." />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/deedscout.css" />
 </head>
 <body class="ds-body">
 <main class="ds-main" style="padding-top:48px;">
-  <div class="ds-section-head"><p class="ds-section-label">Operations</p><h1>System status</h1></div>
+  <div class="ds-section-head">
+    <p class="ds-section-label">Operations</p>
+    <h1>System status</h1>
+    <p>Public Beta — data coverage varies by county and source. Full inventory on <a href="data-sources.html">Data Sources</a>.</p>
+  </div>
   <div id="status-panels"></div>
+  <div id="status-inventory" style="margin-top:32px;"></div>
   <div class="ds-prose" style="margin-top:24px;">
-    <p><strong>Known issues:</strong></p>
+    <p><strong>Known issues</strong></p>
     <ul>
-      <li>RealAuction tax deed sale scraper: <span class="ds-status ds-status-broken">Broken</span> (403 from upstream) — county links remain official; sale dates not auto-refreshed.</li>
+      <li>RealAuction tax deed sale scraper: <span class="ds-status ds-status-broken">Broken</span> (403 from upstream) — county auction links remain official; sale dates not auto-refreshed.</li>
       <li>Palm Beach unincorporated permits: <span class="ds-status ds-status-sample">Sample</span> (4 demo records) — county portal requires reCAPTCHA.</li>
       <li>Royal Palm Beach &amp; Boynton Beach permits: <span class="ds-status ds-status-sample">Sample</span> — no public bulk API.</li>
     </ul>
+    <p class="ds-trust-inline">Operators: permit refresh instructions live on <a href="permit-admin.html">permit-admin.html</a> (not indexed).</p>
   </div>
 </main>
 <script src="assets/data-trust.js"></script>
 <script src="assets/deedscout.js"></script>
 <script>
-(function(){
+(function () {
   var html = "";
-  html += DeedScoutTrust.renderTrustPanel({ status: "broken", headline: "Tax deed sale scraper", source: "RealAuction / LienHub / DeedAuction", verification: "Use official auction links on each county page until scraper recovers." });
-  html += DeedScoutTrust.renderTrustPanel({ status: "live", headline: "Tyler EnerGov permit scrapes (WPB, Boca, Jupiter, St. Lucie)", source: "Municipal Tyler SelfService portals", lastRefreshed: new Date().toISOString(), verification: "Confirm permit details on official portal before outreach." });
-  html += DeedScoutTrust.renderTrustPanel({ status: "sample", headline: "Palm Beach unincorporated + RPB + Boynton permit files", large: true, note: "Demo data only. West Palm Beach alone has ~4,000 live permits — do not confuse with county sample file." });
+  html += DeedScoutTrust.renderTrustPanel({
+    status: "broken",
+    headline: "Tax deed sale date scraper",
+    source: "RealAuction / LienHub / DeedAuction aggregators",
+    verification: "Use official auction links on each county page until scraper recovers.",
+    note: "67 county link sets are maintained manually; scraped sale calendars are not reliable today."
+  });
+  html += DeedScoutTrust.renderTrustPanel({
+    status: "cached",
+    headline: "Tyler EnerGov permit scrapes (WPB, Boca, Jupiter, St. Lucie)",
+    source: "Municipal Tyler SelfService portals",
+    verification: "Cached snapshot — not a live query. Confirm permit details on official portal before outreach."
+  });
+  html += DeedScoutTrust.renderTrustPanel({
+    status: "sample",
+    headline: "Palm Beach unincorporated + RPB + Boynton permit files",
+    large: true,
+    note: "Sample data only. West Palm Beach alone has ~4,000 cached Tyler permits — do not confuse with the 4-record county sample file."
+  });
   DeedScoutTrust.mount("#status-panels", html);
+
+  Promise.all([
+    fetch("data/permits/sources.json").then(function (r) { return r.json(); }),
+    fetch("sales.json").then(function (r) { return r.json(); }).catch(function () { return null; }),
+    fetch("data/subdivisions/manifest.json").then(function (r) { return r.json(); }).catch(function () { return null; }),
+    fetch("data/plats/manifest.json").then(function (r) { return r.json(); }).catch(function () { return null; })
+  ]).then(function (results) {
+    var permits = results[0];
+    var sales = results[1];
+    var subdiv = results[2];
+    var plats = results[3];
+    var rows = [];
+
+    rows.push({
+      name: "DeedScout Tax Deeds — county directory",
+      jurisdiction: "Florida (67 counties)",
+      sourceUrl: "https://deedscout.netlify.app/tax-deeds.html",
+      status: "cached",
+      count: 67,
+      lastSuccess: sales && sales.generated,
+      lastAttempt: sales && sales.generated,
+      limitations: "Official clerk/PA/auction links; scraped sale dates unavailable (scraper broken).",
+      verification: "Verify sale dates and parcel details with clerk and auction site before bidding."
+    });
+
+    if (sales && sales.stats) {
+      rows.push({
+        name: "Tax deed sale calendar scraper",
+        jurisdiction: "Multi-county (RealAuction et al.)",
+        sourceUrl: "https://www.realauction.com",
+        status: sales.stats.scraped > 0 ? "cached" : "broken",
+        count: sales.stats.scraped || 0,
+        lastSuccess: sales.stats.scraped > 0 ? sales.generated : null,
+        lastAttempt: sales.generated,
+        limitations: "Upstream 403 errors; 42 sources failed on last run.",
+        verification: "Official auction portal required before bidding."
+      });
+    }
+
+    rows.push({
+      name: "Parcel lookup (Palm Beach GIS)",
+      jurisdiction: "Palm Beach County",
+      sourceUrl: "https://deedscout.netlify.app/parcel-lookup.html",
+      status: "cached",
+      count: null,
+      lastSuccess: null,
+      lastAttempt: null,
+      limitations: "Live GIS query to county servers when you search; not bulk-cached.",
+      verification: "Match parcel ID and owner with Property Appraiser record."
+    });
+
+    (permits.sources || []).forEach(function (s) {
+      var st = DeedScoutTrust.permitTrustStatus({ status: s.status, scope: s.scope, lastUpdated: permits.generated });
+      rows.push({
+        name: "Permits — " + s.label,
+        jurisdiction: s.county || "Palm Beach area",
+        sourceUrl: s.portalUrl,
+        status: st,
+        count: null,
+        lastSuccess: permits.generated,
+        lastAttempt: permits.generated,
+        limitations: s.scope || "",
+        verification: st === "sample" ? "Demo only — use official portal." : "Confirm on municipal portal before outreach."
+      });
+    });
+
+    if (subdiv && subdiv.names) {
+      rows.push({
+        name: "Subdivision index",
+        jurisdiction: "Palm Beach County",
+        sourceUrl: "https://deedscout.netlify.app/subdivision-index.html",
+        status: "cached",
+        count: Object.keys(subdiv.names).length,
+        lastSuccess: subdiv.names[Object.keys(subdiv.names)[0]] && subdiv.names[Object.keys(subdiv.names)[0]].last_seen,
+        lastAttempt: subdiv.names[Object.keys(subdiv.names)[0]] && subdiv.names[Object.keys(subdiv.names)[0]].last_seen,
+        limitations: "Reference index from public records; not live clerk filings.",
+        verification: "Verify plat/subdivision with clerk or PA."
+      });
+    }
+
+    if (plats && plats.plat_ids) {
+      rows.push({
+        name: "Plat index",
+        jurisdiction: "Palm Beach County",
+        sourceUrl: "https://deedscout.netlify.app/plat-index.html",
+        status: "cached",
+        count: Object.keys(plats.plat_ids).length,
+        lastSuccess: plats.plat_ids[Object.keys(plats.plat_ids)[0]] && plats.plat_ids[Object.keys(plats.plat_ids)[0]].last_seen,
+        lastAttempt: plats.plat_ids[Object.keys(plats.plat_ids)[0]] && plats.plat_ids[Object.keys(plats.plat_ids)[0]].last_seen,
+        limitations: "PDF plat sheets from PBC; OCR names may contain errors.",
+        verification: "Use official recorded plat at clerk."
+      });
+    }
+
+    rows.push({
+      name: "Surplus funds registry",
+      jurisdiction: "Florida counties (where published)",
+      sourceUrl: "https://deedscout.netlify.app/tax-deeds.html#/surplus",
+      status: "cached",
+      count: null,
+      lastSuccess: null,
+      lastAttempt: null,
+      limitations: "Links to county surplus claim portals; not automated claim filing.",
+      verification: "Follow county surplus procedures and deadlines."
+    });
+
+    DeedScoutTrust.mount(
+      "#status-inventory",
+      "<h2 style=\"font-family:'Cormorant Garamond',serif;\">Dataset inventory</h2>" + DeedScoutTrust.renderDatasetTable(rows)
+    );
+  }).catch(function () {
+    document.getElementById("status-inventory").innerHTML = "<p>Could not load dataset inventory.</p>";
+  });
 })();
 </script>
 </body>

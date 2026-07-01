@@ -48,6 +48,7 @@ SURPLUS_PATH    = ROOT / "surplus.json"
 SOURCES_SALES   = ROOT / "scraper" / "sources.json"
 SOURCES_SURPLUS = ROOT / "scraper" / "sources_surplus.json"
 SOURCES_PERMITS = ROOT / "scraper" / "sources_permits.json"
+COUNTY_LINKS     = DATA_DIR / "county-links.json"
 STATS_PATH      = DATA_DIR / "counties" / "stats.json"
 SITEMAP_PATH    = ROOT / "sitemap.xml"
 
@@ -360,13 +361,7 @@ PAGE_TEMPLATE = """<!doctype html>
 
     {body}
 
-    <div class="cta">
-      <div class="cta-msg">
-        <strong>Researching parcels in {county_name} County?</strong><br />
-        <span class="small">Open the live registry for upcoming auctions, statute references, and a personal research notebook.</span>
-      </div>
-      <a class="btn" href="../tax-deeds.html#/county/{slug}">Save county to watchlist (Pro) →</a>
-    </div>
+    {cta_block}
   </main>
 
   <footer>
@@ -388,7 +383,8 @@ PAGE_TEMPLATE = """<!doctype html>
 
 
 def build_county_body(county, slug, region, cities, sales_entries, surplus_entry,
-                      permit_coverage, sales_source_url, permit_source_url, generated):
+                      permit_coverage, sales_source_url, permit_source_url, generated,
+                      county_links_entry=None):
     """Compose the per-county body HTML."""
     parts = []
 
@@ -416,22 +412,24 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
       </div>
     """)
     permit_label = {
-        "active":      ("Live scrape", "ok"),
-        "stale":       ("Sample or stale — verify", "warn"),
+        "active":      ("Cached municipal scrape", "ok"),
+        "stale":       ("Cached municipal scrape", "warn"),
         "manual":      ("Manual entries only", ""),
         "available":   ("Portal lookup only", "muted"),
         "unsupported": ("No public portal", "muted"),
     }.get(permit_status, (permit_status, ""))
     scope = (permit_coverage or {}).get("scope") or ""
+    scope = re.sub(r"\blive Tyler\b", "cached Tyler", scope, flags=re.I)
+    last_updated = (permit_coverage or {}).get("lastUpdated") or ""
     if scope and ("sample" in scope.lower() or "illustrative" in scope.lower() or "not real" in scope.lower()):
         permit_label = ("Sample data only", "warn")
-    elif permit_status == "active" and permit_count:
-        permit_label = (f"Live · {permit_count:,} permits", "ok")
+    elif permit_status in ("active", "stale") and permit_count:
+        permit_label = (f"Cached · {permit_count:,} permits", "ok" if permit_status == "active" else "warn")
     stat_cells.append(f"""
       <div class="stat">
         <div class="lbl">Building permits</div>
         <div class="val">{html_escape(str(permit_count) if permit_count is not None else '—')}<span class="badge {permit_label[1]}">{html_escape(permit_label[0])}</span></div>
-        <div class="sub">{'Indexed by parcel ID for instant lookup' if permit_count else 'Use county portal for ad-hoc lookups'}</div>
+        <div class="sub">{'Cached scrape — verify on official portal' if permit_count and permit_status == 'active' else 'Sample or portal-only — not a live query' if permit_label[0] == 'Sample data only' else 'Use county portal for ad-hoc lookups'}</div>
       </div>
     """)
     stat_cells.append(f"""
@@ -444,33 +442,48 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
     parts.append(f'<div class="stat-grid">{"".join(stat_cells)}</div>')
 
     # ----- Data trust -----
-    sales_status = "broken" if not sales_entries and sales_source_url else ("live" if sales_entries else "coming-soon")
-    permit_trust = "sample" if "sample" in scope.lower() else ("live" if permit_status == "active" else "blocked" if permit_status == "unsupported" else "cached")
+    sales_status = "broken" if not sales_entries and sales_source_url else ("cached" if sales_entries else "coming-soon")
+    sales_badge = {"broken": "warn", "cached": "ok", "coming-soon": "muted"}.get(sales_status, "muted")
     parts.append(f"""
       <div class="trust-box">
         <h2>Data status</h2>
-        <p class="small">DeedScout is a research layer. Always verify with official county sources before bidding.</p>
+        <p class="small">DeedScout is a research layer — not a county clerk or auctioneer. Official source required before bidding. Not legal, tax, title, or investment advice.</p>
         <ul class="trust-list">
-          <li><strong>Tax deed sales:</strong> <span class="badge {'warn' if sales_status == 'broken' else 'ok' if sales_status == 'live' else 'muted'}">{html_escape(sales_status.upper())}</span>
-            — {'Upcoming dates listed below when scraper succeeds; otherwise verify on official auction site.' if sales_entries else 'No verified upcoming dates in DeedScout — check clerk/auction links.'}</li>
+          <li><strong>Tax deed sales:</strong> <span class="badge {sales_badge}">{html_escape(sales_status.upper())}</span>
+            — {'Dates below are from cached scrapes — verify on official auction site before bidding.' if sales_entries else 'No verified upcoming dates in DeedScout — check clerk/auction links below.'}</li>
           <li><strong>Permits:</strong> <span class="badge {permit_label[1] or 'muted'}">{html_escape(permit_label[0])}</span>
-            {html_escape(' — ' + scope[:120] + ('…' if len(scope) > 120 else '') if scope else '')}</li>
-          <li><strong>Last page generated:</strong> {html_escape(generated)}</li>
+            {html_escape(' — ' + scope[:140] + ('…' if len(scope) > 140 else '') if scope else '')}</li>
+          <li><strong>Last verified / generated:</strong> {html_escape(generated)}{(' · permit file ' + html_escape(last_updated[:10]) if last_updated else '')}</li>
         </ul>
       </div>
     """)
 
     # ----- Official sources -----
     parts.append("<h2>Official sources</h2><ul class='official-links'>")
-    if sales_source_url:
-        parts.append(f'<li><strong>Auction platform:</strong> <a href="{html_escape(sales_source_url)}" target="_blank" rel="noopener">{html_escape(sales_source_url)}</a></li>')
-    if permit_source_url:
-        parts.append(f'<li><strong>Permit portal:</strong> <a href="{html_escape(permit_source_url)}" target="_blank" rel="noopener">{html_escape(permit_source_url)}</a></li>')
+    links = county_links_entry or {}
+    if (links.get("pa") or {}).get("url"):
+        pa = links["pa"]
+        parts.append(f'<li><strong>Property appraiser:</strong> <a href="{html_escape(pa["url"])}" target="_blank" rel="noopener">{html_escape(pa.get("label") or pa["url"])}</a></li>')
+    if (links.get("clerk") or {}).get("url"):
+        ck = links["clerk"]
+        parts.append(f'<li><strong>Clerk (tax deeds):</strong> <a href="{html_escape(ck["url"])}" target="_blank" rel="noopener">{html_escape(ck.get("label") or ck["url"])}</a></li>')
+    if (links.get("auction") or {}).get("url"):
+        au = links["auction"]
+        parts.append(f'<li><strong>Tax deed auction:</strong> <a href="{html_escape(au["url"])}" target="_blank" rel="noopener">{html_escape(au.get("label") or au["url"])}</a></li>')
+    elif sales_source_url:
+        parts.append(f'<li><strong>Tax deed auction:</strong> <a href="{html_escape(sales_source_url)}" target="_blank" rel="noopener">{html_escape(sales_source_url)}</a></li>')
+    if (links.get("taxCollector") or {}).get("url"):
+        tc = links["taxCollector"]
+        parts.append(f'<li><strong>Tax collector:</strong> <a href="{html_escape(tc["url"])}" target="_blank" rel="noopener">{html_escape(tc.get("label") or tc["url"])}</a></li>')
     if surplus_link:
         parts.append(f'<li><strong>Surplus funds:</strong> <a href="{html_escape(surplus_link)}" target="_blank" rel="noopener">County surplus claims portal</a></li>')
-    parts.append(f'<li><strong>Tax deed research:</strong> <a href="../tax-deeds.html#/county/{html_escape(slug)}">Open {html_escape(county)} in DeedScout Tax Deeds</a> (clerk &amp; PA links)</li>')
+    if permit_source_url:
+        parts.append(f'<li><strong>Permit portal:</strong> <a href="{html_escape(permit_source_url)}" target="_blank" rel="noopener">{html_escape(permit_source_url)}</a></li>')
+    parts.append(f'<li><strong>DeedScout workflow:</strong> <a href="../tax-deeds.html#/county/{html_escape(slug)}">Open {html_escape(county)} in DeedScout Tax Deeds</a></li>')
     parts.append("</ul>")
-    parts.append('<p class="small"><strong>Official source required before bidding.</strong> Not legal, tax, investment, title, or brokerage advice.</p>')
+    if county.lower() == "palm beach":
+        parts.append('<p class="small"><strong>Why WPB has ~4,000 permits but PBC shows 4:</strong> West Palm Beach is a separate Tyler EnerGov scrape (cached, real records). Palm Beach County unincorporated permits are blocked behind reCAPTCHA — DeedScout shows 4 <em>sample illustrative</em> records only.</p>')
+    parts.append('<p class="small"><strong>Official source required before bidding.</strong> Not legal, tax, title, or investment advice.</p>')
 
     # ----- Upcoming sales -----
     parts.append("<h2>Upcoming tax-deed sales</h2>")
@@ -497,11 +510,12 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
 
     # ----- Permits -----
     parts.append("<h2>Building permits</h2>")
+    if "sample" in permit_label[0].lower():
+        parts.append(f'<p class="small" style="background:#faecdb;border:1px solid #d8b58a;padding:12px;"><strong>Sample data only — not real permit records.</strong> Do not rely on these for outreach or bidding decisions. Use the official portal link above.</p>')
     if permit_status in ("active", "stale", "manual"):
-        scope = (permit_coverage or {}).get("scope", "Recent permits")
-        parts.append(f"<p>{html_escape(str(permit_count) if permit_count else 'Permit')} records on file for {html_escape(county)} County, "
-                     f"scope: {html_escape(scope)}. Permits are indexed by parcel ID and surface automatically inside the "
-                     f'<a href="../tax-deeds.html#/county/{slugify(county)}">research notebook</a> when you enter a PCN.</p>')
+        parts.append(f"<p>{html_escape(str(permit_count) if permit_count else 'Permit')} records in DeedScout for {html_escape(county)} County "
+                     f"({html_escape(permit_label[0])}). Scope: {html_escape(scope or 'see source portal')}. "
+                     f"This is a <strong>cached research snapshot</strong>, not a live municipal query.</p>")
         if permit_source_url:
             parts.append(f'<p class="small">Source: <a href="{html_escape(permit_source_url)}" target="_blank" rel="noopener">{html_escape(permit_source_url)}</a></p>')
     elif permit_status == "available":
@@ -587,8 +601,29 @@ def build_jsonld(county, slug, base_url, region, sales_entries, permit_coverage,
     return json.dumps(obj, indent=2)
 
 
+def render_cta_block(county, slug, *, index=False):
+    if index:
+        return """
+    <div class="cta">
+      <div class="cta-msg">
+        <strong>Researching Florida parcels?</strong><br />
+        <span class="small">Start with a county, then verify details with the official clerk, property appraiser, or auction source before bidding.</span>
+      </div>
+      <a class="btn" href="../tax-deeds.html">Open DeedScout Tax Deeds →</a>
+    </div>"""
+    return f"""
+    <div class="cta">
+      <div class="cta-msg">
+        <strong>Researching {html_escape(county)} County parcels?</strong><br />
+        <span class="small">Verify sale dates, liens, and title status with the official clerk, property appraiser, and auction source before bidding.</span>
+      </div>
+      <a class="btn" href="../tax-deeds.html#/county/{html_escape(slug)}">Save county to watchlist (Pro) →</a>
+    </div>"""
+
+
 def render_page(county, slug, region, cities, sales_entries, surplus_entry,
-                permit_coverage, sales_source_url, permit_source_url, base_url):
+                permit_coverage, sales_source_url, permit_source_url, base_url,
+                county_links_entry=None):
     today = datetime.now(timezone.utc).strftime("%B %d, %Y")
     lede = (
         f"{county} County is in the {region or 'Florida'} region of Florida. "
@@ -599,7 +634,8 @@ def render_page(county, slug, region, cities, sales_entries, surplus_entry,
     title = f"{county} County, FL — Tax Deed Sales, Permits & Parcel Research"
     canonical = f"{base_url}/counties/{slug}.html" if base_url else f"counties/{slug}.html"
     body = build_county_body(county, slug, region, cities, sales_entries, surplus_entry,
-                             permit_coverage, sales_source_url, permit_source_url, today)
+                             permit_coverage, sales_source_url, permit_source_url, today,
+                             county_links_entry=county_links_entry)
     jsonld = build_jsonld(county, slug, base_url, region, sales_entries, permit_coverage, lede)
     return PAGE_TEMPLATE.format(
         title=html_escape(title),
@@ -610,6 +646,7 @@ def render_page(county, slug, region, cities, sales_entries, surplus_entry,
         h1=html_escape(f"{county} County, FL"),
         lede=html_escape(lede),
         body=body,
+        cta_block=render_cta_block(county, slug),
         county_name=html_escape(county),
         slug=html_escape(slug),
         generated=html_escape(today),
@@ -647,6 +684,7 @@ def render_index_page(counties_data, base_url):
         h1="All Florida Counties",
         lede="Public-record summaries for every Florida county, organized by region. Each county page aggregates upcoming tax-deed sales, building-permit coverage, and surplus-funds links.",
         body=body,
+        cta_block=render_cta_block("", "", index=True),
         county_name="Florida",
         slug="",
         generated=today,
@@ -705,6 +743,7 @@ def main():
     sales_sources   = load_json(SOURCES_SALES, default={})
     surplus_sources = load_json(SOURCES_SURPLUS, default={})
     permits_sources = load_json(SOURCES_PERMITS, default={})
+    county_links    = load_json(COUNTY_LINKS, default={})
 
     sales_by_county = sales_doc.get("sales") or {}
     surplus_by_county = (surplus_doc.get("surplus") if isinstance(surplus_doc, dict) else {}) or {}
@@ -761,7 +800,8 @@ def main():
         next_sale = pick_next_sale(sales_entries)
 
         page_html = render_page(county, slug, region, cities, sales_entries, surplus_entry,
-                                permit_coverage, sales_src, permit_src, base_url)
+                                permit_coverage, sales_src, permit_src, base_url,
+                                county_links_entry=county_links.get(county))
         out = COUNTIES_DIR / f"{slug}.html"
         out.write_text(page_html, encoding="utf-8")
         stats_by_slug[slug] = build_stats_entry(
