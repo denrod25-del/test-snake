@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-30T09:00:03Z",
+  "generated": "2026-07-01T09:06:27Z",
   "salesGenerated": "2026-06-29T08:20:01Z",
   "featuredSlugs": [
     "palm-beach",
@@ -772,7 +772,7 @@
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
-        "status": "active",
+        "status": "stale",
         "count": 4000
       }
     },
