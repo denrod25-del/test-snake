@@ -1,0 +1,161 @@
+{
+  "generated": "2026-07-01T11:05:15.721870Z",
+  "rows": [
+    {
+      "category": "Tax deed county links",
+      "name": "DeedScout Tax Deeds — 67-county directory",
+      "jurisdiction": "Florida statewide",
+      "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html",
+      "status": "cached",
+      "count": 67,
+      "lastSuccess": "2026-07-01T10:45:21Z",
+      "lastAttempt": "2026-06-29T08:20:01Z",
+      "limitations": "Official clerk, PA, and auction links maintained manually. Sale-date scraper currently failing upstream.",
+      "verification": "Official clerk, property appraiser, and auction source required before bidding."
+    },
+    {
+      "category": "Auction platforms",
+      "name": "Auction platform directory (RealAuction, LienHub, etc.)",
+      "jurisdiction": "Florida statewide",
+      "sourceUrl": "https://www.realauction.com",
+      "status": "broken",
+      "count": 0,
+      "lastSuccess": null,
+      "lastAttempt": "2026-06-29T08:20:01Z",
+      "limitations": "Automated sale-calendar scrape returning 403 from upstream; platform links remain official.",
+      "verification": "Confirm sale list and rules on vendor site before bidding."
+    },
+    {
+      "category": "Parcel lookup",
+      "name": "DeedScout Parcel Lookup",
+      "jurisdiction": "Palm Beach County",
+      "sourceUrl": "https://opendata2-pbcgov.opendata.arcgis.com/",
+      "status": "cached",
+      "count": null,
+      "lastSuccess": null,
+      "lastAttempt": null,
+      "limitations": "Query-time GIS lookup to PBC ArcGIS; not a bulk cached export.",
+      "verification": "Cross-check parcel ID and owner with Property Appraiser."
+    },
+    {
+      "category": "Permit search",
+      "name": "Palm Beach County (unincorporated)",
+      "jurisdiction": "UNINCORPORATED, Florida",
+      "sourceUrl": "https://pbc.gov/ePZB.Admin.WebSPA/#/",
+      "status": "sample",
+      "count": 4,
+      "lastSuccess": "2026-04-18T03:00:00Z",
+      "lastAttempt": "2026-07-01T09:06:26Z",
+      "limitations": "Legacy eDSWeb scraper is DEFUNCT (county migrated 2024). Sample data only; use the portal manually for live lookups.",
+      "verification": "Sample or blocked — use official portal manually."
+    },
+    {
+      "category": "Permit search",
+      "name": "West Palm Beach",
+      "jurisdiction": "WEST PALM BEACH, Florida",
+      "sourceUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
+      "status": "cached",
+      "count": 4000,
+      "lastSuccess": "2026-07-01T08:51:23Z",
+      "lastAttempt": "2026-07-01T09:06:26Z",
+      "limitations": "Live Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those.",
+      "verification": "Cached municipal scrape — verify on official portal before outreach."
+    },
+    {
+      "category": "Permit search",
+      "name": "Boca Raton",
+      "jurisdiction": "BOCA RATON, Florida",
+      "sourceUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
+      "status": "cached",
+      "count": 4000,
+      "lastSuccess": "2026-07-01T08:54:39Z",
+      "lastAttempt": "2026-07-01T09:06:26Z",
+      "limitations": "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
+      "verification": "Cached municipal scrape — verify on official portal before outreach."
+    },
+    {
+      "category": "Permit search",
+      "name": "Jupiter",
+      "jurisdiction": "JUPITER, Florida",
+      "sourceUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
+      "status": "cached",
+      "count": 4000,
+      "lastSuccess": "2026-07-01T09:06:19Z",
+      "lastAttempt": "2026-07-01T09:06:26Z",
+      "limitations": "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
+      "verification": "Cached municipal scrape — verify on official portal before outreach."
+    },
+    {
+      "category": "Permit search",
+      "name": "St. Lucie County",
+      "jurisdiction": "ST. LUCIE COUNTY, Florida",
+      "sourceUrl": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
+      "status": "cached",
+      "count": 4000,
+      "lastSuccess": "2026-06-30T08:59:57Z",
+      "lastAttempt": "2026-07-01T09:06:26Z",
+      "limitations": "Most recent 4,000 permits sorted by apply date (SLC's API ignores date filter, so cap gives ~3 months of unincorporated St. Lucie County data).",
+      "verification": "Cached municipal scrape — verify on official portal before outreach."
+    },
+    {
+      "category": "Permit search",
+      "name": "Royal Palm Beach",
+      "jurisdiction": "ROYAL PALM BEACH, Florida",
+      "sourceUrl": "https://click2gov.royalpalmbeach.com/Click2GovBP/selectpermit.html",
+      "status": "sample",
+      "count": 3,
+      "lastSuccess": "2026-04-21T00:00:00Z",
+      "lastAttempt": "2026-07-01T09:06:26Z",
+      "limitations": "Click2Gov has no bulk listing; new submissions go through ProjectDox which requires an account. Sample data only — use the portal link directly.",
+      "verification": "Sample or blocked — use official portal manually."
+    },
+    {
+      "category": "Permit search",
+      "name": "Boynton Beach",
+      "jurisdiction": "BOYNTON BEACH, Florida",
+      "sourceUrl": "https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx",
+      "status": "sample",
+      "count": 3,
+      "lastSuccess": "2026-04-21T00:00:00Z",
+      "lastAttempt": "2026-07-01T09:06:26Z",
+      "limitations": "SagesGov requires login for search and is anti-bot. Sample data only. To pull live, export CSV from your portal account and use the Manual Upload tab.",
+      "verification": "Sample or blocked — use official portal manually."
+    },
+    {
+      "category": "Subdivision index",
+      "name": "DeedScout Subdivision Index",
+      "jurisdiction": "Palm Beach County",
+      "sourceUrl": "https://deedscout.netlify.app/subdivision-index.html",
+      "status": "cached",
+      "count": 11474,
+      "lastSuccess": "2026-06-26T22:33:43+00:00",
+      "lastAttempt": "2026-06-26T22:33:43+00:00",
+      "limitations": "Cached reference index from public records; not live clerk filings.",
+      "verification": "Verify legal description with clerk or property appraiser."
+    },
+    {
+      "category": "Plat index",
+      "name": "DeedScout Plat Index",
+      "jurisdiction": "Palm Beach County",
+      "sourceUrl": "https://deedscout.netlify.app/plat-index.html",
+      "status": "cached",
+      "count": 17294,
+      "lastSuccess": "2026-06-26T23:00:30+00:00",
+      "lastAttempt": "2026-06-26T23:00:30+00:00",
+      "limitations": "Plat PDF sheets from PBC; OCR names may contain errors.",
+      "verification": "Use recorded plat at clerk."
+    },
+    {
+      "category": "Surplus funds",
+      "name": "Surplus funds registry links",
+      "jurisdiction": "Florida counties (where published)",
+      "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html#/surplus",
+      "status": "cached",
+      "count": 28,
+      "lastSuccess": "2026-07-01T10:45:21Z",
+      "lastAttempt": "2026-07-01T10:45:21Z",
+      "limitations": "Curated county surplus claim portal links; not automated filing.",
+      "verification": "Follow county surplus claim procedures and deadlines."
+    }
+  ]
+}

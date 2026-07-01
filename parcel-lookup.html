@@ -549,9 +549,9 @@
 </style>
 </head>
 <body class="ds-body ds-tool">
-<nav class="app-switch legacy-app-switch" aria-label="Switch app">
-  <span class="label">Florida Tax Deed Suite</span>
-  <a href="tax-deeds.html" title="Statewide registry, research notebook, statute">Registry</a>
+<nav class="app-switch legacy-app-switch" aria-label="DeedScout modules">
+  <span class="label">DeedScout</span>
+  <a href="tax-deeds.html" title="Tax deed directory and research notebook">Tax Deeds</a>
   <span class="sep">·</span>
   <a href="counties/index.html" title="Browse all 67 Florida counties">Counties</a>
   <span class="sep">·</span>
@@ -563,7 +563,7 @@
   <h1>Palm Beach County Parcel &rarr; Address Lookup</h1>
   <p>Convert PCNs (Parcel Control Numbers), legal descriptions, or owner names into property addresses.</p>
   <div class="source">
-    Live data from the
+    Live query to the
     <a href="https://opendata2-pbcgov.opendata.arcgis.com/" target="_blank" rel="noopener">Palm Beach County GIS Open Data</a>
     parcels feature service
   </div>
@@ -697,7 +697,7 @@
 
   <!-- Notebook queue (persisted in localStorage; rendered by updateNotebookQueueUI) -->
   <div id="notebook-queue-bar" class="notebook-queue-bar" style="display:none;">
-    <div class="nq-text"><span class="nq-count" id="nq-count">0</span><span id="nq-msg">parcel queued for the Tax Deed research notebook.</span></div>
+    <div class="nq-text"><span class="nq-count" id="nq-count">0</span><span id="nq-msg">parcel queued for your DeedScout notebook.</span></div>
     <div class="nq-actions">
       <a href="tax-deeds.html#/research" id="nq-open">Open notebook →</a>
       <button class="nq-clear" type="button" id="nq-clear" title="Clear the queue">Clear</button>
@@ -1074,7 +1074,7 @@
         ? `<span class="value-strong">${escHtml(fmtMoney(mv))}</span>`
         : `<span class="value-empty">—</span>`;
       const saveBtn = pid
-        ? `<button class="save-btn" type="button" data-pcn="${escHtml(pid)}" title="Add to Tax Deed research notebook">+ Notebook</button>`
+        ? `<button class="save-btn" type="button" data-pcn="${escHtml(pid)}" title="Add to DeedScout research notebook">+ Notebook</button>`
         : "";
       // Open-in-Registry deep-link: lands directly on the research notebook with
       // this parcel already added as a card (handled by tax-deeds.html's
@@ -1086,7 +1086,7 @@
           + '#/research'
         : '';
       const registryBtn = registryHref
-        ? `<a class="map-link registry-link" href="${registryHref}" title="Open this parcel in the Tax Deed research notebook">Registry ↗</a>`
+        ? `<a class="map-link registry-link" href="${registryHref}" title="Open this parcel in DeedScout Tax Deeds notebook">Tax Deeds ↗</a>`
         : "";
       tr.innerHTML = `
         <td class="mono">${escHtml(pid)}</td>
@@ -1814,8 +1814,8 @@
     const msg = $("#nq-msg");
     if (cnt) cnt.textContent = String(queue.length);
     if (msg) msg.textContent = queue.length === 1
-      ? " parcel queued for the Tax Deed research notebook."
-      : " parcels queued for the Tax Deed research notebook.";
+      ? " parcel queued for your DeedScout notebook."
+      : " parcels queued for your DeedScout notebook.";
   }
 
   // Re-mark "Queued" any save buttons whose PCN is already in the queue.

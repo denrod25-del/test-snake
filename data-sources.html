@@ -16,11 +16,15 @@
   <div class="ds-section-head">
     <p class="ds-section-label">Transparency</p>
     <h1>Data sources</h1>
-    <p>Every module links to official county or municipal portals. DeedScout aggregates and labels — it does not replace official records. Status meanings: <strong>Live</strong> (refreshed within 72h), <strong>Cached</strong> (real data, older), <strong>Sample</strong> (demo only), <strong>Blocked</strong> (portal paywall/reCAPTCHA), <strong>Broken</strong> (scraper failing), <strong>Coming Soon</strong> (UI only).</p>
+    <p>Every module links to official county or municipal portals. DeedScout aggregates and labels — it does not replace official records.</p>
+    <p style="font-size:14px;color:var(--muted);">Status: <strong>Live</strong> (refreshed within 72h) · <strong>Cached</strong> (real data, older) · <strong>Sample</strong> (demo only) · <strong>Blocked</strong> · <strong>Broken</strong> · <strong>Coming Soon</strong></p>
   </div>
-  <div id="dataset-inventory"><p>Loading dataset inventory…</p></div>
+  <p id="inventory-generated" class="ds-status-sub" style="margin-bottom:12px;"></p>
+  <div id="dataset-inventory"></div>
+  <noscript>
+    <p>Enable JavaScript to view the full dataset inventory, or see <a href="status.html">System Status</a>.</p>
+  </noscript>
   <div class="ds-prose" style="margin-top:32px;">
-    <p><strong>Categories covered:</strong> tax deed county links, auction platforms, parcel lookup, permit search, subdivision index, plat index, surplus funds.</p>
     <p>Operational health and known outages: <a href="status.html">System status</a>.</p>
     <p class="ds-trust-inline">Independent research tool. Not affiliated with any county or auction platform. Not legal, tax, title, or investment advice.</p>
   </div>
@@ -29,124 +33,41 @@
 <script src="assets/deedscout.js"></script>
 <script>
 (function () {
-  function permitRows(doc) {
-    return (doc.sources || []).map(function (s) {
-      var st = DeedScoutTrust.permitTrustStatus({ status: s.status, scope: s.scope, lastUpdated: doc.generated });
-      return {
-        name: "Permit search — " + s.label,
-        jurisdiction: (s.city ? s.city + ", " : "") + (s.county || "FL"),
-        sourceUrl: s.portalUrl,
-        status: st,
-        count: null,
-        lastSuccess: doc.generated,
-        lastAttempt: doc.generated,
-        limitations: s.scope || "",
-        verification: st === "sample" || st === "blocked"
-          ? "Sample or blocked — use official portal manually."
-          : "Cached municipal scrape — verify on official portal before outreach."
-      };
-    });
+  var el = document.getElementById("dataset-inventory");
+  var genEl = document.getElementById("inventory-generated");
+  if (!window.DeedScoutTrust) {
+    el.innerHTML = "<p>Data trust module failed to load. Refresh the page or visit <a href=\"status.html\">System Status</a>.</p>";
+    return;
   }
-
-  Promise.all([
-    fetch("data/permits/sources.json").then(function (r) { return r.json(); }),
-    fetch("sales.json").then(function (r) { return r.json(); }).catch(function () { return null; }),
-    fetch("data/subdivisions/manifest.json").then(function (r) { return r.json(); }).catch(function () { return null; }),
-    fetch("data/plats/manifest.json").then(function (r) { return r.json(); }).catch(function () { return null; })
-  ]).then(function (res) {
-    var permitsDoc = res[0];
-    var sales = res[1];
-    var subdiv = res[2];
-    var plats = res[3];
-    var rows = [];
-
-    rows.push({
-      name: "Tax deed county links",
-      jurisdiction: "Florida — 67 counties",
-      sourceUrl: "https://deedscout.netlify.app/tax-deeds.html",
-      status: "cached",
-      count: 67,
-      lastSuccess: "2026-04-18",
-      lastAttempt: sales && sales.generated,
-      limitations: "Manual link verification; sale date scraper broken upstream.",
-      verification: "Official clerk, PA, and auction source required before bidding."
-    });
-
-    rows.push({
-      name: "Auction platforms directory",
-      jurisdiction: "Florida statewide",
-      sourceUrl: "https://www.realauction.com",
-      status: "cached",
-      count: null,
-      lastSuccess: null,
-      lastAttempt: sales && sales.generated,
-      limitations: "Platform links only; automated sale calendar scrape failing (403).",
-      verification: "Confirm auction rules and sale list on vendor site."
-    });
-
-    rows.push({
-      name: "Parcel lookup",
-      jurisdiction: "Palm Beach County",
-      sourceUrl: "https://deedscout.netlify.app/parcel-lookup.html",
-      status: "cached",
-      count: null,
-      lastSuccess: null,
-      lastAttempt: null,
-      limitations: "Query-time GIS lookup; not a bulk export.",
-      verification: "Cross-check with Property Appraiser."
-    });
-
-    rows = rows.concat(permitRows(permitsDoc));
-
-    if (subdiv && subdiv.names) {
-      var subdivKeys = Object.keys(subdiv.names);
-      rows.push({
-        name: "Subdivision index",
-        jurisdiction: "Palm Beach County",
-        sourceUrl: "https://deedscout.netlify.app/subdivision-index.html",
-        status: "cached",
-        count: subdivKeys.length,
-        lastSuccess: subdivKeys.length ? subdiv.names[subdivKeys[0]].last_seen : null,
-        lastAttempt: subdivKeys.length ? subdiv.names[subdivKeys[0]].last_seen : null,
-        limitations: "Cached reference from public records index.",
-        verification: "Verify legal description with clerk or PA."
+  fetch("data/data-inventory.json", { cache: "no-cache" })
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    })
+    .then(function (doc) {
+      if (genEl && doc.generated) {
+        genEl.textContent = "Inventory generated " + DeedScoutTrust.formatDate(doc.generated);
+      }
+      var rows = (doc.rows || []).map(function (r) {
+        return {
+          name: (r.category ? r.category + " — " : "") + r.name,
+          jurisdiction: r.jurisdiction,
+          sourceUrl: r.sourceUrl,
+          status: r.status,
+          count: r.count,
+          lastSuccess: r.lastSuccess,
+          lastAttempt: r.lastAttempt,
+          limitations: r.limitations,
+          verification: r.verification,
+        };
       });
-    }
-
-    if (plats && plats.plat_ids) {
-      var platKeys = Object.keys(plats.plat_ids);
-      rows.push({
-        name: "Plat index",
-        jurisdiction: "Palm Beach County",
-        sourceUrl: "https://deedscout.netlify.app/plat-index.html",
-        status: "cached",
-        count: platKeys.length,
-        lastSuccess: platKeys.length ? plats.plat_ids[platKeys[0]].last_seen : null,
-        lastAttempt: platKeys.length ? plats.plat_ids[platKeys[0]].last_seen : null,
-        limitations: "Plat PDFs + OCR names; may contain errors.",
-        verification: "Use recorded plat at clerk."
-      });
-    }
-
-    rows.push({
-      name: "Surplus funds links",
-      jurisdiction: "Florida counties (where published)",
-      sourceUrl: "https://deedscout.netlify.app/tax-deeds.html#/surplus",
-      status: "cached",
-      count: null,
-      lastSuccess: null,
-      lastAttempt: null,
-      limitations: "Curated portal links; not claim filing automation.",
-      verification: "Follow county surplus claim procedures."
+      DeedScoutTrust.mount(el, DeedScoutTrust.renderDatasetTable(rows));
+    })
+    .catch(function (err) {
+      el.innerHTML = "<div class=\"ds-trust-panel ds-trust-broken\"><strong>Could not load inventory file.</strong> " +
+        DeedScoutTrust.escapeHtml(err.message || "Unknown error") +
+        ". See <a href=\"status.html\">System Status</a> for a summary.</div>";
     });
-
-    DeedScoutTrust.mount(
-      "#dataset-inventory",
-      DeedScoutTrust.renderDatasetTable(rows)
-    );
-  }).catch(function () {
-    document.getElementById("dataset-inventory").innerHTML = "<p>Could not load source manifest.</p>";
-  });
 })();
 </script>
 </body>

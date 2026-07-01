@@ -602,22 +602,22 @@ def build_jsonld(county, slug, base_url, region, sales_entries, permit_coverage,
 
 
 def render_cta_block(county, slug, *, index=False):
-    if index:
-        return """
-    <div class="cta">
-      <div class="cta-msg">
+    msg = """
         <strong>Researching Florida parcels?</strong><br />
-        <span class="small">Start with a county, then verify details with the official clerk, property appraiser, or auction source before bidding.</span>
+        <span class="small">Start with a county, then verify details with the official clerk, property appraiser, or auction source.</span>"""
+    if index:
+        return f"""
+    <div class="cta">
+      <div class="cta-msg">{msg}
       </div>
       <a class="btn" href="../tax-deeds.html">Open DeedScout Tax Deeds →</a>
     </div>"""
+    county_label = html_escape(county) if county else "this"
     return f"""
     <div class="cta">
-      <div class="cta-msg">
-        <strong>Researching {html_escape(county)} County parcels?</strong><br />
-        <span class="small">Verify sale dates, liens, and title status with the official clerk, property appraiser, and auction source before bidding.</span>
+      <div class="cta-msg">{msg}
       </div>
-      <a class="btn" href="../tax-deeds.html#/county/{html_escape(slug)}">Save county to watchlist (Pro) →</a>
+      <a class="btn" href="../tax-deeds.html#/county/{html_escape(slug)}">Save {county_label} to watchlist (Pro) →</a>
     </div>"""
 
 

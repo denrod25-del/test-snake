@@ -2878,7 +2878,7 @@
 
   <div class="topbar">
     <div class="topbar-inner">
-      <span>DeedScout &mdash; <a href="status.html" style="color:#ffd17a;border-bottom:1px solid rgba(255,209,122,.4);">Public Beta</a> &mdash; data coverage varies by county and source</span>
+      <span>DeedScout &mdash; <a href="data-sources.html" style="color:#ffd17a;border-bottom:1px solid rgba(255,209,122,.4);">Public Beta</a> &mdash; data coverage varies by county and source</span>
       <span class="topbar-right">
         <span id="dataStamp">Sale dates: verify on official clerk/auction sites &middot; <a href="status.html" style="color:inherit;border-bottom:1px solid currentColor;">Data status</a></span>
         <span id="creditsBadge"></span>
@@ -2894,7 +2894,7 @@
         <div class="brand-mark">D</div>
         <div class="brand-text">
           <div class="name">DeedScout</div>
-          <div class="tag">Tax Deeds &middot; Florida Tax Deed Registry</div>
+          <div class="tag">Tax Deeds &middot; Florida statewide</div>
         </div>
       </div>
       <nav class="primary">
@@ -2918,7 +2918,7 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="eyebrow">DeedScout &middot; Florida Tax Deed Registry</div>
+        <div class="eyebrow">DeedScout &middot; Florida tax deed research</div>
         <h1 class="title">DeedScout Tax Deeds &mdash; a definitive directory of Florida's <em>tax deed sales</em>, one county at a time.</h1>
         <p class="lede">Direct links to every county's Property Appraiser, Clerk of the Circuit Court tax deed page, and the official online auction platform &mdash; assembled in one professional reference for serious investors, attorneys, and title researchers. Independent research tool. Not affiliated with any county or auction platform. Not legal, tax, title, or investment advice.</p>
       </div>
@@ -4997,7 +4997,7 @@
       if (!grid) return;
       const cov = (PERMITS_INDEX && PERMITS_INDEX.coverage) || [];
       if (!cov.length) {
-        grid.innerHTML = `<div style="font-size:13px;color:var(--muted);font-style:italic;">No coverage data available. Run <code>python scrape_permits.py</code> to generate.</div>`;
+        grid.innerHTML = `<div style="font-size:13px;color:var(--muted);font-style:italic;">No permit coverage data available for this county yet. See <a href="permit-search.html">DeedScout Permit Search</a> for connected municipalities.</div>`;
         if (meta) meta.textContent = '';
         return;
       }

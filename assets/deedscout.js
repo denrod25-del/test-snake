@@ -56,7 +56,7 @@
   topbar.className = "ds-topbar";
   topbar.innerHTML =
     '<div class="ds-topbar-inner">' +
-    '<span>DeedScout &mdash; <a href="' + href("status.html") + '" class="ds-beta-link">Public Beta</a> &mdash; data coverage varies by source</span>' +
+    '<span>DeedScout &mdash; <a href="' + href("data-sources.html") + '" class="ds-beta-link" title="Data coverage varies by county and source">Public Beta</a></span>' +
     '<span><a href="' + href("tax-deeds.html") + '">DeedScout Tax Deeds</a> &nbsp;|&nbsp; <a href="' + href("account.html") + '">Sign In</a></span>' +
     "</div>";
   document.body.insertBefore(topbar, document.body.firstChild);
@@ -103,7 +103,7 @@
     '<a href="' + href("changelog.html") + '" style="border:none;">Changelog</a>' +
     '<a href="' + href("index.html") + '#disclaimer" style="border:none;">Data Disclaimer</a></div></div>' +
     '<div class="ds-footer-bottom">' +
-    '<span class="ds-beta-footer"><a href="' + href("status.html") + '">Public Beta</a> &mdash; data coverage varies by county and source. </span>' +
+    '<span class="ds-beta-footer"><a href="' + href("data-sources.html") + '">Public Beta</a> &mdash; data coverage varies by county and source. </span>' +
     "&copy; 2026 DeedScout &middot; Not affiliated with any county, clerk, auction platform, property appraiser, or government agency. Not legal, tax, investment, title, or brokerage advice. Always verify with official county sources before bidding.</div>";
   document.body.appendChild(footer);
 })();

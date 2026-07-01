@@ -304,6 +304,35 @@
     color: var(--muted);
   }
   .empty-state h3 { color: var(--text); margin: 0 0 8px; font-weight: 500; }
+  .loading-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+    background: var(--panel-2);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+  }
+  .starter-searches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 0 0 20px;
+  }
+  .starter-card {
+    text-align: left;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .starter-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .starter-card strong { display: block; font-size: 14px; margin-bottom: 4px; color: var(--text); }
+  .starter-card span { font-size: 12px; color: var(--muted); line-height: 1.4; }
 
   #map { height: 600px; border-radius: var(--radius); border: 1px solid var(--border); }
   .leaflet-popup-content-wrapper { background: var(--panel); color: var(--text); border-radius: 6px; }
@@ -611,6 +640,26 @@
             <button class="ghost" type="button" id="clear-keywords">Clear all</button>
           </div>
         </div>
+      </div>
+
+      <div id="loading-state" class="loading-state">
+        <strong>Loading cached permit data…</strong>
+        <p style="margin:8px 0 0;font-size:13px;">Fetching municipal permit files. This usually takes a few seconds.</p>
+      </div>
+
+      <div id="starter-searches" class="starter-searches" hidden>
+        <button type="button" class="starter-card" data-starter="wpb-plumbing">
+          <strong>Try West Palm Beach plumbing permits</strong>
+          <span>~4,000 cached Tyler permits — keyword filter for plumbing trades</span>
+        </button>
+        <button type="button" class="starter-card" data-starter="heater">
+          <strong>Try water heater permits</strong>
+          <span>Common investor and contractor search across cached sources</span>
+        </button>
+        <button type="button" class="starter-card" data-starter="boca">
+          <strong>Try Boca Raton permits</strong>
+          <span>Filter to Boca Tyler scrape with plumbing keywords</span>
+        </button>
       </div>
 
       <details class="advanced">
@@ -926,6 +975,7 @@ const STATE = {
   subdivWatch: [],
   developmentAlerts: null,
   plumbing: { windowDays: 90, smoothing: 7, zipSort: { col: "growth", dir: "desc" } },
+  dataReady: false,
 };
 
 // ---------------------------------------------------------------------------
@@ -935,15 +985,57 @@ async function boot() {
   loadGeocodeCache();
   loadStateFromUrl();
   renderKeywordChips();
+  setLoadingState(true);
   await loadDevelopmentAlerts();
   await loadData();
   populateFilterSelects();
   attachListeners();
-  if (!STATE.keywords.length && !location.search) {
-    STATE.keywords = ["plumbing"];
-    renderKeywordChips();
+  if (!STATE.keywords.length && !location.search && !location.hash) {
+    applyStarterSearch("wpb-plumbing", { silent: true });
   }
   applyFiltersAndRender();
+  setLoadingState(false);
+  STATE.dataReady = true;
+  document.getElementById("starter-searches").hidden = false;
+}
+
+function setLoadingState(loading) {
+  const el = document.getElementById("loading-state");
+  const tableWrap = document.querySelector("#tab-search .panel:last-of-type");
+  if (el) el.style.display = loading ? "block" : "none";
+  if (tableWrap && loading) {
+    document.getElementById("empty-state").style.display = "none";
+  }
+}
+
+const STARTER_SEARCHES = {
+  "wpb-plumbing": { keywords: ["plumbing"], city: "WEST PALM BEACH", sources: ["wpb"] },
+  heater: { preset: "heater" },
+  boca: { keywords: ["plumbing"], city: "BOCA", sources: ["boca-raton"] },
+};
+
+function applyStarterSearch(id, opts) {
+  opts = opts || {};
+  const cfg = STARTER_SEARCHES[id];
+  if (!cfg) return;
+  STATE.keywords = [];
+  STATE.subdivWatch = [];
+  STATE.filters.appliedFrom = "";
+  STATE.filters.appliedTo = "";
+  STATE.filters.issuedFrom = "";
+  STATE.filters.issuedTo = "";
+  STATE.filters.contractor = "";
+  STATE.filters.valMin = null;
+  STATE.filters.valMax = null;
+  STATE.filters.status = [];
+  STATE.filters.type = [];
+  STATE.filters.city = cfg.city || "";
+  STATE.filters.source = cfg.sources ? cfg.sources.slice() : [];
+  if (cfg.preset) applyPreset(cfg.preset);
+  else if (cfg.keywords) cfg.keywords.forEach((k) => { if (!STATE.keywords.includes(k)) STATE.keywords.push(k); });
+  renderKeywordChips();
+  applyUrlToInputs();
+  if (!opts.silent) applyFiltersAndRender();
 }
 
 async function loadDevelopmentAlerts() {
@@ -1057,11 +1149,9 @@ async function loadData() {
   } catch (err) {
     setBanner({
       kind: "error",
-      html: `Could not load <code>data/permits/sources.json</code> (${err.message}).
-             Open this page from a static server (not <code>file://</code>):
-             <code>python -m http.server</code>, then visit
-             <code>http://localhost:8000/permit-search.html</code>.`,
+      html: `Permit data could not be loaded right now. Check <a href="status.html">system status</a> or try again in a few minutes.`,
     });
+    setLoadingState(false);
     return;
   }
 
@@ -1409,6 +1499,13 @@ function renderResults() {
     : "";
 
   document.getElementById("empty-state").style.display = arr.length ? "none" : "block";
+  if (!arr.length && STATE.dataReady) {
+    const el = document.getElementById("empty-state");
+    let reason = "Your filters may be too narrow, or selected sources contain only sample demo records.";
+    if (!STATE.data.permits.length) reason = "No permit files loaded — data may be temporarily unavailable. Check the source health table above.";
+    else if (STATE.filters.source.length === 1 && SOURCE_BY_ID[STATE.filters.source[0]]?.status === "unsupported_paywall") reason = "The selected source is blocked (portal paywall/reCAPTCHA) and only has sample records.";
+    el.querySelector("p:last-of-type").textContent = reason + " Try a starter search above or clear filters.";
+  }
 
   // Pagination
   const pageStart = (STATE.page - 1) * STATE.pageSize;
@@ -1644,7 +1741,7 @@ function renderTrends(arr) {
   } else {
     legend.innerHTML = "";
   }
-  note.textContent = `Trends reflect your active search filters. Live WPB data covers ~90 days; older months appear when sample/manual sources are included. ${data.total - data.dated} permit(s) in this filter lack a date and are omitted from the chart.`;
+  note.textContent = `Trends reflect your active search filters. Cached WPB data covers ~90 days; older months appear when sample sources are included. ${data.total - data.dated} permit(s) in this filter lack a date and are omitted from the chart.`;
 }
 
 function renderTrendSvg(data, opts, metricKey) {
@@ -1935,7 +2032,7 @@ function renderPlumbingWatch() {
   const chartEl = document.getElementById("plumb-chart");
   const noteEl = document.getElementById("plumb-note");
   if (w.totalWindow === 0) {
-    chartEl.innerHTML = `<div class="help" style="padding:40px;text-align:center">No plumbing permits in the current data within the ${w.windowDays}-day window. Re-run the scraper (<code>python scrape_permits.py</code>) or expand the window.</div>`;
+    chartEl.innerHTML = `<div class="help" style="padding:40px;text-align:center">No plumbing permits in the current data within the ${w.windowDays}-day window. Try expanding the window or use a starter search above when cached Tyler data is loaded.</div>`;
     noteEl.textContent = "";
     document.getElementById("plumbing-hotspots").innerHTML = `<div class="help">No data to predict from yet.</div>`;
     document.querySelector("#plumbing-zip-table tbody").innerHTML = "";
@@ -2295,6 +2392,9 @@ function attachListeners() {
   document.querySelectorAll("[data-preset]").forEach((btn) => {
     btn.addEventListener("click", () => applyPreset(btn.dataset.preset));
   });
+  document.querySelectorAll("[data-starter]").forEach((btn) => {
+    btn.addEventListener("click", () => applyStarterSearch(btn.dataset.starter));
+  });
   document.getElementById("clear-keywords").addEventListener("click", () => {
     STATE.keywords = []; STATE.subdivWatch = []; renderKeywordChips(); applyFiltersAndRender();
   });
@@ -2303,7 +2403,7 @@ function attachListeners() {
       .filter((a) => a.is_new || a.is_new_this_month)
       .map((a) => a.name);
     if (names.length) watchSubdivisions(names);
-    else alert("No new subdivisions in alerts.json — run scrape_subdivisions.py and build_development_alerts.py first.");
+    else alert("No new subdivisions in the current development alerts file.");
   });
   document.getElementById("run-search").addEventListener("click", readFiltersFromInputs);
   document.getElementById("reset-filters").addEventListener("click", () => {
