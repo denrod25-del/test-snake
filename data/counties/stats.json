@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-01T09:06:27Z",
-  "salesGenerated": "2026-06-29T08:20:01Z",
+  "generated": "2026-07-01T04:04:04Z",
+  "salesGenerated": "2026-06-29T00:50:03Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -52,8 +52,8 @@
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
-        "status": "active",
-        "count": 4000
+        "status": "available",
+        "count": null
       }
     },
     "boynton-beach": {
@@ -424,8 +424,8 @@
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
-        "status": "active",
-        "count": 4000
+        "status": "available",
+        "count": null
       }
     },
     "lafayette": {
@@ -772,8 +772,8 @@
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
-        "status": "stale",
-        "count": 4000
+        "status": "available",
+        "count": null
       }
     },
     "sumter": {

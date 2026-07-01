@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Methodology — DeedScout</title>
+  <meta name="description" content="How DeedScout labels data as Live, Cached, Sample, Blocked, Broken, or Coming Soon." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/deedscout.css" />
+</head>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:48px;max-width:760px;">
+  <div class="ds-section-head"><p class="ds-section-label">Trust</p><h1>Data methodology</h1></div>
+  <div class="ds-prose">
+    <p>DeedScout is a <strong>research layer</strong>, not a county clerk, auctioneer, or title company. Every dataset shows a status badge, last refresh time (when known), source URL, and verification reminder.</p>
+  </div>
+  <h2 style="font-family:'Cormorant Garamond',serif;margin-top:32px;">Status definitions</h2>
+  <ul class="ds-prose" style="list-style:none;padding:0;">
+    <li style="margin-bottom:12px;"><span class="ds-status ds-status-live">Live</span> Pulled from an official/public source within the last 72 hours.</li>
+    <li style="margin-bottom:12px;"><span class="ds-status ds-status-cached">Cached</span> Real source data, but not refreshed in the last 72 hours.</li>
+    <li style="margin-bottom:12px;"><span class="ds-status ds-status-sample">Sample</span> Demo data only. Do not rely on it for bidding or outreach.</li>
+    <li style="margin-bottom:12px;"><span class="ds-status ds-status-blocked">Blocked</span> Source requires login, payment, reCAPTCHA, or manual lookup.</li>
+    <li style="margin-bottom:12px;"><span class="ds-status ds-status-broken">Broken</span> Scraper or upstream source is currently failing.</li>
+    <li style="margin-bottom:12px;"><span class="ds-status ds-status-soon">Coming Soon</span> UI exists; data pipeline not connected yet.</li>
+  </ul>
+  <div class="ds-prose" style="margin-top:24px;">
+    <p><strong>Tax deed sales:</strong> When our auction scraper succeeds, sale dates are labeled Live or Cached. When scrapers fail (e.g. RealAuction 403), we show Broken and link to official auction sites — we do not invent dates.</p>
+    <p><strong>Permits:</strong> West Palm Beach, Boca Raton, Jupiter, and St. Lucie County use live Tyler EnerGov scrapes. Palm Beach unincorporated (4 records), Royal Palm Beach, and Boynton Beach are <strong>Sample</strong> until bulk access exists.</p>
+    <p><strong>Parcels:</strong> Palm Beach parcel lookup uses county GIS/appraiser sources; verify on official PA site before decisions.</p>
+  </div>
+  <p style="margin-top:24px;"><a href="data-sources.html" class="ds-link">View data source inventory →</a></p>
+</main>
+<script src="assets/data-trust.js"></script>
+<script src="assets/deedscout.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security — DeedScout</title>
+  <meta name="description" content="DeedScout security practices and responsible disclosure." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/deedscout.css" />
+</head>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:48px;max-width:760px;">
+  <div class="ds-section-head"><p class="ds-section-label">Trust</p><h1>Security &amp; responsible disclosure</h1></div>
+  <div class="ds-prose">
+    <p>DeedScout uses Supabase Auth, Stripe for billing, and Netlify Functions for server-side Pro checks. User-owned data (watchlists, alerts, profiles) is protected by Row Level Security policies in Supabase.</p>
+    <p><strong>Report a vulnerability:</strong> Use our <a href="contact.html">contact form</a> with topic "Security" or email through the contact page. Please include steps to reproduce and impact assessment. Do not publicly disclose before we acknowledge.</p>
+    <p><strong>Account data:</strong> Request export or deletion via contact form or account settings. See <a href="privacy.html">Privacy Policy</a> for retention.</p>
+    <p><strong>Forms:</strong> Netlify honeypot on public forms. Rate limiting on API endpoints is planned for production hardening.</p>
+  </div>
+</main>
+<script src="assets/deedscout.js"></script>
+</body>
+</html>

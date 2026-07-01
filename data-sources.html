@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Sources — DeedScout</title>
+  <meta name="description" content="Inventory of DeedScout data sources, refresh policy, and trust labels." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/deedscout.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Dataset","name":"DeedScout Permit Sources","description":"Municipal permit coverage for DeedScout Permits module","url":"https://deedscout.netlify.app/data-sources.html"}
+  </script>
+</head>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:48px;">
+  <div class="ds-section-head"><p class="ds-section-label">Transparency</p><h1>Data sources</h1>
+  <p>Every module links to official county or municipal portals. DeedScout aggregates and labels — it does not replace official records.</p></div>
+  <div id="permit-sources-table"><p>Loading permit source inventory…</p></div>
+  <div class="ds-prose" style="margin-top:32px;">
+    <p><strong>Tax deeds (67 counties):</strong> Clerk tax deed pages and auction platforms (RealAuction, LienHub, DeedAuction, in-person). Sale date scrapes depend on upstream availability — see <a href="status.html">system status</a>.</p>
+    <p><strong>Surplus funds:</strong> County surplus claim portals where published; linked from county pages and Tax Deeds surplus registry.</p>
+    <p><strong>Subdivisions &amp; plats:</strong> Palm Beach County public records indexes — cached reference data, not live clerk filings.</p>
+  </div>
+</main>
+<script src="assets/data-trust.js"></script>
+<script src="assets/deedscout.js"></script>
+<script>
+fetch("data/permits/sources.json").then(function(r){return r.json();}).then(function(doc){
+  var rows = (doc.sources || []).map(function(s){
+    var st = DeedScoutTrust.permitTrustStatus({ status: s.status, scope: s.scope, lastUpdated: doc.generated });
+    return { label: s.label, status: st, count: null, lastRefreshed: doc.generated, portalUrl: s.portalUrl, scope: s.scope };
+  });
+  DeedScoutTrust.mount("#permit-sources-table", "<h2 style=\"font-family:'Cormorant Garamond',serif;\">DeedScout Permits — source inventory</h2>" + DeedScoutTrust.renderSourceTable(rows));
+}).catch(function(){ document.getElementById("permit-sources-table").innerHTML = "<p>Could not load source manifest.</p>"; });
+</script>
+</body>
+</html>

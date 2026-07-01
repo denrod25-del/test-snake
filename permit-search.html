@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/deedscout.css">
+<script src="assets/data-trust.js"></script>
 <style>
   :root {
     --bg: #f6f2e9;
@@ -567,16 +568,17 @@
     <a href="parcel-lookup.html">Parcel Lookup</a>
     &middot; <a href="subdivision-index.html">Subdivisions</a>
     &middot; <a href="plat-index.html">Plat Index</a>
-    &middot; <a href="tax-deeds.html">Tax Deed Registry</a>
+    &middot; <a href="tax-deeds.html">DeedScout Tax Deeds</a>
     &middot; <a href="counties/index.html">County Directory</a>
   </nav>
 </header>
 
 <main class="tool-main">
-  <h1 class="tool-page-title">Palm Beach County Permit Search</h1>
-  <p class="tool-page-sub">Plumbing · Water Filtration · Water Heaters · All Trades · aggregated across live municipal portals</p>
+  <h1 class="tool-page-title">DeedScout Permits — Palm Beach Area</h1>
+  <p class="tool-page-sub">4 live Tyler cities (WPB, Boca, Jupiter, St. Lucie) · 3 sample/blocked sources clearly labeled · Not legal or investment advice</p>
   <div id="dev-alerts" class="dev-alerts" hidden></div>
   <div id="data-banner"></div>
+  <div id="source-health-table" style="margin-bottom:16px;"></div>
 
   <div class="tabs" role="tablist">
     <button class="tab active" data-tab="search" role="tab" aria-selected="true">Search <span class="count" id="t-search-count">0</span></button>
@@ -704,8 +706,9 @@
         </table>
       </div>
       <div id="empty-state" class="empty-state" style="display:none;">
-        <h3>No permits match.</h3>
-        <p>Try removing a keyword, broadening the date range, or switching keyword mode to ANY.</p>
+        <h3>No permits match your filters.</h3>
+        <p><strong>Why no results?</strong> You may have keywords that exclude all rows, disabled live sources, or only sample sources selected. West Palm Beach alone has ~4,000 live permits — try clearing filters or searching <code>plumbing</code>.</p>
+        <p>Sample sources (PBC unincorporated, Royal Palm Beach, Boynton) contain only demo records. See the source health table above.</p>
       </div>
       <div class="pagination" id="pagination"></div>
     </div>
@@ -996,6 +999,10 @@ async function boot() {
   await loadData();
   populateFilterSelects();
   attachListeners();
+  if (!STATE.keywords.length && !location.search) {
+    STATE.keywords = ["plumbing"];
+    renderKeywordChips();
+  }
   applyFiltersAndRender();
 }
 
@@ -1264,6 +1271,27 @@ function showFreshnessBanner() {
     kind,
     html: `<div>${header}</div><ul>${lines.join("")}</ul>`,
   });
+
+  if (window.DeedScoutTrust) {
+    const rows = SOURCES.map((s) => {
+      let st = "coming-soon";
+      if (s.loadError) st = "broken";
+      else if (/sample/i.test(s.fileScope || "") || /sample/i.test(s.fileSource || "") || s.status === "unsupported_paywall") st = /paywall|blocked/i.test(s.status || "") ? "blocked" : "sample";
+      else if (s.status === "active" && s.loaded) {
+        const h = freshnessDays(s.generated);
+        st = h != null && h * 24 <= 72 ? "live" : "cached";
+      } else if (s.status === "scaffold") st = "coming-soon";
+      return {
+        label: s.label,
+        status: st,
+        count: s.loaded ? s.permits.length : null,
+        lastRefreshed: s.generated,
+        portalUrl: s.portalUrl,
+        scope: s.scope || s.fileScope,
+      };
+    });
+    DeedScoutTrust.mount("#source-health-table", "<h2 style=\"font-size:18px;font-family:'Cormorant Garamond',serif;margin:0 0 8px;\">Source health</h2>" + DeedScoutTrust.renderSourceTable(rows));
+  }
 }
 
 function freshnessDays(iso) {

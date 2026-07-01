@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DeedScout — Florida Property Intelligence from Public Records</title>
-  <meta name="description" content="Search Florida tax deeds, parcels, permits, subdivisions, plats, and surplus signals from one workflow. Built for investors, contractors, and title researchers." />
+  <title>DeedScout — Florida Tax Deed Research, County by County</title>
+  <meta name="description" content="DeedScout turns fragmented Florida public records into one workflow for county auction links, parcel research, permit signals, surplus resources, watchlists, alerts, and exports." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -13,12 +13,13 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "SoftwareApplication",
     "name": "DeedScout",
-    "description": "Florida property intelligence from public records for tax deed investors, contractors, and researchers.",
-    "url": "https://deedscout.netlify.app/",
     "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web"
+    "operatingSystem": "Web",
+    "url": "https://deedscout.netlify.app/",
+    "description": "Florida public-records research layer for tax deed investors — county auction links, parcel lookup, permit signals, surplus resources, watchlists, alerts, and research notes.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
   <script>
@@ -35,100 +36,77 @@
   <section class="ds-hero">
     <div class="ds-hero-inner">
       <div>
-        <p class="ds-hero-eyebrow">The investor's reference</p>
-        <h1>Find Florida property <em>opportunities</em> before they become obvious.</h1>
+        <p class="ds-hero-eyebrow">DeedScout · Tax deed investors</p>
+        <h1>Florida tax deed research, <em>organized county by county.</em></h1>
         <p class="ds-hero-lede">
-          Search tax deeds, parcels, permits, subdivisions, plats, and surplus records across Florida county sources — built for investors, contractors, and title researchers.
+          DeedScout turns fragmented Florida public records into one workflow for county auction links, parcel research, permit signals, surplus resources, watchlists, alerts, and exports.
         </p>
         <div class="ds-hero-ctas">
-          <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Search Tax Deeds</a>
-          <a class="ds-btn ds-btn-secondary" href="parcel-lookup.html">Try Parcel Lookup</a>
-          <a class="ds-btn ds-btn-secondary" href="#newsletter">Join Weekly Alerts</a>
+          <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Start Free</a>
+          <a class="ds-btn ds-btn-secondary" href="counties/index.html">Browse Counties</a>
         </div>
-        <p class="ds-hero-tagline">Free search · Official county sources · Pro tools for watchlists, alerts, and exports</p>
+        <p class="ds-hero-tagline">Official county source links · Clear sample vs live labels · Pro workflow tools</p>
       </div>
       <div class="ds-hero-stats">
-        <div class="ds-stat"><div class="val">67</div><div class="lbl">Counties</div></div>
-        <div class="ds-stat"><div class="val">4+</div><div class="lbl">Permit cities</div></div>
-        <div class="ds-stat"><div class="val">6</div><div class="lbl">Research tools</div></div>
+        <div class="ds-stat"><div class="val">67</div><div class="lbl">Counties indexed</div></div>
+        <div class="ds-stat"><div class="val">4</div><div class="lbl">Live permit cities</div></div>
+        <div class="ds-stat"><div class="val">6</div><div class="lbl">Research modules</div></div>
         <div class="ds-stat"><div class="val">1</div><div class="lbl">Workflow</div></div>
       </div>
     </div>
   </section>
 
-  <section class="ds-section">
-    <div class="ds-prose">
-      <p><strong>Florida property records are public, but the workflow is broken.</strong></p>
-      <p>Every county has different clerk websites, property appraiser portals, permit databases, auction platforms, GIS tools, PDFs, and update schedules.</p>
-      <p>DeedScout brings those scattered records into one research workflow so investors, contractors, title researchers, and real estate professionals can find opportunity signals faster.</p>
-    </div>
-  </section>
+  <div id="home-trust-banner"></div>
 
   <section class="ds-section">
     <div class="ds-section-head">
-      <p class="ds-section-label">Who it's for</p>
-      <h2>One platform, three research workflows</h2>
+      <p class="ds-section-label">How it works</p>
+      <h2>From county pick to export-ready research</h2>
     </div>
-    <div class="ds-grid-3">
-      <div class="ds-audience-card">
-        <h3>For Investors</h3>
-        <p>Find tax deed, parcel, surplus, permit, and subdivision signals before deals become obvious. Research county auctions, property values, owner records, permit history, and neighborhood activity from one dashboard.</p>
-        <a class="ds-btn ds-btn-secondary" href="tax-deed-investors.html">Explore Investor Tools</a>
-      </div>
-      <div class="ds-audience-card">
-        <h3>For Contractors</h3>
-        <p>See where work is happening before your competitors do. Search permit activity, subdivision growth, contractor trends, and neighborhood demand signals to find areas with future service opportunities.</p>
-        <a class="ds-btn ds-btn-secondary" href="contractor-intelligence.html">Explore Contractor Tools</a>
-      </div>
-      <div class="ds-audience-card">
-        <h3>For Researchers</h3>
-        <p>Move faster through Florida public records. Access county links, parcel records, auction sources, permit tools, plat records, and exportable research workflows in one place.</p>
-        <a class="ds-btn ds-btn-secondary" href="tax-deeds.html">Explore Research Tools</a>
-      </div>
+    <div class="ds-steps">
+      <div class="ds-step"><div class="ds-step-num">1</div><h3>Pick your counties</h3><p>Start with Palm Beach, Broward, Miami-Dade, Orange, or browse all 67 Florida counties.</p></div>
+      <div class="ds-step"><div class="ds-step-num">2</div><h3>Review official auction sources</h3><p>Clerk tax deed pages and auction platforms — always linked to the official county source.</p></div>
+      <div class="ds-step"><div class="ds-step-num">3</div><h3>Save parcels to your notebook</h3><p>Build a research notebook with notes, tags, and watchlists (Pro).</p></div>
+      <div class="ds-step"><div class="ds-step-num">4</div><h3>Check parcel &amp; permit signals</h3><p>Parcel lookup, permit search, subdivisions, and plats where connected — with sample vs live labels.</p></div>
+      <div class="ds-step"><div class="ds-step-num">5</div><h3>Get alerts &amp; export</h3><p>County alerts, CSV exports, and weekly digests for active investors (Pro).</p></div>
     </div>
   </section>
 
   <section class="ds-section">
     <div class="ds-section-head">
       <p class="ds-section-label">Products</p>
-      <h2>Florida public-records intelligence, organized by workflow</h2>
+      <h2>DeedScout modules</h2>
     </div>
     <div class="ds-grid-3">
       <a class="ds-card" href="tax-deeds.html">
-        <div class="ds-product-icon">📋</div>
-        <h3>Tax Deeds</h3>
-        <p>All 67 Florida counties with clerk links, auction platforms, upcoming sales, watchlists, and parcel notebooks.</p>
+        <h3>DeedScout Tax Deeds</h3>
+        <p>67-county directory with clerk links, auction platforms, upcoming sales, watchlists, and parcel notebooks.</p>
         <span class="ds-link">Open Tax Deeds →</span>
       </a>
       <a class="ds-card" href="parcel-lookup.html">
-        <div class="ds-product-icon">🏠</div>
-        <h3>Parcels</h3>
-        <p>PCN, address, and owner research with property values, sale history, and direct county source links.</p>
+        <h3>DeedScout Parcel Lookup</h3>
+        <p>Palm Beach PCN, address, and owner research with property values and county source links.</p>
         <span class="ds-link">Open Parcel Lookup →</span>
       </a>
       <a class="ds-card" href="permit-search.html">
-        <div class="ds-product-icon">🔧</div>
-        <h3>Permits</h3>
-        <p>Keyword search across live municipal permit data with plumbing watch, contractor filters, trends, and CSV export.</p>
+        <h3>DeedScout Permits</h3>
+        <p>Municipal permit search with source health labels — 4 live Tyler cities; sample data clearly marked.</p>
         <span class="ds-link">Open Permit Search →</span>
       </a>
-      <a class="ds-card" href="subdivisions-plats.html">
-        <div class="ds-product-icon">🗺️</div>
-        <h3>Subdivisions &amp; Plats</h3>
-        <p>Subdivision index and plat book lookup for Palm Beach County development and neighborhood research.</p>
-        <span class="ds-link">Browse records →</span>
+      <a class="ds-card" href="subdivision-index.html">
+        <h3>DeedScout Subdivision Index</h3>
+        <p>Palm Beach subdivision index for neighborhood and investor research.</p>
+        <span class="ds-link">Open Subdivision Index →</span>
       </a>
-      <a class="ds-card" href="tax-deeds.html#/surplus">
-        <div class="ds-product-icon">💰</div>
-        <h3>Surplus Funds</h3>
-        <p>County surplus claim portals, sale result notes, and Pro-tier surplus history for recovery research.</p>
-        <span class="ds-link">View Surplus Registry →</span>
+      <a class="ds-card" href="plat-index.html">
+        <h3>DeedScout Plat Index</h3>
+        <p>Palm Beach plat book lookup for subdivision and plat research.</p>
+        <span class="ds-link">Open Plat Index →</span>
       </a>
-      <a class="ds-card" href="contractor-intelligence.html">
-        <div class="ds-product-icon">📈</div>
-        <h3>Contractor Intelligence</h3>
-        <p>Permit trend discovery, ZIP hotspots, subdivision growth signals, and lead research for service businesses.</p>
-        <span class="ds-link">Find permit opportunities →</span>
+      <a class="ds-card" href="plumbing-reviews.html">
+        <h3>DeedScout Labs</h3>
+        <p>Experimental tools including the Plumbing Review Index — not production county data.</p>
+        <span class="ds-link">Browse Labs →</span>
       </a>
     </div>
   </section>
@@ -141,37 +119,50 @@
     <div class="ds-grid-4" id="featured-counties">
       <a class="ds-card" href="counties/palm-beach.html" data-county-slug="palm-beach">
         <h3>Palm Beach</h3>
-        <p>Southeast · ~1.5M residents · West Palm Beach, Boca Raton</p>
+        <p>Southeast · West Palm Beach, Boca Raton</p>
         <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading" style="font-size:10px;color:var(--ds-muted);">Loading…</span></div>
         <span class="ds-link">View county →</span>
       </a>
       <a class="ds-card" href="counties/broward.html" data-county-slug="broward">
         <h3>Broward</h3>
-        <p>Southeast · ~1.9M residents · Fort Lauderdale, Hollywood</p>
-        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading" style="font-size:10px;color:var(--ds-muted);">Loading…</span></div>
+        <p>Southeast · Fort Lauderdale, Hollywood</p>
+        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading">Loading…</span></div>
         <span class="ds-link">View county →</span>
       </a>
       <a class="ds-card" href="counties/miami-dade.html" data-county-slug="miami-dade">
         <h3>Miami-Dade</h3>
-        <p>Southeast · ~2.7M residents · Miami, Coral Gables</p>
-        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading" style="font-size:10px;color:var(--ds-muted);">Loading…</span></div>
+        <p>Southeast · Miami, Coral Gables</p>
+        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading">Loading…</span></div>
         <span class="ds-link">View county →</span>
       </a>
       <a class="ds-card" href="counties/orange.html" data-county-slug="orange">
         <h3>Orange</h3>
-        <p>Central · ~1.4M residents · Orlando, Winter Park</p>
-        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading" style="font-size:10px;color:var(--ds-muted);">Loading…</span></div>
+        <p>Central · Orlando, Winter Park</p>
+        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading">Loading…</span></div>
         <span class="ds-link">View county →</span>
       </a>
     </div>
-    <p style="margin-top:16px;"><a href="counties/index.html" style="color:var(--ds-accent);font-weight:600;text-decoration:none;">Browse all 67 Florida counties →</a></p>
+    <p style="margin-top:16px;"><a class="ds-link" href="counties/index.html">Browse all 67 Florida counties →</a></p>
+  </section>
+
+  <section class="ds-section">
+    <div class="ds-section-head"><p class="ds-section-label">Trust</p><h2>Built for researchers, not hype</h2></div>
+    <div class="ds-prose">
+      <p><strong>Not affiliated with any county, clerk, auction platform, property appraiser, or government agency.</strong></p>
+      <p>DeedScout is a research layer. Always verify final records with the official county source before bidding or making decisions.</p>
+      <p>We label every dataset as <strong>Live</strong>, <strong>Cached</strong>, <strong>Sample</strong>, <strong>Blocked</strong>, <strong>Broken</strong>, or <strong>Coming Soon</strong> — with source URL and last refresh time where available. See <a href="methodology.html">methodology</a> and <a href="data-sources.html">data sources</a>.</p>
+    </div>
   </section>
 
   <section class="ds-section" id="newsletter">
     <div class="ds-newsletter">
       <div>
         <h2>Florida Property Opportunity Digest</h2>
-        <p>Get weekly Florida tax deed, permit, parcel, subdivision, and public-record opportunity signals delivered to your inbox.</p>
+        <p>Weekly county activity signals for tax deed investors. Example: upcoming sale dates, new permit hotspots, and county links — not investment advice.</p>
+        <div class="ds-example" style="margin-top:16px;font-size:12px;"><div class="ds-example-label">Example weekly digest</div>DeedScout Weekly · Palm Beach County
+Next sale: check clerk (verify before bidding)
+WPB permits (live): 47 plumbing permits last 7 days
+Reminder: PBC unincorporated permits are SAMPLE only in DeedScout.</div>
       </div>
       <form class="ds-form" name="weekly-digest" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="weekly-digest" />
@@ -183,10 +174,8 @@
             <option value="">Select one…</option>
             <option>Tax deeds</option>
             <option>Surplus funds</option>
-            <option>Contractor leads</option>
             <option>Parcel research</option>
             <option>Permit activity</option>
-            <option>Real estate investing</option>
           </select>
         </label>
         <button type="submit" class="ds-btn ds-btn-primary" style="width:100%;">Join the Weekly Digest</button>
@@ -197,21 +186,31 @@
   <section class="ds-section" id="disclaimer">
     <div class="ds-disclaimer">
       <strong>Data disclaimer</strong>
-      DeedScout organizes public-record information for research purposes only. It does not replace official county records, legal due diligence, title searches, investment advice, or professional verification. Always confirm details with the official county source before bidding, buying, contacting owners, or making financial decisions.
+      DeedScout organizes public-record information for research purposes only. It does not replace official county records, legal due diligence, title searches, investment advice, or professional verification. Not legal, tax, investment, title, or brokerage advice. Always confirm details with the official county source before bidding, buying, contacting owners, or making financial decisions.
     </div>
-    <dl class="ds-trust-block" style="margin-top:16px;">
+    <dl class="ds-trust-meta" style="margin-top:16px;">
       <dt>Last updated</dt><dd id="stats-generated">Loading…</dd>
-      <dt>Data source</dt><dd>Florida county clerks, property appraisers, municipal permit portals, and auction platforms</dd>
-      <dt>Coverage</dt><dd>67 counties (tax deeds) · Palm Beach parcels/subdivisions/plats · 4+ live permit cities</dd>
-      <dt>Verification required</dt><dd>Always confirm sale dates, parcel details, bid rules, and legal status with the official county source before acting.</dd>
+      <dt>Live permit cities</dt><dd>West Palm Beach, Boca Raton, Jupiter, St. Lucie County (Tyler EnerGov)</dd>
+      <dt>Sample permit data</dt><dd>Palm Beach unincorporated (4 records), Royal Palm Beach, Boynton Beach — demo only</dd>
+      <dt>Verification required</dt><dd>Official source required before bidding on any tax deed sale.</dd>
     </dl>
   </section>
 
 </main>
-
+<script src="assets/data-trust.js"></script>
 <script src="assets/deedscout.js"></script>
 <script>
 (function () {
+  if (window.DeedScoutTrust) {
+    DeedScoutTrust.mount("#home-trust-banner", DeedScoutTrust.renderTrustPanel({
+      status: "cached",
+      headline: "County directory links are official sources; scraped sale dates may be unavailable until scrapers recover.",
+      source: "Florida county clerks, auction platforms, Tyler EnerGov (permits)",
+      verification: "Always verify sale dates and parcel details with the official county source before bidding.",
+      note: "Permit counts mix live municipal scrapes with clearly labeled sample datasets."
+    }));
+  }
+
   function badgeHtml(cls, text) {
     return '<span class="county-badge ' + cls + '">' + text + "</span>";
   }
@@ -229,13 +228,11 @@
       if (!entry) { box.innerHTML = badgeHtml("muted", "Stats unavailable"); return; }
       var badges = [];
       if (entry.nextSale && entry.nextSale.shortLabel) {
-        var t = "Next sale · " + entry.nextSale.shortLabel;
-        if (entry.nextSale.count) t += " · " + entry.nextSale.count + " parcels";
-        badges.push(badgeHtml("sale", t));
+        badges.push(badgeHtml("sale", "Next sale · " + entry.nextSale.shortLabel + " (verify with clerk)"));
       } else {
-        badges.push(badgeHtml("muted", "No sale scheduled"));
+        badges.push(badgeHtml("muted", "No verified sale date"));
       }
-      if (entry.surplusPortal) badges.push(badgeHtml("surplus", "Surplus claims portal"));
+      if (entry.surplusPortal) badges.push(badgeHtml("surplus", "Surplus portal linked"));
       box.innerHTML = badges.join("");
     });
   }

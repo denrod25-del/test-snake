@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System Status — DeedScout</title>
+  <meta name="description" content="DeedScout scraper health, source status, and known issues." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/deedscout.css" />
+</head>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:48px;">
+  <div class="ds-section-head"><p class="ds-section-label">Operations</p><h1>System status</h1></div>
+  <div id="status-panels"></div>
+  <div class="ds-prose" style="margin-top:24px;">
+    <p><strong>Known issues:</strong></p>
+    <ul>
+      <li>RealAuction tax deed sale scraper: <span class="ds-status ds-status-broken">Broken</span> (403 from upstream) — county links remain official; sale dates not auto-refreshed.</li>
+      <li>Palm Beach unincorporated permits: <span class="ds-status ds-status-sample">Sample</span> (4 demo records) — county portal requires reCAPTCHA.</li>
+      <li>Royal Palm Beach &amp; Boynton Beach permits: <span class="ds-status ds-status-sample">Sample</span> — no public bulk API.</li>
+    </ul>
+  </div>
+</main>
+<script src="assets/data-trust.js"></script>
+<script src="assets/deedscout.js"></script>
+<script>
+(function(){
+  var html = "";
+  html += DeedScoutTrust.renderTrustPanel({ status: "broken", headline: "Tax deed sale scraper", source: "RealAuction / LienHub / DeedAuction", verification: "Use official auction links on each county page until scraper recovers." });
+  html += DeedScoutTrust.renderTrustPanel({ status: "live", headline: "Tyler EnerGov permit scrapes (WPB, Boca, Jupiter, St. Lucie)", source: "Municipal Tyler SelfService portals", lastRefreshed: new Date().toISOString(), verification: "Confirm permit details on official portal before outreach." });
+  html += DeedScoutTrust.renderTrustPanel({ status: "sample", headline: "Palm Beach unincorporated + RPB + Boynton permit files", large: true, note: "Demo data only. West Palm Beach alone has ~4,000 live permits — do not confuse with county sample file." });
+  DeedScoutTrust.mount("#status-panels", html);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+# DeedScout
+
+> Florida public-records research layer for tax deed investors — county auction links, parcel lookup, permit signals, surplus resources, watchlists, alerts, and research notes.
+
+DeedScout is deployed at https://deedscout.netlify.app/
+
+## Primary pages
+
+- [Home](https://deedscout.netlify.app/index.html): SaaS landing and product overview
+- [Tax Deeds](https://deedscout.netlify.app/tax-deeds.html): 67-county directory (DeedScout Tax Deeds module)
+- [Counties](https://deedscout.netlify.app/counties/index.html): SEO county pages with official source links
+- [Parcel Lookup](https://deedscout.netlify.app/parcel-lookup.html): Palm Beach parcel research
+- [Permit Search](https://deedscout.netlify.app/permit-search.html): Municipal permit search with source health labels
+- [Pricing](https://deedscout.netlify.app/pricing.html): Free, Pro ($49/mo), Investor Pro (waitlist), Team
+- [Methodology](https://deedscout.netlify.app/methodology.html): How we label Live, Cached, Sample, Blocked, Broken
+- [Data Sources](https://deedscout.netlify.app/data-sources.html): Source inventory and refresh policy
+- [Status](https://deedscout.netlify.app/status.html): Scraper and source health
+- [FAQ](https://deedscout.netlify.app/faq.html)
+
+## Data trust labels
+
+- **Live**: Official/public source refreshed within 72 hours
+- **Cached**: Real data, stale refresh
+- **Sample**: Demo only — do not rely on it
+- **Blocked**: Login, paywall, reCAPTCHA, or manual lookup required
+- **Broken**: Scraper currently failing
+- **Coming Soon**: UI without data connection
+
+## Important disclaimers
+
+DeedScout is not affiliated with any county, clerk, auction platform, property appraiser, or government agency. Not legal, tax, investment, title, or brokerage advice. Always verify with official county sources before bidding.
+
+## Contact
+
+- General: https://deedscout.netlify.app/contact.html
+- Security: https://deedscout.netlify.app/security.html
