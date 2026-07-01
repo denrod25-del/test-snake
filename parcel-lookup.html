@@ -571,7 +571,8 @@
 
 <main class="tool-main">
   <h1 class="tool-page-title">Palm Beach County Parcel &rarr; Address Lookup</h1>
-  <p class="tool-page-sub">Convert PCNs, legal descriptions, or owner names into property addresses — live Palm Beach County GIS data.</p>
+  <p class="tool-page-sub">Convert PCNs, legal descriptions, or owner names into property addresses — query-time Palm Beach County GIS data.</p>
+  <div id="parcel-trust-banner" style="margin-bottom:16px;"></div>
   <div class="tabs" role="tablist">
     <button class="tab active" data-tab="single" role="tab">Single Lookup</button>
     <button class="tab" data-tab="bulk" role="tab">Bulk Lookup</button>
@@ -1849,6 +1850,16 @@
 
   updateNotebookQueueUI();
 })();
+</script>
+<script src="assets/data-trust.js"></script>
+<script>
+DeedScoutTrust.mount('#parcel-trust-banner', DeedScoutTrust.renderTrustPanel({
+  status: 'live',
+  headline: 'Query-time parcel lookup',
+  source: 'Palm Beach County Property Appraiser ArcGIS FeatureServer',
+  verification: 'Cross-check parcel ID, owner, and address with the Property Appraiser before bidding or outreach.',
+  note: 'Each search is a live GIS query — not a bulk cached export.'
+}));
 </script>
 <script src="assets/deedscout.js"></script>
 </body>

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/deedscout.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // ---------------------------------------------------------------
@@ -27,7 +28,9 @@
       FEATURES: {
         // Flip to true after RentCast + BatchData accounts are funded and tested.
         advanced_lookups: false
-      }
+      },
+      // Flip to false once scrape_surplus.py populates real clerk rows in Supabase.
+      SURPLUS_HISTORY_SAMPLE: true
     };
   </script>
   <style>
@@ -2964,7 +2967,8 @@
           <h2>Upcoming Sales</h2>
           <div class="meta">Next 60 Days &middot; Statewide</div>
         </div>
-        <p class="calendar-intro">Confirmed upcoming tax deed sales across Florida, sorted chronologically. Click any date to open that county's page for parcel details and the live bidding link.</p>
+        <p class="calendar-intro" id="upcomingIntro">Loading sale calendar status&hellip;</p>
+        <div id="upcomingTrustBanner" style="margin-bottom:20px;"></div>
         <div class="upcoming-list" id="upcomingList">
           <!-- populated by JS -->
         </div>
@@ -3164,6 +3168,7 @@
     </div>
   </footer>
 
+  <script src="assets/data-trust.js"></script>
   <script>
     // Florida county dataset.
     // region: panhandle / north / central / south-west / south-east / keys
@@ -3858,6 +3863,104 @@
         });
       });
       calendarBody.innerHTML = cards.join('');
+    }
+
+    let salesFeedMeta = null;
+
+    function countFutureSales() {
+      return Object.values(UPCOMING_SALES).reduce(
+        (acc, arr) => acc + (arr || []).filter(s => daysUntil(s.date) >= 0).length, 0);
+    }
+
+    function resolveSalesTrustStatus() {
+      const future = countFutureSales();
+      const scraped = salesFeedMeta?.scraped ?? 0;
+      const failed = salesFeedMeta?.failed ?? 0;
+      const fromScraper = salesFeedMeta?.fromScraper === true;
+      const source = 'RealAuction / LienHub / DeedAuction scrapers';
+
+      if (fromScraper && scraped > 0 && future > 0) {
+        return {
+          status: DeedScoutTrust.salesTrustStatus(true, salesFeedMeta.generated, source),
+          source,
+          generated: salesFeedMeta.generated,
+          note: null
+        };
+      }
+      if (fromScraper && scraped > 0) {
+        return {
+          status: 'cached',
+          source,
+          generated: salesFeedMeta.generated,
+          note: 'Last successful scrape had no future-dated sales in the feed window.'
+        };
+      }
+      if (failed > 0 || (fromScraper && scraped === 0)) {
+        return {
+          status: 'broken',
+          source,
+          generated: salesFeedMeta?.generated,
+          note: 'Automated sale-calendar scrape is failing (403 upstream). County auction links on each county page remain official.'
+        };
+      }
+      if (future > 0) {
+        return {
+          status: 'sample',
+          source: 'Manually maintained sample dates in DeedScout',
+          generated: null,
+          note: 'Verify every sale date on the official clerk or auction site before bidding.'
+        };
+      }
+      return {
+        status: 'broken',
+        source,
+        generated: salesFeedMeta?.generated,
+        note: 'No upcoming sale dates are published in DeedScout right now. Use official county links below.'
+      };
+    }
+
+    function updateSalesTrustUI() {
+      if (!window.DeedScoutTrust) return;
+      const trust = resolveSalesTrustStatus();
+      const future = countFutureSales();
+      const stamp = document.getElementById('dataStamp');
+      if (stamp) {
+        const badge = DeedScoutTrust.renderBadge(trust.status, { compact: true });
+        const parts = [badge];
+        if (trust.generated && salesFeedMeta?.fromScraper && (salesFeedMeta.scraped || 0) > 0) {
+          parts.push('updated ' + fmtRelative(trust.generated));
+        } else if (trust.status === 'broken') {
+          parts.push('scraper offline');
+        } else if (trust.status === 'sample') {
+          parts.push('verify on clerk sites');
+        }
+        parts.push('<a href="status.html" style="color:inherit;border-bottom:1px solid currentColor;">Data status</a>');
+        stamp.innerHTML = parts.join(' &middot; ');
+        stamp.classList.toggle('live', trust.status === 'live');
+      }
+      const intro = document.getElementById('upcomingIntro');
+      if (intro) {
+        if (future > 0 && trust.status === 'live') {
+          intro.textContent = 'Upcoming tax deed sales from our latest scrape, sorted chronologically. Click any date to open that county\'s page for parcel details and the live bidding link.';
+        } else if (future > 0 && trust.status === 'cached') {
+          intro.textContent = 'Upcoming tax deed sales from our last successful scrape. Dates may have shifted — confirm on the official clerk or auction site before bidding.';
+        } else if (future > 0) {
+          intro.textContent = 'Manually maintained sale dates for illustration. Always confirm current sale lists on each county\'s official clerk or auction page before bidding.';
+        } else {
+          intro.textContent = 'No upcoming sale dates are loaded in DeedScout right now. The sale-calendar scraper is offline — use each county\'s official clerk and auction links in the directory below.';
+        }
+      }
+      const banner = document.getElementById('upcomingTrustBanner');
+      if (banner) {
+        DeedScoutTrust.mount('#upcomingTrustBanner', DeedScoutTrust.renderTrustPanel({
+          status: trust.status,
+          headline: future > 0 ? 'Upcoming sale dates' : 'Sale calendar scraper offline',
+          source: trust.source,
+          lastRefreshed: trust.generated,
+          verification: 'Official clerk or auction source required before bidding.',
+          note: trust.note
+        }));
+      }
     }
 
     function renderUpcoming() {
@@ -7003,7 +7106,7 @@
                 </div>
                 <div class="paywall-cta">
                   <h3>Subscribe to access the full database.</h3>
-                  <p>Searchable, filterable, exportable. Updated weekly from county Clerk records.</p>
+                  <p>Searchable, filterable, exportable. Sample records shown until the weekly clerk scraper populates the live database.</p>
                   <a class="btn-primary" href="#/pricing" style="text-decoration:none;display:inline-block;">View Pro Plans &rarr;</a>
                 </div>
               </div>
@@ -7012,6 +7115,19 @@
         return;
       }
 
+      const surplusSample = !!window.FTDR_CONFIG?.SURPLUS_HISTORY_SAMPLE;
+      const surplusTrustHtml = window.DeedScoutTrust
+        ? DeedScoutTrust.renderTrustPanel({
+            status: surplusSample ? 'sample' : 'cached',
+            headline: 'Surplus funds history',
+            source: surplusSample ? 'Supabase seed rows (schema.sql)' : 'County Clerk surplus pages via scrape_surplus.py',
+            verification: 'Confirm claim status and deadlines on the official county clerk surplus page.',
+            note: surplusSample
+              ? 'Demo records for Pro UI testing. Real clerk filings will replace these when the surplus scraper is live.'
+              : 'Refreshed weekly from county Clerk surplus pages.'
+          })
+        : '';
+
       surplusHistoryView.innerHTML = `
         <div class="detail-inner">
           <a class="back-link" href="#/">&larr; Back to Registry</a>
@@ -7019,7 +7135,9 @@
             <div>
               <div class="eyebrow">Pro Feature</div>
               <h1 class="detail-title">Surplus Funds <em>History</em></h1>
-              <p class="lede">All Florida tax deed sales that produced surplus funds. Updated weekly from county Clerk records.</p>
+              <p class="lede">${surplusSample
+                ? 'Sample surplus-fund records for Pro UI testing. Do not rely on these for claims — verify on official county clerk surplus pages.'
+                : 'Florida tax deed sales that produced surplus funds, refreshed from county Clerk records.'}</p>
             </div>
             <div class="detail-meta">
               <div class="meta-row"><span class="meta-lbl">Records</span><span class="meta-val" id="surplusCount">&mdash;</span></div>
@@ -7027,6 +7145,8 @@
               <div class="meta-row"><span class="meta-lbl">Unclaimed</span><span class="meta-val" id="surplusUnclaimed">&mdash;</span></div>
             </div>
           </div>
+
+          ${surplusTrustHtml ? '<div style="margin:0 0 20px;">' + surplusTrustHtml + '</div>' : ''}
 
           <div class="statute-controls">
             <div class="search" style="flex:1;">
@@ -7130,10 +7250,10 @@
       renderUpcoming();
       renderSurplus();
       applyFilters();
-      const totalUpcoming = Object.values(UPCOMING_SALES).reduce(
-        (acc, arr) => acc + arr.filter(s => daysUntil(s.date) >= 0).length, 0);
+      const totalUpcoming = countFutureSales();
       document.getElementById('statUpcoming').textContent = totalUpcoming;
       document.getElementById('statOnline').textContent = COUNTIES.filter(c => c.format === 'online').length;
+      updateSalesTrustUI();
     }
 
     // ----------------------------------------------------------------
@@ -7155,22 +7275,25 @@
     fetch('sales.json', { cache: 'no-store' })
       .then(r => r.ok ? r.json() : Promise.reject('no sales.json'))
       .then(data => {
-        if (data && data.sales && typeof data.sales === 'object') {
-          // Merge: each county's array from sales.json fully replaces the inline default
+        salesFeedMeta = {
+          generated: data.generated,
+          scraped: data.stats?.scraped ?? 0,
+          failed: data.stats?.failed ?? 0,
+          fromScraper: true
+        };
+        if (data?.sales && typeof data.sales === 'object') {
           Object.keys(data.sales).forEach(county => {
-            UPCOMING_SALES[county] = data.sales[county];
-          });
-          rerenderAll();
-          if (data.generated) {
-            const stamp = document.getElementById('dataStamp');
-            if (stamp) {
-              stamp.innerHTML = `Live data &middot; updated ${fmtRelative(data.generated)}`;
-              stamp.classList.add('live');
+            if (Array.isArray(data.sales[county]) && data.sales[county].length) {
+              UPCOMING_SALES[county] = data.sales[county];
             }
-          }
+          });
         }
+        rerenderAll();
       })
-      .catch(() => { /* graceful fallback to inline UPCOMING_SALES */ });
+      .catch(() => {
+        salesFeedMeta = { fromScraper: false };
+        updateSalesTrustUI();
+      });
 
     loadMedianValuesFromCache();
     rerenderAll();

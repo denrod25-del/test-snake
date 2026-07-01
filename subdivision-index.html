@@ -326,6 +326,7 @@
 <main class="tool-main">
   <h1 class="tool-page-title">Palm Beach County Subdivision Index</h1>
   <p class="tool-page-sub">Every legal subdivision with city, residential mix, homestead/investor signals, and monthly diff for new development signals.</p>
+  <div id="subdiv-trust-banner" style="margin-bottom:16px;"></div>
   <div class="notice" id="scope-notice">
     <strong>How to use this for leads &amp; research.</strong>
     <em>Contractor leads</em> — filter by city, pick subdivisions that are mostly residential (80%+), export CSV, then open parcels for permit history.
@@ -481,6 +482,16 @@
         txt += " (prev " + p.toLocaleDateString(undefined, { dateStyle: "medium" }) + ")";
       }
       $("#generated-date").textContent = txt;
+    }
+    if (window.DeedScoutTrust) {
+      DeedScoutTrust.mount('#subdiv-trust-banner', DeedScoutTrust.renderTrustPanel({
+        status: 'cached',
+        headline: 'PBC subdivision index',
+        source: 'Palm Beach County GIS Open Data',
+        lastRefreshed: meta.generated,
+        verification: 'Homestead flags are a rough signal — cross-check with Property Appraiser.',
+        note: ((s.named_subdivisions || s.subdivision_count || 0).toLocaleString()) + ' subdivisions in monthly scrape snapshot.'
+      }));
     }
   }
 
@@ -757,6 +768,7 @@
   init();
 })();
 </script>
+<script src="assets/data-trust.js"></script>
 <script src="assets/deedscout.js"></script>
 </body>
 </html>

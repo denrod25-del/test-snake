@@ -62,6 +62,7 @@
 <main class="tool-main">
   <h1 class="tool-page-title">PBC PZB Plat PDF Index</h1>
   <p class="tool-page-sub">Recorded plat sheets from Palm Beach County Planning, Zoning &amp; Building — with OCR subdivision names and new-since-last-scrape flags.</p>
+  <div id="plat-trust-banner" style="margin-bottom:16px;"></div>
   <div class="changelog" id="changelog" hidden></div>
   <div class="stats" id="stats" hidden></div>
   <section class="panel">
@@ -205,6 +206,16 @@
       ].map(([k,l]) => `<div class="stat"><div class="num">${(s[k]||0).toLocaleString()}</div><div class="lbl">${l}</div></div>`).join("");
       $("#stats").hidden = false;
       if (data.generated) $("#generated-date").textContent = "Last built " + new Date(data.generated).toLocaleString();
+      if (window.DeedScoutTrust) {
+        DeedScoutTrust.mount('#plat-trust-banner', DeedScoutTrust.renderTrustPanel({
+          status: 'cached',
+          headline: 'PBC plat PDF index',
+          source: 'Palm Beach County PZB Plat Map Index',
+          lastRefreshed: data.generated,
+          verification: 'Confirm plat boundaries and subdivision names on the official county PDF.',
+          note: ((s.plat_count || all.length || 0).toLocaleString()) + ' plat sheets in monthly scrape snapshot.'
+        }));
+      }
       for (const b of s.books || []) {
         const o = document.createElement("option"); o.value = String(b); o.textContent = "Book " + b; $("#book").appendChild(o);
       }
@@ -232,6 +243,7 @@
   init();
 })();
 </script>
+<script src="assets/data-trust.js"></script>
 <script src="assets/deedscout.js"></script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+# Unrelated monorepo mini-projects — not part of the DeedScout public site.
+# Netlify publishes the repo root; this keeps demo/lab apps off deedscout.netlify.app.
+fl-bankruptcy/
+florida-bookings/
+water-leads/
+plumbing-leads/
+code-masters/
+js-quest/
+forge-path/
+openart/
+school-shooting-tracker/
+gentoomen-hub/
+searchlab/
+build-your-own-x/
+atlases-logical-equivalence/
+atlases-truth-table/
+swe-academy/
+symbolic/
+vuln-lab/
+app/
+space-cadet-pinball/
+
+# Dev tooling (not served to end users)
+.github/
+docs/
+tests/
+scraper/
+scripts/
+supabase/
+
+# Standalone experiments at repo root
+game.html
+game.js
+landing.html
+trainer.html
+trainer.js
+style.css
+
+# Repo meta (not needed on CDN)
+AGENTS.md
+PROJECTS.md
+SETUP.md
+README.md
+llms.txt
