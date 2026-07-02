@@ -106,7 +106,7 @@
       "dataFile":   "data/permits/boynton-beach.json",
       "portalUrl":  "https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx",
       "status":     "unsupported_paywall",
-      "scope":      "SagesGov requires login for search and is anti-bot. Sample data only. To pull live, export CSV from your portal account and use the Manual Upload tab."
+      "scope":      "SagesGov requires login for search and is anti-bot. Sample data only — no public bulk export."
     }
   ]
 }

@@ -56,7 +56,7 @@
   topbar.className = "ds-topbar";
   topbar.innerHTML =
     '<div class="ds-topbar-inner">' +
-    '<span>DeedScout &mdash; <a href="' + href("data-sources.html") + '" class="ds-beta-link" title="Data coverage varies by county and source">Public Beta</a></span>' +
+    '<span>DeedScout &mdash; <a href="' + href("trust.html") + '" class="ds-beta-link" title="Data coverage varies by county and source">Public Beta</a></span>' +
     '<span><a href="' + href("tax-deeds.html") + '">DeedScout Tax Deeds</a> &nbsp;|&nbsp; <a href="' + href("account.html") + '">Sign In</a></span>' +
     "</div>";
   document.body.insertBefore(topbar, document.body.firstChild);
@@ -89,6 +89,7 @@
     '<a href="' + href("subdivision-index.html") + '" style="border:none;">DeedScout Subdivision Index</a>' +
     '<a href="' + href("plat-index.html") + '" style="border:none;">DeedScout Plat Index</a></div>' +
     "<div><h4>Company</h4>" +
+    '<a href="' + href("trust.html") + '" style="border:none;">Trust Center</a>' +
     '<a href="' + href("about.html") + '" style="border:none;">About</a>' +
     '<a href="' + href("methodology.html") + '" style="border:none;">Methodology</a>' +
     '<a href="' + href("data-sources.html") + '" style="border:none;">Data Sources</a>' +
@@ -103,7 +104,7 @@
     '<a href="' + href("changelog.html") + '" style="border:none;">Changelog</a>' +
     '<a href="' + href("index.html") + '#disclaimer" style="border:none;">Data Disclaimer</a></div></div>' +
     '<div class="ds-footer-bottom">' +
-    '<span class="ds-beta-footer"><a href="' + href("data-sources.html") + '">Public Beta</a> &mdash; data coverage varies by county and source. </span>' +
+    '<span class="ds-beta-footer"><a href="' + href("trust.html") + '">Public Beta</a> &mdash; data coverage varies by county and source. </span>' +
     "&copy; 2026 DeedScout &middot; Not affiliated with any county, clerk, auction platform, property appraiser, or government agency. Not legal, tax, investment, title, or brokerage advice. Always verify with official county sources before bidding.</div>";
   document.body.appendChild(footer);
 })();

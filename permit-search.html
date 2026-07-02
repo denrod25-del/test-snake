@@ -648,18 +648,26 @@
       </div>
 
       <div id="starter-searches" class="starter-searches" hidden>
+        <button type="button" class="starter-card" data-starter="wpb-recent">
+          <strong>Recent West Palm Beach permits</strong>
+          <span>All cached WPB Tyler permits (~4,000), newest first</span>
+        </button>
         <button type="button" class="starter-card" data-starter="wpb-plumbing">
           <strong>Try West Palm Beach plumbing permits</strong>
-          <span>~4,000 cached Tyler permits — keyword filter for plumbing trades</span>
+          <span>Keyword filter for plumbing trades in WPB</span>
         </button>
         <button type="button" class="starter-card" data-starter="heater">
           <strong>Try water heater permits</strong>
-          <span>Common investor and contractor search across cached sources</span>
+          <span>Common search across cached Tyler sources</span>
         </button>
         <button type="button" class="starter-card" data-starter="boca">
           <strong>Try Boca Raton permits</strong>
-          <span>Filter to Boca Tyler scrape with plumbing keywords</span>
+          <span>Cached Boca Tyler scrape with plumbing keywords</span>
         </button>
+      </div>
+      <div class="trust-toggles" style="display:flex;flex-wrap:wrap;gap:16px;margin:0 0 16px;font-size:13px;">
+        <label><input type="checkbox" id="toggle-hide-sample" checked /> Hide sample data</label>
+        <label><input type="checkbox" id="toggle-cached-only" /> Real cached data only (Tyler cities)</label>
       </div>
 
       <details class="advanced">
@@ -976,6 +984,8 @@ const STATE = {
   developmentAlerts: null,
   plumbing: { windowDays: 90, smoothing: 7, zipSort: { col: "growth", dir: "desc" } },
   dataReady: false,
+  hideSample: true,
+  cachedOnly: false,
 };
 
 // ---------------------------------------------------------------------------
@@ -990,8 +1000,12 @@ async function boot() {
   await loadData();
   populateFilterSelects();
   attachListeners();
+  const hideSampleEl = document.getElementById("toggle-hide-sample");
+  const cachedOnlyEl = document.getElementById("toggle-cached-only");
+  if (hideSampleEl) hideSampleEl.checked = STATE.hideSample;
+  if (cachedOnlyEl) cachedOnlyEl.checked = STATE.cachedOnly;
   if (!STATE.keywords.length && !location.search && !location.hash) {
-    applyStarterSearch("wpb-plumbing", { silent: true });
+    applyStarterSearch("wpb-recent", { silent: true });
   }
   applyFiltersAndRender();
   setLoadingState(false);
@@ -1009,8 +1023,9 @@ function setLoadingState(loading) {
 }
 
 const STARTER_SEARCHES = {
+  "wpb-recent": { sources: ["wpb"], keywords: [], sort: { col: "appliedDate", dir: "desc" } },
   "wpb-plumbing": { keywords: ["plumbing"], city: "WEST PALM BEACH", sources: ["wpb"] },
-  heater: { preset: "heater" },
+  heater: { preset: "heater", cachedOnly: true },
   boca: { keywords: ["plumbing"], city: "BOCA", sources: ["boca-raton"] },
 };
 
@@ -1031,6 +1046,8 @@ function applyStarterSearch(id, opts) {
   STATE.filters.type = [];
   STATE.filters.city = cfg.city || "";
   STATE.filters.source = cfg.sources ? cfg.sources.slice() : [];
+  if (cfg.sort) STATE.sort = { ...cfg.sort };
+  STATE.cachedOnly = !!cfg.cachedOnly;
   if (cfg.preset) applyPreset(cfg.preset);
   else if (cfg.keywords) cfg.keywords.forEach((k) => { if (!STATE.keywords.includes(k)) STATE.keywords.push(k); });
   renderKeywordChips();
@@ -1229,7 +1246,7 @@ function normalizePermit(p, source) {
     expirationDate: p.expirationDate || null,
     url: p.url || null,
     dataSource: source ? source.id : "manual",
-    dataSourceLabel: source ? source.label : "Manual upload",
+    dataSourceLabel: source ? source.label : "User-added permit",
     dataSourceShort: source ? (source.shortLabel || source.label) : "MANUAL",
     dataSourceStatus: source ? source.status : "manual",
   };
@@ -1332,6 +1349,11 @@ function showFreshnessBanner() {
 function updateSampleWarningBanner(sampleSources, paywallSources) {
   const el = document.getElementById("sample-warning-banner");
   if (!el) return;
+  if (!sampleSources && typeof SOURCES !== "undefined") {
+    const loaded = SOURCES.filter((s) => s.loaded);
+    sampleSources = loaded.filter((s) => /sample/i.test(s.fileSource || "") || /sample/i.test(s.fileScope || ""));
+    paywallSources = loaded.filter((s) => s.status === "unsupported_paywall");
+  }
   const hasSample = (sampleSources && sampleSources.length) || (paywallSources && paywallSources.length);
   el.hidden = !hasSample;
 }
@@ -1460,6 +1482,23 @@ function applyFiltersAndRender() {
   if (f.valMax != null) arr = arr.filter((p) => p.valuation != null && p.valuation <= f.valMax);
   if (STATE.subdivWatch.length) arr = arr.filter((p) => permitMatchesSubdivWatch(p));
 
+  if (STATE.hideSample) {
+    arr = arr.filter((p) => {
+      const src = SOURCE_BY_ID[p.dataSource];
+      if (!src) return true;
+      if (/sample/i.test(src.fileScope || "") || /sample/i.test(src.fileSource || "")) return false;
+      if (src.status === "unsupported_paywall" || src.status === "scaffold") return false;
+      if (/sample/i.test(p.dataSourceStatus || "")) return false;
+      return true;
+    });
+  }
+  if (STATE.cachedOnly) {
+    arr = arr.filter((p) => {
+      const src = SOURCE_BY_ID[p.dataSource];
+      return src && src.status === "active" && src.loaded;
+    });
+  }
+
   // Sort
   const { col, dir } = STATE.sort;
   arr.sort((a, b) => {
@@ -1482,7 +1521,7 @@ function applyFiltersAndRender() {
   // Plumbing-watch count is dataset-wide (ignores filters); refresh badge cheaply.
   const plumbCount = STATE.data.permits.reduce((n, p) => n + (isPlumbingPermit(p) ? 1 : 0), 0);
   document.getElementById("t-plumbing-count").textContent = plumbCount.toLocaleString();
-  // Re-render the tab if it's currently visible so manual uploads show immediately.
+  // Re-render the tab if it's currently visible so user-added permits show immediately.
   if (STATE.activeTab === "plumbing") renderPlumbingWatch();
 }
 
@@ -2240,7 +2279,7 @@ function csvCell(v) {
 }
 
 // ---------------------------------------------------------------------------
-// Manual upload (JSON paste / CSV file)
+// User-added permit import (JSON paste / CSV file)
 // ---------------------------------------------------------------------------
 function mergeManualJson(text) {
   const status = document.getElementById("manual-status");
@@ -2269,7 +2308,7 @@ function mergeManualJson(text) {
   // in sync with whatever's currently in STATE.data.permits tagged 'manual'.
   if (!SOURCE_BY_ID.manual) {
     const manualEntry = {
-      id: "manual", label: "Manual uploads", shortLabel: "MANUAL",
+      id: "manual", label: "User-added permits", shortLabel: "ADDED",
       kind: "manual", status: "manual", dataFile: null, portalUrl: null,
       scope: "Permits you pasted / uploaded this session. Not persisted.",
       permits: [], loaded: true, generated: null,
@@ -2394,6 +2433,15 @@ function attachListeners() {
   });
   document.querySelectorAll("[data-starter]").forEach((btn) => {
     btn.addEventListener("click", () => applyStarterSearch(btn.dataset.starter));
+  });
+  document.getElementById("toggle-hide-sample").addEventListener("change", (e) => {
+    STATE.hideSample = e.target.checked;
+    updateSampleWarningBanner();
+    applyFiltersAndRender();
+  });
+  document.getElementById("toggle-cached-only").addEventListener("change", (e) => {
+    STATE.cachedOnly = e.target.checked;
+    applyFiltersAndRender();
   });
   document.getElementById("clear-keywords").addEventListener("click", () => {
     STATE.keywords = []; STATE.subdivWatch = []; renderKeywordChips(); applyFiltersAndRender();
@@ -2524,5 +2572,6 @@ function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 boot();
 </script>
 <script src="assets/deedscout.js"></script>
+<script src="assets/deedscout-errors.js"></script>
 </body>
 </html>

@@ -97,3 +97,8 @@
   from = "/pricing"
   to   = "/pricing.html"
   status = 200
+
+[[redirects]]
+  from = "/trust"
+  to   = "/trust.html"
+  status = 200

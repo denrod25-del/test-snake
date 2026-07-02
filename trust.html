@@ -3,31 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Sources — DeedScout</title>
-  <meta name="description" content="Inventory of DeedScout data sources, refresh policy, and trust labels." />
+  <title>Trust Center — DeedScout</title>
+  <meta name="description" content="DeedScout Trust Center: methodology, data sources, status, security, privacy, and official verification requirements." />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/deedscout.css" />
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Dataset","name":"DeedScout Data Sources","description":"Public inventory of DeedScout datasets and trust labels","url":"https://deedscout.netlify.app/data-sources.html"}
-  </script>
 </head>
 <body class="ds-body">
 <main class="ds-main" style="padding-top:48px;">
   <div class="ds-section-head">
-    <p class="ds-section-label">Transparency</p>
-    <h1>Data sources</h1>
-    <p>Every module links to official county or municipal portals. DeedScout aggregates and labels — it does not replace official records.</p>
-    <p style="font-size:14px;color:var(--muted);">Status: <strong>Live</strong> (refreshed within 72h) · <strong>Cached</strong> (real data, older) · <strong>Sample</strong> (demo only) · <strong>Blocked</strong> · <strong>Broken</strong> · <strong>Coming Soon</strong></p>
+    <p class="ds-section-label">Trust Center</p>
+    <h1>How DeedScout handles public data</h1>
+    <p><span class="ds-status ds-status-cached">Public Beta</span> Data coverage varies by county and source. DeedScout is an independent research layer — not a county clerk, auctioneer, or title company.</p>
   </div>
-  <div id="dataset-inventory">
-    <!-- @build:inventory-table:start -->
+
+  <div class="ds-trust-panel ds-trust-cached" style="margin-bottom:32px;">
+    <div class="ds-trust-head"><strong>Official source required.</strong> Always verify sale dates, liens, title, and permit details with the official county or municipal source before bidding, buying, or outreach.</div>
+  </div>
+
+  <nav class="ds-prose" style="margin-bottom:32px;">
+    <a href="#methodology">Methodology</a> ·
+    <a href="#inventory">Data inventory</a> ·
+    <a href="#status">System status</a> ·
+    <a href="#legal">Legal</a> ·
+    <a href="#security">Security</a> ·
+    <a href="#beta">Public beta</a>
+  </nav>
+
+  <section id="methodology" class="ds-prose">
+    <h2 style="font-family:'Cormorant Garamond',serif;">Data methodology</h2>
+    <ul style="list-style:none;padding:0;">
+      <li style="margin-bottom:10px;"><span class="ds-status ds-status-live">Live</span> Pulled from an official/public source within the last 72 hours.</li>
+      <li style="margin-bottom:10px;"><span class="ds-status ds-status-cached">Cached</span> Real source data, not refreshed in the last 72 hours.</li>
+      <li style="margin-bottom:10px;"><span class="ds-status ds-status-sample">Sample</span> Demo data only — do not rely on it.</li>
+      <li style="margin-bottom:10px;"><span class="ds-status ds-status-blocked">Blocked</span> Portal requires login, payment, reCAPTCHA, or manual lookup.</li>
+      <li style="margin-bottom:10px;"><span class="ds-status ds-status-broken">Broken</span> Scraper or upstream source is failing.</li>
+      <li style="margin-bottom:10px;"><span class="ds-status ds-status-soon">Coming Soon</span> UI exists; data not connected yet.</li>
+    </ul>
+    <p><strong>Tax deeds:</strong> County clerk, property appraiser, and auction links are maintained manually. Automated sale-calendar scrapes may fail — we do not invent dates.</p>
+    <p><strong>Permits:</strong> Tyler EnerGov municipal files are cached scrapes, not live queries. PBC unincorporated, Royal Palm Beach, and Boynton Beach are sample only.</p>
+    <p><a href="methodology.html">Full methodology page →</a></p>
+  </section>
+
+  <section id="inventory" style="margin-top:48px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;">Dataset inventory</h2>
+    <div id="trust-inventory">
+      <!-- @build:inventory-table:start -->
 <p class="ds-status-sub">Inventory generated Jul 01, 2026 · <a href="data/data-inventory.json">JSON</a></p><div class="ds-table-wrap"><table class="ds-source-table ds-dataset-table"><thead><tr><th>Dataset</th><th>Jurisdiction</th><th>Status</th><th>Records</th><th>Last success</th><th>Last attempt</th><th>Limitations</th><th>Verify</th></tr></thead><tbody><tr><td><strong>Tax deed county links — DeedScout Tax Deeds — 67-county directory</strong><div class="ds-status-sub"><a href="https://deedscout.netlify.app/tax-deeds.html" target="_blank" rel="noopener">deedscout.netlify.app/tax-deeds.html</a></div></td><td>Florida statewide</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>67</td><td>Jul 01, 2026</td><td>Jun 29, 2026</td><td>Official clerk, PA, and auction links maintained manually. Sale-date scraper currently failing upstream.</td><td>Official clerk, property appraiser, and auction source required before bidding.</td></tr><tr><td><strong>Auction platforms — Auction platform directory (RealAuction, LienHub, etc.)</strong><div class="ds-status-sub"><a href="https://www.realauction.com" target="_blank" rel="noopener">www.realauction.com</a></div></td><td>Florida statewide</td><td><span class="ds-status ds-status-broken">Broken</span></td><td>0</td><td>—</td><td>Jun 29, 2026</td><td>Automated sale-calendar scrape returning 403 from upstream; platform links remain official.</td><td>Confirm sale list and rules on vendor site before bidding.</td></tr><tr><td><strong>Parcel lookup — DeedScout Parcel Lookup</strong><div class="ds-status-sub"><a href="https://opendata2-pbcgov.opendata.arcgis.com/" target="_blank" rel="noopener">opendata2-pbcgov.opendata.arcgis.com/</a></div></td><td>Palm Beach County</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>—</td><td>—</td><td>—</td><td>Query-time GIS lookup to PBC ArcGIS; not a bulk cached export.</td><td>Cross-check parcel ID and owner with Property Appraiser.</td></tr><tr><td><strong>Permit search — Palm Beach County (unincorporated)</strong><div class="ds-status-sub"><a href="https://pbc.gov/ePZB.Admin.WebSPA/#/" target="_blank" rel="noopener">pbc.gov/ePZB.Admin.WebSPA/#/</a></div></td><td>UNINCORPORATED, Florida</td><td><span class="ds-status ds-status-sample">Sample</span></td><td>4</td><td>Apr 18, 2026</td><td>Jul 01, 2026</td><td>Legacy eDSWeb scraper is DEFUNCT (county migrated 2024). Sample data only; use the portal manually for live lookups.</td><td>Sample or blocked — use official portal manually.</td></tr><tr><td><strong>Permit search — West Palm Beach</strong><div class="ds-status-sub"><a href="https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home" target="_blank" rel="noopener">westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/h</a></div></td><td>WEST PALM BEACH, Florida</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>4000</td><td>Jul 01, 2026</td><td>Jul 01, 2026</td><td>Live Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those.</td><td>Cached municipal scrape — verify on official portal before outreach.</td></tr><tr><td><strong>Permit search — Boca Raton</strong><div class="ds-status-sub"><a href="https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home" target="_blank" rel="noopener">bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home</a></div></td><td>BOCA RATON, Florida</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>4000</td><td>Jul 01, 2026</td><td>Jul 01, 2026</td><td>Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.</td><td>Cached municipal scrape — verify on official portal before outreach.</td></tr><tr><td><strong>Permit search — Jupiter</strong><div class="ds-status-sub"><a href="https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home" target="_blank" rel="noopener">cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home</a></div></td><td>JUPITER, Florida</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>4000</td><td>Jul 01, 2026</td><td>Jul 01, 2026</td><td>Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.</td><td>Cached municipal scrape — verify on official portal before outreach.</td></tr><tr><td><strong>Permit search — St. Lucie County</strong><div class="ds-status-sub"><a href="https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home" target="_blank" rel="noopener">stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/h</a></div></td><td>ST. LUCIE COUNTY, Florida</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>4000</td><td>Jun 30, 2026</td><td>Jul 01, 2026</td><td>Most recent 4,000 permits sorted by apply date (SLC&#x27;s API ignores date filter, so cap gives ~3 months of unincorporated St. Lucie County data).</td><td>Cached municipal scrape — verify on official portal before outreach.</td></tr><tr><td><strong>Permit search — Royal Palm Beach</strong><div class="ds-status-sub"><a href="https://click2gov.royalpalmbeach.com/Click2GovBP/selectpermit.html" target="_blank" rel="noopener">click2gov.royalpalmbeach.com/Click2GovBP/selectpermit.html</a></div></td><td>ROYAL PALM BEACH, Florida</td><td><span class="ds-status ds-status-sample">Sample</span></td><td>3</td><td>Apr 21, 2026</td><td>Jul 01, 2026</td><td>Click2Gov has no bulk listing; new submissions go through ProjectDox which requires an account. Sample data only — use the portal link directly.</td><td>Sample or blocked — use official portal manually.</td></tr><tr><td><strong>Permit search — Boynton Beach</strong><div class="ds-status-sub"><a href="https://www.sagesgov.com/boyntonbeach-fl/portal/search.aspx" target="_blank" rel="noopener">www.sagesgov.com/boyntonbeach-fl/portal/search.aspx</a></div></td><td>BOYNTON BEACH, Florida</td><td><span class="ds-status ds-status-sample">Sample</span></td><td>3</td><td>Apr 21, 2026</td><td>Jul 01, 2026</td><td>SagesGov requires login for search and is anti-bot. Sample data only — no public bulk export.</td><td>Sample or blocked — use official portal manually.</td></tr><tr><td><strong>Subdivision index — DeedScout Subdivision Index</strong><div class="ds-status-sub"><a href="https://deedscout.netlify.app/subdivision-index.html" target="_blank" rel="noopener">deedscout.netlify.app/subdivision-index.html</a></div></td><td>Palm Beach County</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>11474</td><td>Jun 26, 2026</td><td>Jun 26, 2026</td><td>Cached reference index from public records; not live clerk filings.</td><td>Verify legal description with clerk or property appraiser.</td></tr><tr><td><strong>Plat index — DeedScout Plat Index</strong><div class="ds-status-sub"><a href="https://deedscout.netlify.app/plat-index.html" target="_blank" rel="noopener">deedscout.netlify.app/plat-index.html</a></div></td><td>Palm Beach County</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>17294</td><td>Jun 26, 2026</td><td>Jun 26, 2026</td><td>Plat PDF sheets from PBC; OCR names may contain errors.</td><td>Use recorded plat at clerk.</td></tr><tr><td><strong>Surplus funds — Surplus funds registry links</strong><div class="ds-status-sub"><a href="https://deedscout.netlify.app/tax-deeds.html#/surplus" target="_blank" rel="noopener">deedscout.netlify.app/tax-deeds.html#/surplus</a></div></td><td>Florida counties (where published)</td><td><span class="ds-status ds-status-cached">Cached</span></td><td>28</td><td>Jul 01, 2026</td><td>Jul 01, 2026</td><td>Curated county surplus claim portal links; not automated filing.</td><td>Follow county surplus claim procedures and deadlines.</td></tr></tbody></table></div>
           <!-- @build:inventory-table:end -->
-  </div>
-  <div class="ds-prose" style="margin-top:32px;">
-    <p>Full trust center: <a href="trust.html">DeedScout Trust Center</a> · Operational health: <a href="status.html">System status</a></p>
-    <p class="ds-trust-inline">Independent research tool. Not affiliated with any county or auction platform. Not legal, tax, title, or investment advice.</p>
-  </div>
+    </div>
+    <p style="margin-top:12px;"><a href="data-sources.html">Standalone data sources page →</a></p>
+  </section>
+
+  <section id="status" class="ds-prose" style="margin-top:48px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;">Known issues (system status)</h2>
+    <ul>
+      <li>RealAuction tax deed sale scraper: <span class="ds-status ds-status-broken">Broken</span> (403 upstream) — use official auction links on each county page.</li>
+      <li>Palm Beach unincorporated permits: <span class="ds-status ds-status-sample">Sample</span> (4 demo records).</li>
+      <li>Royal Palm Beach &amp; Boynton Beach: <span class="ds-status ds-status-sample">Sample</span> — no public bulk API.</li>
+    </ul>
+    <p><a href="status.html">Full system status →</a></p>
+  </section>
+
+  <section id="legal" class="ds-prose" style="margin-top:48px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;">Legal &amp; disclaimers</h2>
+    <p>DeedScout organizes public-record information for research only. Not legal, tax, investment, title, or brokerage advice. Not affiliated with any county or auction platform.</p>
+    <p><a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a> · <a href="index.html#disclaimer">Data disclaimer</a></p>
+  </section>
+
+  <section id="security" class="ds-prose" style="margin-top:48px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;">Security &amp; payments</h2>
+    <p>Authentication via Supabase. Pro subscriptions via Stripe Checkout. Webhook signatures verified server-side. Row-level security on user data tables.</p>
+    <p><a href="security.html">Security overview →</a></p>
+  </section>
+
+  <section id="beta" class="ds-prose" style="margin-top:48px;">
+    <h2 style="font-family:'Cormorant Garamond',serif;">Public beta limitations</h2>
+    <p>Coverage is strongest for Palm Beach-area permits and the 67-county tax deed link directory. Sale-date automation, statewide permit coverage, and some Pro features are still maturing. Every dataset is labeled so you can see what is cached, sample, or unavailable.</p>
+  </section>
 </main>
 <script src="assets/data-trust.js"></script>
 <script src="assets/deedscout.js"></script>

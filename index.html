@@ -147,25 +147,33 @@
       <a class="ds-card" href="counties/palm-beach.html" data-county-slug="palm-beach">
         <h3>Palm Beach</h3>
         <p>Southeast · West Palm Beach, Boca Raton</p>
-        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading" style="font-size:10px;color:var(--ds-muted);">Loading…</span></div>
+        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-palm-beach:start -->
+<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+          <!-- @build:badges-palm-beach:end --></div>
         <span class="ds-link">View county →</span>
       </a>
       <a class="ds-card" href="counties/broward.html" data-county-slug="broward">
         <h3>Broward</h3>
         <p>Southeast · Fort Lauderdale, Hollywood</p>
-        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading">Loading…</span></div>
+        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-broward:start -->
+<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+          <!-- @build:badges-broward:end --></div>
         <span class="ds-link">View county →</span>
       </a>
       <a class="ds-card" href="counties/miami-dade.html" data-county-slug="miami-dade">
         <h3>Miami-Dade</h3>
         <p>Southeast · Miami, Coral Gables</p>
-        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading">Loading…</span></div>
+        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-miami-dade:start -->
+<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+          <!-- @build:badges-miami-dade:end --></div>
         <span class="ds-link">View county →</span>
       </a>
       <a class="ds-card" href="counties/orange.html" data-county-slug="orange">
         <h3>Orange</h3>
         <p>Central · Orlando, Winter Park</p>
-        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><span class="county-badge loading">Loading…</span></div>
+        <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-orange:start -->
+<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+          <!-- @build:badges-orange:end --></div>
         <span class="ds-link">View county →</span>
       </a>
     </div>
@@ -177,7 +185,7 @@
     <div class="ds-prose">
       <p><strong>Not affiliated with any county, clerk, auction platform, property appraiser, or government agency.</strong></p>
       <p>DeedScout is a research layer. Always verify final records with the official county source before bidding or making decisions.</p>
-      <p>We label every dataset as <strong>Live</strong>, <strong>Cached</strong>, <strong>Sample</strong>, <strong>Blocked</strong>, <strong>Broken</strong>, or <strong>Coming Soon</strong> — with source URL and last refresh time where available. See <a href="methodology.html">methodology</a> and <a href="data-sources.html">data sources</a>.</p>
+      <p>We label every dataset as <strong>Live</strong>, <strong>Cached</strong>, <strong>Sample</strong>, <strong>Blocked</strong>, <strong>Broken</strong>, or <strong>Coming Soon</strong> — with source URL and last refresh time where available. See the <a href="trust.html">Trust Center</a>, <a href="methodology.html">methodology</a>, and <a href="data-sources.html">data sources</a>.</p>
     </div>
   </section>
 
@@ -216,7 +224,9 @@ Reminder: PBC unincorporated permits are SAMPLE only in DeedScout.</div>
       DeedScout organizes public-record information for research purposes only. It does not replace official county records, legal due diligence, title searches, investment advice, or professional verification. Not legal, tax, investment, title, or brokerage advice. Always confirm details with the official county source before bidding, buying, contacting owners, or making financial decisions.
     </div>
     <dl class="ds-trust-meta" style="margin-top:16px;">
-      <dt>Last updated</dt><dd id="stats-generated">Loading…</dd>
+      <dt>Last updated</dt><dd id="stats-generated"><!-- @build:stats-generated:start -->
+Jul 01, 2026
+          <!-- @build:stats-generated:end --></dd>
       <dt>Cached permit cities</dt><dd>West Palm Beach, Boca Raton, Jupiter, St. Lucie County (Tyler EnerGov scrapes)</dd>
       <dt>Sample permit data</dt><dd>Palm Beach unincorporated (4 records), Royal Palm Beach, Boynton Beach — demo only</dd>
       <dt>Verification required</dt><dd>Official source required before bidding on any tax deed sale.</dd>
@@ -252,7 +262,7 @@ Reminder: PBC unincorporated permits are SAMPLE only in DeedScout.</div>
       var box = card.querySelector(".county-badges");
       if (!box) return;
       var entry = stats && stats.counties ? stats.counties[slug] : null;
-      if (!entry) { box.innerHTML = badgeHtml("muted", "Stats unavailable"); return; }
+      if (!entry) { box.innerHTML = badgeHtml("muted", "Status on Data Sources"); return; }
       var badges = [];
       if (entry.nextSale && entry.nextSale.shortLabel) {
         badges.push(badgeHtml("sale", "Next sale · " + entry.nextSale.shortLabel + " (verify with clerk)"));
@@ -270,5 +280,6 @@ Reminder: PBC unincorporated permits are SAMPLE only in DeedScout.</div>
     .catch(function () { renderCountyBadges(null); });
 })();
 </script>
+<script src="assets/deedscout-errors.js"></script>
 </body>
 </html>
