@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Florida Plumbing Review Index &mdash; Aggregated Reviews & Grades</title>
-  <meta name="description" content="An independent, public-platform review index of plumbing companies operating in Florida. Aggregated ratings from Google, Yelp, BBB, and Facebook, scored on a transparent letter-grade scale." />
+  <title>Plumbing Review Index Lab — DeedScout Experimental Demo</title>
+  <meta name="description" content="DeedScout Labs demo: synthetic plumbing review signals for workflow illustration. Fictional company names — not real rankings or consumer advice." />
+  <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1066,7 +1067,7 @@
 <body>
 
   <div id="labs-banner" style="background:#3d2a00;color:#ffe8b3;padding:12px 20px;font:600 13px/1.4 Inter,sans-serif;text-align:center;border-bottom:2px solid #c9a227;">
-    <strong>DeedScout Labs — Experimental demo dataset.</strong> Not production data. Fictional/synthetic plumbing review records — not a DeedScout property-investing module. <a href="index.html" style="color:#ffe8b3;">Main site</a>
+    <strong>Experimental Labs Demo — synthetic/illustrative dataset, not real company ratings.</strong> Fictional company names and synthetic review distributions. Not suitable for consumer decisions. <a href="index.html" style="color:#ffe8b3;">DeedScout home</a>
   </div>
   <script>(function(){if(/[?&]embed=1/.test(location.search)){var b=document.getElementById('labs-banner');if(b)b.style.display='none';}})();</script>
 
@@ -1087,8 +1088,8 @@
       <div class="brand">
         <div class="brand-mark">P|R</div>
         <div class="brand-text">
-          <div class="name">The Florida Plumbing Review Index</div>
-          <div class="tag">Aggregated &middot; Public Platforms &middot; Letter Graded</div>
+          <div class="name">Plumbing Review Index Lab</div>
+          <div class="tag">DeedScout Labs &middot; Synthetic demo dataset</div>
         </div>
       </div>
       <nav class="primary">
@@ -1103,12 +1104,12 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="hero-eyebrow"><span class="rule"></span>Vol. 1 &middot; Issue 04 &middot; April 2026</div>
-        <h1 class="hero-title">Every plumber in Florida, <em>graded by the public.</em></h1>
+        <div class="hero-eyebrow"><span class="rule"></span>DeedScout Labs &middot; Experimental demo</div>
+        <h1 class="hero-title">Plumbing Review Index Lab &mdash; <em>demo model for analyzing public review signals.</em></h1>
         <p class="hero-lede">
-          We aggregate ratings and complaint signals from Google, Yelp, the Better Business Bureau, and
-          Facebook into a single, transparent letter grade for plumbing companies operating across the state.
-          One number. One ranking. Built from the public record.
+          This Labs experiment shows how aggregated review signals <em>could</em> be modeled across platforms.
+          Company names, grades, and review counts here are <strong>fictional or synthetic</strong> &mdash; not real rankings,
+          not verified public records, and not suitable for hiring decisions.
         </p>
         <div class="hero-meta">
           <div><strong id="heroCount">20</strong> Companies</div>
@@ -1124,8 +1125,8 @@
           into one place and weight them by volume, recency, and complaint mix.
         </p>
         <p class="small">
-          Nothing on this page is a recommendation. Verify license &amp; insurance with the
-          Florida DBPR before hiring.
+          <strong>Not a real ranking.</strong> Synthetic/demo data only. Verify license &amp; insurance with the
+          Florida DBPR before hiring any contractor.
         </p>
       </aside>
     </div>
@@ -1157,9 +1158,9 @@
   <div class="data-banner" id="dataBanner">
     <div class="data-banner-inner">
       <span class="pill pill-loading" id="dataPill">
-        <span class="dot-anim"></span>Loading…
+        <span class="dot-anim"></span>Checking available cached records…
       </span>
-      <span id="dataMsg">Checking for live data file…</span>
+      <span id="dataMsg">This is sample/demo data used to demonstrate the workflow. Do not treat it as real public record data.</span>
       <span class="spacer"></span>
       <span id="dataMeta"></span>
     </div>
@@ -2151,14 +2152,14 @@ function setBanner(state, msg, meta = '') {
   const metaEl = document.getElementById('dataMeta');
   pill.className = `pill pill-${state}`;
   pill.innerHTML = state === 'loading'
-    ? '<span class="dot-anim"></span>Loading…'
-    : (state === 'live' ? 'Live data' : 'Demo data');
-  msgEl.innerHTML = msg;
+    ? '<span class="dot-anim"></span>Checking available cached records…'
+    : 'Sample/demo only';
+  msgEl.innerHTML = msg || 'This is sample/demo data used to demonstrate the workflow. Do not treat it as real public record data.';
   metaEl.innerHTML = meta;
 }
 
 async function loadData() {
-  setBanner('loading', 'Checking for live data file…');
+  setBanner('loading', 'Checking for optional live ingest file…');
   try {
     const res = await fetch('data/companies.json', { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2168,19 +2169,19 @@ async function loadData() {
     }
     companies = enrichCompanies(data.companies);
     dataMeta = {
-      source: 'live',
+      source: 'ingest',
       generated: data.generated,
       count: companies.length,
-      apiSource: data.source || 'Google Places API'
+      apiSource: data.source || 'ingest pipeline'
     };
     const date = data.generated ? new Date(data.generated).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' }) : 'recently';
-    setBanner('live',
-      `<strong>${companies.length.toLocaleString()}</strong> Florida plumbing companies indexed from ${dataMeta.apiSource}.`,
-      `Last refreshed ${date}`);
+    setBanner('demo',
+      `<strong>Labs demo with ${companies.length.toLocaleString()} ingested rows</strong> — still illustrative, not a consumer rating product.`,
+      `Ingest refreshed ${date} · verify independently before hiring`);
   } catch (err) {
     setBanner('demo',
-      `Showing <strong>${companies.length}</strong> illustrative example companies. To populate the full Florida directory, run <code style="font-family:'SF Mono',Menlo,monospace;font-size:11px;background:var(--paper-2);padding:1px 6px;border:1px solid var(--rule);">node scripts/ingest.mjs</code>.`,
-      `See scripts/README.md`);
+      `Showing <strong>${companies.length}</strong> synthetic example companies for workflow demonstration.`,
+      'Fictional names · synthetic review distributions · not a real ranking');
   }
 }
 

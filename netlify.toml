@@ -175,3 +175,8 @@
   from = "/municipalities/:slug"
   to   = "/municipalities/:slug.html"
   status = 200
+
+[[redirects]]
+  from = "/counties/:slug"
+  to   = "/counties/:slug.html"
+  status = 200

@@ -41,6 +41,7 @@ HERE = Path(__file__).parent
 ROOT = HERE.parent
 COUNTIES_DIR    = ROOT / "counties"
 DATA_DIR        = ROOT / "data"
+PERMIT_MANIFEST = DATA_DIR / "permits" / "sources.json"
 PERMITS_INDEX   = DATA_DIR / "permits" / "index.json"
 COUNTY_REGIONS  = DATA_DIR / "county-regions.json"
 SALES_PATH      = ROOT / "sales.json"
@@ -398,7 +399,8 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
     next_sale_count = next_sale.get("count") if next_sale else None
     next_sale_sub = (
         f"{next_sale_count} parcels listed" if next_sale_count
-        else "Verify on official clerk or auction site"
+        else ('Verify on official clerk or auction site '
+              + ('<span class="badge warn">Sale-date automation limited</span>' if not next_sale else ''))
     )
     permit_status = (permit_coverage or {}).get("status", "available")
     permit_count = (permit_coverage or {}).get("permitCount", 0) if permit_status in ("active", "stale", "manual") else None
@@ -514,12 +516,21 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
         if sales_source_url:
             parts.append(f'<p class="small">Source: <a href="{html_escape(sales_source_url)}" target="_blank" rel="noopener">{html_escape(sales_source_url)}</a></p>')
     else:
-        parts.append(f"<p>No upcoming sales currently published for {html_escape(county)} County. "
-                     f"This usually means the county hasn't posted the next batch yet, or sales are conducted in person at the courthouse.")
+        parts.append(
+            f"<p>No verified sale dates in DeedScout for {html_escape(county)} County. "
+            f"DeedScout does not confirm live auction schedules — verify on the official clerk or auction source below.</p>"
+        )
+        parts.append(
+            '<p class="small"><span class="badge warn">Sale-date automation limited</span> '
+            "The upstream sale-date scraper is not publishing verified dates. "
+            "Always confirm the next sale on the clerk or auction portal before bidding.</p>"
+        )
         if sales_source_url:
-            parts.append(f' Check the official auction site: <a href="{html_escape(sales_source_url)}" target="_blank" rel="noopener">{html_escape(sales_source_url)}</a>.</p>')
-        else:
-            parts.append("</p>")
+            parts.append(
+                f'<p class="small">Official auction source: '
+                f'<a href="{html_escape(sales_source_url)}" target="_blank" rel="noopener">'
+                f'{html_escape(sales_source_url)}</a></p>'
+            )
 
     # ----- Permits -----
     parts.append("<h2>Building permits</h2>")
@@ -594,6 +605,12 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
         "</ol>"
     )
 
+    parts.append(
+        '<p class="small"><strong>DeedScout organizes research.</strong> Always verify with the official county, '
+        "clerk, auction, property appraiser, or municipal source before bidding, buying, contacting owners, "
+        "or making financial decisions.</p>"
+    )
+
     return "\n".join(parts)
 
 
@@ -653,9 +670,9 @@ def render_page(county, slug, region, cities, sales_entries, surplus_entry,
                 county_links_entry=None):
     today = datetime.now(timezone.utc).strftime("%B %d, %Y")
     lede = (
-        f"{county} County is in the {region or 'Florida'} region of Florida. "
-        f"This page aggregates the public records relevant to tax-deed investors: "
-        f"upcoming auction dates, building-permit history, and surplus-funds resources."
+        f"{county} County is in Florida's {region or 'statewide'} region. "
+        f"This page links official clerk, auction, and property appraiser sources for tax-deed research. "
+        f"Counts and dates are labeled with data-status badges — verify on official sources before bidding."
     )
     description = f"{county} County, FL tax-deed sales, building permits, and parcel research resources. Updated {today}."
     title = f"{county} County, FL — Tax Deed Sales, Permits & Parcel Research"
@@ -681,6 +698,76 @@ def render_page(county, slug, region, cities, sales_entries, surplus_entry,
     )
 
 
+def permit_source_badge(src, permit_count=None):
+    scope = (src.get("scope") or "").lower()
+    st = src.get("status") or ""
+    if "sample" in scope or st in ("unsupported_paywall", "scaffold"):
+        return "Sample/demo", "warn"
+    if st == "active" and permit_count:
+        return "Cached", "ok"
+    if st in ("unsupported_paywall", "scaffold"):
+        return "Blocked/manual lookup required", "muted"
+    if st == "manual":
+        return "Manual source", "muted"
+    return "Coming soon", "muted"
+
+
+def render_index_permit_sections():
+    manifest = load_json(PERMIT_MANIFEST, default={"sources": []})
+    cov_by = {
+        c.get("slug"): c
+        for c in (load_json(PERMITS_INDEX, default={"coverage": []}).get("coverage") or [])
+    }
+    chunks = []
+
+    municipalities = [s for s in manifest.get("sources", []) if s.get("kind") == "municipality"]
+    if municipalities:
+        rows = []
+        for src in sorted(municipalities, key=lambda x: x.get("label", "")):
+            slug = slugify(src["label"])
+            data_file = src.get("dataFile") or ""
+            file_slug = Path(data_file).stem if data_file else slug
+            cov = cov_by.get(file_slug) or cov_by.get(slug)
+            count = (cov or {}).get("permitCount")
+            badge, cls = permit_source_badge(src, count)
+            count_txt = f' · {count:,} cached permits' if count and badge == "Cached" else ""
+            rows.append(
+                f'<li><a href="../municipalities/{html_escape(slug)}.html">'
+                f'{html_escape(src["label"])}, {html_escape(src.get("county", ""))} County, FL</a> '
+                f'<span class="badge {cls}">Municipality · {html_escape(badge)}</span>{count_txt}</li>'
+            )
+        chunks.append(
+            "<h2>Municipal Permit Sources</h2>"
+            "<p class=\"small\">Cities and towns — not Florida counties. Tax deed sales for these areas "
+            "are handled by the parent county clerk and auction links.</p>"
+            f'<ul class="cities">{"".join(rows)}</ul>'
+        )
+
+    regional = [s for s in manifest.get("sources", []) if s.get("kind") == "county"]
+    if regional:
+        rows = []
+        for src in sorted(regional, key=lambda x: x.get("label", "")):
+            county_slug = slugify(src.get("county") or src.get("label", ""))
+            data_file = src.get("dataFile") or ""
+            file_slug = Path(data_file).stem if data_file else county_slug
+            cov = cov_by.get(file_slug) or cov_by.get(county_slug)
+            count = (cov or {}).get("permitCount")
+            badge, cls = permit_source_badge(src, count)
+            count_txt = f' · {count} records' if count else ""
+            rows.append(
+                f'<li><a href="{html_escape(county_slug)}.html">{html_escape(src["label"])}</a> '
+                f'· <a href="../permit-search.html?source={html_escape(src.get("id", ""))}">Permit search</a> '
+                f'<span class="badge {cls}">Regional permit source · {html_escape(badge)}</span>{count_txt}</li>'
+            )
+        chunks.append(
+            "<h2>Regional / County Permit Sources</h2>"
+            "<p class=\"small\">County-level permit portals indexed separately from tax-deed sale pages.</p>"
+            f'<ul class="cities">{"".join(rows)}</ul>'
+        )
+
+    return "\n".join(chunks)
+
+
 def render_index_page(counties_data, base_url):
     """Build counties/index.html — region-grouped browse page."""
     today = datetime.now(timezone.utc).strftime("%B %d, %Y")
@@ -688,7 +775,11 @@ def render_index_page(counties_data, base_url):
     for c in counties_data:
         by_region.setdefault(c["region"] or "Other", []).append(c)
     region_order = ["Southeast", "Southwest", "Tampa Bay", "Central", "Northeast", "North Central", "Northwest", "Other"]
-    sections = []
+    sections = [
+        '<h2>Florida Counties</h2>',
+        '<p class="small">All 67 official Florida counties for tax-deed research. '
+        'Each link opens a county page with clerk, auction, and surplus links — not a city permit page.</p>',
+    ]
     for region in region_order:
         items = sorted(by_region.get(region, []), key=lambda x: x["county"])
         if not items:
@@ -696,20 +787,27 @@ def render_index_page(counties_data, base_url):
         def _row(c):
             permit_suffix = ""
             if c.get("permit_count"):
-                permit_suffix = f' <span class="small">· {c["permit_count"]} permits</span>'
-            return (f'<li><a href="{html_escape(c["slug"])}.html">'
-                    f'{html_escape(c["county"])}</a>{permit_suffix}</li>')
+                permit_suffix = (
+                    f' <span class="badge ok">County · Cached · {c["permit_count"]} permits</span>'
+                )
+            else:
+                permit_suffix = ' <span class="badge muted">County · See permit status on page</span>'
+            return (
+                f'<li><a href="{html_escape(c["slug"])}.html">{html_escape(c["county"])} County, FL</a>'
+                f'{permit_suffix}</li>'
+            )
         rows = "\n".join(_row(c) for c in items)
-        sections.append(f'<h2>{html_escape(region)}</h2><ul class="cities">{rows}</ul>')
+        sections.append(f'<h3>{html_escape(region)}</h3><ul class="cities">{rows}</ul>')
+    sections.append(render_index_permit_sections())
     body = "\n".join(sections)
     page = PAGE_TEMPLATE.format(
         title="All Florida Counties — DeedScout",
         og_title="Browse all 67 Florida counties — DeedScout",
-        description="Tax-deed sale resources, permit coverage, and surplus-funds links for every Florida county. Updated daily.",
+        description="Tax-deed sale resources, permit coverage, and surplus-funds links for every Florida county. Municipal permit sources listed separately.",
         canonical=f"{base_url}/counties/index.html" if base_url else "counties/index.html",
-        eyebrow="Florida → Browse by region",
-        h1="All Florida Counties",
-        lede="Public-record summaries for every Florida county, organized by region. Each county page aggregates upcoming tax-deed sales, building-permit coverage, and surplus-funds links.",
+        eyebrow="Florida → Counties & permit sources",
+        h1="Florida Counties Directory",
+        lede="Real Florida counties for tax-deed research, plus separate municipal permit sources. Every card shows whether data is cached, sample/demo, or official-link-only.",
         body=body,
         cta_block=render_cta_block("", "", index=True),
         county_name="Florida",

@@ -3647,32 +3647,8 @@
     // count   -- number of parcels on the upcoming list (optional)
     // opening -- aggregate opening bids or notable parcel (optional, free text)
     // ----------------------------------------------------------------
-    const UPCOMING_SALES = {
-      "Orange":       [{ date: "2026-04-22", count: 8,  opening: "$10,400 floor" }, { date: "2026-05-06", count: 12 }, { date: "2026-05-13", count: 9 }],
-      "Miami-Dade":   [{ date: "2026-04-23", count: 24 }, { date: "2026-04-30", count: 18 }, { date: "2026-05-07", count: 21 }],
-      "Broward":      [{ date: "2026-04-22", count: 14 }, { date: "2026-05-06", count: 11 }],
-      "Palm Beach":   [{ date: "2026-04-22", count: 9  }, { date: "2026-04-29", count: 7  }, { date: "2026-05-06", count: 10 }],
-      "Hillsborough": [{ date: "2026-04-22", count: 16 }, { date: "2026-04-29", count: 11 }, { date: "2026-05-06", count: 13 }],
-      "Pinellas":     [{ date: "2026-04-22", count: 6  }, { date: "2026-05-13", count: 8  }],
-      "Lee":          [{ date: "2026-04-22", count: 5  }, { date: "2026-04-29", count: 8  }, { date: "2026-05-06", count: 6 }],
-      "Duval":        [{ date: "2026-04-21", count: 13 }, { date: "2026-04-28", count: 9  }, { date: "2026-05-05", count: 11 }],
-      "Polk":         [{ date: "2026-05-06", count: 4  }],
-      "Brevard":      [{ date: "2026-05-13", count: 7  }],
-      "Volusia":      [{ date: "2026-04-22", count: 5  }, { date: "2026-05-06", count: 6 }],
-      "Sarasota":     [{ date: "2026-05-13", count: 3  }],
-      "Manatee":      [{ date: "2026-05-13", count: 4  }],
-      "Collier":      [{ date: "2026-05-06", count: 6  }],
-      "Marion":       [{ date: "2026-05-13", count: 5  }],
-      "Pasco":        [{ date: "2026-05-06", count: 7  }],
-      "Lake":         [{ date: "2026-05-06", count: 4  }],
-      "Osceola":      [{ date: "2026-05-13", count: 3  }],
-      "Charlotte":    [{ date: "2026-05-13", count: 2  }],
-      "St. Johns":    [{ date: "2026-04-29", count: 4  }],
-      "St. Lucie":    [{ date: "2026-04-29", count: 3  }],
-      "Martin":       [{ date: "2026-05-13", count: 2  }],
-      "Indian River": [{ date: "2026-04-29", count: 3  }],
-      "Seminole":     [{ date: "2026-05-13", count: 5  }]
-    };
+    const UPCOMING_SALES = {};
+    // Populated only from sales.json when the scraper publishes verified future dates.
 
     // ----------------------------------------------------------------
     // SURPLUS FUNDS
@@ -3875,7 +3851,7 @@
 
     function render() {
       tbody.innerHTML = COUNTIES.map(c => {
-        const next = nextSale(c.name);
+        const next = displayNextSale(c.name);
         const days = next ? daysUntil(next.date) : null;
         const badge = next
           ? `<span class="next-sale ${days <= 7 ? 'soon' : ''}">Next sale ${fmtShort(next.date)}${days === 0 ? ' &middot; today' : days === 1 ? ' &middot; tomorrow' : days <= 14 ? ` &middot; in ${days} days` : ''}</span>`
@@ -3999,6 +3975,20 @@
       };
     }
 
+    const INVESTMENT_SAFETY_COPY = 'DeedScout organizes research. Always verify with the official county, clerk, auction, property appraiser, or municipal source before bidding, buying, contacting owners, or making financial decisions.';
+
+    function verifiedSalesTrust() {
+      const t = resolveSalesTrustStatus();
+      return t.status === 'live' || t.status === 'cached';
+    }
+    function displayUpcomingFor(name) {
+      return verifiedSalesTrust() ? allUpcomingFor(name) : [];
+    }
+    function displayNextSale(name) {
+      const list = displayUpcomingFor(name);
+      return list[0] || null;
+    }
+
     function updateSalesTrustUI() {
       if (!window.DeedScoutTrust) return;
       const trust = resolveSalesTrustStatus();
@@ -4044,6 +4034,10 @@
     }
 
     function renderUpcoming() {
+      if (!verifiedSalesTrust()) {
+        upcomingList.innerHTML = `<div class="empty" style="padding:48px 0;">No verified sale dates in DeedScout right now. The sale-calendar scraper is offline — use each county&apos;s official clerk and auction links in the directory below.</div>`;
+        return;
+      }
       const items = [];
       Object.keys(UPCOMING_SALES).forEach(name => {
         const c = COUNTIES.find(x => x.name === name);
@@ -4055,7 +4049,7 @@
       items.sort((a,b) => a.s.date.localeCompare(b.s.date) || a.c.name.localeCompare(b.c.name));
 
       if (!items.length) {
-        upcomingList.innerHTML = `<div class="empty" style="padding:48px 0;">No upcoming sales currently published.</div>`;
+        upcomingList.innerHTML = `<div class="empty" style="padding:48px 0;">No verified sale dates in DeedScout right now. The sale-calendar scraper is offline — use each county&apos;s official clerk and auction links in the directory below.</div>`;
         return;
       }
 
@@ -4121,7 +4115,7 @@
         ? `<a href="${c.auction.url}" target="_blank" rel="noopener">${c.auction.label}</a>`
         : `<span class="secondary">${c.auction.label}</span>`;
       const surplus  = surplusFor(c);
-      const upcoming = allUpcomingFor(c.name);
+      const upcoming = displayUpcomingFor(c.name);
       const next     = upcoming[0] || null;
 
       // Find regional neighbors (same region, excluding current)
@@ -4149,7 +4143,7 @@
           ${next ? `
           <div class="next-sale-banner ${daysUntil(next.date) <= 7 ? 'soon' : ''}">
             <div class="nsb-left">
-              <div class="nsb-eyebrow">Next Confirmed Sale</div>
+              <div class="nsb-eyebrow">Next verified sale in DeedScout</div>
               <div class="nsb-date">${fmtFull(next.date)}</div>
               <div class="nsb-meta">
                 ${next.count ? `<strong>${next.count}</strong> parcels &middot; ` : ''}${c.schedule.time}${daysUntil(next.date) === 0 ? ' &middot; Today' : daysUntil(next.date) === 1 ? ' &middot; Tomorrow' : ` &middot; In ${daysUntil(next.date)} days`}
@@ -4158,7 +4152,20 @@
             ${ c.format === 'online'
               ? `<a class="nsb-cta" href="${c.auction.url}" target="_blank" rel="noopener">Open Auction Site &nearr;</a>`
               : `<a class="nsb-cta" href="${c.clerk.url}" target="_blank" rel="noopener">Sale List &amp; Notice &nearr;</a>` }
-          </div>` : ''}
+          </div>` : `
+          <div class="next-sale-banner" style="background:#faecdb;border-color:#d8b58a;">
+            <div class="nsb-left">
+              <div class="nsb-eyebrow"><span class="badge warn" style="font-size:11px;">Sale-date automation limited</span></div>
+              <div class="nsb-date" style="font-size:17px;line-height:1.35;">No verified sale date in DeedScout &mdash; verify on the official clerk or auction source.</div>
+              <div class="nsb-meta">Last page review ${fmtDate(c.verified)} &middot; Scraper not publishing verified dates</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+              <a class="nsb-cta" href="${c.clerk.url}" target="_blank" rel="noopener">Clerk sale list &nearr;</a>
+              ${ c.format === 'online'
+                ? `<a class="nsb-cta" href="${c.auction.url}" target="_blank" rel="noopener" style="background:transparent;color:var(--accent-ink);border:1px solid var(--rule);">Auction platform &nearr;</a>`
+                : '' }
+            </div>
+          </div>`}
 
           <div class="detail-grid">
             <div class="detail-block">
@@ -4225,18 +4232,20 @@
               </div>
               <a class="surplus-block-link" href="${surplus.url}" target="_blank" rel="noopener">${surplus.label} &nearr;</a>
             </div>
+            <p class="small" style="margin-top:12px;color:#555;">${INVESTMENT_SAFETY_COPY}</p>
           </div>
 
           <div class="detail-section research-section" id="research-${c.slug}">
             <h2 class="detail-h2">Research Notebook</h2>
-            <p class="lede" style="font-size:14px;margin:0 0 24px;color:#555;max-width:780px;">A private workspace for tracking parcels you're researching in ${c.name} County. Data is saved locally to your browser only &mdash; nothing is uploaded.</p>
+            <p class="lede" style="font-size:14px;margin:0 0 12px;color:#555;max-width:780px;">A private workspace for tracking parcels you're researching in ${c.name} County. Data is saved locally to your browser only &mdash; nothing is uploaded.</p>
+            <p class="small" style="margin:0 0 24px;color:#666;max-width:780px;">${INVESTMENT_SAFETY_COPY}</p>
             <div class="parcel-list" id="parcelList-${c.slug}"></div>
             <button class="btn-primary" onclick="addParcel('${c.slug}')">+ Add Parcel</button>
           </div>
 
           ${neighbors.length ? `
           <div class="detail-section">
-            <h2 class="detail-h2">Other Counties in ${c.region}</h2>
+            <h2 class="detail-h2">Other counties in ${c.region}</h2>
             <div class="neighbor-grid">
               ${neighbors.map(n => `
                 <a class="neighbor" href="#/county/${n.slug}">
@@ -5004,7 +5013,7 @@
             <div class="parcel-permits-head">
               <span class="parcel-permits-eyebrow is-empty"><span class="dot"></span>Building permits</span>
             </div>
-            <div class="parcel-permits-msg">No permit data available for this county yet.</div>
+            <div class="parcel-permits-msg">No verified records available in DeedScout for this source yet. Use the official portal below.</div>
           </div>
         `;
       }
@@ -5048,7 +5057,7 @@
               <span class="parcel-permits-eyebrow is-loading"><span class="dot"></span>Building permits</span>
               ${headLink}
             </div>
-            <div class="parcel-permits-msg">Loading permit records…</div>
+            <div class="parcel-permits-msg">Checking available cached records&hellip;</div>
           </div>
         `;
       }
@@ -5059,7 +5068,7 @@
               <span class="parcel-permits-eyebrow is-error"><span class="dot"></span>Building permits</span>
               ${headLink}
             </div>
-            <div class="parcel-permits-msg">Couldn't load permits data file. Try refreshing.</div>
+            <div class="parcel-permits-msg">This source could not be refreshed automatically. Use the official source link to verify current records.</div>
           </div>
         `;
       }
@@ -6966,26 +6975,24 @@
           <div class="pricing-head">
             <div class="eyebrow">Membership</div>
             <h1 class="detail-title">Built for the <em>serious investor.</em></h1>
-            <p class="lede" style="max-width:680px;">The free directory is enough to get you started. The Pro tier turns the registry into your operations console &mdash; cloud-synced watchlists, multi-county email alerts, and the surplus-funds history database used by recovery agents statewide.</p>
+            <p class="lede" style="max-width:680px;">The free directory is enough to get you started. Pro adds organization, monitoring, and exports for active tax-deed research. Every tier labels what is live today vs beta vs coming soon.</p>
+            <p class="small" style="max-width:680px;margin-top:12px;color:#555;"><strong>Pro checkout is live via Stripe.</strong> Cancel anytime from your account page.</p>
           </div>
 
           <div class="pricing-grid">
             <div class="pricing-card free">
               <div class="pricing-tier">Free</div>
               <div class="pricing-amount"><span class="pricing-price">$0</span><span class="pricing-per">/forever</span></div>
-              <p class="pricing-desc">Enough to research one parcel a week.</p>
+              <p class="pricing-desc">Browse official links and labeled cached or sample datasets.</p>
               <ul class="pricing-list">
                 <li>Full 67-county directory</li>
-                <li>Upcoming sales calendar (statewide)</li>
-                <li>Surplus funds resource directory</li>
+                <li>Official clerk &amp; auction links per county</li>
+                <li>Permit search with data-status badges</li>
+                <li>Palm Beach parcel lookup (cached ArcGIS)</li>
                 <li>Florida Statute &sect;197 reference</li>
-                <li>Up to 5 saved parcels (local-only)</li>
-                <li>5 live ArcGIS lookups per session</li>
-                <li>5 PCNs per bulk-import paste</li>
-                <li>1 risk flag visible (rest locked)</li>
-                <li>Most recent permit visible (history locked)</li>
-                <li>Weekly email digest (1 county)</li>
+                <li>Local research notebook (browser-only)</li>
               </ul>
+              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> county directory, permit search, parcel lookup, statute reference<br><strong>Beta / limited:</strong> sale-date calendar (scraper offline — verify on clerk sites)<br><strong>Coming soon:</strong> statewide parcel lookup, recovered sale-date automation</p>
               ${ currentUser
                   ? `<button class="btn-secondary" disabled>Your current plan</button>`
                   : `<button class="btn-secondary" onclick="openAuth('signup')">Create Free Account</button>` }
@@ -6995,28 +7002,25 @@
               <div class="pricing-badge">Recommended</div>
               <div class="pricing-tier">Pro</div>
               <div class="pricing-amount"><span class="pricing-price">${FTDR_CONFIG.PRO_PRICE_DISPLAY}</span><span class="pricing-per">/month</span></div>
-              <p class="pricing-desc">For investors who run full sale lists every week.</p>
+              <p class="pricing-desc">Organization, monitoring, and exports for investors running weekly sale lists.</p>
               <ul class="pricing-list">
                 <li><strong>Everything in Free</strong>, plus:</li>
-                <li><strong>50 skip-traces / month</strong> &mdash; phones, emails, alt addresses, relatives via BatchData</li>
-                <li><strong>200 AVM lookups / month</strong> &mdash; comp-based ARV from RentCast piped into the bid calc</li>
-                <li><strong>Bid calculator</strong> &mdash; recommended max bid, profit projections, all-in cost</li>
-                <li><strong>Title-risk auto-flagger</strong> &mdash; full 11-rule engine (estate sales, demo permits, etc.)</li>
-                <li><strong>Permit history</strong> &mdash; open / expired / recent permits per parcel</li>
-                <li><strong>Unlimited live ArcGIS hydration</strong> across all 67 counties</li>
-                <li><strong>Unlimited bulk imports</strong> &mdash; paste 200-row sale lists in one go</li>
-                <li><strong>Unlimited cloud-synced watchlists</strong></li>
-                <li><strong>Email + SMS alerts</strong> for all 67 counties</li>
-                <li><strong>Surplus Funds History</strong> &mdash; searchable database of past sales with claim status</li>
-                <li>CSV export of watchlists, surplus records, skip-trace results</li>
-                <li>Priority email support</li>
+                <li><strong>Cloud-synced watchlists</strong> (500 parcels)</li>
+                <li><strong>Email alerts</strong> (5 county subscriptions when dates verified)</li>
+                <li><strong>CSV export</strong> of watchlists (50/month, throttled)</li>
+                <li><strong>Saved parcels &amp; research notebook</strong> synced to your account</li>
+                <li><strong>Surplus Funds History</strong> (sample dataset labeled in-app)</li>
+                <li>Stripe Customer Portal for billing</li>
               </ul>
+              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> Stripe Checkout, watchlists, notebook sync, CSV export, alert prefs<br><strong>Beta / limited:</strong> surplus history sample rows, sale alerts (only when scraper publishes dates), AVM/skip-trace APIs behind feature flag<br><strong>Coming soon:</strong> bid calculator UI, in-app AVM panel, skip-trace panel, Investor Pro checkout</p>
               ${ isPro()
                   ? `<button class="btn-primary" disabled>Your current plan &checkmark;</button>`
                   : `<button class="btn-primary" onclick="startCheckout()">Subscribe to Pro</button>` }
-              <p class="pricing-foot">Cancel anytime &middot; Powered by Stripe &middot; 7-day money-back guarantee &middot; Credits refill monthly</p>
+              <p class="pricing-foot">Cancel anytime &middot; Powered by Stripe &middot; 7-day money-back guarantee</p>
             </div>
           </div>
+
+          <p class="small" style="max-width:680px;margin:24px auto 0;color:#555;">${INVESTMENT_SAFETY_COPY}</p>
 
           <div class="pricing-faq">
             <h2 class="detail-h2">Frequently Asked</h2>
@@ -7041,7 +7045,7 @@
           <div class="detail-inner">
             <a class="back-link" href="#/">&larr; Back to Registry</a>
             <div class="empty-research" style="text-align:center;padding:60px;">
-              <p style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#666;">Loading your account&hellip;</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#666;">Checking your account&hellip;</p>
             </div>
           </div>`;
         return;
