@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-01T23:57:52.854939Z",
+  "generated": "2026-07-02T06:26:48.304572Z",
   "rows": [
     {
       "category": "Tax deed county links",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html",
       "status": "cached",
       "count": 67,
-      "lastSuccess": "2026-07-01T11:05:15Z",
+      "lastSuccess": "2026-07-02T06:26:47Z",
       "lastAttempt": "2026-06-29T08:20:01Z",
       "limitations": "Official clerk, PA, and auction links maintained manually. Sale-date scraper currently failing upstream.",
       "verification": "Official clerk, property appraiser, and auction source required before bidding."
@@ -58,7 +58,7 @@
       "count": 4000,
       "lastSuccess": "2026-07-01T08:51:23Z",
       "lastAttempt": "2026-07-01T09:06:26Z",
-      "limitations": "Live Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those.",
+      "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
     {
@@ -70,7 +70,7 @@
       "count": 4000,
       "lastSuccess": "2026-07-01T08:54:39Z",
       "lastAttempt": "2026-07-01T09:06:26Z",
-      "limitations": "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
+      "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
     {
@@ -82,7 +82,7 @@
       "count": 4000,
       "lastSuccess": "2026-07-01T09:06:19Z",
       "lastAttempt": "2026-07-01T09:06:26Z",
-      "limitations": "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
+      "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
     {
@@ -152,8 +152,8 @@
       "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html#/surplus",
       "status": "cached",
       "count": 28,
-      "lastSuccess": "2026-07-01T11:05:15Z",
-      "lastAttempt": "2026-07-01T11:05:15Z",
+      "lastSuccess": "2026-07-02T06:26:47Z",
+      "lastAttempt": "2026-07-02T06:26:47Z",
       "limitations": "Curated county surplus claim portal links; not automated filing.",
       "verification": "Follow county surplus claim procedures and deadlines."
     }

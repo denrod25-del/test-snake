@@ -41,7 +41,7 @@
       "dataFile":   "data/permits/west-palm-beach.json",
       "portalUrl":  "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
       "status":     "active",
-      "scope":      "Live Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those."
+      "scope":      "Cached Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those."
     },
     {
       "id":         "boca-raton",
@@ -54,7 +54,7 @@
       "dataFile":   "data/permits/boca-raton.json",
       "portalUrl":  "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
       "status":     "active",
-      "scope":      "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API."
+      "scope":      "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API."
     },
     {
       "id":         "jupiter",
@@ -67,7 +67,7 @@
       "dataFile":   "data/permits/jupiter.json",
       "portalUrl":  "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
       "status":     "active",
-      "scope":      "Live Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API."
+      "scope":      "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API."
     },
     {
       "id":         "st-lucie",

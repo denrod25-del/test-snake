@@ -48,6 +48,7 @@ SURPLUS_PATH    = ROOT / "surplus.json"
 SOURCES_SALES   = ROOT / "scraper" / "sources.json"
 SOURCES_SURPLUS = ROOT / "scraper" / "sources_surplus.json"
 SOURCES_PERMITS = ROOT / "scraper" / "sources_permits.json"
+PERMITS_SOURCES_JSON = DATA_DIR / "permits" / "sources.json"
 COUNTY_LINKS     = DATA_DIR / "county-links.json"
 STATS_PATH      = DATA_DIR / "counties" / "stats.json"
 SITEMAP_PATH    = ROOT / "sitemap.xml"
@@ -390,8 +391,15 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
 
     # ----- Stat grid -----
     next_sale = pick_next_sale(sales_entries)
-    next_sale_str = fmt_date_iso(next_sale["date"]) if next_sale else "Not currently scheduled"
+    next_sale_str = (
+        fmt_date_iso(next_sale["date"]) if next_sale
+        else "No verified sale date in DeedScout — verify on the official clerk or auction source."
+    )
     next_sale_count = next_sale.get("count") if next_sale else None
+    next_sale_sub = (
+        f"{next_sale_count} parcels listed" if next_sale_count
+        else "Verify on official clerk or auction site"
+    )
     permit_status = (permit_coverage or {}).get("status", "available")
     permit_count = (permit_coverage or {}).get("permitCount", 0) if permit_status in ("active", "stale", "manual") else None
     surplus_link = (surplus_entry or {}).get("url") if surplus_entry else None
@@ -408,7 +416,7 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
       <div class="stat">
         <div class="lbl">Next tax-deed sale</div>
         <div class="val">{html_escape(next_sale_str)}</div>
-        <div class="sub">{html_escape(f'{next_sale_count} parcels' if next_sale_count else 'Date from public auction site')}</div>
+        <div class="sub">{html_escape(next_sale_sub)}</div>
       </div>
     """)
     permit_label = {
@@ -422,14 +430,19 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
     scope = re.sub(r"\blive Tyler\b", "cached Tyler", scope, flags=re.I)
     last_updated = (permit_coverage or {}).get("lastUpdated") or ""
     if scope and ("sample" in scope.lower() or "illustrative" in scope.lower() or "not real" in scope.lower()):
-        permit_label = ("Sample data only", "warn")
+        permit_label = ("Sample/demo only", "warn")
     elif permit_status in ("active", "stale") and permit_count:
-        permit_label = (f"Cached · {permit_count:,} permits", "ok" if permit_status == "active" else "warn")
+        permit_label = (f"Cached Tyler · {permit_count:,} records", "ok" if permit_status == "active" else "warn")
+    permit_val = "—"
+    if permit_label[0] == "Sample/demo only" and permit_count:
+        permit_val = f"{permit_count} sample rows — not real permit records"
+    elif permit_count is not None:
+        permit_val = f"{permit_count:,} cached records"
     stat_cells.append(f"""
       <div class="stat">
-        <div class="lbl">Building permits</div>
-        <div class="val">{html_escape(str(permit_count) if permit_count is not None else '—')}<span class="badge {permit_label[1]}">{html_escape(permit_label[0])}</span></div>
-        <div class="sub">{'Cached scrape — verify on official portal' if permit_count and permit_status == 'active' else 'Sample or portal-only — not a live query' if permit_label[0] == 'Sample data only' else 'Use county portal for ad-hoc lookups'}</div>
+        <div class="lbl">Building permits (county)</div>
+        <div class="val">{html_escape(permit_val)}<span class="badge {permit_label[1]}">{html_escape(permit_label[0])}</span></div>
+        <div class="sub">{'Cached Tyler EnerGov scrape — verify on official portal' if permit_status == 'active' and permit_count else 'Sample/demo only — not real records' if permit_label[0] == 'Sample/demo only' else 'See municipality pages for city permit scrapes'}</div>
       </div>
     """)
     stat_cells.append(f"""
@@ -510,8 +523,8 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
 
     # ----- Permits -----
     parts.append("<h2>Building permits</h2>")
-    if "sample" in permit_label[0].lower():
-        parts.append(f'<p class="small" style="background:#faecdb;border:1px solid #d8b58a;padding:12px;"><strong>Sample data only — not real permit records.</strong> Do not rely on these for outreach or bidding decisions. Use the official portal link above.</p>')
+    if "sample" in permit_label[0].lower() or "demo" in permit_label[0].lower():
+        parts.append(f'<p class="small" style="background:#faecdb;border:1px solid #d8b58a;padding:12px;"><strong>Sample/demo only — not real permit records.</strong> Do not rely on these for outreach or bidding decisions. Use the official portal link above.</p>')
     if permit_status in ("active", "stale", "manual"):
         parts.append(f"<p>{html_escape(str(permit_count) if permit_count else 'Permit')} records in DeedScout for {html_escape(county)} County "
                      f"({html_escape(permit_label[0])}). Scope: {html_escape(scope or 'see source portal')}. "
@@ -534,12 +547,26 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
                      f"be paid to the prior titleholder or their lienholders. {html_escape(county)} County publishes its surplus "
                      f"workflow at <a href=\"{html_escape(surplus_link)}\" target=\"_blank\" rel=\"noopener\">{html_escape(surplus_link)}</a>.</p>")
 
-    # ----- Cities served -----
+    # ----- Cities served (with municipality permit pages where available) -----
+    municipality_slugs = {
+        "West Palm Beach": "west-palm-beach",
+        "Boca Raton": "boca-raton",
+        "Jupiter": "jupiter",
+        "Royal Palm Beach": "royal-palm-beach",
+        "Boynton Beach": "boynton-beach",
+    }
     if cities:
         parts.append("<h2>Cities and municipalities</h2>")
         parts.append('<ul class="cities">')
         for city in sorted(set(cities)):
-            parts.append(f"<li>{html_escape(city)}</li>")
+            mslug = municipality_slugs.get(city)
+            if mslug:
+                parts.append(
+                    f'<li><a href="../municipalities/{html_escape(mslug)}.html">'
+                    f'{html_escape(city)}, {html_escape(county)} County</a> — municipal permit coverage</li>'
+                )
+            else:
+                parts.append(f"<li>{html_escape(city)}</li>")
         parts.append("</ul>")
 
     # ----- How tax-deed sales work in this county -----
@@ -760,26 +787,10 @@ def main():
     for city, county in (regions_doc.get("cityToCounty") or {}).items():
         cities_by_county.setdefault(county, []).append(city)
 
-    # Universe of all counties = union of regions + permits coverage + sales-sources.
-    # permits_coverage_by_slug keys are slugs ("alachua"), regions/sales/permit-sources
-    # keys are human names ("Alachua"). Normalize everything to the canonical
-    # human-readable name before deduping.
-    real_counties = set()
-
-    def _add(name_or_slug):
-        if not name_or_slug or str(name_or_slug).startswith("_"):
-            return
-        # If it looks like a slug and has a coverage entry, use the human name.
-        coverage = permits_coverage_by_slug.get(name_or_slug)
-        if coverage and coverage.get("county"):
-            real_counties.add(coverage["county"])
-        else:
-            real_counties.add(name_or_slug)
-
-    for x in county_region.keys():        _add(x)
-    for x in permits_coverage_by_slug:    _add(x)
-    for x in sales_sources.keys():        _add(x)
-    for x in permits_sources.keys():      _add(x)
+    # Universe = official Florida counties only (67). Do not treat municipalities as counties.
+    real_counties = set(county_region.keys())
+    if county_links:
+        real_counties.update(county_links.keys())
 
     only = set(s.strip() for s in args.only.split(",")) if args.only else None
     if only:
@@ -842,6 +853,20 @@ def main():
             sitemap = render_sitemap(counties_data, base_url)
             SITEMAP_PATH.write_text(sitemap, encoding="utf-8")
             print(f"  wrote sitemap.xml ({len(counties_data) + 4} urls)")
+
+        # Remove stale municipal pages mistakenly generated under counties/
+        valid_slugs = {slugify(c) for c in real_counties}
+        orphan_slugs = {
+            "west-palm-beach", "boca-raton", "jupiter", "royal-palm-beach",
+            "boynton-beach", "st-lucie-county",
+        }
+        for path in COUNTIES_DIR.glob("*.html"):
+            if path.name == "index.html":
+                continue
+            slug = path.stem
+            if slug not in valid_slugs or slug in orphan_slugs:
+                path.unlink()
+                print(f"  removed stale counties/{path.name}")
 
     print(f"\nGenerated {len(counties_data)} county pages.")
     if not base_url:

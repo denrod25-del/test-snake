@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Security — DeedScout</title>
-  <meta name="description" content="DeedScout security practices and responsible disclosure." />
+  <meta name="description" content="DeedScout security practices, headers, rate limits, and responsible disclosure." />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/deedscout.css" />
 </head>
@@ -12,10 +12,34 @@
 <main class="ds-main" style="padding-top:48px;max-width:760px;">
   <div class="ds-section-head"><p class="ds-section-label">Trust</p><h1>Security &amp; responsible disclosure</h1></div>
   <div class="ds-prose">
-    <p>DeedScout uses Supabase Auth, Stripe for billing, and Netlify Functions for server-side Pro checks. User-owned data (watchlists, alerts, profiles) is protected by Row Level Security policies in Supabase.</p>
-    <p><strong>Report a vulnerability:</strong> Use our <a href="contact.html">contact form</a> with topic "Security" or email through the contact page. Please include steps to reproduce and impact assessment. Do not publicly disclose before we acknowledge.</p>
-    <p><strong>Account data:</strong> Request export or deletion via contact form or account settings. See <a href="privacy.html">Privacy Policy</a> for retention.</p>
-    <p><strong>Forms:</strong> Netlify honeypot on public forms. Rate limiting on API endpoints is planned for production hardening.</p>
+    <p>DeedScout uses Supabase Auth, Stripe for billing, and Netlify Functions for server-side Pro checks. User-owned data (watchlists, alerts, profiles) is protected by Row Level Security in Supabase.</p>
+
+    <h2>Security contact</h2>
+    <p><strong>Email:</strong> <a href="mailto:security@deedscout.app">security@deedscout.app</a> (monitored) · or use <a href="contact.html">Contact</a> with subject &ldquo;Security&rdquo;.</p>
+
+    <h2>Transport &amp; headers</h2>
+    <ul>
+      <li>HSTS, CSP, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy on all pages</li>
+      <li>Stripe Checkout — card data never touches DeedScout servers</li>
+    </ul>
+
+    <h2>Rate limiting &amp; abuse</h2>
+    <ul>
+      <li>Checkout and Pro API endpoints: per-IP rate limits on Netlify Functions</li>
+      <li>CSV export: client-side throttling on Permit Search and Tax Deeds Pro exports</li>
+      <li>Public forms: Netlify honeypot fields</li>
+    </ul>
+
+    <h2>Audit logging</h2>
+    <ul>
+      <li>Stripe webhooks verified with <code>constructEvent</code> — reject unsigned payloads</li>
+      <li>Credit spend/refund logged in Supabase <code>credit_ledger</code> with reason codes</li>
+      <li>Webhook replay: Stripe event IDs should be deduplicated in production (document idempotency before GA)</li>
+    </ul>
+
+    <h2>Responsible disclosure</h2>
+    <p>Include steps to reproduce and impact. Do not publicly disclose before we acknowledge. We aim to respond within 5 business days.</p>
+    <p><a href="trust.html">Trust Center</a> · <a href="privacy.html">Privacy Policy</a></p>
   </div>
 </main>
 <script src="assets/deedscout.js"></script>

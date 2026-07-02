@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-01T11:05:15Z",
+  "generated": "2026-07-02T06:26:47Z",
   "salesGenerated": "2026-06-29T08:20:01Z",
   "featuredSlugs": [
     "palm-beach",
@@ -42,30 +42,6 @@
       "permits": {
         "status": "manual",
         "count": null
-      }
-    },
-    "boca-raton": {
-      "county": "Boca Raton",
-      "slug": "boca-raton",
-      "region": null,
-      "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
-      "permits": {
-        "status": "active",
-        "count": 4000
-      }
-    },
-    "boynton-beach": {
-      "county": "Boynton Beach",
-      "slug": "boynton-beach",
-      "region": null,
-      "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
-      "permits": {
-        "status": "stale",
-        "count": 3
       }
     },
     "bradford": {
@@ -416,18 +392,6 @@
         "count": null
       }
     },
-    "jupiter": {
-      "county": "Jupiter",
-      "slug": "jupiter",
-      "region": null,
-      "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
-      "permits": {
-        "status": "active",
-        "count": 4000
-      }
-    },
     "lafayette": {
       "county": "Lafayette",
       "slug": "lafayette",
@@ -692,18 +656,6 @@
         "count": null
       }
     },
-    "royal-palm-beach": {
-      "county": "Royal Palm Beach",
-      "slug": "royal-palm-beach",
-      "region": null,
-      "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
-      "permits": {
-        "status": "stale",
-        "count": 3
-      }
-    },
     "santa-rosa": {
       "county": "Santa Rosa",
       "slug": "santa-rosa",
@@ -762,18 +714,6 @@
       "permits": {
         "status": "manual",
         "count": null
-      }
-    },
-    "st-lucie-county": {
-      "county": "St. Lucie County",
-      "slug": "st-lucie-county",
-      "region": null,
-      "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
-      "permits": {
-        "status": "stale",
-        "count": 4000
       }
     },
     "sumter": {
@@ -870,18 +810,6 @@
       "permits": {
         "status": "unsupported",
         "count": null
-      }
-    },
-    "west-palm-beach": {
-      "county": "West Palm Beach",
-      "slug": "west-palm-beach",
-      "region": null,
-      "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
-      "permits": {
-        "status": "active",
-        "count": 4000
       }
     }
   }

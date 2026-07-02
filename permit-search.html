@@ -1583,17 +1583,20 @@ function rowHtml(p, idx) {
   const src = SOURCE_BY_ID[p.dataSource] || {};
   const sourcePill = `<span class="source-pill ${escapeAttr(p.dataSourceStatus || "")}" title="${escapeAttr(p.dataSourceLabel || "")}">${escapeHtml(p.dataSourceShort || "")}</span>`;
   const portalBtn = src.portalUrl
-    ? `<a class="btn" href="${escapeAttr(src.portalUrl)}" target="_blank" rel="noopener">Open ${escapeHtml(p.dataSourceLabel || "portal")}</a>`
+    ? `<a class="btn verify-portal" href="${escapeAttr(src.portalUrl)}" target="_blank" rel="noopener" title="Verify on official portal">Verify on portal</a>`
+    : "";
+  const statusBadge = window.DeedScoutTrust
+    ? DeedScoutTrust.renderBadge(DeedScoutTrust.permitTrustStatus(src), { compact: true })
     : "";
   const main = `
     <tr class="permit-row" data-id="${escapeAttr(id)}">
-      <td class="hide-mobile">${sourcePill}</td>
+      <td class="hide-mobile">${sourcePill}${statusBadge ? `<div style="margin-top:4px;">${statusBadge}</div>` : ""}</td>
       <td>${linkHtml}<div class="desc">${escapeHtml(p.parcelId || "")}</div></td>
       <td>${escapeHtml(p.appliedDate || "&mdash;")}</td>
       <td><span class="pill ${statusClass}">${escapeHtml(p.status)}</span></td>
       <td>${highlight(p.address)}<div class="desc">${escapeHtml(p.city || "")}</div></td>
       <td>${highlight(p.type)}${desc}</td>
-      <td class="hide-mobile">${highlight(p.contractor || "")}</td>
+      <td class="hide-mobile">${highlight(p.contractor || "")}${portalBtn ? `<div style="margin-top:6px;">${portalBtn}</div>` : ""}</td>
       <td>${valStr}</td>
     </tr>`;
   if (!expanded) return main;
@@ -2255,11 +2258,26 @@ function saveGeocodeCache() {
 // ---------------------------------------------------------------------------
 // CSV export
 // ---------------------------------------------------------------------------
+// CSV export (Pro/free throttled)
+let lastExportAt = 0;
 function exportCsv() {
-  const cols = ["dataSource","dataSourceLabel","permitNumber","parcelId","address","city","type","subtype","description","status","applicantName","contractor","valuation","appliedDate","issuedDate","finalDate","expirationDate","url"];
+  const now = Date.now();
+  if (now - lastExportAt < 5000) {
+    alert("Please wait a few seconds between exports.");
+    return;
+  }
+  lastExportAt = now;
+  const cols = ["dataStatus","verifyPortalUrl","dataSource","dataSourceLabel","permitNumber","parcelId","address","city","type","subtype","description","status","applicantName","contractor","valuation","appliedDate","issuedDate","finalDate","expirationDate","url"];
   const rows = [cols.join(",")];
   for (const p of STATE.filtered) {
-    rows.push(cols.map((c) => csvCell(p[c])).join(","));
+    const src = SOURCE_BY_ID[p.dataSource] || {};
+    const st = window.DeedScoutTrust ? DeedScoutTrust.permitTrustStatus(src) : "";
+    const enriched = {
+      ...p,
+      dataStatus: st,
+      verifyPortalUrl: src.portalUrl || "",
+    };
+    rows.push(cols.map((c) => csvCell(enriched[c])).join(","));
   }
   const blob = new Blob([rows.join("\r\n")], { type: "text/csv;charset=utf-8;" });
   const a = document.createElement("a");

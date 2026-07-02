@@ -826,7 +826,6 @@ body.ds-body .ds-nav-labs-menu a { border-bottom: none; color: var(--ink); }
   margin-bottom: 8px;
 }
 
-/* ---------- Mobile card view for tables ---------- */
 @media (max-width: 720px) {
   .ds-source-table thead { display: none; }
   .ds-source-table tr { display: block; border: 1px solid var(--rule); margin-bottom: 12px; padding: 12px; background: var(--paper-2); }
@@ -840,4 +839,29 @@ body.ds-body .ds-nav-labs-menu a { border-bottom: none; color: var(--ink); }
     color: var(--muted);
     margin-bottom: 2px;
   }
+}
+
+.ds-trust-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+.ds-trust-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.ds-trust-card-head h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  margin: 8px 0 0;
+}
+.ds-pricing-persona {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
 }

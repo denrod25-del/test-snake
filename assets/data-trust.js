@@ -229,6 +229,60 @@
     );
   }
 
+  /** Card grid for Trust Center dashboard */
+  function renderTrustDashboardCards(rows) {
+    if (!rows || !rows.length) return "";
+    return (
+      '<div class="ds-trust-dashboard">' +
+      rows
+        .map(function (r) {
+          var status = r.status || "coming-soon";
+          var meta = STATUSES[status] || STATUSES["coming-soon"];
+          var countLabel =
+            r.status === "sample" && r.count != null
+              ? r.count + " sample rows — not real records"
+              : r.count != null
+              ? String(r.count)
+              : "—";
+          return (
+            '<article class="ds-trust-card ds-trust-' +
+            status.replace("coming-soon", "soon") +
+            '">' +
+            '<div class="ds-trust-card-head">' +
+            renderBadge(status, { compact: true }) +
+            "<h3>" +
+            escapeHtml(r.name || r.label) +
+            "</h3></div>" +
+            '<dl class="ds-trust-meta">' +
+            "<dt>Jurisdiction</dt><dd>" +
+            escapeHtml(r.jurisdiction || "—") +
+            "</dd>" +
+            "<dt>Records</dt><dd>" +
+            escapeHtml(countLabel) +
+            "</dd>" +
+            "<dt>Last success</dt><dd>" +
+            escapeHtml(r.lastSuccess ? formatDate(r.lastSuccess) : "—") +
+            "</dd>" +
+            "<dt>Last attempt</dt><dd>" +
+            escapeHtml(r.lastAttempt ? formatDate(r.lastAttempt) : "—") +
+            "</dd>" +
+            "<dt>Limitation</dt><dd>" +
+            escapeHtml(r.limitations || meta.desc) +
+            "</dd>" +
+            "</dl>" +
+            (r.sourceUrl
+              ? '<a class="ds-btn ds-btn-secondary" style="margin-top:8px;" href="' +
+                escapeHtml(r.sourceUrl) +
+                '" target="_blank" rel="noopener">Official verification →</a>'
+              : "") +
+            "</article>"
+          );
+        })
+        .join("") +
+      "</div>"
+    );
+  }
+
   function mount(selector, html) {
     var el = typeof selector === "string" ? document.querySelector(selector) : selector;
     if (el) el.innerHTML = html;
@@ -243,6 +297,7 @@
     renderTrustPanel: renderTrustPanel,
     renderSourceTable: renderSourceTable,
     renderDatasetTable: renderDatasetTable,
+    renderTrustDashboardCards: renderTrustDashboardCards,
     mount: mount,
     escapeHtml: escapeHtml,
   };

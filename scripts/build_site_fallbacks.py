@@ -235,6 +235,36 @@ def county_badges(entry):
     return "".join(badges)
 
 
+def build_trust_dashboard_cards(inventory):
+    rows = inventory.get("rows") or []
+    cards = []
+    for r in rows:
+        name = ((r.get("category") + " — ") if r.get("category") else "") + (r.get("name") or "")
+        st = r.get("status") or "coming-soon"
+        count = r.get("count")
+        if st == "sample" and count is not None:
+            count_txt = f"{count} sample rows — not real records"
+        elif count is not None:
+            count_txt = str(count)
+        else:
+            count_txt = "—"
+        src = r.get("sourceUrl") or ""
+        cards.append(
+            f'<article class="ds-trust-card ds-trust-{html.escape(st.replace("coming-soon", "soon"))}">'
+            f'<div class="ds-trust-card-head">{status_badge(st)}<h3>{html.escape(name)}</h3></div>'
+            f'<dl class="ds-trust-meta">'
+            f"<dt>Jurisdiction</dt><dd>{html.escape(r.get('jurisdiction') or '—')}</dd>"
+            f"<dt>Records</dt><dd>{html.escape(count_txt)}</dd>"
+            f"<dt>Last success</dt><dd>{html.escape(fmt_date(r.get('lastSuccess')))}</dd>"
+            f"<dt>Last attempt</dt><dd>{html.escape(fmt_date(r.get('lastAttempt')))}</dd>"
+            f"<dt>Limitation</dt><dd>{html.escape(r.get('limitations') or '—')}</dd>"
+            f"</dl>"
+            + (f'<a class="ds-btn ds-btn-secondary" style="margin-top:8px;" href="{html.escape(src)}" target="_blank" rel="noopener">Official verification →</a>' if src else "")
+            + "</article>"
+        )
+    return f'<div class="ds-trust-dashboard">{"".join(cards)}</div>'
+
+
 def replace_block(text, marker, content):
     pattern = re.compile(
         rf"<!-- @build:{re.escape(marker)}:start -->.*?<!-- @build:{re.escape(marker)}:end -->",
@@ -254,6 +284,7 @@ def main():
 
     registry_rows = build_county_registry_rows(links)
     inventory_html = build_inventory_table(inventory)
+    trust_dashboard = build_trust_dashboard_cards(inventory)
     permit_meta, permit_cards = build_permit_coverage_fallback(permits_index)
     calendar_html = build_calendar_fallback(links)
     upcoming_html = build_upcoming_fallback(inventory)
@@ -294,6 +325,7 @@ def main():
     if trust_path.exists():
         trust = trust_path.read_text(encoding="utf-8")
         trust = replace_block(trust, "inventory-table", inventory_html)
+        trust = replace_block(trust, "trust-dashboard", trust_dashboard)
         trust_path.write_text(trust, encoding="utf-8")
 
     print(f"Injected fallbacks: {len(links)} county rows, {len(inventory.get('rows') or [])} inventory rows")

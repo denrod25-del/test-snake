@@ -18,7 +18,14 @@ PUBLIC_HTML = [
     "methodology.html",
     "status.html",
     "florida-permit-search.html",
+    "florida-tax-deed-sales.html",
+    "palm-beach-county-tax-deed-sales.html",
 ]
+
+FAKE_COUNTY_RE = re.compile(
+    r"(West Palm Beach|Boca Raton|Jupiter|Royal Palm Beach|Boynton Beach)\s+County",
+    re.I,
+)
 
 FORBIDDEN_PATTERNS = [
     re.compile(r"scrape_permits\.py", re.I),
@@ -48,6 +55,22 @@ class TestPublicSite(unittest.TestCase):
                     f"{rel} contains forbidden dev text: {match.group(0) if match else ''}",
                 )
 
+    def test_no_city_labeled_as_county(self):
+        counties_dir = ROOT / "counties"
+        for path in counties_dir.glob("*.html"):
+            if path.name == "index.html":
+                continue
+            text = path.read_text(encoding="utf-8")
+            m = FAKE_COUNTY_RE.search(text)
+            self.assertIsNone(m, f"{path.name} mislabels city as county: {m.group(0) if m else ''}")
+
+    def test_municipality_pages_use_correct_geography(self):
+        muni = ROOT / "municipalities" / "boca-raton.html"
+        if muni.exists():
+            text = muni.read_text(encoding="utf-8")
+            self.assertIn("Boca Raton, Palm Beach County", text)
+            self.assertNotIn("Boca Raton County", text)
+
     def test_county_registry_has_crawlable_rows(self):
         td = (ROOT / "tax-deeds.html").read_text(encoding="utf-8")
         rows = re.findall(r"<tr data-name=", td)
@@ -75,6 +98,10 @@ class TestPublicSite(unittest.TestCase):
                     scope.lower(),
                     f"{cov.get('county')} scope mislabels sample as live",
                 )
+
+    def test_pricing_no_conditional_stripe_wording(self):
+        text = (ROOT / "pricing.html").read_text(encoding="utf-8")
+        self.assertNotIn("when configured", text.lower())
 
     def test_no_sample_mislabel_in_public_html(self):
         for rel in PUBLIC_HTML:

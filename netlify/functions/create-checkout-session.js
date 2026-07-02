@@ -16,10 +16,15 @@
 const Stripe = require('stripe');
 const { createSupabaseAdminClient, getCanonicalSiteUrl, cleanEnv, verifyAccessToken } = require('./_lib/config');
 
+const { checkRateLimit, rateLimitResponse } = require('./_lib/rate-limit');
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
+
+  const rl = checkRateLimit(event, { name: 'checkout', max: 12, windowMs: 60_000 });
+  if (!rl.allowed) return rateLimitResponse(rl.retryAfterSec);
 
   try {
     const { accessToken } = JSON.parse(event.body || '{}');

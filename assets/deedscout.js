@@ -17,6 +17,7 @@
   ];
 
   var labsLinks = [
+    { href: "labs/plumbing-reviews.html", label: "Plumbing Reviews (demo)" },
     { href: "subdivision-index.html", label: "Subdivision Index" },
     { href: "plat-index.html", label: "Plat Index" },
     { href: "data-sources.html", label: "Data Sources" },

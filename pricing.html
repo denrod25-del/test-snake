@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing — DeedScout</title>
-  <meta name="description" content="DeedScout pricing: Free county research, Pro watchlists and alerts at $49/mo, Investor Pro at $149/mo, and Team plans." />
+  <meta name="description" content="DeedScout pricing: Free county research, Pro watchlists and alerts at $49/mo, Investor Pro for teams." />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/deedscout.css" />
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
     {"@type":"Question","name":"Why pay if county records are free?","acceptedAnswer":{"@type":"Answer","text":"County records are free; the workflow is not. DeedScout sells organization, monitoring, alerts, filtering, exports, and research tools."}},
-    {"@type":"Question","name":"What is live today?","acceptedAnswer":{"@type":"Answer","text":"Free county directory and source links are live. Pro checkout via Stripe is live when configured. Investor Pro and Team are waitlist."}}
+    {"@type":"Question","name":"What is live today?","acceptedAnswer":{"@type":"Answer","text":"Free county directory, permit search with trust labels, Palm Beach parcel lookup, Pro Stripe checkout, watchlists, notebook, and CSV export are live. Investor Pro bundle UI and sale-date automation are still maturing."}}
   ]}
   </script>
 </head>
@@ -19,113 +19,91 @@
   <div class="ds-section-head" style="text-align:center;max-width:720px;margin:0 auto 40px;">
     <p class="ds-section-label">Pricing</p>
     <h1>County data is free. The workflow is what you pay for.</h1>
-    <p>DeedScout does not sell public records. It sells speed, organization, monitoring, alerts, filtering, exports, and research workflows — with clear available-now vs coming-soon labels.</p>
+    <p>Every tier separates <strong>Live today</strong> from <strong>Coming soon</strong>. DeedScout is a public paid beta — not final investment-data authority.</p>
   </div>
 
   <div class="ds-trust-panel ds-trust-live" style="max-width:720px;margin:0 auto 32px;">
-    <div class="ds-trust-head"><strong>Before checkout:</strong> DeedScout is not legal, tax, investment, title, or brokerage advice. Official county source required before bidding. Cancel anytime from your account; see Terms for refund summary.</div>
+    <div class="ds-trust-head"><strong>Before checkout:</strong> Not legal, tax, investment, title, or brokerage advice. Official county source required before bidding. Cancel anytime from <a href="account.html">Account</a> → Stripe Customer Portal. No refunds for partial months — see <a href="terms.html">Terms</a>.</div>
   </div>
 
   <div class="ds-pricing-grid">
     <div class="ds-pricing-card">
       <span class="ds-avail ds-avail-now">Available now</span>
+      <p class="ds-pricing-persona">Casual research</p>
       <div class="ds-pricing-tier">Free</div>
       <div class="ds-pricing-price">$0<span>/month</span></div>
-      <p class="ds-pricing-desc">Start researching with official county source links.</p>
+      <p class="ds-pricing-desc">Browse official links and labeled cached/sample datasets.</p>
       <ul class="ds-pricing-list">
         <li>67-county directory</li>
         <li>Official clerk &amp; auction links</li>
-        <li>Basic tax deed browse</li>
-        <li>Basic parcel lookup (Palm Beach)</li>
-        <li>Permit search (cached + sample sources labeled)</li>
-        <li>Learn articles &amp; county pages</li>
+        <li>Permit search (cached Tyler + sample labels)</li>
+        <li>Palm Beach parcel lookup</li>
+        <li>Subdivision &amp; plat indexes (PBC)</li>
       </ul>
-      <div class="ds-pricing-live"><strong>Live today</strong>County links, permit search with trust labels, subdivision/plat indexes</div>
+      <div class="ds-pricing-live"><strong>Live today</strong>County links, permit search, parcel lookup, learn articles</div>
+      <div class="ds-pricing-live"><strong>Coming soon</strong>Statewide parcel lookup, sale-date automation recovery</div>
       <div class="ds-pricing-live"><strong>Limits</strong>Unlimited browse · No CSV export · No watchlists · No alerts</div>
       <a class="ds-btn ds-btn-secondary" href="tax-deeds.html" style="width:100%;">Start Free</a>
     </div>
 
     <div class="ds-pricing-card featured">
       <span class="ds-avail ds-avail-now">Available now</span>
+      <p class="ds-pricing-persona">Active investors · multiple counties</p>
       <div class="ds-pricing-tier">Pro</div>
       <div class="ds-pricing-price">$49<span>/month</span></div>
-      <p class="ds-pricing-desc">For active investors monitoring multiple counties.</p>
+      <p class="ds-pricing-desc">Organization, monitoring, and exports for serious tax deed research.</p>
       <ul class="ds-pricing-list">
         <li>Watchlists (up to 500 parcels)</li>
         <li>Email alerts (5 county subscriptions)</li>
         <li>Saved parcels &amp; parcel notebook</li>
-        <li>CSV exports (50/month)</li>
-        <li>Upcoming sale alerts <span style="font-size:11px;color:var(--ds-muted);">(alerts fire when scraper has dates)</span></li>
-        <li>Basic surplus alerts</li>
-        <li>Bid calculator &amp; AVM research tools</li>
+        <li>CSV exports (50/month, throttled)</li>
+        <li>County sale alerts when scraper has dates</li>
       </ul>
-      <div class="ds-pricing-live"><strong>Live today</strong>Stripe checkout, watchlists, notebook, CSV export, county alerts (when signed in)</div>
-      <div class="ds-pricing-live"><strong>Coming soon</strong>Bid calculator, risk/skip-trace panel, advanced filter presets, multi-county dashboard polish</div>
-      <div class="ds-pricing-live"><strong>Cancel / refund</strong>Cancel anytime in account · No refunds for partial months (see Terms)</div>
+      <div class="ds-pricing-live"><strong>Live today</strong>Stripe Checkout · Customer Portal · Watchlists · Notebook · CSV export · County alert prefs</div>
+      <div class="ds-pricing-live"><strong>Coming soon</strong>Polished bid calculator UI · In-app AVM panel · Skip-trace panel · Multi-county dashboard</div>
+      <div class="ds-pricing-live"><strong>Account</strong>Cancel anytime in Account → Manage billing (Stripe Portal)</div>
       <a class="ds-btn ds-btn-primary" href="tax-deeds.html#/pricing" style="width:100%;">Upgrade to Pro</a>
     </div>
 
     <div class="ds-pricing-card">
       <span class="ds-avail ds-avail-waitlist">Waitlist</span>
+      <p class="ds-pricing-persona">High-volume research teams</p>
       <div class="ds-pricing-tier">Investor Pro</div>
       <div class="ds-pricing-price">$149<span>/month</span></div>
-      <p class="ds-pricing-desc">Full research stack for serious deal flow.</p>
+      <p class="ds-pricing-desc">Credits and dashboards for teams running daily deal flow.</p>
       <ul class="ds-pricing-list">
         <li>Everything in Pro</li>
-        <li>AVM lookups (100 credits/mo)</li>
-        <li>Skip trace credits (50/mo)</li>
-        <li>Permit history per parcel</li>
-        <li>Advanced parcel filters</li>
-        <li>Deal notes &amp; lead lists</li>
-        <li>Investor dashboard</li>
+        <li>AVM lookups (100 credits/mo planned)</li>
+        <li>Skip trace credits (50/mo planned)</li>
+        <li>Investor dashboard &amp; lead lists</li>
       </ul>
-      <div class="ds-pricing-live"><strong>Live today</strong>AVM &amp; skip trace server APIs wired for Pro-tier testing — Investor Pro bundle and in-app panels rolling out</div>
-      <div class="ds-pricing-live"><strong>Limits (planned)</strong>500 parcel watchlist · 200 exports/mo · 20 alert rules</div>
+      <div class="ds-pricing-live"><strong>Live today</strong>Waitlist signup · Server APIs exist for AVM/skip-trace testing on Pro accounts</div>
+      <div class="ds-pricing-live"><strong>Coming soon</strong>Investor Pro bundle checkout · Unified in-app panels · Higher export limits</div>
       <a class="ds-btn ds-btn-secondary" href="contact.html" style="width:100%;">Join Waitlist</a>
     </div>
 
     <div class="ds-pricing-card">
       <span class="ds-avail ds-avail-contact">Contact sales</span>
+      <p class="ds-pricing-persona">Firms &amp; lenders</p>
       <div class="ds-pricing-tier">Team / Enterprise</div>
       <div class="ds-pricing-price">Custom</div>
-      <p class="ds-pricing-desc">For firms, lenders, and service companies.</p>
       <ul class="ds-pricing-list">
-        <li>Shared workspace</li>
+        <li>Shared workspace (planned)</li>
         <li>Team watchlists</li>
-        <li>Multi-user accounts</li>
-        <li>API access (planned)</li>
         <li>Bulk exports</li>
         <li>Priority support</li>
       </ul>
-      <div class="ds-pricing-live"><strong>Live today</strong>Contact form · Custom onboarding by email</div>
+      <div class="ds-pricing-live"><strong>Live today</strong>Contact form · Manual onboarding</div>
+      <div class="ds-pricing-live"><strong>Coming soon</strong>API access · SSO</div>
       <a class="ds-btn ds-btn-secondary" href="contact.html" style="width:100%;">Contact Sales</a>
     </div>
   </div>
 
-  <section class="ds-section">
-    <div class="ds-section-head"><h2>What Pro unlocks in the workflow</h2></div>
-    <div class="ds-example-grid">
-      <div><div class="ds-example-label">Example parcel notebook</div><div class="ds-example">PCN 00-1234-56-7890 · Palm Beach
-Note: Check lien stack before sale
-Tags: upcoming-sale, plumbing-permit
-Source verified: clerk 2026-06-28</div></div>
-      <div><div class="ds-example-label">Example CSV export</div><div class="ds-example">county,pcn,address,next_sale,notebook_note
-Palm Beach,00-1234-56-7890,123 MAIN ST,,Check liens</div></div>
-      <div><div class="ds-example-label">Example county alert</div><div class="ds-example">DeedScout Alert · Palm Beach County
-New upcoming sale posted — verify on clerk site before bidding.</div></div>
-    </div>
-  </section>
-
   <section class="ds-section ds-faq">
     <div class="ds-section-head"><h2>Frequently asked</h2></div>
-    <details open><summary>Why would people pay if county records are free?</summary><p>Because the records are free, but the research process is slow, fragmented, and inconsistent. DeedScout saves time by organizing county sources into one workflow.</p></details>
-    <details><summary>Can I use DeedScout instead of official county records?</summary><p>No. DeedScout is a research layer only. Always verify sale dates, parcel details, bid rules, and legal status with the official county source before acting.</p></details>
-    <details><summary>What's included in live checkout today?</summary><p>Pro checkout is live via Stripe when configured. Watchlists, notebook, CSV export, and county alerts work today. Bid calculator, AVM panel, and skip-trace UI are coming soon (server APIs exist for testing). Investor Pro and Team tiers are waitlist — contact us to join.</p></details>
-    <p style="margin-top:16px;"><a href="faq.html">Full FAQ →</a></p>
-  </section>
-
-  <section class="ds-section" id="disclaimer">
-    <div class="ds-disclaimer"><strong>Research disclaimer</strong>DeedScout organizes public-record information for research purposes only. Not legal, tax, investment, title, or brokerage advice.</div>
+    <details open><summary>What's included in live checkout today?</summary><p>Pro uses Stripe Checkout and the Stripe Customer Portal for billing management. Watchlists, notebook, CSV export, and county alert preferences work today when signed in. Sale-date alerts only fire when the scraper publishes future dates.</p></details>
+    <details><summary>Can I get a refund?</summary><p>Cancel anytime — access continues through the paid period. We do not refund partial months. See <a href="terms.html">Terms</a>.</p></details>
+    <details><summary>Can I use DeedScout instead of official county records?</summary><p>No. Always verify on the official clerk, auction, or municipal portal before bidding or outreach.</p></details>
   </section>
 </main>
 <script src="assets/deedscout.js"></script>

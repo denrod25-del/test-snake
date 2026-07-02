@@ -27,8 +27,11 @@
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "no-referrer"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://api.stripe.com; frame-src https://js.stripe.com; base-uri 'self'; form-action 'self'"
 
 [[headers]]
   for = "/tax-deeds.html"
@@ -101,4 +104,74 @@
 [[redirects]]
   from = "/trust"
   to   = "/trust.html"
+  status = 200
+
+[[redirects]]
+  from = "/labs/plumbing-reviews"
+  to   = "/labs/plumbing-reviews.html"
+  status = 200
+
+[[redirects]]
+  from = "/plumbing-reviews.html"
+  to   = "/labs/plumbing-reviews.html"
+  status = 301
+
+[[redirects]]
+  from = "/counties/west-palm-beach.html"
+  to   = "/municipalities/west-palm-beach.html"
+  status = 301
+
+[[redirects]]
+  from = "/counties/boca-raton.html"
+  to   = "/municipalities/boca-raton.html"
+  status = 301
+
+[[redirects]]
+  from = "/counties/jupiter.html"
+  to   = "/municipalities/jupiter.html"
+  status = 301
+
+[[redirects]]
+  from = "/counties/royal-palm-beach.html"
+  to   = "/municipalities/royal-palm-beach.html"
+  status = 301
+
+[[redirects]]
+  from = "/counties/boynton-beach.html"
+  to   = "/municipalities/boynton-beach.html"
+  status = 301
+
+[[redirects]]
+  from = "/counties/st-lucie-county.html"
+  to   = "/counties/st-lucie.html"
+  status = 301
+
+[[redirects]]
+  from = "/florida-tax-deed-sales"
+  to   = "/florida-tax-deed-sales.html"
+  status = 200
+
+[[redirects]]
+  from = "/florida-tax-deed-sales-by-county"
+  to   = "/florida-tax-deed-sales-by-county.html"
+  status = 200
+
+[[redirects]]
+  from = "/palm-beach-county-tax-deed-sales"
+  to   = "/palm-beach-county-tax-deed-sales.html"
+  status = 200
+
+[[redirects]]
+  from = "/florida-surplus-funds-by-county"
+  to   = "/florida-surplus-funds-by-county.html"
+  status = 200
+
+[[redirects]]
+  from = "/palm-beach-parcel-lookup"
+  to   = "/palm-beach-parcel-lookup.html"
+  status = 200
+
+[[redirects]]
+  from = "/municipalities/:slug"
+  to   = "/municipalities/:slug.html"
   status = 200
