@@ -11,7 +11,7 @@
   "Duval":        { "parser": "clerk_html_table",    "url": "https://www.duvalclerk.com/court-records/tax-deeds/surplus-funds" },
   "Escambia":     { "parser": "clerk_html_table",    "url": "https://www.escambiaclerk.com/176/Surplus-Funds" },
   "Hernando":     { "parser": "clerk_html_table",    "url": "https://hernandoclerk.com/additional-services/tax-deeds/" },
-  "Hillsborough": { "parser": "clerk_html_table",    "url": "https://www.hillsclerk.com/taxdeeds" },
+  "Hillsborough": { "parser": "clerk_html_table",    "url": "https://www.hillsclerk.com/taxdeeds", "disabled": true, "limitations": "Parser returns fee-table noise only; disabled until clerk table mapping is fixed." },
   "Lake":         { "parser": "clerk_html_table",    "url": "https://www.lakecountyclerk.org/court_services/tax_deed_surplus_funds.aspx" },
   "Lee":          { "parser": "clerk_html_table",    "url": "https://www.leeclerk.org/records-and-information/tax-deeds/tax-deed-surplus-funds" },
   "Manatee":      { "parser": "clerk_html_table",    "url": "https://www.manateeclerk.com/departments/tax-deeds/list-of-unclaimed-funds/" },
@@ -22,10 +22,10 @@
   "Palm Beach":   { "parser": "clerk_html_table",    "url": "https://www.mypalmbeachclerk.com/departments/courts/tax-deeds/sale-information" },
   "Pasco":        { "parser": "clerk_html_table",    "url": "https://pascoclerk.com/839/Tax-Deed-Surplus" },
   "Pinellas":     { "parser": "clerk_html_table",    "url": "https://www.mypinellasclerk.gov/Home/TaxDeedSurplus" },
-  "Polk":         { "parser": "clerk_html_table",    "url": "https://apps.polkcountyclerk.net/browserviewtd/" },
+  "Polk":         { "parser": "clerk_html_table",    "url": "https://apps.polkcountyclerk.net/browserviewtd/", "disabled": true, "limitations": "Angular SPA; plain HTTP fetch returns template rows only." },
   "Sarasota":     { "parser": "clerk_html_table",    "url": "https://www.sarasotaclerk.com/Home-and-Property/Tax-Deeds/Surplus-Funds-from-Tax-Deed-Sale" },
   "Seminole":     { "parser": "clerk_html_table",    "url": "https://www.seminoleclerk.org/online-services/property-auctions/tax-deed-sales/" },
-  "St. Johns":    { "parser": "clerk_html_table",    "url": "https://stjohnsclerk.com/foreclosure/tax-deeds-2/" },
+  "St. Johns":    { "parser": "clerk_html_table",    "url": "https://stjohnsclerk.com/foreclosure/tax-deeds-2/", "disabled": true, "limitations": "Parser returns non-surplus table rows; disabled until mapping is verified." },
   "St. Lucie":    { "parser": "clerk_html_table",    "url": "https://www.stlucieclerk.com/tax-deeds/surplus-funds" },
   "Volusia":      { "parser": "clerk_html_table",    "url": "https://www.clerk.org/tax-deeds/surplus-funds" }
 }

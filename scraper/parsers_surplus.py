@@ -41,6 +41,7 @@ class NoDataError(Exception):
 # --------------------------------------------------------------------------
 _MONEY_RE = re.compile(r"\$?\s*([\d,]+(?:\.\d{1,2})?)")
 _DATE_RE  = re.compile(r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\w+\s+\d{1,2},?\s+\d{4})\b")
+_TEMPLATE_RE = re.compile(r"\{\{|\}\}|getFeeCodeData", re.I)
 
 _STATUS_KEYWORDS = {
     "claim_filed": ("claim filed", "claim received", "pending"),
@@ -130,8 +131,13 @@ def parse_clerk_html_table(html: str, source_url: str) -> List[Dict[str, Any]]:
         if len(cells) < 2:
             continue
         row_text = " ".join(cells)
+        if _TEMPLATE_RE.search(row_text):
+            continue
         sale_iso = _parse_date(_get(cells, col_map["sale_date"]) or row_text)
-        amount   = _parse_money(_get(cells, col_map["surplus_amount"]) or row_text)
+        amount_col = col_map["surplus_amount"]
+        amount = _parse_money(_get(cells, amount_col) if amount_col is not None else None)
+        if amount is None and amount_col is None:
+            amount = _parse_money(row_text) if "$" in row_text else None
 
         if amount is None and sale_iso is None:
             continue
@@ -167,7 +173,7 @@ def parse_realauction_surplus(html: str, source_url: str) -> List[Dict[str, Any]
         if len(cells) < 3:
             continue
         line = " | ".join(cells)
-        if "$" not in line:
+        if "$" not in line or _TEMPLATE_RE.search(line):
             continue
         sale_iso = _parse_date(line)
         amount   = _parse_money(line)
