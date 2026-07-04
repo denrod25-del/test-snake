@@ -1,12 +1,186 @@
 {
   "county": "St. Lucie County",
   "slug": "st-lucie-county",
-  "generated": "2026-07-03T08:51:26Z",
+  "generated": "2026-07-04T08:37:58Z",
   "source": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Most recent 4,000 permits sorted by apply date (live Tyler EnerGov; SLC's API ignores date filter so we cap at 4k which gives ~3 months coverage for an unincorporated county of ~350k people)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "332250000060005": [
+      {
+        "permitNumber": "GASR-2607-000766",
+        "parcelId": "332250000060005",
+        "address": "9630 Fairwood Ct Port St. Lucie FL 34986",
+        "city": "Port St. Lucie",
+        "type": "Gas Residential - Fuel Tank",
+        "subtype": "LP Tank",
+        "description": "Connecting an electric generator to a 500G Underground LP tank",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-03",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/0198ece3-b658-4b3e-a6ce-5ecc7d63d57c"
+      },
+      {
+        "permitNumber": "ELER-2607-007838",
+        "parcelId": "332250000060005",
+        "address": "9630 Fairwood Ct Port St. Lucie FL 34986",
+        "city": "Port St. Lucie",
+        "type": "Electrical Residential - Generator",
+        "subtype": "Generator",
+        "description": "Installing an 26kw electric generator onto a prepoured concrete pad with (2) 150amp switches",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-03",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/bd72e0c1-ebeb-46d1-b438-19116943f9b6"
+      }
+    ],
+    "341450163033519": [
+      {
+        "permitNumber": "MECR-2607-008655",
+        "parcelId": "341450163033519",
+        "address": "2617 SE Brevard Ave Port St. Lucie FL 34952",
+        "city": "Port St. Lucie",
+        "type": "Mechanical Residential - HVAC Changeout",
+        "subtype": "HVAC Changeout",
+        "description": "Replacement of a 3 ton 14.3 SEER2 split system with 7kW electric heat, and all ductwork; like for like.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-03",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/c01f0baf-392e-47ba-9f13-677648af69cf"
+      },
+      {
+        "permitNumber": "ROOFR-2605-010213",
+        "parcelId": "341450163033519",
+        "address": "2617 SE Brevard Ave Port St. Lucie FL 34952",
+        "city": "Port St. Lucie",
+        "type": "Building Residential - Re-Roof",
+        "subtype": "Re-Roof",
+        "description": "Remove existing roof down to wood deck.  Install underlayment and a new shingle roofing system.",
+        "status": "Completed\\Finaled",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-05-20",
+        "issuedDate": "2026-05-27",
+        "finalDate": "2026-06-08",
+        "expirationDate": "2026-12-07",
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/c7200e6a-b484-4dcb-aac2-4107aa42d277"
+      }
+    ],
+    "340261004800004": [
+      {
+        "permitNumber": "ROOFR-2607-010434",
+        "parcelId": "340261004800004",
+        "address": "5907 Bamboo Dr Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Building Residential - Re-Roof",
+        "subtype": "Re-Roof",
+        "description": "Remove existing shingle roof and install new metal roof",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-03",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/96aefda3-86ab-4e00-b4c6-3150943ff531"
+      }
+    ],
+    "340950300130002": [
+      {
+        "permitNumber": "MECR-2607-008654",
+        "parcelId": "340950300130002",
+        "address": "1500 Mallard Ct Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Mechanical Residential - HVAC Changeout",
+        "subtype": "HVAC Changeout",
+        "description": "Replacement of a 1.5 ton 14.3 SEER2 system with 5kW electric heat; like for like.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-03",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/45631463-b2cf-4c69-a804-21d9502a5d2e"
+      }
+    ],
+    "340260900520001": [
+      {
+        "permitNumber": "BLDR-2607-011691",
+        "parcelId": "340260900520001",
+        "address": "5513 Seagrape Dr Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Building Residential - Concrete Slabs",
+        "subtype": "Concrete Slabs",
+        "description": "Replace 11' wide driveway and make it 20' wide\n4\" thick 4000 psi fibermesh concrete",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-03",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/0a09acdc-31c0-4231-956c-75c4c560ef54"
+      },
+      {
+        "permitNumber": "DWR-2606-001605",
+        "parcelId": "340260900520001",
+        "address": "5513 Seagrape Dr Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Residential Driveway Right Of Way Permit - Replacement",
+        "subtype": "Replacement",
+        "description": "Replace driveway and make it 20' wide",
+        "status": "Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-26",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": "2026-12-31",
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/8f04f14c-899d-4cb1-9eb7-f84e248fecc6"
+      }
+    ],
+    "340261002530004": [
+      {
+        "permitNumber": "FENC-2607-002413",
+        "parcelId": "340261002530004",
+        "address": "5711 Cassia Dr Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Fence - Residential",
+        "subtype": "Residential",
+        "description": "CL FENCE BLACK VINYL COATED POO; CODE",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-03",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/abde7d9b-b9df-4ef7-baf8-d1b7d6a390f2"
+      }
+    ],
     "450250300160002": [
       {
         "permitNumber": "BLDC-2607-004528",
@@ -5308,7 +5482,7 @@
         "type": "Building Residential - Alteration",
         "subtype": "Alteration",
         "description": "MASTER BATH REMODEL. NO STRUCTURAL OR ELECTRICAL CHANGES.",
-        "status": "Notified",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -7204,7 +7378,7 @@
         "type": "Building Residential - Re-Roof",
         "subtype": "Re-Roof",
         "description": "Partial Re-Roof of front patio roof and side entrance roof only.\n Main two story roof NOT to be touched. 5v to 5v.",
-        "status": "Notified",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -10311,26 +10485,6 @@
         "finalDate": "2026-06-26",
         "expirationDate": null,
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/2bbe7f4c-39b8-455e-bc46-4664d67e0ad4"
-      }
-    ],
-    "340260900520001": [
-      {
-        "permitNumber": "DWR-2606-001605",
-        "parcelId": "340260900520001",
-        "address": "5513 Seagrape Dr Fort Pierce FL 34982",
-        "city": "Fort Pierce",
-        "type": "Residential Driveway Right Of Way Permit - Replacement",
-        "subtype": "Replacement",
-        "description": "Replace driveway and make it 20' wide",
-        "status": "Fees Due",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-26",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": "2026-12-31",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/8f04f14c-899d-4cb1-9eb7-f84e248fecc6"
       }
     ],
     "342711100020005": [
@@ -24551,24 +24705,6 @@
         "finalDate": null,
         "expirationDate": "2026-11-10",
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/ed48d0ef-6135-4986-baad-6521bdcd1c98"
-      },
-      {
-        "permitNumber": "MECR-2604-008223",
-        "parcelId": "230321100250005",
-        "address": "1724 Walden Pond Dr Fort Pierce FL 34945",
-        "city": "Fort Pierce",
-        "type": "Mechanical Residential - HVAC Changeout",
-        "subtype": "HVAC Changeout",
-        "description": "Install new 3 ton Grandaire 13.4 SEER 2 A/C Package unit with 10 KW heat",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-20",
-        "finalDate": "2026-04-23",
-        "expirationDate": "2026-10-20",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/ef13c914-b6dc-4914-a4d2-5fe8ca3a0b18"
       }
     ],
     "442560300250009": [
@@ -28469,24 +28605,6 @@
         "finalDate": "2026-06-15",
         "expirationDate": "2026-12-14",
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/56b07041-afb3-463f-8cc2-8ddd4af85ab8"
-      },
-      {
-        "permitNumber": "ROOFR-2604-009990",
-        "parcelId": "332780100550002",
-        "address": "9214 World Cup Way Port St. Lucie FL 34986",
-        "city": "Port St. Lucie",
-        "type": "Building Residential - Re-Roof",
-        "subtype": "Re-Roof",
-        "description": "Remove tile roof and re-nail plywood.  Apply self adhering tile underlayment.  Install Estate tile using two galvanized screws per tile.",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-21",
-        "finalDate": "2026-05-22",
-        "expirationDate": "2026-11-18",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/b1f49366-6f11-4af8-8af4-a981c2ae3978"
       }
     ],
     "130161303190008": [
@@ -45521,26 +45639,6 @@
         "finalDate": "2026-05-21",
         "expirationDate": null,
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/bb3e5039-95e1-477e-b97e-c2caa20aa1dc"
-      }
-    ],
-    "341450163033519": [
-      {
-        "permitNumber": "ROOFR-2605-010213",
-        "parcelId": "341450163033519",
-        "address": "2617 SE Brevard Ave Port St. Lucie FL 34952",
-        "city": "Port St. Lucie",
-        "type": "Building Residential - Re-Roof",
-        "subtype": "Re-Roof",
-        "description": "Remove existing roof down to wood deck.  Install underlayment and a new shingle roofing system.",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-20",
-        "issuedDate": "2026-05-27",
-        "finalDate": "2026-06-08",
-        "expirationDate": "2026-12-07",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/c7200e6a-b484-4dcb-aac2-4107aa42d277"
       }
     ],
     "242080200330008": [
@@ -67372,7 +67470,7 @@
         "type": "Electrical Commercial - Service Change",
         "subtype": "Service Change",
         "description": "Relocation of electrical service - Bathhouse",
-        "status": "Notified",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -75621,106 +75719,6 @@
         "finalDate": "2026-07-01",
         "expirationDate": "2026-12-28",
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/b9cb3af6-e55e-4a9a-a3aa-2e1689cb2970"
-      }
-    ],
-    "450980400280004": [
-      {
-        "permitNumber": "CLSR-2604-001907",
-        "parcelId": "450980400280004",
-        "address": "13511 S Indian River Dr Unit: 501 Jensen Beach FL 34957",
-        "city": "Jensen Beach",
-        "type": "Code Lien Search Request",
-        "subtype": "Code Lien Search Request",
-        "description": "Hello,\n\nOur firm has been requested to research the referenced property for any open liens on record in any county, city, town, village, or port authority.\n\nWe kindly request that you advise us of all open or closed code enforcement cases on record for the following property:\n\nProperty Address:\n13511 S Indian River Drive Unit 501\nJensen Beach, Florida 34957-2260\nParcel ID #:\n4509-804-0028-000-4\nOwner:\nFederal Home Loan Mtg Co\n\nOpen_____ Closed_____ None __*___\n\nAlso, please confirm if there are any pending or active liens recorded on the property, and please provide a payoff valid for 30 days from today's date. Please attach documentation of the recorded lien and provide the book and page number.\n\nLien ___________ Amount Due $__________ Book & Page __________________\n\nYour assistance is greatly appreciated!\n\nThank you,\n\nPatrick Jeffes / Subject Matter Expert, PropLogix\n5901 Honore Ave., Ste. 200, Sarasota, FL 34243\nEmail: Patrick.Jeffes@proplogix.com\nMain: 941.444.7142\np: 941.914.9117 / f: 941.214.1132\n\nAs of today's date, our records indicate that 13511 S Indian River Dr 501 Jensen Beach, FL 34957 has NO OPEN code cases or code enforcement-imposed liens.\nStacy Iovieno St Lucie County Code Compliance \n",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": null,
-        "finalDate": "2026-04-17",
-        "expirationDate": null,
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/ef08bf17-68c3-4909-9bd9-bb7f17b803d6"
-      }
-    ],
-    "221570000040003": [
-      {
-        "permitNumber": "CLSR-2604-001906",
-        "parcelId": "221570000040003",
-        "address": "20016 Southern Star Dr Fort Pierce FL 34945",
-        "city": "Fort Pierce",
-        "type": "Code Lien Search Request",
-        "subtype": "Code Lien Search Request",
-        "description": "CODE SEARCH\n\nAs of today's date, our records indicate that 20016 Southern Star Dr Fort Pierce, FL 34945 has NO OPEN code cases or code enforcement-imposed liens.\nStacy Iovieno St Lucie County Code Compliance \n",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": null,
-        "finalDate": "2026-04-17",
-        "expirationDate": null,
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/3e19087c-107d-4480-ab4f-76813f3a04f7"
-      }
-    ],
-    "450250103070003": [
-      {
-        "permitNumber": "MECR-2604-008224",
-        "parcelId": "450250103070003",
-        "address": "121 Nettles Blvd Jensen Beach FL 34957",
-        "city": "Jensen Beach",
-        "type": "Mechanical Residential - HVAC Changeout",
-        "subtype": "HVAC Changeout",
-        "description": "HVAC change out like for like to a 2.5 ton 13.4 seer2 Grandaire straight cool package unit with 8Kw heat and NO duct work.",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-20",
-        "finalDate": "2026-05-04",
-        "expirationDate": "2026-11-02",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/60cfdf13-c936-41fd-bdae-61eb0211f533"
-      }
-    ],
-    "342570601710000": [
-      {
-        "permitNumber": "CLSR-2604-001905",
-        "parcelId": "342570601710000",
-        "address": "7928 Meadowlark Ln Port St. Lucie FL 34952",
-        "city": "Port St. Lucie",
-        "type": "Code Lien Search Request",
-        "subtype": "Code Lien Search Request",
-        "description": "7928 MEADOWLARK LN\n\nAs of today's date, our records indicate that 7928 Meadowlark Ln Port St. Lucie, FL 34952 has NO OPEN code cases or code enforcement-imposed liens.\nStacy Iovieno St Lucie County Code Compliance \n",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": null,
-        "finalDate": "2026-04-17",
-        "expirationDate": null,
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/c33590b0-ab6d-4915-b6ad-3ae9eb1939f6"
-      }
-    ],
-    "240650600920006": [
-      {
-        "permitNumber": "PLMR-2604-005547",
-        "parcelId": "240650600920006",
-        "address": "1412 N 43rd St Fort Pierce FL 34947",
-        "city": "Fort Pierce",
-        "type": "Plumbing Residential - Water Heater Changeout",
-        "subtype": "Water Heater Changeout",
-        "description": "Water heater replacement, 40 gallons, in laundry room 1st floor.",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-20",
-        "finalDate": "2026-05-27",
-        "expirationDate": "2026-11-23",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/62f58c3d-0364-47aa-be4a-7f25dce97763"
       }
     ]
   }
