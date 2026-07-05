@@ -1,12 +1,72 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-07-04T08:34:57Z",
+  "generated": "2026-07-05T08:44:31Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424110100004780": [
+      {
+        "permitNumber": "26-096227-AC",
+        "parcelId": "30424110100004780",
+        "address": "139  ROSEWOOD CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "(1) RHEEM 3-TON A/C CHANGE-OUT, LIKE FOR LIKE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a53db85-bf0a-468b-83e4-67a532fa2bc2"
+      }
+    ],
+    "30424102020640130": [
+      {
+        "permitNumber": "26-096226-AC",
+        "parcelId": "30424102020640130",
+        "address": "1208  CHEROKEE ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "(1) LENNOX 2.5-TON A/C CHANGE-OUT, LIKE FOR LIKE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/dea966b3-44f2-49e3-b190-8e0b4d610019"
+      }
+    ],
+    "30434108050030100": [
+      {
+        "permitNumber": "26-096225-AC",
+        "parcelId": "30434108050030100",
+        "address": "102  ALBACORE LN  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "(1) LENNOX 4-TON A/C CHANGE-OUT, LIKE FOR LIKE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/80a0d58d-a99b-42e4-913d-76da2473082d"
+      }
+    ],
     "30434116080151509": [
       {
         "permitNumber": "26-096223-COMM",
@@ -8611,24 +8671,6 @@
         "finalDate": "2026-01-30",
         "expirationDate": "2026-07-28",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/94c26e14-e6f4-44f6-bcf8-5496a8b3b3cc"
-      },
-      {
-        "permitNumber": "26-092726-ROOF-C",
-        "parcelId": "30424113100190010",
-        "address": "4751 MAIN ST JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Commercial Roof New (Sub)",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT #23-073874-COMM ***\nInstall SSMR system on 3rd Base Club",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-22",
-        "issuedDate": "2026-01-27",
-        "finalDate": "2026-01-30",
-        "expirationDate": "2026-07-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/43e4b136-299e-4830-8154-74990785c358"
       }
     ],
     "30424114200003260": [
@@ -76683,46 +76725,6 @@
         "finalDate": null,
         "expirationDate": "2026-08-04",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7948a8df-fbd1-4110-93e7-41b6aa7bba05"
-      }
-    ],
-    "30434117021370030": [
-      {
-        "permitNumber": "26-092725-BLDR",
-        "parcelId": "30434117021370030",
-        "address": "3236  32ND CT  PRIVATE PROVIDER JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Remove/Replace 4 SGD, 1 FD, impact resistant, non-structural",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-22",
-        "issuedDate": "2026-01-29",
-        "finalDate": "2026-04-15",
-        "expirationDate": "2026-10-12",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/440dd806-7c84-4121-9c06-85337106c0c7"
-      }
-    ],
-    "30424110300120021": [
-      {
-        "permitNumber": "26-092724-COMM",
-        "parcelId": "30424110300120021",
-        "address": "2052  KEYSTONE DR S Unit: A JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Commercial Shutter",
-        "subtype": "Shutter",
-        "description": "Installing 1 Accordion Shutter",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-22",
-        "issuedDate": "2026-01-27",
-        "finalDate": "2026-03-26",
-        "expirationDate": "2026-09-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d5f5f6fd-482f-42e0-a908-46eb645b8288"
       }
     ]
   }

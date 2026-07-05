@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-07-04T08:26:25Z",
+  "generated": "2026-07-05T08:35:02Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -2753,7 +2753,7 @@
         "appliedDate": "2026-05-21",
         "issuedDate": "2026-06-04",
         "finalDate": "2026-06-04",
-        "expirationDate": "2027-05-21",
+        "expirationDate": "2027-07-05",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/386e143f-8320-4dd8-9c92-9052125e682d"
       },
       {
