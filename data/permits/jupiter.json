@@ -1,12 +1,142 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-07-05T08:44:31Z",
+  "generated": "2026-07-06T09:06:40Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434105120031404": [
+      {
+        "permitNumber": "26-096229-ELEC-C",
+        "parcelId": "30434105120031404",
+        "address": "300  OCEAN TRAIL WAY  Unit: 1404 JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "add an outlet",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3528d9a8-76f7-43a7-ac57-47cff0c1bf50"
+      },
+      {
+        "permitNumber": "26-096199-PLUMR",
+        "parcelId": "30434105120031404",
+        "address": "300  OCEAN TRAIL WAY  Unit: 1404 JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Plumbing Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "*** MASTER PERMIT # 26-095682-COMM *** Master Bathroom Renovation \nInstall new shower valve & trim, replumb shower w/ new p-trap, install shower pan, backerboard & niche. Waterproof the area & perform flood test. Install new toilet.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-02",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d57877ce-5295-4afa-a302-90086b208c17"
+      },
+      {
+        "permitNumber": "26-095682-COMM",
+        "parcelId": "30434105120031404",
+        "address": "300  OCEAN TRAIL WAY  Unit: 1404 JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Alteration",
+        "subtype": "Alteration",
+        "description": "Master Bathroom Renovation:\nDemo Master bathroom (shower walls, toilets, and floor tiles only.)\nInstall new shower valve and trim in the shower area.\nReplumb the shower with new P-trap with access from the resident below.\nValve and drain locations will remain unchanged.\nAll plumbing work to be performed by Top of the Line Sewer & Drain, Inc., a licensed plumber.\nInstall shower pan, backerboard, and a niche in the shower area.\nWaterproof the area and perform a flood test.\nInstall tiles on shower walls and floor. Install a new toilet.\nSplice the GFI outlet and run a wire that connects to a new GFI outlet behind the toilet for a bidet toilet seat use. \nAll electrical work to be performed by Dave Electrical Services LLC,  a licensed electrician.",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-11",
+        "issuedDate": "2026-07-02",
+        "finalDate": null,
+        "expirationDate": "2026-12-29",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9fa00201-93cd-44e9-b8ea-96d061bd01db"
+      }
+    ],
+    "30434108100070110": [
+      {
+        "permitNumber": "26-009781-ROOF-R",
+        "parcelId": "30434108100070110",
+        "address": "105  RAINBOW FISH CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "REROOF TILE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/fef0ac33-b954-48db-aa57-d0215c9a2875"
+      },
+      {
+        "permitNumber": "26-095896-ELECR-R",
+        "parcelId": "30434108100070110",
+        "address": "105  RAINBOW FISH CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "Electric as per plans (master 26-094931-BLDR)",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-22",
+        "issuedDate": "2026-06-23",
+        "finalDate": null,
+        "expirationDate": "2026-12-20",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/364cd50c-3f90-4d44-8985-3c135398e2cc"
+      },
+      {
+        "permitNumber": "26-094931-BLDR",
+        "parcelId": "30434108100070110",
+        "address": "105  RAINBOW FISH CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Kitchen Remodel",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-05-12",
+        "issuedDate": "2026-05-21",
+        "finalDate": null,
+        "expirationDate": "2026-12-28",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/09a7b049-90ff-4d48-8ecf-dea707b4cfc1"
+      },
+      {
+        "permitNumber": "26-094837-BLDR",
+        "parcelId": "30434108100070110",
+        "address": "105  RAINBOW FISH CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Install fourteen (14) openings of Hurricane Impact Rated Windows and Doors",
+        "status": "32 - In Review - Waiting Corrections",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-05-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/244441ba-aa64-4b99-a011-1bc8d66f3ec3"
+      }
+    ],
     "30424110100004780": [
       {
         "permitNumber": "26-096227-AC",
@@ -1085,44 +1215,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6c1d4a48-8d6e-4eab-a799-768a994bc917"
-      }
-    ],
-    "30434105120031404": [
-      {
-        "permitNumber": "26-096199-PLUMR",
-        "parcelId": "30434105120031404",
-        "address": "300  OCEAN TRAIL WAY  Unit: 1404 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Plumbing Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT # 26-095682-COMM *** Master Bathroom Renovation \nInstall new shower valve & trim, replumb shower w/ new p-trap, install shower pan, backerboard & niche. Waterproof the area & perform flood test. Install new toilet.",
-        "status": "10 - Received JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-02",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d57877ce-5295-4afa-a302-90086b208c17"
-      },
-      {
-        "permitNumber": "26-095682-COMM",
-        "parcelId": "30434105120031404",
-        "address": "300  OCEAN TRAIL WAY  Unit: 1404 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Alteration",
-        "subtype": "Alteration",
-        "description": "Master Bathroom Renovation:\nDemo Master bathroom (shower walls, toilets, and floor tiles only.)\nInstall new shower valve and trim in the shower area.\nReplumb the shower with new P-trap with access from the resident below.\nValve and drain locations will remain unchanged.\nAll plumbing work to be performed by Top of the Line Sewer & Drain, Inc., a licensed plumber.\nInstall shower pan, backerboard, and a niche in the shower area.\nWaterproof the area and perform a flood test.\nInstall tiles on shower walls and floor. Install a new toilet.\nSplice the GFI outlet and run a wire that connects to a new GFI outlet behind the toilet for a bidet toilet seat use. \nAll electrical work to be performed by Dave Electrical Services LLC,  a licensed electrician.",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-11",
-        "issuedDate": "2026-07-02",
-        "finalDate": null,
-        "expirationDate": "2026-12-29",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9fa00201-93cd-44e9-b8ea-96d061bd01db"
       }
     ],
     "3043410509": [
@@ -8653,24 +8745,6 @@
         "finalDate": null,
         "expirationDate": "2026-08-11",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c03920a8-b83e-4fe9-9dbe-5c4ebb136409"
-      },
-      {
-        "permitNumber": "26-092729-ROOF-C",
-        "parcelId": "30424113100190010",
-        "address": "4751 MAIN ST JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Commercial Roof New (Sub)",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT #23-073874-COMM ***\nInstall new TPO roof system, install new SSMR roof system on Visitor Locker Room",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-22",
-        "issuedDate": "2026-01-28",
-        "finalDate": "2026-01-30",
-        "expirationDate": "2026-07-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/94c26e14-e6f4-44f6-bcf8-5496a8b3b3cc"
       }
     ],
     "30424114200003260": [
@@ -11363,62 +11437,6 @@
         "finalDate": null,
         "expirationDate": "2026-12-21",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a32a579d-ff29-461a-be15-1d9c943f07d6"
-      }
-    ],
-    "30434108100070110": [
-      {
-        "permitNumber": "26-095896-ELECR-R",
-        "parcelId": "30434108100070110",
-        "address": "105  RAINBOW FISH CIR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "Electric as per plans (master 26-094931-BLDR)",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-22",
-        "issuedDate": "2026-06-23",
-        "finalDate": null,
-        "expirationDate": "2026-12-20",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/364cd50c-3f90-4d44-8985-3c135398e2cc"
-      },
-      {
-        "permitNumber": "26-094931-BLDR",
-        "parcelId": "30434108100070110",
-        "address": "105  RAINBOW FISH CIR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "Kitchen Remodel",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-12",
-        "issuedDate": "2026-05-21",
-        "finalDate": null,
-        "expirationDate": "2026-12-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/09a7b049-90ff-4d48-8ecf-dea707b4cfc1"
-      },
-      {
-        "permitNumber": "26-094837-BLDR",
-        "parcelId": "30434108100070110",
-        "address": "105  RAINBOW FISH CIR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Install fourteen (14) openings of Hurricane Impact Rated Windows and Doors",
-        "status": "32 - In Review - Waiting Corrections",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-07",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/244441ba-aa64-4b99-a011-1bc8d66f3ec3"
       }
     ],
     "30424108030000360": [
@@ -76685,46 +76703,6 @@
         "finalDate": null,
         "expirationDate": "2026-11-12",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c2d9f39b-dc58-4a54-ac3d-b630759d3c0b"
-      }
-    ],
-    "30424101010030040": [
-      {
-        "permitNumber": "26-092728-BLDR",
-        "parcelId": "30424101010030040",
-        "address": "809  SOUTHVIEW DR  Unit: A JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "replace 11 existing non rated with rated impact windows like for like size",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-22",
-        "issuedDate": "2026-02-06",
-        "finalDate": null,
-        "expirationDate": "2026-08-17",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ad25d4fd-522d-469a-bf12-7df4aac5b4fd"
-      }
-    ],
-    "30434116020000860": [
-      {
-        "permitNumber": "26-092727-ELECR-R",
-        "parcelId": "30434116020000860",
-        "address": "142  BEACH SUMMIT CT  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "Add solar to roof and battery back up\nPlease see issued Permit 26-092368-BLDR - Sq Feet and Valuation included in it.",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-22",
-        "issuedDate": "2026-01-22",
-        "finalDate": null,
-        "expirationDate": "2026-08-04",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7948a8df-fbd1-4110-93e7-41b6aa7bba05"
       }
     ]
   }

@@ -1,12 +1,108 @@
 {
   "county": "St. Lucie County",
   "slug": "st-lucie-county",
-  "generated": "2026-07-04T08:37:58Z",
+  "generated": "2026-07-06T09:09:45Z",
   "source": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Most recent 4,000 permits sorted by apply date (live Tyler EnerGov; SLC's API ignores date filter so we cap at 4k which gives ~3 months coverage for an unincorporated county of ~350k people)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "340270000020006": [
+      {
+        "permitNumber": "BLDR-2607-011694",
+        "parcelId": "340270000020006",
+        "address": "5116 Silver Oak Dr Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Building Residential - Metal Building",
+        "subtype": "Metal Building",
+        "description": "I'm wanting to install a 30x50x12 metal building.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/f57aee43-edb3-48cb-81ab-3fba0e2a9960"
+      },
+      {
+        "permitNumber": "BLDR-2607-011693",
+        "parcelId": "340270000020006",
+        "address": "5116 Silver Oak Dr Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Building Residential - Concrete Slabs",
+        "subtype": "Concrete Slabs",
+        "description": "I'm doing a 30x50x12 concrete slab to then install a metal storage building.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/f26fd242-8ae2-4a6b-b68a-1270c170d971"
+      },
+      {
+        "permitNumber": "CLSR-2604-002021",
+        "parcelId": "340270000020006",
+        "address": "5116 Silver Oak Dr Fort Pierce FL 34982",
+        "city": "Fort Pierce",
+        "type": "Code Lien Search Request",
+        "subtype": "Code Lien Search Request",
+        "description": "We are looking to confirm is there any  open code violation on this property?\n\nAs of today's date, our records indicate that 5116 Silver Oak Dr Fort Pierce, FL 34982 has NO OPEN code cases or code enforcement-imposed liens.\nStacy Iovieno St Lucie County Code Compliance \n",
+        "status": "Completed\\Finaled",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-04-28",
+        "issuedDate": null,
+        "finalDate": "2026-04-28",
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/accfc9c0-d966-4de6-a5af-1435fc55c6e5"
+      }
+    ],
+    "142350300020000": [
+      {
+        "permitNumber": "BLDC-2607-004529",
+        "parcelId": "142350300020000",
+        "address": "",
+        "city": "",
+        "type": "Building Commercial - Window/Door/Sliding Replacement",
+        "subtype": "Window/Door Replacement",
+        "description": "remove 2 sliding glass doors and 1 window opening , replace with large missile impact turtle glass",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/cc7251ff-f385-4a3d-b027-15dabe4365b0"
+      }
+    ],
+    "231760100030005": [
+      {
+        "permitNumber": "BLDR-2607-011692",
+        "parcelId": "231760100030005",
+        "address": "",
+        "city": "",
+        "type": "Building Residential - New Construction",
+        "subtype": "New Construction",
+        "description": "To build a 4 bedroom 3-1/2 bath 2 car garage single family residence",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/e7fc2de3-43f5-411c-a3ba-efcb024f9cd3"
+      }
+    ],
     "332250000060005": [
       {
         "permitNumber": "GASR-2607-000766",
@@ -22426,7 +22522,7 @@
         "type": "Building Residential - Concrete Slabs",
         "subtype": "Concrete Slabs",
         "description": "10'x12' shed pad with 8\"x8\" footing and 1 #5 rebar\n2 sidewalks on either side of house\n3000 psi fibermesh concrete",
-        "status": "Notified",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -68441,26 +68537,6 @@
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/4bb034c1-b521-40f7-b153-c70369951a3a"
       }
     ],
-    "340270000020006": [
-      {
-        "permitNumber": "CLSR-2604-002021",
-        "parcelId": "340270000020006",
-        "address": "5116 Silver Oak Dr Fort Pierce FL 34982",
-        "city": "Fort Pierce",
-        "type": "Code Lien Search Request",
-        "subtype": "Code Lien Search Request",
-        "description": "We are looking to confirm is there any  open code violation on this property?\n\nAs of today's date, our records indicate that 5116 Silver Oak Dr Fort Pierce, FL 34982 has NO OPEN code cases or code enforcement-imposed liens.\nStacy Iovieno St Lucie County Code Compliance \n",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-28",
-        "issuedDate": null,
-        "finalDate": "2026-04-28",
-        "expirationDate": null,
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/accfc9c0-d966-4de6-a5af-1435fc55c6e5"
-      }
-    ],
     "130160601880008": [
       {
         "permitNumber": "ROOFR-2604-010050",
@@ -75639,86 +75715,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/871f660b-1f1c-4161-a4bd-c8a8041978d5"
-      }
-    ],
-    "142570400960008": [
-      {
-        "permitNumber": "MECC-2604-002100",
-        "parcelId": "142570400960008",
-        "address": "2700 N Highway A1A Unit: 1306 Fort Pierce FL 34949",
-        "city": "Fort Pierce",
-        "type": "Mechanical Commercial - HVAC Changeout",
-        "subtype": "HVAC Changeout",
-        "description": "A/C change out - like for like, Bosch, 2.5 ton, EER 13.9 water source heat pump",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-24",
-        "finalDate": null,
-        "expirationDate": "2026-10-21",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/8df84b60-1849-4e66-9d3a-7d83670607e9"
-      }
-    ],
-    "450250100930009": [
-      {
-        "permitNumber": "BLDR-2604-011153",
-        "parcelId": "450250100930009",
-        "address": "2090 Nettles Blvd Jensen Beach FL 34957",
-        "city": "Jensen Beach",
-        "type": "Building Residential - Alteration",
-        "subtype": "Alteration",
-        "description": "Replace existing Vinyl siding with Hardie Siding.",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-21",
-        "finalDate": "2026-06-17",
-        "expirationDate": "2026-12-14",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/3ec2c339-308c-4ae5-854e-8033e291d5ec"
-      }
-    ],
-    "353450200070009": [
-      {
-        "permitNumber": "ELEC-2604-001865",
-        "parcelId": "353450200070009",
-        "address": "8600 S Ocean Dr Unit: 301 Jensen Beach FL 34957",
-        "city": "Jensen Beach",
-        "type": "Electrical Commercial - Service Change",
-        "subtype": "Service Change",
-        "description": "REPLACE 125A 120/208 V 1 PH, 30 SPACE ELECTRIC PANEL WITH LIKE FOR LIKE CIRCUIT BREAKERS. INSTALL NEW SURGE PROTECTOR",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-28",
-        "finalDate": "2026-05-01",
-        "expirationDate": "2026-10-28",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/1184dc6a-6529-4068-a04b-f97347284ef4"
-      }
-    ],
-    "232950100080103": [
-      {
-        "permitNumber": "ROOFR-2604-009991",
-        "parcelId": "232950100080103",
-        "address": "3672 S Brocksmith Rd Fort Pierce FL 34945",
-        "city": "Fort Pierce",
-        "type": "Building Residential - Re-Roof",
-        "subtype": "Re-Roof",
-        "description": "COMPLETED ON 7/1/2026\nTear off existing roof (flat only) and replace with modified bitumen",
-        "status": "Completed\\Finaled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-17",
-        "issuedDate": "2026-04-21",
-        "finalDate": "2026-07-01",
-        "expirationDate": "2026-12-28",
-        "url": "https://stluciecountyfl-energovpub.tylerhost.net/apps/SelfService#/permit/b9cb3af6-e55e-4a9a-a3aa-2e1689cb2970"
       }
     ]
   }
