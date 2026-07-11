@@ -6914,8 +6914,36 @@
     window.syncSubscriptionFromStripe = function() {
       return syncSubscriptionFromStripe(false);
     };
-    // Extra alias so the button always has a global handler
     window.refreshSubscriptionStatus = window.syncSubscriptionFromStripe;
+    window.forceSyncProFromConsole = async function () {
+      try {
+        if (!window.__dsSb) {
+          alert('Supabase client missing. Hard refresh (Ctrl+F5) on deedscout.netlify.app');
+          return;
+        }
+        const { data: { session } } = await window.__dsSb.auth.getSession();
+        if (!session?.access_token) {
+          alert('Not signed in. Sign in first, then run forceSyncProFromConsole()');
+          return;
+        }
+        showSyncBanner('Console sync: contacting Stripe…', 'info');
+        const r = await fetch('/api/sync-subscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ accessToken: session.access_token }),
+        });
+        const j = await r.json().catch(() => ({ error: 'bad json', status: r.status }));
+        await refreshProfile();
+        renderAuthSlot();
+        if (typeof renderAccount === 'function') renderAccount();
+        const msg = JSON.stringify(j);
+        showSyncBanner(msg, j.synced ? 'ok' : 'error');
+        alert(msg);
+        return j;
+      } catch (e) {
+        alert('forceSyncProFromConsole failed: ' + (e && e.message ? e.message : e));
+      }
+    };
     document.addEventListener('click', function(ev) {
       const btn = ev.target && ev.target.closest && ev.target.closest('#btn-refresh-sub');
       if (!btn) return;
