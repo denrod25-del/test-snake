@@ -6517,12 +6517,14 @@
         { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
       );
     }
-    // Always expose client + a stub sync so console / buttons never hit "undefined"
+    // Prefer the known-good DeedScout project URL first; Netlify env may be stale.
     window.__dsSb = sb;
     window.refreshSubscriptionStatus = function () {
-      alert('Sync is still loading. Wait 2 seconds, then run refreshSubscriptionStatus() again.');
+      alert('Sync is still loading. Wait 2 seconds, then run forceSyncProFromConsole() again.');
     };
-    window.syncSubscriptionFromStripe = window.refreshSubscriptionStatus;
+    window.syncSubscriptionFromStripe = function () {
+      return window.refreshSubscriptionStatus();
+    };
 
     async function refreshProfile() {
       if (!sb || !currentUser) { currentProfile = null; return; }

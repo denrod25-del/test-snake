@@ -69,10 +69,46 @@ function createSupabasePublishableClient() {
   });
 }
 
-function createSupabaseAdminClient() {
-  return createClient(getSupabaseUrl(), getSupabaseServiceKey(), {
+function createSupabaseAdminClient(preferredUrl) {
+  const urls = preferredUrl
+    ? [preferredUrl, ...getSupabaseUrlCandidates()]
+    : getSupabaseUrlCandidates();
+  const key = getSupabaseServiceKey();
+  const url = [...new Set(urls)][0];
+  return createClient(url, key, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
+}
+
+/** Try each project URL until profiles/auth responds (handles stale Netlify SUPABASE_URL). */
+async function createWorkingSupabaseAdminClient() {
+  const key = getSupabaseServiceKey();
+  const errors = [];
+  for (const url of getSupabaseUrlCandidates()) {
+    try {
+      const client = createClient(url, key, {
+        auth: { autoRefreshToken: false, persistSession: false },
+      });
+      // Lightweight REST probe — empty filter still hits PostgREST
+      const { error } = await client.from('profiles').select('id').limit(1);
+      if (!error || error.code === 'PGRST116' || /permission|jwt|row.level/i.test(error.message || '')) {
+        // reachable (even if RLS/empty); use this URL
+        return { client, url, probeError: error || null };
+      }
+      // "fetch failed" / ENOTFOUND → try next URL
+      if (/fetch failed|ENOTFOUND|ECONNREFUSED|network/i.test(error.message || '')) {
+        errors.push(`${url}: ${error.message}`);
+        continue;
+      }
+      return { client, url, probeError: error };
+    } catch (err) {
+      errors.push(`${url}: ${err.message || err}`);
+    }
+  }
+  throw new Error(
+    'Could not reach Supabase from Netlify. Check SUPABASE_URL + SUPABASE_SERVICE_KEY. Tried: '
+    + (errors.join(' | ') || 'no candidates')
+  );
 }
 
 /** Verify a browser access token. Tries all known publishable keys + project URLs. */
@@ -116,9 +152,11 @@ function getCanonicalSiteUrl() {
 module.exports = {
   cleanEnv,
   getSupabaseUrl,
+  getSupabaseUrlCandidates,
   getSupabaseServiceKey,
   getSupabasePublishableKey,
   createSupabaseAdminClient,
+  createWorkingSupabaseAdminClient,
   createSupabasePublishableClient,
   verifyAccessToken,
   getSiteUrl,
