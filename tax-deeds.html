@@ -7208,6 +7208,8 @@
     // ACCOUNT VIEW
     // ----------------------------------------------------------------
     function renderAccount() {
+      const accountView = document.getElementById('accountView');
+      if (!accountView) return;
       if (!authReady) {
         accountView.innerHTML = `
           <div class="detail-inner">
@@ -7266,8 +7268,11 @@
               ${ isPro()
                 ? `<button class="btn-primary" onclick="openBillingPortal()">Manage Billing &nearr;</button>`
                 : `<a class="btn-primary" href="#/pricing" style="text-decoration:none;display:inline-block;margin-right:8px;">View Plans &rarr;</a>
-                   <button class="btn-secondary" type="button" id="btn-refresh-sub">Refresh subscription status</button>
-                   <p id="sync-status-msg" class="small" style="margin:10px 0 0;color:#555;">Click Refresh after payment to unlock Pro.</p>` }
+                   <button class="btn-secondary" type="button" id="btn-refresh-sub"
+                     onclick="alert('Refresh clicked'); if (window.refreshSubscriptionStatus) { window.refreshSubscriptionStatus(); } else { alert('Sync handler missing — hard refresh (Ctrl+F5) and try again.'); }">
+                     Refresh subscription status
+                   </button>
+                   <p id="sync-status-msg" class="small" style="margin:10px 0 0;color:#555;">After paying, click Refresh to unlock Pro.</p>` }
             </div>
             <div class="detail-block">
               <div class="block-num">02</div>
