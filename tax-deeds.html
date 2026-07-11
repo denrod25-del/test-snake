@@ -6599,7 +6599,7 @@
       currentUser = session?.user || null;
       await refreshProfile();
       if (currentUser && !isPro()) {
-        await syncSubscriptionFromStripe(true);
+        await runSubscriptionSync(true);
       }
       renderAuthSlot();
       if (isPro()) await syncParcelsFromCloud();
@@ -6864,7 +6864,7 @@
       }
     }
 
-    async function syncSubscriptionFromStripe(silent) {
+    async function runSubscriptionSync(silent) {
       showSyncBanner('Refreshing subscription…', 'info');
       if (!sb || !currentUser) {
         const msg = 'Sign in first, then click Refresh subscription status.';
@@ -6911,10 +6911,14 @@
       }
     }
 
-    window.syncSubscriptionFromStripe = function() {
-      return syncSubscriptionFromStripe(false);
+    // IMPORTANT: do not name the wrapper the same as an inner call — that
+    // caused Maximum call stack size exceeded (wrapper → itself forever).
+    window.syncSubscriptionFromStripe = function () {
+      return runSubscriptionSync(false);
     };
-    window.refreshSubscriptionStatus = window.syncSubscriptionFromStripe;
+    window.refreshSubscriptionStatus = function () {
+      return runSubscriptionSync(false);
+    };
     window.forceSyncProFromConsole = async function () {
       try {
         if (!window.__dsSb) {
