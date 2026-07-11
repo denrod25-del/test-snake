@@ -6517,6 +6517,12 @@
         { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }
       );
     }
+    // Always expose client + a stub sync so console / buttons never hit "undefined"
+    window.__dsSb = sb;
+    window.refreshSubscriptionStatus = function () {
+      alert('Sync is still loading. Wait 2 seconds, then run refreshSubscriptionStatus() again.');
+    };
+    window.syncSubscriptionFromStripe = window.refreshSubscriptionStatus;
 
     async function refreshProfile() {
       if (!sb || !currentUser) { currentProfile = null; return; }
