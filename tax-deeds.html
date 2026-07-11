@@ -6620,7 +6620,7 @@
           if (getCheckoutReturnStatus() === 'success' && currentUser && !isPro()) {
             for (let i = 0; i < 5 && !isPro(); i++) {
               await new Promise(r => setTimeout(r, 2000));
-              await syncSubscriptionFromStripe(true);
+              await runSubscriptionSync(true);
               await refreshProfile();
               renderAuthSlot();
               if (document.getElementById('accountView')?.style.display !== 'none') renderAccount();
