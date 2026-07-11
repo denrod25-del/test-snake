@@ -53,3 +53,17 @@ space-cadet-pinball/
 
 # Plat PDF download cache (indexes in data/plats/*.json are kept)
 data/plats/cache/
+
+# Apify raw scrape dumps (derived companies.json is kept)
+data/apify-raw.json
+data/.ingest-cache.json
+data/.ingest-progress.json
+
+# Firecrawl self-host clone (own repo)
+firecrawl/
+
+data/.enrich-cities-cache.json
+data/.enrich-reviews-cache.json
+
+data/.firecrawl-auth.json
+data/.firecrawl-auth-url.txt

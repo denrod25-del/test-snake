@@ -11,6 +11,11 @@
     "ingest": "node ingest.mjs",
     "ingest:dry": "node ingest.mjs --dry-run",
     "ingest:resume": "node ingest.mjs --resume",
+    "apify": "node apify-to-companies.mjs",
+    "enrich:cities": "node enrich-cities.mjs",
+    "enrich:cities:dry": "node enrich-cities.mjs --dry-run",
+    "enrich:reviews": "node enrich-reviews.mjs",
+    "enrich:reviews:dry": "node enrich-reviews.mjs --dry-run",
     "clean": "node -e \"import('node:fs/promises').then(f=>{f.rm('../data/.ingest-progress.json',{force:true});f.rm('../data/.ingest-cache.json',{force:true});})\""
   }
 }

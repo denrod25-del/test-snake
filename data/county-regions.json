@@ -65,6 +65,24 @@
     "Chipley": "Washington",
     "Quincy": "Gadsden",
     "Monticello": "Jefferson",
-    "Madison": "Madison"
+    "Madison": "Madison",
+
+    "Navarre": "Santa Rosa", "Molino": "Escambia", "Jay": "Santa Rosa",
+    "Santa Rosa Beach": "Walton", "Miramar Beach": "Walton", "Freeport": "Walton",
+    "Lynn Haven": "Bay", "Valparaiso": "Okaloosa", "Mary Esther": "Okaloosa",
+    "Palmetto": "Manatee", "Parrish": "Manatee", "Holmes Beach": "Manatee",
+    "Ellenton": "Manatee", "Lakewood Ranch": "Manatee", "Terra Ceia": "Manatee",
+    "Englewood": "Sarasota", "Nokomis": "Sarasota", "Osprey": "Sarasota",
+    "Arcadia": "DeSoto", "Alva": "Lee", "Boca Grande": "Lee", "Sanibel": "Lee",
+    "St James City": "Lee", "Fort Myers Beach": "Lee", "LaBelle": "Hendry",
+    "Ave Maria": "Collier",
+    "Hudson": "Pasco", "Port Richey": "Pasco", "Holiday": "Pasco", "Trinity": "Pasco",
+    "Lutz": "Hillsborough", "Odessa": "Hillsborough", "Apollo Beach": "Hillsborough",
+    "Ruskin": "Hillsborough",
+    "Seminole": "Pinellas", "Oldsmar": "Pinellas", "Safety Harbor": "Pinellas",
+    "Madeira Beach": "Pinellas", "Kenneth City": "Pinellas",
+    "Palm City": "Martin", "Loxahatchee": "Palm Beach",
+    "Lake Placid": "Highlands",
+    "Moore Haven": "Glades", "Haines City": "Polk", "Davenport": "Polk"
   }
 }

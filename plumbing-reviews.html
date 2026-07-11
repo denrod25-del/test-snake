@@ -1078,7 +1078,7 @@
         <span class="topbar-dot"></span>
         Independent Review Index &middot; Florida
       </span>
-      <span>Updated <span id="lastUpdated">Q2 2026</span> &middot; Demo dataset</span>
+      <span>Updated <span id="lastUpdated">Jul 2026</span> &middot; Google Maps data via Apify</span>
     </div>
   </div>
 
@@ -1327,12 +1327,12 @@
       </div>
     </div>
     <div class="disclosure">
-      <strong>Disclosure.</strong> The dataset displayed in this build is illustrative only and
-      uses fictional company names paired with synthetic but plausible review distributions
-      for demonstration purposes. Production deployment requires API credentials from each
-      platform above and must comply with each platform's terms of service regarding
-      storage, display, and aggregation of review content. Letter grades are an editorial
-      composite and are not endorsed by Google, Yelp, the BBB, or Meta.
+      <strong>Disclosure.</strong> Company ratings and review counts on this page come from
+      a public Google Maps scrape (Apify dataset) and are aggregated into an editorial letter
+      grade. Individual review text is not included in this dataset. Letter grades are not
+      endorsed by Google, Yelp, the BBB, or Meta. Verify license &amp; insurance with the
+      Florida DBPR before hiring. Data coverage currently concentrates on Southwest Florida,
+      Tampa Bay, and the Northwest Panhandle — statewide expansion is ongoing.
     </div>
   </section>
 
@@ -1851,12 +1851,15 @@ function platformBadge(key, data) {
 }
 
 function cardHtml(co) {
+  const locLabel = co.city === 'Unknown' || co._needsCityLink
+    ? `City TBD<span class="dot"></span>${co.region === 'Unknown' ? 'FL' : co.region}`
+    : `${co.city}<span class="dot"></span>${co.region}`;
   return `
     <div class="card" data-id="${co.id}" tabindex="0" role="button" aria-label="View ${co.name}">
       <div class="card-head">
         <div>
           <h3 class="card-name">${co.name}</h3>
-          <div class="card-loc">${co.city}<span class="dot"></span>${co.region}</div>
+          <div class="card-loc">${locLabel}</div>
         </div>
         <div class="grade-badge grade-${co._tier}" title="Composite ${co._composite}/100">${co._letter}</div>
       </div>
