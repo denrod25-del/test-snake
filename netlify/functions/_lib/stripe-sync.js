@@ -3,8 +3,7 @@ const PRO_SKIP_TRACE_GRANT = Number(process.env.PRO_SKIP_TRACE_GRANT || 50);
 const PRO_AVM_GRANT = Number(process.env.PRO_AVM_GRANT || 200);
 
 async function resolveStripeCustomerId(supabase, stripe, userId, email) {
-  if (!email) return null;
-
+  // 1) Prefer customer stamped with this Supabase user id
   try {
     const search = await stripe.customers.search({
       query: `metadata['supabase_user_id']:'${userId}'`,
@@ -21,17 +20,45 @@ async function resolveStripeCustomerId(supabase, stripe, userId, email) {
     console.warn('customer search by metadata failed', err.message);
   }
 
-  const byEmail = await stripe.customers.list({ email, limit: 10 });
-  const customer =
-    byEmail.data.find((c) => c.metadata?.supabase_user_id === userId) ||
-    byEmail.data[0];
+  // 2) Fall back to email match (prefer metadata match among email hits)
+  if (email) {
+    try {
+      const byEmail = await stripe.customers.list({ email, limit: 10 });
+      const customer =
+        byEmail.data.find((c) => c.metadata?.supabase_user_id === userId) ||
+        byEmail.data[0];
 
-  if (customer?.id) {
-    await supabase
-      .from('profiles')
-      .update({ stripe_customer_id: customer.id, updated_at: new Date().toISOString() })
-      .eq('id', userId);
-    return customer.id;
+      if (customer?.id) {
+        await supabase
+          .from('profiles')
+          .update({ stripe_customer_id: customer.id, updated_at: new Date().toISOString() })
+          .eq('id', userId);
+        return customer.id;
+      }
+    } catch (err) {
+      console.warn('customer list by email failed', err.message);
+    }
+  }
+
+  // 3) Last resort: recent checkout sessions tagged with this user
+  try {
+    const sessions = await stripe.checkout.sessions.list({ limit: 25 });
+    const hit = sessions.data.find(
+      (s) =>
+        s.metadata?.supabase_user_id === userId &&
+        s.customer &&
+        (s.mode === 'subscription' || s.subscription)
+    );
+    if (hit?.customer) {
+      const customerId = typeof hit.customer === 'string' ? hit.customer : hit.customer.id;
+      await supabase
+        .from('profiles')
+        .update({ stripe_customer_id: customerId, updated_at: new Date().toISOString() })
+        .eq('id', userId);
+      return customerId;
+    }
+  } catch (err) {
+    console.warn('checkout session fallback failed', err.message);
   }
 
   return null;
@@ -85,7 +112,12 @@ async function syncSubscriptionForUser(supabase, stripe, userId, email, stripeCu
     customerId = await resolveStripeCustomerId(supabase, stripe, userId, email);
   }
   if (!customerId) {
-    return { synced: false, reason: 'no_stripe_customer', message: 'No Stripe customer linked to this account yet.' };
+    return {
+      synced: false,
+      reason: 'no_stripe_customer',
+      message:
+        'No Stripe customer linked to this account yet. Sign out, sign in, then subscribe again from the live site — or confirm the payment email matches your DeedScout login email.',
+    };
   }
 
   const subs = await stripe.subscriptions.list({
@@ -104,7 +136,8 @@ async function syncSubscriptionForUser(supabase, stripe, userId, email, stripeCu
       reason: 'no_subscription',
       plan: 'free',
       status: 'free',
-      message: 'Stripe customer exists but no subscription was found.',
+      message:
+        'Stripe customer found but no subscription. In Stripe Dashboard → Customers, confirm a paid Pro subscription exists for this email (test vs live mode must match Netlify STRIPE_SECRET_KEY).',
     };
   }
 
@@ -113,17 +146,23 @@ async function syncSubscriptionForUser(supabase, stripe, userId, email, stripeCu
       await stripe.subscriptions.update(subscription.id, {
         metadata: { supabase_user_id: userId },
       });
+      subscription.metadata = subscription.metadata || {};
+      subscription.metadata.supabase_user_id = userId;
     } catch (err) {
       console.warn('could not stamp subscription metadata', err.message);
     }
   }
 
   const update = await applySubscriptionToProfile(supabase, userId, subscription);
+  const isActive = update.subscription_plan === 'pro';
   return {
-    synced: true,
+    synced: isActive,
     plan: update.subscription_plan,
     status: update.subscription_status,
-    message: 'Subscription synced from Stripe.',
+    reason: isActive ? 'ok' : 'subscription_not_active',
+    message: isActive
+      ? 'Subscription synced from Stripe — you are Pro.'
+      : `Stripe subscription status is "${update.subscription_status}" (need active or trialing). Open Stripe → Subscriptions to confirm payment completed.`,
   };
 }
 

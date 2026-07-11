@@ -6843,12 +6843,19 @@
         if (j.synced) {
           await refreshProfile();
           renderAuthSlot();
-          if (!silent) console.info('Pro subscription synced', j);
+          if (typeof renderAccount === 'function') renderAccount();
+          if (!silent) alert(j.message || 'Pro subscription synced. You are Pro.');
           return true;
         }
         console.warn('subscription sync', j);
+        // Still refresh — profile may have been updated to a non-active status
+        await refreshProfile();
+        renderAuthSlot();
+        if (typeof renderAccount === 'function') renderAccount();
         if (!silent) {
-          alert(j.message || j.error || j.reason || 'Could not sync subscription from Stripe. Check Netlify STRIPE_SECRET_KEY and SUPABASE_SERVICE_KEY.');
+          const detail = [j.message, j.reason && `(${j.reason})`, j.status && `status=${j.status}`]
+            .filter(Boolean).join(' ');
+          alert(detail || 'Could not sync subscription from Stripe.');
         }
         return false;
       } catch (e) {
