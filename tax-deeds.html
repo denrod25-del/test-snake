@@ -6826,11 +6826,17 @@
     }
 
     async function syncSubscriptionFromStripe(silent) {
-      if (!sb || !currentUser) return false;
+      if (!sb || !currentUser) {
+        if (!silent) alert('Sign in first, then click Refresh subscription status.');
+        return false;
+      }
+      const statusEl = document.getElementById('sync-status-msg');
+      if (statusEl) statusEl.textContent = 'Checking Stripe…';
       try {
         const accessToken = await getAccessTokenForApi();
         if (!accessToken) {
           if (!silent) alert('Sign in again to refresh your subscription status.');
+          if (statusEl) statusEl.textContent = 'Session expired — sign in again.';
           return false;
         }
         const r = await fetch('/api/sync-subscription', {
@@ -6839,28 +6845,28 @@
           body: JSON.stringify({ accessToken }),
         });
         let j;
-        try { j = await r.json(); } catch { j = { error: 'Invalid server response' }; }
-        if (j.synced) {
-          await refreshProfile();
-          renderAuthSlot();
-          if (typeof renderAccount === 'function') renderAccount();
-          if (!silent) alert(j.message || 'Pro subscription synced. You are Pro.');
-          return true;
+        try { j = await r.json(); } catch { j = { error: 'Invalid server response', synced: false }; }
+        if (!r.ok && j.synced == null) {
+          j.synced = false;
+          j.message = j.message || j.error || ('Sync failed (HTTP ' + r.status + ')');
         }
-        console.warn('subscription sync', j);
-        // Still refresh — profile may have been updated to a non-active status
         await refreshProfile();
         renderAuthSlot();
         if (typeof renderAccount === 'function') renderAccount();
-        if (!silent) {
-          const detail = [j.message, j.reason && `(${j.reason})`, j.status && `status=${j.status}`]
-            .filter(Boolean).join(' ');
-          alert(detail || 'Could not sync subscription from Stripe.');
-        }
-        return false;
+        const detail = j.message
+          || (j.synced ? 'Pro subscription synced. You are Pro.' : 'Could not unlock Pro from Stripe.');
+        const withMeta = [detail, j.reason && ('[' + j.reason + ']'), j.status && ('status=' + j.status), j.plan && ('plan=' + j.plan)]
+          .filter(Boolean).join(' ');
+        const el2 = document.getElementById('sync-status-msg');
+        if (el2) el2.textContent = withMeta;
+        if (!silent) alert(withMeta);
+        return !!j.synced && isPro();
       } catch (e) {
         console.warn('sync subscription failed', e);
-        if (!silent) alert(e.message || 'Sync failed.');
+        const msg = e.message || 'Sync failed.';
+        const el3 = document.getElementById('sync-status-msg');
+        if (el3) el3.textContent = msg;
+        if (!silent) alert(msg);
         return false;
       }
     }
@@ -7222,9 +7228,8 @@
               ${ isPro()
                 ? `<button class="btn-primary" onclick="openBillingPortal()">Manage Billing &nearr;</button>`
                 : `<a class="btn-primary" href="#/pricing" style="text-decoration:none;display:inline-block;margin-right:8px;">View Plans &rarr;</a>
-                   ${ currentProfile?.stripe_customer_id || currentUser
-                     ? `<button class="btn-secondary" onclick="syncSubscriptionFromStripe()">Refresh subscription status</button>`
-                     : '' }` }
+                   <button class="btn-secondary" type="button" id="btn-refresh-sub" onclick="syncSubscriptionFromStripe()">Refresh subscription status</button>
+                   <p id="sync-status-msg" class="small" style="margin:10px 0 0;color:#555;"></p>` }
             </div>
             <div class="detail-block">
               <div class="block-num">02</div>
