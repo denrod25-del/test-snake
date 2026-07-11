@@ -6543,11 +6543,15 @@
       if (currentUser) {
         const initial = (currentProfile?.full_name || currentUser.email || '?')[0].toUpperCase();
         const proTag  = isPro() ? '<span class="pro-tag">PRO</span>' : '';
+        const syncLink = !isPro()
+          ? `<a href="#/account" class="signout-link" id="hdr-sync-pro" onclick="event.preventDefault(); location.hash='#/account'; setTimeout(function(){ alert('Sync starting'); if(window.refreshSubscriptionStatus) window.refreshSubscriptionStatus(); }, 50);">Sync Pro</a>`
+          : '';
         slot.innerHTML = `
           <span class="account-pill">
             <span class="account-avatar">${initial}</span>
             <span class="account-name"><a href="#/account">${currentUser.email}</a></span>
             ${proTag}
+            ${syncLink}
             <a href="#" onclick="doSignOut();return false;" class="signout-link">Sign out</a>
           </span>`;
       } else {
