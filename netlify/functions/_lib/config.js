@@ -12,6 +12,8 @@ const DEEDSCOUT_PUBLISHABLE_KEY = 'sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDj
 
 function getSupabaseUrlCandidates() {
   const urls = [];
+  // Prefer the known DeedScout project — Netlify SUPABASE_URL is often stale after restores.
+  urls.push(DEEDSCOUT_PROJECT_URL);
   const raw = cleanEnv('SUPABASE_URL');
   if (raw) {
     let url = raw;
@@ -21,7 +23,6 @@ function getSupabaseUrlCandidates() {
       urls.push(url.replace(/\/+$/, ''));
     } catch { /* ignore bad env */ }
   }
-  urls.push(DEEDSCOUT_PROJECT_URL);
   return [...new Set(urls)];
 }
 
