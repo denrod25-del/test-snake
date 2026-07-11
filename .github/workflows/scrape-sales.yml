@@ -36,6 +36,9 @@ jobs:
         working-directory: scraper
         run: pip install -r requirements.txt
 
+      - name: Build curated sale cadence (top metros)
+        run: python scripts/build_curated_sales.py
+
       - name: Run scraper
         working-directory: scraper
         run: |

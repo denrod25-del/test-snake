@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-11T08:28:27Z",
-  "salesGenerated": "2026-07-06T08:04:54Z",
+  "generated": "2026-07-11T16:16:11Z",
+  "salesGenerated": "2026-07-11T16:15:59Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -12,7 +12,13 @@
       "county": "Alachua",
       "slug": "alachua",
       "region": "North Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-21",
+        "label": "July 21, 2026",
+        "shortLabel": "Jul 21",
+        "count": 3,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://alachua.realtaxdeed.com/",
       "permits": {
@@ -36,7 +42,13 @@
       "county": "Bay",
       "slug": "bay",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-21",
+        "label": "July 21, 2026",
+        "shortLabel": "Jul 21",
+        "count": 3,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://bay.realtaxdeed.com/",
       "permits": {
@@ -60,7 +72,13 @@
       "county": "Brevard",
       "slug": "brevard",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-13",
+        "label": "August 13, 2026",
+        "shortLabel": "Aug 13",
+        "count": null,
+        "source": "cadence"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.brevardclerk.us/tax-deed-surplus",
       "permits": {
@@ -72,7 +90,13 @@
       "county": "Broward",
       "slug": "broward",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-16",
+        "label": "July 16, 2026",
+        "shortLabel": "Jul 16",
+        "count": null,
+        "source": "cadence"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.browardclerk.org/Divisions/RealEstate/SurplusFunds",
       "permits": {
@@ -108,7 +132,13 @@
       "county": "Citrus",
       "slug": "citrus",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-15",
+        "label": "July 15, 2026",
+        "shortLabel": "Jul 15",
+        "count": 29,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://citrus.realtaxdeed.com/",
       "permits": {
@@ -120,7 +150,13 @@
       "county": "Clay",
       "slug": "clay",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-19",
+        "label": "August 19, 2026",
+        "shortLabel": "Aug 19",
+        "count": 10,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://clay.realtaxdeed.com/",
       "permits": {
@@ -180,7 +216,13 @@
       "county": "Duval",
       "slug": "duval",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-12",
+        "label": "August 12, 2026",
+        "shortLabel": "Aug 12",
+        "count": 104,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.duvalclerk.com/court-records/tax-deeds/surplus-funds",
       "permits": {
@@ -192,7 +234,13 @@
       "county": "Escambia",
       "slug": "escambia",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-05",
+        "label": "August 5, 2026",
+        "shortLabel": "Aug 5",
+        "count": 38,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.escambiaclerk.com/176/Surplus-Funds",
       "permits": {
@@ -204,7 +252,13 @@
       "county": "Flagler",
       "slug": "flagler",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-14",
+        "label": "July 14, 2026",
+        "shortLabel": "Jul 14",
+        "count": 1,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -312,7 +366,13 @@
       "county": "Hernando",
       "slug": "hernando",
       "region": "Tampa Bay",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-15",
+        "label": "July 15, 2026",
+        "shortLabel": "Jul 15",
+        "count": 5,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://hernandoclerk.com/additional-services/tax-deeds/",
       "permits": {
@@ -324,7 +384,13 @@
       "county": "Highlands",
       "slug": "highlands",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-22",
+        "label": "July 22, 2026",
+        "shortLabel": "Jul 22",
+        "count": 26,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -336,7 +402,13 @@
       "county": "Hillsborough",
       "slug": "hillsborough",
       "region": "Tampa Bay",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-16",
+        "label": "July 16, 2026",
+        "shortLabel": "Jul 16",
+        "count": 7,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.hillsclerk.com/taxdeeds",
       "permits": {
@@ -360,7 +432,13 @@
       "county": "Indian River",
       "slug": "indian-river",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-04",
+        "label": "August 4, 2026",
+        "shortLabel": "Aug 4",
+        "count": 17,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -408,7 +486,13 @@
       "county": "Lake",
       "slug": "lake",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-21",
+        "label": "July 21, 2026",
+        "shortLabel": "Jul 21",
+        "count": 9,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.lakecountyclerk.org/court_services/tax_deed_surplus_funds.aspx",
       "permits": {
@@ -420,7 +504,13 @@
       "county": "Lee",
       "slug": "lee",
       "region": "Southwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-14",
+        "label": "July 14, 2026",
+        "shortLabel": "Jul 14",
+        "count": 0,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.leeclerk.org/records-and-information/tax-deeds/tax-deed-surplus-funds",
       "permits": {
@@ -432,7 +522,13 @@
       "county": "Leon",
       "slug": "leon",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-22",
+        "label": "July 22, 2026",
+        "shortLabel": "Jul 22",
+        "count": 8,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -492,7 +588,13 @@
       "county": "Marion",
       "slug": "marion",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-15",
+        "label": "July 15, 2026",
+        "shortLabel": "Jul 15",
+        "count": 89,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.marioncountyclerk.org/departments/records-recording/tax-deeds-and-lands-available-for-taxes/unclaimed-funds/",
       "permits": {
@@ -516,7 +618,13 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-13",
+        "label": "July 13, 2026",
+        "shortLabel": "Jul 13",
+        "count": 27,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -540,7 +648,13 @@
       "county": "Nassau",
       "slug": "nassau",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-28",
+        "label": "July 28, 2026",
+        "shortLabel": "Jul 28",
+        "count": 2,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -576,7 +690,13 @@
       "county": "Orange",
       "slug": "orange",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-06",
+        "label": "August 6, 2026",
+        "shortLabel": "Aug 6",
+        "count": 11,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.occompt.com/191/Tax-Deed-Sales",
       "permits": {
@@ -588,7 +708,13 @@
       "county": "Osceola",
       "slug": "osceola",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-31",
+        "label": "July 31, 2026",
+        "shortLabel": "Jul 31",
+        "count": 0,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://osceolaclerk.com/tax-deeds/",
       "permits": {
@@ -600,7 +726,13 @@
       "county": "Palm Beach",
       "slug": "palm-beach",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-15",
+        "label": "July 15, 2026",
+        "shortLabel": "Jul 15",
+        "count": 10,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.mypalmbeachclerk.com/departments/courts/tax-deeds/sale-information",
       "permits": {
@@ -624,7 +756,13 @@
       "county": "Pinellas",
       "slug": "pinellas",
       "region": "Tampa Bay",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-23",
+        "label": "July 23, 2026",
+        "shortLabel": "Jul 23",
+        "count": null,
+        "source": "cadence"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.mypinellasclerk.gov/Home/TaxDeedSurplus",
       "permits": {
@@ -636,7 +774,13 @@
       "county": "Polk",
       "slug": "polk",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-16",
+        "label": "July 16, 2026",
+        "shortLabel": "Jul 16",
+        "count": 1,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://apps.polkcountyclerk.net/browserviewtd/",
       "permits": {
@@ -648,7 +792,13 @@
       "county": "Putnam",
       "slug": "putnam",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-22",
+        "label": "July 22, 2026",
+        "shortLabel": "Jul 22",
+        "count": 80,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -660,7 +810,13 @@
       "county": "Santa Rosa",
       "slug": "santa-rosa",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-13",
+        "label": "July 13, 2026",
+        "shortLabel": "Jul 13",
+        "count": 1,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -672,7 +828,13 @@
       "county": "Sarasota",
       "slug": "sarasota",
       "region": "Southwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-28",
+        "label": "July 28, 2026",
+        "shortLabel": "Jul 28",
+        "count": 2,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.sarasotaclerk.com/Home-and-Property/Tax-Deeds/Surplus-Funds-from-Tax-Deed-Sale",
       "permits": {
@@ -684,7 +846,13 @@
       "county": "Seminole",
       "slug": "seminole",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-10",
+        "label": "September 10, 2026",
+        "shortLabel": "Sep 10",
+        "count": 6,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.seminoleclerk.org/online-services/property-auctions/tax-deed-sales/",
       "permits": {
@@ -768,7 +936,13 @@
       "county": "Volusia",
       "slug": "volusia",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-21",
+        "label": "July 21, 2026",
+        "shortLabel": "Jul 21",
+        "count": 5,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.clerk.org/tax-deeds/surplus-funds",
       "permits": {

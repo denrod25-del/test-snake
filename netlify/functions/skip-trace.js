@@ -116,9 +116,12 @@ exports.handler = async (event) => {
   } catch (err) {
     console.error('BatchData skip-trace failed', err);
     await refundCredit(user.id, 'skip_trace', 'vendor_error');
-    return json(502, {
-      error: 'vendor_error',
-      message: 'The skip-tracing vendor returned an error. Your credit has been refunded.',
+    const missing = /BATCHDATA_API_TOKEN not set/i.test(String(err?.message || ''));
+    return json(missing ? 503 : 502, {
+      error: missing ? 'vendor_not_configured' : 'vendor_error',
+      message: missing
+        ? 'Skip-trace is not configured on this server yet (BATCHDATA_API_TOKEN missing). Your credit was not kept.'
+        : 'The skip-tracing vendor returned an error. Your credit has been refunded.',
       detail: String(err?.message || err),
     });
   }

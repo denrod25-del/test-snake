@@ -22,12 +22,17 @@
       SUPABASE_URL:      "https://wmkbksqztpofxoqbyrdd.supabase.co",
       SUPABASE_ANON_KEY: "sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDjj",
       // Always use production for email-confirm / OAuth redirects (not deploy-preview URLs).
-      SITE_URL:          "https://deedscout.netlify.app",
+      SITE_URL:          (function(){
+        var h = location.hostname;
+        if (h === 'deedscout.app' || h === 'www.deedscout.app') return 'https://deedscout.app';
+        if (h === 'deedscout.netlify.app') return 'https://deedscout.netlify.app';
+        return 'https://deedscout.netlify.app';
+      })(),
       PRO_PRICE_DISPLAY: "$49",
       AUTH_ENABLED:      true,
       FEATURES: {
-        // Flip to true after RentCast + BatchData accounts are funded and tested.
-        advanced_lookups: false
+      // Flip to false to hide bid calc / AVM / skip-trace panels again.
+        advanced_lookups: true
       },
       // Flip to false once scrape_surplus.py populates real clerk rows in Supabase.
       SURPLUS_HISTORY_SAMPLE: true
@@ -2892,7 +2897,7 @@
   </div>
 
   <div id="salesScraperBetaBanner" class="ds-trust-panel ds-trust-broken" style="margin:0;border-radius:0;border-left:none;border-right:none;" role="alert">
-    <div class="ds-trust-head"><strong>Sale-date automation offline (Public Beta).</strong> The RealAuction scraper is returning 403 upstream — DeedScout does not publish verified sale dates until it recovers. Use the official <em>clerk</em> and <em>auction platform</em> links in each county row below before bidding. <a href="trust.html" style="color:inherit;">Trust Center</a> · <a href="status.html" style="color:inherit;">Status</a></div>
+    <div class="ds-trust-head"><strong>Sale-date automation recovering.</strong> RealAuction live lists (with parcel counts) load when the upstream portal allows browser access. Cadence dates fill gaps for counties still blocked. Always confirm on the official clerk or auction site before bidding. <a href="trust.html" style="color:inherit;">Trust Center</a> · <a href="status.html" style="color:inherit;">Status</a></div>
   </div>
 
   <header class="masthead">
@@ -2910,7 +2915,6 @@
         <a href="counties/index.html" class="nav-ext">Counties</a>
         <a href="parcel-lookup.html" class="nav-ext">Parcel Lookup</a>
         <a href="permit-search.html" class="nav-ext">Permit Search</a>
-        <a href="plumbing-reviews.html" class="nav-ext">Plumbing Reviews</a>
         <a href="pricing.html" class="nav-ext">Pricing</a>
         <a href="learn/index.html" class="nav-ext">Learn</a>
         <a href="#/upcoming" data-nav="upcoming">Upcoming</a>
@@ -3097,7 +3101,7 @@
         <div class="permits-coverage-head">
           <h3>Building Permit Coverage</h3>
           <span class="permits-coverage-meta" id="permitsCoverageMeta"><!-- @build:permits-coverage-meta:start -->
-3 cached Tyler · 4 sample/other · updated Jul 01, 2026
+3 cached Tyler · 4 sample/other · updated Jul 11, 2026
           <!-- @build:permits-coverage-meta:end --></span>
         </div>
         <p style="font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.55;max-width:780px;">
@@ -3250,6 +3254,7 @@
   </footer>
 
   <script src="assets/data-trust.js"></script>
+  <script src="assets/parcel-registry.js"></script>
   <script>
     // Florida county dataset.
     // region: panhandle / north / central / south-west / south-east / keys
@@ -3932,6 +3937,8 @@
     function resolveSalesTrustStatus() {
       const future = countFutureSales();
       const scraped = salesFeedMeta?.scraped ?? 0;
+      const curated = salesFeedMeta?.curated ?? 0;
+      const manual = salesFeedMeta?.manual ?? 0;
       const failed = salesFeedMeta?.failed ?? 0;
       const fromScraper = salesFeedMeta?.fromScraper === true;
       const source = 'RealAuction / LienHub / DeedAuction scrapers';
@@ -3952,7 +3959,15 @@
           note: 'Last successful scrape had no future-dated sales in the feed window.'
         };
       }
-      if (failed > 0 || (fromScraper && scraped === 0)) {
+      if (fromScraper && future > 0 && (curated > 0 || manual > 0)) {
+        return {
+          status: 'cached',
+          source: 'County sale cadence (top metros) + official auction links',
+          generated: salesFeedMeta.generated,
+          note: 'Automated auction scrape is offline (403 upstream). Top metro dates reflect documented county sale cadence — not live parcel counts. Confirm every sale on the official clerk or auction site before bidding.'
+        };
+      }
+      if (failed > 0 || (fromScraper && scraped === 0 && future === 0)) {
         return {
           status: 'broken',
           source,
@@ -4014,7 +4029,9 @@
         if (future > 0 && trust.status === 'live') {
           intro.textContent = 'Upcoming tax deed sales from our latest scrape, sorted chronologically. Click any date to open that county\'s page for parcel details and the live bidding link.';
         } else if (future > 0 && trust.status === 'cached') {
-          intro.textContent = 'Upcoming tax deed sales from our last successful scrape. Dates may have shifted — confirm on the official clerk or auction site before bidding.';
+          intro.textContent = salesFeedMeta?.curated
+            ? 'Top metro sale windows from documented county cadence (scraper offline). Dates are not live parcel lists — confirm on the official clerk or auction site before bidding.'
+            : 'Upcoming tax deed sales from our last successful scrape. Dates may have shifted — confirm on the official clerk or auction site before bidding.';
         } else if (future > 0) {
           intro.textContent = 'Manually maintained sale dates for illustration. Always confirm current sale lists on each county\'s official clerk or auction page before bidding.';
         } else {
@@ -4144,10 +4161,10 @@
           ${next ? `
           <div class="next-sale-banner ${daysUntil(next.date) <= 7 ? 'soon' : ''}">
             <div class="nsb-left">
-              <div class="nsb-eyebrow">Next verified sale in DeedScout</div>
+              <div class="nsb-eyebrow">${next.source === 'cadence' ? 'Typical sale window (cadence) — confirm on official site' : 'Next verified sale in DeedScout'}</div>
               <div class="nsb-date">${fmtFull(next.date)}</div>
               <div class="nsb-meta">
-                ${next.count ? `<strong>${next.count}</strong> parcels &middot; ` : ''}${c.schedule.time}${daysUntil(next.date) === 0 ? ' &middot; Today' : daysUntil(next.date) === 1 ? ' &middot; Tomorrow' : ` &middot; In ${daysUntil(next.date)} days`}
+                ${next.count ? `<strong>${next.count}</strong> parcels &middot; ` : (next.source === 'cadence' ? 'No parcel count (cadence only) &middot; ' : '')}${c.schedule.time}${daysUntil(next.date) === 0 ? ' &middot; Today' : daysUntil(next.date) === 1 ? ' &middot; Tomorrow' : ` &middot; In ${daysUntil(next.date)} days`}
               </div>
             </div>
             ${ c.format === 'online'
@@ -4273,6 +4290,44 @@
       catch { return []; }
     }
     function saveParcels(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+    function csvEscape(val) {
+      const s = val == null ? '' : String(val);
+      return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+    }
+
+    window.exportNotebookCsv = function() {
+      if (!requireProForFeature('export', 'CSV export')) return;
+      const all = loadParcels();
+      if (!all.length) {
+        alert('No parcels in your notebook to export.');
+        return;
+      }
+      const headers = ['county', 'parcel_id', 'address', 'owner', 'assessed', 'opening_bid', 'max_bid', 'status', 'notes', 'updated'];
+      const rows = all.map(p => {
+        const county = COUNTIES.find(c => c.slug === p.countySlug);
+        return [
+          county ? county.name + ' County' : p.countySlug,
+          p.parcelId || '',
+          p.address || '',
+          p.owner || '',
+          p.assessed || '',
+          p.opening || '',
+          p.max || '',
+          p.status || '',
+          (p.notes || '').replace(/\r?\n/g, ' '),
+          p.updated ? new Date(p.updated).toISOString() : ''
+        ].map(csvEscape).join(',');
+      });
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'deedscout-notebook-' + new Date().toISOString().slice(0, 10) + '.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
     function newParcelId() {
       // RFC4122 v4 UUID — works locally and round-trips through Supabase
       if (window.crypto?.randomUUID) return window.crypto.randomUUID();
@@ -4341,17 +4396,18 @@
       const queue = loadNotebookQueue();
       if (!queue.length) return;
       const all = loadParcels();
-      const existingPcns = new Set(
-        all.filter(p => p.countySlug === 'palm-beach')
-           .map(p => (p.parcelId || '').replace(/[^0-9A-Za-z]/g,'').toUpperCase())
+      const existingKeys = new Set(
+        all.map(p => `${p.countySlug || ''}:${(p.parcelId || '').replace(/[^0-9A-Za-z]/g,'').toUpperCase()}`)
       );
       let added = 0, skipped = 0;
       queue.forEach(q => {
+        const slug = q.countySlug || 'palm-beach';
         const pcn = (q.parcelId || '').replace(/[^0-9A-Za-z]/g,'').toUpperCase();
-        if (!pcn || existingPcns.has(pcn)) { skipped++; return; }
+        const key = `${slug}:${pcn}`;
+        if (!pcn || existingKeys.has(key)) { skipped++; return; }
         all.push({
           id: newParcelId(),
-          countySlug: q.countySlug || 'palm-beach',
+          countySlug: slug,
           parcelId: q.parcelId || '',
           address:  q.address  || '',
           owner:    q.owner    || '',
@@ -4362,7 +4418,7 @@
           updated: Date.now(),
           source: q.source || 'parcel-lookup',
         });
-        existingPcns.add(pcn);
+        existingKeys.add(key);
         added++;
       });
       saveParcels(all);
@@ -4566,22 +4622,24 @@
       setTimeout(() => w.print(), 250);
     };
 
-    /* ---------- Live parcel registry lookup (Palm Beach County ArcGIS) ----------
-       For Palm Beach research entries, fetch live property data so users see
-       actual market value, last sale, owner, address — matched against the
-       authoritative Property Appraiser feed used by parcel-lookup.html.
-       Cached for 12 hours since assessed values update infrequently. */
+    /* ---------- Live parcel registry lookup (multi-county ArcGIS) ----------
+       Palm Beach remains the richest layer; other counties use data/parcels/registry.json
+       when a public FeatureServer/MapServer is available. */
     const PARCEL_LOOKUP_HREF = 'parcel-lookup.html';
-    const REGISTRY_SLUG = 'palm-beach';
-    const ARCGIS_ENDPOINT = 'https://services1.arcgis.com/zsFpTOq1dFgzIjQg/arcgis/rest/services/CollectionDays_Parcels/FeatureServer/21/query';
-    const ARCGIS_OUT_FIELDS = [
-      'PCN','PARID','PARCEL_NUMBER',
-      'OWNER','SITUS_ADDRESS','SITUS_CITY','SITUS_ZIP',
-      'TOTAL_MARKET','LAND_MARKET','IMPRV_MRKT','ASSESSED_VAL','TOTAL_TAXABLE',
-      'SALE_DATE','PRICE','HMSTD_FLG'
-    ].join(',');
-    const ARCGIS_CACHE_KEY = 'taxDeeds.liveParcels.v1';
+    let PARCEL_REGISTRY = null;
+    const ARCGIS_CACHE_KEY = 'taxDeeds.liveParcels.v2';
     const ARCGIS_CACHE_MS  = 12 * 60 * 60 * 1000;
+
+    async function ensureParcelRegistry() {
+      if (PARCEL_REGISTRY) return PARCEL_REGISTRY;
+      if (!window.DeedScoutParcels) return null;
+      PARCEL_REGISTRY = await DeedScoutParcels.loadRegistry();
+      return PARCEL_REGISTRY;
+    }
+    function countyHasLiveLookup(slug) {
+      const c = PARCEL_REGISTRY?.counties?.[slug];
+      return !!(c && c.status === 'live' && c.endpoint);
+    }
 
     // In-memory state per parcel research entry
     // Map<parcelResearchId, { status, data?, fetchedAt }>
@@ -4610,26 +4668,46 @@
       return n.length >= 6;
     }
 
-    async function fetchParcelFromArcgis(pcn) {
+    async function fetchParcelFromArcgis(pcn, countySlug) {
+      const slug = countySlug || 'palm-beach';
       const norm = normalizePcn(pcn);
-      const cached = ARCGIS_CACHE.get(norm);
+      const cacheKey = `${slug}:${norm}`;
+      const cached = ARCGIS_CACHE.get(cacheKey);
       if (cached && (Date.now() - cached.ts) < ARCGIS_CACHE_MS) {
         return { fromCache: true, data: cached.data };
       }
-      const params = new URLSearchParams({
-        where: `PCN='${norm}' OR PARID='${norm}' OR PARCEL_NUMBER='${norm}'`,
-        outFields: ARCGIS_OUT_FIELDS,
-        returnGeometry: 'false',
-        f: 'json',
-        resultRecordCount: '1'
+      await ensureParcelRegistry();
+      if (!countyHasLiveLookup(slug)) {
+        throw new Error('No live parcel GIS for this county yet');
+      }
+      const pack = await DeedScoutParcels.queryCounty(slug, {
+        mode: 'pcn',
+        query: norm,
+        limit: 1,
       });
-      const resp = await fetch(`${ARCGIS_ENDPOINT}?${params.toString()}`, { credentials: 'omit' });
-      if (!resp.ok) throw new Error(`ArcGIS HTTP ${resp.status}`);
-      const json = await resp.json();
-      if (json.error) throw new Error(json.error.message || 'ArcGIS error');
-      const feature = (json.features && json.features[0]) || null;
-      const data = feature ? feature.attributes : null;
-      ARCGIS_CACHE.set(norm, { ts: Date.now(), data });
+      const hit = (pack.results && pack.results[0]) || null;
+      const data = hit
+        ? {
+            pcn: hit.pcn,
+            OWNER: hit.owner,
+            SITUS_ADDRESS: hit.address,
+            SITUS_CITY: hit.city,
+            SITUS_ZIP: hit.zip,
+            TOTAL_MARKET: hit.market != null ? Number(hit.market) : null,
+            ASSESSED_VAL: hit.assessed != null ? Number(hit.assessed) : null,
+            SALE_DATE: hit.saleDate,
+            PRICE: hit.salePrice != null ? Number(hit.salePrice) : null,
+            HMSTD_FLG: hit.homestead,
+            YRBLT: hit.raw && (hit.raw.YRBLT || hit.raw.YEAR_BUILT),
+            IMPRV_MRKT: hit.raw && (hit.raw.IMPRV_MRKT || hit.raw.BUILDING_VAL_CUR),
+            PROPERTY_USE: hit.raw && (hit.raw.PROPERTY_USE || hit.raw.DOR_DESC),
+            countyName: hit.countyName || pack.county?.name || slug,
+            sourceNote: hit.sourceNote || pack.county?.note || '',
+            paUrl: pack.county?.paUrl || '',
+            raw: hit.raw || null,
+          }
+        : null;
+      ARCGIS_CACHE.set(cacheKey, { ts: Date.now(), data });
       saveArcgisCache();
       return { fromCache: false, data };
     }
@@ -4639,7 +4717,12 @@
     window.refreshParcelLive = function(parcelResearchId, pcn, opts) {
       opts = opts || {};
       const slugP = (loadParcels().find(x => x.id === parcelResearchId) || {}).countySlug;
-      if (slugP !== REGISTRY_SLUG) return;
+      if (!countyHasLiveLookup(slugP) && !PARCEL_REGISTRY) {
+        // Registry not loaded yet — kick load then retry once.
+        ensureParcelRegistry().then(() => refreshParcelLive(parcelResearchId, pcn, opts));
+        return;
+      }
+      if (!countyHasLiveLookup(slugP)) return;
       const trimmed = (pcn || '').trim();
       if (!isValidPcnInput(trimmed)) {
         LIVE_PARCEL.set(parcelResearchId, { status: 'idle' });
@@ -4649,7 +4732,8 @@
 
       // Synchronous cache hit: paint loaded state immediately
       const norm = normalizePcn(trimmed);
-      const cached = ARCGIS_CACHE.get(norm);
+      const cacheKey = `${slugP}:${norm}`;
+      const cached = ARCGIS_CACHE.get(cacheKey);
       const cacheFresh = cached && (Date.now() - cached.ts) < ARCGIS_CACHE_MS;
       if (cacheFresh) {
         LIVE_PARCEL.set(parcelResearchId, {
@@ -4677,7 +4761,7 @@
         rerenderLiveBlock(parcelResearchId);
       }
 
-      fetchParcelFromArcgis(trimmed)
+      fetchParcelFromArcgis(trimmed, slugP)
         .then(({ data }) => {
           LIVE_PARCEL.set(parcelResearchId, {
             status: data ? 'loaded' : 'notfound',
@@ -4759,11 +4843,18 @@
     }
 
     function renderLiveBlock(p) {
-      if (p.countySlug !== REGISTRY_SLUG) return '';
+      if (PARCEL_REGISTRY && !countyHasLiveLookup(p.countySlug)) return '';
+      if (!PARCEL_REGISTRY) {
+        // optimistic shell until registry loads, then re-render
+        ensureParcelRegistry().then(() => rerenderLiveBlock(p.id));
+      }
       const entry = LIVE_PARCEL.get(p.id) || { status: (p.parcelId && isValidPcnInput(p.parcelId)) ? 'pending' : 'idle' };
       const deepHref = p.parcelId
-        ? `${PARCEL_LOOKUP_HREF}?mode=pcn&q=${encodeURIComponent(normalizePcn(p.parcelId))}`
-        : `${PARCEL_LOOKUP_HREF}`;
+        ? `${PARCEL_LOOKUP_HREF}?county=${encodeURIComponent(p.countySlug || '')}&mode=pcn&q=${encodeURIComponent(normalizePcn(p.parcelId))}`
+        : `${PARCEL_LOOKUP_HREF}?county=${encodeURIComponent(p.countySlug || '')}`;
+      const countyLabel = (PARCEL_REGISTRY?.counties?.[p.countySlug]?.name)
+        || (COUNTIES.find(c => c.slug === p.countySlug)?.name)
+        || 'County';
 
       let body = '';
       let eyebrowClass = '';
@@ -4773,7 +4864,7 @@
       if (entry.status === 'idle' || entry.status === 'pending') {
         eyebrowClass = 'is-empty';
         eyebrowText  = 'Live registry data';
-        body = `<div class="parcel-live-msg">Enter a PCN above to pull live data from the Palm Beach Property Appraiser.</div>`;
+        body = `<div class="parcel-live-msg">Enter a parcel ID above to pull live data from the ${escapeHtml(countyLabel)} Property Appraiser GIS feed.</div>`;
       } else if (entry.status === 'loading') {
         eyebrowClass = 'is-loading';
         eyebrowText  = 'Fetching live data…';
@@ -4785,7 +4876,7 @@
       } else if (entry.status === 'notfound') {
         eyebrowClass = 'is-empty';
         eyebrowText  = 'No match in registry';
-        body = `<div class="parcel-live-msg">No parcel matches that PCN. Double-check the number or search by owner/address in the lookup tool.</div>`;
+        body = `<div class="parcel-live-msg">No parcel matches that ID. Double-check the number or search by owner/address in the lookup tool.</div>`;
       } else if (entry.status === 'gated') {
         // Free user has used up their per-session ArcGIS hydration budget.
         eyebrowClass = 'is-empty';
@@ -4795,7 +4886,7 @@
             You've used your ${FREE_LIVE_HYDRATE_MAX} free live lookups for this session.
             <a href="#" onclick="event.preventDefault(); requireProForFeature('live_hydrate','Unlimited live registry hydration');"
                style="margin-left:6px;">Upgrade to Pro</a>
-            for unlimited ArcGIS pulls across all 67 counties.
+            for unlimited ArcGIS pulls across wired counties.
           </div>
         `;
       } else if (entry.status === 'loaded') {
@@ -4843,6 +4934,14 @@
             </div>
           `);
         }
+        if (d.sourceNote) {
+          fields.push(`
+            <div class="parcel-live-field">
+              <span class="pf-lbl">Note</span>
+              <span class="pf-val">${escapeHtml(d.sourceNote)}</span>
+            </div>
+          `);
+        }
 
         body = `
           <div class="parcel-live-stats">
@@ -4862,9 +4961,10 @@
           ${fields.length ? `<div class="parcel-live-fields">${fields.join('')}</div>` : ''}
         `;
 
+        const srcName = d.countyName || countyLabel;
         foot = `
           <div class="parcel-live-foot">
-            <span class="item"><span class="item-lbl">Source</span> Palm Beach Property Appraiser</span>
+            <span class="item"><span class="item-lbl">Source</span> ${escapeHtml(srcName)} Property Appraiser</span>
             <span class="item"><span class="item-lbl">Updated</span> ${fmtRelativeAge(entry.fetchedAt)}</span>
             <a href="#" onclick="event.preventDefault(); refreshLiveByCard('${p.id}');" class="parcel-live-link" style="margin-left:auto;">Refresh ↻</a>
           </div>
@@ -5296,7 +5396,7 @@
       const live = LIVE_PARCEL.get(p.id);
       const data = live && live.status === 'loaded' ? live.data : null;
 
-      const owner = (p.owner || (data && data.OWNER_NAME1) || '').toUpperCase();
+      const owner = (p.owner || (data && data.OWNER) || (data && data.OWNER_NAME1) || '').toUpperCase();
       const market = data ? Number(data.TOTAL_MARKET) : NaN;
       const salePrice = data ? Number(data.PRICE) : NaN;
       const yearBuilt = data ? parseInt(data.YRBLT, 10) : NaN;
@@ -5388,7 +5488,7 @@
       const permitsLoading = permitCacheState && permitCacheState.status === 'loading';
       // Show a placeholder while data is still being fetched, so the user knows
       // we're not just showing a "no risk" verdict on incomplete data.
-      if ((p.countySlug === REGISTRY_SLUG && (!live || liveLoading)) || permitsLoading) {
+      if ((countyHasLiveLookup(p.countySlug) && (!live || liveLoading)) || permitsLoading) {
         return `
           <div class="risk-strip is-loading" id="risk-${p.id}">
             <div class="risk-eyebrow">Title-risk auto-flagger <span class="score">analyzing…</span></div>
@@ -5952,7 +6052,7 @@
             </div>
             <div class="parcel-actions">
               ${svLinks}
-              ${p.countySlug === REGISTRY_SLUG ? `<button class="btn-link" onclick="autofillAllFromLive('${p.id}')" title="Copy live data into the form fields below">Auto-fill</button>` : ''}
+              ${countyHasLiveLookup(p.countySlug) ? `<button class="btn-link" onclick="autofillAllFromLive('${p.id}')" title="Copy live data into the form fields below">Auto-fill</button>` : ''}
               <button class="btn-link" onclick="printParcel('${p.id}')">Print</button>
               <button class="btn-link danger" onclick="deleteParcel('${p.id}','${p.countySlug}')">Delete</button>
             </div>
@@ -6001,12 +6101,14 @@
     }
 
     function hydrateLiveParcels(list) {
-      // Kick off ArcGIS lookups for any Palm Beach parcel that has a PCN.
+      // Kick off ArcGIS lookups for any wired-county parcel that has a parcel ID.
       // Cached entries paint instantly; uncached ones fetch in the background.
-      list.forEach(p => {
-        if (p.countySlug !== REGISTRY_SLUG) return;
-        if (!p.parcelId || !isValidPcnInput(p.parcelId)) return;
-        refreshParcelLive(p.id, p.parcelId);
+      ensureParcelRegistry().then(() => {
+        list.forEach(p => {
+          if (!countyHasLiveLookup(p.countySlug)) return;
+          if (!p.parcelId || !isValidPcnInput(p.parcelId)) return;
+          refreshParcelLive(p.id, p.parcelId);
+        });
       });
       // Also hydrate permits — covers all counties with a dataFile in index.json,
       // not just Palm Beach. Fires async; cards re-render their permit block when ready.
@@ -6025,14 +6127,16 @@
                 <strong>${queueLen}</strong> ${queueLen === 1 ? 'parcel is' : 'parcels are'} waiting to be imported from the Parcel Registry lookup tool.
               </div>
               <div class="import-banner-actions">
-                <button class="btn-primary" onclick="importNotebookQueue()">Import all to Palm Beach</button>
+                <button class="btn-primary" onclick="importNotebookQueue()">Import all to notebook</button>
                 <button class="btn-link" onclick="dismissNotebookQueue()">Dismiss</button>
               </div>
             </div>
           ` : '' }
           <div class="bulk-import-row">
             <button class="btn-link" onclick="openBulkImport()">+ Bulk import sale list (paste PCNs)</button>
+            ${ isPro() ? '<button class="btn-link" onclick="exportNotebookCsv()" style="margin-left:16px;">Export CSV (Pro)</button>' : '<button class="btn-link" onclick="requireProForFeature(\'export\',\'CSV export\')" style="margin-left:16px;">Export CSV (Pro) →</button>' }
           </div>
+          <p class="small" style="margin:0 0 16px;color:#666;max-width:780px;">${INVESTMENT_SAFETY_COPY}</p>
           <div class="detail-head">
             <div>
               <div class="eyebrow">Private Workspace</div>
@@ -6502,6 +6606,16 @@
           const { data: { session } } = await sb.auth.getSession();
           authReady = true;
           await handleAuthChange(session);
+          // Post-checkout: webhook may lag — poll sync until Pro or attempts exhausted
+          if (getCheckoutReturnStatus() === 'success' && currentUser && !isPro()) {
+            for (let i = 0; i < 5 && !isPro(); i++) {
+              await new Promise(r => setTimeout(r, 2000));
+              await syncSubscriptionFromStripe(true);
+              await refreshProfile();
+              renderAuthSlot();
+              if (document.getElementById('accountView')?.style.display !== 'none') renderAccount();
+            }
+          }
         } catch (e) {
           console.error('auth init failed', e);
           authReady = true;
@@ -6989,11 +7103,11 @@
                 <li>Full 67-county directory</li>
                 <li>Official clerk &amp; auction links per county</li>
                 <li>Permit search with data-status badges</li>
-                <li>Palm Beach parcel lookup (cached ArcGIS)</li>
+                <li>Multi-county parcel lookup (ArcGIS where wired)</li>
                 <li>Florida Statute &sect;197 reference</li>
                 <li>Local research notebook (browser-only)</li>
               </ul>
-              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> county directory, permit search, parcel lookup, statute reference<br><strong>Beta / limited:</strong> sale-date calendar (scraper offline — verify on clerk sites)<br><strong>Coming soon:</strong> statewide parcel lookup, recovered sale-date automation</p>
+              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> county directory, permit search, multi-county parcel lookup, statute reference<br><strong>Beta / limited:</strong> sale-date calendar (RealAuction recovering — verify on clerk sites)<br><strong>Coming soon:</strong> full 67-county GIS coverage</p>
               ${ currentUser
                   ? `<button class="btn-secondary" disabled>Your current plan</button>`
                   : `<button class="btn-secondary" onclick="openAuth('signup')">Create Free Account</button>` }
@@ -7011,9 +7125,11 @@
                 <li><strong>CSV export</strong> of watchlists (50/month, throttled)</li>
                 <li><strong>Saved parcels &amp; research notebook</strong> synced to your account</li>
                 <li><strong>Surplus Funds History</strong> (sample dataset labeled in-app)</li>
+                <li><strong>Bid calculator + AVM</strong> (RentCast credits)</li>
+                <li><strong>Skip-trace</strong> owner contacts (BatchData credits)</li>
                 <li>Stripe Customer Portal for billing</li>
               </ul>
-              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> Stripe Checkout, watchlists, notebook sync, CSV export, alert prefs<br><strong>Beta / limited:</strong> surplus history sample rows, sale alerts (only when scraper publishes dates), AVM/skip-trace APIs behind feature flag<br><strong>Coming soon:</strong> bid calculator UI, in-app AVM panel, skip-trace panel, Investor Pro checkout</p>
+              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> Stripe Checkout, watchlists, notebook sync, CSV export, alert prefs, bid calculator, AVM panel, skip-trace panel<br><strong>Beta / limited:</strong> surplus history sample rows, sale alerts (when scraper publishes dates), AVM/skip-trace need vendor API keys on Netlify<br><strong>Coming soon:</strong> Investor Pro checkout</p>
               ${ isPro()
                   ? `<button class="btn-primary" disabled>Your current plan &checkmark;</button>`
                   : `<button class="btn-primary" onclick="startCheckout()">Subscribe to Pro</button>` }
@@ -7108,6 +7224,7 @@
               <h3>Watchlists</h3>
               <p>${ isPro() ? 'Cloud-synced across every device you sign in from.' : 'Free tier: up to 5 parcels saved locally to this browser.'}</p>
               <a class="block-link" href="#/research">Open Research Notebook &rarr;</a>
+              ${ isPro() ? '<button class="btn-link" onclick="location.hash=\'#/research\';setTimeout(exportNotebookCsv,300)" style="margin-top:8px;display:block;">Export watchlist CSV &rarr;</button>' : '' }
             </div>
             <div class="detail-block ${isPro() ? '' : 'highlight'}">
               <div class="block-num">03</div>
@@ -7365,6 +7482,8 @@
         salesFeedMeta = {
           generated: data.generated,
           scraped: data.stats?.scraped ?? 0,
+          curated: data.stats?.curated ?? 0,
+          manual: data.stats?.manual ?? 0,
           failed: data.stats?.failed ?? 0,
           fromScraper: true
         };

@@ -4,9 +4,11 @@
 //
 // Listen for these events in the Stripe Dashboard webhook config:
 //   checkout.session.completed
+//   checkout.session.async_payment_succeeded
 //   customer.subscription.created
 //   customer.subscription.updated
 //   customer.subscription.deleted
+//   invoice.payment_succeeded
 //   invoice.payment_failed
 //
 // Required env vars:
@@ -14,6 +16,11 @@
 //   STRIPE_WEBHOOK_SECRET    whsec_...  (from the Stripe webhook config)
 //   SUPABASE_URL
 //   SUPABASE_SERVICE_KEY
+//
+// Endpoint (production): https://deedscout.netlify.app/api/stripe-webhook
+// Without STRIPE_WEBHOOK_SECRET, Checkout still works but Pro status only
+// updates when the user clicks "Refresh subscription status" (or the
+// post-checkout poll in tax-deeds.html).
 //
 // IMPORTANT: This function relies on the raw request body for signature
 // verification. Netlify passes event.body as a string for non-base64 payloads,
@@ -65,22 +72,26 @@ exports.handler = async (event) => {
     if (error) console.warn('refill_monthly_credits skipped', error.message);
   }
 
+  async function syncFromCheckoutSession(session) {
+    if (session.mode === 'subscription' && session.subscription) {
+      const subscription = await stripe.subscriptions.retrieve(session.subscription);
+      // Stamp the metadata on the subscription itself for future events
+      if (!subscription.metadata?.supabase_user_id && session.metadata?.supabase_user_id) {
+        await stripe.subscriptions.update(subscription.id, {
+          metadata: { supabase_user_id: session.metadata.supabase_user_id }
+        });
+        subscription.metadata = subscription.metadata || {};
+        subscription.metadata.supabase_user_id = session.metadata.supabase_user_id;
+      }
+      await syncSubscription(subscription);
+    }
+  }
+
   try {
     switch (stripeEvent.type) {
-      case 'checkout.session.completed': {
-        const session = stripeEvent.data.object;
-        if (session.mode === 'subscription' && session.subscription) {
-          const subscription = await stripe.subscriptions.retrieve(session.subscription);
-          // Stamp the metadata on the subscription itself for future events
-          if (!subscription.metadata?.supabase_user_id && session.metadata?.supabase_user_id) {
-            await stripe.subscriptions.update(subscription.id, {
-              metadata: { supabase_user_id: session.metadata.supabase_user_id }
-            });
-            subscription.metadata = subscription.metadata || {};
-            subscription.metadata.supabase_user_id = session.metadata.supabase_user_id;
-          }
-          await syncSubscription(subscription);
-        }
+      case 'checkout.session.completed':
+      case 'checkout.session.async_payment_succeeded': {
+        await syncFromCheckoutSession(stripeEvent.data.object);
         break;
       }
 

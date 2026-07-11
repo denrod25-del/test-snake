@@ -17,7 +17,7 @@
     "name": "DeedScout",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
-    "url": "https://deedscout.netlify.app/",
+    "url": "https://deedscout.app/",
     "description": "Florida public-records research layer for tax deed investors — county auction links, parcel lookup, permit signals, surplus resources, watchlists, alerts, and research notes.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
@@ -39,14 +39,14 @@
         <p class="ds-hero-eyebrow">DeedScout · Tax deed investors</p>
         <h1>Florida tax deed research, <em>organized county by county.</em></h1>
         <p class="ds-hero-lede">
-          DeedScout turns fragmented Florida public records into one workflow for county auction links, parcel research, permit signals, surplus resources, watchlists, alerts, and exports.
+          DeedScout organizes Florida tax-deed research: official county clerk and auction links, parcel tools, permit signals, and Pro workflow exports. RealAuction sale dates and parcel counts are recovering for many counties; always confirm on the official source before bidding.
         </p>
         <div class="ds-hero-ctas">
           <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Start Free</a>
           <a class="ds-btn ds-btn-secondary" href="pricing.html">View Pro Pricing</a>
           <a class="ds-btn ds-btn-secondary" href="counties/index.html">Browse Counties</a>
         </div>
-        <p class="ds-hero-tagline">Official county source links · Clear cached vs sample labels · Pro workflow tools</p>
+        <p class="ds-hero-tagline">Official county links · Cached permit data with honest labels · Pro watchlists &amp; CSV export</p>
       </div>
       <div class="ds-hero-stats">
         <div class="ds-stat"><div class="val">67</div><div class="lbl">Counties indexed</div></div>
@@ -105,12 +105,8 @@
         <p>Palm Beach plat book lookup for subdivision and plat research.</p>
         <span class="ds-link">Open Plat Index →</span>
       </a>
-      <a class="ds-card" href="plumbing-reviews.html">
-        <h3>Plumbing Review Index</h3>
-        <p>Florida plumbers graded from public Google Maps ratings &amp; review volume. Labs / Public Beta.</p>
-        <span class="ds-link">Open Plumbing Reviews →</span>
-      </a>
     </div>
+    <p class="small" style="margin-top:12px;color:var(--muted);">Experimental demos live under <a href="labs/plumbing-reviews.html">DeedScout Labs</a> — separate from core property research.</p>
   </section>
 
   <section class="ds-section">
@@ -149,7 +145,7 @@
         <h3>Palm Beach</h3>
         <p>Southeast · West Palm Beach, Boca Raton</p>
         <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-palm-beach:start -->
-<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+<span class="county-badge sale">Next sale · Jul 15 (verify)</span><span class="county-badge surplus">Surplus portal linked</span>
           <!-- @build:badges-palm-beach:end --></div>
         <span class="ds-link">View county →</span>
       </a>
@@ -157,7 +153,7 @@
         <h3>Broward</h3>
         <p>Southeast · Fort Lauderdale, Hollywood</p>
         <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-broward:start -->
-<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+<span class="county-badge sale">Typical sale · Jul 16 (confirm on auction site)</span><span class="county-badge surplus">Surplus portal linked</span>
           <!-- @build:badges-broward:end --></div>
         <span class="ds-link">View county →</span>
       </a>
@@ -165,7 +161,7 @@
         <h3>Miami-Dade</h3>
         <p>Southeast · Miami, Coral Gables</p>
         <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-miami-dade:start -->
-<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+<span class="county-badge sale">Next sale · Jul 13 (verify)</span><span class="county-badge surplus">Surplus portal linked</span>
           <!-- @build:badges-miami-dade:end --></div>
         <span class="ds-link">View county →</span>
       </a>
@@ -173,7 +169,7 @@
         <h3>Orange</h3>
         <p>Central · Orlando, Winter Park</p>
         <div class="county-badges" style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;" aria-live="polite"><!-- @build:badges-orange:start -->
-<span class="county-badge muted">No verified sale date</span><span class="county-badge surplus">Surplus portal linked</span>
+<span class="county-badge sale">Next sale · Aug 6 (verify)</span><span class="county-badge surplus">Surplus portal linked</span>
           <!-- @build:badges-orange:end --></div>
         <span class="ds-link">View county →</span>
       </a>
@@ -226,7 +222,7 @@ Reminder: PBC unincorporated permits are SAMPLE only in DeedScout.</div>
     </div>
     <dl class="ds-trust-meta" style="margin-top:16px;">
       <dt>Last updated</dt><dd id="stats-generated"><!-- @build:stats-generated:start -->
-Jul 02, 2026
+Jul 11, 2026
           <!-- @build:stats-generated:end --></dd>
       <dt>Cached permit cities</dt><dd>West Palm Beach, Boca Raton, Jupiter, St. Lucie County (Tyler EnerGov scrapes)</dd>
       <dt>Sample permit data</dt><dd>Palm Beach unincorporated (4 records), Royal Palm Beach, Boynton Beach — demo only</dd>
@@ -239,15 +235,24 @@ Jul 02, 2026
 <script src="assets/deedscout.js"></script>
 <script>
 (function () {
-  if (window.DeedScoutTrust) {
+  fetch("sales.json", { cache: "no-store" }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }).then(function(sales){
+    if (!window.DeedScoutTrust) return;
+    var curated = sales && sales.stats ? (sales.stats.curated || 0) : 0;
+    var scraped = sales && sales.stats ? (sales.stats.scraped || 0) : 0;
+    var status = scraped > 0 ? "cached" : (curated > 0 ? "cached" : "broken");
+    var note = scraped > 0
+      ? ("Live RealAuction scrape recovered for " + scraped + " counties (parcel counts when available). Confirm every date on the official clerk or auction site.")
+      : (curated > 0
+        ? "RealAuction scraper offline. Top metros show typical county sale cadence only — not live parcel lists."
+        : "Sale-date scraper offline. Use official clerk and auction links on each county page.");
     DeedScoutTrust.mount("#home-trust-banner", DeedScoutTrust.renderTrustPanel({
-      status: "cached",
-      headline: "County directory links are official sources; scraped sale dates may be unavailable until scrapers recover.",
-      source: "Florida county clerks, auction platforms, Tyler EnerGov (permits)",
-      verification: "Always verify sale dates and parcel details with the official county source before bidding.",
-      note: "Permit counts mix cached municipal scrapes with clearly labeled sample datasets."
+      status: status,
+      headline: "Tax deed sale calendar",
+      source: "RealAuction / county auction platforms",
+      note: note,
+      verification: "Official clerk or auction source required before bidding."
     }));
-  }
+  });
 
   function badgeHtml(cls, text) {
     return '<span class="county-badge ' + cls + '">' + text + "</span>";
@@ -266,7 +271,11 @@ Jul 02, 2026
       if (!entry) { box.innerHTML = badgeHtml("muted", "Status on Data Sources"); return; }
       var badges = [];
       if (entry.nextSale && entry.nextSale.shortLabel) {
-        badges.push(badgeHtml("sale", "Next sale · " + entry.nextSale.shortLabel + " (verify with clerk)"));
+        var src = entry.nextSale.source || 'scraper';
+        var saleLabel = src === 'cadence'
+          ? 'Typical sale · ' + entry.nextSale.shortLabel + ' (confirm on auction site)'
+          : 'Next sale · ' + entry.nextSale.shortLabel + ' (verify with clerk)';
+        badges.push(badgeHtml("sale", saleLabel));
       } else {
         badges.push(badgeHtml("muted", "No verified sale date"));
       }

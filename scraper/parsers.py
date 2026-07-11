@@ -39,57 +39,95 @@ REALAUCTION_DATE_PATTERN = re.compile(
 def parse_realauction(html: str):
     soup = BeautifulSoup(html, "lxml")
     out = []
+    by_date = {}
+
+    def add_entry(iso, count=None, opening=None):
+        if not iso:
+            return
+        try:
+            if datetime.strptime(iso, "%Y-%m-%d").date() < datetime.now().date():
+                return
+        except ValueError:
+            return
+        entry = by_date.get(iso) or {"date": iso}
+        if count is not None:
+            entry["count"] = count
+        if opening:
+            entry["opening"] = opening
+        by_date[iso] = entry
+
+    # Strategy 0: RealAuction PREVIEW navigator (.BLHeaderDateDisplay + prev/next)
+    date_el = soup.select_one(".BLHeaderDateDisplay")
+    if date_el:
+        try:
+            d = dateparser.parse(date_el.get_text(strip=True), fuzzy=True)
+            add_entry(d.strftime("%Y-%m-%d"))
+        except (ValueError, TypeError):
+            pass
+        for a in soup.select(".BLHeaderPrev a, .BLHeaderNext a, .BLHeaderToday a"):
+            href = a.get("href") or ""
+            m = re.search(r"AuctionDate=(\d{1,2})/(\d{1,2})/(\d{4})", href)
+            if m:
+                mm, dd, yyyy = m.groups()
+                add_entry(f"{yyyy}-{int(mm):02d}-{int(dd):02d}")
 
     # Strategy 1: explicit auction blocks
-    for block in soup.select(".auction-item, .upcoming-auction, .auction-card, .auction-row"):
-        date_el  = block.select_one(".auction-date, .date, time, .auction-day")
-        count_el = block.select_one(".item-count, .auction-count, .parcel-count, .count")
+    for block in soup.select(".auction-item, .upcoming-auction, .auction-card, .auction-row, .AUCTION_ITEM"):
+        date_el = block.select_one(".auction-date, .date, time, .auction-day, .BLHeaderDateDisplay")
+        count_el = block.select_one(".item-count, .auction-count, .parcel-count, .count, .ASTAT_MSGB")
         if not date_el:
             continue
         try:
             d = dateparser.parse(date_el.get_text(strip=True), fuzzy=True)
         except (ValueError, TypeError):
             continue
-        if d.date() < datetime.now().date():
-            continue
-        entry = {"date": d.strftime("%Y-%m-%d")}
+        count = None
         if count_el:
             m = re.search(r"\d+", count_el.get_text())
             if m:
-                entry["count"] = int(m.group(0))
-        out.append(entry)
+                count = int(m.group(0))
+        add_entry(d.strftime("%Y-%m-%d"), count=count)
 
     # Strategy 2: text-based fallback for sites with simpler markup
-    if not out:
+    if not by_date:
         for el in soup.find_all(string=REALAUCTION_DATE_PATTERN):
             try:
                 d = dateparser.parse(REALAUCTION_DATE_PATTERN.search(el).group(0))
             except (ValueError, TypeError):
                 continue
-            if d.date() < datetime.now().date():
-                continue
-            iso = d.strftime("%Y-%m-%d")
-            if not any(x["date"] == iso for x in out):
-                out.append({"date": iso})
+            add_entry(d.strftime("%Y-%m-%d"))
 
-    # Strategy 3: inlined JSON blob (the auction calendar widget)
-    if not out:
+    # Strategy 3: inlined JSON / auctionDates blobs (calendar widget)
+    if not by_date:
         for script in soup.find_all("script"):
             text = script.string or ""
-            for m in re.finditer(r'"(\d{4}-\d{2}-\d{2})"', text):
-                iso = m.group(1)
+            # Structured objects with date + count
+            for m in re.finditer(
+                r'\{\s*["\']?(?:date|AuctionDate|auctionDate)["\']?\s*[:=]\s*["\']([^"\']+)["\'].{0,120}?["\']?(?:count|Count|items|Items|parcels)["\']?\s*[:=]\s*(\d+)',
+                text,
+                re.I | re.S,
+            ):
                 try:
-                    if datetime.strptime(iso, "%Y-%m-%d").date() < datetime.now().date():
-                        continue
-                except ValueError:
+                    d = dateparser.parse(m.group(1), fuzzy=True)
+                    add_entry(d.strftime("%Y-%m-%d"), count=int(m.group(2)))
+                except (ValueError, TypeError):
                     continue
-                if not any(x["date"] == iso for x in out):
-                    out.append({"date": iso})
+            for m in re.finditer(r'"(\d{4}-\d{2}-\d{2})"', text):
+                add_entry(m.group(1))
 
+    # Strategy 4: count hints near a known date on PREVIEW pages
+    page_text = soup.get_text(" ", strip=True)
+    for iso, entry in list(by_date.items()):
+        if entry.get("count") is not None:
+            continue
+        # "N Items" / "N Parcels" anywhere on a single-day preview page
+        m = re.search(r"(\d+)\s+(?:Items?|Parcels?|Properties)\b", page_text, re.I)
+        if m and len(by_date) == 1:
+            entry["count"] = int(m.group(1))
+
+    out = sorted(by_date.values(), key=lambda x: x["date"])
     if not out:
         raise NoDataError("No upcoming-auction dates found in RealAuction page")
-
-    out.sort(key=lambda x: x["date"])
     return out
 
 

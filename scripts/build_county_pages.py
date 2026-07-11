@@ -140,6 +140,7 @@ def build_stats_entry(county, slug, region, sales_entries, surplus_meta, permit_
             "label": fmt_date_iso(next_sale["date"]),
             "shortLabel": fmt_date_short(next_sale["date"]),
             "count": next_sale.get("count"),
+            "source": next_sale.get("source") or "scraper",
         }
     return stats
 
@@ -457,15 +458,29 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
     parts.append(f'<div class="stat-grid">{"".join(stat_cells)}</div>')
 
     # ----- Data trust -----
-    sales_status = "broken" if not sales_entries and sales_source_url else ("cached" if sales_entries else "coming-soon")
+    sale_sources = {e.get("source", "scraper") for e in (sales_entries or [])}
+    if not sales_entries:
+        sales_status = "broken" if sales_source_url else "coming-soon"
+    elif sale_sources <= {"cadence"}:
+        sales_status = "cached"
+    elif "manual" in sale_sources and "scraper" not in sale_sources:
+        sales_status = "cached"
+    else:
+        sales_status = "cached" if sales_entries else "broken"
     sales_badge = {"broken": "warn", "cached": "ok", "coming-soon": "muted"}.get(sales_status, "muted")
+    if sales_entries and sale_sources <= {"cadence"}:
+        sales_copy = "Dates below reflect documented county sale cadence (scraper offline) — not live parcel counts. Verify on official auction site before bidding."
+    elif sales_entries:
+        sales_copy = "Dates below are from cached scrapes — verify on official auction site before bidding."
+    else:
+        sales_copy = "No verified upcoming dates in DeedScout — check clerk/auction links below."
     parts.append(f"""
       <div class="trust-box">
         <h2>Data status</h2>
         <p class="small">DeedScout is a research layer — not a county clerk or auctioneer. Official source required before bidding. Not legal, tax, title, or investment advice.</p>
         <ul class="trust-list">
           <li><strong>Tax deed sales:</strong> <span class="badge {sales_badge}">{html_escape(sales_status.upper())}</span>
-            — {'Dates below are from cached scrapes — verify on official auction site before bidding.' if sales_entries else 'No verified upcoming dates in DeedScout — check clerk/auction links below.'}</li>
+            — {html_escape(sales_copy)}</li>
           <li><strong>Permits:</strong> <span class="badge {permit_label[1] or 'muted'}">{html_escape(permit_label[0])}</span>
             {html_escape(' — ' + scope[:140] + ('…' if len(scope) > 140 else '') if scope else '')}</li>
           <li><strong>Last verified / generated:</strong> {html_escape(generated)}{(' · permit file ' + html_escape(last_updated[:10]) if last_updated else '')}</li>

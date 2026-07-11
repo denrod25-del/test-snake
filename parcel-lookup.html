@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Palm Beach County Parcel &rarr; Address Lookup</title>
+<title>Florida Parcel Lookup — DeedScout</title>
+<meta name="description" content="Look up Florida parcels by PCN, owner, or address. Palm Beach and other wired counties query public Property Appraiser GIS live." />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -560,18 +561,18 @@
   <span class="current" aria-current="page">Parcel Lookup</span>
 </nav>
 <header class="tool-header">
-  <h1>Palm Beach County Parcel &rarr; Address Lookup</h1>
-  <p>Convert PCNs (Parcel Control Numbers), legal descriptions, or owner names into property addresses.</p>
+  <h1>Florida Parcel Lookup</h1>
+  <p>Convert parcel IDs, legal descriptions, or owner names into property addresses — live GIS where a county is wired.</p>
   <div class="source">
-    Live query to the
-    <a href="https://opendata2-pbcgov.opendata.arcgis.com/" target="_blank" rel="noopener">Palm Beach County GIS Open Data</a>
-    parcels feature service
+    Live query via the
+    <a href="data/parcels/registry.json" target="_blank" rel="noopener">DeedScout parcel registry</a>
+    (public Property Appraiser ArcGIS layers)
   </div>
 </header>
 
 <main class="tool-main">
-  <h1 class="tool-page-title">Palm Beach County Parcel &rarr; Address Lookup</h1>
-  <p class="tool-page-sub">Convert PCNs, legal descriptions, or owner names into property addresses — query-time Palm Beach County GIS data.</p>
+  <h1 class="tool-page-title">Florida Parcel Lookup</h1>
+  <p class="tool-page-sub">Start with Palm Beach for the richest fields; switch county for other wired statewide GIS layers.</p>
   <div id="parcel-trust-banner" style="margin-bottom:16px;"></div>
   <div class="tabs" role="tablist">
     <button class="tab active" data-tab="single" role="tab">Single Lookup</button>
@@ -581,6 +582,12 @@
   <!-- Single Lookup Panel -->
   <section id="tab-single" class="panel">
     <div class="row">
+      <div class="field" style="flex: 0 0 200px;">
+        <label for="county-select">County</label>
+        <select id="county-select">
+          <option value="palm-beach">Palm Beach</option>
+        </select>
+      </div>
       <div class="field" style="flex: 0 0 180px;">
         <label for="search-mode">Search by</label>
         <select id="search-mode">
@@ -598,6 +605,7 @@
       </div>
       <button class="btn" id="search-btn">Look up</button>
     </div>
+    <p id="county-note" class="tool-page-sub" style="margin:8px 0 0;font-size:13px;color:var(--muted);"></p>
     <div class="samples">
       <span>Try:</span>
       <button class="sample-btn" data-mode="pcn" data-q="00434132140002130">00434132140002130</button>
@@ -746,10 +754,11 @@
 </main>
 
 <footer>
-  Data source: Palm Beach County Property Appraiser via the public GIS Open Data ArcGIS FeatureServer.
-  Addresses are situs (location) addresses as recorded by the County. Updated monthly.
+  Data sources: public Property Appraiser ArcGIS layers listed in <code>data/parcels/registry.json</code>.
+  Always verify on the county PA site before bidding. Coverage and fields vary by county.
 </footer>
 
+<script src="assets/parcel-registry.js"></script>
 <script>
 (() => {
   const ENDPOINT = "https://services1.arcgis.com/zsFpTOq1dFgzIjQg/arcgis/rest/services/CollectionDays_Parcels/FeatureServer/21/query";
@@ -764,6 +773,8 @@
     "ASSESSED_VAL", "EXEMPTION", "TOTAL_TAXABLE", "HMSTD_FLG"
   ].join(",");
   const MAX_BULK = 500;
+  let currentCountySlug = "palm-beach";
+  let parcelRegistryDoc = null;
 
   // ---- DOM helpers ----
   const $ = (sel) => document.querySelector(sel);
@@ -782,13 +793,88 @@
 
   // ---- Search mode placeholder updates ----
   const placeholders = {
-    pcn: "Enter full 17-digit PCN, e.g. 00434132140002130",
-    "pcn-prefix": "Enter the first N digits, e.g. 004341321400 (matches all parcels starting with this)",
-    legal: "Enter words from the legal description, e.g. LOT 5",
-    owner: "Owner name — order doesn't matter, e.g. JOHN SMITH or SMITH JOHN",
-    subdiv: "Enter subdivision name, e.g. FRENCHMENS LANDING",
-    address: "Enter site address, e.g. 2824 BIARRITZ",
+    pcn: "Enter full parcel ID / PCN",
+    "pcn-prefix": "Enter the first N digits (Palm Beach)",
+    legal: "Enter words from the legal description",
+    owner: "Owner name — e.g. JOHN SMITH",
+    subdiv: "Enter subdivision name",
+    address: "Enter site address",
   };
+
+  function selectedCounty() {
+    return (parcelRegistryDoc && DeedScoutParcels.getCounty(currentCountySlug, parcelRegistryDoc)) || null;
+  }
+
+  function syncCountyUi() {
+    const c = selectedCounty();
+    const note = $("#county-note");
+    const modes = (c && c.searchModes) || ["pcn"];
+    const modeSel = $("#search-mode");
+    const current = modeSel.value;
+    [...modeSel.options].forEach((opt) => {
+      opt.disabled = !modes.includes(opt.value);
+      opt.hidden = !modes.includes(opt.value);
+    });
+    if (!modes.includes(current)) {
+      modeSel.value = modes[0] || "pcn";
+    }
+    $("#search-input").placeholder = placeholders[modeSel.value] || "";
+    const adv = $("#advanced-filters");
+    const samples = document.querySelector(".samples");
+    const isPbc = currentCountySlug === "palm-beach";
+    if (adv) adv.style.display = isPbc ? "" : "none";
+    if (samples) samples.style.display = isPbc ? "" : "none";
+    const bulkTab = document.querySelector('.tab[data-tab="bulk"]');
+    if (bulkTab) bulkTab.style.display = isPbc ? "" : "none";
+    if (note) {
+      if (!c) {
+        note.textContent = "Loading county registry…";
+      } else if (c.status !== "live") {
+        note.textContent = (c.name || currentCountySlug) + " GIS is not wired yet. Use the official PA site.";
+      } else {
+        note.textContent = (c.note || (`Live ${c.name} Property Appraiser GIS.`)) +
+          (c.paUrl ? ` Official PA: ${c.paUrl}` : "");
+      }
+    }
+    if (window.DeedScoutTrust && $("#parcel-trust-banner")) {
+      DeedScoutTrust.mount("#parcel-trust-banner", DeedScoutTrust.renderTrustPanel({
+        status: (c && c.status === "live") ? "live" : "coming-soon",
+        headline: "Query-time parcel lookup",
+        source: c
+          ? `${c.name || currentCountySlug} Property Appraiser ArcGIS`
+          : "DeedScout parcel registry",
+        verification: "Cross-check parcel ID, owner, and address with the Property Appraiser before bidding or outreach.",
+        note: (c && c.note) || "Each search is a live GIS query — not a bulk cached export. Field coverage varies by county."
+      }));
+    }
+  }
+  window.syncParcelCountyUi = syncCountyUi;
+
+  async function initCountySelect() {
+    const sel = $("#county-select");
+    try {
+      parcelRegistryDoc = await DeedScoutParcels.loadRegistry();
+      const list = DeedScoutParcels.listCounties(parcelRegistryDoc);
+      const live = list.filter((x) => x.status === "live");
+      sel.innerHTML = live.map((x) =>
+        `<option value="${String(x.slug).replace(/"/g, "")}">${String(x.name || x.slug)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</option>`
+      ).join("") || `<option value="palm-beach">Palm Beach</option>`;
+      const params = new URLSearchParams(location.search);
+      const fromUrl = params.get("county") || "";
+      if (fromUrl && live.some((x) => x.slug === fromUrl)) currentCountySlug = fromUrl;
+      sel.value = currentCountySlug;
+    } catch (e) {
+      console.warn("parcel registry load failed", e);
+    }
+    sel.addEventListener("change", () => {
+      currentCountySlug = sel.value;
+      syncCountyUi();
+      writeUrl({ county: currentCountySlug, mode: $("#search-mode").value, q: $("#search-input").value });
+    });
+    syncCountyUi();
+  }
+
   $("#search-mode").addEventListener("change", (e) => {
     $("#search-input").placeholder = placeholders[e.target.value] || "";
   });
@@ -981,7 +1067,7 @@
   // ---- Display formatters ----
   // Some records have PCN null but PARID/PARCEL_NUMBER populated; fall back so we always show an ID.
   function parcelId(r) {
-    return r.PCN || r.PARID || r.PARCEL_NUMBER || "";
+    return r.PCN || r.PARID || r.PARCEL_NUMBER || r.FOLIO || r.ASSESSMENT_NO || r.folio || r.strap || "";
   }
 
   function fmtMoney(n) {
@@ -1012,19 +1098,21 @@
 
   // ---- Render results ----
   function fmtAddress(a) {
-    const parts = [a.SITE_ADDR_STR].filter(Boolean);
+    const parts = [a.SITE_ADDR_STR || a.SITUS_ADDRESS || a.TRUE_SITE_ADDR || a.FullAddress || a.SITE_ADDRESS].filter(Boolean);
     return parts.join(" ").trim();
   }
-  function fmtCity(a) { return (a.CITYNAME || a.MUNICIPALITY || "").trim(); }
+  function fmtCity(a) { return (a.CITYNAME || a.MUNICIPALITY || a.SITUS_CITY || a.TRUE_SITE_CITY || a.SiteCity || "").trim(); }
   function fmtZip(a) {
-    if (!a.ZIP1) return "";
-    return a.ZIP2 ? `${a.ZIP1}-${a.ZIP2}` : a.ZIP1;
+    const z1 = a.ZIP1 || a.SITUS_ZIP || a.TRUE_SITE_ZIP_CODE;
+    if (!z1) return "";
+    return a.ZIP2 ? `${z1}-${a.ZIP2}` : String(z1);
   }
   function fmtLegal(a) {
     return [a.LEGAL1, a.LEGAL2, a.LEGAL3].filter(Boolean).join(" ").trim();
   }
   function fmtOwner(a) {
-    return [a.OWNER_NAME1, a.OWNER_NAME2].filter(Boolean).join(" / ").trim();
+    return [a.OWNER_NAME1 || a.OWNER || a.TRUE_OWNER1 || a.Owner1, a.OWNER_NAME2 || a.TRUE_OWNER2 || a.Owner2]
+      .filter(Boolean).join(" / ").trim();
   }
   function fullAddressOneLine(a) {
     const street = fmtAddress(a);
@@ -1304,7 +1392,7 @@
     if (suppressUrlWrite) return;
     const url = new URL(window.location.href);
     // Clear all our keys first.
-    const ours = new Set(["tab", "mode", "q", "bulk", ...FILTER_DEFS.map((f) => f.key)]);
+    const ours = new Set(["tab", "mode", "q", "bulk", "county", ...FILTER_DEFS.map((f) => f.key)]);
     [...url.searchParams.keys()].forEach((k) => { if (ours.has(k)) url.searchParams.delete(k); });
     Object.entries(params).forEach(([k, v]) => {
       if (v != null && v !== "") url.searchParams.set(k, v);
@@ -1330,9 +1418,62 @@
   }
 
   // ---- Single search ----
+  function normalizedToRow(n) {
+    const raw = n.raw || {};
+    return {
+      ...raw,
+      PCN: n.pcn || raw.PCN || raw.FOLIO || "",
+      OWNER_NAME1: n.owner || "",
+      SITE_ADDR_STR: n.address || "",
+      CITYNAME: n.city || "",
+      ZIP1: n.zip || "",
+      TOTAL_MARKET: n.market,
+      ASSESSED_VAL: n.assessed,
+      SALE_DATE: n.saleDate,
+      PRICE: n.salePrice,
+      HMSTD_FLG: n.homestead,
+      __geom: n.geometry || null,
+      __countySlug: currentCountySlug,
+    };
+  }
+
   async function runSingleSearch(opts = {}) {
     const mode = $("#search-mode").value;
     const q = $("#search-input").value;
+    const isPbc = currentCountySlug === "palm-beach";
+
+    // Non-Palm Beach: use shared registry query (no advanced filters).
+    if (!isPbc) {
+      if (!q.trim()) {
+        setStatus("error", "Enter a query for this county.");
+        return;
+      }
+      const btn = $("#search-btn");
+      btn.disabled = true;
+      setStatus("info", `<span class="spinner"></span> Searching ${escHtml(selectedCounty()?.name || currentCountySlug)}…`);
+      try {
+        const pack = await DeedScoutParcels.queryCounty(currentCountySlug, {
+          mode,
+          query: q,
+          limit: mode === "pcn" ? 5 : 50,
+          returnGeometry: false,
+        });
+        const rows = (pack.results || []).map(normalizedToRow);
+        if (!rows.length) {
+          setStatus("error", "No matching parcels found.");
+          $("#results").classList.add("hidden");
+          return;
+        }
+        setStatus("success", `Found ${rows.length} parcel${rows.length === 1 ? "" : "s"} in ${escHtml(pack.county?.name || currentCountySlug)}.`);
+        renderResults(rows, {});
+        writeUrl({ tab: "single", county: currentCountySlug, mode, q });
+      } catch (e) {
+        setStatus("error", `Lookup failed: ${escHtml(e.message)}`);
+      } finally {
+        btn.disabled = false;
+      }
+      return;
+    }
 
     // Build main where (may be empty if user is doing a filter-only search).
     let mainWhere = null;
@@ -1375,10 +1516,13 @@
           .map((r) => {
             const owner = `${r.OWNER_NAME1 || ""} ${r.OWNER_NAME2 || ""}`;
             r.__score = ownerScore(owner, tokens, q);
+            r.__countySlug = "palm-beach";
             return r;
           })
           .sort((a, b) => (b.__score || 0) - (a.__score || 0));
         renderOpts.showScore = true;
+      } else {
+        rows.forEach((r) => { r.__countySlug = "palm-beach"; });
       }
 
       const cappedNote = rows.length >= cap
@@ -1389,7 +1533,7 @@
       renderResults(rows, renderOpts);
 
       // Persist to URL.
-      const urlParams = { tab: "single", mode, q };
+      const urlParams = { tab: "single", county: currentCountySlug, mode, q };
       filters.forEach((f) => { urlParams[f.key] = f.value; });
       writeUrl(urlParams);
     } catch (e) {
@@ -1686,7 +1830,8 @@
   $("#map-all-close").addEventListener("click", closeCombinedMap);
 
   // ---- Bootstrap: restore state from URL on first load ----
-  function bootstrap() {
+  async function bootstrap() {
+    await initCountySelect();
     const params = readUrl();
 
     // Friendly aliases for external links coming from other apps.
@@ -1695,6 +1840,7 @@
     //   ?address=<text>     → site-address search
     //   ?legal=<text>       → legal-description search
     //   ?subdiv=<name>      → subdivision search
+    //   ?county=<slug>      → select wired county
     if (!params.q && !params.mode && !params.bulk) {
       if (params.pcn)     { params.mode = "pcn";    params.q = params.pcn; }
       else if (params.owner)   { params.mode = "owner";   params.q = params.owner; }
@@ -1753,9 +1899,7 @@
 
   // ===== Notebook handoff: parcel-lookup → tax-deeds.html =====
   // Same-origin localStorage is shared between the two pages, so we just stage
-  // a queue of parcel records here and let tax-deeds.html consume them on
-  // load (it shows an "Import N parcels" banner and adds them to Palm Beach
-  // since this lookup tool is PB-specific).
+  // a queue of parcel records here and let tax-deeds.html consume them on load.
   const NOTEBOOK_QUEUE_KEY = "tdr_notebook_queue_v1";
 
   function loadNotebookQueue() {
@@ -1774,7 +1918,7 @@
     const fullAddr = fullAddressOneLine(r);
     const centroid = centroidOf(r.__geom);
     return {
-      countySlug: "palm-beach",
+      countySlug: r.__countySlug || currentCountySlug || "palm-beach",
       parcelId:   parcelId(r),
       address:    fullAddr || fmtAddress(r) || "",
       owner:      fmtOwner(r) || "",
@@ -1853,13 +1997,17 @@
 </script>
 <script src="assets/data-trust.js"></script>
 <script>
-DeedScoutTrust.mount('#parcel-trust-banner', DeedScoutTrust.renderTrustPanel({
-  status: 'live',
-  headline: 'Query-time parcel lookup',
-  source: 'Palm Beach County Property Appraiser ArcGIS FeatureServer',
-  verification: 'Cross-check parcel ID, owner, and address with the Property Appraiser before bidding or outreach.',
-  note: 'Each search is a live GIS query — not a bulk cached export.'
-}));
+if (typeof window.syncParcelCountyUi === "function") {
+  window.syncParcelCountyUi();
+} else {
+  DeedScoutTrust.mount('#parcel-trust-banner', DeedScoutTrust.renderTrustPanel({
+    status: 'live',
+    headline: 'Query-time parcel lookup',
+    source: 'DeedScout parcel registry (public PA ArcGIS layers)',
+    verification: 'Cross-check parcel ID, owner, and address with the Property Appraiser before bidding or outreach.',
+    note: 'Each search is a live GIS query — not a bulk cached export. Field coverage varies by county.'
+  }));
+}
 </script>
 <script src="assets/deedscout.js"></script>
 </body>

@@ -115,9 +115,12 @@ exports.handler = async (event) => {
   } catch (err) {
     console.error('RentCast AVM failed', err);
     await refundCredit(user.id, 'avm', 'vendor_error');
-    return json(502, {
-      error: 'vendor_error',
-      message: 'The valuation vendor returned an error. Your credit has been refunded.',
+    const missing = /RENTCAST_API_KEY not set/i.test(String(err?.message || ''));
+    return json(missing ? 503 : 502, {
+      error: missing ? 'vendor_not_configured' : 'vendor_error',
+      message: missing
+        ? 'AVM lookup is not configured on this server yet (RENTCAST_API_KEY missing). Your credit was not kept.'
+        : 'The valuation vendor returned an error. Your credit has been refunded.',
       detail: String(err?.message || err),
     });
   }

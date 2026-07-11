@@ -66,11 +66,15 @@ You need three free accounts:
 2. **Endpoint URL:** `https://your-site.netlify.app/api/stripe-webhook`
 3. **Events to send:**
    - `checkout.session.completed`
+   - `checkout.session.async_payment_succeeded`
    - `customer.subscription.created`
    - `customer.subscription.updated`
    - `customer.subscription.deleted`
+   - `invoice.payment_succeeded`
    - `invoice.payment_failed`
 4. After creating, **reveal & copy the signing secret** (starts with `whsec_`). This goes into `STRIPE_WEBHOOK_SECRET`.
+
+**Production endpoint for DeedScout:** `https://deedscout.netlify.app/api/stripe-webhook`
 
 ### 2d. Grab your keys
 **Developers → API keys:**

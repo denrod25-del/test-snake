@@ -227,7 +227,12 @@ def county_badges(entry):
         return badge_html("muted", "Status on Data Sources")
     badges = []
     if entry.get("nextSale") and entry["nextSale"].get("shortLabel"):
-        badges.append(badge_html("sale", "Next sale · " + entry["nextSale"]["shortLabel"] + " (verify)"))
+        src = entry["nextSale"].get("source") or "scraper"
+        if src == "cadence":
+            label = "Typical sale · " + entry["nextSale"]["shortLabel"] + " (confirm on auction site)"
+        else:
+            label = "Next sale · " + entry["nextSale"]["shortLabel"] + " (verify)"
+        badges.append(badge_html("sale", label))
     else:
         badges.append(badge_html("muted", "No verified sale date"))
     if entry.get("surplusPortal"):

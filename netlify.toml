@@ -180,3 +180,11 @@
   from = "/counties/:slug"
   to   = "/counties/:slug.html"
   status = 200
+
+# When deedscout.app is set as Netlify primary domain, add (uncomment):
+# [[redirects]]
+#   from = "https://deedscout.netlify.app/*"
+#   to   = "https://deedscout.app/:splat"
+#   status = 301
+#   force = true
+#   conditions = {Host = ["deedscout.netlify.app"]}

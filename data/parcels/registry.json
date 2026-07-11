@@ -1,0 +1,251 @@
+{
+  "generated": "2026-07-11",
+  "note": "Public ArcGIS MapServer/FeatureServer parcel layers. Field maps normalize county schemas into DeedScout's common shape (pcn, owner, address, market, assessed, saleDate, salePrice, homestead). Always verify on the county PA site before bidding.",
+  "counties": {
+    "palm-beach": {
+      "name": "Palm Beach",
+      "status": "live",
+      "endpoint": "https://services1.arcgis.com/zsFpTOq1dFgzIjQg/arcgis/rest/services/CollectionDays_Parcels/FeatureServer/21/query",
+      "paUrl": "https://www.pbcgov.org/papa/",
+      "idFields": ["PCN", "PARID", "PARCEL_NUMBER"],
+      "searchModes": ["pcn", "pcn-prefix", "owner", "address", "legal", "subdiv"],
+      "outFields": [
+        "PCN", "PARID", "PARCEL_NUMBER",
+        "OWNER", "OWNER_NAME1", "OWNER_NAME2",
+        "SITUS_ADDRESS", "SITE_ADDR_STR", "SITUS_CITY", "CITYNAME", "SITUS_ZIP", "ZIP1",
+        "TOTAL_MARKET", "LAND_MARKET", "IMPRV_MRKT", "ASSESSED_VAL", "TOTAL_TAXABLE",
+        "SALE_DATE", "PRICE", "HMSTD_FLG", "LEGAL1", "SUBDIV_NAME", "YRBLT"
+      ],
+      "map": {
+        "pcn": ["PCN", "PARID", "PARCEL_NUMBER"],
+        "owner": ["OWNER", "OWNER_NAME1"],
+        "address": ["SITUS_ADDRESS", "SITE_ADDR_STR"],
+        "city": ["SITUS_CITY", "CITYNAME"],
+        "zip": ["SITUS_ZIP", "ZIP1"],
+        "market": ["TOTAL_MARKET"],
+        "assessed": ["ASSESSED_VAL"],
+        "saleDate": ["SALE_DATE"],
+        "salePrice": ["PRICE"],
+        "homestead": ["HMSTD_FLG"]
+      }
+    },
+    "miami-dade": {
+      "name": "Miami-Dade",
+      "status": "live",
+      "endpoint": "https://gisweb.miamidade.gov/arcgis/rest/services/MD_LandInformation/MapServer/26/query",
+      "paUrl": "https://www.miamidade.gov/pa/",
+      "idFields": ["FOLIO"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": [
+        "FOLIO", "TRUE_OWNER1", "TRUE_OWNER2", "TRUE_SITE_ADDR", "TRUE_SITE_CITY",
+        "TRUE_SITE_ZIP_CODE", "TOTAL_VAL_CUR", "LAND_VAL_CUR", "BUILDING_VAL_CUR",
+        "DOR_DESC"
+      ],
+      "map": {
+        "pcn": ["FOLIO"],
+        "owner": ["TRUE_OWNER1"],
+        "address": ["TRUE_SITE_ADDR"],
+        "city": ["TRUE_SITE_CITY"],
+        "zip": ["TRUE_SITE_ZIP_CODE"],
+        "market": ["TOTAL_VAL_CUR"],
+        "assessed": ["TOTAL_VAL_CUR"],
+        "saleDate": [],
+        "salePrice": [],
+        "homestead": []
+      }
+    },
+    "broward": {
+      "name": "Broward",
+      "status": "live",
+      "endpoint": "https://gisweb-adapters.bcpa.net/arcgis/rest/services/BCPA_EXTERNAL_JAN26/MapServer/16/query",
+      "paUrl": "https://web.bcpa.net/",
+      "idFields": ["FOLIO"],
+      "searchModes": ["pcn"],
+      "outFields": ["FOLIO"],
+      "note": "Public layer exposes FOLIO only — use PA portal for owner/value details.",
+      "map": {
+        "pcn": ["FOLIO"],
+        "owner": [],
+        "address": [],
+        "city": [],
+        "zip": [],
+        "market": [],
+        "assessed": [],
+        "saleDate": [],
+        "salePrice": [],
+        "homestead": []
+      }
+    },
+    "hillsborough": {
+      "name": "Hillsborough",
+      "status": "live",
+      "endpoint": "https://gis.hcpafl.org/arcgis/rest/services/Webmaps/HillsboroughFL_WebParcels/MapServer/0/query",
+      "paUrl": "https://www.hcpafl.org/",
+      "idFields": ["folio", "strap"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": ["folio", "strap", "Owner1", "Owner2", "FullAddress", "SiteCity"],
+      "map": {
+        "pcn": ["folio", "strap"],
+        "owner": ["Owner1"],
+        "address": ["FullAddress"],
+        "city": ["SiteCity"],
+        "zip": [],
+        "market": [],
+        "assessed": [],
+        "saleDate": [],
+        "salePrice": [],
+        "homestead": []
+      }
+    },
+    "orange": {
+      "name": "Orange",
+      "status": "live",
+      "endpoint": "https://www.ocgis.com/arcpub/rest/services/Map_Layers/Parcels/MapServer/0/query",
+      "paUrl": "https://www.ocpafl.org/",
+      "idFields": ["ASSESSMENT_NO"],
+      "searchModes": ["pcn", "address"],
+      "outFields": ["ASSESSMENT_NO", "SITE_ADDRESS", "YEAR_BUILT"],
+      "map": {
+        "pcn": ["ASSESSMENT_NO"],
+        "owner": [],
+        "address": ["SITE_ADDRESS"],
+        "city": [],
+        "zip": [],
+        "market": [],
+        "assessed": [],
+        "saleDate": [],
+        "salePrice": [],
+        "homestead": []
+      }
+    },
+    "pinellas": {
+      "name": "Pinellas",
+      "status": "live",
+      "endpoint": "https://egis.pinellas.gov/gis/rest/services/PublicWebGIS/Parcels/MapServer/1/query",
+      "paUrl": "https://www.pcpao.gov/",
+      "idFields": ["PARCELID", "STRAP"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": [
+        "PARCELID", "STRAP", "OWNER1", "OWNER2", "SITE_ADDRESS",
+        "TAXABLE_VALUE", "LAND_VALUE", "IMP_VALUE", "SALEDATE1", "SALEPRICE1", "HOMESTEAD_EXEMP"
+      ],
+      "map": {
+        "pcn": ["PARCELID", "STRAP"],
+        "owner": ["OWNER1"],
+        "address": ["SITE_ADDRESS"],
+        "city": [],
+        "zip": [],
+        "market": ["LAND_VALUE", "IMP_VALUE"],
+        "assessed": ["TAXABLE_VALUE"],
+        "saleDate": ["SALEDATE1"],
+        "salePrice": ["SALEPRICE1"],
+        "homestead": ["HOMESTEAD_EXEMP"]
+      }
+    },
+    "duval": {
+      "name": "Duval",
+      "status": "live",
+      "endpoint": "https://maps.coj.net/coj/rest/services/CityBiz/Parcels/MapServer/0/query",
+      "paUrl": "https://paopropertysearch.coj.net/",
+      "idFields": ["RE", "REAL_ESTATE_NUMBER"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": ["*"],
+      "map": {
+        "pcn": ["RE", "REAL_ESTATE_NUMBER", "PARCEL_ID"],
+        "owner": ["OWNER", "OWNER_NAME", "OWNERNAME"],
+        "address": ["SITE_ADDR", "SITE_ADDRESS", "FULL_ADDRESS", "ADDRESS"],
+        "city": ["CITY", "SITE_CITY"],
+        "zip": ["ZIP", "ZIPCODE"],
+        "market": ["JUST_VALUE", "MARKET_VALUE", "TOTAL_VALUE"],
+        "assessed": ["ASSESSED_VALUE", "TAXABLE_VALUE"],
+        "saleDate": ["SALE_DATE"],
+        "salePrice": ["SALE_PRICE"],
+        "homestead": ["HOMESTEAD"]
+      }
+    },
+    "lee": {
+      "name": "Lee",
+      "status": "live",
+      "endpoint": "https://services2.arcgis.com/LvWGAAhHwbCJ2GMP/arcgis/rest/services/Lee_County_Parcels/FeatureServer/0/query",
+      "paUrl": "https://www.leepa.org/",
+      "idFields": ["STRAP", "FOLIO"],
+      "searchModes": ["pcn", "owner"],
+      "outFields": ["*"],
+      "map": {
+        "pcn": ["STRAP", "FOLIO", "PARCEL_ID"],
+        "owner": ["OWNER", "OWNER_NAME", "OWNERNAME"],
+        "address": ["SITE_ADDR", "SITUS", "ADDRESS"],
+        "city": ["CITY"],
+        "zip": ["ZIP"],
+        "market": ["JUST", "MARKET", "TOTAL_VALUE"],
+        "assessed": ["ASSESSED", "TAXABLE"],
+        "saleDate": ["SALE_DATE"],
+        "salePrice": ["SALE_PRICE"],
+        "homestead": ["HOMESTEAD"]
+      }
+    },
+    "sarasota": {
+      "name": "Sarasota",
+      "status": "live",
+      "endpoint": "https://services3.arcgis.com/icrWMv7eBkctFu1f/arcgis/rest/services/ParcelHosted/FeatureServer/0/query",
+      "paUrl": "https://www.sc-pa.com/",
+      "idFields": ["ACCOUNT", "PARCELID"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": ["*"],
+      "map": {
+        "pcn": ["ACCOUNT", "PARCELID", "PARCEL_ID"],
+        "owner": ["OWNER1", "OWNER", "OWNER_NAME"],
+        "address": ["SITUS", "SITE_ADDRESS", "STREET"],
+        "city": ["CITY"],
+        "zip": ["ZIP"],
+        "market": ["JUST", "MARKET"],
+        "assessed": ["ASSESSED", "TAXABLE"],
+        "saleDate": ["SALE_DATE"],
+        "salePrice": ["SALE_PRICE"],
+        "homestead": ["HOMESTEAD"]
+      }
+    },
+    "manatee": {
+      "name": "Manatee",
+      "status": "live",
+      "endpoint": "https://gis.manateepao.com/arcgis/rest/services/Website/WebLayers/MapServer/0/query",
+      "paUrl": "https://www.manateepao.com/",
+      "idFields": ["PARCELID", "PARCEL_ID"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": ["*"],
+      "map": {
+        "pcn": ["PARCELID", "PARCEL_ID"],
+        "owner": ["OWNER1", "OWNER"],
+        "address": ["SITE_ADDRESS", "SITUS"],
+        "city": ["CITY"],
+        "zip": ["ZIP"],
+        "market": ["JUST", "MARKET"],
+        "assessed": ["ASSESSED"],
+        "saleDate": ["SALE_DATE"],
+        "salePrice": ["SALE_PRICE"],
+        "homestead": ["HOMESTEAD"]
+      }
+    },
+    "pasco": {
+      "name": "Pasco",
+      "status": "live",
+      "endpoint": "https://maps.pascopa.com/arcgis/rest/services/Parcels/MapServer/3/query",
+      "paUrl": "https://www.pascopa.com/",
+      "idFields": ["PARCELID", "PARCEL_ID"],
+      "searchModes": ["pcn", "owner"],
+      "outFields": ["*"],
+      "map": {
+        "pcn": ["PARCELID", "PARCEL_ID"],
+        "owner": ["OWNER1", "OWNER"],
+        "address": ["SITE_ADDRESS", "SITUS"],
+        "city": ["CITY"],
+        "zip": ["ZIP"],
+        "market": ["JUST", "MARKET"],
+        "assessed": ["ASSESSED"],
+        "saleDate": ["SALE_DATE"],
+        "salePrice": ["SALE_PRICE"],
+        "homestead": ["HOMESTEAD"]
+      }
+    }
+  }
+}
