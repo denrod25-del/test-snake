@@ -6825,25 +6825,57 @@
       return token;
     }
 
+    function showSyncBanner(msg, kind) {
+      let el = document.getElementById('deedscout-sync-banner');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'deedscout-sync-banner';
+        el.setAttribute('role', 'status');
+        el.style.cssText = 'position:fixed;z-index:99999;left:16px;right:16px;bottom:16px;max-width:560px;margin:auto;padding:14px 16px;border-radius:6px;font:14px/1.4 Inter,system-ui,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.18);';
+        document.body.appendChild(el);
+      }
+      el.style.background = kind === 'error' ? '#f9d6d2' : kind === 'ok' ? '#d8eedc' : '#fff8e6';
+      el.style.color = kind === 'error' ? '#7a3030' : kind === 'ok' ? '#2f5a3a' : '#5c4a1f';
+      el.style.border = '1px solid ' + (kind === 'error' ? '#e0a8a0' : kind === 'ok' ? '#9cc5a4' : '#e0d2a0');
+      el.textContent = msg;
+      const inline = document.getElementById('sync-status-msg');
+      if (inline) inline.textContent = msg;
+    }
+
+    async function withTimeout(promise, ms, label) {
+      let timer;
+      const timeout = new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(label + ' timed out after ' + ms + 'ms')), ms);
+      });
+      try {
+        return await Promise.race([promise, timeout]);
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
     async function syncSubscriptionFromStripe(silent) {
+      showSyncBanner('Refreshing subscription…', 'info');
       if (!sb || !currentUser) {
-        if (!silent) alert('Sign in first, then click Refresh subscription status.');
+        const msg = 'Sign in first, then click Refresh subscription status.';
+        showSyncBanner(msg, 'error');
+        if (!silent) alert(msg);
         return false;
       }
-      const statusEl = document.getElementById('sync-status-msg');
-      if (statusEl) statusEl.textContent = 'Checking Stripe…';
       try {
-        const accessToken = await getAccessTokenForApi();
+        const accessToken = await withTimeout(getAccessTokenForApi(), 12000, 'Session refresh');
         if (!accessToken) {
-          if (!silent) alert('Sign in again to refresh your subscription status.');
-          if (statusEl) statusEl.textContent = 'Session expired — sign in again.';
+          const msg = 'Session expired — sign out and sign in again, then Refresh.';
+          showSyncBanner(msg, 'error');
+          if (!silent) alert(msg);
           return false;
         }
-        const r = await fetch('/api/sync-subscription', {
+        showSyncBanner('Contacting Stripe sync…', 'info');
+        const r = await withTimeout(fetch('/api/sync-subscription', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ accessToken }),
-        });
+        }), 20000, 'Stripe sync');
         let j;
         try { j = await r.json(); } catch { j = { error: 'Invalid server response', synced: false }; }
         if (!r.ok && j.synced == null) {
@@ -6857,15 +6889,13 @@
           || (j.synced ? 'Pro subscription synced. You are Pro.' : 'Could not unlock Pro from Stripe.');
         const withMeta = [detail, j.reason && ('[' + j.reason + ']'), j.status && ('status=' + j.status), j.plan && ('plan=' + j.plan)]
           .filter(Boolean).join(' ');
-        const el2 = document.getElementById('sync-status-msg');
-        if (el2) el2.textContent = withMeta;
+        showSyncBanner(withMeta, (j.synced && isPro()) ? 'ok' : 'error');
         if (!silent) alert(withMeta);
         return !!j.synced && isPro();
       } catch (e) {
         console.warn('sync subscription failed', e);
         const msg = e.message || 'Sync failed.';
-        const el3 = document.getElementById('sync-status-msg');
-        if (el3) el3.textContent = msg;
+        showSyncBanner(msg, 'error');
         if (!silent) alert(msg);
         return false;
       }
@@ -6874,6 +6904,14 @@
     window.syncSubscriptionFromStripe = function() {
       return syncSubscriptionFromStripe(false);
     };
+    // Extra alias so the button always has a global handler
+    window.refreshSubscriptionStatus = window.syncSubscriptionFromStripe;
+    document.addEventListener('click', function(ev) {
+      const btn = ev.target && ev.target.closest && ev.target.closest('#btn-refresh-sub');
+      if (!btn) return;
+      ev.preventDefault();
+      window.refreshSubscriptionStatus();
+    });
 
     window.startCheckout = async function() {
       if (!sb) { alert('Auth not configured'); return; }
@@ -7228,8 +7266,8 @@
               ${ isPro()
                 ? `<button class="btn-primary" onclick="openBillingPortal()">Manage Billing &nearr;</button>`
                 : `<a class="btn-primary" href="#/pricing" style="text-decoration:none;display:inline-block;margin-right:8px;">View Plans &rarr;</a>
-                   <button class="btn-secondary" type="button" id="btn-refresh-sub" onclick="syncSubscriptionFromStripe()">Refresh subscription status</button>
-                   <p id="sync-status-msg" class="small" style="margin:10px 0 0;color:#555;"></p>` }
+                   <button class="btn-secondary" type="button" id="btn-refresh-sub">Refresh subscription status</button>
+                   <p id="sync-status-msg" class="small" style="margin:10px 0 0;color:#555;">Click Refresh after payment to unlock Pro.</p>` }
             </div>
             <div class="detail-block">
               <div class="block-num">02</div>
