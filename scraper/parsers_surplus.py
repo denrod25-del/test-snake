@@ -40,13 +40,21 @@ class NoDataError(Exception):
 # helpers
 # --------------------------------------------------------------------------
 _MONEY_RE = re.compile(r"\$?\s*([\d,]+(?:\.\d{1,2})?)")
-_DATE_RE  = re.compile(r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\w+\s+\d{1,2},?\s+\d{4})\b")
+_DATE_RE = re.compile(r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\w+\s+\d{1,2},?\s+\d{4})\b")
+_FEE_NOISE = re.compile(
+    r"application fee|sheriff fee|postage|photocopy|advertising fee|"
+    r"holiday schedule|contact us|opening\b",
+    re.I,
+)
 
 _STATUS_KEYWORDS = {
     "claim_filed": ("claim filed", "claim received", "pending"),
-    "paid":        ("paid", "disbursed", "released"),
-    "escheated":   ("escheated", "forfeited"),
+    "paid": ("paid", "disbursed", "released"),
+    "escheated": ("escheated", "forfeited"),
 }
+
+# Reject fee-schedule tables that mention tiny statutory amounts.
+_MIN_SURPLUS_AMOUNT = 25.0
 
 
 def _parse_money(text: str) -> Optional[float]:
@@ -92,65 +100,111 @@ def _claim_deadline_from_sale(sale_iso: Optional[str]) -> Optional[str]:
         return None
 
 
+def _header_looks_like_surplus(headers: List[str]) -> bool:
+    joined = " ".join(headers)
+    return any(
+        token in joined
+        for token in ("surplus", "unclaimed", "excess", "overbid", "proceeds")
+    )
+
+
 # --------------------------------------------------------------------------
 # parsers
 # --------------------------------------------------------------------------
 def parse_clerk_html_table(html: str, source_url: str) -> List[Dict[str, Any]]:
     """
     Generic parser for Clerk pages that publish surplus as an HTML table.
-    Looks at the largest <table> on the page and tries to detect columns
-    by header keywords.
+    Prefers tables whose headers mention surplus / unclaimed / excess funds.
     """
     soup = BeautifulSoup(html, "lxml")
     tables = soup.find_all("table")
     if not tables:
         raise NoDataError("no <table> elements found")
 
-    table = max(tables, key=lambda t: len(t.find_all("tr")))
-    rows = table.find_all("tr")
-    if len(rows) < 2:
+    candidates = []
+    for table in tables:
+        rows = table.find_all("tr")
+        if len(rows) < 2:
+            continue
+        headers = [_normalize(th.get_text()) for th in rows[0].find_all(["th", "td"])]
+        if not headers:
+            continue
+        score = len(rows)
+        if _header_looks_like_surplus(headers):
+            score += 1000
+        candidates.append((score, headers, rows))
+
+    if not candidates:
         raise NoDataError("table has no data rows")
 
-    headers = [_normalize(th.get_text()) for th in rows[0].find_all(["th", "td"])]
-    if not headers:
-        raise NoDataError("could not read header row")
+    candidates.sort(key=lambda x: x[0], reverse=True)
+    _score, headers, rows = candidates[0]
+    if not _header_looks_like_surplus(headers):
+        raise NoDataError("largest table is not a surplus list (missing surplus headers)")
 
     col_map = {
-        "sale_date":      _find_col(headers, "sale", "date"),
-        "parcel_id":      _find_col(headers, "parcel", "folio", "tax id"),
-        "property_addr":  _find_col(headers, "property", "address", "situs"),
-        "prior_owner":    _find_col(headers, "owner", "name", "prior"),
-        "surplus_amount": _find_col(headers, "surplus", "amount", "balance"),
-        "status":         _find_col(headers, "status", "claim"),
+        "sale_date": _find_col(headers, "sale date", "sale", "date"),
+        "parcel_id": _find_col(headers, "parcel", "folio", "tax id", "case", "file"),
+        "property_addr": _find_col(headers, "property", "address", "situs", "location"),
+        "prior_owner": _find_col(headers, "owner", "name", "prior", "defendant"),
+        "surplus_amount": _find_col(headers, "surplus", "amount", "balance", "funds", "excess"),
+        "status": _find_col(headers, "status", "claim"),
+        "claim_deadline": _find_col(headers, "deadline", "1 year", "expire", "claim by"),
     }
 
     out: List[Dict[str, Any]] = []
     for tr in rows[1:]:
         cells = [td.get_text(" ", strip=True) for td in tr.find_all(["td", "th"])]
-        if len(cells) < 2:
+        # Drop empty spacer cells some CMS tables insert
+        cells_compact = [c for c in cells if c]
+        if len(cells_compact) < 2:
             continue
-        row_text = " ".join(cells)
-        sale_iso = _parse_date(_get(cells, col_map["sale_date"]) or row_text)
-        amount   = _parse_money(_get(cells, col_map["surplus_amount"]) or row_text)
-
-        if amount is None and sale_iso is None:
+        row_text = " ".join(cells_compact)
+        if _FEE_NOISE.search(row_text) and "surplus" not in row_text.lower():
             continue
 
-        status_val = _detect_status(_get(cells, col_map["status"]) or row_text)
+        sale_iso = _parse_date(_get(cells, col_map["sale_date"]) or _get(cells_compact, col_map["sale_date"]) or row_text)
+        amount = _parse_money(
+            _get(cells, col_map["surplus_amount"])
+            or _get(cells_compact, col_map["surplus_amount"])
+            or row_text
+        )
+
+        if amount is None or amount < _MIN_SURPLUS_AMOUNT:
+            continue
+        if not sale_iso:
+            continue
+
+        deadline = _parse_date(_get(cells, col_map["claim_deadline"]) or "")
+        if not deadline:
+            deadline = _claim_deadline_from_sale(sale_iso)
+
+        parcel = _clean(
+            _get(cells, col_map["parcel_id"]) or _get(cells_compact, col_map["parcel_id"])
+        )
+        owner = _clean(
+            _get(cells, col_map["prior_owner"]) or _get(cells_compact, col_map["prior_owner"])
+        )
+        addr = _clean(
+            _get(cells, col_map["property_addr"]) or _get(cells_compact, col_map["property_addr"])
+        )
+        # Avoid treating owner name as address when columns collapse
+        if addr and owner and addr == owner:
+            addr = None
 
         out.append({
-            "sale_date":      sale_iso,
-            "parcel_id":      _clean(_get(cells, col_map["parcel_id"])),
-            "property_addr":  _clean(_get(cells, col_map["property_addr"])),
-            "prior_owner":    _clean(_get(cells, col_map["prior_owner"])),
+            "sale_date": sale_iso,
+            "parcel_id": parcel,
+            "property_addr": addr,
+            "prior_owner": owner,
             "surplus_amount": amount,
-            "status":         status_val,
-            "claim_deadline": _claim_deadline_from_sale(sale_iso),
-            "source_url":     source_url,
+            "status": _detect_status(_get(cells, col_map["status"]) or row_text),
+            "claim_deadline": deadline,
+            "source_url": source_url,
         })
 
     if not out:
-        raise NoDataError("table parsed but no usable rows")
+        raise NoDataError("table parsed but no usable surplus rows")
     return out
 
 
@@ -169,20 +223,22 @@ def parse_realauction_surplus(html: str, source_url: str) -> List[Dict[str, Any]
         line = " | ".join(cells)
         if "$" not in line:
             continue
+        if _FEE_NOISE.search(line):
+            continue
         sale_iso = _parse_date(line)
-        amount   = _parse_money(line)
-        if amount is None:
+        amount = _parse_money(line)
+        if amount is None or amount < _MIN_SURPLUS_AMOUNT or not sale_iso:
             continue
         parcel = next((c for c in cells if re.search(r"\d{2,}-\d{2,}", c)), None)
         out.append({
-            "sale_date":      sale_iso,
-            "parcel_id":      parcel,
-            "property_addr":  _longest(cells),
-            "prior_owner":    None,
+            "sale_date": sale_iso,
+            "parcel_id": parcel,
+            "property_addr": _longest(cells),
+            "prior_owner": None,
             "surplus_amount": amount,
-            "status":         _detect_status(line),
+            "status": _detect_status(line),
             "claim_deadline": _claim_deadline_from_sale(sale_iso),
-            "source_url":     source_url,
+            "source_url": source_url,
         })
     if not out:
         raise NoDataError("no surplus rows found on realauction page")
@@ -197,8 +253,9 @@ def _normalize(s: str) -> str:
 
 
 def _find_col(headers: List[str], *needles: str) -> Optional[int]:
-    for i, h in enumerate(headers):
-        for n in needles:
+    # Prefer longer / more specific needles first via exact-ish match order
+    for n in needles:
+        for i, h in enumerate(headers):
             if n in h:
                 return i
     return None
@@ -223,6 +280,6 @@ def _longest(cells: List[str]) -> Optional[str]:
 
 
 PARSERS = {
-    "clerk_html_table":     parse_clerk_html_table,
-    "realauction_surplus":  parse_realauction_surplus,
+    "clerk_html_table": parse_clerk_html_table,
+    "realauction_surplus": parse_realauction_surplus,
 }

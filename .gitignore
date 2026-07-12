@@ -54,6 +54,9 @@ space-cadet-pinball/
 # Plat PDF download cache (indexes in data/plats/*.json are kept)
 data/plats/cache/
 
+# Scraper local caches (surplus snapshots may contain Pro-only data)
+scraper/.cache/
+
 # Apify raw scrape dumps (derived companies.json is kept)
 data/apify-raw.json
 data/.ingest-cache.json

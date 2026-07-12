@@ -16,9 +16,13 @@ Required environment variables (set as GitHub Actions secrets, or in `.env`):
   SUPABASE_URL          https://YOUR-PROJECT.supabase.co
   SUPABASE_SERVICE_KEY  service_role key (NOT the anon key)
 
+Primary production path: Netlify scheduled function `refresh-surplus`
+(uses Netlify env SUPABASE_*). This script remains the fuller multi-county
+scraper for GitHub Actions once secrets are configured.
+
 Usage:
   python scrape_surplus.py                   # all counties
-  python scrape_surplus.py --only Orange     # one county
+  python scrape_surplus.py --only Manatee    # one county
   python scrape_surplus.py --dry-run         # don't write to Supabase
   python scrape_surplus.py --verbose         # detailed logging
 """
@@ -31,25 +35,42 @@ import logging
 import os
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 import requests
 
 from parsers_surplus import PARSERS, NoDataError
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
 SOURCES_FILE = HERE / "sources_surplus.json"
-MANUAL_FILE  = HERE / "manual_surplus.json"
+MANUAL_FILE = HERE / "manual_surplus.json"
+SNAPSHOT_FILE = HERE / ".cache" / "last-surplus-scrape.json"
 
-UA = "FloridaTaxDeedRegistry/1.0 (+contact@example.com)"
+# Browser UA — many Clerk / RealAuction hosts 403 bot UAs (same pattern as scrape_sales).
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "Upgrade-Insecure-Requests": "1",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "none",
+    "Sec-Fetch-User": "?1",
+}
 TIMEOUT = 30
-SLEEP_BETWEEN = 1.5  # be polite
+SLEEP_BETWEEN = 1.5
 
 log = logging.getLogger("scrape_surplus")
 
 
-# --------------------------------------------------------------------------
 def load_json(path: Path) -> dict:
     if not path.exists():
         return {}
@@ -59,62 +80,89 @@ def load_json(path: Path) -> dict:
 
 def fetch(url: str) -> str:
     log.debug("GET %s", url)
-    r = requests.get(url, headers={"User-Agent": UA}, timeout=TIMEOUT)
+    r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+    if r.status_code == 403:
+        snippet = (r.text or "")[:180].replace("\n", " ")
+        raise requests.HTTPError(
+            f"403 Forbidden (server={r.headers.get('server')}; body={snippet!r})",
+            response=r,
+        )
     r.raise_for_status()
     return r.text
 
 
 def supabase_upsert(rows: List[Dict[str, Any]]) -> int:
     """
-    Upsert a batch of records into the surplus_history table.
-    Returns the number of rows actually sent.
+    Replace-per-county then insert. Avoids PostgREST on_conflict issues with
+    the expression unique index on surplus_history.
     """
-    url = os.environ.get("SUPABASE_URL")
-    key = os.environ.get("SUPABASE_SERVICE_KEY")
+    url = os.environ.get("SUPABASE_URL", "").strip()
+    key = os.environ.get("SUPABASE_SERVICE_KEY", "").strip()
     if not url or not key:
-        raise RuntimeError("SUPABASE_URL and SUPABASE_SERVICE_KEY must be set")
+        raise RuntimeError(
+            "SUPABASE_URL and SUPABASE_SERVICE_KEY must be set "
+            "(GitHub Actions secrets, or export locally). "
+            "Production refresh also runs via Netlify function refresh-surplus."
+        )
 
     endpoint = f"{url.rstrip('/')}/rest/v1/surplus_history"
     headers = {
-        "apikey":        key,
+        "apikey": key,
         "Authorization": f"Bearer {key}",
-        "Content-Type":  "application/json",
-        # natural key avoids duplicates: (county, sale_date, parcel_id)
-        "Prefer":        "resolution=merge-duplicates,return=minimal",
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal",
     }
-    # send in chunks of 100 to stay well under PostgREST limits
+
+    by_county: Dict[str, List[Dict[str, Any]]] = {}
+    for row in rows:
+        by_county.setdefault(row["county"], []).append(row)
+
     sent = 0
-    for i in range(0, len(rows), 100):
-        chunk = rows[i:i + 100]
-        r = requests.post(endpoint, headers=headers, data=json.dumps(chunk), timeout=TIMEOUT)
-        if r.status_code >= 300:
-            log.error("Supabase upsert failed (%s): %s", r.status_code, r.text[:300])
-            r.raise_for_status()
-        sent += len(chunk)
+    for county, county_rows in by_county.items():
+        del_r = requests.delete(
+            endpoint,
+            headers=headers,
+            params={"county": f"eq.{county}"},
+            timeout=TIMEOUT,
+        )
+        if del_r.status_code >= 300:
+            log.error("Supabase delete failed (%s): %s", del_r.status_code, del_r.text[:300])
+            del_r.raise_for_status()
+
+        for i in range(0, len(county_rows), 100):
+            chunk = county_rows[i:i + 100]
+            r = requests.post(endpoint, headers=headers, data=json.dumps(chunk), timeout=TIMEOUT)
+            if r.status_code >= 300:
+                log.error("Supabase insert failed (%s): %s", r.status_code, r.text[:300])
+                r.raise_for_status()
+            sent += len(chunk)
+        log.info("[%s] replaced with %d rows", county, len(county_rows))
     return sent
 
 
-def normalize(rec: Dict[str, Any], county: str) -> Dict[str, Any]:
-    """Tidy a single record before upsert. Drops obviously-empty rows."""
+def normalize(rec: Dict[str, Any], county: str) -> Optional[Dict[str, Any]]:
+    """Tidy a single record before upsert. Requires sale_date + surplus_amount."""
     if not rec.get("surplus_amount"):
         return None
+    if not rec.get("sale_date"):
+        return None
+    parcel = rec.get("parcel_id") or ""
     return {
-        "county":          county,
-        "sale_date":       rec.get("sale_date"),
-        "parcel_id":       rec.get("parcel_id"),
-        "property_addr":   rec.get("property_addr"),
-        "prior_owner":     rec.get("prior_owner"),
+        "county": county,
+        "sale_date": rec.get("sale_date"),
+        "parcel_id": parcel,
+        "property_addr": rec.get("property_addr"),
+        "prior_owner": rec.get("prior_owner"),
         "surplus_amount": float(rec["surplus_amount"]),
-        "status":          rec.get("status") or "unclaimed",
-        "claim_deadline":  rec.get("claim_deadline"),
-        "source_url":      rec.get("source_url"),
+        "status": rec.get("status") or "unclaimed",
+        "claim_deadline": rec.get("claim_deadline"),
+        "source_url": rec.get("source_url"),
     }
 
 
-# --------------------------------------------------------------------------
 def collect(only: str | None) -> Dict[str, List[Dict[str, Any]]]:
     sources = load_json(SOURCES_FILE)
-    manual  = load_json(MANUAL_FILE)
+    manual = load_json(MANUAL_FILE)
     results: Dict[str, List[Dict[str, Any]]] = {}
 
     counties = [only] if only else sorted({*sources.keys(), *manual.keys()} - {"_comment", "_template"})
@@ -124,14 +172,13 @@ def collect(only: str | None) -> Dict[str, List[Dict[str, Any]]]:
             continue
         rows: List[Dict[str, Any]] = []
 
-        # 1. Manual entries always win
         for rec in manual.get(county, []) or []:
             n = normalize(rec, county)
-            if n: rows.append(n)
+            if n:
+                rows.append(n)
 
-        # 2. Scrape if a source is configured
         cfg = sources.get(county)
-        if cfg:
+        if cfg and cfg.get("enabled", True):
             parser_name = cfg.get("parser")
             parser = PARSERS.get(parser_name)
             if not parser:
@@ -145,17 +192,16 @@ def collect(only: str | None) -> Dict[str, List[Dict[str, Any]]]:
                         n = normalize(rec, county)
                         if not n:
                             continue
-                        # de-dupe against manual entries on (sale_date, parcel_id)
                         key = (n["sale_date"], n["parcel_id"])
                         if any((r["sale_date"], r["parcel_id"]) == key for r in rows):
                             continue
                         rows.append(n)
-                    log.info("[%s] scraped %d records", county, len(parsed))
+                    log.info("[%s] scraped %d usable records", county, len(parsed))
                 except NoDataError as e:
                     log.info("[%s] no data: %s", county, e)
                 except requests.RequestException as e:
                     log.warning("[%s] fetch failed: %s", county, e)
-                except Exception as e:    # noqa: BLE001
+                except Exception as e:  # noqa: BLE001
                     log.exception("[%s] parser crashed: %s", county, e)
                 time.sleep(SLEEP_BETWEEN)
 
@@ -165,12 +211,24 @@ def collect(only: str | None) -> Dict[str, List[Dict[str, Any]]]:
     return results
 
 
-# --------------------------------------------------------------------------
+def write_snapshot(results: Dict[str, List[Dict[str, Any]]], flat: List[Dict[str, Any]]) -> None:
+    SNAPSHOT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "counties": len(results),
+        "records": len(flat),
+        "by_county": {k: len(v) for k, v in results.items()},
+        "rows": flat,
+    }
+    SNAPSHOT_FILE.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+    log.info("wrote snapshot %s (%d rows)", SNAPSHOT_FILE, len(flat))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--only",     help="scrape only this county")
-    ap.add_argument("--dry-run",  action="store_true", help="don't write to Supabase, just print")
-    ap.add_argument("--verbose",  action="store_true")
+    ap.add_argument("--only", help="scrape only this county")
+    ap.add_argument("--dry-run", action="store_true", help="don't write to Supabase, just print")
+    ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args()
 
     logging.basicConfig(
@@ -181,6 +239,7 @@ def main() -> int:
     results = collect(args.only)
     flat: List[Dict[str, Any]] = [r for rows in results.values() for r in rows]
     log.info("collected %d records across %d counties", len(flat), len(results))
+    write_snapshot(results, flat)
 
     if args.dry_run:
         print(json.dumps(results, indent=2, default=str))

@@ -34,8 +34,8 @@
       // Flip to false to hide bid calc / AVM / skip-trace panels again.
         advanced_lookups: true
       },
-      // Flip to false once scrape_surplus.py populates real clerk rows in Supabase.
-      SURPLUS_HISTORY_SAMPLE: true
+      // False once refresh-surplus / scrape_surplus populates real clerk rows.
+      SURPLUS_HISTORY_SAMPLE: false
     };
   </script>
   <style>
@@ -7219,12 +7219,12 @@
                 <li><strong>Email alerts</strong> (5 county subscriptions when dates verified)</li>
                 <li><strong>CSV export</strong> of watchlists (50/month, throttled)</li>
                 <li><strong>Saved parcels &amp; research notebook</strong> synced to your account</li>
-                <li><strong>Surplus Funds History</strong> (sample dataset labeled in-app)</li>
+                <li><strong>Surplus Funds History</strong> (Clerk-sourced; coverage expanding)</li>
                 <li><strong>Bid calculator + AVM</strong> (RentCast credits)</li>
                 <li><strong>Skip-trace</strong> owner contacts (BatchData credits)</li>
                 <li>Stripe Customer Portal for billing</li>
               </ul>
-              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> Stripe Checkout, watchlists, notebook sync, CSV export, alert prefs, bid calculator, AVM panel, skip-trace panel<br><strong>Beta / limited:</strong> surplus history sample rows, sale alerts (when scraper publishes dates), AVM/skip-trace need vendor API keys on Netlify<br><strong>Coming soon:</strong> Investor Pro checkout</p>
+              <p class="pricing-foot" style="text-align:left;margin-top:16px;"><strong>Live today:</strong> Stripe Checkout, watchlists, notebook sync, CSV export, alert prefs, bid calculator, AVM panel, skip-trace panel, surplus history (Clerk-sourced; coverage expanding)<br><strong>Beta / limited:</strong> sale alerts (when scraper publishes dates), AVM/skip-trace need vendor API keys on Netlify, surplus coverage starts with scrapeable counties<br><strong>Coming soon:</strong> Investor Pro checkout</p>
               ${ isPro()
                   ? `<button class="btn-primary" disabled>Your current plan &checkmark;</button>`
                   : `<button class="btn-primary" onclick="startCheckout()">Subscribe to Pro</button>` }
@@ -7377,6 +7377,35 @@
     // SURPLUS HISTORY VIEW (Pro feature)
     // ----------------------------------------------------------------
     let surplusCache = null;
+    async function ensureSurplusFresh(rows) {
+      // If table is empty or still only schema.sql sample parcels, ask Netlify to refresh.
+      const sampleIds = new Set([
+        '23-22-30-1234-00-010', '01-3128-009-0540', 'A-12-29-19-5RE-000007',
+        '4942-21-14-3140', '00-43-44-26-01-018-0090', '07-44-24-P3-00128.0010',
+        '142608-0040', '08-30-15-12834-001-0010',
+      ]);
+      const onlySamples = rows.length > 0 && rows.every(r => sampleIds.has(r.parcel_id));
+      if (rows.length && !onlySamples) return rows;
+      try {
+        const { data: { session } } = await sb.auth.getSession();
+        if (!session?.access_token) return rows;
+        const res = await fetch('/api/refresh-surplus', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ accessToken: session.access_token }),
+        });
+        if (!res.ok) return rows;
+        surplusCache = null;
+        const { data } = await sb
+          .from('surplus_history')
+          .select('*')
+          .order('sale_date', { ascending: false })
+          .limit(500);
+        return data || rows;
+      } catch {
+        return rows;
+      }
+    }
     async function loadSurplus() {
       if (!sb) return [];
       if (surplusCache) return surplusCache;
@@ -7386,7 +7415,8 @@
         .order('sale_date', { ascending: false })
         .limit(500);
       if (error) return [];
-      surplusCache = data || [];
+      const refreshed = await ensureSurplusFresh(data || []);
+      surplusCache = refreshed;
       return surplusCache;
     }
 
@@ -7423,7 +7453,7 @@
         ? DeedScoutTrust.renderTrustPanel({
             status: surplusSample ? 'sample' : 'cached',
             headline: 'Surplus funds history',
-            source: surplusSample ? 'Supabase seed rows (schema.sql)' : 'County Clerk surplus pages via scrape_surplus.py',
+            source: surplusSample ? 'Supabase seed rows (schema.sql)' : 'County Clerk surplus pages via Netlify refresh-surplus / scrape_surplus.py',
             verification: 'Confirm claim status and deadlines on the official county clerk surplus page.',
             note: surplusSample
               ? 'Demo records for Pro UI testing. Real clerk filings will replace these when the surplus scraper is live.'

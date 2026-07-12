@@ -1,7 +1,9 @@
 name: Scrape surplus funds
 
-# Runs weekly on Tuesdays at 07:30 UTC (offset from sales scraper to avoid load)
-# and is also manually triggerable from the Actions tab.
+# Runs weekly on Tuesdays at 07:30 UTC (offset from sales scraper).
+# Prefer Netlify scheduled function `refresh-surplus` for production upserts
+# (it already has SUPABASE_*). This workflow is the fuller multi-county path
+# once GitHub secrets are configured.
 on:
   schedule:
     - cron: "30 7 * * 2"
@@ -21,9 +23,22 @@ jobs:
         working-directory: scraper
         run: pip install -r requirements.txt
 
+      - name: Require Supabase secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_KEY" ]; then
+            echo "::error::GitHub secrets SUPABASE_URL and SUPABASE_SERVICE_KEY are not set."
+            echo "Add them under Settings → Secrets and variables → Actions"
+            echo "(same values as Netlify env). Production refresh also runs via"
+            echo "Netlify function refresh-surplus on a weekly schedule."
+            exit 1
+          fi
+
       - name: Run surplus scraper
         working-directory: scraper
         env:
-          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python scrape_surplus.py --verbose

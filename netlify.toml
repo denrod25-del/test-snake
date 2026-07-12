@@ -23,6 +23,10 @@
 [functions."stripe-webhook"]
   included_files = []
 
+# Weekly surplus refresh (Tuesdays 08:00 UTC) — uses Netlify SUPABASE_* env.
+[functions."refresh-surplus"]
+  schedule = "0 8 * * 2"
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -68,6 +72,11 @@
 [[redirects]]
   from = "/api/sync-subscription"
   to   = "/.netlify/functions/sync-subscription"
+  status = 200
+
+[[redirects]]
+  from = "/api/refresh-surplus"
+  to   = "/.netlify/functions/refresh-surplus"
   status = 200
 
 # ── Pro-only data APIs ─────────────────────────────────────────────────────
