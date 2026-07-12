@@ -6,10 +6,14 @@
 // Triggers:
 //   1. Netlify scheduled cron (weekly) — header x-netlify-event: schedule
 //   2. POST with { accessToken } from an active Pro user (manual refresh)
-//   3. POST/GET with Authorization: Bearer <SURPLUS_REFRESH_SECRET> if that env is set
+//   3. Authorization: Bearer <SURPLUS_REFRESH_SECRET> or ?key= when env is set
 //
 // Expand SOURCES as more counties publish scrapeable HTML surplus lists.
 // ----------------------------------------------------------------------------
+
+const https = require('https');
+const http = require('http');
+const { URL } = require('url');
 
 const {
   createWorkingSupabaseAdminClient,
@@ -33,7 +37,7 @@ const SOURCES = [
 ];
 
 const MIN_AMOUNT = 25;
-const SAMPLE_PARCEL_IDS = new Set([
+const SAMPLE_PARCEL_IDS = [
   '23-22-30-1234-00-010',
   '01-3128-009-0540',
   'A-12-29-19-5RE-000007',
@@ -42,7 +46,7 @@ const SAMPLE_PARCEL_IDS = new Set([
   '07-44-24-P3-00128.0010',
   '142608-0040',
   '08-30-15-12834-001-0010',
-]);
+];
 
 function json(statusCode, body) {
   return {
@@ -50,6 +54,54 @@ function json(statusCode, body) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   };
+}
+
+function fetchText(urlString, redirectsLeft = 5) {
+  return new Promise((resolve, reject) => {
+    let parsed;
+    try {
+      parsed = new URL(urlString);
+    } catch (err) {
+      reject(err);
+      return;
+    }
+    const lib = parsed.protocol === 'http:' ? http : https;
+    const req = lib.request(
+      {
+        protocol: parsed.protocol,
+        hostname: parsed.hostname,
+        port: parsed.port || (parsed.protocol === 'http:' ? 80 : 443),
+        path: parsed.pathname + parsed.search,
+        method: 'GET',
+        headers: BROWSER_HEADERS,
+        timeout: 25000,
+      },
+      (res) => {
+        const status = res.statusCode || 0;
+        if ([301, 302, 303, 307, 308].includes(status) && res.headers.location && redirectsLeft > 0) {
+          const next = new URL(res.headers.location, urlString).toString();
+          res.resume();
+          fetchText(next, redirectsLeft - 1).then(resolve, reject);
+          return;
+        }
+        const chunks = [];
+        res.on('data', (c) => chunks.push(c));
+        res.on('end', () => {
+          const body = Buffer.concat(chunks).toString('utf8');
+          if (status >= 400) {
+            reject(new Error(`HTTP ${status} for ${urlString}`));
+            return;
+          }
+          resolve(body);
+        });
+      }
+    );
+    req.on('timeout', () => {
+      req.destroy(new Error(`timeout fetching ${urlString}`));
+    });
+    req.on('error', reject);
+    req.end();
+  });
 }
 
 function stripTags(html) {
@@ -179,12 +231,7 @@ async function scrapeAll() {
   const errors = [];
   for (const src of SOURCES) {
     try {
-      const res = await fetch(src.url, { headers: BROWSER_HEADERS, redirect: 'follow' });
-      if (!res.ok) {
-        errors.push(`${src.county}: HTTP ${res.status}`);
-        continue;
-      }
-      const html = await res.text();
+      const html = await fetchText(src.url);
       const rows = parseSurplusTables(html, src.county, src.url);
       if (!rows.length) {
         errors.push(`${src.county}: no surplus rows parsed`);
@@ -198,13 +245,22 @@ async function scrapeAll() {
   return { rows: all, errors };
 }
 
+function header(event, name) {
+  const headers = event.headers || {};
+  const want = name.toLowerCase();
+  for (const [k, v] of Object.entries(headers)) {
+    if (k.toLowerCase() === want) return v;
+  }
+  return '';
+}
+
 async function authorized(event) {
-  if (event.headers['x-netlify-event'] === 'schedule') {
+  if (header(event, 'x-netlify-event') === 'schedule') {
     return { ok: true, via: 'schedule' };
   }
 
   const secret = cleanEnv('SURPLUS_REFRESH_SECRET');
-  const auth = event.headers.authorization || event.headers.Authorization || '';
+  const auth = header(event, 'authorization');
   if (secret && auth === `Bearer ${secret}`) {
     return { ok: true, via: 'secret' };
   }
@@ -253,9 +309,9 @@ async function replaceCountyRows(client, rows) {
     (byCounty[row.county] ||= []).push(row);
   }
 
-  // Drop schema.sql sample seed rows so Pro UI shows real clerk data only.
   for (const parcelId of SAMPLE_PARCEL_IDS) {
-    await client.from('surplus_history').delete().eq('parcel_id', parcelId);
+    const { error } = await client.from('surplus_history').delete().eq('parcel_id', parcelId);
+    if (error) console.warn('sample delete', parcelId, error.message);
   }
 
   let written = 0;
@@ -296,6 +352,6 @@ exports.handler = async (event) => {
     });
   } catch (err) {
     console.error('refresh-surplus failed', err);
-    return json(500, { error: err.message || String(err) });
+    return json(500, { error: err.message || String(err), stack: String(err.stack || '').slice(0, 500) });
   }
 };
