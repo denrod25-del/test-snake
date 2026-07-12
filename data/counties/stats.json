@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-12T08:33:04Z",
-  "salesGenerated": "2026-07-11T16:15:59Z",
+  "generated": "2026-07-12T22:18:14Z",
+  "salesGenerated": "2026-07-12T22:18:05Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -73,11 +73,11 @@
       "slug": "brevard",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-13",
-        "label": "August 13, 2026",
-        "shortLabel": "Aug 13",
-        "count": null,
-        "source": "cadence"
+        "date": "2026-07-16",
+        "label": "July 16, 2026",
+        "shortLabel": "Jul 16",
+        "count": 10,
+        "source": "scraper"
       },
       "surplusPortal": true,
       "surplusUrl": "https://www.brevardclerk.us/tax-deed-surplus",
@@ -122,7 +122,7 @@
       "region": "Southwest",
       "nextSale": null,
       "surplusPortal": true,
-      "surplusUrl": "https://taxdeeds.charlotteclerk.com/",
+      "surplusUrl": "https://taxdeeds.charlotteclerk.com/TaxDeed/Surplus",
       "permits": {
         "status": "manual",
         "count": null
@@ -170,7 +170,7 @@
       "region": "Southwest",
       "nextSale": null,
       "surplusPortal": true,
-      "surplusUrl": "https://www.collierclerk.com/tax-deed-sales/tax-deed-surplus/",
+      "surplusUrl": "https://app.collierclerk.com/LFOfficialRecords/edoc/6476/Tax%20Deed%20Sales%20Excess%20Proceeds%20List.pdf?dbid=0&repo=OFFICIALRECORDSPROD",
       "permits": {
         "status": "manual",
         "count": null
@@ -319,8 +319,8 @@
       "slug": "gulf",
       "region": "Northwest",
       "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://www.gulfclerk.com/courts/tax-deeds/",
       "permits": {
         "status": "unsupported",
         "count": null
@@ -505,14 +505,14 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-07-14",
-        "label": "July 14, 2026",
-        "shortLabel": "Jul 14",
-        "count": 0,
+        "date": "2026-07-28",
+        "label": "July 28, 2026",
+        "shortLabel": "Jul 28",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
-      "surplusUrl": "https://www.leeclerk.org/records-and-information/tax-deeds/tax-deed-surplus-funds",
+      "surplusUrl": "https://www.leeclerk.org/departments/courts/property-sales/tax-deed-sales/tax-deed-reports",
       "permits": {
         "status": "manual",
         "count": null
@@ -576,7 +576,13 @@
       "county": "Manatee",
       "slug": "manatee",
       "region": "Tampa Bay",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-03",
+        "label": "August 3, 2026",
+        "shortLabel": "Aug 3",
+        "count": 11,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.manateeclerk.com/departments/tax-deeds/list-of-unclaimed-funds/",
       "permits": {
@@ -619,10 +625,10 @@
       "slug": "miami-dade",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-07-13",
-        "label": "July 13, 2026",
-        "shortLabel": "Jul 13",
-        "count": 27,
+        "date": "2026-07-23",
+        "label": "July 23, 2026",
+        "shortLabel": "Jul 23",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -709,14 +715,14 @@
       "slug": "osceola",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-31",
-        "label": "July 31, 2026",
-        "shortLabel": "Jul 31",
-        "count": 0,
+        "date": "2026-08-18",
+        "label": "August 18, 2026",
+        "shortLabel": "Aug 18",
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
-      "surplusUrl": "https://osceolaclerk.com/tax-deeds/",
+      "surplusUrl": "https://courts.osceolaclerk.com/reports/TaxDeedsSurplusFundsAvailableWeb.pdf",
       "permits": {
         "status": "manual",
         "count": null
@@ -746,7 +752,7 @@
       "region": "Tampa Bay",
       "nextSale": null,
       "surplusPortal": true,
-      "surplusUrl": "https://pascoclerk.com/839/Tax-Deed-Surplus",
+      "surplusUrl": "https://app.pascoclerk.com/appdot-public-statistical-reports-taxdeeds.asp",
       "permits": {
         "status": "manual",
         "count": null
@@ -817,8 +823,8 @@
         "count": 1,
         "source": "scraper"
       },
-      "surplusPortal": false,
-      "surplusUrl": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://santarosaclerk.com/courts/foreclosures-tax-deeds/",
       "permits": {
         "status": "manual",
         "count": null
@@ -876,7 +882,13 @@
       "county": "St. Lucie",
       "slug": "st-lucie",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-13",
+        "label": "July 13, 2026",
+        "shortLabel": "Jul 13",
+        "count": 2,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.stlucieclerk.com/tax-deeds/surplus-funds",
       "permits": {
@@ -889,8 +901,8 @@
       "slug": "sumter",
       "region": "Central",
       "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://docs.google.com/spreadsheets/d/1uW4muYX69nJvSNPqLt93jf0IYcNWxzpA3HEjUxIZoz4/export?format=csv",
       "permits": {
         "status": "manual",
         "count": null
@@ -966,7 +978,13 @@
       "county": "Walton",
       "slug": "walton",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-07-15",
+        "label": "July 15, 2026",
+        "shortLabel": "Jul 15",
+        "count": 2,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {

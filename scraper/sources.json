@@ -1,16 +1,16 @@
 {
-  "_comment": "Source configuration for each county. parser = which parser module handles this site. url = the page that lists upcoming sales. selectors = CSS selectors specific to that page (override defaults).",
+  "_comment": "Source configuration for each county. parser = which parser module handles this site. url = the page that lists upcoming sales. Prefer *.realtaxdeed.com when live; use *.realforeclose.com only when that host carries tax-deed (Certificate) auctions.",
   "_parsers": [
-    "realauction  -- For *.realtaxdeed.com sites (most FL counties)",
+    "realauction  -- For *.realtaxdeed.com / *.realforeclose.com (most FL counties)",
     "lienhub      -- For lienhub.com county pages",
-    "deedauction  -- For *.deedauction.net (Broward, etc.)",
+    "deedauction  -- For *.deedauction.net (legacy)",
     "manual       -- Read entries from manual_sales.json instead of scraping"
   ],
 
   "Alachua":      { "parser": "realauction", "url": "https://alachua.realtaxdeed.com" },
   "Bay":          { "parser": "realauction", "url": "https://bay.realtaxdeed.com" },
-  "Brevard":      { "parser": "realauction", "url": "https://brevard.realtaxdeed.com" },
-  "Broward":      { "parser": "deedauction", "url": "https://broward.deedauction.net" },
+  "Brevard":      { "parser": "realauction", "url": "https://brevard.realforeclose.com" },
+  "Broward":      { "parser": "realauction", "url": "https://broward.realtaxdeed.com" },
   "Charlotte":    { "parser": "realauction", "url": "https://charlotte.realtaxdeed.com" },
   "Citrus":       { "parser": "realauction", "url": "https://citrus.realtaxdeed.com" },
   "Clay":         { "parser": "realauction", "url": "https://clay.realtaxdeed.com" },
@@ -26,7 +26,7 @@
   "Lake":         { "parser": "realauction", "url": "https://lake.realtaxdeed.com" },
   "Lee":          { "parser": "realauction", "url": "https://lee.realtaxdeed.com" },
   "Leon":         { "parser": "realauction", "url": "https://leon.realtaxdeed.com" },
-  "Manatee":      { "parser": "realauction", "url": "https://manatee.realtaxdeed.com" },
+  "Manatee":      { "parser": "realauction", "url": "https://manatee.realforeclose.com" },
   "Marion":       { "parser": "realauction", "url": "https://marion.realtaxdeed.com" },
   "Martin":       { "parser": "realauction", "url": "https://martin.realtaxdeed.com" },
   "Miami-Dade":   { "parser": "realauction", "url": "https://miamidade.realtaxdeed.com" },
@@ -41,12 +41,12 @@
   "Polk":         { "parser": "realauction", "url": "https://polk.realtaxdeed.com" },
   "Putnam":       { "parser": "realauction", "url": "https://putnam.realtaxdeed.com" },
   "St. Johns":    { "parser": "realauction", "url": "https://stjohns.realtaxdeed.com" },
-  "St. Lucie":    { "parser": "realauction", "url": "https://stlucie.realtaxdeed.com" },
+  "St. Lucie":    { "parser": "realauction", "url": "https://stlucie.realforeclose.com" },
   "Santa Rosa":   { "parser": "realauction", "url": "https://santarosa.realtaxdeed.com" },
   "Sarasota":     { "parser": "realauction", "url": "https://sarasota.realtaxdeed.com" },
   "Seminole":     { "parser": "realauction", "url": "https://seminole.realtaxdeed.com" },
   "Sumter":       { "parser": "realauction", "url": "https://sumter.realtaxdeed.com" },
   "Volusia":      { "parser": "realauction", "url": "https://volusia.realtaxdeed.com" },
   "Wakulla":      { "parser": "realauction", "url": "https://wakulla.realtaxdeed.com" },
-  "Walton":       { "parser": "realauction", "url": "https://walton.realtaxdeed.com" }
+  "Walton":       { "parser": "realauction", "url": "https://walton.realforeclose.com" }
 }

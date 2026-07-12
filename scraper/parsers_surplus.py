@@ -311,8 +311,12 @@ def parse_clerk_pdf(pdf_bytes: bytes, source_url: str) -> List[Dict[str, Any]]:
 
     if "tax deeds surplus funds report" in lower or "sale number" in lower and "current balance" in lower:
         rows = _parse_marion_surplus_pdf(text, source_url)
-    elif "excess proceeds" in lower or "unclaimed" in lower and "property id" in lower:
+    elif "tax deeds surplus funds available" in lower and "property id" in lower:
+        rows = _parse_osceola_surplus_pdf(text, source_url)
+    elif "excess proceeds" in lower or ("unclaimed" in lower and "property id" in lower):
         rows = _parse_collier_surplus_pdf(text, source_url)
+    elif ("file#" in lower or "file #" in lower) and "surplus" in lower and "sale date" in lower:
+        rows = _parse_santa_rosa_surplus_pdf(text, source_url)
     else:
         rows = _parse_generic_surplus_pdf(text, source_url)
 
@@ -352,6 +356,105 @@ def _parse_marion_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any]
             "parcel_id": _clean(m.group("parcel")),
             "property_addr": None,
             "prior_owner": None,
+            "surplus_amount": amount,
+            "status": "unclaimed",
+            "claim_deadline": _claim_deadline_from_sale(sale_iso),
+            "source_url": source_url,
+        })
+    return out
+
+
+# Osceola: sale date is printed once, then multiple Tax Deed # / Cert # / $ / Property ID rows.
+
+
+def _parse_osceola_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any]]:
+    """Osceola Clerk 'Tax Deeds Surplus Funds Available' PDF (fields often one-per-line)."""
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    out: List[Dict[str, Any]] = []
+    current_sale: Optional[str] = None
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if re.fullmatch(r"\d{1,2}/\d{1,2}/\d{4}", line):
+            current_sale = _parse_date(line)
+            i += 1
+            continue
+        # Expect: Tax Deed # / Cert # / $amount / Property ID #
+        if (
+            current_sale
+            and re.fullmatch(r"\d{1,4}-\d{4}", line)
+            and i + 3 < len(lines)
+            and re.fullmatch(r"\d+", lines[i + 1])
+            and _parse_money(lines[i + 2]) is not None
+        ):
+            amount = _parse_money(lines[i + 2])
+            parcel = _clean(lines[i + 3])
+            if amount is not None and amount >= _MIN_SURPLUS_AMOUNT and parcel:
+                out.append({
+                    "sale_date": current_sale,
+                    "parcel_id": parcel,
+                    "property_addr": None,
+                    "prior_owner": None,
+                    "surplus_amount": amount,
+                    "status": "unclaimed",
+                    "claim_deadline": _claim_deadline_from_sale(current_sale),
+                    "source_url": source_url,
+                })
+            i += 4
+            continue
+        i += 1
+    return out
+
+
+def _parse_santa_rosa_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any]]:
+    """Santa Rosa Clerk tax-deed surplus PDF (one field per line)."""
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    # Drop header labels
+    while lines and lines[0].upper() in {
+        "FILE#", "FILE #", "SURPLUS", "SALE DATE", "PAYEE", "ADDRESS", "CITY", "ST", "ZIP"
+    }:
+        lines.pop(0)
+
+    out: List[Dict[str, Any]] = []
+    i = 0
+    while i < len(lines):
+        if not re.fullmatch(r"\d{6,8}", lines[i]):
+            i += 1
+            continue
+        file_id = lines[i]
+        i += 1
+        if i >= len(lines):
+            break
+        amount = _parse_money(lines[i])
+        if amount is None:
+            continue
+        i += 1
+        if i < len(lines) and lines[i] == "$":
+            i += 1
+        if i >= len(lines):
+            break
+        sale_iso = _parse_date(lines[i])
+        if not sale_iso:
+            continue
+        i += 1
+        owner = _clean(lines[i]) if i < len(lines) else None
+        i += 1
+        if i < len(lines) and lines[i].upper().startswith("C/O"):
+            i += 1  # skip care-of
+        addr = None
+        if i < len(lines) and not re.fullmatch(r"\d{6,8}", lines[i]):
+            addr = _clean(lines[i])
+            i += 1
+        # Skip city / state / zip until next file id
+        while i < len(lines) and not re.fullmatch(r"\d{6,8}", lines[i]):
+            i += 1
+        if amount < _MIN_SURPLUS_AMOUNT:
+            continue
+        out.append({
+            "sale_date": sale_iso,
+            "parcel_id": file_id,
+            "property_addr": addr,
+            "prior_owner": owner,
             "surplus_amount": amount,
             "status": "unclaimed",
             "claim_deadline": _claim_deadline_from_sale(sale_iso),
@@ -446,6 +549,84 @@ def discover_pdf_url(html: str, page_url: str, pattern: str) -> Optional[str]:
         return None
     matches = sorted(set(matches))
     return matches[-1]
+
+
+def parse_clerk_csv(csv_bytes: bytes, source_url: str) -> List[Dict[str, Any]]:
+    """
+    Parse Clerk surplus CSV / Google Sheet exports (Sumter-style).
+    Expects headers like PROPERTY OWNER, SALE DATE, AMOUNT OF SURPLUS, PARCEL #.
+    Address may appear on the following blank-keyed row.
+    """
+    import csv
+    import io
+
+    if not csv_bytes:
+        raise NoDataError("empty CSV payload")
+
+    text = csv_bytes.decode("utf-8-sig", errors="replace")
+    reader = csv.reader(io.StringIO(text))
+    rows = list(reader)
+    if not rows:
+        raise NoDataError("CSV has no rows")
+
+    header_idx = None
+    headers: List[str] = []
+    for i, row in enumerate(rows):
+        joined = " ".join(row).lower()
+        if "sale date" in joined and ("surplus" in joined or "parcel" in joined):
+            header_idx = i
+            headers = [_normalize(c) for c in row]
+            break
+    if header_idx is None:
+        raise NoDataError("CSV missing surplus header row")
+
+    col = {
+        "owner": _find_col(headers, "property owner", "owner", "name"),
+        "sale_date": _find_col(headers, "sale date", "sale"),
+        "amount": _find_col(headers, "amount of surplus", "surplus", "amount"),
+        "parcel": _find_col(headers, "parcel", "folio"),
+        "claims": _find_col(headers, "claim"),
+    }
+
+    out: List[Dict[str, Any]] = []
+    i = header_idx + 1
+    while i < len(rows):
+        cells = rows[i]
+        sale_iso = _parse_date(_get(cells, col["sale_date"]) or "")
+        amount = _parse_money(str(_get(cells, col["amount"]) or ""))
+        parcel = _clean(str(_get(cells, col["parcel"]) or ""))
+        owner = _clean(str(_get(cells, col["owner"]) or ""))
+        claims = str(_get(cells, col["claims"]) or "")
+        # Address continuation on next row (owner cell only)
+        addr = None
+        if i + 1 < len(rows):
+            nxt = rows[i + 1]
+            nxt_sale = _parse_date(_get(nxt, col["sale_date"]) or "")
+            nxt_amt = _parse_money(str(_get(nxt, col["amount"]) or ""))
+            if not nxt_sale and not nxt_amt:
+                maybe_addr = _clean(str(_get(nxt, col["owner"]) or nxt[0] if nxt else ""))
+                if maybe_addr and not maybe_addr.lower().startswith("list last"):
+                    addr = maybe_addr
+                    i += 1
+        if sale_iso and amount is not None and amount >= _MIN_SURPLUS_AMOUNT:
+            status = "claim_filed" if re.search(r"claim", claims, re.I) and "no claim" not in claims.lower() else "unclaimed"
+            if re.search(r"no claim", claims, re.I):
+                status = "unclaimed"
+            out.append({
+                "sale_date": sale_iso,
+                "parcel_id": parcel,
+                "property_addr": addr,
+                "prior_owner": owner,
+                "surplus_amount": amount,
+                "status": status,
+                "claim_deadline": _claim_deadline_from_sale(sale_iso),
+                "source_url": source_url,
+            })
+        i += 1
+
+    if not out:
+        raise NoDataError("CSV parsed but no usable surplus rows")
+    return out
 
 
 def parse_clerk_xlsx(xlsx_bytes: bytes, source_url: str) -> List[Dict[str, Any]]:
@@ -591,4 +772,5 @@ PARSERS = {
     "gulf_surplus_cards": parse_gulf_surplus_cards,
     "clerk_pdf": parse_clerk_pdf,
     "clerk_xlsx": parse_clerk_xlsx,
+    "clerk_csv": parse_clerk_csv,
 }

@@ -81,6 +81,23 @@ def discover_preview_dates(session: requests.Session, home_url: str, max_dates: 
     return sorted({d for d in dates if d >= today})
 
 
+def is_tax_deed_preview_html(html: str) -> bool:
+    """
+    RealAuction hosts often share calendars between tax deeds and foreclosures.
+    Tax-deed cards reference tax certificates; foreclosure cards show plaintiff /
+    final judgment. Keep only tax-deed days for DeedScout sale dates.
+    """
+    if not html:
+        return False
+    lower = html.lower()
+    has_cert = "certificate" in lower
+    has_tax = "tax deed" in lower or "taxdeed" in lower
+    has_fc = "plaintiff" in lower or "final judgment" in lower
+    if has_fc and not has_cert:
+        return False
+    return has_cert or has_tax
+
+
 def count_parcels_for_date(session: requests.Session, home_url: str, iso_date: str) -> int | None:
     """Return parcel card count for a sale day via AREA=W AJAX load."""
     base = home_url.rstrip("/")
@@ -105,6 +122,8 @@ def count_parcels_for_date(session: requests.Session, home_url: str, iso_date: s
     except ValueError:
         return None
     html = data.get("retHTML") or ""
+    if not is_tax_deed_preview_html(html):
+        return 0
     ids |= set(re.findall(r"AITEM_(\d+)", html))
     # Walk "next page" if the platform paginates (PageDir=1)
     for step in range(1, 25):
@@ -133,13 +152,16 @@ def scrape_realauction_county(home_url: str) -> list[dict]:
     dates = discover_preview_dates(session, home_url)
     out = []
     for iso in dates:
+        # count_parcels_for_date returns 0 for foreclosure-only calendar days
+        # (common on *.realforeclose.com hosts that mix sale types).
         count = count_parcels_for_date(session, home_url, iso)
+        if not count:
+            continue
         entry = {
             "date": iso,
             "source": "scraper",
+            "count": count,
             "officialUrl": f"{home_url.rstrip('/')}/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate={_mdy(iso)}",
         }
-        if count is not None:
-            entry["count"] = count
         out.append(entry)
     return out

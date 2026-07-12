@@ -34,7 +34,53 @@
     "@type": "Organization",
     "name": "DeedScout"
   },
-  "datePublished": "2026-07-12"
+  "datePublished": "2026-07-12",
+  "mentions": [
+    {
+      "@type": "Event",
+      "name": "Walton County tax-deed sale",
+      "startDate": "2026-07-15",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Walton County, FL"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "Walton County tax-deed sale",
+      "startDate": "2026-07-21",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Walton County, FL"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "Walton County tax-deed sale",
+      "startDate": "2026-07-28",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Walton County, FL"
+      }
+    },
+    {
+      "@type": "Event",
+      "name": "Walton County tax-deed sale",
+      "startDate": "2026-08-11",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Walton County, FL"
+      }
+    }
+  ]
 }
 </script>
 <style>
@@ -232,8 +278,8 @@
     
       <div class="stat">
         <div class="lbl">Next tax-deed sale</div>
-        <div class="val">No verified sale date in DeedScout — verify on the official clerk or auction source.</div>
-        <div class="sub">Verify on official clerk or auction site &lt;span class=&quot;badge warn&quot;&gt;Sale-date automation limited&lt;/span&gt;</div>
+        <div class="val">July 15, 2026</div>
+        <div class="sub">2 parcels listed</div>
       </div>
     
       <div class="stat">
@@ -253,8 +299,8 @@
         <h2>Data status</h2>
         <p class="small">DeedScout is a research layer — not a county clerk or auctioneer. Official source required before bidding. Not legal, tax, title, or investment advice.</p>
         <ul class="trust-list">
-          <li><strong>Tax deed sales:</strong> <span class="badge warn">BROKEN</span>
-            — No verified upcoming dates in DeedScout — check clerk/auction links below.</li>
+          <li><strong>Tax deed sales:</strong> <span class="badge ok">CACHED</span>
+            — Dates below are from cached scrapes — verify on official auction site before bidding.</li>
           <li><strong>Permits:</strong> <span class="badge muted">Manual entries only</span>
             </li>
           <li><strong>Last verified / generated:</strong> July 12, 2026</li>
@@ -270,9 +316,16 @@
 </ul>
 <p class="small"><strong>Official source required before bidding.</strong> Not legal, tax, title, or investment advice.</p>
 <h2>Upcoming tax-deed sales</h2>
-<p>No verified sale dates in DeedScout for Walton County. DeedScout does not confirm live auction schedules — verify on the official clerk or auction source below.</p>
-<p class="small"><span class="badge warn">Sale-date automation limited</span> The upstream sale-date scraper is not publishing verified dates. Always confirm the next sale on the clerk or auction portal before bidding.</p>
-<p class="small">Official auction source: <a href="https://walton.realtaxdeed.com" target="_blank" rel="noopener">https://walton.realtaxdeed.com</a></p>
+
+          <table>
+            <thead><tr><th>Date</th><th>Parcels</th><th>Opening / location</th></tr></thead>
+            <tbody><tr><td>July 15, 2026</td><td>2</td><td>—</td></tr>
+<tr><td>July 21, 2026</td><td>2</td><td>—</td></tr>
+<tr><td>July 28, 2026</td><td>4</td><td>—</td></tr>
+<tr><td>August 11, 2026</td><td>9</td><td>—</td></tr></tbody>
+          </table>
+        
+<p class="small">Source: <a href="https://walton.realforeclose.com" target="_blank" rel="noopener">https://walton.realforeclose.com</a></p>
 <h2>Building permits</h2>
 <p>Permit records in DeedScout for Walton County (Manual entries only). Scope: see source portal. This is a <strong>cached research snapshot</strong>, not a live municipal query.</p>
 <p class="small">Source: <a href="https://www.co.walton.fl.us/107/Planning-Development-Services" target="_blank" rel="noopener">https://www.co.walton.fl.us/107/Planning-Development-Services</a></p>
@@ -285,7 +338,7 @@
 </ul>
 <h2>How tax-deed sales work in Florida</h2>
 <p>Florida tax-deed sales follow a uniform statutory framework set by <a href="https://www.flsenate.gov/Laws/Statutes/2024/Chapter197" target="_blank" rel="noopener">Chapter 197 F.S.</a>, but the conduct of the sale (online vendor, bid increment, deposit rules) varies by county. In Walton County, sales are conducted via 
-<a href="https://walton.realtaxdeed.com" target="_blank" rel="noopener">the county auction platform</a>
+<a href="https://walton.realforeclose.com" target="_blank" rel="noopener">the county auction platform</a>
 . Bidders should verify auction-day rules with the Tax Collector's office before participating.</p>
 <p>The investor process:</p><ol><li><strong>Tax certificate sale</strong> (early summer) — investors bid on the right to collect delinquent taxes plus interest.</li><li><strong>Two-year hold</strong> — certificate accrues interest while the owner has the chance to redeem.</li><li><strong>Application for tax deed</strong> — the certificate holder applies after two years; a public auction is scheduled.</li><li><strong>Tax-deed sale</strong> — the property itself is sold to the highest bidder; certificate holder is paid first from proceeds.</li><li><strong>Surplus claim</strong> (if applicable) — excess proceeds go to lienholders and the former owner under §197.582.</li></ol>
 <p class="small"><strong>DeedScout organizes research.</strong> Always verify with the official county, clerk, auction, property appraiser, or municipal source before bidding, buying, contacting owners, or making financial decisions.</p>

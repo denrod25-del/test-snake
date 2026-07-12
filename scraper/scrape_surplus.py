@@ -116,12 +116,14 @@ def scrape_county(county: str, cfg: dict) -> List[Dict[str, Any]]:
         return []
 
     source_url = cfg["url"]
-    if parser_name in ("clerk_pdf", "clerk_xlsx"):
+    if parser_name in ("clerk_pdf", "clerk_xlsx", "clerk_csv"):
         file_url = source_url
         pattern = cfg.get("pdf_link_pattern") or cfg.get("file_link_pattern")
         needs_discover = bool(pattern) or (
-            not re.search(r"\.(pdf|xlsx)(\?|$)", source_url, re.I)
+            not re.search(r"\.(pdf|xlsx|csv)(\?|$)", source_url, re.I)
             and "edoc" not in source_url.lower()
+            and "export?format=csv" not in source_url.lower()
+            and "docs.google.com" not in source_url.lower()
         )
         if needs_discover:
             html = fetch(source_url)
