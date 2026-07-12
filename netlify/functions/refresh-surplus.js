@@ -278,13 +278,6 @@ async function authorized(event) {
     return { ok: true, via: 'secret' };
   }
 
-  // Temporary bootstrap until SURPLUS_REFRESH_SECRET is set in Netlify env.
-  // Rotate/remove after confirming weekly schedule works.
-  const BOOTSTRAP_KEY = 'deedscout-surplus-bootstrap-2026';
-  if (provided === BOOTSTRAP_KEY) {
-    return { ok: true, via: 'bootstrap' };
-  }
-
   if (body.accessToken) {
     const { user, error } = await verifyAccessToken(body.accessToken);
     if (error || !user) return { ok: false, status: 401, error: 'Invalid session' };
