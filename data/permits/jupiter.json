@@ -1,12 +1,108 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-07-11T08:28:19Z",
+  "generated": "2026-07-12T08:32:56Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434108060030620": [
+      {
+        "permitNumber": "26-096401-BLDR",
+        "parcelId": "30434108060030620",
+        "address": "191  HELIOS DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "replace 1 garage door 16x8",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-11",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/677271e9-6bf6-48ba-9b9b-1c760936d0ae"
+      }
+    ],
+    "30424124290062090": [
+      {
+        "permitNumber": "26-096400-COMM",
+        "parcelId": "30424124290062090",
+        "address": "221  GREENWICH CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Commercial Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Like for like replacement of 11 windows and one door. All glass is Impact rated.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-11",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4e5f9c05-1540-488a-af5c-6fc2cfa278af"
+      }
+    ],
+    "30434117020001185": [
+      {
+        "permitNumber": "26-096399-ELECR-R",
+        "parcelId": "30434117020001185",
+        "address": "270 E RIVER PARK DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "Remodel Kitchen, 2 Baths, Adding Bath & Loft Elect Upgrades and Additions",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-11",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c4208b69-f924-4c84-bdf1-95b9419fdc7c"
+      },
+      {
+        "permitNumber": "26-096125-NIMPT",
+        "parcelId": "30434117020001185",
+        "address": "270 E RIVER PARK DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Impact Fee Schedule - Impact Fees - Effective January 1, 2026",
+        "subtype": "Impact Fees - Effective January 1, 2026",
+        "description": "Remodel kitchen & 2 baths - Adding Bath & Loft",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-30",
+        "issuedDate": "2026-07-10",
+        "finalDate": "2026-07-10",
+        "expirationDate": "2026-07-10",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f70829db-848d-45d4-90f0-b6be0ec22a9c"
+      },
+      {
+        "permitNumber": "26-095382-BLDR",
+        "parcelId": "30434117020001185",
+        "address": "270 E RIVER PARK DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Remodel kitchen & 2 baths - Adding Bath & Loft",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-05-29",
+        "issuedDate": "2026-07-10",
+        "finalDate": null,
+        "expirationDate": "2027-01-06",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ffe799c6-744d-472c-bb3e-f994778dc8ef"
+      }
+    ],
     "30434116050044040": [
       {
         "permitNumber": "26-096396-ELEC-C",
@@ -9163,24 +9259,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9ef6f4b1-f0f6-4fcb-8dd7-31176224146e"
-      },
-      {
-        "permitNumber": "26-092889-ELECR-R",
-        "parcelId": "30424103260090080",
-        "address": "236  TIMBERWALK TRL  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Electrical",
-        "subtype": "Electrical",
-        "description": "FPL EV CHARGER INSTALLATION INSIDE GARAGE WITHIN 10' OF ELECTRICAL PANEL",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-30",
-        "issuedDate": "2026-02-11",
-        "finalDate": null,
-        "expirationDate": "2026-08-19",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3d4feb04-e74e-4281-9f27-1d6ef51ceeb3"
       }
     ],
     "30424114060000640": [
@@ -10117,44 +10195,6 @@
         "finalDate": "2026-07-02",
         "expirationDate": "2026-12-29",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1ed3e407-13a7-47b3-b384-834168e45d16"
-      }
-    ],
-    "30434117020001185": [
-      {
-        "permitNumber": "26-096125-NIMPT",
-        "parcelId": "30434117020001185",
-        "address": "270 E RIVER PARK DR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Impact Fee Schedule - Impact Fees - Effective January 1, 2026",
-        "subtype": "Impact Fees - Effective January 1, 2026",
-        "description": "Remodel kitchen & 2 baths - Adding Bath & Loft",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-30",
-        "issuedDate": "2026-07-10",
-        "finalDate": "2026-07-10",
-        "expirationDate": "2026-07-10",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f70829db-848d-45d4-90f0-b6be0ec22a9c"
-      },
-      {
-        "permitNumber": "26-095382-BLDR",
-        "parcelId": "30434117020001185",
-        "address": "270 E RIVER PARK DR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "Remodel kitchen & 2 baths - Adding Bath & Loft",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-29",
-        "issuedDate": "2026-07-10",
-        "finalDate": null,
-        "expirationDate": "2027-01-06",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ffe799c6-744d-472c-bb3e-f994778dc8ef"
       }
     ],
     "30434117030006160": [
@@ -32879,24 +32919,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-04",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/16bd59c8-d71f-4d46-81a5-8f9a7fbeca40"
-      },
-      {
-        "permitNumber": "26-092887-NIMPT",
-        "parcelId": "30424101070050230",
-        "address": "509 N PERRY AVE  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Impact Fee Schedule - Impact Fees - Effective January 1, 2026",
-        "subtype": "Impact Fees - Effective January 1, 2026",
-        "description": "Build a 200+/- square foot Office addition to home",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-30",
-        "issuedDate": "2026-02-04",
-        "finalDate": "2026-02-04",
-        "expirationDate": "2026-02-04",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4df8e1dd-5335-4605-9be9-4c4dae003690"
       }
     ],
     "30424124120001010": [
@@ -40595,7 +40617,7 @@
         "appliedDate": "2026-05-12",
         "issuedDate": "2026-05-14",
         "finalDate": null,
-        "expirationDate": "2027-01-04",
+        "expirationDate": "2027-01-06",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/cb0d435e-2597-4f90-9518-cc0965ba1c5e"
       }
     ],
@@ -52683,7 +52705,7 @@
         "appliedDate": "2026-04-07",
         "issuedDate": "2026-05-22",
         "finalDate": null,
-        "expirationDate": "2027-01-04",
+        "expirationDate": "2027-01-07",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/da49e5b6-fc05-4f09-a870-c63e96eb353d"
       }
     ],
@@ -63945,24 +63967,6 @@
         "finalDate": "2026-05-14",
         "expirationDate": "2026-11-10",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a88853f9-3d23-4008-930b-76bf4937043a"
-      },
-      {
-        "permitNumber": "26-092888-COCNTR",
-        "parcelId": "30434031150013190",
-        "address": "1748 JUPITER COVE DR Unit: 319A JUPITER FL 33469",
-        "city": "JUPITER",
-        "type": "Change of Contractor - Change of Contractor",
-        "subtype": "Change of Contractor",
-        "description": "COC for permit 25-091654-COMM",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-30",
-        "issuedDate": "2026-02-02",
-        "finalDate": "2026-02-02",
-        "expirationDate": "2026-08-01",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/461eba82-843a-4960-9c8e-ed1c4fc56db5"
       }
     ],
     "30424036020000330": [
@@ -76685,26 +76689,6 @@
         "finalDate": "2026-04-15",
         "expirationDate": "2026-10-12",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bb5e00f8-ced1-474d-bd1c-c4f5524765b0"
-      }
-    ],
-    "30424111150001280": [
-      {
-        "permitNumber": "26-092886-AC",
-        "parcelId": "30424111150001280",
-        "address": "243  SUSSEX CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "A/C Changeout",
-        "subtype": "Change Out",
-        "description": "(1) LENNOX 4-TON A/C CHANGE-OUT, LIKE FOR LIKE",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-30",
-        "issuedDate": "2026-02-12",
-        "finalDate": "2026-03-24",
-        "expirationDate": "2026-09-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/45feeb5e-dcf3-40d1-a926-5f7af57a6973"
       }
     ]
   }

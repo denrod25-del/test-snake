@@ -1,12 +1,32 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-07-11T08:18:34Z",
+  "generated": "2026-07-12T08:23:34Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "06424703050000170": [
+      {
+        "permitNumber": "BPQ-2026-01700",
+        "parcelId": "06424703050000170",
+        "address": "3320 NW 53rd Cir   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "replace 1 garage door 16x7",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-11",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c0046b55-9d23-47c0-adfa-c22f25a6256a"
+      }
+    ],
     "06434717090010070": [
       {
         "permitNumber": "BPC-2026-01266",
@@ -354,7 +374,7 @@
         "type": "Interior Only Alteration - Building (Commercial)",
         "subtype": "Interior Only Alteration",
         "description": "Interior Tenant Alterations - Suite 221A GWHS Law",
-        "status": "PreScreen",
+        "status": "In Review",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -9146,7 +9166,7 @@
         "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "Re-roof ",
         "description": "Re-roof Tile and Flat",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -27830,7 +27850,7 @@
         "type": "Flat wall sign with or without Electrical",
         "subtype": "Sign Flat Wall w/Struct Electrical",
         "description": "Illuminated Channel Letter wall sign",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -47412,7 +47432,7 @@
         "type": "Concrete Repair/Guardrail",
         "subtype": "Concrete Repair/Guardrail",
         "description": "One Park Place Garage Concrete Repairs",
-        "status": "PreScreen",
+        "status": "In Review",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -68249,24 +68269,6 @@
         "finalDate": null,
         "expirationDate": "2026-10-28",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/06bef713-7b1b-48c9-b1ce-c91d7dd32086"
-      },
-      {
-        "permitNumber": "BPC-2026-00554",
-        "parcelId": "06434716050010000",
-        "address": "2871 N Ocean Blvd M Unit: M Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Windows, Doors, Garage Doors, Shutters - Building (Commercial)",
-        "subtype": "Window/ door/ shutter",
-        "description": "Replacing 1 door in common area with impact",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-01",
-        "issuedDate": null,
-        "finalDate": "2026-04-02",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/fec5fd1d-6139-435b-963d-c6b1f3237588"
       }
     ],
     "06434632400260170": [
