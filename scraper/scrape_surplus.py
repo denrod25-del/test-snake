@@ -41,7 +41,7 @@ from typing import Dict, Any, List, Optional
 
 import requests
 
-from parsers_surplus import PARSERS, NoDataError
+from parsers_surplus import PARSERS, NoDataError, discover_pdf_url
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -89,6 +89,59 @@ def fetch(url: str) -> str:
         )
     r.raise_for_status()
     return r.text
+
+
+def fetch_bytes(url: str) -> bytes:
+    log.debug("GET bytes %s", url)
+    headers = {**HEADERS, "Accept": "application/pdf,*/*;q=0.8"}
+    r = requests.get(url, headers=headers, timeout=max(TIMEOUT, 60))
+    if r.status_code == 403:
+        snippet = (r.text or "")[:180].replace("\n", " ")
+        raise requests.HTTPError(
+            f"403 Forbidden (server={r.headers.get('server')}; body={snippet!r})",
+            response=r,
+        )
+    r.raise_for_status()
+    return r.content
+
+
+def scrape_county(county: str, cfg: dict) -> List[Dict[str, Any]]:
+    """Fetch + parse one county config into raw surplus records."""
+    parser_name = cfg.get("parser")
+    parser = PARSERS.get(parser_name)
+    if not parser:
+        if parser_name != "manual":
+            log.warning("[%s] unknown parser '%s'", county, parser_name)
+        return []
+
+    source_url = cfg["url"]
+    if parser_name == "clerk_pdf":
+        pdf_url = source_url
+        pattern = cfg.get("pdf_link_pattern")
+        # Listing page: discover newest matching PDF, then download bytes.
+        if pattern or not source_url.lower().endswith(".pdf") and "edoc" not in source_url.lower():
+            html = fetch(source_url)
+            if pattern:
+                found = discover_pdf_url(html, source_url, pattern)
+                if not found:
+                    raise NoDataError(f"no PDF matched pattern {pattern!r}")
+                pdf_url = found
+            elif ".pdf" not in source_url.lower():
+                # Heuristic: any surplus/excess PDF on the page
+                found = discover_pdf_url(
+                    html,
+                    source_url,
+                    r"(surplus|excess|overbid).*\.pdf|\.pdf.*(surplus|excess|overbid)",
+                )
+                if not found:
+                    raise NoDataError("no surplus PDF link found on listing page")
+                pdf_url = found
+        log.info("[%s] downloading PDF %s", county, pdf_url)
+        payload = fetch_bytes(pdf_url)
+        return parser(payload, pdf_url)
+
+    html = fetch(source_url)
+    return parser(html, source_url)
 
 
 def supabase_upsert(rows: List[Dict[str, Any]]) -> int:
@@ -179,31 +232,24 @@ def collect(only: str | None) -> Dict[str, List[Dict[str, Any]]]:
 
         cfg = sources.get(county)
         if cfg and cfg.get("enabled", True):
-            parser_name = cfg.get("parser")
-            parser = PARSERS.get(parser_name)
-            if not parser:
-                if parser_name != "manual":
-                    log.warning("[%s] unknown parser '%s'", county, parser_name)
-            else:
-                try:
-                    html = fetch(cfg["url"])
-                    parsed = parser(html, cfg["url"])
-                    for rec in parsed:
-                        n = normalize(rec, county)
-                        if not n:
-                            continue
-                        key = (n["sale_date"], n["parcel_id"])
-                        if any((r["sale_date"], r["parcel_id"]) == key for r in rows):
-                            continue
-                        rows.append(n)
-                    log.info("[%s] scraped %d usable records", county, len(parsed))
-                except NoDataError as e:
-                    log.info("[%s] no data: %s", county, e)
-                except requests.RequestException as e:
-                    log.warning("[%s] fetch failed: %s", county, e)
-                except Exception as e:  # noqa: BLE001
-                    log.exception("[%s] parser crashed: %s", county, e)
-                time.sleep(SLEEP_BETWEEN)
+            try:
+                parsed = scrape_county(county, cfg)
+                for rec in parsed:
+                    n = normalize(rec, county)
+                    if not n:
+                        continue
+                    key = (n["sale_date"], n["parcel_id"])
+                    if any((r["sale_date"], r["parcel_id"]) == key for r in rows):
+                        continue
+                    rows.append(n)
+                log.info("[%s] scraped %d usable records", county, len(parsed))
+            except NoDataError as e:
+                log.info("[%s] no data: %s", county, e)
+            except requests.RequestException as e:
+                log.warning("[%s] fetch failed: %s", county, e)
+            except Exception as e:  # noqa: BLE001
+                log.exception("[%s] parser crashed: %s", county, e)
+            time.sleep(SLEEP_BETWEEN)
 
         if rows:
             results[county] = rows

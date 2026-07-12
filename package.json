@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
+    "pdf-parse": "^2.4.5",
     "stripe": "^17.0.0"
   },
   "devDependencies": {

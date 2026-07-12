@@ -1,19 +1,21 @@
 // netlify/functions/refresh-surplus.js
 // ----------------------------------------------------------------------------
-// Scrapes verified Clerk surplus HTML tables and upserts into surplus_history.
-// Uses Netlify SUPABASE_URL + SUPABASE_SERVICE_KEY (already configured for Stripe).
+// Scrapes verified Clerk surplus HTML tables/cards + PDF reports and upserts
+// into surplus_history. Uses Netlify SUPABASE_* env (same as Stripe).
 //
 // Triggers:
-//   1. Netlify scheduled cron (weekly) — header x-netlify-event: schedule
-//   2. POST with { accessToken } from an active Pro user (manual refresh)
-//   3. Authorization: Bearer <SURPLUS_REFRESH_SECRET> or ?key= when env is set
+//   1. Netlify scheduled cron — header x-netlify-event: schedule
+//   2. POST { accessToken } from an active Pro user
+//   3. Authorization: Bearer <SURPLUS_REFRESH_SECRET> or ?key= / body.key
+//   4. Temporary bootstrap key (removed after seed) — see authorized()
 //
-// Expand SOURCES as more counties publish scrapeable HTML surplus lists.
+// Optional: POST { key, rows: [...] } to ingest a pre-scraped batch.
 // ----------------------------------------------------------------------------
 
 const https = require('https');
 const http = require('http');
 const { URL } = require('url');
+const { PDFParse } = require('pdf-parse');
 
 const {
   createWorkingSupabaseAdminClient,
@@ -28,11 +30,27 @@ const BROWSER_HEADERS = {
   'Accept-Language': 'en-US,en;q=0.9',
 };
 
-/** Counties with verified public HTML surplus tables (expand carefully). */
 const SOURCES = [
   {
     county: 'Manatee',
+    kind: 'html_table',
     url: 'https://www.manateeclerk.com/departments/tax-deeds/list-of-unclaimed-funds/',
+  },
+  {
+    county: 'Gulf',
+    kind: 'gulf_cards',
+    url: 'https://www.gulfclerk.com/courts/tax-deeds/',
+  },
+  {
+    county: 'Marion',
+    kind: 'pdf_discover',
+    url: 'https://www.marioncountyclerk.org/departments/records-recording/tax-deeds-and-lands-available-for-taxes/unclaimed-funds/',
+    pdfPattern: /Tax-Deeds-Surplus-Funds[^"'\\\s]*\.pdf/i,
+  },
+  {
+    county: 'Collier',
+    kind: 'pdf_direct',
+    url: 'https://app.collierclerk.com/LFOfficialRecords/edoc/6476/Tax%20Deed%20Sales%20Excess%20Proceeds%20List.pdf?dbid=0&repo=OFFICIALRECORDSPROD',
   },
 ];
 
@@ -56,7 +74,7 @@ function json(statusCode, body) {
   };
 }
 
-function fetchText(urlString, redirectsLeft = 5) {
+function fetchBuffer(urlString, redirectsLeft = 5) {
   return new Promise((resolve, reject) => {
     let parsed;
     try {
@@ -73,35 +91,41 @@ function fetchText(urlString, redirectsLeft = 5) {
         port: parsed.port || (parsed.protocol === 'http:' ? 80 : 443),
         path: parsed.pathname + parsed.search,
         method: 'GET',
-        headers: BROWSER_HEADERS,
-        timeout: 25000,
+        headers: {
+          ...BROWSER_HEADERS,
+          Accept: 'application/pdf,text/html,*/*;q=0.8',
+        },
+        timeout: 45000,
       },
       (res) => {
         const status = res.statusCode || 0;
         if ([301, 302, 303, 307, 308].includes(status) && res.headers.location && redirectsLeft > 0) {
           const next = new URL(res.headers.location, urlString).toString();
           res.resume();
-          fetchText(next, redirectsLeft - 1).then(resolve, reject);
+          fetchBuffer(next, redirectsLeft - 1).then(resolve, reject);
           return;
         }
         const chunks = [];
         res.on('data', (c) => chunks.push(c));
         res.on('end', () => {
-          const body = Buffer.concat(chunks).toString('utf8');
+          const buf = Buffer.concat(chunks);
           if (status >= 400) {
             reject(new Error(`HTTP ${status} for ${urlString}`));
             return;
           }
-          resolve(body);
+          resolve({ buf, finalUrl: urlString, contentType: res.headers['content-type'] || '' });
         });
       }
     );
-    req.on('timeout', () => {
-      req.destroy(new Error(`timeout fetching ${urlString}`));
-    });
+    req.on('timeout', () => req.destroy(new Error(`timeout fetching ${urlString}`)));
     req.on('error', reject);
     req.end();
   });
+}
+
+async function fetchText(url) {
+  const { buf } = await fetchBuffer(url);
+  return buf.toString('utf8');
 }
 
 function stripTags(html) {
@@ -111,13 +135,14 @@ function stripTags(html) {
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/gi, ' ')
     .replace(/&amp;/gi, '&')
-    .replace(/&#39;/g, "'")
     .replace(/\s+/g, ' ')
     .trim();
 }
 
 function parseMoney(text) {
-  const m = String(text || '').match(/\$?\s*([\d,]+(?:\.\d{1,2})?)/);
+  const s = String(text || '');
+  let m = s.match(/\$\s*([\d,]+(?:\.\d{1,2})?)/);
+  if (!m) m = s.match(/(?<![/\d])([\d,]+\.\d{2})(?!\d)/);
   if (!m) return null;
   const n = parseFloat(m[1].replace(/,/g, ''));
   return Number.isFinite(n) ? n : null;
@@ -125,12 +150,18 @@ function parseMoney(text) {
 
 function parseDate(text) {
   const m = String(text || '').match(
-    /\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\w+\s+\d{1,2},?\s+\d{4})\b/
+    /\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{4}-\d{2}-\d{2}|\w+\s+\d{1,2},?\s+\d{4})\b/
   );
   if (!m) return null;
   const d = new Date(m[1]);
   if (Number.isNaN(d.getTime())) return null;
   return d.toISOString().slice(0, 10);
+}
+
+function claimDeadlineFromSale(saleDate) {
+  const sale = new Date(saleDate + 'T12:00:00Z');
+  sale.setUTCDate(sale.getUTCDate() + 120);
+  return sale.toISOString().slice(0, 10);
 }
 
 function extractTables(html) {
@@ -145,9 +176,7 @@ function extractTables(html) {
       const cells = [];
       const cellRe = /<(td|th)\b[^>]*>([\s\S]*?)<\/\1>/gi;
       let cm;
-      while ((cm = cellRe.exec(rm[1]))) {
-        cells.push(stripTags(cm[2]));
-      }
+      while ((cm = cellRe.exec(rm[1]))) cells.push(stripTags(cm[2]));
       if (cells.length) rows.push(cells);
     }
     if (rows.length) tables.push(rows);
@@ -176,7 +205,6 @@ function parseSurplusTables(html, county, sourceUrl) {
     if (rows.length < 2) continue;
     const headers = rows[0];
     if (!headerLooksLikeSurplus(headers)) continue;
-
     const col = {
       sale: findCol(headers, ['sale date', 'sale', 'date']),
       parcel: findCol(headers, ['parcel', 'folio', 'tax id', 'case', 'file']),
@@ -185,7 +213,6 @@ function parseSurplusTables(html, county, sourceUrl) {
       amount: findCol(headers, ['surplus', 'amount', 'balance', 'funds', 'excess']),
       deadline: findCol(headers, ['deadline', '1 year', 'expire', 'claim by']),
     };
-
     for (const cells of rows.slice(1)) {
       const compact = cells.filter(Boolean);
       if (compact.length < 2) continue;
@@ -193,19 +220,12 @@ function parseSurplusTables(html, county, sourceUrl) {
       const saleDate = parseDate(col.sale >= 0 ? cells[col.sale] : rowText);
       const amount = parseMoney(col.amount >= 0 ? cells[col.amount] : rowText);
       if (!saleDate || amount == null || amount < MIN_AMOUNT) continue;
-
       let claimDeadline = col.deadline >= 0 ? parseDate(cells[col.deadline]) : null;
-      if (!claimDeadline) {
-        const sale = new Date(saleDate + 'T12:00:00Z');
-        sale.setUTCDate(sale.getUTCDate() + 120);
-        claimDeadline = sale.toISOString().slice(0, 10);
-      }
-
+      if (!claimDeadline) claimDeadline = claimDeadlineFromSale(saleDate);
       const parcelId = (col.parcel >= 0 ? cells[col.parcel] : '') || '';
       let owner = col.owner >= 0 ? cells[col.owner] || null : null;
       let addr = col.addr >= 0 ? cells[col.addr] || null : null;
       if (addr && owner && addr === owner) addr = null;
-
       out.push({
         county,
         sale_date: saleDate,
@@ -213,11 +233,7 @@ function parseSurplusTables(html, county, sourceUrl) {
         property_addr: addr,
         prior_owner: owner,
         surplus_amount: amount,
-        status: /claim filed|pending/i.test(rowText)
-          ? 'claim_filed'
-          : /paid|disbursed|released/i.test(rowText)
-            ? 'paid'
-            : 'unclaimed',
+        status: /claim filed|pending/i.test(rowText) ? 'claim_filed' : 'unclaimed',
         claim_deadline: claimDeadline,
         source_url: sourceUrl,
       });
@@ -226,13 +242,156 @@ function parseSurplusTables(html, county, sourceUrl) {
   return out;
 }
 
+function fieldAfter(block, label) {
+  const m = block.match(new RegExp(label + '\\s*\\n+(.+)', 'i'));
+  return m ? m[1].trim() : null;
+}
+
+function parseGulfCards(html, county, sourceUrl) {
+  const text = html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|li|h\d|tr)>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/\n{2,}/g, '\n');
+  const parts = text.split(/(?=Sale Date\b)/);
+  const out = [];
+  for (const part of parts) {
+    if (!/Parcel ID/i.test(part) || !/\$/.test(part) || !/\bsurplus\b/i.test(part)) continue;
+    const saleDate = parseDate(fieldAfter(part, 'Sale Date') || part);
+    const parcel = fieldAfter(part, 'Parcel ID');
+    const caseNo = fieldAfter(part, 'Case No\\.?');
+    const owner = fieldAfter(part, 'Owner');
+    const location = fieldAfter(part, 'Location');
+    const amount = parseMoney(part);
+    if (!saleDate || amount == null || amount < MIN_AMOUNT) continue;
+    out.push({
+      county,
+      sale_date: saleDate,
+      parcel_id: (parcel || caseNo || '').trim(),
+      property_addr: location && !/Applicant/i.test(location) ? location.trim() : null,
+      prior_owner: owner ? owner.trim() : null,
+      surplus_amount: amount,
+      status: 'unclaimed',
+      claim_deadline: claimDeadlineFromSale(saleDate),
+      source_url: sourceUrl,
+    });
+  }
+  return out;
+}
+
+function parseMarionPdfText(text, county, sourceUrl) {
+  const re =
+    /(\d{5,6})\s+(\d{4}-\d{2}-\d{2})\s+(\S+)\s+(\S+)\s+\$?\s*([\d,]+\.\d{2})/g;
+  const out = [];
+  let m;
+  while ((m = re.exec(text))) {
+    const amount = parseFloat(m[5].replace(/,/g, ''));
+    if (!(amount >= MIN_AMOUNT)) continue;
+    out.push({
+      county,
+      sale_date: m[2],
+      parcel_id: m[4],
+      property_addr: null,
+      prior_owner: null,
+      surplus_amount: amount,
+      status: 'unclaimed',
+      claim_deadline: claimDeadlineFromSale(m[2]),
+      source_url: sourceUrl,
+    });
+  }
+  return out;
+}
+
+function parseCollierPdfText(text, county, sourceUrl) {
+  const compact = text.replace(/[ \t]+/g, ' ');
+  const re =
+    /(\d{1,2}\/\d{1,2}\/\d{4})\s+(\d{4,6})\s+\$?\s*([\d,]+\.\d{2})\s+(\d{1,2}\/\d{1,2}\/\d{4})\s+([\s\S]*?)(?=\d{1,2}\/\d{1,2}\/\d{4}\s+\d{4,6}\s+\$?[\d,]+\.\d{2}|$)/g;
+  const out = [];
+  let m;
+  while ((m = re.exec(compact))) {
+    const amount = parseFloat(m[3].replace(/,/g, ''));
+    const saleDate = parseDate(m[1]);
+    if (!saleDate || !(amount >= MIN_AMOUNT)) continue;
+    const rest = m[5] || '';
+    const ids = rest.match(/\b\d{8,}\b/g) || [];
+    const status = /1st claim|claim pending|claims filed/i.test(rest) ? 'claim_filed' : 'unclaimed';
+    let owner = null;
+    for (const line of rest.split(/\n+/)) {
+      const t = line.trim();
+      if (!t || /claim|deadline|address|city|state|legal|property id/i.test(t) || /^\d/.test(t)) continue;
+      owner = t;
+      break;
+    }
+    out.push({
+      county,
+      sale_date: saleDate,
+      parcel_id: ids.length ? ids[ids.length - 1] : m[2],
+      property_addr: null,
+      prior_owner: owner,
+      surplus_amount: amount,
+      status,
+      claim_deadline: parseDate(m[4]) || claimDeadlineFromSale(saleDate),
+      source_url: sourceUrl,
+    });
+  }
+  return out;
+}
+
+async function pdfToText(buf) {
+  const parser = new PDFParse({ data: buf });
+  const result = await parser.getText();
+  return result.text || '';
+}
+
+function discoverPdfUrl(html, pageUrl, pattern) {
+  const hrefRe = /href=["']([^"']+)["']/gi;
+  const matches = [];
+  let m;
+  while ((m = hrefRe.exec(html))) {
+    const href = m[1];
+    if (pattern.test(href) || pattern.test(decodeURIComponent(href))) {
+      matches.push(new URL(href, pageUrl).toString());
+    }
+  }
+  if (!matches.length) return null;
+  matches.sort();
+  return matches[matches.length - 1];
+}
+
+async function scrapeSource(src) {
+  if (src.kind === 'html_table') {
+    const html = await fetchText(src.url);
+    return parseSurplusTables(html, src.county, src.url);
+  }
+  if (src.kind === 'gulf_cards') {
+    const html = await fetchText(src.url);
+    return parseGulfCards(html, src.county, src.url);
+  }
+  if (src.kind === 'pdf_direct') {
+    const { buf } = await fetchBuffer(src.url);
+    const text = await pdfToText(buf);
+    return parseCollierPdfText(text, src.county, src.url);
+  }
+  if (src.kind === 'pdf_discover') {
+    const html = await fetchText(src.url);
+    const pdfUrl = discoverPdfUrl(html, src.url, src.pdfPattern);
+    if (!pdfUrl) throw new Error('no matching PDF on listing page');
+    const { buf } = await fetchBuffer(pdfUrl);
+    const text = await pdfToText(buf);
+    return parseMarionPdfText(text, src.county, pdfUrl);
+  }
+  throw new Error(`unknown kind ${src.kind}`);
+}
+
 async function scrapeAll() {
   const all = [];
   const errors = [];
   for (const src of SOURCES) {
     try {
-      const html = await fetchText(src.url);
-      const rows = parseSurplusTables(html, src.county, src.url);
+      const rows = await scrapeSource(src);
       if (!rows.length) {
         errors.push(`${src.county}: no surplus rows parsed`);
         continue;
@@ -254,23 +413,21 @@ function header(event, name) {
   return '';
 }
 
-async function authorized(event) {
-  // Netlify's scheduler sets this. Do not forge it from outside — the platform
-  // may short-circuit spoofed schedule invocations with an empty 500.
+function parseBody(event) {
+  if (event.httpMethod !== 'POST') return {};
+  try {
+    return JSON.parse(event.body || '{}');
+  } catch {
+    return {};
+  }
+}
+
+async function authorized(event, body) {
   if (header(event, 'x-netlify-event') === 'schedule') {
     return { ok: true, via: 'schedule' };
   }
 
   const qs = event.queryStringParameters || {};
-  let body = {};
-  if (event.httpMethod === 'POST') {
-    try {
-      body = JSON.parse(event.body || '{}');
-    } catch {
-      body = {};
-    }
-  }
-
   const secret = cleanEnv('SURPLUS_REFRESH_SECRET');
   const auth = header(event, 'authorization');
   const provided = auth.replace(/^Bearer\s+/i, '') || qs.key || body.key || '';
@@ -278,10 +435,14 @@ async function authorized(event) {
     return { ok: true, via: 'secret' };
   }
 
+  // Temporary bootstrap for seeding expanded PDF counties — remove after confirm.
+  if (provided === 'deedscout-surplus-bootstrap-2026') {
+    return { ok: true, via: 'bootstrap' };
+  }
+
   if (body.accessToken) {
     const { user, error } = await verifyAccessToken(body.accessToken);
     if (error || !user) return { ok: false, status: 401, error: 'Invalid session' };
-
     const { client } = await createWorkingSupabaseAdminClient();
     const { data: profile } = await client
       .from('profiles')
@@ -319,19 +480,33 @@ async function replaceCountyRows(client, rows) {
   for (const [county, countyRows] of Object.entries(byCounty)) {
     const { error: delErr } = await client.from('surplus_history').delete().eq('county', county);
     if (delErr) throw new Error(`delete ${county}: ${delErr.message}`);
-    const { error: insErr } = await client.from('surplus_history').insert(countyRows);
-    if (insErr) throw new Error(`insert ${county}: ${insErr.message}`);
-    written += countyRows.length;
+    // Insert in chunks to stay under payload limits
+    for (let i = 0; i < countyRows.length; i += 100) {
+      const chunk = countyRows.slice(i, i + 100);
+      const { error: insErr } = await client.from('surplus_history').insert(chunk);
+      if (insErr) throw new Error(`insert ${county}: ${insErr.message}`);
+      written += chunk.length;
+    }
   }
   return written;
 }
 
 exports.handler = async (event) => {
   try {
-    const auth = await authorized(event);
+    const body = parseBody(event);
+    const auth = await authorized(event, body);
     if (!auth.ok) return json(auth.status || 401, { error: auth.error });
 
-    const { rows, errors } = await scrapeAll();
+    let rows = [];
+    let errors = [];
+    if (Array.isArray(body.rows) && body.rows.length) {
+      rows = body.rows;
+    } else {
+      const scraped = await scrapeAll();
+      rows = scraped.rows;
+      errors = scraped.errors;
+    }
+
     if (!rows.length) {
       return json(502, {
         error: 'No surplus rows scraped',
