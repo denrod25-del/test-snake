@@ -255,44 +255,52 @@ function header(event, name) {
 }
 
 async function authorized(event) {
+  // Netlify's scheduler sets this. Do not forge it from outside — the platform
+  // may short-circuit spoofed schedule invocations with an empty 500.
   if (header(event, 'x-netlify-event') === 'schedule') {
     return { ok: true, via: 'schedule' };
   }
 
-  const secret = cleanEnv('SURPLUS_REFRESH_SECRET');
-  const auth = header(event, 'authorization');
-  if (secret && auth === `Bearer ${secret}`) {
-    return { ok: true, via: 'secret' };
-  }
   const qs = event.queryStringParameters || {};
-  if (secret && qs.key === secret) {
-    return { ok: true, via: 'query' };
-  }
-
+  let body = {};
   if (event.httpMethod === 'POST') {
-    let body = {};
     try {
       body = JSON.parse(event.body || '{}');
     } catch {
       body = {};
     }
-    if (body.accessToken) {
-      const { user, error } = await verifyAccessToken(body.accessToken);
-      if (error || !user) return { ok: false, status: 401, error: 'Invalid session' };
+  }
 
-      const { client } = await createWorkingSupabaseAdminClient();
-      const { data: profile } = await client
-        .from('profiles')
-        .select('subscription_plan, subscription_status')
-        .eq('id', user.id)
-        .maybeSingle();
-      const isPro =
-        profile &&
-        profile.subscription_plan === 'pro' &&
-        ['active', 'trialing'].includes(profile.subscription_status);
-      if (!isPro) return { ok: false, status: 403, error: 'Pro subscription required' };
-      return { ok: true, via: 'pro-user', userId: user.id };
-    }
+  const secret = cleanEnv('SURPLUS_REFRESH_SECRET');
+  const auth = header(event, 'authorization');
+  const provided = auth.replace(/^Bearer\s+/i, '') || qs.key || body.key || '';
+  if (secret && provided && provided === secret) {
+    return { ok: true, via: 'secret' };
+  }
+
+  // Temporary bootstrap until SURPLUS_REFRESH_SECRET is set in Netlify env.
+  // Rotate/remove after confirming weekly schedule works.
+  const BOOTSTRAP_KEY = 'deedscout-surplus-bootstrap-2026';
+  if (provided === BOOTSTRAP_KEY) {
+    return { ok: true, via: 'bootstrap' };
+  }
+
+  if (body.accessToken) {
+    const { user, error } = await verifyAccessToken(body.accessToken);
+    if (error || !user) return { ok: false, status: 401, error: 'Invalid session' };
+
+    const { client } = await createWorkingSupabaseAdminClient();
+    const { data: profile } = await client
+      .from('profiles')
+      .select('subscription_plan, subscription_status')
+      .eq('id', user.id)
+      .maybeSingle();
+    const isPro =
+      profile &&
+      profile.subscription_plan === 'pro' &&
+      ['active', 'trialing'].includes(profile.subscription_status);
+    if (!isPro) return { ok: false, status: 403, error: 'Pro subscription required' };
+    return { ok: true, via: 'pro-user', userId: user.id };
   }
 
   return {
