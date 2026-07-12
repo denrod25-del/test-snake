@@ -7498,13 +7498,37 @@
             <thead>
               <tr>
                 <th>Sale Date</th><th>County</th><th>Property</th><th>Prior Owner</th>
-                <th style="text-align:right;">Surplus</th><th>Status</th><th>Deadline</th>
+                <th style="text-align:right;">Surplus</th><th>Status</th><th>Deadline</th><th>Source</th>
               </tr>
             </thead>
-            <tbody id="surplusBody"><tr><td colspan="7" style="padding:32px;text-align:center;color:#888;">Loading&hellip;</td></tr></tbody>
+            <tbody id="surplusBody"><tr><td colspan="8" style="padding:32px;text-align:center;color:#888;">Loading&hellip;</td></tr></tbody>
           </table>
         </div>
       `;
+
+      // Official clerk surplus directories (landing pages), not raw PDF/XLSX files.
+      const SURPLUS_DIRECTORY = {
+        'Manatee': 'https://www.manateeclerk.com/departments/tax-deeds/list-of-unclaimed-funds/',
+        'Marion': 'https://www.marioncountyclerk.org/departments/records-recording/tax-deeds-and-lands-available-for-taxes/unclaimed-funds/',
+        'Collier': 'https://www.collierclerk.com/tax-deed-sales/tax-deed-surplus/',
+        'Gulf': 'https://www.gulfclerk.com/courts/tax-deeds/',
+        'Pasco': 'https://app.pascoclerk.com/appdot-public-statistical-reports-taxdeeds.asp',
+        'Pasco County': 'https://pascoclerk.com/839/Tax-Deed-Surplus',
+      };
+
+      const escAttr = (s) => String(s || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      const surplusDirUrl = (r) => {
+        if (SURPLUS_DIRECTORY[r.county]) return SURPLUS_DIRECTORY[r.county];
+        const src = r.source_url || '';
+        // If source is already an HTML page, use it; otherwise fall back to county map only.
+        if (src && !/\.(pdf|xlsx)(\?|$)/i.test(src)) return src;
+        return '';
+      };
 
       loadSurplus().then(rows => {
         const body = document.getElementById('surplusBody');
@@ -7517,17 +7541,27 @@
             }
             return true;
           });
-          body.innerHTML = filtered.length ? filtered.map(r => `
+          body.innerHTML = filtered.length ? filtered.map(r => {
+            const dir = surplusDirUrl(r);
+            const src = r.source_url || dir;
+            const countyHtml = dir
+              ? `<a class="county-link" href="${escAttr(dir)}" target="_blank" rel="noopener" title="Open clerk surplus directory">${escAttr(r.county)}</a>`
+              : `<strong>${escAttr(r.county)}</strong>`;
+            const sourceHtml = src
+              ? `<a class="btn-link" href="${escAttr(src)}" target="_blank" rel="noopener" style="font-size:12px;">Clerk source &rarr;</a>`
+              : '&mdash;';
+            return `
             <tr>
               <td>${new Date(r.sale_date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</td>
-              <td><strong>${r.county}</strong></td>
-              <td>${r.property_addr||'&mdash;'}<br><span style="font-size:11px;color:#888;">${r.parcel_id||''}</span></td>
-              <td>${r.prior_owner||'&mdash;'}</td>
+              <td>${countyHtml}</td>
+              <td>${escAttr(r.property_addr)||'&mdash;'}<br><span style="font-size:11px;color:#888;">${escAttr(r.parcel_id)||''}</span></td>
+              <td>${escAttr(r.prior_owner)||'&mdash;'}</td>
               <td style="text-align:right;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);">$${Number(r.surplus_amount||0).toLocaleString()}</td>
-              <td><span class="status-pill ${r.status}">${r.status.replace('_',' ')}</span></td>
+              <td><span class="status-pill ${escAttr(r.status)}">${escAttr(String(r.status||'').replace('_',' '))}</span></td>
               <td>${r.claim_deadline ? new Date(r.claim_deadline).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '&mdash;'}</td>
-            </tr>
-          `).join('') : '<tr><td colspan="7" style="padding:32px;text-align:center;color:#888;">No matching records.</td></tr>';
+              <td>${sourceHtml}</td>
+            </tr>`;
+          }).join('') : '<tr><td colspan="8" style="padding:32px;text-align:center;color:#888;">No matching records.</td></tr>';
           document.getElementById('surplusCount').textContent = filtered.length.toLocaleString();
         };
         const total = rows.reduce((s,r) => s + Number(r.surplus_amount||0), 0);
