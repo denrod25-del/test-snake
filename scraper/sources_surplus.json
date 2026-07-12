@@ -25,6 +25,13 @@
     "enabled": true,
     "notes": "HTML surplus/overbid cards (Sale Date / Parcel / Owner / $)."
   },
+  "Pasco": {
+    "parser": "clerk_xlsx",
+    "url": "https://app.pascoclerk.com/appdot-public-statistical-reports-taxdeeds.asp",
+    "pdf_link_pattern": "Unclaimed Tax Deed Surplus.*\\.xlsx",
+    "enabled": true,
+    "notes": "Monthly Unclaimed Tax Deed Surplus Excel workbook from Clerk public reports."
+  },
   "Alachua": { "parser": "realauction_surplus", "url": "https://alachua.realtaxdeed.com/", "enabled": false, "notes": "Homepage has no surplus table; needs surplus-tab scrape." },
   "Bay": { "parser": "realauction_surplus", "url": "https://bay.realtaxdeed.com/", "enabled": false },
   "Brevard": { "parser": "clerk_html_table", "url": "https://www.brevardclerk.us/tax-deed-surplus", "enabled": false, "notes": "Info page, no surplus table." },
@@ -41,13 +48,13 @@
   "Orange": { "parser": "clerk_html_table", "url": "https://www.occompt.com/191/Tax-Deed-Sales", "enabled": false },
   "Osceola": { "parser": "clerk_html_table", "url": "https://osceolaclerk.com/tax-deeds/", "enabled": false, "notes": "Nav tables only." },
   "Palm Beach": { "parser": "clerk_html_table", "url": "https://www.mypalmbeachclerk.com/departments/courts/tax-deeds/sale-information", "enabled": false, "notes": "403 to automated clients." },
-  "Pasco": { "parser": "clerk_html_table", "url": "https://pascoclerk.com/839/Tax-Deed-Surplus", "enabled": false, "notes": "Info page, no list." },
   "Pinellas": { "parser": "clerk_html_table", "url": "https://www.mypinellasclerk.gov/Home/TaxDeedSurplus", "enabled": false, "notes": "403 to automated clients." },
   "Polk": { "parser": "clerk_html_table", "url": "https://apps.polkcountyclerk.net/browserviewtd/", "enabled": false },
   "Sarasota": { "parser": "clerk_html_table", "url": "https://www.sarasotaclerk.com/Home-and-Property/Tax-Deeds/Surplus-Funds-from-Tax-Deed-Sale", "enabled": false, "notes": "403 to automated clients." },
   "Seminole": { "parser": "clerk_html_table", "url": "https://www.seminoleclerk.org/online-services/property-auctions/tax-deed-sales/", "enabled": false },
   "St. Johns": { "parser": "clerk_html_table", "url": "https://stjohnsclerk.com/foreclosure/tax-deeds-2/", "enabled": false, "notes": "Fee schedule table, not surplus list." },
   "St. Lucie": { "parser": "clerk_html_table", "url": "https://www.stlucieclerk.com/tax-deeds/surplus-funds", "enabled": false, "notes": "403 to automated clients." },
+  "Charlotte": { "parser": "clerk_html_table", "url": "https://taxdeeds.charlotteclerk.com/TaxDeed/Surplus", "enabled": false, "notes": "SPA search UI; only per-case GetTaxDeedDetail API, no bulk surplus list." },
   "Sumter": { "parser": "clerk_pdf", "url": "https://www.sumterclerk.com/surplus-funds-list", "pdf_link_pattern": "(?i)tax.?deed.*surplus|surplus.*tax.?deed", "enabled": false, "notes": "Page mentions Tax Deed Sales Surplus PDF but link is JS-rendered / not in static HTML." },
   "Volusia": { "parser": "clerk_html_table", "url": "https://www.clerk.org/tax-deeds/surplus-funds", "enabled": false }
 }

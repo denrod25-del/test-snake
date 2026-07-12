@@ -321,27 +321,6 @@ def parse_clerk_pdf(pdf_bytes: bytes, source_url: str) -> List[Dict[str, Any]]:
     return rows
 
 
-def discover_pdf_url(html: str, page_url: str, pattern: str) -> Optional[str]:
-    """Pick the newest matching PDF href from an index/listing page."""
-    from urllib.parse import urljoin
-
-    rx = re.compile(pattern, re.I)
-    soup = BeautifulSoup(html, "lxml")
-    matches = []
-    for a in soup.find_all("a", href=True):
-        href = a["href"]
-        if rx.search(href) or rx.search(a.get_text(" ", strip=True) or ""):
-            matches.append(urljoin(page_url, href))
-    if not matches:
-        return None
-    # Prefer URLs with YYYY/MM or YYYY-MM-DD-looking path segments (newest last lexically often works)
-    matches = sorted(set(matches))
-    return matches[-1]
-
-
-# --------------------------------------------------------------------------
-# PDF layout helpers
-# --------------------------------------------------------------------------
 _MARION_ROW_RE = re.compile(
     r"(?P<sale_num>\d{5,6})\s+"
     r"(?P<sale_date>\d{4}-\d{2}-\d{2})\s+"
@@ -382,7 +361,6 @@ def _parse_marion_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any]
 
 
 def _parse_collier_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any]]:
-    # Normalize whitespace enough for the multiline regex to see fields.
     compact = re.sub(r"[ \t]+", " ", text)
     out: List[Dict[str, Any]] = []
     for m in _COLLIER_ROW_RE.finditer(compact):
@@ -392,10 +370,8 @@ def _parse_collier_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any
             continue
         rest = m.group("rest") or ""
         status = "claim_filed" if re.search(r"1st claim|claim pending|claims filed", rest, re.I) else "unclaimed"
-        # Property ID is typically a long digit string near the end of the block
         prop_ids = re.findall(r"\b\d{8,}\b", rest)
         parcel = prop_ids[-1] if prop_ids else m.group("tda")
-        # Owner: first ALL-CAPS-ish line that is not an address keyword
         owner = None
         for line in rest.splitlines():
             line = line.strip()
@@ -420,7 +396,6 @@ def _parse_collier_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any
 
 
 def _parse_generic_surplus_pdf(text: str, source_url: str) -> List[Dict[str, Any]]:
-    """Fallback: lines that contain both a date and a dollar amount."""
     out: List[Dict[str, Any]] = []
     for line in text.splitlines():
         if "$" not in line and not re.search(r"\d+\.\d{2}", line):
@@ -455,6 +430,127 @@ def _field_after(block: str, label: str) -> Optional[str]:
     return m.group(1).strip()
 
 
+def discover_pdf_url(html: str, page_url: str, pattern: str) -> Optional[str]:
+    """Pick the newest matching PDF/XLSX href from an index/listing page."""
+    from urllib.parse import urljoin
+
+    rx = re.compile(pattern, re.I)
+    soup = BeautifulSoup(html, "lxml")
+    matches = []
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        label = a.get_text(" ", strip=True) or ""
+        if rx.search(href) or rx.search(label):
+            matches.append(urljoin(page_url, href))
+    if not matches:
+        return None
+    matches = sorted(set(matches))
+    return matches[-1]
+
+
+def parse_clerk_xlsx(xlsx_bytes: bytes, source_url: str) -> List[Dict[str, Any]]:
+    """
+    Parse Clerk surplus workbooks (Pasco-style monthly sheets with
+    DATE RECEIVED / TDA # / ORIGINAL OWNER / PARCEL ID # / ACTUAL BALANCE / BALANCE).
+    """
+    try:
+        from openpyxl import load_workbook
+    except ImportError as e:
+        raise NoDataError("openpyxl is required for clerk_xlsx parser") from e
+
+    import io
+
+    if not xlsx_bytes or xlsx_bytes[:2] != b"PK":
+        raise NoDataError("payload is not an XLSX workbook")
+
+    wb = load_workbook(io.BytesIO(xlsx_bytes), data_only=True)
+    # sheet order is chronological in Pasco file; later sheets win on dedupe
+    by_key: Dict[str, Dict[str, Any]] = {}
+
+    for sheet_name in wb.sheetnames:
+        ws = wb[sheet_name]
+        header_idx = None
+        headers: List[str] = []
+        for i, row in enumerate(ws.iter_rows(values_only=True), start=1):
+            vals = [("" if v is None else str(v)).strip() for v in row]
+            joined = " ".join(vals).lower()
+            if "parcel" in joined and ("balance" in joined or "owner" in joined or "tda" in joined):
+                header_idx = i
+                headers = [_normalize(v) for v in vals]
+                break
+        if header_idx is None:
+            continue
+
+        col = {
+            "sale_date": _find_col(headers, "date received", "sale date", "sale", "date"),
+            "parcel_id": _find_col(headers, "parcel id", "parcel", "folio"),
+            "case_id": _find_col(headers, "tda", "case", "file"),
+            "prior_owner": _find_col(headers, "original owner", "owner", "name"),
+            "actual": _find_col(headers, "actual balance", "surplus", "excess"),
+            "balance": _find_col(headers, "balance"),
+            "date_paid": _find_col(headers, "date paid", "paid date"),
+            "amount_paid": _find_col(headers, "amount paid"),
+        }
+
+        for row in ws.iter_rows(min_row=header_idx + 1, values_only=True):
+            cells = list(row)
+            parcel = _clean(str(_get(cells, col["parcel_id"]) or ""))
+            case_id = _clean(str(_get(cells, col["case_id"]) or ""))
+            owner = _clean(str(_get(cells, col["prior_owner"]) or ""))
+
+            bal_raw = _get(cells, col["balance"])
+            act_raw = _get(cells, col["actual"])
+            amount = _excel_money(bal_raw)
+            if amount is None:
+                amount = _excel_money(act_raw)
+            if amount is None or amount < _MIN_SURPLUS_AMOUNT:
+                continue
+
+            sale_raw = _get(cells, col["sale_date"])
+            sale_iso = _excel_date(sale_raw)
+            if not sale_iso:
+                continue
+
+            paid_date = _excel_date(_get(cells, col["date_paid"]))
+            status = "paid" if amount < 1 and paid_date else "unclaimed"
+
+            key = f"{case_id or ''}|{parcel or ''}|{sale_iso}"
+            by_key[key] = {
+                "sale_date": sale_iso,
+                "parcel_id": parcel or case_id,
+                "property_addr": None,
+                "prior_owner": owner,
+                "surplus_amount": amount,
+                "status": status,
+                "claim_deadline": _claim_deadline_from_sale(sale_iso),
+                "source_url": source_url,
+            }
+
+    out = list(by_key.values())
+    if not out:
+        raise NoDataError("XLSX parsed but no usable surplus rows")
+    return out
+
+
+def _excel_money(val: Any) -> Optional[float]:
+    if val is None or val == "":
+        return None
+    if isinstance(val, (int, float)):
+        return float(val)
+    return _parse_money(str(val))
+
+
+def _excel_date(val: Any) -> Optional[str]:
+    if val is None or val == "":
+        return None
+    if hasattr(val, "date"):
+        try:
+            return val.date().isoformat()
+        except Exception:
+            pass
+    return _parse_date(str(val))
+
+
 # --------------------------------------------------------------------------
 # small helpers
 # --------------------------------------------------------------------------
@@ -471,7 +567,7 @@ def _find_col(headers: List[str], *needles: str) -> Optional[int]:
     return None
 
 
-def _get(cells: List[str], i: Optional[int]) -> Optional[str]:
+def _get(cells: List[Any], i: Optional[int]) -> Optional[Any]:
     if i is None or i >= len(cells):
         return None
     return cells[i]
@@ -494,4 +590,5 @@ PARSERS = {
     "realauction_surplus": parse_realauction_surplus,
     "gulf_surplus_cards": parse_gulf_surplus_cards,
     "clerk_pdf": parse_clerk_pdf,
+    "clerk_xlsx": parse_clerk_xlsx,
 }

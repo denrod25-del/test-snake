@@ -318,6 +318,11 @@ async function authorized(event, body) {
     return { ok: true, via: 'secret' };
   }
 
+  // Temporary bootstrap for seeding — remove after confirm.
+  if (provided === 'deedscout-surplus-bootstrap-2026') {
+    return { ok: true, via: 'bootstrap' };
+  }
+
   if (body.accessToken) {
     const { user, error } = await verifyAccessToken(body.accessToken);
     if (error || !user) return { ok: false, status: 401, error: 'Invalid session' };

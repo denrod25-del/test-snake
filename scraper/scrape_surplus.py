@@ -33,6 +33,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -115,30 +116,31 @@ def scrape_county(county: str, cfg: dict) -> List[Dict[str, Any]]:
         return []
 
     source_url = cfg["url"]
-    if parser_name == "clerk_pdf":
-        pdf_url = source_url
-        pattern = cfg.get("pdf_link_pattern")
-        # Listing page: discover newest matching PDF, then download bytes.
-        if pattern or not source_url.lower().endswith(".pdf") and "edoc" not in source_url.lower():
+    if parser_name in ("clerk_pdf", "clerk_xlsx"):
+        file_url = source_url
+        pattern = cfg.get("pdf_link_pattern") or cfg.get("file_link_pattern")
+        needs_discover = bool(pattern) or (
+            not re.search(r"\.(pdf|xlsx)(\?|$)", source_url, re.I)
+            and "edoc" not in source_url.lower()
+        )
+        if needs_discover:
             html = fetch(source_url)
             if pattern:
                 found = discover_pdf_url(html, source_url, pattern)
-                if not found:
-                    raise NoDataError(f"no PDF matched pattern {pattern!r}")
-                pdf_url = found
-            elif ".pdf" not in source_url.lower():
-                # Heuristic: any surplus/excess PDF on the page
+            else:
                 found = discover_pdf_url(
                     html,
                     source_url,
-                    r"(surplus|excess|overbid).*\.pdf|\.pdf.*(surplus|excess|overbid)",
+                    r"(surplus|excess|overbid).*\.(pdf|xlsx)|\.(pdf|xlsx).*(surplus|excess|overbid)",
                 )
-                if not found:
-                    raise NoDataError("no surplus PDF link found on listing page")
-                pdf_url = found
-        log.info("[%s] downloading PDF %s", county, pdf_url)
-        payload = fetch_bytes(pdf_url)
-        return parser(payload, pdf_url)
+            if not found:
+                raise NoDataError(
+                    f"no surplus file matched on listing page ({pattern or 'default'})"
+                )
+            file_url = found
+        log.info("[%s] downloading %s", county, file_url)
+        payload = fetch_bytes(file_url)
+        return parser(payload, file_url)
 
     html = fetch(source_url)
     return parser(html, source_url)
