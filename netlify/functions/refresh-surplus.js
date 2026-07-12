@@ -359,12 +359,6 @@ async function authorized(event, body) {
     return { ok: true, via: 'secret' };
   }
 
-  // Temporary bootstrap for Calhoun + full surplus reseed — remove after confirm.
-  const BOOTSTRAP_KEY = 'deedscout-surplus-bootstrap-2026';
-  if (provided && provided === BOOTSTRAP_KEY) {
-    return { ok: true, via: 'bootstrap' };
-  }
-
   if (body.accessToken) {
     const { user, error } = await verifyAccessToken(body.accessToken);
     if (error || !user) return { ok: false, status: 401, error: 'Invalid session' };
