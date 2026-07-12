@@ -1,21 +1,19 @@
 // netlify/functions/refresh-surplus.js
 // ----------------------------------------------------------------------------
-// Scrapes verified Clerk surplus HTML tables/cards + PDF reports and upserts
-// into surplus_history. Uses Netlify SUPABASE_* env (same as Stripe).
+// Scrapes verified Clerk surplus HTML (tables/cards) and upserts into
+// surplus_history. PDF counties are scraped by Python (scrape_surplus.py) and
+// can be ingested via POST { rows: [...] } (Pro / SURPLUS_REFRESH_SECRET).
 //
 // Triggers:
 //   1. Netlify scheduled cron — header x-netlify-event: schedule
 //   2. POST { accessToken } from an active Pro user
 //   3. Authorization: Bearer <SURPLUS_REFRESH_SECRET> or ?key= / body.key
-//   4. Temporary bootstrap key (removed after seed) — see authorized()
-//
-// Optional: POST { key, rows: [...] } to ingest a pre-scraped batch.
+//   4. Temporary bootstrap key for seeding — remove after confirm
 // ----------------------------------------------------------------------------
 
 const https = require('https');
 const http = require('http');
 const { URL } = require('url');
-const { PDFParse } = require('pdf-parse');
 
 const {
   createWorkingSupabaseAdminClient,
@@ -30,6 +28,7 @@ const BROWSER_HEADERS = {
   'Accept-Language': 'en-US,en;q=0.9',
 };
 
+/** HTML sources only — PDF parsing runs in Python (PyMuPDF), not Netlify. */
 const SOURCES = [
   {
     county: 'Manatee',
@@ -40,17 +39,6 @@ const SOURCES = [
     county: 'Gulf',
     kind: 'gulf_cards',
     url: 'https://www.gulfclerk.com/courts/tax-deeds/',
-  },
-  {
-    county: 'Marion',
-    kind: 'pdf_discover',
-    url: 'https://www.marioncountyclerk.org/departments/records-recording/tax-deeds-and-lands-available-for-taxes/unclaimed-funds/',
-    pdfPattern: /Tax-Deeds-Surplus-Funds[^"'\\\s]*\.pdf/i,
-  },
-  {
-    county: 'Collier',
-    kind: 'pdf_direct',
-    url: 'https://app.collierclerk.com/LFOfficialRecords/edoc/6476/Tax%20Deed%20Sales%20Excess%20Proceeds%20List.pdf?dbid=0&repo=OFFICIALRECORDSPROD',
   },
 ];
 
@@ -74,7 +62,7 @@ function json(statusCode, body) {
   };
 }
 
-function fetchBuffer(urlString, redirectsLeft = 5) {
+function fetchText(urlString, redirectsLeft = 5) {
   return new Promise((resolve, reject) => {
     let parsed;
     try {
@@ -91,29 +79,26 @@ function fetchBuffer(urlString, redirectsLeft = 5) {
         port: parsed.port || (parsed.protocol === 'http:' ? 80 : 443),
         path: parsed.pathname + parsed.search,
         method: 'GET',
-        headers: {
-          ...BROWSER_HEADERS,
-          Accept: 'application/pdf,text/html,*/*;q=0.8',
-        },
-        timeout: 45000,
+        headers: BROWSER_HEADERS,
+        timeout: 25000,
       },
       (res) => {
         const status = res.statusCode || 0;
         if ([301, 302, 303, 307, 308].includes(status) && res.headers.location && redirectsLeft > 0) {
           const next = new URL(res.headers.location, urlString).toString();
           res.resume();
-          fetchBuffer(next, redirectsLeft - 1).then(resolve, reject);
+          fetchText(next, redirectsLeft - 1).then(resolve, reject);
           return;
         }
         const chunks = [];
         res.on('data', (c) => chunks.push(c));
         res.on('end', () => {
-          const buf = Buffer.concat(chunks);
+          const body = Buffer.concat(chunks).toString('utf8');
           if (status >= 400) {
             reject(new Error(`HTTP ${status} for ${urlString}`));
             return;
           }
-          resolve({ buf, finalUrl: urlString, contentType: res.headers['content-type'] || '' });
+          resolve(body);
         });
       }
     );
@@ -121,11 +106,6 @@ function fetchBuffer(urlString, redirectsLeft = 5) {
     req.on('error', reject);
     req.end();
   });
-}
-
-async function fetchText(url) {
-  const { buf } = await fetchBuffer(url);
-  return buf.toString('utf8');
 }
 
 function stripTags(html) {
@@ -282,107 +262,10 @@ function parseGulfCards(html, county, sourceUrl) {
   return out;
 }
 
-function parseMarionPdfText(text, county, sourceUrl) {
-  const re =
-    /(\d{5,6})\s+(\d{4}-\d{2}-\d{2})\s+(\S+)\s+(\S+)\s+\$?\s*([\d,]+\.\d{2})/g;
-  const out = [];
-  let m;
-  while ((m = re.exec(text))) {
-    const amount = parseFloat(m[5].replace(/,/g, ''));
-    if (!(amount >= MIN_AMOUNT)) continue;
-    out.push({
-      county,
-      sale_date: m[2],
-      parcel_id: m[4],
-      property_addr: null,
-      prior_owner: null,
-      surplus_amount: amount,
-      status: 'unclaimed',
-      claim_deadline: claimDeadlineFromSale(m[2]),
-      source_url: sourceUrl,
-    });
-  }
-  return out;
-}
-
-function parseCollierPdfText(text, county, sourceUrl) {
-  const compact = text.replace(/[ \t]+/g, ' ');
-  const re =
-    /(\d{1,2}\/\d{1,2}\/\d{4})\s+(\d{4,6})\s+\$?\s*([\d,]+\.\d{2})\s+(\d{1,2}\/\d{1,2}\/\d{4})\s+([\s\S]*?)(?=\d{1,2}\/\d{1,2}\/\d{4}\s+\d{4,6}\s+\$?[\d,]+\.\d{2}|$)/g;
-  const out = [];
-  let m;
-  while ((m = re.exec(compact))) {
-    const amount = parseFloat(m[3].replace(/,/g, ''));
-    const saleDate = parseDate(m[1]);
-    if (!saleDate || !(amount >= MIN_AMOUNT)) continue;
-    const rest = m[5] || '';
-    const ids = rest.match(/\b\d{8,}\b/g) || [];
-    const status = /1st claim|claim pending|claims filed/i.test(rest) ? 'claim_filed' : 'unclaimed';
-    let owner = null;
-    for (const line of rest.split(/\n+/)) {
-      const t = line.trim();
-      if (!t || /claim|deadline|address|city|state|legal|property id/i.test(t) || /^\d/.test(t)) continue;
-      owner = t;
-      break;
-    }
-    out.push({
-      county,
-      sale_date: saleDate,
-      parcel_id: ids.length ? ids[ids.length - 1] : m[2],
-      property_addr: null,
-      prior_owner: owner,
-      surplus_amount: amount,
-      status,
-      claim_deadline: parseDate(m[4]) || claimDeadlineFromSale(saleDate),
-      source_url: sourceUrl,
-    });
-  }
-  return out;
-}
-
-async function pdfToText(buf) {
-  const parser = new PDFParse({ data: buf });
-  const result = await parser.getText();
-  return result.text || '';
-}
-
-function discoverPdfUrl(html, pageUrl, pattern) {
-  const hrefRe = /href=["']([^"']+)["']/gi;
-  const matches = [];
-  let m;
-  while ((m = hrefRe.exec(html))) {
-    const href = m[1];
-    if (pattern.test(href) || pattern.test(decodeURIComponent(href))) {
-      matches.push(new URL(href, pageUrl).toString());
-    }
-  }
-  if (!matches.length) return null;
-  matches.sort();
-  return matches[matches.length - 1];
-}
-
 async function scrapeSource(src) {
-  if (src.kind === 'html_table') {
-    const html = await fetchText(src.url);
-    return parseSurplusTables(html, src.county, src.url);
-  }
-  if (src.kind === 'gulf_cards') {
-    const html = await fetchText(src.url);
-    return parseGulfCards(html, src.county, src.url);
-  }
-  if (src.kind === 'pdf_direct') {
-    const { buf } = await fetchBuffer(src.url);
-    const text = await pdfToText(buf);
-    return parseCollierPdfText(text, src.county, src.url);
-  }
-  if (src.kind === 'pdf_discover') {
-    const html = await fetchText(src.url);
-    const pdfUrl = discoverPdfUrl(html, src.url, src.pdfPattern);
-    if (!pdfUrl) throw new Error('no matching PDF on listing page');
-    const { buf } = await fetchBuffer(pdfUrl);
-    const text = await pdfToText(buf);
-    return parseMarionPdfText(text, src.county, pdfUrl);
-  }
+  const html = await fetchText(src.url);
+  if (src.kind === 'html_table') return parseSurplusTables(html, src.county, src.url);
+  if (src.kind === 'gulf_cards') return parseGulfCards(html, src.county, src.url);
   throw new Error(`unknown kind ${src.kind}`);
 }
 
@@ -435,7 +318,7 @@ async function authorized(event, body) {
     return { ok: true, via: 'secret' };
   }
 
-  // Temporary bootstrap for seeding expanded PDF counties — remove after confirm.
+  // Temporary bootstrap for seeding PDF counties — remove after confirm.
   if (provided === 'deedscout-surplus-bootstrap-2026') {
     return { ok: true, via: 'bootstrap' };
   }
@@ -480,7 +363,6 @@ async function replaceCountyRows(client, rows) {
   for (const [county, countyRows] of Object.entries(byCounty)) {
     const { error: delErr } = await client.from('surplus_history').delete().eq('county', county);
     if (delErr) throw new Error(`delete ${county}: ${delErr.message}`);
-    // Insert in chunks to stay under payload limits
     for (let i = 0; i < countyRows.length; i += 100) {
       const chunk = countyRows.slice(i, i + 100);
       const { error: insErr } = await client.from('surplus_history').insert(chunk);
