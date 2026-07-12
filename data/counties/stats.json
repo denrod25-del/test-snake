@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-12T22:18:14Z",
-  "salesGenerated": "2026-07-12T22:18:05Z",
+  "generated": "2026-07-12T23:00:08Z",
+  "salesGenerated": "2026-07-12T23:00:07Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -91,11 +91,11 @@
       "slug": "broward",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-07-16",
-        "label": "July 16, 2026",
-        "shortLabel": "Jul 16",
+        "date": "2026-10-26",
+        "label": "October 26, 2026",
+        "shortLabel": "Oct 26",
         "count": null,
-        "source": "cadence"
+        "source": "manual_verified"
       },
       "surplusPortal": true,
       "surplusUrl": "https://www.browardclerk.org/Divisions/RealEstate/SurplusFunds",
@@ -109,8 +109,8 @@
       "slug": "calhoun",
       "region": "Northwest",
       "nextSale": null,
-      "surplusPortal": false,
-      "surplusUrl": null,
+      "surplusPortal": true,
+      "surplusUrl": "https://calhounclerk.com/county-recorder/tax-deed-surplus/",
       "permits": {
         "status": "unsupported",
         "count": null

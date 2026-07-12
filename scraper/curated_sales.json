@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-12T22:15:25Z",
+  "generated": "2026-07-12T22:56:48Z",
   "verifiedAt": "2026-07-12",
   "counties": {
     "Miami-Dade": [
@@ -54,52 +54,12 @@
     ],
     "Broward": [
       {
-        "date": "2026-07-16",
-        "source": "cadence",
+        "date": "2026-10-26",
+        "source": "manual_verified",
         "verifiedAt": "2026-07-12",
         "officialUrl": "https://broward.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-08-06",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://broward.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-08-20",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://broward.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-09-03",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://broward.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-09-17",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://broward.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-10-01",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://broward.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+        "opening": "First RealAuction tax deed sale after platform transition",
+        "note": "Announced on broward.org/RecordsTaxesTreasury \u2014 files due Aug 2026; confirm parcel list on broward.realtaxdeed.com before bidding."
       }
     ],
     "Palm Beach": [
@@ -465,6 +425,6 @@
   },
   "stats": {
     "counties": 10,
-    "dates": 55
+    "dates": 50
   }
 }

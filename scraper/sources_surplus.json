@@ -73,5 +73,11 @@
     "enabled": true,
     "notes": "Clerk-published Google Sheet of tax-deed surplus (CSV export)."
   },
-  "Volusia": { "parser": "clerk_html_table", "url": "https://www.clerk.org/tax-deeds/surplus-funds", "enabled": false }
+  "Volusia": { "parser": "clerk_html_table", "url": "https://www.clerk.org/tax-deeds/surplus-funds", "enabled": false },
+  "Calhoun": {
+    "parser": "calhoun_overbids",
+    "url": "https://calhounclerk.com/county-recorder/tax-deed-surplus/",
+    "enabled": true,
+    "notes": "WordPress Vue embed :taxdeeds JSON with parcel/balance/sale_date/owner."
+  }
 }

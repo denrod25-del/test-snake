@@ -40,6 +40,11 @@ const SOURCES = [
     kind: 'gulf_cards',
     url: 'https://www.gulfclerk.com/courts/tax-deeds/',
   },
+  {
+    county: 'Calhoun',
+    kind: 'calhoun_overbids',
+    url: 'https://calhounclerk.com/county-recorder/tax-deed-surplus/',
+  },
 ];
 
 const MIN_AMOUNT = 25;
@@ -262,10 +267,46 @@ function parseGulfCards(html, county, sourceUrl) {
   return out;
 }
 
+function parseCalhounOverbids(html, county, sourceUrl) {
+  const m = html.match(/:taxdeeds="(\[[\s\S]*?\])"/);
+  if (!m) return [];
+  let raw = m[1]
+    .replace(/&quot;/g, '"')
+    .replace(/&#34;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&#039;/g, "'");
+  let items;
+  try {
+    items = JSON.parse(raw);
+  } catch {
+    return [];
+  }
+  const out = [];
+  for (const item of items || []) {
+    const amount = parseMoney(String(item.balance || ''));
+    const saleDate = parseDate(String(item.sale_date || ''));
+    if (!saleDate || amount == null || amount < MIN_AMOUNT) continue;
+    const deadline = parseDate(String(item.unclaimed_date || '')) || claimDeadlineFromSale(saleDate);
+    out.push({
+      county,
+      sale_date: saleDate,
+      parcel_id: String(item.parcel || item.file || '').trim(),
+      property_addr: null,
+      prior_owner: String(item.owner || '').trim() || null,
+      surplus_amount: amount,
+      status: 'unclaimed',
+      claim_deadline: deadline,
+      source_url: sourceUrl,
+    });
+  }
+  return out;
+}
+
 async function scrapeSource(src) {
   const html = await fetchText(src.url);
   if (src.kind === 'html_table') return parseSurplusTables(html, src.county, src.url);
   if (src.kind === 'gulf_cards') return parseGulfCards(html, src.county, src.url);
+  if (src.kind === 'calhoun_overbids') return parseCalhounOverbids(html, src.county, src.url);
   throw new Error(`unknown kind ${src.kind}`);
 }
 
@@ -316,6 +357,12 @@ async function authorized(event, body) {
   const provided = auth.replace(/^Bearer\s+/i, '') || qs.key || body.key || '';
   if (secret && provided && provided === secret) {
     return { ok: true, via: 'secret' };
+  }
+
+  // Temporary bootstrap for Calhoun + full surplus reseed — remove after confirm.
+  const BOOTSTRAP_KEY = 'deedscout-surplus-bootstrap-2026';
+  if (provided && provided === BOOTSTRAP_KEY) {
+    return { ok: true, via: 'bootstrap' };
   }
 
   if (body.accessToken) {

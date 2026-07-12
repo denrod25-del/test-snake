@@ -766,6 +766,52 @@ def _longest(cells: List[str]) -> Optional[str]:
     return max(cells, key=len)
 
 
+def parse_calhoun_overbids(html: str, source_url: str) -> List[Dict[str, Any]]:
+    """
+    Calhoun Clerk embeds surplus as a Vue prop:
+      <tax-deed-overbids :taxdeeds="[{...}, ...]">
+    """
+    import json
+
+    m = re.search(r':taxdeeds="(\[.*?\])"', html, re.S)
+    if not m:
+        raise NoDataError("no tax-deed-overbids JSON found")
+    raw = (
+        m.group(1)
+        .replace("&quot;", '"')
+        .replace("&#34;", '"')
+        .replace("&amp;", "&")
+        .replace("&#039;", "'")
+    )
+    try:
+        items = json.loads(raw)
+    except json.JSONDecodeError as e:
+        raise NoDataError(f"Calhoun overbids JSON invalid: {e}") from e
+
+    out: List[Dict[str, Any]] = []
+    for item in items or []:
+        amount = _parse_money(str(item.get("balance") or ""))
+        sale_iso = _parse_date(str(item.get("sale_date") or ""))
+        if amount is None or amount < _MIN_SURPLUS_AMOUNT or not sale_iso:
+            continue
+        deadline = _parse_date(str(item.get("unclaimed_date") or "")) or _claim_deadline_from_sale(sale_iso)
+        parcel = _clean(str(item.get("parcel") or item.get("file") or ""))
+        owner = _clean(str(item.get("owner") or ""))
+        out.append({
+            "sale_date": sale_iso,
+            "parcel_id": parcel,
+            "property_addr": None,
+            "prior_owner": owner,
+            "surplus_amount": amount,
+            "status": "unclaimed",
+            "claim_deadline": deadline,
+            "source_url": source_url,
+        })
+    if not out:
+        raise NoDataError("Calhoun overbids parsed but no usable rows")
+    return out
+
+
 PARSERS = {
     "clerk_html_table": parse_clerk_html_table,
     "realauction_surplus": parse_realauction_surplus,
@@ -773,4 +819,5 @@ PARSERS = {
     "clerk_pdf": parse_clerk_pdf,
     "clerk_xlsx": parse_clerk_xlsx,
     "clerk_csv": parse_clerk_csv,
+    "calhoun_overbids": parse_calhoun_overbids,
 }
