@@ -4872,7 +4872,7 @@
       } else if (entry.status === 'error') {
         eyebrowClass = 'is-error';
         eyebrowText  = 'Lookup failed';
-        body = `<div class="parcel-live-msg">Couldn't reach the registry. Try again later, or open the full lookup tool.</div>`;
+        body = `<div class="parcel-live-msg">Couldn't reach the registry${entry.error ? ` (<code style="font-size:11px;">${escapeHtml(entry.error)}</code>)` : ''}. Try again later, or open the full lookup tool.</div>`;
       } else if (entry.status === 'notfound') {
         eyebrowClass = 'is-empty';
         eyebrowText  = 'No match in registry';

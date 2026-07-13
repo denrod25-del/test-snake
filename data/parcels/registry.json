@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-11",
-  "note": "Public ArcGIS MapServer/FeatureServer parcel layers. Field maps normalize county schemas into DeedScout's common shape (pcn, owner, address, market, assessed, saleDate, salePrice, homestead). Always verify on the county PA site before bidding.",
+  "generated": "2026-07-12",
+  "note": "Public ArcGIS MapServer/FeatureServer parcel layers. Field maps normalize county schemas into DeedScout's common shape (pcn, owner, address, market, assessed, saleDate, salePrice, homestead). Always verify on the county PA site before bidding. outFields must exist on the live layer — invalid names cause ArcGIS 400 and break tax-deeds hydration.",
   "counties": {
     "palm-beach": {
       "name": "Palm Beach",
@@ -11,17 +11,17 @@
       "searchModes": ["pcn", "pcn-prefix", "owner", "address", "legal", "subdiv"],
       "outFields": [
         "PCN", "PARID", "PARCEL_NUMBER",
-        "OWNER", "OWNER_NAME1", "OWNER_NAME2",
-        "SITUS_ADDRESS", "SITE_ADDR_STR", "SITUS_CITY", "CITYNAME", "SITUS_ZIP", "ZIP1",
+        "OWNER_NAME1", "OWNER_NAME2",
+        "SITE_ADDR_STR", "CITYNAME", "ZIP1",
         "TOTAL_MARKET", "LAND_MARKET", "IMPRV_MRKT", "ASSESSED_VAL", "TOTAL_TAXABLE",
         "SALE_DATE", "PRICE", "HMSTD_FLG", "LEGAL1", "SUBDIV_NAME", "YRBLT"
       ],
       "map": {
         "pcn": ["PCN", "PARID", "PARCEL_NUMBER"],
-        "owner": ["OWNER", "OWNER_NAME1"],
-        "address": ["SITUS_ADDRESS", "SITE_ADDR_STR"],
-        "city": ["SITUS_CITY", "CITYNAME"],
-        "zip": ["SITUS_ZIP", "ZIP1"],
+        "owner": ["OWNER_NAME1", "OWNER"],
+        "address": ["SITE_ADDR_STR", "SITUS_ADDRESS"],
+        "city": ["CITYNAME", "SITUS_CITY"],
+        "zip": ["ZIP1", "SITUS_ZIP"],
         "market": ["TOTAL_MARKET"],
         "assessed": ["ASSESSED_VAL"],
         "saleDate": ["SALE_DATE"],
