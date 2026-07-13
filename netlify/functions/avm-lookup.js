@@ -41,7 +41,7 @@
 //   }
 // ----------------------------------------------------------------------------
 
-const { client, json, corsPreflight, requirePro, spendCredit, refundCredit, getBalance }
+const { client, json, corsPreflight, requirePro, spendCredit, refundCredit, getBalance, ensureProCredits }
   = require('./_lib/auth');
 
 const VENDOR = 'rentcast';
@@ -59,6 +59,7 @@ exports.handler = async (event) => {
   if (auth.error) return auth.error;
   const { user, body } = auth;
   const sb = client();
+  await ensureProCredits(user.id);
 
   const { parcelId, countySlug, address, propertyType, bedrooms, bathrooms, livingSqft } = body;
   if (!parcelId || !countySlug || !address) {

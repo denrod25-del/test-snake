@@ -114,8 +114,69 @@ async function getBalance(userId, creditType) {
     .select('balance, monthly_grant, last_refilled')
     .eq('user_id', userId)
     .eq('credit_type', creditType)
-    .single();
+    .maybeSingle();
   return data || null;
+}
+
+/**
+ * Ensure Pro users have skip-trace + AVM credit buckets. Heals accounts that
+ * were marked Pro without a Stripe webhook (or with monthly_grant=0).
+ */
+async function ensureProCredits(userId) {
+  const skipGrant = Number(process.env.PRO_SKIP_TRACE_GRANT || 50);
+  const avmGrant = Number(process.env.PRO_AVM_GRANT || 200);
+  const sb = client();
+
+  const { error: rpcErr } = await sb.rpc('ensure_credit_buckets', {
+    p_user_id: userId,
+    p_skip_grant: skipGrant,
+    p_avm_grant: avmGrant,
+  });
+  if (rpcErr) console.warn('ensure_credit_buckets', rpcErr.message);
+
+  for (const [creditType, grant] of [
+    ['skip_trace', skipGrant],
+    ['avm', avmGrant],
+  ]) {
+    const bal = await getBalance(userId, creditType);
+    if (!bal) {
+      const { error } = await sb.from('data_credits').upsert(
+        {
+          user_id: userId,
+          credit_type: creditType,
+          balance: grant,
+          monthly_grant: grant,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'user_id,credit_type' }
+      );
+      if (error) console.warn('data_credits upsert', creditType, error.message);
+      continue;
+    }
+    // Heal zeroed grant rows left by incomplete provisioning.
+    if ((bal.monthly_grant == null || bal.monthly_grant === 0) && (bal.balance == null || bal.balance === 0)) {
+      const { error } = await sb
+        .from('data_credits')
+        .update({
+          balance: grant,
+          monthly_grant: grant,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('user_id', userId)
+        .eq('credit_type', creditType);
+      if (error) console.warn('data_credits heal', creditType, error.message);
+    } else if (bal.monthly_grant == null || bal.monthly_grant === 0) {
+      const { error } = await sb
+        .from('data_credits')
+        .update({
+          monthly_grant: grant,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('user_id', userId)
+        .eq('credit_type', creditType);
+      if (error) console.warn('data_credits grant heal', creditType, error.message);
+    }
+  }
 }
 
 /**
@@ -125,14 +186,12 @@ async function getBalance(userId, creditType) {
  */
 async function refundCredit(userId, creditType, reason = 'vendor_error') {
   const sb = client();
-  // Re-fetch balance for the ledger entry; not perfectly atomic but close
-  // enough for a rare error path.
   const { data: bucket } = await sb
     .from('data_credits')
     .select('balance')
     .eq('user_id', userId)
     .eq('credit_type', creditType)
-    .single();
+    .maybeSingle();
   if (!bucket) return false;
   const newBalance = (bucket.balance || 0) + 1;
   await sb
@@ -159,4 +218,5 @@ module.exports = {
   spendCredit,
   refundCredit,
   getBalance,
+  ensureProCredits,
 };

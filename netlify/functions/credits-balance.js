@@ -13,7 +13,7 @@
 //   }
 // ----------------------------------------------------------------------------
 
-const { client, json, corsPreflight, authenticate } = require('./_lib/auth');
+const { client, json, corsPreflight, authenticate, ensureProCredits } = require('./_lib/auth');
 
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return corsPreflight();
@@ -33,6 +33,8 @@ exports.handler = async (event) => {
     .single();
   const isPro = profile?.subscription_plan === 'pro'
     && ['active', 'trialing'].includes(profile?.subscription_status);
+
+  if (isPro) await ensureProCredits(user.id);
 
   const { data: rows } = await sb
     .from('data_credits')

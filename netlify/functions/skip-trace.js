@@ -43,7 +43,7 @@
 //   502 vendor_error       — BatchData call failed (credit was refunded)
 // ----------------------------------------------------------------------------
 
-const { client, json, corsPreflight, requirePro, spendCredit, refundCredit, getBalance }
+const { client, json, corsPreflight, requirePro, spendCredit, refundCredit, getBalance, ensureProCredits }
   = require('./_lib/auth');
 
 const VENDOR = 'batchdata';
@@ -63,6 +63,7 @@ exports.handler = async (event) => {
   if (auth.error) return auth.error;
   const { user, body } = auth;
   const sb = client();
+  await ensureProCredits(user.id);
 
   // ── Validate input ──────────────────────────────────────────────────────
   const { parcelId, countySlug, ownerName, address } = body;

@@ -4,6 +4,8 @@
  */
 (function (global) {
   var registryCache = null;
+  var registryCachedAt = 0;
+  var REGISTRY_TTL_MS = 5 * 60 * 1000;
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/'/g, "''");
@@ -29,10 +31,23 @@
     return null;
   }
 
-  function loadRegistry() {
-    if (registryCache) return Promise.resolve(registryCache);
-    if (global.DEEDSCOUT_PARCEL_REGISTRY) {
+  function loadRegistry(force) {
+    if (
+      !force &&
+      registryCache &&
+      Date.now() - registryCachedAt < REGISTRY_TTL_MS
+    ) {
+      return Promise.resolve(registryCache);
+    }
+    // Prefer a fresh network fetch after TTL / force. Only use an inlined
+    // bootstrap registry on the very first load when nothing is cached yet.
+    if (
+      !force &&
+      !registryCache &&
+      global.DEEDSCOUT_PARCEL_REGISTRY
+    ) {
       registryCache = global.DEEDSCOUT_PARCEL_REGISTRY;
+      registryCachedAt = Date.now();
       return Promise.resolve(registryCache);
     }
     var base = "";
@@ -46,13 +61,15 @@
         }
       }
     } catch (e) { /* ignore */ }
-    return fetch(base + "data/parcels/registry.json", { cache: "no-store" })
+    var bust = "v=" + Date.now();
+    return fetch(base + "data/parcels/registry.json?" + bust, { cache: "no-store" })
       .then(function (r) {
         if (!r.ok) throw new Error("parcel registry HTTP " + r.status);
         return r.json();
       })
       .then(function (doc) {
         registryCache = doc;
+        registryCachedAt = Date.now();
         return doc;
       });
   }
@@ -172,46 +189,66 @@
 
   function queryCounty(countyOrSlug, opts) {
     opts = opts || {};
-    return loadRegistry().then(function (doc) {
-      var county =
-        typeof countyOrSlug === "string" ? getCounty(countyOrSlug, doc) : countyOrSlug;
-      if (!county) throw new Error("Unknown county in parcel registry");
-      if ((county.status || "") === "coming-soon") {
-        throw new Error((county.name || "County") + " parcel GIS is not wired yet");
-      }
-      var where =
-        opts.where ||
-        buildWhere(county, opts.mode || "pcn", opts.query || opts.pcn || "");
-      if (!where) throw new Error("Enter a search value");
-      var outFields = (county.outFields || ["*"]).join(",");
-      var params = new URLSearchParams({
-        where: where,
-        outFields: outFields,
-        returnGeometry: opts.returnGeometry ? "true" : "false",
-        f: "json",
-        resultRecordCount: String(opts.limit || 25),
-      });
-      if (opts.resultOffset) params.set("resultOffset", String(opts.resultOffset));
-      return fetch(county.endpoint + "?" + params.toString(), { credentials: "omit" }).then(
-        function (resp) {
-          if (!resp.ok) throw new Error("ArcGIS HTTP " + resp.status);
-          return resp.json();
+    var attempt = 0;
+
+    function run(forceRegistry) {
+      return loadRegistry(forceRegistry).then(function (doc) {
+        var county =
+          typeof countyOrSlug === "string" ? getCounty(countyOrSlug, doc) : countyOrSlug;
+        if (!county) throw new Error("Unknown county in parcel registry");
+        if ((county.status || "") === "coming-soon") {
+          throw new Error((county.name || "County") + " parcel GIS is not wired yet");
         }
-      ).then(function (json) {
-        if (json.error) throw new Error(json.error.message || "ArcGIS error");
-        var features = json.features || [];
-        return {
-          county: county,
-          count: features.length,
-          exceededTransferLimit: !!json.exceededTransferLimit,
-          results: features.map(function (f) {
-            var n = normalizeFeature(county, f.attributes || {});
-            n.geometry = f.geometry || null;
-            return n;
-          }),
-        };
+        var where =
+          opts.where ||
+          buildWhere(county, opts.mode || "pcn", opts.query || opts.pcn || "");
+        if (!where) throw new Error("Enter a search value");
+        var outFields = (county.outFields || ["*"]).join(",");
+        var params = new URLSearchParams({
+          where: where,
+          outFields: outFields,
+          returnGeometry: opts.returnGeometry ? "true" : "false",
+          f: "json",
+          resultRecordCount: String(opts.limit || 25),
+        });
+        if (opts.resultOffset) params.set("resultOffset", String(opts.resultOffset));
+        return fetch(county.endpoint + "?" + params.toString(), { credentials: "omit" }).then(
+          function (resp) {
+            if (!resp.ok) throw new Error("ArcGIS HTTP " + resp.status);
+            return resp.json();
+          }
+        ).then(function (json) {
+          if (json.error) {
+            var msg = json.error.message || "ArcGIS error";
+            var details = (json.error.details || []).join(" ");
+            // Stale in-memory registry can request removed/invalid fields — reload once.
+            if (
+              attempt === 0 &&
+              /invalid query parameters|invalid field/i.test(msg + " " + details)
+            ) {
+              attempt += 1;
+              registryCache = null;
+              registryCachedAt = 0;
+              return run(true);
+            }
+            throw new Error(msg);
+          }
+          var features = json.features || [];
+          return {
+            county: county,
+            count: features.length,
+            exceededTransferLimit: !!json.exceededTransferLimit,
+            results: features.map(function (f) {
+              var n = normalizeFeature(county, f.attributes || {});
+              n.geometry = f.geometry || null;
+              return n;
+            }),
+          };
+        });
       });
-    });
+    }
+
+    return run(false);
   }
 
   global.DeedScoutParcels = {
