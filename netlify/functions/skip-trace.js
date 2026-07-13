@@ -63,7 +63,18 @@ exports.handler = async (event) => {
   if (auth.error) return auth.error;
   const { user, body } = auth;
   const sb = client();
-  await ensureProCredits(user.id);
+  const ensure = await ensureProCredits(user.id);
+  const preBal = await getBalance(user.id, 'skip_trace');
+  if (!preBal || ((Number(preBal.balance) || 0) === 0 && (Number(preBal.monthly_grant) || 0) === 0)) {
+    return json(503, {
+      error: 'credits_not_provisioned',
+      message:
+        'Skip-trace credit buckets are missing in the database. In Supabase → SQL, run the data_credits migrations.',
+      details: ensure.errors || [],
+      creditsRemaining: preBal?.balance ?? 0,
+      monthly_grant: preBal?.monthly_grant ?? 0,
+    });
+  }
 
   // ── Validate input ──────────────────────────────────────────────────────
   const { parcelId, countySlug, ownerName, address } = body;

@@ -109,12 +109,16 @@ async function spendCredit(userId, creditType, context = {}) {
  */
 async function getBalance(userId, creditType) {
   const sb = client();
-  const { data } = await sb
+  const { data, error } = await sb
     .from('data_credits')
     .select('balance, monthly_grant, last_refilled')
     .eq('user_id', userId)
     .eq('credit_type', creditType)
     .maybeSingle();
+  if (error) {
+    console.error('getBalance', creditType, error.message);
+    return null;
+  }
   return data || null;
 }
 
@@ -130,20 +134,25 @@ function creditGrant(envName, fallback) {
  * Ensure Pro users have skip-trace + AVM credit buckets. Heals accounts that
  * were marked Pro without a Stripe webhook, or where the old
  * ensure_credit_buckets RPC set monthly_grant but left balance at 0.
+ * Returns { ok, errors: string[] }.
  */
 async function ensureProCredits(userId) {
   const skipGrant = creditGrant('PRO_SKIP_TRACE_GRANT', 50);
   const avmGrant = creditGrant('PRO_AVM_GRANT', 200);
   const sb = client();
   const now = new Date().toISOString();
+  const errors = [];
 
-  // Best-effort RPC (may be outdated in Supabase); direct upsert is authoritative.
+  // Best-effort RPC (may be outdated / missing in Supabase).
   const { error: rpcErr } = await sb.rpc('ensure_credit_buckets', {
     p_user_id: userId,
     p_skip_grant: skipGrant,
     p_avm_grant: avmGrant,
   });
-  if (rpcErr) console.warn('ensure_credit_buckets', rpcErr.message);
+  if (rpcErr) {
+    console.warn('ensure_credit_buckets', rpcErr.message);
+    errors.push(`rpc: ${rpcErr.message}`);
+  }
 
   for (const [creditType, grant] of [
     ['skip_trace', skipGrant],
@@ -159,33 +168,49 @@ async function ensureProCredits(userId) {
     if (bal && !neverFilled && !zeroedBroken && monthlyGrant > 0) continue;
 
     const nextBalance = neverFilled || zeroedBroken ? grant : balance;
-    const { error } = await sb.from('data_credits').upsert(
-      {
-        user_id: userId,
-        credit_type: creditType,
+    const row = {
+      user_id: userId,
+      credit_type: creditType,
+      balance: nextBalance,
+      monthly_grant: grant,
+      last_refilled: neverFilled || zeroedBroken ? now : bal.last_refilled,
+      updated_at: now,
+    };
+
+    const { error } = await sb.from('data_credits').upsert(row, {
+      onConflict: 'user_id,credit_type',
+    });
+    if (!error) continue;
+
+    console.error('data_credits heal failed', creditType, error.message);
+    errors.push(`upsert ${creditType}: ${error.message}`);
+
+    if (!bal) {
+      const { error: insErr } = await sb.from('data_credits').insert(row);
+      if (insErr) {
+        console.error('data_credits insert failed', creditType, insErr.message);
+        errors.push(`insert ${creditType}: ${insErr.message}`);
+      }
+      continue;
+    }
+
+    const { error: updErr } = await sb
+      .from('data_credits')
+      .update({
         balance: nextBalance,
         monthly_grant: grant,
         last_refilled: neverFilled || zeroedBroken ? now : bal.last_refilled,
         updated_at: now,
-      },
-      { onConflict: 'user_id,credit_type' }
-    );
-    if (error) {
-      console.error('data_credits heal failed', creditType, error.message);
-      // Fallback update if upsert conflict target is rejected
-      const { error: updErr } = await sb
-        .from('data_credits')
-        .update({
-          balance: nextBalance,
-          monthly_grant: grant,
-          last_refilled: neverFilled || zeroedBroken ? now : bal.last_refilled,
-          updated_at: now,
-        })
-        .eq('user_id', userId)
-        .eq('credit_type', creditType);
-      if (updErr) console.error('data_credits update failed', creditType, updErr.message);
+      })
+      .eq('user_id', userId)
+      .eq('credit_type', creditType);
+    if (updErr) {
+      console.error('data_credits update failed', creditType, updErr.message);
+      errors.push(`update ${creditType}: ${updErr.message}`);
     }
   }
+
+  return { ok: errors.length === 0, errors };
 }
 
 /**

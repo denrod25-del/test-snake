@@ -59,7 +59,18 @@ exports.handler = async (event) => {
   if (auth.error) return auth.error;
   const { user, body } = auth;
   const sb = client();
-  await ensureProCredits(user.id);
+  const ensure = await ensureProCredits(user.id);
+  const preBal = await getBalance(user.id, 'avm');
+  if (!preBal || ((Number(preBal.balance) || 0) === 0 && (Number(preBal.monthly_grant) || 0) === 0)) {
+    return json(503, {
+      error: 'credits_not_provisioned',
+      message:
+        'AVM credit buckets are missing in the database. In Supabase → SQL, run supabase/migrations/20260419_data_credits_and_caches.sql then 20260712_heal_zero_credit_buckets.sql (or the grant-all-pro snippet).',
+      details: ensure.errors || [],
+      creditsRemaining: preBal?.balance ?? 0,
+      monthly_grant: preBal?.monthly_grant ?? 0,
+    });
+  }
 
   const { parcelId, countySlug, address, propertyType, bedrooms, bathrooms, livingSqft } = body;
   if (!parcelId || !countySlug || !address) {

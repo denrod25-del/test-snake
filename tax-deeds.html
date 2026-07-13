@@ -5897,11 +5897,14 @@
           }
         }
       } catch (err) {
-        if (err.code === 'out_of_credits') {
+        if (err.code === 'out_of_credits' || err.code === 'credits_not_provisioned') {
           slot.innerHTML = `
             <div class="avm-result" style="border-left:3px solid #b94a48;">
-              <strong>Out of AVM credits this cycle.</strong>
-              ${escapeHtml(err.message || `You'll get ${err.payload?.monthly_grant ?? 200} new credits on your next renewal.`)}
+              <strong>${err.code === 'credits_not_provisioned' ? 'AVM credits not set up.' : 'Out of AVM credits this cycle.'}</strong>
+              ${escapeHtml(err.message || '')}
+              ${(err.payload?.details || []).length
+                ? `<div style="margin-top:6px;font-size:11px;opacity:.85;">${escapeHtml((err.payload.details || []).join(' · '))}</div>`
+                : ''}
             </div>`;
         } else {
           slot.innerHTML = `
