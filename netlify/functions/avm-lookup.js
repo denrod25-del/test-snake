@@ -100,11 +100,14 @@ exports.handler = async (event) => {
   });
   if (!spent) {
     const balanceRow = await getBalance(user.id, 'avm');
+    const grant = balanceRow?.monthly_grant ?? 0;
     return json(402, {
       error: 'out_of_credits',
-      message: 'You have used all your monthly AVM credits. They refill on your next billing cycle.',
+      message: grant > 0
+        ? 'You have used all your monthly AVM credits. They refill on your next billing cycle.'
+        : 'AVM credits are not set up on this Pro account yet. Open Account → refresh subscription, then try again.',
       creditsRemaining: balanceRow?.balance ?? 0,
-      monthly_grant:    balanceRow?.monthly_grant ?? 0,
+      monthly_grant:    grant,
     });
   }
 

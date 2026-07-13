@@ -118,15 +118,26 @@ async function getBalance(userId, creditType) {
   return data || null;
 }
 
+/** Positive monthly grant from env, with a safe default (ignores 0 / NaN). */
+function creditGrant(envName, fallback) {
+  const raw = process.env[envName];
+  if (raw == null || String(raw).trim() === '') return fallback;
+  const n = Number(raw);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
+}
+
 /**
  * Ensure Pro users have skip-trace + AVM credit buckets. Heals accounts that
- * were marked Pro without a Stripe webhook (or with monthly_grant=0).
+ * were marked Pro without a Stripe webhook, or where the old
+ * ensure_credit_buckets RPC set monthly_grant but left balance at 0.
  */
 async function ensureProCredits(userId) {
-  const skipGrant = Number(process.env.PRO_SKIP_TRACE_GRANT || 50);
-  const avmGrant = Number(process.env.PRO_AVM_GRANT || 200);
+  const skipGrant = creditGrant('PRO_SKIP_TRACE_GRANT', 50);
+  const avmGrant = creditGrant('PRO_AVM_GRANT', 200);
   const sb = client();
+  const now = new Date().toISOString();
 
+  // Best-effort RPC (may be outdated in Supabase); direct upsert is authoritative.
   const { error: rpcErr } = await sb.rpc('ensure_credit_buckets', {
     p_user_id: userId,
     p_skip_grant: skipGrant,
@@ -139,42 +150,40 @@ async function ensureProCredits(userId) {
     ['avm', avmGrant],
   ]) {
     const bal = await getBalance(userId, creditType);
-    if (!bal) {
-      const { error } = await sb.from('data_credits').upsert(
-        {
-          user_id: userId,
-          credit_type: creditType,
-          balance: grant,
-          monthly_grant: grant,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: 'user_id,credit_type' }
-      );
-      if (error) console.warn('data_credits upsert', creditType, error.message);
-      continue;
-    }
-    // Heal zeroed grant rows left by incomplete provisioning.
-    if ((bal.monthly_grant == null || bal.monthly_grant === 0) && (bal.balance == null || bal.balance === 0)) {
-      const { error } = await sb
+    const balance = bal ? Number(bal.balance) || 0 : 0;
+    const monthlyGrant = bal ? Number(bal.monthly_grant) || 0 : 0;
+    const neverFilled = !bal || (balance === 0 && !bal.last_refilled);
+    const zeroedBroken = balance === 0 && monthlyGrant === 0;
+
+    // Skip healthy buckets (including legitimately exhausted: balance 0 + last_refilled set + grant > 0).
+    if (bal && !neverFilled && !zeroedBroken && monthlyGrant > 0) continue;
+
+    const nextBalance = neverFilled || zeroedBroken ? grant : balance;
+    const { error } = await sb.from('data_credits').upsert(
+      {
+        user_id: userId,
+        credit_type: creditType,
+        balance: nextBalance,
+        monthly_grant: grant,
+        last_refilled: neverFilled || zeroedBroken ? now : bal.last_refilled,
+        updated_at: now,
+      },
+      { onConflict: 'user_id,credit_type' }
+    );
+    if (error) {
+      console.error('data_credits heal failed', creditType, error.message);
+      // Fallback update if upsert conflict target is rejected
+      const { error: updErr } = await sb
         .from('data_credits')
         .update({
-          balance: grant,
+          balance: nextBalance,
           monthly_grant: grant,
-          updated_at: new Date().toISOString(),
+          last_refilled: neverFilled || zeroedBroken ? now : bal.last_refilled,
+          updated_at: now,
         })
         .eq('user_id', userId)
         .eq('credit_type', creditType);
-      if (error) console.warn('data_credits heal', creditType, error.message);
-    } else if (bal.monthly_grant == null || bal.monthly_grant === 0) {
-      const { error } = await sb
-        .from('data_credits')
-        .update({
-          monthly_grant: grant,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('user_id', userId)
-        .eq('credit_type', creditType);
-      if (error) console.warn('data_credits grant heal', creditType, error.message);
+      if (updErr) console.error('data_credits update failed', creditType, updErr.message);
     }
   }
 }
@@ -219,4 +228,5 @@ module.exports = {
   refundCredit,
   getBalance,
   ensureProCredits,
+  creditGrant,
 };

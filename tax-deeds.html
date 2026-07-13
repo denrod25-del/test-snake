@@ -5606,7 +5606,7 @@
           slot.innerHTML = `
             <div class="skip-trace-panel is-error">
               <strong>Out of skip-trace credits this cycle.</strong>
-              You'll get ${err.payload?.monthly_grant ?? 50} new credits on your next renewal.
+              ${escapeHtml(err.message || `You'll get ${err.payload?.monthly_grant ?? 50} new credits on your next renewal.`)}
               <div style="margin-top:8px;">
                 <button class="btn-link" onclick="openBillingPortal()">Manage subscription</button>
               </div>
@@ -5901,7 +5901,7 @@
           slot.innerHTML = `
             <div class="avm-result" style="border-left:3px solid #b94a48;">
               <strong>Out of AVM credits this cycle.</strong>
-              You'll get ${err.payload?.monthly_grant ?? 200} new credits on your next renewal.
+              ${escapeHtml(err.message || `You'll get ${err.payload?.monthly_grant ?? 200} new credits on your next renewal.`)}
             </div>`;
         } else {
           slot.innerHTML = `

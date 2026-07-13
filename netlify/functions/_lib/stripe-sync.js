@@ -1,6 +1,7 @@
 // Shared Stripe → Supabase subscription sync used by webhook + on-demand sync.
-const PRO_SKIP_TRACE_GRANT = Number(process.env.PRO_SKIP_TRACE_GRANT || 50);
-const PRO_AVM_GRANT = Number(process.env.PRO_AVM_GRANT || 200);
+const { ensureProCredits, creditGrant } = require('./auth');
+const PRO_SKIP_TRACE_GRANT = creditGrant('PRO_SKIP_TRACE_GRANT', 50);
+const PRO_AVM_GRANT = creditGrant('PRO_AVM_GRANT', 200);
 
 async function resolveStripeCustomerId(supabase, stripe, userId, email) {
   // 1) Prefer customer stamped with this Supabase user id
@@ -84,12 +85,17 @@ async function applySubscriptionToProfile(supabase, userId, subscription) {
   if (error) throw error;
 
   if (isActive) {
-    const { error: rpcErr } = await supabase.rpc('ensure_credit_buckets', {
-      p_user_id: userId,
-      p_skip_grant: PRO_SKIP_TRACE_GRANT,
-      p_avm_grant: PRO_AVM_GRANT,
-    });
-    if (rpcErr) console.warn('ensure_credit_buckets skipped', rpcErr.message);
+    try {
+      await ensureProCredits(userId);
+    } catch (err) {
+      console.warn('ensureProCredits failed', err.message);
+      const { error: rpcErr } = await supabase.rpc('ensure_credit_buckets', {
+        p_user_id: userId,
+        p_skip_grant: PRO_SKIP_TRACE_GRANT,
+        p_avm_grant: PRO_AVM_GRANT,
+      });
+      if (rpcErr) console.warn('ensure_credit_buckets skipped', rpcErr.message);
+    }
   }
 
   return update;
