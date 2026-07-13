@@ -1,12 +1,170 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-07-12T08:32:56Z",
+  "generated": "2026-07-13T08:51:14Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434117020001272": [
+      {
+        "permitNumber": "26-009801-ROOF-R",
+        "parcelId": "30434117020001272",
+        "address": "378  RIVER EDGE RD  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "Full Roof Replacement Shingle to Metal",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/09202f1e-5b89-4fd1-94c7-da43b30279ec"
+      }
+    ],
+    "30424124010001520": [
+      {
+        "permitNumber": "26-096407-PLUMR",
+        "parcelId": "30424124010001520",
+        "address": "154  REDWOOD DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "DOUBLE DETECTOR CHECK REPLACEMENT - CK VALVE BACKFLOW ONLY - NO PIPES TO HOUSE/PROPERTY",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6f8c9f96-2ac2-4e6c-bd48-52ee8956af64"
+      },
+      {
+        "permitNumber": "26-096063-BLDR",
+        "parcelId": "30424124010001520",
+        "address": "154  REDWOOD DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "kitchen and bath remodel",
+        "status": "16 - Pending Documents",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-29",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c8178e2c-0cca-46e6-b518-3aa2160064e1"
+      }
+    ],
+    "30424124010001430": [
+      {
+        "permitNumber": "26-096406-PLUMR",
+        "parcelId": "30424124010001430",
+        "address": "132  REDWOOD DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "DOUBLE DETECTOR CHECK REPLACEMENT - CK VALVE BACKFLOW ONLY - NO PIPES TO HOUSE/PROPERTY",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/534fef1e-e375-4367-a405-a16427b7994b"
+      }
+    ],
+    "30424124090002970": [
+      {
+        "permitNumber": "26-096405-PLUMR",
+        "parcelId": "30424124090002970",
+        "address": "307  BOUGAINVILLEA DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "DOUBLE DETECTOR CHECK REPLACEMENT - CK VALVE BACKFLOW ONLY - NO PIPES TO HOUSE/ PROPERTY",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/44d1522e-027e-4086-b490-67e9e47060e6"
+      }
+    ],
+    "30424124010001610": [
+      {
+        "permitNumber": "26-096404-PLUMR",
+        "parcelId": "30424124010001610",
+        "address": "340  JACARANDA DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "DOUBLE DETECTOR CHECK REPLACEMENT - CK VALVE BACKFLOW ONLY - NO PIPES TO HOUSE/PROPERTY",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/54aa55ef-742e-4e18-b520-422d7461e46e"
+      }
+    ],
+    "30424124040000730": [
+      {
+        "permitNumber": "26-096403-PLUMR",
+        "parcelId": "30424124040000730",
+        "address": "316  MARLBERRY CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "DOUBLE DETECTOR CHECK REPLACEMENT - CK VALVE BACKFLOW ONLY - NO PIPES TO HOUSE/PROPERTY",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/62832ad3-3b6b-4f62-b104-934e2883aa34"
+      }
+    ],
+    "30424114100004810": [
+      {
+        "permitNumber": "26-096402-BLDR",
+        "parcelId": "30424114100004810",
+        "address": "3314  DUVAL ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Like-for-like replacement of one entry door with Impact rated glass.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4ce45fd8-2af1-4f00-986a-5006f5a7ca54"
+      }
+    ],
     "30434108060030620": [
       {
         "permitNumber": "26-096401-BLDR",
@@ -11909,26 +12067,6 @@
         "finalDate": null,
         "expirationDate": "2026-12-01",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6e7c6bf6-8262-483d-b594-4ee8a49d564c"
-      }
-    ],
-    "30424124010001520": [
-      {
-        "permitNumber": "26-096063-BLDR",
-        "parcelId": "30424124010001520",
-        "address": "154  REDWOOD DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "kitchen and bath remodel",
-        "status": "16 - Pending Documents",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-29",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c8178e2c-0cca-46e6-b518-3aa2160064e1"
       }
     ],
     "30424111010020030": [
@@ -61003,24 +61141,6 @@
         "finalDate": null,
         "expirationDate": "2026-08-08",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/31b3422a-d888-450a-aea0-472e1405f078"
-      },
-      {
-        "permitNumber": "26-092892-COMM",
-        "parcelId": "30424103170001450",
-        "address": "6383  RIVERWALK LN  Unit: 5 JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Commercial Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "IMPACT WINDOWS AND DOORS WRONG PERMIT TYPE",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-31",
-        "issuedDate": null,
-        "finalDate": "2026-02-02",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/dbab0dc7-de04-45b3-bba2-b440cd19c7e0"
       }
     ],
     "30434105060011203": [
@@ -63241,24 +63361,6 @@
         "finalDate": "2026-03-16",
         "expirationDate": null,
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2f6f878c-c244-4351-b0f8-00941b12bc36"
-      },
-      {
-        "permitNumber": "26-009306-ROOF-R",
-        "parcelId": "30424115020003920",
-        "address": "422  MEADOWLARK DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "CONCRETE TILE REROOF ON EXISTING PLYWOOD DECK",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-31",
-        "issuedDate": "2026-02-09",
-        "finalDate": "2026-04-27",
-        "expirationDate": "2026-10-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5687d827-74e7-490d-8511-fb148febaa0e"
       }
     ],
     "30424115020005090": [
@@ -67881,42 +67983,6 @@
         "finalDate": "2026-03-09",
         "expirationDate": "2026-09-02",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/0f60c52f-141b-4ff9-9c89-d475f8b4dd1f"
-      },
-      {
-        "permitNumber": "26-092894-ELECR-R",
-        "parcelId": "30434116020002400",
-        "address": "198  RIDGE RD  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Electrical",
-        "subtype": "Electrical",
-        "description": "Install GFCI receptacles in the kitchen and bathrooms, and update light fixtures.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-31",
-        "issuedDate": "2026-02-12",
-        "finalDate": "2026-05-18",
-        "expirationDate": "2026-11-23",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/60270582-f4fb-491f-9ee2-610446ddfd4a"
-      },
-      {
-        "permitNumber": "26-092893-PLUMR",
-        "parcelId": "30434116020002400",
-        "address": "198  RIDGE RD  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Plumbing",
-        "subtype": "Plumbing",
-        "description": "Replace existing bathrom bathtubs and vanities.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-31",
-        "issuedDate": "2026-02-11",
-        "finalDate": "2026-05-04",
-        "expirationDate": "2026-10-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b944d1e6-7d94-41c5-9c72-46cbe8d2d6bd"
       }
     ],
     "30434117021470030": [
@@ -76609,86 +76675,6 @@
         "finalDate": "2026-03-05",
         "expirationDate": "2026-08-31",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b6e4f636-b18f-413e-8751-5d212810823b"
-      }
-    ],
-    "30424111060000200": [
-      {
-        "permitNumber": "26-092895-BLDR",
-        "parcelId": "30424111060000200",
-        "address": "226  COLONY WAY W JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "garage door replacement",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-02",
-        "issuedDate": "2026-02-20",
-        "finalDate": "2026-05-20",
-        "expirationDate": "2026-11-16",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/315769e5-3ad9-4d04-bb57-157bbad89db2"
-      }
-    ],
-    "30424034090001580": [
-      {
-        "permitNumber": "26-092891-BLDR",
-        "parcelId": "30424034090001580",
-        "address": "18670  MISTY LAKE DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "Add Hardie Panel over current 5/8 siding.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-31",
-        "issuedDate": "2026-02-06",
-        "finalDate": "2026-03-06",
-        "expirationDate": "2026-09-01",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/8fc4b7b9-5ea2-453e-99a2-22791581d7e1"
-      }
-    ],
-    "30424102150000080": [
-      {
-        "permitNumber": "26-092890-ELECR-R",
-        "parcelId": "30424102150000080",
-        "address": "702  WARREN DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Service Change",
-        "subtype": "Service Change",
-        "description": "Remove and replace existing 200a disconnect, FPL riser pie and meter can. The meter and the disconnect have come off of the wall and the disconnect has a burned lug",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-30",
-        "issuedDate": "2026-02-04",
-        "finalDate": "2026-03-10",
-        "expirationDate": "2026-09-08",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a34bd39-6ab8-44c0-98e8-c8fa8d1f3f5b"
-      }
-    ],
-    "30424112080270020": [
-      {
-        "permitNumber": "26-009305-ROOF-R",
-        "parcelId": "30424112080270020",
-        "address": "272  MAPLECREST CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Replace shingle roof with Owens Corning Duration Shingles",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-01-30",
-        "issuedDate": "2026-03-26",
-        "finalDate": "2026-04-15",
-        "expirationDate": "2026-10-12",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bb5e00f8-ced1-474d-bd1c-c4f5524765b0"
       }
     ]
   }
