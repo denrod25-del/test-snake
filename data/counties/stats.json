@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-13T08:51:22Z",
+  "generated": "2026-07-14T08:34:07Z",
   "salesGenerated": "2026-07-13T07:42:54Z",
   "featuredSlugs": [
     "palm-beach",
@@ -817,9 +817,9 @@
       "slug": "santa-rosa",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-13",
-        "label": "July 13, 2026",
-        "shortLabel": "Jul 13",
+        "date": "2026-07-27",
+        "label": "July 27, 2026",
+        "shortLabel": "Jul 27",
         "count": 1,
         "source": "scraper"
       },
@@ -883,10 +883,10 @@
       "slug": "st-lucie",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-07-13",
-        "label": "July 13, 2026",
-        "shortLabel": "Jul 13",
-        "count": 2,
+        "date": "2026-07-20",
+        "label": "July 20, 2026",
+        "shortLabel": "Jul 20",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
