@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-14T08:34:07Z",
+  "generated": "2026-07-15T08:27:16Z",
   "salesGenerated": "2026-07-13T07:42:54Z",
   "featuredSlugs": [
     "palm-beach",
@@ -253,10 +253,10 @@
       "slug": "flagler",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-07-14",
-        "label": "July 14, 2026",
-        "shortLabel": "Jul 14",
-        "count": 1,
+        "date": "2026-08-11",
+        "label": "August 11, 2026",
+        "shortLabel": "Aug 11",
+        "count": 49,
         "source": "scraper"
       },
       "surplusPortal": false,
