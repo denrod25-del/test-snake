@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-15T08:27:16Z",
+  "generated": "2026-07-16T08:35:47Z",
   "salesGenerated": "2026-07-13T07:42:54Z",
   "featuredSlugs": [
     "palm-beach",
@@ -133,10 +133,10 @@
       "slug": "citrus",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-15",
-        "label": "July 15, 2026",
-        "shortLabel": "Jul 15",
-        "count": 29,
+        "date": "2026-08-12",
+        "label": "August 12, 2026",
+        "shortLabel": "Aug 12",
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -367,10 +367,10 @@
       "slug": "hernando",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-07-15",
-        "label": "July 15, 2026",
-        "shortLabel": "Jul 15",
-        "count": 5,
+        "date": "2026-08-12",
+        "label": "August 12, 2026",
+        "shortLabel": "Aug 12",
+        "count": 26,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -595,10 +595,10 @@
       "slug": "marion",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-15",
-        "label": "July 15, 2026",
-        "shortLabel": "Jul 15",
-        "count": 89,
+        "date": "2026-07-22",
+        "label": "July 22, 2026",
+        "shortLabel": "Jul 22",
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -733,10 +733,10 @@
       "slug": "palm-beach",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-07-15",
-        "label": "July 15, 2026",
-        "shortLabel": "Jul 15",
-        "count": 10,
+        "date": "2026-08-12",
+        "label": "August 12, 2026",
+        "shortLabel": "Aug 12",
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -979,9 +979,9 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-15",
-        "label": "July 15, 2026",
-        "shortLabel": "Jul 15",
+        "date": "2026-07-21",
+        "label": "July 21, 2026",
+        "shortLabel": "Jul 21",
         "count": 2,
         "source": "scraper"
       },
