@@ -1,7 +1,7 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-07-18T08:27:01Z",
+  "generated": "2026-07-19T08:34:36Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
@@ -76685,66 +76685,6 @@
         "finalDate": "2026-04-02",
         "expirationDate": "2026-09-28",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/62efa613-df48-4703-a4a4-06e28c8baeb7"
-      }
-    ],
-    "30424111080000030": [
-      {
-        "permitNumber": "26-093028-BLDR",
-        "parcelId": "30424111080000030",
-        "address": "106  LANITEE CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "Driveway Pavers Installation\n\nINCORRECT PERMIT TYPE, SEE ENGINEERING 25-003514-EU",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-09",
-        "issuedDate": null,
-        "finalDate": "2026-04-16",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4bb4d770-d28c-4cee-ba30-611c26587fac"
-      }
-    ],
-    "30434120110191040": [
-      {
-        "permitNumber": "26-093027-COMM",
-        "parcelId": "30434120110191040",
-        "address": "1901 MARINA ISLE WAY Unit: 104 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Replace existing front entry door with a new impact door \"Like For Like\"",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-09",
-        "issuedDate": "2026-02-13",
-        "finalDate": "2026-06-26",
-        "expirationDate": "2026-12-22",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/dca775e5-6693-4136-9945-3859279bf3dc"
-      }
-    ],
-    "30424036010040010": [
-      {
-        "permitNumber": "26-093026-PLUMC",
-        "parcelId": "30424036010040010",
-        "address": "112  SEMINOLE AVE  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Commercial Plumbing",
-        "subtype": "Plumbing",
-        "description": "2\" BACKFLOW REPLACEMENT",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-09",
-        "issuedDate": "2026-02-12",
-        "finalDate": "2026-02-18",
-        "expirationDate": "2026-08-17",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/8f1e0333-947d-4ea7-aaf7-41c3e4722870"
       }
     ]
   }
