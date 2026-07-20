@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-19T08:34:44Z",
-  "salesGenerated": "2026-07-13T07:42:54Z",
+  "generated": "2026-07-20T07:39:34Z",
+  "salesGenerated": "2026-07-20T07:39:33Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -76,7 +76,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 46,
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -154,7 +154,7 @@
         "date": "2026-08-19",
         "label": "August 19, 2026",
         "shortLabel": "Aug 19",
-        "count": 10,
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -220,7 +220,7 @@
         "date": "2026-08-12",
         "label": "August 12, 2026",
         "shortLabel": "Aug 12",
-        "count": 104,
+        "count": 97,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -238,7 +238,7 @@
         "date": "2026-08-05",
         "label": "August 5, 2026",
         "shortLabel": "Aug 5",
-        "count": 38,
+        "count": 36,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -256,7 +256,7 @@
         "date": "2026-08-11",
         "label": "August 11, 2026",
         "shortLabel": "Aug 11",
-        "count": 49,
+        "count": 45,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -370,7 +370,7 @@
         "date": "2026-08-12",
         "label": "August 12, 2026",
         "shortLabel": "Aug 12",
-        "count": 26,
+        "count": 23,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -406,7 +406,7 @@
         "date": "2026-07-23",
         "label": "July 23, 2026",
         "shortLabel": "Jul 23",
-        "count": 7,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -436,7 +436,7 @@
         "date": "2026-08-04",
         "label": "August 4, 2026",
         "shortLabel": "Aug 4",
-        "count": 17,
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -526,7 +526,7 @@
         "date": "2026-07-22",
         "label": "July 22, 2026",
         "shortLabel": "Jul 22",
-        "count": 8,
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -580,7 +580,7 @@
         "date": "2026-08-03",
         "label": "August 3, 2026",
         "shortLabel": "Aug 3",
-        "count": 11,
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -598,7 +598,7 @@
         "date": "2026-07-22",
         "label": "July 22, 2026",
         "shortLabel": "Jul 22",
-        "count": 37,
+        "count": 34,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -697,10 +697,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-06",
-        "label": "August 6, 2026",
-        "shortLabel": "Aug 6",
-        "count": 11,
+        "date": "2026-07-30",
+        "label": "July 30, 2026",
+        "shortLabel": "Jul 30",
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -736,7 +736,7 @@
         "date": "2026-08-12",
         "label": "August 12, 2026",
         "shortLabel": "Aug 12",
-        "count": 8,
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -750,7 +750,13 @@
       "county": "Pasco",
       "slug": "pasco",
       "region": "Tampa Bay",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-27",
+        "label": "August 27, 2026",
+        "shortLabel": "Aug 27",
+        "count": 31,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://app.pascoclerk.com/appdot-public-statistical-reports-taxdeeds.asp",
       "permits": {
@@ -784,7 +790,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 56,
+        "count": 54,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -802,7 +808,7 @@
         "date": "2026-07-22",
         "label": "July 22, 2026",
         "shortLabel": "Jul 22",
-        "count": 80,
+        "count": 79,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -817,10 +823,10 @@
       "slug": "santa-rosa",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-27",
-        "label": "July 27, 2026",
-        "shortLabel": "Jul 27",
-        "count": 1,
+        "date": "2026-08-03",
+        "label": "August 3, 2026",
+        "shortLabel": "Aug 3",
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -856,7 +862,7 @@
         "date": "2026-09-10",
         "label": "September 10, 2026",
         "shortLabel": "Sep 10",
-        "count": 6,
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -982,7 +988,7 @@
         "date": "2026-07-21",
         "label": "July 21, 2026",
         "shortLabel": "Jul 21",
-        "count": 2,
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": false,
