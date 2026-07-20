@@ -1,12 +1,72 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-07-19T08:24:14Z",
+  "generated": "2026-07-20T08:33:42Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "06434705290000040": [
+      {
+        "permitNumber": "BPM-2026-01869",
+        "parcelId": "06434705290000040",
+        "address": "668  Forsyth St  4 Unit: 4 Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Electrical Service/ Panel Work Multifamily",
+        "subtype": "Electrical Service/Panel Work",
+        "description": "Remove and replace indoor electrical panel and install new circuitry for water heater.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/78d6cc8d-ae98-4e6d-9a1d-1d723a9ecfe3"
+      }
+    ],
+    "06434709050011403": [
+      {
+        "permitNumber": "BPM-2026-01868",
+        "parcelId": "06434709050011403",
+        "address": "4301 N Ocean Blvd  1403 Unit: 1403 Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior Only Multifamily",
+        "subtype": "Mechanical HVAC Interior Only",
+        "description": "Ac Exact change out",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-19",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/28f59ad7-3ff3-4cff-a889-0010b3287989"
+      }
+    ],
+    "06434628040006360": [
+      {
+        "permitNumber": "BPQ-2026-01753",
+        "parcelId": "06434628040006360",
+        "address": "885 NE Orchid Bay Dr   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Re-roof ",
+        "description": "TEAR OFF & REROOF TILE",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-19",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/18456d51-586e-4cea-ae7b-833ce889f6ad"
+      }
+    ],
     "06434716070039040": [
       {
         "permitNumber": "BPC-2026-01305",
@@ -53838,7 +53898,7 @@
         "type": "Interior Renovation/ Alteration Multifamily",
         "subtype": "Interior Only Alteration",
         "description": "Condominium Interior Renovations to Existing Unit",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -71807,24 +71867,6 @@
         "finalDate": "2026-04-15",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7a7926e8-faa9-47f9-9a51-8e595839d755"
-      },
-      {
-        "permitNumber": "BPM-2026-00827",
-        "parcelId": "06424722210150030",
-        "address": "6320  Via Tierra    Boca Raton FL 33433",
-        "city": "Boca Raton",
-        "type": "Interior and Exterior Work Multifamily",
-        "subtype": "Interior and Exterior Work",
-        "description": "Drywall repairs 109 sf",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": null,
-        "finalDate": "2026-04-08",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2b820f83-4287-48cf-b641-a2b3181a7208"
       }
     ],
     "06434728100000061": [
@@ -74693,46 +74735,6 @@
         "finalDate": "2026-04-08",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/033a9abc-2b2d-4d66-94a6-2f40f972ec0d"
-      }
-    ],
-    "06424715090060240": [
-      {
-        "permitNumber": "BPQ-2026-00793",
-        "parcelId": "06424715090060240",
-        "address": "2850 NW 27th Ave   Boca Raton FL 33434",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "Replacing 1 impact door with same, size for size",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-04-09",
-        "finalDate": "2026-05-14",
-        "expirationDate": "2026-11-10",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d3a6caef-6db0-4d14-ac6d-59c576032b11"
-      }
-    ],
-    "06434729670006090": [
-      {
-        "permitNumber": "BPM-2026-00826",
-        "parcelId": "06434729670006090",
-        "address": "200 SE Mizner Blvd  609 Unit: 609 Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Electrical Water Heater Changeout Multifamily",
-        "subtype": "Water heater changeout (elect)",
-        "description": "Water Heater Change Out Existing 80 Gallon, to New 50 Gallon",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-04-09",
-        "finalDate": null,
-        "expirationDate": "2026-10-19",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/ef9f8053-02d3-4a24-9f03-4c6c9ff83d79"
       }
     ]
   }
