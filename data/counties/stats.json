@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-20T08:45:52Z",
+  "generated": "2026-07-21T08:37:10Z",
   "salesGenerated": "2026-07-20T07:39:33Z",
   "featuredSlugs": [
     "palm-beach",
@@ -888,13 +888,7 @@
       "county": "St. Lucie",
       "slug": "st-lucie",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-07-20",
-        "label": "July 20, 2026",
-        "shortLabel": "Jul 20",
-        "count": 1,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.stlucieclerk.com/tax-deeds/surplus-funds",
       "permits": {
