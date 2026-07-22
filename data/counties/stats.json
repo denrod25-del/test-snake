@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-21T08:37:10Z",
+  "generated": "2026-07-22T08:35:28Z",
   "salesGenerated": "2026-07-20T07:39:33Z",
   "featuredSlugs": [
     "palm-beach",
@@ -12,13 +12,7 @@
       "county": "Alachua",
       "slug": "alachua",
       "region": "North Central",
-      "nextSale": {
-        "date": "2026-07-21",
-        "label": "July 21, 2026",
-        "shortLabel": "Jul 21",
-        "count": 3,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://alachua.realtaxdeed.com/",
       "permits": {
@@ -43,10 +37,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-21",
-        "label": "July 21, 2026",
-        "shortLabel": "Jul 21",
-        "count": 3,
+        "date": "2026-07-28",
+        "label": "July 28, 2026",
+        "shortLabel": "Jul 28",
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -486,13 +480,7 @@
       "county": "Lake",
       "slug": "lake",
       "region": "Central",
-      "nextSale": {
-        "date": "2026-07-21",
-        "label": "July 21, 2026",
-        "shortLabel": "Jul 21",
-        "count": 9,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.lakecountyclerk.org/court_services/tax_deed_surplus_funds.aspx",
       "permits": {
@@ -949,10 +937,10 @@
       "slug": "volusia",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-21",
-        "label": "July 21, 2026",
-        "shortLabel": "Jul 21",
-        "count": 5,
+        "date": "2026-08-04",
+        "label": "August 4, 2026",
+        "shortLabel": "Aug 4",
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -979,10 +967,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-21",
-        "label": "July 21, 2026",
-        "shortLabel": "Jul 21",
-        "count": 1,
+        "date": "2026-07-28",
+        "label": "July 28, 2026",
+        "shortLabel": "Jul 28",
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": false,
