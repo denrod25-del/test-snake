@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-22T08:35:28Z",
+  "generated": "2026-07-23T08:36:58Z",
   "salesGenerated": "2026-07-20T07:39:33Z",
   "featuredSlugs": [
     "palm-beach",
@@ -379,10 +379,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-22",
-        "label": "July 22, 2026",
-        "shortLabel": "Jul 22",
-        "count": 26,
+        "date": "2026-07-29",
+        "label": "July 29, 2026",
+        "shortLabel": "Jul 29",
+        "count": 29,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -511,10 +511,10 @@
       "slug": "leon",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-22",
-        "label": "July 22, 2026",
-        "shortLabel": "Jul 22",
-        "count": 5,
+        "date": "2026-08-19",
+        "label": "August 19, 2026",
+        "shortLabel": "Aug 19",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -583,10 +583,10 @@
       "slug": "marion",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-22",
-        "label": "July 22, 2026",
-        "shortLabel": "Jul 22",
-        "count": 34,
+        "date": "2026-08-19",
+        "label": "August 19, 2026",
+        "shortLabel": "Aug 19",
+        "count": 99,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -793,10 +793,10 @@
       "slug": "putnam",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-07-22",
-        "label": "July 22, 2026",
-        "shortLabel": "Jul 22",
-        "count": 79,
+        "date": "2026-08-05",
+        "label": "August 5, 2026",
+        "shortLabel": "Aug 5",
+        "count": 59,
         "source": "scraper"
       },
       "surplusPortal": false,
