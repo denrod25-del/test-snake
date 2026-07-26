@@ -1,12 +1,52 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-07-25T08:35:03Z",
+  "generated": "2026-07-26T08:37:03Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424114030001840": [
+      {
+        "permitNumber": "26-096771-BLDR",
+        "parcelId": "30424114030001840",
+        "address": "327  SAN REMO DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Fence",
+        "subtype": "Fence",
+        "description": "install 18 linear feet of fence to existing fence line'",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c036bcd9-4296-4237-b7a8-e195cd336568"
+      }
+    ],
+    "30434120050010021": [
+      {
+        "permitNumber": "26-096770-ELECR-R",
+        "parcelId": "30434120050010021",
+        "address": "102  OCEAN DUNES CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Electrical",
+        "subtype": "Electrical",
+        "description": "replace 150 amp main breaker indoor load center with Cutler Hammer equivalent.  New breakers surge protector grounding electrodes and bridge",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/caab63da-7613-40e4-964b-4a24a6917a13"
+      }
+    ],
     "30424112160001170": [
       {
         "permitNumber": "26-096769-BLDR",
@@ -76609,46 +76649,6 @@
         "finalDate": "2026-02-27",
         "expirationDate": "2026-08-25",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c1ba9ff2-a4d8-467b-a536-858118de6ced"
-      }
-    ],
-    "30424114060000800": [
-      {
-        "permitNumber": "26-009397-ROOF-R",
-        "parcelId": "30424114060000800",
-        "address": "2985 E COMMUNITY DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Remove existing shingle roof and install a new shingle roof system",
-        "status": "76 - Permit - CO/CC",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-17",
-        "issuedDate": "2026-02-24",
-        "finalDate": "2026-03-18",
-        "expirationDate": "2026-09-14",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9281da17-bc05-4340-bd89-6af4b7c5b713"
-      }
-    ],
-    "30424114060000790": [
-      {
-        "permitNumber": "26-009396-ROOF-R",
-        "parcelId": "30424114060000790",
-        "address": "2993 E COMMUNITY DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Remove existing shingle roof and install a new shingle roof system",
-        "status": "76 - Permit - CO/CC",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-17",
-        "issuedDate": "2026-02-24",
-        "finalDate": "2026-03-18",
-        "expirationDate": "2026-09-14",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/0383b5d4-9d15-4bc2-82db-263e2aebd901"
       }
     ]
   }

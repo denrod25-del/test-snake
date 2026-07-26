@@ -1,12 +1,70 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-07-25T08:22:55Z",
+  "generated": "2026-07-26T08:25:15Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "06424711080000000": [
+      {
+        "permitNumber": "FRS-2026-00358",
+        "parcelId": "06424711080000000",
+        "address": "2100 W Yamato Rd   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Public Education - Fire Services",
+        "subtype": "Public Education",
+        "description": "We are holding a Touch-a-Truck event on October 10 from 1:00-3:00 and will have the Boca Police Dept with us and would love to have the Boca Fire Department with us also.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/22c70b92-aafc-4446-a089-aaa53ca3c692"
+      }
+    ],
+    "06424710060000350": [
+      {
+        "permitNumber": "BPR-2026-02025",
+        "parcelId": "06424710060000350",
+        "address": "3205  St James Dr   Boca Raton FL 33434",
+        "city": "Boca Raton",
+        "type": "Electrical Wiring/ Fixtures",
+        "subtype": "Electrical Wiring/ Fixtures",
+        "description": "Install new WR TR quad outlet for new armor screen power. Add 20A dedicated circuit with 12/2 Romex wire to existing Panel A and combo AFCI/GFCI breaker.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c1ba1dfe-cbd7-40b6-8e83-b02421ba961f"
+      },
+      {
+        "permitNumber": "BPR-2026-01994",
+        "parcelId": "06424710060000350",
+        "address": "3205  St James Dr   Boca Raton FL 33434",
+        "city": "Boca Raton",
+        "type": "Screen Enclosure - Building (Residential)",
+        "subtype": "Screen enclosure",
+        "description": "install screen patio enclosure with (3) motorized screens",
+        "status": "PreScreen",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d2c9c8d3-928f-4d42-9da1-f59ebe3a5fa2"
+      }
+    ],
     "06434709050010302": [
       {
         "permitNumber": "BPM-2026-01957",
@@ -3323,7 +3381,7 @@
         "appliedDate": "2026-06-26",
         "issuedDate": "2026-07-10",
         "finalDate": null,
-        "expirationDate": "2027-01-06",
+        "expirationDate": "2027-01-21",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/26a96632-6a66-426a-9853-4ae289159d2c"
       },
       {
@@ -5635,26 +5693,6 @@
         "finalDate": "2026-07-22",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5b44f6a0-0579-4213-98c7-f755069abd7f"
-      }
-    ],
-    "06424710060000350": [
-      {
-        "permitNumber": "BPR-2026-01994",
-        "parcelId": "06424710060000350",
-        "address": "3205  St James Dr   Boca Raton FL 33434",
-        "city": "Boca Raton",
-        "type": "Screen Enclosure - Building (Residential)",
-        "subtype": "Screen enclosure",
-        "description": "install screen patio enclosure with (3) motorized screens",
-        "status": "PreScreen",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-22",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d2c9c8d3-928f-4d42-9da1-f59ebe3a5fa2"
       }
     ],
     "06424703170001302": [
@@ -14808,7 +14846,7 @@
         "type": "Deck/Patio - Building (Residential)",
         "subtype": "Deck/ patio",
         "description": "replace existing pavers on deck with new marble, and extend, sand set",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -19602,7 +19640,7 @@
         "type": "Interior Renovation/ Alteration Multifamily",
         "subtype": "Interior Only Alteration",
         "description": "Interior Renovation - Cosmetic Work to Kitchen",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -25798,7 +25836,7 @@
         "type": "Driveway/Sidewalk - Building (Residential)",
         "subtype": "Driveway/Sidewalk",
         "description": "Remove existing driveway, replace with new brick paver driveway, no change to existing footprint",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -38190,7 +38228,7 @@
         "type": "SPECIAL EVENT PERMIT",
         "subtype": "Temporary Event Structure/ Temporary Generator",
         "description": "Generator for stage. MQ power - 3 phase Diesel Trailer Generator, 70kVA, 56kW",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -71101,24 +71139,6 @@
         "finalDate": "2026-07-01",
         "expirationDate": "2026-12-09",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d96bdbc-24ba-494e-bdf0-71e1b8e73436"
-      },
-      {
-        "permitNumber": "BPC-2026-00647",
-        "parcelId": "06424714000007020",
-        "address": "5550 W Glades Rd   Unit: 300 Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Interior Only Alteration - Building (Commercial)",
-        "subtype": "Interior Only Alteration",
-        "description": "INTERIOR RENOVATION- FASHIONPHILE SUITE 300",
-        "status": "Revision Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-15",
-        "issuedDate": "2026-05-27",
-        "finalDate": null,
-        "expirationDate": "2027-01-04",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6e38199c-7469-409e-ade5-62ca4c58fbe5"
       }
     ],
     "06424711020001740": [
@@ -73367,24 +73387,6 @@
         "finalDate": "2026-04-15",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/02818b3e-6f64-4206-97dc-b705167c833c"
-      },
-      {
-        "permitNumber": "BPC-2026-00646",
-        "parcelId": "06434717290130060",
-        "address": "1300 NW 2nd Ave   Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Fence/ Site Wall",
-        "subtype": "Fence/Wall/ Gate",
-        "description": "Bollard Installation",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-15",
-        "issuedDate": null,
-        "finalDate": "2026-04-15",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2cb81d2d-ddca-4dad-bff1-ec6505e09239"
       }
     ],
     "06424712120000360": [
