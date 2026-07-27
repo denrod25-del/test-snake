@@ -1,7 +1,7 @@
 {
   "county": "West Palm Beach",
   "slug": "west-palm-beach",
-  "generated": "2026-07-26T08:21:50Z",
+  "generated": "2026-07-27T08:46:35Z",
   "source": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov SelfService scrape \u2014 no contractor/valuation in public API)",
