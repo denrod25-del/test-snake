@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-28T08:35:57Z",
+  "generated": "2026-07-29T08:36:06Z",
   "salesGenerated": "2026-07-27T07:47:59Z",
   "featuredSlugs": [
     "palm-beach",
@@ -37,9 +37,9 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-28",
-        "label": "July 28, 2026",
-        "shortLabel": "Jul 28",
+        "date": "2026-08-04",
+        "label": "August 4, 2026",
+        "shortLabel": "Aug 4",
         "count": 9,
         "source": "scraper"
       },
@@ -493,10 +493,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-07-28",
-        "label": "July 28, 2026",
-        "shortLabel": "Jul 28",
-        "count": 5,
+        "date": "2026-08-04",
+        "label": "August 4, 2026",
+        "shortLabel": "Aug 4",
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -643,9 +643,9 @@
       "slug": "nassau",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-07-28",
-        "label": "July 28, 2026",
-        "shortLabel": "Jul 28",
+        "date": "2026-08-04",
+        "label": "August 4, 2026",
+        "shortLabel": "Aug 4",
         "count": 2,
         "source": "scraper"
       },
@@ -829,10 +829,10 @@
       "slug": "sarasota",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-07-28",
-        "label": "July 28, 2026",
-        "shortLabel": "Jul 28",
-        "count": 2,
+        "date": "2026-08-04",
+        "label": "August 4, 2026",
+        "shortLabel": "Aug 4",
+        "count": 22,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -973,10 +973,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-07-28",
-        "label": "July 28, 2026",
-        "shortLabel": "Jul 28",
-        "count": 1,
+        "date": "2026-08-11",
+        "label": "August 11, 2026",
+        "shortLabel": "Aug 11",
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": false,
