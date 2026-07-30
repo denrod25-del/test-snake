@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-29T08:36:06Z",
+  "generated": "2026-07-30T08:35:33Z",
   "salesGenerated": "2026-07-27T07:47:59Z",
   "featuredSlugs": [
     "palm-beach",
@@ -379,10 +379,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-29",
-        "label": "July 29, 2026",
-        "shortLabel": "Jul 29",
-        "count": 29,
+        "date": "2026-08-05",
+        "label": "August 5, 2026",
+        "shortLabel": "Aug 5",
+        "count": 32,
         "source": "scraper"
       },
       "surplusPortal": false,
