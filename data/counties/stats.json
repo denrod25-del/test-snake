@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-30T08:35:33Z",
+  "generated": "2026-07-31T08:39:50Z",
   "salesGenerated": "2026-07-27T07:47:59Z",
   "featuredSlugs": [
     "palm-beach",
@@ -685,10 +685,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-07-30",
-        "label": "July 30, 2026",
-        "shortLabel": "Jul 30",
-        "count": 2,
+        "date": "2026-08-06",
+        "label": "August 6, 2026",
+        "shortLabel": "Aug 6",
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
