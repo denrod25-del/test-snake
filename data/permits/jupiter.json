@@ -1,12 +1,52 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-01T08:34:42Z",
+  "generated": "2026-08-02T08:36:12Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434117021130020": [
+      {
+        "permitNumber": "26-096973-AC",
+        "parcelId": "30434117021130020",
+        "address": "2705  27TH CT  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "(1) RHEEM 2-TON A/C CHANGE-OUT, LIKE FOR LIKE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-01",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/946de7a3-e661-4121-8f69-e16ee3f4f326"
+      }
+    ],
+    "30424108020000440": [
+      {
+        "permitNumber": "26-096972-MECHR",
+        "parcelId": "30424108020000440",
+        "address": "538  CARRARA CT  JUPITER FL 33478",
+        "city": "JUPITER",
+        "type": "Residential Mechanical",
+        "subtype": "Mechanical",
+        "description": "INSTALL NEW MINI SPLIT",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-01",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3eb61054-27a9-4db7-92ba-ec35e6dc68a0"
+      }
+    ],
     "30424110030002470": [
       {
         "permitNumber": "26-009838-ROOF-R",
@@ -45843,24 +45883,6 @@
         "finalDate": "2026-06-08",
         "expirationDate": "2026-12-01",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/975e1ec2-57cb-4462-bbf5-8080f3580b6f"
-      },
-      {
-        "permitNumber": "26-009431-ROOF-R",
-        "parcelId": "30424112160003080",
-        "address": "136  VIA CATALUNHA   JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "TEAR OFF & REROOF TILE",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-27",
-        "issuedDate": "2026-03-11",
-        "finalDate": "2026-05-26",
-        "expirationDate": "2026-11-18",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ebab5c99-01d8-4db2-8863-6a463ee47653"
       }
     ],
     "30424112150000380": [
@@ -76001,24 +76023,6 @@
         "finalDate": "2026-06-10",
         "expirationDate": "2026-12-07",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4859b075-e5c0-4be4-950d-472537599803"
-      },
-      {
-        "permitNumber": "26-093371-BLDR",
-        "parcelId": "30434105050005030",
-        "address": "717 S US HIGHWAY 1   Unit: 503 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACING 2 DOORS W/ IMPACT SIZE FOR SIZE\n\nINCORRECT PERMIT TYPE SEE 26-093429-COMM",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-27",
-        "issuedDate": null,
-        "finalDate": "2026-03-02",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/40fcbdff-11d2-4ef8-a1a3-99db4f743480"
       }
     ],
     "30424123040001570": [
