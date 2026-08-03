@@ -41,6 +41,7 @@ class NoDataError(Exception):
 # --------------------------------------------------------------------------
 _MONEY_RE = re.compile(r"\$?\s*([\d,]+(?:\.\d{1,2})?)")
 _DATE_RE = re.compile(r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\w+\s+\d{1,2},?\s+\d{4})\b")
+_TEMPLATE_RE = re.compile(r"\{\{|\}\}|getFeeCodeData", re.I)
 _FEE_NOISE = re.compile(
     r"application fee|sheriff fee|postage|photocopy|advertising fee|"
     r"holiday schedule|contact us|opening\b",
@@ -167,15 +168,19 @@ def parse_clerk_html_table(html: str, source_url: str) -> List[Dict[str, Any]]:
         if len(cells_compact) < 2:
             continue
         row_text = " ".join(cells_compact)
+        if _TEMPLATE_RE.search(row_text):
+            continue
         if _FEE_NOISE.search(row_text) and "surplus" not in row_text.lower():
             continue
 
         sale_iso = _parse_date(_get(cells, col_map["sale_date"]) or _get(cells_compact, col_map["sale_date"]) or row_text)
-        amount = _parse_money(
+        amount_src = (
             _get(cells, col_map["surplus_amount"])
             or _get(cells_compact, col_map["surplus_amount"])
-            or row_text
         )
+        amount = _parse_money(amount_src)
+        if amount is None and "$" in row_text:
+            amount = _parse_money(row_text)
 
         if amount is None or amount < _MIN_SURPLUS_AMOUNT:
             continue
@@ -229,6 +234,8 @@ def parse_realauction_surplus(html: str, source_url: str) -> List[Dict[str, Any]
             continue
         line = " | ".join(cells)
         if "$" not in line:
+            continue
+        if _TEMPLATE_RE.search(line):
             continue
         if _FEE_NOISE.search(line):
             continue

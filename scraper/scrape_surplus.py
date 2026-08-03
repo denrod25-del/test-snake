@@ -43,6 +43,7 @@ from typing import Dict, Any, List, Optional
 import requests
 
 from parsers_surplus import PARSERS, NoDataError, discover_pdf_url
+from surplus_quality import validate_surplus_record
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -198,11 +199,7 @@ def supabase_upsert(rows: List[Dict[str, Any]]) -> int:
 
 
 def normalize(rec: Dict[str, Any], county: str) -> Optional[Dict[str, Any]]:
-    """Tidy a single record before upsert. Requires sale_date + surplus_amount."""
-    if not rec.get("surplus_amount"):
-        return None
-    if not rec.get("sale_date"):
-        return None
+    """Format a record for Supabase upsert after quality checks."""
     parcel = rec.get("parcel_id") or ""
     return {
         "county": county,
@@ -215,6 +212,28 @@ def normalize(rec: Dict[str, Any], county: str) -> Optional[Dict[str, Any]]:
         "claim_deadline": rec.get("claim_deadline"),
         "source_url": rec.get("source_url"),
     }
+
+
+def accept_record(
+    rec: Dict[str, Any],
+    county: str,
+    *,
+    scraped: bool,
+    rows: List[Dict[str, Any]],
+) -> bool:
+    """Validate, normalize, and de-dupe. Logs rejections at debug level."""
+    ok, reason = validate_surplus_record(rec, scraped=scraped)
+    if not ok:
+        log.debug("[%s] dropped row (%s): %s", county, reason, rec)
+        return False
+    n = normalize(rec, county)
+    if not n:
+        return False
+    key = (n["sale_date"], n["parcel_id"])
+    if any((r["sale_date"], r["parcel_id"]) == key for r in rows):
+        return False
+    rows.append(n)
+    return True
 
 
 def collect(only: str | None) -> Dict[str, List[Dict[str, Any]]]:
@@ -230,23 +249,33 @@ def collect(only: str | None) -> Dict[str, List[Dict[str, Any]]]:
         rows: List[Dict[str, Any]] = []
 
         for rec in manual.get(county, []) or []:
-            n = normalize(rec, county)
-            if n:
-                rows.append(n)
+            accept_record(rec, county, scraped=False, rows=rows)
 
         cfg = sources.get(county)
+        if cfg and not cfg.get("enabled", True):
+            log.info(
+                "[%s] skipped: %s",
+                county,
+                cfg.get("notes") or cfg.get("limitations") or "source disabled",
+            )
+            continue
         if cfg and cfg.get("enabled", True):
             try:
                 parsed = scrape_county(county, cfg)
+                kept = 0
                 for rec in parsed:
-                    n = normalize(rec, county)
-                    if not n:
-                        continue
-                    key = (n["sale_date"], n["parcel_id"])
-                    if any((r["sale_date"], r["parcel_id"]) == key for r in rows):
-                        continue
-                    rows.append(n)
-                log.info("[%s] scraped %d usable records", county, len(parsed))
+                    if accept_record(rec, county, scraped=True, rows=rows):
+                        kept += 1
+                dropped = len(parsed) - kept
+                if dropped:
+                    log.info(
+                        "[%s] scraped %d rows, kept %d after quality filter",
+                        county,
+                        len(parsed),
+                        kept,
+                    )
+                else:
+                    log.info("[%s] scraped %d usable records", county, len(parsed))
             except NoDataError as e:
                 log.info("[%s] no data: %s", county, e)
             except requests.RequestException as e:
@@ -279,12 +308,22 @@ def main() -> int:
     ap.add_argument("--only", help="scrape only this county")
     ap.add_argument("--dry-run", action="store_true", help="don't write to Supabase, just print")
     ap.add_argument("--verbose", action="store_true")
+    ap.add_argument(
+        "--allow-low-quality",
+        action="store_true",
+        help="bypass scraped-row quality filter (debug only)",
+    )
     args = ap.parse_args()
 
     logging.basicConfig(
         level=logging.DEBUG if args.verbose else logging.INFO,
         format="%(asctime)s %(levelname)-7s %(message)s",
     )
+
+    if args.allow_low_quality:
+        import surplus_quality as sq
+        sq.BYPASS_QUALITY = True
+        log.warning("Quality filter bypassed — do not use for production upserts")
 
     results = collect(args.only)
     flat: List[Dict[str, Any]] = [r for rows in results.values() for r in rows]
