@@ -1,12 +1,294 @@
 {
   "county": "West Palm Beach",
   "slug": "west-palm-beach",
-  "generated": "2026-08-02T08:21:11Z",
+  "generated": "2026-08-03T08:44:26Z",
   "source": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov SelfService scrape \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "74434410100150111": [
+      {
+        "permitNumber": "26080013-LANDSC",
+        "parcelId": "74434410100150111",
+        "address": "360  Leigh Rd  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Landscape - Residential",
+        "subtype": "Landscape (Residential)",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-02",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/d08bdb2a-6b46-40d8-a970-25c321a27657"
+      }
+    ],
+    "74434334060041180": [
+      {
+        "permitNumber": "26080012-COM-BLDG",
+        "parcelId": "74434334060041180",
+        "address": "3222 S Dixie Hwy  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Roofing - Commercial",
+        "subtype": "Roofing",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-02",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/8c0b72d3-07c2-46b5-bceb-a357eeafa093"
+      },
+      {
+        "permitNumber": "26071196-RES-BLDG",
+        "parcelId": "74434334060041180",
+        "address": "3222 S Dixie Hwy  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Roofing - Residential",
+        "subtype": "Roofing",
+        "description": "",
+        "status": "Requires Resubmit for Prescreen ",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/74b0ebda-cc15-4cf7-ad5e-dd3e55d1934a"
+      }
+    ],
+    "74434410030000500": [
+      {
+        "permitNumber": "26080011-LANDSC",
+        "parcelId": "74434410030000500",
+        "address": "330  Franklin Rd  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Landscape - Residential",
+        "subtype": "Landscape (Residential)",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-02",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/b1590ca2-9456-4f05-80b4-24d30bb36410"
+      },
+      {
+        "permitNumber": "26061195-RES-BLDG",
+        "parcelId": "74434410030000500",
+        "address": "330  Franklin Rd  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Addition - Residential",
+        "subtype": "Addition",
+        "description": "",
+        "status": "Requires Resubmit",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/3f977b5f-88b1-4acf-8090-399798933722"
+      }
+    ],
+    "74434307010001460": [
+      {
+        "permitNumber": "26080010-RES-BLDG",
+        "parcelId": "74434307010001460",
+        "address": "3500  Embassy Dr  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Building Miscellaneous - Residential",
+        "subtype": "Miscellaneous",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-02",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/cbd26ce2-4b31-4f32-84db-b5495c2be4e0"
+      },
+      {
+        "permitNumber": "26070944-RES-POOL",
+        "parcelId": "74434307010001460",
+        "address": "3500  Embassy Dr  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Pool/Spa/Fountain - Residential",
+        "subtype": "Pool/Spa/Fountain",
+        "description": "",
+        "status": "In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-19",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/37561792-6302-49b7-8883-6e57e8dad102"
+      }
+    ],
+    "74434305010230010": [
+      {
+        "permitNumber": "26080009-REVISION",
+        "parcelId": "74434305010230010",
+        "address": "2945 N Australian Ave  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Building Revisions - Commercial Revision",
+        "subtype": "Commercial Revision",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-02",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1cc329bd-0e3f-4115-9b8d-e6a68eebb00a"
+      },
+      {
+        "permitNumber": "26070002-REVISION",
+        "parcelId": "74434305010230010",
+        "address": "2945 N Australian Ave  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Building Revisions - Commercial Revision",
+        "subtype": "Commercial Revision",
+        "description": "",
+        "status": "Complete",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-01",
+        "issuedDate": "2026-07-22",
+        "finalDate": "2026-07-22",
+        "expirationDate": "2026-07-22",
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1f453445-fb5d-4fe7-b4aa-4dd9e94d5f04"
+      },
+      {
+        "permitNumber": "26071791-REVISION",
+        "parcelId": "74434305010230010",
+        "address": "2945 N Australian Ave  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Building Revisions - Commercial Revision",
+        "subtype": "Commercial Revision",
+        "description": "",
+        "status": "Void",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-01",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/a2eba8d6-df6a-41d8-a473-2e1c04a0893b"
+      }
+    ],
+    "74434310140040050": [
+      {
+        "permitNumber": "26080008-RES-BLDG",
+        "parcelId": "74434310140040050",
+        "address": "310  29th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Building Miscellaneous - Residential",
+        "subtype": "Miscellaneous",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-02",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/0d1d10a0-a55f-4ae9-8f09-dc0bd4f53bdf"
+      },
+      {
+        "permitNumber": "26071549-RES-ELEC",
+        "parcelId": "74434310140040050",
+        "address": "310  29th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Electrical Sub-Permit - Residential",
+        "subtype": "Sub-Permit",
+        "description": "",
+        "status": "On Hold",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-29",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/2c5df42b-c4fa-4bbe-aeaf-8e739e0223e3"
+      },
+      {
+        "permitNumber": "26071245-RES-PLUMB",
+        "parcelId": "74434310140040050",
+        "address": "310  29th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Plumbing Sub-Permit - Residential",
+        "subtype": "Sub-Permit",
+        "description": "",
+        "status": "Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-23",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/5af2cdf9-5bf2-4424-8558-b92925c1cdee"
+      },
+      {
+        "permitNumber": "26071130-RES-BLDG",
+        "parcelId": "74434310140040050",
+        "address": "310  29th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Remodel - Residential",
+        "subtype": "Remodel",
+        "description": "",
+        "status": "Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/366c0d92-9a96-489e-906f-1b6c34aca8bd"
+      },
+      {
+        "permitNumber": "26060028-RES-GAS",
+        "parcelId": "74434310140040050",
+        "address": "310  29th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "General Gas - Residential",
+        "subtype": "General",
+        "description": "",
+        "status": "Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-01",
+        "issuedDate": "2026-06-15",
+        "finalDate": null,
+        "expirationDate": "2026-12-21",
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/8c94c421-0cf2-4480-90c0-7998db959f33"
+      }
+    ],
     "74434306030060100": [
       {
         "permitNumber": "26080007-RES-ANC",
@@ -9967,80 +10249,6 @@
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/030fe7f0-7694-4137-947d-7fa6e0dbebc8"
       }
     ],
-    "74434310140040050": [
-      {
-        "permitNumber": "26071549-RES-ELEC",
-        "parcelId": "74434310140040050",
-        "address": "310  29th St  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Electrical Sub-Permit - Residential",
-        "subtype": "Sub-Permit",
-        "description": "",
-        "status": "On Hold",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-29",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/2c5df42b-c4fa-4bbe-aeaf-8e739e0223e3"
-      },
-      {
-        "permitNumber": "26071245-RES-PLUMB",
-        "parcelId": "74434310140040050",
-        "address": "310  29th St  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Plumbing Sub-Permit - Residential",
-        "subtype": "Sub-Permit",
-        "description": "",
-        "status": "Fees Due",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-23",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/5af2cdf9-5bf2-4424-8558-b92925c1cdee"
-      },
-      {
-        "permitNumber": "26071130-RES-BLDG",
-        "parcelId": "74434310140040050",
-        "address": "310  29th St  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Remodel - Residential",
-        "subtype": "Remodel",
-        "description": "",
-        "status": "Fees Due",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-22",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/366c0d92-9a96-489e-906f-1b6c34aca8bd"
-      },
-      {
-        "permitNumber": "26060028-RES-GAS",
-        "parcelId": "74434310140040050",
-        "address": "310  29th St  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "General Gas - Residential",
-        "subtype": "General",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-01",
-        "issuedDate": "2026-06-15",
-        "finalDate": null,
-        "expirationDate": "2026-12-21",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/8c94c421-0cf2-4480-90c0-7998db959f33"
-      }
-    ],
     "74434307070024030": [
       {
         "permitNumber": "26071548-COM-BLDG",
@@ -13754,7 +13962,7 @@
         "type": "Windows and Doors - Residential",
         "subtype": "Windows and Doors",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -13834,7 +14042,7 @@
         "type": "Demolition - Residential",
         "subtype": "Demolition",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -16572,7 +16780,7 @@
         "type": "Interior (<5000 sq ft) - Commercial",
         "subtype": "Interior (<5000 sq ft)",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -21213,26 +21421,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-25",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/bb9eb883-6317-4a93-b1fb-2b5c48416efa"
-      }
-    ],
-    "74434334060041180": [
-      {
-        "permitNumber": "26071196-RES-BLDG",
-        "parcelId": "74434334060041180",
-        "address": "3222 S Dixie Hwy  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Roofing - Residential",
-        "subtype": "Roofing",
-        "description": "",
-        "status": "Requires Resubmit for Prescreen ",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-22",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/74b0ebda-cc15-4cf7-ad5e-dd3e55d1934a"
       }
     ],
     "74414236020000510": [
@@ -27741,26 +27929,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-25",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/dd32e701-0fca-4468-98ad-56f95bc39e2e"
-      }
-    ],
-    "74434307010001460": [
-      {
-        "permitNumber": "26070944-RES-POOL",
-        "parcelId": "74434307010001460",
-        "address": "3500  Embassy Dr  West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Pool/Spa/Fountain - Residential",
-        "subtype": "Pool/Spa/Fountain",
-        "description": "",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-19",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/37561792-6302-49b7-8883-6e57e8dad102"
       }
     ],
     "74434403010007080": [
@@ -46369,44 +46537,6 @@
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ea20d08b-2242-4903-8456-fc68526de558"
       }
     ],
-    "74434305010230010": [
-      {
-        "permitNumber": "26070002-REVISION",
-        "parcelId": "74434305010230010",
-        "address": "2945 N Australian Ave  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Building Revisions - Commercial Revision",
-        "subtype": "Commercial Revision",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-01",
-        "issuedDate": "2026-07-22",
-        "finalDate": "2026-07-22",
-        "expirationDate": "2026-07-22",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1f453445-fb5d-4fe7-b4aa-4dd9e94d5f04"
-      },
-      {
-        "permitNumber": "26071791-REVISION",
-        "parcelId": "74434305010230010",
-        "address": "2945 N Australian Ave  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Building Revisions - Commercial Revision",
-        "subtype": "Commercial Revision",
-        "description": "",
-        "status": "Void",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-01",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/a2eba8d6-df6a-41d8-a473-2e1c04a0893b"
-      }
-    ],
     "74434322410000018": [
       {
         "permitNumber": "26061790-COM-PLUMB",
@@ -54237,26 +54367,6 @@
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/6af3938b-e2cb-437e-9a08-071e648e86cc"
       }
     ],
-    "74434410030000500": [
-      {
-        "permitNumber": "26061195-RES-BLDG",
-        "parcelId": "74434410030000500",
-        "address": "330  Franklin Rd  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Addition - Residential",
-        "subtype": "Addition",
-        "description": "",
-        "status": "Requires Resubmit",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-22",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/3f977b5f-88b1-4acf-8090-399798933722"
-      }
-    ],
     "74414224060000880": [
       {
         "permitNumber": "26061192-RES-BLDG",
@@ -59817,24 +59927,6 @@
         "finalDate": "2026-06-12",
         "expirationDate": "2026-12-09",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/20f86582-b176-4214-8ece-e4808c466c29"
-      },
-      {
-        "permitNumber": "26051153-REVISION",
-        "parcelId": "74434409050005961",
-        "address": "6840  Lake Ave  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Building Revisions - Residential Revision",
-        "subtype": "Residential Revision",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-21",
-        "issuedDate": "2026-06-03",
-        "finalDate": "2026-06-03",
-        "expirationDate": "2026-06-03",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/cb4aba3d-004e-4e1a-b498-0e7d2960951f"
       }
     ],
     "74414225160000130": [
@@ -73557,86 +73649,6 @@
         "finalDate": "2026-07-23",
         "expirationDate": "2027-01-19",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1ae25a08-8c7a-4a7d-aeac-ef691a205a81"
-      }
-    ],
-    "74434403180000782": [
-      {
-        "permitNumber": "26051155-ENG-DA",
-        "parcelId": "74434403180000782",
-        "address": "245  Ellamar Rd  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Driveway Agreement",
-        "subtype": "Driveway Agreement",
-        "description": "",
-        "status": "Fees Paid",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-21",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/6ecbb726-723b-4230-b1b3-5e6aaa59e652"
-      }
-    ],
-    "74434403090000071": [
-      {
-        "permitNumber": "26051152-RES-BLDG",
-        "parcelId": "74434403090000071",
-        "address": "114  Russlyn Dr  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Roofing - Residential",
-        "subtype": "Roofing",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-21",
-        "issuedDate": "2026-06-15",
-        "finalDate": null,
-        "expirationDate": "2027-01-04",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/642db0d7-7d78-4077-adfe-104267ef31db"
-      }
-    ],
-    "74434321230055330": [
-      {
-        "permitNumber": "26051151-COM-ELEC",
-        "parcelId": "74434321230055330",
-        "address": "610 Clematis St Unit: 533 West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Electrical Sub-Permit - Commercial",
-        "subtype": "Sub-Permit",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-21",
-        "issuedDate": "2026-05-22",
-        "finalDate": "2026-07-13",
-        "expirationDate": "2027-01-04",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/fa0e0c4b-cbe1-4e38-a5b3-121863a2bdad"
-      }
-    ],
-    "74434319020100120": [
-      {
-        "permitNumber": "26051150-RES-BLDG",
-        "parcelId": "74434319020100120",
-        "address": "507  Huron Pl  West Palm Beach FL 33409",
-        "city": "West Palm Beach",
-        "type": "Roofing - Residential",
-        "subtype": "Roofing",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-21",
-        "issuedDate": "2026-06-08",
-        "finalDate": "2026-06-15",
-        "expirationDate": "2026-12-14",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/10102757-225b-4745-83cc-a4d07903be87"
       }
     ]
   }

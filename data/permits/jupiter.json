@@ -1,7 +1,7 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-02T08:36:12Z",
+  "generated": "2026-08-03T08:59:45Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
@@ -76779,26 +76779,6 @@
         "finalDate": "2026-04-06",
         "expirationDate": "2026-09-29",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2c5f0827-50c4-4522-a669-563abecf29bd"
-      }
-    ],
-    "30434120140230020": [
-      {
-        "permitNumber": "26-093372-ELECR-R",
-        "parcelId": "30434120140230020",
-        "address": "824  OCEAN DUNES CIR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "Updating receptacles, switches, fixtures, and recess lighting.((MASTER PERMIT 26-092950-BLDR))",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-02-27",
-        "issuedDate": "2026-02-27",
-        "finalDate": null,
-        "expirationDate": "2026-09-23",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c82ede78-182c-4f7f-ada3-0f514aa80b2b"
       }
     ]
   }
