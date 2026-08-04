@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-03T08:59:53Z",
+  "generated": "2026-08-04T08:38:13Z",
   "salesGenerated": "2026-08-03T07:45:57Z",
   "featuredSlugs": [
     "palm-beach",
@@ -571,10 +571,10 @@
       "slug": "manatee",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-08-03",
-        "label": "August 3, 2026",
-        "shortLabel": "Aug 3",
-        "count": 5,
+        "date": "2026-08-17",
+        "label": "August 17, 2026",
+        "shortLabel": "Aug 17",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -817,9 +817,9 @@
       "slug": "santa-rosa",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-03",
-        "label": "August 3, 2026",
-        "shortLabel": "Aug 3",
+        "date": "2026-08-10",
+        "label": "August 10, 2026",
+        "shortLabel": "Aug 10",
         "count": 2,
         "source": "scraper"
       },
