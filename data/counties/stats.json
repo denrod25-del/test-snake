@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-04T08:38:13Z",
+  "generated": "2026-08-05T08:38:13Z",
   "salesGenerated": "2026-08-03T07:45:57Z",
   "featuredSlugs": [
     "palm-beach",
@@ -43,10 +43,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-04",
-        "label": "August 4, 2026",
-        "shortLabel": "Aug 4",
-        "count": 5,
+        "date": "2026-08-11",
+        "label": "August 11, 2026",
+        "shortLabel": "Aug 11",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -433,10 +433,10 @@
       "slug": "indian-river",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-08-04",
-        "label": "August 4, 2026",
-        "shortLabel": "Aug 4",
-        "count": 7,
+        "date": "2026-08-25",
+        "label": "August 25, 2026",
+        "shortLabel": "Aug 25",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -499,10 +499,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-04",
-        "label": "August 4, 2026",
-        "shortLabel": "Aug 4",
-        "count": 2,
+        "date": "2026-08-11",
+        "label": "August 11, 2026",
+        "shortLabel": "Aug 11",
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -649,9 +649,9 @@
       "slug": "nassau",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-08-04",
-        "label": "August 4, 2026",
-        "shortLabel": "Aug 4",
+        "date": "2026-08-18",
+        "label": "August 18, 2026",
+        "shortLabel": "Aug 18",
         "count": 2,
         "source": "scraper"
       },
@@ -835,10 +835,10 @@
       "slug": "sarasota",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-04",
-        "label": "August 4, 2026",
-        "shortLabel": "Aug 4",
-        "count": 19,
+        "date": "2026-08-06",
+        "label": "August 6, 2026",
+        "shortLabel": "Aug 6",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -949,10 +949,10 @@
       "slug": "volusia",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-04",
-        "label": "August 4, 2026",
-        "shortLabel": "Aug 4",
-        "count": 27,
+        "date": "2026-08-11",
+        "label": "August 11, 2026",
+        "shortLabel": "Aug 11",
+        "count": 26,
         "source": "scraper"
       },
       "surplusPortal": true,
