@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-05T08:38:13Z",
+  "generated": "2026-08-06T08:36:47Z",
   "salesGenerated": "2026-08-03T07:45:57Z",
   "featuredSlugs": [
     "palm-beach",
@@ -235,10 +235,10 @@
       "slug": "escambia",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-05",
-        "label": "August 5, 2026",
-        "shortLabel": "Aug 5",
-        "count": 14,
+        "date": "2026-09-02",
+        "label": "September 2, 2026",
+        "shortLabel": "Sep 2",
+        "count": 47,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -385,10 +385,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-05",
-        "label": "August 5, 2026",
-        "shortLabel": "Aug 5",
-        "count": 32,
+        "date": "2026-08-12",
+        "label": "August 12, 2026",
+        "shortLabel": "Aug 12",
+        "count": 30,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -799,10 +799,10 @@
       "slug": "putnam",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-08-05",
-        "label": "August 5, 2026",
-        "shortLabel": "Aug 5",
-        "count": 58,
+        "date": "2026-08-12",
+        "label": "August 12, 2026",
+        "shortLabel": "Aug 12",
+        "count": 35,
         "source": "scraper"
       },
       "surplusPortal": false,
