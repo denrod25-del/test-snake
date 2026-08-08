@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-07T08:15:36Z",
+  "generated": "2026-08-08T08:03:39Z",
   "salesGenerated": "2026-08-06T10:04:41Z",
   "featuredSlugs": [
     "palm-beach",
@@ -835,9 +835,9 @@
       "slug": "sarasota",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-07",
-        "label": "August 7, 2026",
-        "shortLabel": "Aug 7",
+        "date": "2026-08-11",
+        "label": "August 11, 2026",
+        "shortLabel": "Aug 11",
         "count": 20,
         "source": "scraper"
       },
