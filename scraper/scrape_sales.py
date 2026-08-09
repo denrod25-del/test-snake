@@ -31,6 +31,7 @@ import requests
 
 from parsers import PARSERS, NoDataError
 from realauction import scrape_realauction_county
+from deedauction import scrape_deedauction_county
 
 
 HERE = Path(__file__).parent
@@ -110,11 +111,24 @@ def scrape_county(county_name, cfg):
             sales = scrape_realauction_county(url)
             if sales:
                 return sales, None
-            return None, "RealAuction preview returned no future dates"
+            detail = getattr(scrape_realauction_county, "last_error", None)
+            return None, detail or "RealAuction preview returned no future dates"
         except requests.RequestException as e:
             return None, f"RealAuction fetch failed: {e}"
         except Exception as e:  # pylint: disable=broad-except
             return None, f"RealAuction error: {type(e).__name__}: {e}"
+
+    # DeedAuction / Grant Street (Broward): DataTable POST /auctions/upcoming
+    if parser_name == "deedauction":
+        try:
+            sales = scrape_deedauction_county(url)
+            if sales:
+                return sales, None
+            return None, "DeedAuction upcoming list returned no future tax-deed sales"
+        except requests.RequestException as e:
+            return None, f"DeedAuction fetch failed: {e}"
+        except Exception as e:  # pylint: disable=broad-except
+            return None, f"DeedAuction error: {type(e).__name__}: {e}"
 
     urls = [url]
     last_err = None
@@ -161,6 +175,11 @@ def main():
         if i > 0:
             time.sleep(DELAY_BETWEEN_REQUESTS)
         print(f"[{i+1}/{len(sources)}] {county:<14}  ", end="", flush=True)
+        if cfg.get("scrape") is False:
+            stats["skipped"] += 1
+            note = cfg.get("notes") or "scrape disabled in sources.json"
+            print(f"SKIP {note}")
+            continue
         sales, err = scrape_county(county, cfg)
         if sales:
             for s in sales:

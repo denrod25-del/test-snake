@@ -146,22 +146,85 @@ def count_parcels_for_date(session: requests.Session, home_url: str, iso_date: s
     return len(ids) if ids else 0
 
 
+def _host_candidates(home_url: str) -> list[str]:
+    """
+    Prefer the configured host, then the sibling RealAuction product host.
+    Many tax-deed calendars live on *.realforeclose.com while *.realtaxdeed.com
+    redirects to the corporate marketing site (or shows an empty splash).
+    """
+    base = home_url.rstrip("/")
+    out = [base]
+    if "realtaxdeed.com" in base:
+        out.append(base.replace("realtaxdeed.com", "realforeclose.com"))
+    elif "realforeclose.com" in base:
+        out.append(base.replace("realforeclose.com", "realtaxdeed.com"))
+    # de-dupe, preserve order
+    seen = set()
+    uniq = []
+    for u in out:
+        if u not in seen:
+            seen.add(u)
+            uniq.append(u)
+    return uniq
+
+
+def is_live_realauction_host(session: requests.Session, home_url: str) -> bool:
+    """False when the subdomain redirects to www.realauction.com marketing."""
+    try:
+        r = session.get(home_url, headers=BROWSER_HEADERS, timeout=25, allow_redirects=True)
+    except requests.RequestException:
+        return False
+    final = (r.url or "").lower()
+    if "www.realauction.com" in final or final.rstrip("/").endswith("://realauction.com"):
+        return False
+    title = ""
+    try:
+        from bs4 import BeautifulSoup
+
+        soup = BeautifulSoup(r.text, "lxml")
+        title = (soup.title.get_text(strip=True) if soup.title else "").lower()
+    except Exception:
+        title = ""
+    if "online auction software solutions" in title:
+        return False
+    return r.status_code == 200
+
+
 def scrape_realauction_county(home_url: str) -> list[dict]:
     """Return [{date, count, source, officialUrl}, ...] for one RealAuction county."""
     session = requests.Session()
-    dates = discover_preview_dates(session, home_url)
-    out = []
-    for iso in dates:
-        # count_parcels_for_date returns 0 for foreclosure-only calendar days
-        # (common on *.realforeclose.com hosts that mix sale types).
-        count = count_parcels_for_date(session, home_url, iso)
-        if not count:
+    last_empty_reason = "no future preview dates"
+    for candidate in _host_candidates(home_url):
+        if not is_live_realauction_host(session, candidate):
+            last_empty_reason = f"host not live ({candidate})"
             continue
-        entry = {
-            "date": iso,
-            "source": "scraper",
-            "count": count,
-            "officialUrl": f"{home_url.rstrip('/')}/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate={_mdy(iso)}",
-        }
-        out.append(entry)
-    return out
+        dates = discover_preview_dates(session, candidate)
+        if not dates:
+            last_empty_reason = f"no future preview dates on {candidate}"
+            continue
+        out = []
+        for iso in dates:
+            # count_parcels_for_date returns 0 for foreclosure-only calendar days
+            # (common on *.realforeclose.com hosts that mix sale types).
+            count = count_parcels_for_date(session, candidate, iso)
+            if not count:
+                continue
+            out.append(
+                {
+                    "date": iso,
+                    "source": "scraper",
+                    "count": count,
+                    "officialUrl": (
+                        f"{candidate}/index.cfm?zaction=AUCTION&Zmethod=PREVIEW"
+                        f"&AuctionDate={_mdy(iso)}"
+                    ),
+                }
+            )
+        if out:
+            return out
+        last_empty_reason = (
+            f"preview dates found on {candidate} but no tax-deed parcel days"
+        )
+    # Signal empty to caller; message is useful for scrape_sales logging.
+    scrape_realauction_county.last_error = last_empty_reason  # type: ignore[attr-defined]
+    return []
