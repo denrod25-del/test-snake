@@ -236,7 +236,12 @@ h3 { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.25; }
 .proof-media, .proof-copy { transition: opacity var(--motion-normal) var(--ease), transform var(--motion-normal) var(--ease); }
 @media (max-width: 860px) {
   .proof-shell { grid-template-columns: 1fr; }
-  .proof-rail { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); scrollbar-width: none; }
+  .proof-rail {
+    flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); scrollbar-width: none;
+    /* fade the right edge so it's clear more chips exist off-screen */
+    mask-image: linear-gradient(90deg, #000 82%, transparent 99%);
+    -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 99%);
+  }
   .proof-rail::-webkit-scrollbar { display: none; }
   .proof-item { grid-template-columns: auto; min-width: max-content; border-bottom: 0; border-right: 1px solid var(--border); padding: 14px 18px; }
   .proof-item .idx, .proof-item .cat { display: none; }
