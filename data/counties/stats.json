@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-09T08:06:57Z",
-  "salesGenerated": "2026-08-06T10:04:41Z",
+  "generated": "2026-08-09T22:30:00Z",
+  "salesGenerated": "2026-08-09T22:30:00Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -16,7 +16,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 4,
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 34,
+        "count": 32,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -94,8 +94,8 @@
         "date": "2026-10-26",
         "label": "October 26, 2026",
         "shortLabel": "Oct 26",
-        "count": null,
-        "source": "manual_verified"
+        "count": 14,
+        "source": "scraper"
       },
       "surplusPortal": true,
       "surplusUrl": "https://www.browardclerk.org/Divisions/RealEstate/SurplusFunds",
@@ -120,7 +120,13 @@
       "county": "Charlotte",
       "slug": "charlotte",
       "region": "Southwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-08-11",
+        "label": "August 11, 2026",
+        "shortLabel": "Aug 11",
+        "count": 19,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://taxdeeds.charlotteclerk.com/TaxDeed/Surplus",
       "permits": {
@@ -154,7 +160,7 @@
         "date": "2026-08-19",
         "label": "August 19, 2026",
         "shortLabel": "Aug 19",
-        "count": 8,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -220,7 +226,7 @@
         "date": "2026-08-12",
         "label": "August 12, 2026",
         "shortLabel": "Aug 12",
-        "count": 66,
+        "count": 57,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -238,7 +244,7 @@
         "date": "2026-09-02",
         "label": "September 2, 2026",
         "shortLabel": "Sep 2",
-        "count": 45,
+        "count": 41,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -256,7 +262,7 @@
         "date": "2026-08-11",
         "label": "August 11, 2026",
         "shortLabel": "Aug 11",
-        "count": 29,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -370,7 +376,7 @@
         "date": "2026-08-12",
         "label": "August 12, 2026",
         "shortLabel": "Aug 12",
-        "count": 18,
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -388,7 +394,7 @@
         "date": "2026-08-12",
         "label": "August 12, 2026",
         "shortLabel": "Aug 12",
-        "count": 30,
+        "count": 29,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -406,7 +412,7 @@
         "date": "2026-08-13",
         "label": "August 13, 2026",
         "shortLabel": "Aug 13",
-        "count": 9,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -502,7 +508,7 @@
         "date": "2026-08-11",
         "label": "August 11, 2026",
         "shortLabel": "Aug 11",
-        "count": 5,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -748,7 +754,7 @@
         "date": "2026-08-27",
         "label": "August 27, 2026",
         "shortLabel": "Aug 27",
-        "count": 29,
+        "count": 28,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -784,7 +790,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 37,
+        "count": 35,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -802,7 +808,7 @@
         "date": "2026-08-12",
         "label": "August 12, 2026",
         "shortLabel": "Aug 12",
-        "count": 34,
+        "count": 36,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -838,7 +844,7 @@
         "date": "2026-08-11",
         "label": "August 11, 2026",
         "shortLabel": "Aug 11",
-        "count": 20,
+        "count": 17,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -856,7 +862,7 @@
         "date": "2026-09-10",
         "label": "September 10, 2026",
         "shortLabel": "Sep 10",
-        "count": 9,
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
