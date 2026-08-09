@@ -1,9 +1,9 @@
 {
-  "generated": "2026-08-09T22:10:19Z",
+  "generated": "2026-08-09T22:17:41Z",
   "stats": {
     "scraped": 32,
     "manual": 0,
-    "curated": 1,
+    "curated": 3,
     "failed": 3,
     "skipped": 7
   },
@@ -850,6 +850,98 @@
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      }
+    ],
+    "Lake": [
+      {
+        "date": "2026-09-03",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://lake.realtaxdeed.com",
+        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2026-10-01",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://lake.realtaxdeed.com",
+        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2026-11-05",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://lake.realtaxdeed.com",
+        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2026-12-03",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://lake.realtaxdeed.com",
+        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2027-01-07",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://lake.realtaxdeed.com",
+        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      }
+    ],
+    "Martin": [
+      {
+        "date": "2026-08-19",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://martin.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2026-09-16",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://martin.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2026-10-21",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://martin.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2026-11-18",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://martin.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2026-12-16",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://martin.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
+      },
+      {
+        "date": "2027-01-20",
+        "source": "cadence",
+        "verifiedAt": "2026-08-09",
+        "officialUrl": "https://martin.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
       }
     ]
   }
