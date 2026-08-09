@@ -1,12 +1,32 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-08T08:03:31Z",
+  "generated": "2026-08-09T08:06:49Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424102430010000": [
+      {
+        "permitNumber": "26-097130-COMM",
+        "parcelId": "30424102430010000",
+        "address": "1694 W INDIANTOWN RD  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Commercial Alteration",
+        "subtype": "Alteration",
+        "description": "Install Temporary Canopy 60x100 for the Christmas Tree Sales at Home Depot 2026 (11/22/26 - 12/22/26)",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-08",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/be4bc1ed-eda7-42e5-881e-699cf7adc38c"
+      }
+    ],
     "30424108020000480": [
       {
         "permitNumber": "26-097128-WHEAT",
@@ -76609,24 +76629,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-19",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/13ce6ee4-8092-4876-9ba5-cd8b7a5b1277"
-      },
-      {
-        "permitNumber": "26-093519-BLDR",
-        "parcelId": "30434120140360020",
-        "address": "1302  OCEAN DUNES CIR  PRIVATE PROVIDER JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "PRIVATE PROVIDER INSPECTIONS_ Shower to Shower Replacement",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-05",
-        "issuedDate": "2026-03-11",
-        "finalDate": null,
-        "expirationDate": "2027-01-19",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/28f5af5d-213b-48e7-9fea-96a17e565199"
       }
     ]
   }
