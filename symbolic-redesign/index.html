@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0a0a0a" />
+<meta name="robots" content="noindex" />
+<title>Symbolic Development — Homepage Redesign Pass</title>
+<meta name="description" content="Redesign prototype: hero + homepage cleanup for Symbolic Development." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   TOKENS — kept identical to the production design system,
+   with two additions: --ink-2 (higher-contrast secondary text)
+   and status colors repurposed as the only secondary accents.
+   ============================================================ */
+:root {
+  --obsidian: #0a0a0a;
+  --carbon: #121212;
+  --graphite: #1b1b1b;
+  --steel: #2d2d2d;
+  --chrome: #e5e5e5;
+  --silver: #cfcfcf;
+  --titanium: #9d9d9d;
+  --ink-2: #b4b4b4;            /* replaces titanium for small text (AA on obsidian) */
+  --blue: #2e8cff;
+  --blue-glow: #69b8ff;
+  --success: #14c38e;
+  --warning: #ffb020;
+  --border: rgba(229, 229, 229, .14);
+  --border-strong: rgba(229, 229, 229, .32);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --motion-fast: .15s;
+  --motion-normal: .25s;
+  --motion-slow: .5s;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --measure: 34em;
+  --gutter: clamp(20px, 4vw, 56px);
+  --section-gap: clamp(96px, 12vw, 160px);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--obsidian);
+  color: var(--silver);
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.2vw, 17px);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--blue); color: #fff; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: var(--gutter); }
+
+/* ============================================================
+   TYPE SCALE — 5 deliberate steps instead of near-uniform sizes
+   ============================================================ */
+h1, h2, h3 { font-family: var(--font-display); color: var(--chrome); font-weight: 600; letter-spacing: -0.02em; }
+.display { font-size: clamp(44px, 6.5vw, 82px); line-height: 1.02; }
+h2 { font-size: clamp(30px, 4vw, 46px); line-height: 1.08; }
+h3 { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.25; }
+.lead { font-size: clamp(17px, 1.5vw, 19px); color: var(--silver); max-width: var(--measure); }
+
+/* Mono eyebrow: one consistent section-label pattern */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: var(--blue);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--blue); }
+.meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; color: var(--ink-2); text-transform: uppercase; }
+
+/* ============================================================
+   BUTTONS — one primary, one text-link. No competing ghosts.
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 600; font-size: 16px;
+  background: var(--blue); color: #fff;
+  padding: 15px 26px; border-radius: var(--radius-sm);
+  transition: background var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);
+}
+.btn:hover { background: var(--blue-glow); transform: translateY(-1px); }
+.btn .arrow { transition: transform var(--motion-fast) var(--ease); }
+.btn:hover .arrow { transform: translate(2px, -2px); }
+.text-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-weight: 500; font-size: 16px; color: var(--chrome);
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 3px;
+  transition: color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
+}
+.text-link:hover { color: var(--blue-glow); border-color: var(--blue-glow); }
+.text-link .arrow { transition: transform var(--motion-fast) var(--ease); }
+.text-link:hover .arrow { transform: translateX(3px); }
+
+/* ============================================================
+   NAV — brand gets a mark; CTA becomes text-weight, so the
+   hero's primary button is the only loud element in the fold.
+   ============================================================ */
+.nav {
+  position: fixed; inset-inline: 0; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--obsidian) 82%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; }
+.brand-mark {
+  width: 26px; height: 26px; flex: none;
+  background:
+    conic-gradient(from 225deg at 50% 50%, var(--blue) 0 25%, transparent 0 100%),
+    linear-gradient(135deg, var(--steel), var(--graphite));
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.brand-name { font-family: var(--font-mono); font-size: 13px; letter-spacing: .18em; color: var(--chrome); }
+.nav-links { display: flex; gap: 30px; align-items: center; }
+.nav-links a { font-size: 14px; color: var(--ink-2); transition: color var(--motion-fast); }
+.nav-links a:hover { color: var(--chrome); }
+.nav-cta { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--chrome) !important; display: inline-flex; align-items: center; gap: 7px; }
+.nav-cta:hover { color: var(--blue-glow) !important; }
+@media (max-width: 760px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+/* ============================================================
+   HERO — brand-led, decluttered. The monolith becomes a
+   full-bleed background signature instead of a boxed side image.
+   Stats are OUT of the first viewport.
+   ============================================================ */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; }
+.hero-art {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("assets/hero-monolith-1254.webp");
+  background-repeat: no-repeat;
+  background-position: right -8vw center;
+  background-size: min(72vh, 640px);
+  opacity: .85;
+}
+.hero-art::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, var(--obsidian) 34%, color-mix(in srgb, var(--obsidian) 45%, transparent) 62%, transparent 100%),
+    linear-gradient(0deg, var(--obsidian) 4%, transparent 30%);
+}
+.hero-inner { position: relative; z-index: 1; width: 100%; padding-block: 120px 88px; }
+.hero-eyebrow { margin-bottom: 26px; }
+.hero h1 { margin-bottom: 24px; max-width: 11em; }
+.hero h1 em { font-style: normal; color: var(--blue-glow); }
+.hero .lead { margin-bottom: 38px; }
+.hero-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.hero-signal {
+  margin-top: 64px; display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .16em; color: var(--ink-2); text-transform: uppercase;
+}
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); box-shadow: 0 0 10px var(--success); }
+@media (max-width: 900px) {
+  .hero-art { background-position: right -30vw bottom -6vh; background-size: 60vh; opacity: .5; }
+}
+
+/* ============================================================
+   STATS BAND — hairline rules, no boxes, no duplicate label.
+   ============================================================ */
+.stats { border-block: 1px solid var(--border); background: var(--carbon); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat { padding: clamp(28px, 4vw, 44px) clamp(16px, 2.5vw, 32px); border-left: 1px solid var(--border); }
+.stat:first-child { border-left: 0; }
+.stat b { display: block; font-family: var(--font-display); font-weight: 600; font-size: clamp(40px, 5vw, 64px); line-height: 1; color: var(--chrome); letter-spacing: -0.02em; }
+.stat span { display: block; margin-top: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; color: var(--ink-2); text-transform: uppercase; }
+@media (max-width: 760px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat:nth-child(3) { border-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--border); }
+}
+
+/* ============================================================
+   SECTION SCAFFOLD — one repeatable header pattern with real
+   hierarchy, and generous consistent rhythm between sections.
+   ============================================================ */
+.section { padding-top: var(--section-gap); }
+.section-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 24px clamp(32px, 6vw, 96px); align-items: end; margin-bottom: clamp(40px, 6vw, 72px); }
+.section-head h2 { margin-top: 18px; }
+.section-head p { color: var(--ink-2); max-width: var(--measure); align-self: end; }
+@media (max-width: 860px) { .section-head { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   PRODUCT PROOF — generic underline tabs replaced with a
+   numbered vertical rail + live preview panel.
+   ============================================================ */
+.proof-shell { display: grid; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: var(--carbon); }
+.proof-rail { border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+.proof-item {
+  display: grid; grid-template-columns: 34px 1fr; gap: 4px 14px; align-items: baseline;
+  text-align: left; width: 100%; padding: 18px 22px;
+  background: none; border: 0; border-bottom: 1px solid var(--border); cursor: pointer;
+  color: var(--ink-2); font-family: var(--font-body);
+  transition: background var(--motion-fast) var(--ease), color var(--motion-fast) var(--ease);
+  position: relative;
+}
+.proof-item:last-child { border-bottom: 0; }
+.proof-item .idx { font-family: var(--font-mono); font-size: 12px; color: var(--titanium); }
+.proof-item .name { font-family: var(--font-display); font-weight: 600; font-size: 17px; color: var(--silver); }
+.proof-item .cat { grid-column: 2; font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em; color: var(--titanium); text-transform: uppercase; }
+.proof-item:hover { background: var(--graphite); }
+.proof-item[aria-selected="true"] { background: var(--graphite); }
+.proof-item[aria-selected="true"]::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--blue); }
+.proof-item[aria-selected="true"] .name { color: var(--chrome); }
+.proof-item[aria-selected="true"] .idx { color: var(--blue); }
+.proof-stage { padding: clamp(24px, 3.5vw, 44px); display: flex; flex-direction: column; gap: 22px; min-height: 480px; }
+.proof-media { border: 1px solid var(--border-strong); border-radius: var(--radius-md); overflow: hidden; background: var(--obsidian); }
+.proof-media img { width: 100%; aspect-ratio: 1200 / 750; object-fit: cover; }
+.proof-copy { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px clamp(20px, 3vw, 48px); align-items: start; }
+.proof-copy h3 { display: flex; align-items: center; gap: 12px; font-size: clamp(22px, 2vw, 26px); }
+.status-pill { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; padding: 5px 10px; border-radius: 100px; border: 1px solid var(--border-strong); color: var(--ink-2); }
+.status-pill .dot { width: 6px; height: 6px; box-shadow: none; }
+.status-pill.beta .dot { background: var(--warning); }
+.proof-copy p { color: var(--silver); max-width: var(--measure); margin-top: 10px; }
+.proof-link { margin-top: 18px; }
+.proof-facts { display: flex; flex-direction: column; gap: 12px; min-width: 190px; border-left: 1px solid var(--border); padding-left: clamp(16px, 2vw, 28px); }
+.proof-facts b { font-family: var(--font-display); font-size: 20px; color: var(--chrome); font-weight: 600; }
+.proof-facts span { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; color: var(--ink-2); text-transform: uppercase; }
+.proof-stage.is-swapping .proof-media, .proof-stage.is-swapping .proof-copy { opacity: 0; transform: translateY(6px); }
+.proof-media, .proof-copy { transition: opacity var(--motion-normal) var(--ease), transform var(--motion-normal) var(--ease); }
+@media (max-width: 860px) {
+  .proof-shell { grid-template-columns: 1fr; }
+  .proof-rail { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--border); scrollbar-width: none; }
+  .proof-rail::-webkit-scrollbar { display: none; }
+  .proof-item { grid-template-columns: auto; min-width: max-content; border-bottom: 0; border-right: 1px solid var(--border); padding: 14px 18px; }
+  .proof-item .idx, .proof-item .cat { display: none; }
+  .proof-item[aria-selected="true"]::before { top: auto; width: auto; height: 2px; inset-inline: 0; }
+  .proof-copy { grid-template-columns: 1fr; }
+  .proof-facts { flex-direction: row; border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 16px; gap: 28px; }
+  .proof-stage { min-height: 0; }
+}
+
+/* ============================================================
+   SITUATIONS — the 2x2 bordered card grid becomes numbered
+   hairline rows. Hierarchy from type + spacing, not boxes.
+   ============================================================ */
+.situations-list { border-top: 1px solid var(--border); }
+.situation {
+  display: grid; grid-template-columns: 64px minmax(0, .9fr) minmax(0, 1.1fr) auto;
+  gap: 8px clamp(18px, 3vw, 44px); align-items: center;
+  padding: clamp(24px, 3.5vw, 38px) 0; border-bottom: 1px solid var(--border);
+  transition: padding-left var(--motion-normal) var(--ease);
+}
+.situation:hover { padding-left: 10px; }
+.situation .idx { font-family: var(--font-mono); font-size: 13px; color: var(--blue); }
+.situation h3 { transition: color var(--motion-fast); }
+.situation:hover h3 { color: var(--blue-glow); }
+.situation p { color: var(--ink-2); font-size: 15.5px; max-width: 32em; }
+.situation .go { font-family: var(--font-display); font-weight: 500; font-size: 15px; color: var(--titanium); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: color var(--motion-fast); }
+.situation:hover .go { color: var(--chrome); }
+@media (max-width: 860px) {
+  .situation { grid-template-columns: 44px 1fr; }
+  .situation p { grid-column: 2; }
+  .situation .go { grid-column: 2; }
+}
+
+/* ============================================================
+   APPROACH — the timeline is the site's signature pattern:
+   connected line + dots, numbers in mono.
+   ============================================================ */
+.approach-track { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 40px); }
+.approach-track::before { content: ""; position: absolute; top: 5px; left: 0; right: 0; height: 1px; background: var(--border-strong); }
+.stage { position: relative; padding-top: 34px; }
+.stage::before { content: ""; position: absolute; top: 0; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--obsidian); border: 2px solid var(--steel); transition: border-color var(--motion-normal), box-shadow var(--motion-normal); }
+.stage:hover::before { border-color: var(--blue); box-shadow: 0 0 12px rgba(46, 140, 255, .55); }
+.stage .idx { font-family: var(--font-mono); font-size: 12px; color: var(--blue); letter-spacing: .18em; }
+.stage h3 { margin: 8px 0 10px; }
+.stage p { color: var(--ink-2); font-size: 15.5px; }
+@media (max-width: 760px) {
+  .approach-track { grid-template-columns: 1fr; gap: 0; }
+  .approach-track::before { top: 0; bottom: 0; left: 5px; right: auto; width: 1px; height: auto; }
+  .stage { padding: 0 0 36px 34px; }
+  .stage::before { top: 4px; }
+}
+
+/* ============================================================
+   ENGAGEMENT MODELS — kept as list rows (the best pattern on
+   the current site) with a sticky intro column.
+   ============================================================ */
+.engage { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 48px clamp(40px, 6vw, 100px); align-items: start; }
+.engage-intro { position: sticky; top: 96px; }
+.engage-intro h2 { margin: 18px 0 20px; }
+.engage-intro p { color: var(--ink-2); max-width: var(--measure); }
+.model { border-top: 1px solid var(--border); padding: clamp(24px, 3vw, 34px) 0; display: grid; grid-template-columns: 52px 1fr; gap: 6px 22px; }
+.model:last-child { border-bottom: 1px solid var(--border); }
+.model .idx { font-family: var(--font-mono); font-size: 13px; color: var(--blue); padding-top: 4px; }
+.model dl { display: grid; grid-template-columns: 110px 1fr; gap: 6px 18px; margin: 14px 0 16px; }
+.model dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; color: var(--titanium); text-transform: uppercase; padding-top: 4px; }
+.model dd { color: var(--silver); font-size: 15.5px; }
+@media (max-width: 860px) { .engage { grid-template-columns: 1fr; } .engage-intro { position: static; } }
+
+/* ============================================================
+   PROOF LIST + STACK STRIP
+   ============================================================ */
+.credential { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 48px clamp(40px, 6vw, 100px); align-items: start; }
+.credential-intro h2 { margin: 18px 0 20px; }
+.credential-intro p { color: var(--ink-2); max-width: var(--measure); margin-bottom: 26px; }
+.cred-item { border-top: 1px solid var(--border); padding: 24px 0; display: grid; grid-template-columns: 52px 1fr; gap: 4px 22px; }
+.cred-item:last-child { border-bottom: 1px solid var(--border); }
+.cred-item .idx { font-family: var(--font-mono); font-size: 13px; color: var(--titanium); padding-top: 3px; }
+.cred-item p { color: var(--ink-2); font-size: 15.5px; margin-top: 6px; }
+@media (max-width: 860px) { .credential { grid-template-columns: 1fr; } }
+
+.stack-strip { margin-top: var(--section-gap); border-block: 1px solid var(--border); background: var(--carbon); }
+.stack-strip-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 34px; padding-block: 26px; }
+.stack-strip .meta { flex: none; color: var(--titanium); }
+.stack-strip ul { display: flex; flex-wrap: wrap; gap: 12px 30px; list-style: none; }
+.stack-strip li { font-family: var(--font-mono); font-size: 13px; color: var(--silver); letter-spacing: .06em; }
+
+/* ============================================================
+   FINAL CTA + FOOTER
+   ============================================================ */
+.cta-final { padding-block: var(--section-gap); text-align: left; }
+.cta-final h2 { font-size: clamp(36px, 5vw, 62px); max-width: 12em; margin: 18px 0 26px; }
+.cta-final p { color: var(--ink-2); max-width: var(--measure); margin-bottom: 36px; }
+.footer { border-top: 1px solid var(--border); padding-block: 34px; }
+.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.footer .meta { letter-spacing: .1em; }
+.footer nav { display: flex; gap: 26px; }
+.footer nav a { font-size: 14px; color: var(--ink-2); }
+.footer nav a:hover { color: var(--chrome); }
+
+/* ============================================================
+   REVEAL MOTION — one restrained move, staggered.
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--motion-slow) var(--ease), transform var(--motion-slow) var(--ease); transition-delay: var(--reveal-delay, 0s); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+  * { transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Symbolic Development home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">SYMBOLIC&nbsp;DEVELOPMENT</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
+      <a href="#insights">Insights</a>
+      <a class="nav-cta" href="#book">Book a working session <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-art" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="eyebrow hero-eyebrow reveal">Product + Engineering</p>
+      <h1 class="display reveal" style="--reveal-delay:.06s">Software for decisions that <em>matter.</em></h1>
+      <p class="lead reveal" style="--reveal-delay:.12s">We design and engineer operational platforms, intelligence products, and automation systems built for real-world complexity.</p>
+      <div class="hero-actions reveal" style="--reveal-delay:.18s">
+        <a class="btn" href="#book">Book a working session <span class="arrow" aria-hidden="true">↗</span></a>
+        <a class="text-link" href="#work">See the proof <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <p class="hero-signal reveal" style="--reveal-delay:.24s"><span class="dot" aria-hidden="true"></span> 07 live products · Web · Mobile · Desktop</p>
+    </div>
+  </section>
+
+  <!-- STATS BAND (moved out of the fold, boxes removed) -->
+  <section class="stats" aria-label="Company metrics">
+    <div class="wrap stats-grid">
+      <div class="stat reveal"><b data-count="7">07</b><span>Live products</span></div>
+      <div class="stat reveal" style="--reveal-delay:.06s"><b data-count="3">03</b><span>Platform surfaces</span></div>
+      <div class="stat reveal" style="--reveal-delay:.12s"><b data-count="35">35</b><span>Automated tests — ClawMonitor</span></div>
+      <div class="stat reveal" style="--reveal-delay:.18s"><b data-count="67">67</b><span>Florida counties — DeedScout</span></div>
+    </div>
+  </section>
+
+  <!-- LIVE PRODUCT PROOF -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow reveal">Live product proof</p>
+          <h2 class="reveal" style="--reveal-delay:.06s">Working products.<br />Visible decisions.</h2>
+        </div>
+        <p class="reveal" style="--reveal-delay:.12s">Seven working products across public information, operational intelligence, developer tooling, and game engineering.</p>
+      </div>
+
+      <div class="proof-shell reveal" style="--reveal-delay:.1s">
+        <div class="proof-rail" role="tablist" aria-label="Products" id="proofRail"></div>
+        <div class="proof-stage" id="proofStage" role="tabpanel">
+          <div class="proof-media"><img id="proofImg" src="assets/products/auditscout.webp" alt="AuditScout live product interface" width="1200" height="750" /></div>
+          <div class="proof-copy">
+            <div>
+              <h3><span id="proofName">AuditScout</span> <span class="status-pill" id="proofStatus"><span class="dot" aria-hidden="true"></span><span id="proofStatusText">Public beta</span></span></h3>
+              <p id="proofDesc"></p>
+              <p class="proof-link"><a class="text-link" id="proofHref" href="#" target="_blank" rel="noopener">Open the live product <span class="arrow" aria-hidden="true">↗</span></a></p>
+            </div>
+            <div class="proof-facts" id="proofFacts"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHERE WE CREATE LEVERAGE (cards → hairline rows) -->
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow reveal">Where we create leverage</p>
+          <h2 class="reveal" style="--reveal-delay:.06s">Start with the business situation.</h2>
+        </div>
+        <p class="reveal" style="--reveal-delay:.12s">Capabilities matter when they are attached to the decision, constraint, or operating problem your team needs to solve.</p>
+      </div>
+
+      <div class="situations-list">
+        <a class="situation reveal" href="#book">
+          <span class="idx">01</span>
+          <h3>Launch a new product</h3>
+          <p>Turn an opportunity into a validated product foundation, production architecture, and focused first release.</p>
+          <span class="go">Book a focused conversation <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="situation reveal" style="--reveal-delay:.06s" href="#book">
+          <span class="idx">02</span>
+          <h3>Modernize a system</h3>
+          <p>Untangle technical and experience debt without putting daily operations at risk.</p>
+          <span class="go">Book a focused conversation <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="situation reveal" style="--reveal-delay:.12s" href="#book">
+          <span class="idx">03</span>
+          <h3>Automate operations</h3>
+          <p>Connect fragmented workflows, approvals, data, and AI into a dependable operating layer.</p>
+          <span class="go">Book a focused conversation <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="situation reveal" style="--reveal-delay:.18s" href="#book">
+          <span class="idx">04</span>
+          <h3>Strengthen a team</h3>
+          <p>Add senior product and engineering judgment where consequential decisions need clear ownership.</p>
+          <span class="go">Book a focused conversation <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH TIMELINE (signature pattern, kept and polished) -->
+  <section class="section" id="approach">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow reveal">Approach</p>
+          <h2 class="reveal" style="--reveal-delay:.06s">Intent at every stage.</h2>
+        </div>
+      </div>
+      <div class="approach-track">
+        <div class="stage reveal"><span class="idx">01</span><h3>Discover</h3><p>Clarify goals, constraints, users, and the measure of success.</p></div>
+        <div class="stage reveal" style="--reveal-delay:.08s"><span class="idx">02</span><h3>Architect</h3><p>Shape resilient systems, interfaces, and delivery plans.</p></div>
+        <div class="stage reveal" style="--reveal-delay:.16s"><span class="idx">03</span><h3>Build</h3><p>Engineer in focused increments with quality visible throughout.</p></div>
+        <div class="stage reveal" style="--reveal-delay:.24s"><span class="idx">04</span><h3>Evolve</h3><p>Measure, refine, and extend without compromising the foundation.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGAGEMENT MODELS -->
+  <section class="section">
+    <div class="wrap engage">
+      <div class="engage-intro">
+        <p class="eyebrow reveal">Engagement models</p>
+        <h2 class="reveal" style="--reveal-delay:.06s">A clear way<br />to begin.</h2>
+        <p class="reveal" style="--reveal-delay:.12s">Every engagement starts by reducing uncertainty, defining ownership, and agreeing on the evidence that will demonstrate progress.</p>
+      </div>
+      <div>
+        <article class="model reveal">
+          <span class="idx">01</span>
+          <div>
+            <h3>Product foundation</h3>
+            <dl>
+              <dt>Best for</dt><dd>New products and uncertain requirements</dd>
+              <dt>Initial outcome</dt><dd>Validated scope, system architecture, interaction model, and delivery roadmap.</dd>
+            </dl>
+            <a class="text-link" href="#book">Discuss this model <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="model reveal" style="--reveal-delay:.06s">
+          <span class="idx">02</span>
+          <div>
+            <h3>Focused build</h3>
+            <dl>
+              <dt>Best for</dt><dd>A defined product ready for implementation</dd>
+              <dt>Initial outcome</dt><dd>A production release delivered in visible increments with quality measured throughout.</dd>
+            </dl>
+            <a class="text-link" href="#book">Discuss this model <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="model reveal" style="--reveal-delay:.12s">
+          <span class="idx">03</span>
+          <div>
+            <h3>System modernization</h3>
+            <dl>
+              <dt>Best for</dt><dd>Software carrying technical or UX debt</dd>
+              <dt>Initial outcome</dt><dd>A prioritized audit followed by targeted redesign, migration, and hardening.</dd>
+            </dl>
+            <a class="text-link" href="#book">Discuss this model <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <article class="model reveal" style="--reveal-delay:.18s">
+          <span class="idx">04</span>
+          <div>
+            <h3>Engineering partnership</h3>
+            <dl>
+              <dt>Best for</dt><dd>Products needing sustained senior support</dd>
+              <dt>Initial outcome</dt><dd>Continuous delivery, observability, and accountable technical leadership.</dd>
+            </dl>
+            <a class="text-link" href="#book">Discuss this model <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF OVER PROMISES -->
+  <section class="section" id="insights">
+    <div class="wrap credential">
+      <div class="credential-intro">
+        <p class="eyebrow reveal">Proof over promises</p>
+        <h2 class="reveal" style="--reveal-delay:.06s">Working software is the credential.</h2>
+        <p class="reveal" style="--reveal-delay:.12s">Until client references are published, the strongest evidence is inspectable: live products, public source, visible product states, and grounded release facts.</p>
+        <a class="text-link reveal" style="--reveal-delay:.18s" href="#work">Explore all seven products <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div>
+        <article class="cred-item reveal"><span class="idx">01</span><div><h3>AuditScout</h3><p>A public beta turns a URL into a prioritized report across more than twelve checks.</p></div></article>
+        <article class="cred-item reveal" style="--reveal-delay:.06s"><span class="idx">02</span><div><h3>DeedScout</h3><p>Official Florida tax-deed research organized across all sixty-seven counties.</p></div></article>
+        <article class="cred-item reveal" style="--reveal-delay:.12s"><span class="idx">03</span><div><h3>ClawMonitor</h3><p>An MIT-licensed Windows observability tool protected by thirty-five automated tests.</p></div></article>
+        <article class="cred-item reveal" style="--reveal-delay:.18s"><span class="idx">04</span><div><h3>Lava Leap</h3><p>A no-account browser and Android game with ten connected gameplay systems.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK (grid of boxes → one mono strip) -->
+  <aside class="stack-strip" aria-label="Technology stack">
+    <div class="wrap stack-strip-inner">
+      <span class="meta">Built with</span>
+      <ul>
+        <li>Next.js</li><li>React</li><li>TypeScript</li><li>Supabase</li><li>PostgreSQL</li><li>Vercel</li><li>OpenAI</li><li>API systems</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- FINAL CTA -->
+  <section class="cta-final" id="book">
+    <div class="wrap">
+      <p class="eyebrow reveal">Next step</p>
+      <h2 class="reveal" style="--reveal-delay:.06s">Bring us the decision that matters.</h2>
+      <p class="reveal" style="--reveal-delay:.12s">We review the context and identify the right engagement shape. If there is a fit, we prepare a focused working session.</p>
+      <a class="btn reveal" style="--reveal-delay:.18s" href="https://symbolic-development-design-system.vercel.app/booking" target="_blank" rel="noopener">Request a working session <span class="arrow" aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span class="meta">© 2026 Symbolic Development</span>
+    <nav aria-label="Footer">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
+      <a href="#insights">Insights</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* ---------- Product proof rail ---------- */
+const PRODUCTS = [
+  { key: 'auditscout', name: 'AuditScout', cat: 'Website intelligence', status: 'Public beta', beta: true,
+    desc: 'A public website-audit experience that turns a URL into a prioritized scorecard and practical next actions.',
+    href: 'https://auditscout.vercel.app',
+    facts: [['12+', 'Public checks'], ['No login', 'First audit'], ['Prioritized', 'Report format']] },
+  { key: 'stormradar', name: 'StormRadar', cat: 'Field operations', status: 'Live product', beta: false,
+    desc: 'A contractor-focused weather experience that combines live radar, severe-weather alerts, and job-site workability guidance.',
+    href: 'https://stormradar.vercel.app',
+    facts: [['24/7', 'Monitoring'], ['4', 'Trusted feeds'], ['Contractors', 'Primary user']] },
+  { key: 'wiyw', name: 'WIYW', cat: 'Water intelligence', status: 'Live product', beta: false,
+    desc: 'A Florida drinking-water research experience that explains public reports and common water concerns in plain language.',
+    href: 'https://floridawiyw.com',
+    facts: [['Plain language', 'Reports'], ['Florida', 'Coverage'], ['Public data', 'Sources']] },
+  { key: 'deedscout', name: 'DeedScout', cat: 'Property intelligence', status: 'Public beta', beta: true,
+    desc: 'Florida tax-deed research organized county by county with official links, permit signals, and practical research workflows.',
+    href: 'https://deedscout.netlify.app',
+    facts: [['67', 'Florida counties'], ['Official', 'Source links'], ['Cached', 'Permit signals']] },
+  { key: 'clawmonitor', name: 'ClawMonitor', cat: 'System observability', status: 'Live product', beta: false,
+    desc: 'A glanceable, always-on-top Windows monitor for performance metrics and local developer-service health.',
+    href: 'https://denrod25-del.github.io/ClawMonitor/index.html',
+    facts: [['35', 'Automated tests'], ['MIT', 'License'], ['Windows', 'Platform']] },
+  { key: 'scamwatch', name: 'ScamWatch', cat: 'Consumer protection', status: 'Public beta', beta: true,
+    desc: 'A public-benefit platform that helps people assess suspicious links, messages, phone numbers, and email before they act.',
+    href: 'https://scamwatch-seven.vercel.app',
+    facts: [['4', 'Indicator types'], ['FL', 'Active alerts'], ['Official', 'Reporting routes']] },
+];
+
+const rail = document.getElementById('proofRail');
+const stage = document.getElementById('proofStage');
+const els = {
+  img: document.getElementById('proofImg'),
+  name: document.getElementById('proofName'),
+  status: document.getElementById('proofStatus'),
+  statusText: document.getElementById('proofStatusText'),
+  desc: document.getElementById('proofDesc'),
+  href: document.getElementById('proofHref'),
+  facts: document.getElementById('proofFacts'),
+};
+let active = 0;
+let swapTimer = null;
+
+PRODUCTS.forEach((p, i) => {
+  const b = document.createElement('button');
+  b.className = 'proof-item';
+  b.setAttribute('role', 'tab');
+  b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+  b.innerHTML = `<span class="idx">${String(i + 1).padStart(2, '0')}</span><span class="name">${p.name}</span><span class="cat">${p.cat}</span>`;
+  b.addEventListener('click', () => select(i));
+  rail.appendChild(b);
+});
+
+function render(p) {
+  els.img.src = `assets/products/${p.key}.webp`;
+  els.img.alt = `${p.name} live product interface`;
+  els.name.textContent = p.name;
+  els.statusText.textContent = p.status;
+  els.status.classList.toggle('beta', p.beta);
+  els.desc.textContent = p.desc;
+  els.href.href = p.href;
+  els.facts.innerHTML = p.facts.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
+}
+
+function select(i) {
+  if (i === active) return;
+  active = i;
+  rail.querySelectorAll('.proof-item').forEach((el, j) => el.setAttribute('aria-selected', j === i ? 'true' : 'false'));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { render(PRODUCTS[i]); return; }
+  clearTimeout(swapTimer);
+  stage.classList.add('is-swapping');
+  swapTimer = setTimeout(() => {
+    render(PRODUCTS[i]);
+    stage.classList.remove('is-swapping');
+  }, 220);
+}
+render(PRODUCTS[0]);
+
+/* ---------- Reveal on scroll ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('is-visible');
+      io.unobserve(e.target);
+      const n = e.target.querySelector('[data-count]') || (e.target.matches('[data-count]') ? e.target : null);
+      if (n) countUp(n);
+    }
+  });
+}, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+document.querySelectorAll('.reveal, .stat').forEach((el) => io.observe(el));
+
+/* ---------- Count-up for the stats band ---------- */
+function countUp(el) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const target = parseInt(el.dataset.count, 10);
+  const pad = el.textContent.trim().startsWith('0');
+  const t0 = performance.now();
+  const dur = 900;
+  function tick(t) {
+    const k = Math.min(1, (t - t0) / dur);
+    const eased = 1 - Math.pow(1 - k, 3);
+    const v = Math.round(target * eased);
+    el.textContent = pad ? String(v).padStart(2, '0') : String(v);
+    if (k < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+</script>
+</body>
+</html>
