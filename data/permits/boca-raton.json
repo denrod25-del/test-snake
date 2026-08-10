@@ -1,12 +1,70 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-08-09T07:55:01Z",
+  "generated": "2026-08-10T08:14:35Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "06434729010150090": [
+      {
+        "permitNumber": "BPC-2026-01461",
+        "parcelId": "06434729010150090",
+        "address": "400 E Palmetto Park Rd   Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Canopy/Awning/ Gazebo - Building (Commercial)",
+        "subtype": "Canopy/Awning/Gazebo",
+        "description": "Installation of Bahama Shutters in front of building and metal canopies in back of building",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-09",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/108fb0e9-bb83-484a-adb1-1b730ebfb65b"
+      }
+    ],
+    "06424710110001010": [
+      {
+        "permitNumber": "BPR-2026-02152",
+        "parcelId": "06424710110001010",
+        "address": "2665 NW 49th St   Boca Raton FL 33434",
+        "city": "Boca Raton",
+        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
+        "subtype": "Interior Only Alteration",
+        "description": "KITCHEN RENOVATION",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-09",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/403a9a7b-cf16-425f-8aff-4ba929721a73"
+      },
+      {
+        "permitNumber": "BPR-2026-02151",
+        "parcelId": "06424710110001010",
+        "address": "2665 NW 49th St   Boca Raton FL 33434",
+        "city": "Boca Raton",
+        "type": "Addition/Interior and/or Exterior Alteration - Building (Residential)",
+        "subtype": "Addition Int And/ Or Ext Alteration",
+        "description": "KITCHEN RENOVATION",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-09",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/dc0f3e6c-3a4c-4847-b072-c40f4848ecb6"
+      }
+    ],
     "06434709050011102": [
       {
         "permitNumber": "BPM-2026-02113",
@@ -12879,24 +12937,6 @@
         "finalDate": "2026-07-09",
         "expirationDate": "2027-01-04",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/4397fbec-236f-4c57-9312-e2c88e1d8b9d"
-      },
-      {
-        "permitNumber": "FRS-2026-00207",
-        "parcelId": "06424712060010010",
-        "address": "4920  Conference Way N Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Fire Overtime Inspection",
-        "subtype": "FRS- Overtime Inspections",
-        "description": "6AM OT Inspection Mike (786) 447-2993",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-27",
-        "issuedDate": null,
-        "finalDate": "2026-04-27",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5c1c9308-66be-4158-8732-a478b8295411"
       }
     ],
     "06434729050030013": [
@@ -46420,7 +46460,7 @@
         "type": "New Standby Generator Residential",
         "subtype": "Emergency Standby Generator",
         "description": "INSTALL 28 KW GENERATOR WITH (2) 150 AMP ATSS AND PRE-CAST CONCRETE PAD",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -74823,46 +74863,6 @@
         "finalDate": null,
         "expirationDate": "2026-10-25",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/76102da2-ed1e-41ce-9197-ec41587e642c"
-      }
-    ],
-    "06424710080003020": [
-      {
-        "permitNumber": "BPQ-2026-01005",
-        "parcelId": "06424710080003020",
-        "address": "4865  Oxford Way   Boca Raton FL 33434",
-        "city": "Boca Raton",
-        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Re-roof ",
-        "description": "1.5'' Mechanical Metal D2D and Mod Flat Reroof",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-27",
-        "issuedDate": "2026-05-07",
-        "finalDate": "2026-06-17",
-        "expirationDate": "2026-12-14",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/06aad99f-4932-477c-8a06-c631eb57c779"
-      }
-    ],
-    "06424725240500090": [
-      {
-        "permitNumber": "BPQ-2026-01004",
-        "parcelId": "06424725240500090",
-        "address": "1387 SW 12th St   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Re-roof ",
-        "description": "Tile & Flat Re-Roof",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-27",
-        "issuedDate": "2026-05-01",
-        "finalDate": "2026-07-02",
-        "expirationDate": "2026-12-29",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/82b442ea-c789-4466-93e6-b55590da6d91"
       }
     ]
   }
