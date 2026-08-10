@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-09T22:30:00Z",
-  "salesGenerated": "2026-08-09T22:30:00Z",
+  "generated": "2026-08-10T06:59:00Z",
+  "salesGenerated": "2026-08-10T06:59:00Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -94,7 +94,7 @@
         "date": "2026-10-26",
         "label": "October 26, 2026",
         "shortLabel": "Oct 26",
-        "count": 14,
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": true,

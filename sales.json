@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T22:30:00Z",
+  "generated": "2026-08-10T06:59:00Z",
   "stats": {
     "scraped": 32,
     "manual": 0,
@@ -97,7 +97,7 @@
         "date": "2026-10-26",
         "source": "scraper",
         "officialUrl": "https://broward.deedauction.net/auction/113",
-        "count": 14
+        "count": 15
       }
     ],
     "Charlotte": [
@@ -814,7 +814,7 @@
       {
         "date": "2026-08-13",
         "source": "cadence",
-        "verifiedAt": "2026-08-09",
+        "verifiedAt": "2026-08-10",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -822,7 +822,7 @@
       {
         "date": "2026-08-27",
         "source": "cadence",
-        "verifiedAt": "2026-08-09",
+        "verifiedAt": "2026-08-10",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -830,7 +830,7 @@
       {
         "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-08-09",
+        "verifiedAt": "2026-08-10",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -838,7 +838,7 @@
       {
         "date": "2026-09-24",
         "source": "cadence",
-        "verifiedAt": "2026-08-09",
+        "verifiedAt": "2026-08-10",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -846,7 +846,7 @@
       {
         "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-08-09",
+        "verifiedAt": "2026-08-10",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -854,7 +854,7 @@
       {
         "date": "2026-10-22",
         "source": "cadence",
-        "verifiedAt": "2026-08-09",
+        "verifiedAt": "2026-08-10",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
