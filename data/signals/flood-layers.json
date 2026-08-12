@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T16:50:00Z",
+  "generated": "2026-08-12T17:10:00Z",
   "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting.",
   "layers": {
     "palm-beach": {
@@ -33,6 +33,22 @@
       },
       "label": "Miami-Dade FEMA Flood Zones GIS",
       "mscCounty": "Miami-Dade County, FL"
+    },
+    "broward": {
+      "name": "Broward",
+      "status": "live",
+      "endpoint": "https://services.arcgis.com/JMAJrTsHNLrSsWf5/arcgis/rest/services/BCGIS_FEMA_SFHA_2024/FeatureServer/0/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "Broward FEMA SFHA 2024 (BCGIS)",
+      "mscCounty": "Broward County, FL"
     }
   },
   "delinquencyPortals": {

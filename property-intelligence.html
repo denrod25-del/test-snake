@@ -148,10 +148,63 @@
       margin: 8px 0 6px;
     }
     .pi-signal p { margin: 0 0 6px; font-size: 14px; color: var(--ink-soft, #1a2233); }
+    .pi-alerts {
+      max-width: 640px;
+      border-top: 1px solid var(--rule);
+      padding-top: 16px;
+      margin-bottom: 40px;
+    }
+    .pi-alerts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .pi-alerts label, .pi-alerts-notes {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .pi-alerts input[type="email"],
+    .pi-alerts select,
+    .pi-alerts textarea {
+      font: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      padding: 10px 12px;
+      border: 1px solid var(--rule);
+      background: #fff;
+    }
+    .pi-alerts-checks {
+      border: none;
+      margin: 0 0 14px;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+    .pi-alerts-checks legend {
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .pi-alerts-checks label {
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--ink);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .pi-alerts-notes { margin-bottom: 14px; }
     @media (max-width: 900px) {
       .pi-search { grid-template-columns: 1fr 1fr; }
       .pi-search button { grid-column: 1 / -1; }
-      .pi-grid, .pi-feeds { grid-template-columns: 1fr; }
+      .pi-grid, .pi-feeds, .pi-alerts-grid { grid-template-columns: 1fr; }
       .pi-rent-form { grid-template-columns: 1fr; }
     }
   </style>
@@ -230,8 +283,56 @@
     <article class="pi-panel">
       <span data-status="insurance"></span>
       <h2>Insurance / flood</h2>
-      <div id="panel-insurance"><p class="pi-empty">PBC pending FIRM flood zone stamp + FEMA MSC deep-link.</p></div>
+      <div id="panel-insurance"><p class="pi-empty">PBC / Miami-Dade / Broward flood GIS stamp + FEMA MSC deep-link.</p></div>
     </article>
+  </section>
+
+  <section class="ds-section" id="signal-alerts" style="padding-top:0;">
+    <div class="ds-section-head">
+      <p class="ds-section-label">Watch list</p>
+      <h2>Signal alerts <span id="alerts-badge"></span></h2>
+      <p>
+        Tell us which research signals to watch. Prefs save in this browser and submit as a Beta intake form.
+        Automated same-day email is not live yet — labeled honestly as Coming Soon.
+      </p>
+    </div>
+    <form id="pi-alerts" class="pi-alerts" name="signal-alerts" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="signal-alerts" />
+      <p class="pi-honeypot" hidden aria-hidden="true">
+        <label>Don’t fill this out: <input name="bot-field" /></label>
+      </p>
+      <div class="pi-alerts-grid">
+        <label>Email
+          <input id="alert-email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+        </label>
+        <label>Primary county
+          <select id="alert-county" name="county">
+            <option value="palm-beach">Palm Beach</option>
+            <option value="broward">Broward</option>
+            <option value="miami-dade">Miami-Dade</option>
+            <option value="hillsborough">Hillsborough</option>
+            <option value="orange">Orange</option>
+            <option value="statewide">Statewide / multiple</option>
+          </select>
+        </label>
+      </div>
+      <fieldset class="pi-alerts-checks">
+        <legend>Watch for</legend>
+        <label><input type="checkbox" name="watch_zoning" value="yes" checked /> Zoning map updates (PBC)</label>
+        <label><input type="checkbox" name="watch_permits" value="yes" checked /> New permits (cached cities)</label>
+        <label><input type="checkbox" name="watch_tax" value="yes" checked /> Tax deed calendar changes</label>
+        <label><input type="checkbox" name="watch_certs" value="yes" /> PBC county-held certificates</label>
+        <label><input type="checkbox" name="watch_flood" value="yes" /> Flood / FIRM notes for watched counties</label>
+      </fieldset>
+      <label class="pi-alerts-notes">Optional notes
+        <textarea id="alert-notes" name="notes" rows="2" placeholder="e.g. West Palm Beach permits near 45th St"></textarea>
+      </label>
+      <div class="pi-actions">
+        <button class="ds-btn ds-btn-primary" type="submit">Save watch prefs</button>
+        <button class="ds-btn ds-btn-secondary" type="button" id="alert-clear">Clear browser prefs</button>
+      </div>
+      <p class="pi-note" id="alert-status" role="status"></p>
+    </form>
   </section>
 
   <section class="ds-section" style="padding-top:0;">
@@ -281,7 +382,7 @@
       host.innerHTML = DeedScoutTrust.renderTrustPanel({
         status: "live",
         headline: "Property Intelligence — mixed Live / Cached / Coming Soon",
-        source: "PBC PZB zoning GIS · county PA ArcGIS · cached permit scrapes · sales.json · RentCast (Pro) · FEMA MSC links",
+        source: "PBC PZB zoning GIS · county PA ArcGIS · cached permit scrapes · sales.json · RentCast (Pro) · PBC/MD/Broward flood GIS · FEMA MSC",
         verification: "Always confirm on clerk, PA, municipal, and FEMA sources before decisions.",
         lastRefreshed: new Date().toISOString(),
       });

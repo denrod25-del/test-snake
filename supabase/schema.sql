@@ -86,6 +86,9 @@ create policy "Users manage own parcels"
 
 -- ----------------------------------------------------------------------------
 -- alert_subscriptions (Pro: per-county email alert preferences)
+-- Property Intelligence Beta intake currently uses Netlify Forms (signal-alerts)
+-- + browser localStorage. Extend this table when automated signal email ships:
+--   zoning / permits / tax_calendar / certs / flood booleans.
 -- ----------------------------------------------------------------------------
 create table if not exists public.alert_subscriptions (
   id          uuid primary key default gen_random_uuid(),

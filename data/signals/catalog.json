@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T16:55:00Z",
+  "generated": "2026-08-12T17:10:00Z",
   "signals": [
     {
       "id": "zoning",
@@ -45,9 +45,17 @@
       "id": "insurance",
       "name": "Insurance / flood signals",
       "status": "live",
-      "coverage": "Palm Beach pending FIRMs + Miami-Dade FEMA flood GIS + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
+      "coverage": "Palm Beach pending FIRMs + Miami-Dade FEMA flood GIS + Broward FEMA SFHA 2024 (BCGIS) + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
       "source": "data/signals/flood-layers.json · FEMA MSC",
       "verification": "County flood GIS may be pending/partial — verify on FEMA MSC / local flood determination for underwriting."
+    },
+    {
+      "id": "signal-alerts",
+      "name": "Signal watch alerts",
+      "status": "coming-soon",
+      "coverage": "Beta intake form + browser prefs for zoning / permits / tax calendars / certs. Same-day email delivery not yet automated.",
+      "source": "Netlify form signal-alerts · localStorage",
+      "verification": "Submitting saves your preference for product follow-up; do not treat as a guaranteed alert feed yet."
     }
   ]
 }

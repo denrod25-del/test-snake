@@ -16,6 +16,7 @@
     "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9/query";
   var REGISTRY_URL = "data/parcels/registry.json";
   var PERMITS_URL = "data/signals/recent-permits.json";
+  var ALERTS_STORAGE_KEY = "deedscout_pi_signal_alerts_v1";
 
   var registry = null;
   var $ = function (id) {
@@ -392,7 +393,7 @@
         badge("coming-soon") +
         '<p class="pi-empty">In-app flood GIS is not wired for ' +
         esc(p.countyName || "this county") +
-        " yet. Palm Beach and Miami-Dade are live; others use FEMA MSC.</p>";
+        " yet. Palm Beach, Miami-Dade, and Broward are live; others use FEMA MSC.</p>";
     }
     return (
       body +
@@ -990,9 +991,105 @@
     }
   }
 
+  function readAlertPrefs() {
+    try {
+      return JSON.parse(localStorage.getItem(ALERTS_STORAGE_KEY) || "null");
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeAlertPrefs(prefs) {
+    localStorage.setItem(ALERTS_STORAGE_KEY, JSON.stringify(prefs));
+  }
+
+  function applyAlertPrefs(prefs) {
+    if (!prefs) return;
+    if (prefs.email && $("alert-email")) $("alert-email").value = prefs.email;
+    if (prefs.county && $("alert-county")) $("alert-county").value = prefs.county;
+    if (prefs.notes != null && $("alert-notes")) $("alert-notes").value = prefs.notes;
+    var form = $("pi-alerts");
+    if (!form) return;
+    ["watch_zoning", "watch_permits", "watch_tax", "watch_certs", "watch_flood"].forEach(function (name) {
+      var el = form.querySelector('input[name="' + name + '"]');
+      if (el) el.checked = !!prefs[name];
+    });
+  }
+
+  function collectAlertPrefs(form) {
+    return {
+      email: (form.email && form.email.value) || "",
+      county: (form.county && form.county.value) || "",
+      notes: (form.notes && form.notes.value) || "",
+      watch_zoning: !!(form.watch_zoning && form.watch_zoning.checked),
+      watch_permits: !!(form.watch_permits && form.watch_permits.checked),
+      watch_tax: !!(form.watch_tax && form.watch_tax.checked),
+      watch_certs: !!(form.watch_certs && form.watch_certs.checked),
+      watch_flood: !!(form.watch_flood && form.watch_flood.checked),
+      savedAt: new Date().toISOString(),
+    };
+  }
+
+  function initAlerts() {
+    var badgeHost = $("alerts-badge");
+    if (badgeHost && window.DeedScoutTrust) {
+      badgeHost.innerHTML = DeedScoutTrust.renderBadge("coming-soon", { compact: true });
+    }
+    var form = $("pi-alerts");
+    if (!form) return;
+    applyAlertPrefs(readAlertPrefs());
+    var status = $("alert-status");
+    var clearBtn = $("alert-clear");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        localStorage.removeItem(ALERTS_STORAGE_KEY);
+        form.reset();
+        if (form.watch_zoning) form.watch_zoning.checked = true;
+        if (form.watch_permits) form.watch_permits.checked = true;
+        if (form.watch_tax) form.watch_tax.checked = true;
+        setStatus(status, "Browser prefs cleared. Email intake was not deleted from Netlify Forms.");
+      });
+    }
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var prefs = collectAlertPrefs(form);
+      writeAlertPrefs(prefs);
+      setStatus(status, "Saving Beta intake…");
+      var body = new URLSearchParams();
+      body.set("form-name", "signal-alerts");
+      body.set("email", prefs.email);
+      body.set("county", prefs.county);
+      body.set("notes", prefs.notes);
+      body.set("watch_zoning", prefs.watch_zoning ? "yes" : "no");
+      body.set("watch_permits", prefs.watch_permits ? "yes" : "no");
+      body.set("watch_tax", prefs.watch_tax ? "yes" : "no");
+      body.set("watch_certs", prefs.watch_certs ? "yes" : "no");
+      body.set("watch_flood", prefs.watch_flood ? "yes" : "no");
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("Form submit failed (" + res.status + ")");
+          setStatus(
+            status,
+            "Saved in this browser and submitted as Beta intake. Automated same-day email is still Coming Soon — we use this list to prioritize delivery."
+          );
+        })
+        .catch(function () {
+          setStatus(
+            status,
+            "Saved in this browser. Netlify form submit failed locally (expected on localhost) — it will work after Netlify deploy detects the form."
+          );
+        });
+    });
+  }
+
   function init() {
     var form = $("pi-search");
     if (form) form.addEventListener("submit", onSearch);
+    initAlerts();
     initFeeds().then(function () {
       // Deep-link: property-intelligence.html?county=palm-beach&pcn=...&mode=pcn
       try {
