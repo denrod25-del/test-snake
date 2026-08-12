@@ -114,7 +114,7 @@ def render_page(src, slug, coverage, base_url):
 <link rel="canonical" href="{html_escape(canonical)}" />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 <script type="application/ld+json">{jsonld}</script>
-<link rel="stylesheet" href="../assets/deedscout.css" />
+<link rel="stylesheet" href="/assets/deedscout.css" />
 </head>
 <body class="ds-body">
 <main class="ds-main" style="padding-top:32px;max-width:920px;margin:0 auto;">
@@ -124,7 +124,7 @@ def render_page(src, slug, coverage, base_url):
   {body}
   <p style="margin-top:32px;font-size:13px;color:var(--ds-muted);">Generated {html_escape(today)} · <a href="../trust.html">Trust Center</a> · <a href="../data-sources.html">Data Sources</a></p>
 </main>
-<script src="../assets/deedscout.js"></script>
+<script src="/assets/deedscout.js"></script>
 <script src="../assets/deedscout-errors.js"></script>
 </body>
 </html>"""
@@ -157,7 +157,7 @@ def main():
 
     index_html = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"/><title>Municipalities — DeedScout</title>
-<link rel="stylesheet" href="../assets/deedscout.css"/></head>
+<link rel="stylesheet" href="/assets/deedscout.css"/></head>
 <body class="ds-body"><main class="ds-main" style="padding-top:48px;">
 <h1 style="font-family:'Cormorant Garamond',serif;">Municipal permit coverage</h1>
 <p>Cities with cached or sample permit data in DeedScout — not Florida counties.</p>
@@ -169,7 +169,7 @@ def main():
   <li><a href="boynton-beach.html">Boynton Beach, Palm Beach County</a></li>
 </ul>
 <p><a href="../counties/index.html">Browse 67 Florida counties →</a></p>
-</main><script src="../assets/deedscout.js"></script></body></html>"""
+</main><script src="/assets/deedscout.js"></script></body></html>"""
     (MUNI_DIR / "index.html").write_text(index_html, encoding="utf-8")
     print(f"Generated {count} municipality pages.")
 
