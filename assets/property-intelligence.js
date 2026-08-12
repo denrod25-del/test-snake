@@ -7,10 +7,16 @@
 
   var ZONING_URL =
     "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9/query";
+  var FLOOD_URL =
+    "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Environment_Open_Data/MapServer/18/query";
   var REGISTRY_URL = "data/parcels/registry.json";
   var PERMITS_URL = "data/signals/recent-permits.json";
+  var CERTS_URL = "data/signals/pbc-county-held-certs.json";
   var CATALOG_URL = "data/signals/catalog.json";
   var SALES_URL = "sales.json";
+  var CLERK_OR_URL = "https://erec.mypalmbeachclerk.com/";
+  var TAX_COLLECTOR_CERTS_PAGE =
+    "https://www.pbctax.gov/taxes/property-tax/tax-certificates-and-deeds/";
 
   var registry = null;
   var $ = function (id) {
@@ -146,6 +152,7 @@
         countyName: county.name,
         paUrl: county.paUrl,
         pcn: pick(a, map.pcn || county.idFields || []),
+        parid: pick(a, ["PARID", "PARCEL_NUMBER", "PCN"]),
         owner: [pick(a, map.owner || []), pick(a, ["OWNER_NAME2"])].filter(Boolean).join(" "),
         address: buildAddress(a, map),
         market: pick(a, map.market || []),
@@ -154,6 +161,11 @@
         salePrice: pick(a, map.salePrice || []),
         homestead: pick(a, map.homestead || []),
         yearBuilt: pick(a, ["YRBLT", "YEAR_BUILT"]),
+        deedBook: pick(a, map.deedBook || ["BOOK"]),
+        deedPage: pick(a, map.deedPage || ["PAGE"]),
+        saleKey: pick(a, map.saleKey || ["SALEKEY"]),
+        monthsSinceSale: pick(a, map.monthsSinceSale || ["MONTHS_SINCE_SALE"]),
+        legal: pick(a, ["LEGAL1", "LEGAL"]),
         centroid: centroid(f.geometry),
         raw: a,
       };
@@ -173,6 +185,25 @@
     var f = (data.features || [])[0];
     if (!f) return null;
     return f.attributes;
+  }
+
+  async function lookupFlood(lon, lat) {
+    var data = await arcgisQuery(FLOOD_URL, {
+      geometry: lon + "," + lat,
+      geometryType: "esriGeometryPoint",
+      inSR: "4326",
+      spatialRel: "esriSpatialRelIntersects",
+      outFields: "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID,DT_CHG",
+      returnGeometry: "false",
+      f: "json",
+    });
+    var f = (data.features || [])[0];
+    if (!f) return null;
+    return f.attributes;
+  }
+
+  function digitsOnly(s) {
+    return String(s || "").replace(/\D/g, "");
   }
 
   async function recentZoningUpdates() {
@@ -213,6 +244,21 @@
   }
 
   function renderOwnership(p) {
+    var deedBits = "";
+    if (p.deedBook || p.deedPage) {
+      deedBits =
+        "<div><dt>Deed book/page</dt><dd>" +
+        esc(p.deedBook || "—") +
+        " / " +
+        esc(p.deedPage || "—") +
+        "</dd></div>";
+    }
+    if (p.monthsSinceSale != null && p.monthsSinceSale !== "") {
+      deedBits +=
+        "<div><dt>Months since sale</dt><dd>" +
+        esc(String(p.monthsSinceSale)) +
+        "</dd></div>";
+    }
     return (
       '<dl class="pi-dl">' +
       "<div><dt>Owner</dt><dd>" +
@@ -231,13 +277,20 @@
       esc(fmtDate(p.saleDate)) +
       (p.salePrice ? " · " + money(p.salePrice) : "") +
       "</dd></div>" +
+      deedBits +
       "<div><dt>Homestead</dt><dd>" +
       esc(p.homestead || "—") +
       "</dd></div>" +
       "</dl>" +
-      '<p class="pi-note">Current PA GIS owner — not a full deed chain. Confirm on the clerk Official Records and <a href="' +
+      '<div class="pi-actions">' +
+      '<a class="ds-btn ds-btn-secondary" href="' +
       esc(p.paUrl || "#") +
-      '" target="_blank" rel="noopener">property appraiser</a>.</p>'
+      '" target="_blank" rel="noopener">Property Appraiser</a>' +
+      '<a class="ds-btn ds-btn-secondary" href="' +
+      CLERK_OR_URL +
+      '" target="_blank" rel="noopener">Clerk Official Records</a>' +
+      "</div>" +
+      '<p class="pi-note">Current PA GIS owner + last-sale pointer (book/page when exposed). Not a full multi-deed chain — search Official Records for prior conveyances.</p>'
     );
   }
 
@@ -264,17 +317,181 @@
     );
   }
 
-  function renderInsurance(p) {
+  function renderInsurance(p, flood) {
     var q = encodeURIComponent(p.address || p.pcn || "Palm Beach County FL");
+    var body = "";
+    if (flood) {
+      var sfha =
+        String(flood.SFHA_TF || "").toUpperCase() === "T"
+          ? "Yes — Special Flood Hazard Area"
+          : String(flood.SFHA_TF || "").toUpperCase() === "F"
+            ? "No — outside SFHA on this layer"
+            : esc(flood.SFHA_TF || "—");
+      var bfe =
+        flood.STATIC_BFE != null && Number(flood.STATIC_BFE) > -9000
+          ? String(flood.STATIC_BFE)
+          : "—";
+      body =
+        badge("live") +
+        ' <span class="pi-inline-meta">PBC 2023 Pending FIRMs GIS</span>' +
+        '<dl class="pi-dl">' +
+        "<div><dt>Flood zone</dt><dd>" +
+        esc(flood.FLD_ZONE || "—") +
+        "</dd></div>" +
+        "<div><dt>Subtype</dt><dd>" +
+        esc(flood.ZONE_SUBTY || "—") +
+        "</dd></div>" +
+        "<div><dt>SFHA</dt><dd>" +
+        sfha +
+        "</dd></div>" +
+        "<div><dt>Static BFE</dt><dd>" +
+        esc(bfe) +
+        "</dd></div>" +
+        "<div><dt>FIRM id</dt><dd>" +
+        esc(flood.DFIRM_ID || "—") +
+        "</dd></div>" +
+        "</dl>";
+    } else {
+      body =
+        badge("cached") +
+        '<p class="pi-empty">No pending-FIRM polygon hit this point in PBC GIS (coverage is partial). Use FEMA MSC for the effective determination.</p>';
+    }
     return (
-      '<p>Carrier premium “shifts” are not a free public feed. Use flood determination tools first, then quote carriers.</p>' +
+      body +
       '<div class="pi-actions">' +
       '<a class="ds-btn ds-btn-secondary" href="https://msc.fema.gov/portal/search?AddressSearch=' +
       q +
       '" target="_blank" rel="noopener">Open FEMA MSC map</a>' +
       '<a class="ds-btn ds-btn-secondary" href="https://www.floodsmart.gov/" target="_blank" rel="noopener">FloodSmart.gov</a>' +
       "</div>" +
-      '<p class="pi-note">Coming soon on DeedScout: in-app FEMA flood zone (SFHA) stamp per parcel. Until then, MSC is the authoritative public map.</p>'
+      '<p class="pi-note">Flood zone ≠ insurance quote. Carrier premium “rate shifts” are still Coming Soon. Pending FIRMs may differ from the final effective map — verify on MSC before underwriting.</p>'
+    );
+  }
+
+  function matchCerts(certsPayload, parcel) {
+    var candidates = [
+      digitsOnly(parcel.pcn),
+      digitsOnly(parcel.parid),
+    ].filter(Boolean);
+    // also dashed PIN variants without leading zeros mismatch: keep unique
+    var uniq = [];
+    candidates.forEach(function (c) {
+      if (uniq.indexOf(c) < 0) uniq.push(c);
+    });
+    if (!uniq.length) return [];
+    var hits = [];
+    (certsPayload.certificates || []).forEach(function (c) {
+      var pin = c.pinDigits || digitsOnly(c.pin);
+      if (!pin) return;
+      for (var i = 0; i < uniq.length; i++) {
+        var pcn = uniq[i];
+        if (pin === pcn || pin.indexOf(pcn) >= 0 || pcn.indexOf(pin) >= 0) {
+          hits.push(c);
+          return;
+        }
+      }
+    });
+    return hits;
+  }
+
+  function renderTax(sales, parcel, certHits, certsPayload) {
+    var byCounty = salesByCounty(sales);
+    var name = parcel.countyName || "";
+    var rows = byCounty[name] || [];
+    if (!rows.length) {
+      Object.keys(byCounty).forEach(function (k) {
+        if (k.toLowerCase() === name.toLowerCase()) rows = byCounty[k];
+      });
+    }
+
+    var html =
+      badge("cached") +
+      ' <span class="pi-inline-meta">Auction-stage calendars + PBC county-held certificates where published.</span>';
+
+    var certHtml = "";
+    if (parcel.countySlug === "palm-beach") {
+      if (certHits && certHits.length) {
+        certHtml =
+          "<h3 class=\"pi-subhead\">County-held certificate match</h3><ul class=\"pi-list\">" +
+          certHits
+            .map(function (c) {
+              return (
+                "<li><strong>Cert #" +
+                esc(c.certificateNumber) +
+                "</strong> · tax year " +
+                esc(String(c.taxYear || "")) +
+                " · face " +
+                money(c.faceAmount) +
+                " · " +
+                esc(String(c.interestRate || "")) +
+                "% · sold " +
+                esc(fmtDate(c.saleDate)) +
+                "<br /><span class=\"pi-meta\">PIN " +
+                esc(c.pin) +
+                "</span></li>"
+              );
+            })
+            .join("") +
+          "</ul>";
+      } else {
+        certHtml =
+          "<p class=\"pi-empty\">No county-held certificate PIN matched this PCN in the Tax Collector XLSX (" +
+          esc(String((certsPayload && certsPayload.count) || 0)) +
+          " rows).</p>";
+      }
+      certHtml +=
+        '<div class="pi-actions">' +
+        '<a class="ds-btn ds-btn-secondary" href="' +
+        TAX_COLLECTOR_CERTS_PAGE +
+        '" target="_blank" rel="noopener">Tax Collector certs page</a>' +
+        (certsPayload && certsPayload.delinquentListUrl
+          ? '<a class="ds-btn ds-btn-secondary" href="' +
+            esc(certsPayload.delinquentListUrl) +
+            '" target="_blank" rel="noopener">Advertised delinquent list</a>'
+          : "") +
+        (certsPayload && certsPayload.sourceUrl
+          ? '<a class="ds-btn ds-btn-secondary" href="' +
+            esc(certsPayload.sourceUrl) +
+            '" target="_blank" rel="noopener">Download county-held XLSX</a>'
+          : "") +
+        "</div>";
+    }
+
+    if (!rows.length) {
+      return (
+        html +
+        certHtml +
+        '<p class="pi-empty">No upcoming scraped sale dates for ' +
+        esc(name || "this county") +
+        '. Open <a href="tax-deeds.html">Tax Deeds</a>.</p>'
+      );
+    }
+
+    var list = rows
+      .slice(0, 8)
+      .map(function (s) {
+        var link = s.officialUrl
+          ? ' · <a href="' + esc(s.officialUrl) + '" target="_blank" rel="noopener">Official</a>'
+          : "";
+        return (
+          "<li><strong>" +
+          esc(fmtDate(s.date || s.saleDate)) +
+          "</strong> · " +
+          esc(String(s.count != null ? s.count : "—")) +
+          " parcels · " +
+          esc(s.source || "") +
+          link +
+          "</li>"
+        );
+      })
+      .join("");
+    return (
+      html +
+      '<h3 class="pi-subhead">Upcoming tax deed dates</h3><ul class="pi-list">' +
+      list +
+      "</ul>" +
+      certHtml +
+      '<p class="pi-note">County-held certs are early-stage vs tax deeds, but not the full advertised delinquency newspaper roll. Always confirm with the Tax Collector.</p>'
     );
   }
 
@@ -345,58 +562,6 @@
 
   function salesByCounty(sales) {
     return (sales && sales.sales) || {};
-  }
-
-  function renderTax(sales, parcel) {
-    var byCounty = salesByCounty(sales);
-    var name = parcel.countyName || "";
-    var rows = byCounty[name] || byCounty[name.replace("-", " ")] || [];
-    if (!rows.length) {
-      // fuzzy: "Palm Beach" etc.
-      Object.keys(byCounty).forEach(function (k) {
-        if (k.toLowerCase() === name.toLowerCase()) rows = byCounty[k];
-      });
-    }
-
-    var html =
-      badge("cached") +
-      ' <span class="pi-inline-meta">Auction-stage signal from tax deed calendars — not a full early-delinquency certificate list.</span>';
-
-    if (!rows.length) {
-      return (
-        html +
-        '<p class="pi-empty">No upcoming scraped sale dates for ' +
-        esc(name || "this county") +
-        '. Open <a href="tax-deeds.html">Tax Deeds</a> and confirm on the clerk / auction site.</p>' +
-        '<p class="pi-note">Early tax-certificate / collector delinquency lists are Coming Soon.</p>'
-      );
-    }
-
-    var list = rows
-      .slice(0, 8)
-      .map(function (s) {
-        var link = s.officialUrl
-          ? ' · <a href="' + esc(s.officialUrl) + '" target="_blank" rel="noopener">Official</a>'
-          : "";
-        return (
-          "<li><strong>" +
-          esc(fmtDate(s.date || s.saleDate)) +
-          "</strong> · " +
-          esc(String(s.count != null ? s.count : "—")) +
-          " parcels · " +
-          esc(s.source || "") +
-          link +
-          "</li>"
-        );
-      })
-      .join("");
-    return (
-      html +
-      '<ul class="pi-list">' +
-      list +
-      "</ul>" +
-      '<p class="pi-note">Early tax-certificate / collector delinquency lists are <strong>Coming Soon</strong>. Today we surface auction-stage calendars only.</p>'
-    );
   }
 
   async function runRent(parcel) {
@@ -500,18 +665,21 @@
   var selected = null;
   var permitsPayload = { permits: [] };
   var salesPayload = {};
+  var certsPayload = { certificates: [], count: 0 };
 
   async function selectParcel(parcel) {
     selected = parcel;
     $("pi-selected").textContent = (parcel.address || parcel.pcn) + " · " + parcel.countyName;
     setStatus($("panel-ownership"), renderOwnership(parcel));
-    setStatus($("panel-insurance"), renderInsurance(parcel));
     setStatus($("panel-rent"), renderRentPanel(parcel));
     setStatus($("panel-permits"), renderPermits(matchPermits(permitsPayload, parcel), permitsPayload));
-    setStatus($("panel-tax"), renderTax(salesPayload, parcel));
+    var certHits = matchCerts(certsPayload, parcel);
+    setStatus($("panel-tax"), renderTax(salesPayload, parcel, certHits, certsPayload));
 
     var zEl = $("panel-zoning");
+    var iEl = $("panel-insurance");
     setStatus(zEl, "<em>Querying PZB zoning…</em>");
+    setStatus(iEl, "<em>Querying flood zone…</em>");
     if (parcel.centroid) {
       try {
         var z = await lookupZoning(parcel.centroid.lon, parcel.centroid.lat);
@@ -519,8 +687,15 @@
       } catch (err) {
         setStatus(zEl, '<p class="pi-empty">Zoning lookup failed: ' + esc(err.message) + "</p>");
       }
+      try {
+        var flood = await lookupFlood(parcel.centroid.lon, parcel.centroid.lat);
+        setStatus(iEl, renderInsurance(parcel, flood));
+      } catch (err2) {
+        setStatus(iEl, renderInsurance(parcel, null) + '<p class="pi-empty">Flood GIS error: ' + esc(err2.message) + "</p>");
+      }
     } else {
       setStatus(zEl, '<p class="pi-empty">No parcel geometry returned for zoning intersect.</p>');
+      setStatus(iEl, renderInsurance(parcel, null));
     }
 
     var rentBtn = $("rent-run");
@@ -657,6 +832,41 @@
       );
     } catch (err) {
       setStatus($("feed-tax"), '<p class="pi-empty">Sales calendar unavailable.</p>');
+    }
+
+    try {
+      certsPayload = await loadJson(CERTS_URL);
+      var topCerts = (certsPayload.certificates || []).slice(0, 8);
+      var certList = topCerts
+        .map(function (c) {
+          return (
+            "<li><strong>#" +
+            esc(c.certificateNumber) +
+            "</strong> · " +
+            money(c.faceAmount) +
+            " · " +
+            esc(String(c.interestRate || "")) +
+            "% · PIN " +
+            esc(c.pin) +
+            "</li>"
+          );
+        })
+        .join("");
+      var taxFeed = $("feed-tax");
+      if (taxFeed) {
+        taxFeed.innerHTML +=
+          '<div style="margin-top:16px;">' +
+          badge("cached") +
+          " PBC county-held certificates (" +
+          esc(String(certsPayload.count || 0)) +
+          ')<ul class="pi-list">' +
+          certList +
+          '</ul><p class="pi-note"><a href="' +
+          TAX_COLLECTOR_CERTS_PAGE +
+          '" target="_blank" rel="noopener">Tax Collector source →</a></p></div>';
+      }
+    } catch (errCert) {
+      /* non-fatal */
     }
 
     try {

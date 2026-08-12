@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T16:24:29Z",
+  "generated": "2026-08-12T16:36:00Z",
   "signals": [
     {
       "id": "zoning",
@@ -19,11 +19,11 @@
     },
     {
       "id": "ownership",
-      "name": "Ownership records",
+      "name": "Ownership & deed pointers",
       "status": "live",
-      "coverage": "11 counties via Property Appraiser GIS (current owner + last sale where exposed)",
+      "coverage": "11 counties via Property Appraiser GIS (current owner + last sale; PBC includes deed book/page)",
       "source": "data/parcels/registry.json",
-      "verification": "Not a full deed chain \u2014 confirm on clerk Official Records / PA site."
+      "verification": "Not a full multi-deed chain — confirm on clerk Official Records / PA site."
     },
     {
       "id": "rent-comps",
@@ -31,23 +31,23 @@
       "status": "live",
       "coverage": "Nationwide via RentCast rent AVM (Pro credits)",
       "source": "RentCast /v1/avm/rent/long-term",
-      "verification": "Estimates only \u2014 verify with local PM / listings."
+      "verification": "Estimates only — verify with local PM / listings."
     },
     {
       "id": "tax-delinquencies",
-      "name": "Tax delinquencies",
+      "name": "Tax delinquencies & certificates",
       "status": "cached",
-      "coverage": "Auction-stage: scraped/curated tax deed sale calendars. Early certificate lists not yet wired.",
-      "source": "sales.json + county tax collectors",
-      "verification": "Always confirm on clerk / tax collector before bidding."
+      "coverage": "Auction-stage calendars statewide + Palm Beach County-held tax certificates (861 rows from Tax Collector XLSX). Full advertised delinquent roll is a newspaper digital edition (linked).",
+      "source": "sales.json + data/signals/pbc-county-held-certs.json",
+      "verification": "Confirm certificate status with PBC Tax Collector before purchase; confirm sale dates on clerk/auction sites."
     },
     {
       "id": "insurance",
       "name": "Insurance / flood signals",
-      "status": "coming-soon",
-      "coverage": "FEMA flood-zone parcel lookup and carrier-rate shift feeds not yet connected. Deep-link to FEMA MSC provided.",
-      "source": "FEMA MSC / county flood GIS (planned)",
-      "verification": "Use FEMA MSC and local flood determinations for insurance underwriting."
+      "status": "live",
+      "coverage": "Palm Beach pending FIRM flood zones (PBC GIS) where mapped + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
+      "source": "PBC Environment Open Data · FEMA MSC",
+      "verification": "Pending FIRMs are not always final effective maps — verify on FEMA MSC / local flood determination for underwriting."
     }
   ]
 }

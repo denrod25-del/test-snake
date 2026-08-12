@@ -90,7 +90,12 @@
     .pi-dl dd { margin: 0; }
     .pi-list { margin: 10px 0 0; padding-left: 18px; }
     .pi-list li { margin-bottom: 8px; }
-    .pi-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+    .pi-subhead {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 14px 0 8px;
+    }
     .pi-empty { color: var(--muted); }
     .pi-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
     .pi-rent-form {
@@ -215,7 +220,7 @@
     <article class="pi-panel">
       <span data-status="tax"></span>
       <h2>Tax delinquencies</h2>
-      <div id="panel-tax"><p class="pi-empty">Auction-stage tax deed dates for the parcel’s county.</p></div>
+      <div id="panel-tax"><p class="pi-empty">Auction calendars + Palm Beach county-held certificates when the PCN matches.</p></div>
     </article>
     <article class="pi-panel">
       <span data-status="rent"></span>
@@ -225,7 +230,7 @@
     <article class="pi-panel">
       <span data-status="insurance"></span>
       <h2>Insurance / flood</h2>
-      <div id="panel-insurance"><p class="pi-empty">FEMA MSC deep-link + Coming Soon in-app flood stamp.</p></div>
+      <div id="panel-insurance"><p class="pi-empty">PBC pending FIRM flood zone stamp + FEMA MSC deep-link.</p></div>
     </article>
   </section>
 
@@ -288,7 +293,7 @@
       permits: "cached",
       tax: "cached",
       rent: "live",
-      insurance: "coming-soon",
+      insurance: "live",
     };
     document.querySelectorAll("[data-status]").forEach(function (el) {
       var key = el.getAttribute("data-status");

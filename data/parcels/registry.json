@@ -14,7 +14,8 @@
         "OWNER_NAME1", "OWNER_NAME2",
         "SITE_ADDR_STR", "CITYNAME", "ZIP1",
         "TOTAL_MARKET", "LAND_MARKET", "IMPRV_MRKT", "ASSESSED_VAL", "TOTAL_TAXABLE",
-        "SALE_DATE", "PRICE", "HMSTD_FLG", "LEGAL1", "SUBDIV_NAME", "YRBLT"
+        "SALE_DATE", "PRICE", "HMSTD_FLG", "LEGAL1", "SUBDIV_NAME", "YRBLT",
+        "BOOK", "PAGE", "SALEKEY", "MONTHS_SINCE_SALE"
       ],
       "map": {
         "pcn": ["PCN", "PARID", "PARCEL_NUMBER"],
@@ -26,7 +27,11 @@
         "assessed": ["ASSESSED_VAL"],
         "saleDate": ["SALE_DATE"],
         "salePrice": ["PRICE"],
-        "homestead": ["HMSTD_FLG"]
+        "homestead": ["HMSTD_FLG"],
+        "deedBook": ["BOOK"],
+        "deedPage": ["PAGE"],
+        "saleKey": ["SALEKEY"],
+        "monthsSinceSale": ["MONTHS_SINCE_SALE"]
       }
     },
     "miami-dade": {
