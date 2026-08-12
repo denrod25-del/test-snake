@@ -125,7 +125,7 @@ def render_page(src, slug, coverage, base_url):
   <p style="margin-top:32px;font-size:13px;color:var(--ds-muted);">Generated {html_escape(today)} · <a href="../trust.html">Trust Center</a> · <a href="../data-sources.html">Data Sources</a></p>
 </main>
 <script src="/assets/deedscout.js"></script>
-<script src="../assets/deedscout-errors.js"></script>
+<script src="/assets/deedscout-errors.js"></script>
 </body>
 </html>"""
 

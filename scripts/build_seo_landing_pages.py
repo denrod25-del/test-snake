@@ -89,7 +89,7 @@ def render_page(p):
 <title>{html.escape(p['title'])}</title>
 <meta name="description" content="{html.escape(p['desc'])}"/>
 <link rel="canonical" href="{BASE}/{html.escape(p['file'])}"/>
-<link rel="stylesheet" href="assets/deedscout.css"/>
+<link rel="stylesheet" href="/assets/deedscout.css"/>
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"WebPage","name":{json.dumps(p['h1'])},"description":{json.dumps(p['desc'])},"url":{json.dumps(BASE + '/' + p['file'])}}}</script>
 {faq_ld}
 </head>
@@ -102,7 +102,7 @@ def render_page(p):
 <p class="ds-trust-inline"><span class="ds-status ds-status-cached">Public Beta</span> Official source required before bidding. Not legal or investment advice.</p>
 </div></main>
 <script src="assets/data-trust.js"></script>
-<script src="assets/deedscout.js"></script>
+<script src="/assets/deedscout.js"></script>
 <script src="assets/deedscout-errors.js"></script>
 </body></html>"""
 
