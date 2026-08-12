@@ -32,7 +32,8 @@
       <li><strong>Ownership (Live)</strong> — County Property Appraiser GIS current owner / last sale; PBC includes deed book/page + clerk Official Records link.</li>
       <li><strong>New permits (Cached)</strong> — Tyler EnerGov scrapes for WPB, Boca, Jupiter, St. Lucie; recent slice in <code>data/signals/recent-permits.json</code>.</li>
       <li><strong>Rent comps (Live, Pro)</strong> — RentCast long-term rent AVM via <code>/api/rent-lookup</code> (shares AVM credits).</li>
-      <li><strong>Insurance / flood (Live GIS + Coming Soon rates)</strong> — PBC pending FIRM + Miami-Dade FEMA flood GIS + Broward FEMA SFHA 2024 (BCGIS) stamps where mapped + FEMA MSC deep-links. Carrier premium rate-shift feeds still Coming Soon. Layer registry: <code>data/signals/flood-layers.json</code>.</li>
+      <li><strong>Insurance / flood (Live GIS + Coming Soon rates)</strong> — Live flood stamps for Palm Beach, Miami-Dade, Broward, Hillsborough, and Pinellas + FEMA MSC deep-links. Carrier premium rate-shift feeds still Coming Soon. Layer registry: <code>data/signals/flood-layers.json</code>.</li>
+      <li><strong>Broward ownership enrich (Live)</strong> — FOLIO polygon match plus BCPA House Number layer for owner name and situs address (confirm on web.bcpa.net).</li>
       <li><strong>Tax delinquencies (Cached)</strong> — <code>sales.json</code> tax deed calendars + Palm Beach county-held certificates + LienHub/legal-notice portals for Hillsborough, Broward, Miami-Dade, Orange, Brevard.</li>
       <li><strong>Signal watch alerts (Coming Soon / Beta intake)</strong> — Property Intelligence form captures zoning / permits / tax-calendar / cert watch prefs via Netlify Forms; automated same-day email delivery is not live yet.</li>
     </ul>

@@ -154,9 +154,22 @@
     }
   }
 
-  function normalizeFeature(county, attrs) {
+  function joinAddress(attrs, map) {
+    map = map || {};
+    if (map.addressParts && map.addressParts.length) {
+      var parts = [];
+      for (var i = 0; i < map.addressParts.length; i++) {
+        var part = firstAttr(attrs, [map.addressParts[i]]);
+        if (part != null && String(part).trim() !== "") parts.push(String(part).trim());
+      }
+      if (parts.length) return parts.join(" ");
+    }
+    return firstAttr(attrs, map.address || []) || "";
+  }
+
+  function normalizeFeature(county, attrs, mapOverride) {
     attrs = attrs || {};
-    var map = county.map || {};
+    var map = mapOverride || county.map || {};
     var market = firstAttr(attrs, map.market || []);
     // Pinellas lists land+imp separately — sum if both numeric
     if (map.market && map.market.length >= 2 && market != null) {
@@ -169,10 +182,11 @@
         });
       if (nums.length >= 2) market = nums.reduce(function (a, b) { return a + b; }, 0);
     }
+    var yearBuilt = firstAttr(attrs, map.yearBuilt || ["YRBLT", "YEAR_BUILT"]) || "";
     return {
       pcn: firstAttr(attrs, map.pcn || county.idFields || []) || "",
       owner: firstAttr(attrs, map.owner || []) || "",
-      address: firstAttr(attrs, map.address || []) || "",
+      address: joinAddress(attrs, map),
       city: firstAttr(attrs, map.city || []) || "",
       zip: firstAttr(attrs, map.zip || []) || "",
       market: market,
@@ -180,11 +194,76 @@
       saleDate: firstAttr(attrs, map.saleDate || []),
       salePrice: firstAttr(attrs, map.salePrice || []),
       homestead: firstAttr(attrs, map.homestead || []),
+      yearBuilt: yearBuilt,
       raw: attrs,
       countySlug: null,
       countyName: county.name || "",
       sourceNote: county.note || "",
     };
+  }
+
+  function mergeEnrich(base, extra) {
+    if (!extra) return base;
+    ["owner", "address", "city", "zip", "market", "assessed", "saleDate", "salePrice", "homestead", "yearBuilt"].forEach(function (k) {
+      if ((base[k] == null || base[k] === "") && extra[k] != null && extra[k] !== "") {
+        base[k] = extra[k];
+      }
+    });
+    base.raw = Object.assign({}, base.raw || {}, extra.raw || {});
+    return base;
+  }
+
+  function enrichResults(county, results) {
+    var cfg = county && county.enrich;
+    if (!cfg || !cfg.endpoint || !results || !results.length) {
+      return Promise.resolve(results);
+    }
+    var matchField = cfg.matchField;
+    if (!matchField) return Promise.resolve(results);
+    var ids = [];
+    results.forEach(function (r) {
+      var id = r.pcn || "";
+      if (id && ids.indexOf(id) < 0) ids.push(id);
+    });
+    if (!ids.length) return Promise.resolve(results);
+
+    var where = ids
+      .map(function (id) {
+        return matchField + "='" + esc(id) + "'";
+      })
+      .join(" OR ");
+    var params = new URLSearchParams({
+      where: where,
+      outFields: (cfg.outFields || ["*"]).join(","),
+      returnGeometry: "false",
+      f: "json",
+    });
+    if (cfg.supportsPagination !== false) {
+      params.set("resultRecordCount", String(Math.max(ids.length, 8)));
+    }
+    return fetch(cfg.endpoint + "?" + params.toString(), { credentials: "omit" })
+      .then(function (resp) {
+        if (!resp.ok) throw new Error("Enrich ArcGIS HTTP " + resp.status);
+        return resp.json();
+      })
+      .then(function (json) {
+        if (json.error) {
+          // Non-fatal — keep FOLIO-only results
+          return results;
+        }
+        var byId = {};
+        (json.features || []).forEach(function (f) {
+          var n = normalizeFeature(county, f.attributes || {}, cfg.map || {});
+          if (n.pcn) byId[String(n.pcn)] = n;
+        });
+        results.forEach(function (r) {
+          mergeEnrich(r, byId[String(r.pcn || "")]);
+        });
+        return results;
+      })
+      .catch(function () {
+        return results;
+      });
   }
 
   function queryCounty(countyOrSlug, opts) {
@@ -209,9 +288,11 @@
           outFields: outFields,
           returnGeometry: opts.returnGeometry ? "true" : "false",
           f: "json",
-          resultRecordCount: String(opts.limit || 25),
         });
-        if (opts.resultOffset) params.set("resultOffset", String(opts.resultOffset));
+        if (county.supportsPagination !== false) {
+          params.set("resultRecordCount", String(opts.limit || 25));
+          if (opts.resultOffset) params.set("resultOffset", String(opts.resultOffset));
+        }
         return fetch(county.endpoint + "?" + params.toString(), { credentials: "omit" }).then(
           function (resp) {
             if (!resp.ok) throw new Error("ArcGIS HTTP " + resp.status);
@@ -234,16 +315,19 @@
             throw new Error(msg);
           }
           var features = json.features || [];
-          return {
-            county: county,
-            count: features.length,
-            exceededTransferLimit: !!json.exceededTransferLimit,
-            results: features.map(function (f) {
-              var n = normalizeFeature(county, f.attributes || {});
-              n.geometry = f.geometry || null;
-              return n;
-            }),
-          };
+          var results = features.map(function (f) {
+            var n = normalizeFeature(county, f.attributes || {});
+            n.geometry = f.geometry || null;
+            return n;
+          });
+          return enrichResults(county, results).then(function (enriched) {
+            return {
+              county: county,
+              count: enriched.length,
+              exceededTransferLimit: !!json.exceededTransferLimit,
+              results: enriched,
+            };
+          });
         });
       });
     }
@@ -257,6 +341,7 @@
     getCounty: getCounty,
     buildWhere: buildWhere,
     normalizeFeature: normalizeFeature,
+    enrichResults: enrichResults,
     queryCounty: queryCounty,
     normalizeId: normalizeId,
   };

@@ -96,6 +96,14 @@
 
   function buildAddress(attrs, map) {
     var addr = pick(attrs, map.address || []);
+    if (!addr && map.addressParts && map.addressParts.length) {
+      addr = map.addressParts
+        .map(function (k) {
+          return pick(attrs, [k]);
+        })
+        .filter(Boolean)
+        .join(" ");
+    }
     var city = pick(attrs, map.city || []);
     var zip = pick(attrs, map.zip || []);
     return [addr, city, zip ? "FL " + zip : "FL"].filter(Boolean).join(", ");
@@ -111,6 +119,69 @@
       ys += ring[i][1];
     }
     return { lon: xs / ring.length, lat: ys / ring.length };
+  }
+
+  function mergeEnrichParcel(base, extra) {
+    if (!extra) return base;
+    ["owner", "address", "market", "assessed", "saleDate", "salePrice", "homestead", "yearBuilt"].forEach(
+      function (k) {
+        if ((base[k] == null || base[k] === "") && extra[k] != null && extra[k] !== "") {
+          base[k] = extra[k];
+        }
+      }
+    );
+    base.raw = Object.assign({}, base.raw || {}, extra.raw || {});
+    return base;
+  }
+
+  async function enrichParcels(county, parcels) {
+    var cfg = county && county.enrich;
+    if (!cfg || !cfg.endpoint || !parcels.length) return parcels;
+    var matchField = cfg.matchField;
+    if (!matchField) return parcels;
+    var ids = [];
+    parcels.forEach(function (p) {
+      if (p.pcn && ids.indexOf(p.pcn) < 0) ids.push(p.pcn);
+    });
+    if (!ids.length) return parcels;
+    var where = ids
+      .map(function (id) {
+        return matchField + "='" + String(id).replace(/'/g, "''") + "'";
+      })
+      .join(" OR ");
+    var params = {
+      where: where,
+      outFields: (cfg.outFields || ["*"]).join(","),
+      returnGeometry: "false",
+      f: "json",
+    };
+    if (cfg.supportsPagination !== false) {
+      params.resultRecordCount = String(Math.max(ids.length, 8));
+    }
+    try {
+      var data = await arcgisQuery(cfg.endpoint, params);
+      var map = cfg.map || {};
+      var byId = {};
+      (data.features || []).forEach(function (f) {
+        var a = f.attributes || {};
+        var pcn = pick(a, map.pcn || []);
+        if (!pcn) return;
+        byId[String(pcn)] = {
+          owner: pick(a, map.owner || []) || "",
+          address: buildAddress(a, map),
+          market: pick(a, map.market || []),
+          assessed: pick(a, map.assessed || []),
+          yearBuilt: pick(a, map.yearBuilt || []),
+          raw: a,
+        };
+      });
+      parcels.forEach(function (p) {
+        mergeEnrichParcel(p, byId[String(p.pcn || "")]);
+      });
+    } catch (e) {
+      /* keep FOLIO-only */
+    }
+    return parcels;
   }
 
   async function lookupParcel(countySlug, mode, query) {
@@ -135,16 +206,20 @@
       where = "UPPER(" + addrField + ") LIKE '%" + q.toUpperCase().replace(/'/g, "''") + "%'";
     }
 
-    var data = await arcgisQuery(county.endpoint, {
+    var queryParams = {
       where: where,
       outFields: (county.outFields || ["*"]).join(","),
       returnGeometry: "true",
       outSR: "4326",
-      resultRecordCount: "8",
       f: "json",
-    });
+    };
+    if (county.supportsPagination !== false) {
+      queryParams.resultRecordCount = "8";
+    }
+
+    var data = await arcgisQuery(county.endpoint, queryParams);
     var features = data.features || [];
-    return features.map(function (f) {
+    var parcels = features.map(function (f) {
       var a = f.attributes || {};
       var map = county.map || {};
       return {
@@ -170,6 +245,7 @@
         raw: a,
       };
     });
+    return enrichParcels(county, parcels);
   }
 
   async function lookupZoning(lon, lat) {
@@ -393,7 +469,7 @@
         badge("coming-soon") +
         '<p class="pi-empty">In-app flood GIS is not wired for ' +
         esc(p.countyName || "this county") +
-        " yet. Palm Beach, Miami-Dade, and Broward are live; others use FEMA MSC.</p>";
+        " yet. Palm Beach, Miami-Dade, Broward, Hillsborough, and Pinellas are live; others use FEMA MSC.</p>";
     }
     return (
       body +

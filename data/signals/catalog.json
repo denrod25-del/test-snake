@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T17:10:00Z",
+  "generated": "2026-08-12T17:25:00Z",
   "signals": [
     {
       "id": "zoning",
@@ -21,7 +21,7 @@
       "id": "ownership",
       "name": "Ownership & deed pointers",
       "status": "live",
-      "coverage": "11 counties via Property Appraiser GIS (current owner + last sale; PBC includes deed book/page)",
+      "coverage": "11 counties via Property Appraiser GIS (current owner + last sale; PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer)",
       "source": "data/parcels/registry.json",
       "verification": "Not a full multi-deed chain — confirm on clerk Official Records / PA site."
     },
@@ -45,7 +45,7 @@
       "id": "insurance",
       "name": "Insurance / flood signals",
       "status": "live",
-      "coverage": "Palm Beach pending FIRMs + Miami-Dade FEMA flood GIS + Broward FEMA SFHA 2024 (BCGIS) + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
+      "coverage": "Palm Beach, Miami-Dade, Broward, Hillsborough, and Pinellas flood GIS + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
       "source": "data/signals/flood-layers.json · FEMA MSC",
       "verification": "County flood GIS may be pending/partial — verify on FEMA MSC / local flood determination for underwriting."
     },

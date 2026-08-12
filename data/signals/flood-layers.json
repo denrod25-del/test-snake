@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T17:10:00Z",
+  "generated": "2026-08-12T17:25:00Z",
   "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting.",
   "layers": {
     "palm-beach": {
@@ -49,6 +49,38 @@
       },
       "label": "Broward FEMA SFHA 2024 (BCGIS)",
       "mscCounty": "Broward County, FL"
+    },
+    "hillsborough": {
+      "name": "Hillsborough",
+      "status": "live",
+      "endpoint": "https://services.arcgis.com/apTfC6SUmnNfnxuF/arcgis/rest/services/Flood_Zones/FeatureServer/0/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "Hillsborough FEMA Flood Zones",
+      "mscCounty": "Hillsborough County, FL"
+    },
+    "pinellas": {
+      "name": "Pinellas",
+      "status": "live",
+      "endpoint": "https://services.arcgis.com/f5HgUpxURgEzTccH/arcgis/rest/services/FEMA_NFHL_StaticPinellas/FeatureServer/14/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "Pinellas FEMA NFHL Flood Hazard Zones",
+      "mscCounty": "Pinellas County, FL"
     }
   },
   "delinquencyPortals": {

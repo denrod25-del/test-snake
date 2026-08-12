@@ -1,6 +1,6 @@
 {
-  "generated": "2026-07-12",
-  "note": "Public ArcGIS MapServer/FeatureServer parcel layers. Field maps normalize county schemas into DeedScout's common shape (pcn, owner, address, market, assessed, saleDate, salePrice, homestead). Always verify on the county PA site before bidding. outFields must exist on the live layer — invalid names cause ArcGIS 400 and break tax-deeds hydration.",
+  "generated": "2026-08-12",
+  "note": "Public ArcGIS MapServer/FeatureServer parcel layers. Field maps normalize county schemas into DeedScout's common shape (pcn, owner, address, market, assessed, saleDate, salePrice, homestead). Always verify on the county PA site before bidding. outFields must exist on the live layer — invalid names cause ArcGIS 400 and break tax-deeds hydration. Optional enrich blocks run a second query after FOLIO match (used for Broward owner/situs).",
   "counties": {
     "palm-beach": {
       "name": "Palm Beach",
@@ -67,7 +67,7 @@
       "idFields": ["FOLIO"],
       "searchModes": ["pcn"],
       "outFields": ["FOLIO"],
-      "note": "Public layer exposes FOLIO only — use PA portal for owner/value details.",
+      "note": "Parcel polygons are FOLIO-only; owner/situs/building fields enrich from BCPA House Number layer after match. Confirm on web.bcpa.net.",
       "map": {
         "pcn": ["FOLIO"],
         "owner": [],
@@ -79,6 +79,47 @@
         "saleDate": [],
         "salePrice": [],
         "homestead": []
+      },
+      "enrich": {
+        "endpoint": "https://gisweb-adapters.bcpa.net/arcgis/rest/services/BCPA_EXTERNAL_JAN26/MapServer/15/query",
+        "matchField": "SQLGIS02.DATALAYER.Parcel_Polygons.FOLIO",
+        "supportsPagination": false,
+        "outFields": [
+          "SQLGIS02.DATALAYER.Parcel_Polygons.FOLIO",
+          "SQLGIS02.dbo.BCPA_INFO.FOLIO_NUMBER",
+          "SQLGIS02.dbo.BCPA_INFO.NAME_LINE_1",
+          "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_NUMBER",
+          "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_DIRECTION",
+          "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_NAME",
+          "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_TYPE",
+          "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_POST_DIR",
+          "SQLGIS02.dbo.BCPA_INFO.SITUS_CITY",
+          "SQLGIS02.dbo.BCPA_INFO.SITUS_ZIP_CODE",
+          "SQLGIS02.dbo.BCPA_INFO.JUST_BUILDING_VALUE",
+          "SQLGIS02.dbo.BCPA_INFO.ACTUAL_YEAR_BUILT",
+          "SQLGIS02.dbo.BCPA_INFO.BLDG_YEAR_BUILT"
+        ],
+        "map": {
+          "pcn": [
+            "SQLGIS02.DATALAYER.Parcel_Polygons.FOLIO",
+            "SQLGIS02.dbo.BCPA_INFO.FOLIO_NUMBER"
+          ],
+          "owner": ["SQLGIS02.dbo.BCPA_INFO.NAME_LINE_1"],
+          "addressParts": [
+            "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_NUMBER",
+            "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_DIRECTION",
+            "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_NAME",
+            "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_TYPE",
+            "SQLGIS02.dbo.BCPA_INFO.SITUS_STREET_POST_DIR"
+          ],
+          "city": ["SQLGIS02.dbo.BCPA_INFO.SITUS_CITY"],
+          "zip": ["SQLGIS02.dbo.BCPA_INFO.SITUS_ZIP_CODE"],
+          "market": ["SQLGIS02.dbo.BCPA_INFO.JUST_BUILDING_VALUE"],
+          "yearBuilt": [
+            "SQLGIS02.dbo.BCPA_INFO.ACTUAL_YEAR_BUILT",
+            "SQLGIS02.dbo.BCPA_INFO.BLDG_YEAR_BUILT"
+          ]
+        }
       }
     },
     "hillsborough": {
