@@ -2914,6 +2914,7 @@
         <a href="#/" data-nav="registry">Tax Deeds</a>
         <a href="counties/index.html" class="nav-ext">Counties</a>
         <a href="parcel-lookup.html" class="nav-ext">Parcel Lookup</a>
+        <a href="property-intelligence.html" class="nav-ext">Intelligence</a>
         <a href="permit-search.html" class="nav-ext">Permit Search</a>
         <a href="pricing.html" class="nav-ext">Pricing</a>
         <a href="learn/index.html" class="nav-ext">Learn</a>
@@ -4852,6 +4853,9 @@
       const deepHref = p.parcelId
         ? `${PARCEL_LOOKUP_HREF}?county=${encodeURIComponent(p.countySlug || '')}&mode=pcn&q=${encodeURIComponent(normalizePcn(p.parcelId))}`
         : `${PARCEL_LOOKUP_HREF}?county=${encodeURIComponent(p.countySlug || '')}`;
+      const intelHref = p.parcelId
+        ? `property-intelligence.html?county=${encodeURIComponent(p.countySlug || '')}&mode=pcn&pcn=${encodeURIComponent(normalizePcn(p.parcelId))}`
+        : `property-intelligence.html?county=${encodeURIComponent(p.countySlug || '')}`;
       const countyLabel = (PARCEL_REGISTRY?.counties?.[p.countySlug]?.name)
         || (COUNTIES.find(c => c.slug === p.countySlug)?.name)
         || 'County';
@@ -4976,6 +4980,7 @@
           <div class="parcel-live-head">
             <span class="parcel-live-eyebrow ${eyebrowClass}"><span class="dot"></span>${eyebrowText}</span>
             <a class="parcel-live-link" href="${deepHref}" target="_blank" rel="noopener">Open in Parcel Registry →</a>
+            <a class="parcel-live-link" href="${intelHref}" target="_blank" rel="noopener">Property Intelligence →</a>
           </div>
           ${body}
           ${foot}

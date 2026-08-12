@@ -5,18 +5,17 @@
 (function () {
   "use strict";
 
-  var ZONING_URL =
-    "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9/query";
-  var FLOOD_URL =
-    "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Environment_Open_Data/MapServer/18/query";
-  var REGISTRY_URL = "data/parcels/registry.json";
-  var PERMITS_URL = "data/signals/recent-permits.json";
+  var FLOOD_LAYERS_URL = "data/signals/flood-layers.json";
   var CERTS_URL = "data/signals/pbc-county-held-certs.json";
   var CATALOG_URL = "data/signals/catalog.json";
   var SALES_URL = "sales.json";
   var CLERK_OR_URL = "https://erec.mypalmbeachclerk.com/";
   var TAX_COLLECTOR_CERTS_PAGE =
     "https://www.pbctax.gov/taxes/property-tax/tax-certificates-and-deeds/";
+  var ZONING_URL =
+    "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9/query";
+  var REGISTRY_URL = "data/parcels/registry.json";
+  var PERMITS_URL = "data/signals/recent-permits.json";
 
   var registry = null;
   var $ = function (id) {
@@ -187,19 +186,43 @@
     return f.attributes;
   }
 
-  async function lookupFlood(lon, lat) {
-    var data = await arcgisQuery(FLOOD_URL, {
+  async function lookupFlood(lon, lat, countySlug) {
+    if (!floodConfig) {
+      try {
+        floodConfig = await loadJson(FLOOD_LAYERS_URL);
+      } catch (e) {
+        floodConfig = { layers: {} };
+      }
+    }
+    var layer = (floodConfig.layers || {})[countySlug];
+    if (!layer || layer.status !== "live" || !layer.endpoint) {
+      return { attrs: null, meta: layer || null };
+    }
+    var data = await arcgisQuery(layer.endpoint, {
       geometry: lon + "," + lat,
       geometryType: "esriGeometryPoint",
       inSR: "4326",
       spatialRel: "esriSpatialRelIntersects",
-      outFields: "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID,DT_CHG",
+      outFields: layer.outFields || "*",
       returnGeometry: "false",
       f: "json",
     });
     var f = (data.features || [])[0];
-    if (!f) return null;
-    return f.attributes;
+    if (!f) return { attrs: null, meta: layer };
+    var a = f.attributes || {};
+    var map = layer.map || {};
+    return {
+      attrs: {
+        FLD_ZONE: pick(a, map.zone || ["FLD_ZONE", "FZONE"]),
+        ZONE_SUBTY: pick(a, map.subtype || ["ZONE_SUBTY", "ZONESUBTY"]),
+        SFHA_TF: pick(a, map.sfha || ["SFHA_TF"]),
+        STATIC_BFE: pick(a, map.bfe || ["STATIC_BFE", "ELEV"]),
+        DEPTH: pick(a, map.depth || ["DEPTH"]),
+        DFIRM_ID: pick(a, map.firmId || ["DFIRM_ID"]),
+      },
+      meta: layer,
+      raw: a,
+    };
   }
 
   function digitsOnly(s) {
@@ -317,23 +340,30 @@
     );
   }
 
-  function renderInsurance(p, flood) {
-    var q = encodeURIComponent(p.address || p.pcn || "Palm Beach County FL");
+  function renderInsurance(p, floodResult) {
+    var q = encodeURIComponent(p.address || p.pcn || "Florida");
+    var flood = floodResult && floodResult.attrs;
+    var meta = floodResult && floodResult.meta;
     var body = "";
-    if (flood) {
+    if (flood && flood.FLD_ZONE) {
+      var sfhaRaw = String(flood.SFHA_TF || "").toUpperCase();
       var sfha =
-        String(flood.SFHA_TF || "").toUpperCase() === "T"
+        sfhaRaw === "T"
           ? "Yes — Special Flood Hazard Area"
-          : String(flood.SFHA_TF || "").toUpperCase() === "F"
+          : sfhaRaw === "F"
             ? "No — outside SFHA on this layer"
-            : esc(flood.SFHA_TF || "—");
+            : sfhaRaw
+              ? esc(flood.SFHA_TF)
+              : "See zone code (SFHA flag not on this layer)";
       var bfe =
         flood.STATIC_BFE != null && Number(flood.STATIC_BFE) > -9000
           ? String(flood.STATIC_BFE)
           : "—";
       body =
         badge("live") +
-        ' <span class="pi-inline-meta">PBC 2023 Pending FIRMs GIS</span>' +
+        ' <span class="pi-inline-meta">' +
+        esc((meta && meta.label) || "County flood GIS") +
+        "</span>" +
         '<dl class="pi-dl">' +
         "<div><dt>Flood zone</dt><dd>" +
         esc(flood.FLD_ZONE || "—") +
@@ -344,17 +374,25 @@
         "<div><dt>SFHA</dt><dd>" +
         sfha +
         "</dd></div>" +
-        "<div><dt>Static BFE</dt><dd>" +
+        "<div><dt>BFE / elev</dt><dd>" +
         esc(bfe) +
         "</dd></div>" +
-        "<div><dt>FIRM id</dt><dd>" +
-        esc(flood.DFIRM_ID || "—") +
-        "</dd></div>" +
+        (flood.DFIRM_ID
+          ? "<div><dt>FIRM id</dt><dd>" + esc(flood.DFIRM_ID) + "</dd></div>"
+          : "") +
         "</dl>";
-    } else {
+    } else if (meta && meta.status === "live") {
       body =
         badge("cached") +
-        '<p class="pi-empty">No pending-FIRM polygon hit this point in PBC GIS (coverage is partial). Use FEMA MSC for the effective determination.</p>';
+        '<p class="pi-empty">No flood polygon hit this point in ' +
+        esc(meta.label || "county GIS") +
+        ". Use FEMA MSC for the effective determination.</p>";
+    } else {
+      body =
+        badge("coming-soon") +
+        '<p class="pi-empty">In-app flood GIS is not wired for ' +
+        esc(p.countyName || "this county") +
+        " yet. Palm Beach and Miami-Dade are live; others use FEMA MSC.</p>";
     }
     return (
       body +
@@ -364,7 +402,7 @@
       '" target="_blank" rel="noopener">Open FEMA MSC map</a>' +
       '<a class="ds-btn ds-btn-secondary" href="https://www.floodsmart.gov/" target="_blank" rel="noopener">FloodSmart.gov</a>' +
       "</div>" +
-      '<p class="pi-note">Flood zone ≠ insurance quote. Carrier premium “rate shifts” are still Coming Soon. Pending FIRMs may differ from the final effective map — verify on MSC before underwriting.</p>'
+      '<p class="pi-note">Flood zone ≠ insurance quote. Carrier premium rate-shift feeds are still Coming Soon. Verify on MSC before underwriting.</p>'
     );
   }
 
@@ -409,10 +447,15 @@
       ' <span class="pi-inline-meta">Auction-stage calendars + PBC county-held certificates where published.</span>';
 
     var certHtml = "";
+    var portals =
+      (floodConfig && floodConfig.delinquencyPortals) ||
+      {};
+    var portal = portals[parcel.countySlug] || null;
+
     if (parcel.countySlug === "palm-beach") {
       if (certHits && certHits.length) {
         certHtml =
-          "<h3 class=\"pi-subhead\">County-held certificate match</h3><ul class=\"pi-list\">" +
+          '<h3 class="pi-subhead">County-held certificate match</h3><ul class="pi-list">' +
           certHits
             .map(function (c) {
               return (
@@ -435,26 +478,61 @@
           "</ul>";
       } else {
         certHtml =
-          "<p class=\"pi-empty\">No county-held certificate PIN matched this PCN in the Tax Collector XLSX (" +
+          '<p class="pi-empty">No county-held certificate PIN matched this PCN in the Tax Collector XLSX (' +
           esc(String((certsPayload && certsPayload.count) || 0)) +
           " rows).</p>";
       }
+    }
+
+    if (portal) {
+      var links = [];
+      if (portal.countyHeldPage) {
+        links.push(
+          '<a class="ds-btn ds-btn-secondary" href="' +
+            esc(portal.countyHeldPage) +
+            '" target="_blank" rel="noopener">County-held / certs page</a>'
+        );
+      }
+      if (portal.delinquentListUrl) {
+        links.push(
+          '<a class="ds-btn ds-btn-secondary" href="' +
+            esc(portal.delinquentListUrl) +
+            '" target="_blank" rel="noopener">Advertised delinquent list</a>'
+        );
+      }
+      if (portal.delinquentNotices) {
+        links.push(
+          '<a class="ds-btn ds-btn-secondary" href="' +
+            esc(portal.delinquentNotices) +
+            '" target="_blank" rel="noopener">Legal notices</a>'
+        );
+      }
+      if (portal.certificateSearch) {
+        links.push(
+          '<a class="ds-btn ds-btn-secondary" href="' +
+            esc(portal.certificateSearch) +
+            '" target="_blank" rel="noopener">Certificate search</a>'
+        );
+      }
+      if (portal.lienhub) {
+        links.push(
+          '<a class="ds-btn ds-btn-secondary" href="' +
+            esc(portal.lienhub) +
+            '" target="_blank" rel="noopener">LienHub (login)</a>'
+        );
+      }
+      if (portal.sourceUrl || (certsPayload && certsPayload.sourceUrl && parcel.countySlug === "palm-beach")) {
+        links.push(
+          '<a class="ds-btn ds-btn-secondary" href="' +
+            esc((certsPayload && certsPayload.sourceUrl) || portal.sourceUrl) +
+            '" target="_blank" rel="noopener">Download county-held XLSX</a>'
+        );
+      }
       certHtml +=
         '<div class="pi-actions">' +
-        '<a class="ds-btn ds-btn-secondary" href="' +
-        TAX_COLLECTOR_CERTS_PAGE +
-        '" target="_blank" rel="noopener">Tax Collector certs page</a>' +
-        (certsPayload && certsPayload.delinquentListUrl
-          ? '<a class="ds-btn ds-btn-secondary" href="' +
-            esc(certsPayload.delinquentListUrl) +
-            '" target="_blank" rel="noopener">Advertised delinquent list</a>'
-          : "") +
-        (certsPayload && certsPayload.sourceUrl
-          ? '<a class="ds-btn ds-btn-secondary" href="' +
-            esc(certsPayload.sourceUrl) +
-            '" target="_blank" rel="noopener">Download county-held XLSX</a>'
-          : "") +
-        "</div>";
+        links.join("") +
+        "</div>" +
+        (portal.note ? '<p class="pi-note">' + esc(portal.note) + "</p>" : "");
     }
 
     if (!rows.length) {
@@ -666,6 +744,7 @@
   var permitsPayload = { permits: [] };
   var salesPayload = {};
   var certsPayload = { certificates: [], count: 0 };
+  var floodConfig = null;
 
   async function selectParcel(parcel) {
     selected = parcel;
@@ -688,10 +767,20 @@
         setStatus(zEl, '<p class="pi-empty">Zoning lookup failed: ' + esc(err.message) + "</p>");
       }
       try {
-        var flood = await lookupFlood(parcel.centroid.lon, parcel.centroid.lat);
+        var flood = await lookupFlood(
+          parcel.centroid.lon,
+          parcel.centroid.lat,
+          parcel.countySlug
+        );
         setStatus(iEl, renderInsurance(parcel, flood));
       } catch (err2) {
-        setStatus(iEl, renderInsurance(parcel, null) + '<p class="pi-empty">Flood GIS error: ' + esc(err2.message) + "</p>");
+        setStatus(
+          iEl,
+          renderInsurance(parcel, null) +
+            '<p class="pi-empty">Flood GIS error: ' +
+            esc(err2.message) +
+            "</p>"
+        );
       }
     } else {
       setStatus(zEl, '<p class="pi-empty">No parcel geometry returned for zoning intersect.</p>');
@@ -736,6 +825,12 @@
   }
 
   async function initFeeds() {
+    try {
+      floodConfig = await loadJson(FLOOD_LAYERS_URL);
+    } catch (e) {
+      floodConfig = { layers: {}, delinquencyPortals: {} };
+    }
+
     try {
       var zoning = await recentZoningUpdates();
       var html = zoning
@@ -898,7 +993,23 @@
   function init() {
     var form = $("pi-search");
     if (form) form.addEventListener("submit", onSearch);
-    initFeeds();
+    initFeeds().then(function () {
+      // Deep-link: property-intelligence.html?county=palm-beach&pcn=...&mode=pcn
+      try {
+        var params = new URLSearchParams(window.location.search || "");
+        var county = params.get("county");
+        var q = params.get("pcn") || params.get("q") || params.get("query");
+        var mode = params.get("mode") || (params.get("pcn") ? "pcn" : "address");
+        if (county && $("pi-county")) $("pi-county").value = county;
+        if (mode && $("pi-mode")) $("pi-mode").value = mode;
+        if (q && $("pi-query")) {
+          $("pi-query").value = q;
+          if (form) form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit", { cancelable: true }));
+        }
+      } catch (e) {
+        /* ignore */
+      }
+    });
   }
 
   if (document.readyState === "loading") {

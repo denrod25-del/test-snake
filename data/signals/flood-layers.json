@@ -1,0 +1,78 @@
+{
+  "generated": "2026-08-12T16:50:00Z",
+  "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting.",
+  "layers": {
+    "palm-beach": {
+      "name": "Palm Beach",
+      "status": "live",
+      "endpoint": "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Environment_Open_Data/MapServer/18/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID,DT_CHG",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "PBC 2023 Pending FIRMs",
+      "mscCounty": "Palm Beach County, FL"
+    },
+    "miami-dade": {
+      "name": "Miami-Dade",
+      "status": "live",
+      "endpoint": "https://gisweb.miamidade.gov/arcgis/rest/services/MD_LandInformation/MapServer/35/query",
+      "outFields": "FZONE,ZONESUBTY,ELEV",
+      "map": {
+        "zone": ["FZONE"],
+        "subtype": ["ZONESUBTY"],
+        "sfha": [],
+        "bfe": ["ELEV"],
+        "depth": [],
+        "firmId": []
+      },
+      "label": "Miami-Dade FEMA Flood Zones GIS",
+      "mscCounty": "Miami-Dade County, FL"
+    }
+  },
+  "delinquencyPortals": {
+    "palm-beach": {
+      "name": "Palm Beach",
+      "countyHeldPage": "https://www.pbctax.gov/taxes/property-tax/tax-certificates-and-deeds/",
+      "countyHeldDataset": "data/signals/pbc-county-held-certs.json",
+      "delinquentListUrl": "https://edition.pagesuite-professional.co.uk/html5/desktop/production/default.aspx?edid=febca27c-97b1-4d64-ab8a-491b35fb7dfe",
+      "certificateSale": "https://palmbeachfl.realtaxlien.com/",
+      "note": "County-held XLSX is public. Full advertised delinquent roll is a newspaper digital edition."
+    },
+    "hillsborough": {
+      "name": "Hillsborough",
+      "countyHeldPage": "https://www.hillstaxfl.gov/taxes/tax-certificate/county-held-tax-certificates/",
+      "certificateSearch": "https://hillsborough.county-taxes.com/public",
+      "lienhub": "https://lienhub.com/county/hillsborough/certsale/main",
+      "note": "County-held purchases run through LienHub (account required). Public cert search portal linked when available."
+    },
+    "broward": {
+      "name": "Broward",
+      "delinquentNotices": "https://browardcountylegalnotices.com/",
+      "certificateSalePage": "https://browardtax.org/faqs/tax-certificate-sale/",
+      "lienhub": "https://lienhub.com/county/broward/certsale/main",
+      "note": "Delinquent list published as legal notices (~May). County-held inventory is on LienHub."
+    },
+    "miami-dade": {
+      "name": "Miami-Dade",
+      "lienhub": "https://lienhub.com/county/miamidade/certsale/main",
+      "taxCollector": "https://www.miamidade.gov/global/economy/finance/tax-collector.page",
+      "note": "Certificate sales and county-held inventory via LienHub (account required)."
+    },
+    "orange": {
+      "name": "Orange",
+      "lienhub": "https://lienhub.com/county/orange/certsale/main",
+      "note": "Certificate sales via LienHub."
+    },
+    "brevard": {
+      "name": "Brevard",
+      "lienhub": "https://lienhub.com/county/brevard/certsale/main",
+      "note": "Certificate sales via LienHub."
+    }
+  }
+}
