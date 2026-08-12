@@ -175,6 +175,9 @@ FLOOD_GIS_COUNTIES = {
     "broward",
     "hillsborough",
     "pinellas",
+    "orange",
+    "duval",
+    "lee",
 }
 
 

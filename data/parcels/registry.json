@@ -146,23 +146,29 @@
     "orange": {
       "name": "Orange",
       "status": "live",
-      "endpoint": "https://www.ocgis.com/arcpub/rest/services/Map_Layers/Parcels/MapServer/0/query",
+      "endpoint": "https://services2.arcgis.com/N4cKzJ9dzXmsPNRs/ArcGIS/rest/services/orange_county_parcels/FeatureServer/0/query",
       "paUrl": "https://www.ocpafl.org/",
-      "idFields": ["ASSESSMENT_NO"],
-      "searchModes": ["pcn", "address"],
-      "outFields": ["ASSESSMENT_NO", "SITE_ADDRESS", "YEAR_BUILT"],
+      "idFields": ["PARCEL"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": [
+        "PARCEL", "NAME1", "NAME2", "SITUS", "CITY_SITUS", "ZIP_SITUS",
+        "TOTAL_MKT", "TOTAL_ASSD", "TAXABLE", "SALE_DATE", "SALE_ADJ_V", "AYB",
+        "STR_NUM", "STR_NAME", "POST_TYPE", "EXEMPT_COD"
+      ],
       "map": {
-        "pcn": ["ASSESSMENT_NO"],
-        "owner": [],
-        "address": ["SITE_ADDRESS"],
-        "city": [],
-        "zip": [],
-        "market": [],
-        "assessed": [],
-        "saleDate": [],
-        "salePrice": [],
-        "homestead": []
-      }
+        "pcn": ["PARCEL"],
+        "owner": ["NAME1"],
+        "address": ["SITUS"],
+        "city": ["CITY_SITUS"],
+        "zip": ["ZIP_SITUS"],
+        "market": ["TOTAL_MKT"],
+        "assessed": ["TOTAL_ASSD"],
+        "saleDate": ["SALE_DATE"],
+        "salePrice": ["SALE_ADJ_V"],
+        "homestead": ["EXEMPT_COD"],
+        "yearBuilt": ["AYB"]
+      },
+      "note": "OCPA-published Florida parcel polygons (not California ocgis.com). Confirm on ocpafl.org before bidding."
     },
     "pinellas": {
       "name": "Pinellas",
@@ -193,42 +199,48 @@
       "status": "live",
       "endpoint": "https://maps.coj.net/coj/rest/services/CityBiz/Parcels/MapServer/0/query",
       "paUrl": "https://paopropertysearch.coj.net/",
-      "idFields": ["RE", "REAL_ESTATE_NUMBER"],
+      "idFields": ["RE_NOSPACE", "RE"],
       "searchModes": ["pcn", "owner", "address"],
       "outFields": ["*"],
       "map": {
-        "pcn": ["RE", "REAL_ESTATE_NUMBER", "PARCEL_ID"],
-        "owner": ["OWNER", "OWNER_NAME", "OWNERNAME"],
-        "address": ["SITE_ADDR", "SITE_ADDRESS", "FULL_ADDRESS", "ADDRESS"],
-        "city": ["CITY", "SITE_CITY"],
-        "zip": ["ZIP", "ZIPCODE"],
-        "market": ["JUST_VALUE", "MARKET_VALUE", "TOTAL_VALUE"],
-        "assessed": ["ASSESSED_VALUE", "TAXABLE_VALUE"],
-        "saleDate": ["SALE_DATE"],
-        "salePrice": ["SALE_PRICE"],
-        "homestead": ["HOMESTEAD"]
-      }
+        "pcn": ["RE_NOSPACE", "RE"],
+        "owner": ["LNAMEOWNER"],
+        "address": ["LONGNAME"],
+        "city": ["ADDRCITY"],
+        "zip": ["ZIPCODE"],
+        "market": ["CAMA_VAL", "TOT_IMPR_V"],
+        "assessed": ["CAMA_VAL"],
+        "saleDate": [],
+        "salePrice": [],
+        "homestead": ["CURREXEMPT"]
+      },
+      "note": "COJ CityBiz parcels. Search by RE without spaces (e.g. 0329610000). Confirm on paopropertysearch.coj.net."
     },
     "lee": {
       "name": "Lee",
       "status": "live",
       "endpoint": "https://services2.arcgis.com/LvWGAAhHwbCJ2GMP/arcgis/rest/services/Lee_County_Parcels/FeatureServer/0/query",
       "paUrl": "https://www.leepa.org/",
-      "idFields": ["STRAP", "FOLIO"],
-      "searchModes": ["pcn", "owner"],
-      "outFields": ["*"],
+      "idFields": ["STRAP", "FOLIOID"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": [
+        "STRAP", "FOLIOID", "O_NAME", "SITEADDR", "SITECITY", "SITEZIP",
+        "JUST", "ASSESSED", "TAXABLE", "S_1DATE", "S_1AMOUNT", "HSTDAMOUNT", "MINBUILTY"
+      ],
       "map": {
-        "pcn": ["STRAP", "FOLIO", "PARCEL_ID"],
-        "owner": ["OWNER", "OWNER_NAME", "OWNERNAME"],
-        "address": ["SITE_ADDR", "SITUS", "ADDRESS"],
-        "city": ["CITY"],
-        "zip": ["ZIP"],
-        "market": ["JUST", "MARKET", "TOTAL_VALUE"],
-        "assessed": ["ASSESSED", "TAXABLE"],
-        "saleDate": ["SALE_DATE"],
-        "salePrice": ["SALE_PRICE"],
-        "homestead": ["HOMESTEAD"]
-      }
+        "pcn": ["STRAP", "FOLIOID"],
+        "owner": ["O_NAME"],
+        "address": ["SITEADDR"],
+        "city": ["SITECITY"],
+        "zip": ["SITEZIP"],
+        "market": ["JUST"],
+        "assessed": ["ASSESSED"],
+        "saleDate": ["S_1DATE"],
+        "salePrice": ["S_1AMOUNT"],
+        "homestead": ["HSTDAMOUNT"],
+        "yearBuilt": ["MINBUILTY"]
+      },
+      "note": "Lee County GIS parcels. Confirm on leepa.org before bidding."
     },
     "sarasota": {
       "name": "Sarasota",

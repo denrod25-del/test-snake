@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-12T17:25:00Z",
-  "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting.",
+  "generated": "2026-08-12T23:45:00Z",
+  "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting. Orange/Duval/Lee use FEMA National Flood Hazard Layer (NFHL) Flood Hazard Zones.",
   "layers": {
     "palm-beach": {
       "name": "Palm Beach",
@@ -81,6 +81,54 @@
       },
       "label": "Pinellas FEMA NFHL Flood Hazard Zones",
       "mscCounty": "Pinellas County, FL"
+    },
+    "orange": {
+      "name": "Orange",
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "FEMA NFHL Flood Hazard Zones (Orange County, FL)",
+      "mscCounty": "Orange County, FL"
+    },
+    "duval": {
+      "name": "Duval",
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "FEMA NFHL Flood Hazard Zones (Duval County, FL)",
+      "mscCounty": "Duval County, FL"
+    },
+    "lee": {
+      "name": "Lee",
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "FEMA NFHL Flood Hazard Zones (Lee County, FL)",
+      "mscCounty": "Lee County, FL"
     }
   },
   "delinquencyPortals": {

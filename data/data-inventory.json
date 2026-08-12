@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-11T16:16:11.844160Z",
+  "generated": "2026-08-12T23:33:50.129851Z",
   "rows": [
     {
       "category": "Tax deed county links",
@@ -8,8 +8,8 @@
       "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html",
       "status": "cached",
       "count": 67,
-      "lastSuccess": "2026-07-11T16:16:11Z",
-      "lastAttempt": "2026-07-11T16:15:59Z",
+      "lastSuccess": "2026-08-12T23:33:50Z",
+      "lastAttempt": "2026-08-10T06:59:00Z",
       "limitations": "Official clerk, PA, and auction links maintained manually. Sale-date scraper currently failing upstream.",
       "verification": "Official clerk, property appraiser, and auction source required before bidding."
     },
@@ -19,9 +19,9 @@
       "jurisdiction": "Florida statewide",
       "sourceUrl": "https://www.realauction.com",
       "status": "cached",
-      "count": 26,
-      "lastSuccess": "2026-07-11T16:15:59Z",
-      "lastAttempt": "2026-07-11T16:15:59Z",
+      "count": 32,
+      "lastSuccess": "2026-08-10T06:59:00Z",
+      "lastAttempt": "2026-08-10T06:59:00Z",
       "limitations": "Automated sale-calendar scrape returning 403 from upstream; platform links remain official.",
       "verification": "Confirm sale list and rules on vendor site before bidding."
     },
@@ -45,7 +45,7 @@
       "status": "sample",
       "count": 4,
       "lastSuccess": "2026-04-18T03:00:00Z",
-      "lastAttempt": "2026-07-11T08:28:27Z",
+      "lastAttempt": "2026-08-12T08:07:24Z",
       "limitations": "Legacy eDSWeb scraper is DEFUNCT (county migrated 2024). Sample data only; use the portal manually for live lookups.",
       "verification": "Sample or blocked — use official portal manually."
     },
@@ -56,8 +56,8 @@
       "sourceUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
       "status": "cached",
       "count": 4000,
-      "lastSuccess": "2026-07-11T08:15:25Z",
-      "lastAttempt": "2026-07-11T08:28:27Z",
+      "lastSuccess": "2026-08-12T08:03:48Z",
+      "lastAttempt": "2026-08-12T08:07:24Z",
       "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -68,8 +68,8 @@
       "sourceUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
       "status": "cached",
       "count": 4000,
-      "lastSuccess": "2026-07-11T08:18:34Z",
-      "lastAttempt": "2026-07-11T08:28:27Z",
+      "lastSuccess": "2026-08-12T08:06:57Z",
+      "lastAttempt": "2026-08-12T08:07:24Z",
       "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -80,8 +80,8 @@
       "sourceUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
       "status": "cached",
       "count": 4000,
-      "lastSuccess": "2026-07-11T08:28:19Z",
-      "lastAttempt": "2026-07-11T08:28:27Z",
+      "lastSuccess": "2026-08-11T08:13:27Z",
+      "lastAttempt": "2026-08-12T08:07:24Z",
       "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -92,8 +92,8 @@
       "sourceUrl": "https://stluciecountyfl-energovpub.tylerhost.net/Apps/SelfService#/home",
       "status": "cached",
       "count": 4000,
-      "lastSuccess": "2026-07-10T09:00:17Z",
-      "lastAttempt": "2026-07-11T08:28:27Z",
+      "lastSuccess": "2026-07-15T08:27:11Z",
+      "lastAttempt": "2026-08-12T08:07:24Z",
       "limitations": "Most recent 4,000 permits sorted by apply date (SLC's API ignores date filter, so cap gives ~3 months of unincorporated St. Lucie County data).",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -105,7 +105,7 @@
       "status": "sample",
       "count": 3,
       "lastSuccess": "2026-04-21T00:00:00Z",
-      "lastAttempt": "2026-07-11T08:28:27Z",
+      "lastAttempt": "2026-08-12T08:07:24Z",
       "limitations": "Click2Gov has no bulk listing; new submissions go through ProjectDox which requires an account. Sample data only — use the portal link directly.",
       "verification": "Sample or blocked — use official portal manually."
     },
@@ -117,7 +117,7 @@
       "status": "sample",
       "count": 3,
       "lastSuccess": "2026-04-21T00:00:00Z",
-      "lastAttempt": "2026-07-11T08:28:27Z",
+      "lastAttempt": "2026-08-12T08:07:24Z",
       "limitations": "SagesGov requires login for search and is anti-bot. Sample data only — no public bulk export.",
       "verification": "Sample or blocked — use official portal manually."
     },
@@ -151,9 +151,9 @@
       "jurisdiction": "Florida counties (where published)",
       "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html#/surplus",
       "status": "cached",
-      "count": 28,
-      "lastSuccess": "2026-07-11T16:16:11Z",
-      "lastAttempt": "2026-07-11T16:16:11Z",
+      "count": 32,
+      "lastSuccess": "2026-08-12T23:33:50Z",
+      "lastAttempt": "2026-08-12T23:33:50Z",
       "limitations": "Curated county surplus claim portal links; not automated filing.",
       "verification": "Follow county surplus claim procedures and deadlines."
     }
