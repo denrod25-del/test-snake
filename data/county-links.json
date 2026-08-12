@@ -7,7 +7,7 @@
     },
     "clerk": {
       "url": "https://www.alachuaclerk.org/court_records/tax_deeds.aspx",
-      "label": "Alachua Clerk &mdash; Tax Deeds"
+      "label": "Alachua Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://alachua.realtaxdeed.com",
@@ -39,7 +39,7 @@
     },
     "clerk": {
       "url": "https://www.baycoclerk.com/court-records/tax-deeds/",
-      "label": "Bay Clerk &mdash; Tax Deeds"
+      "label": "Bay Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://bay.realtaxdeed.com",
@@ -71,7 +71,7 @@
     },
     "clerk": {
       "url": "https://www.brevardclerk.us/tax-deeds",
-      "label": "Brevard Clerk &mdash; Tax Deeds"
+      "label": "Brevard Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://brevard.realtaxdeed.com",
@@ -87,7 +87,7 @@
     },
     "clerk": {
       "url": "https://www.browardclerk.org/Divisions/RealEstate",
-      "label": "Broward Clerk &mdash; Real Estate"
+      "label": "Broward Clerk — Real Estate"
     },
     "auction": {
       "url": "https://broward.deedauction.net",
@@ -119,7 +119,7 @@
     },
     "clerk": {
       "url": "https://www.charlotteclerk.com/departments/recording/tax-deeds",
-      "label": "Charlotte Clerk &mdash; Tax Deeds"
+      "label": "Charlotte Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://charlotte.realtaxdeed.com",
@@ -135,7 +135,7 @@
     },
     "clerk": {
       "url": "https://www.citrusclerk.org/186/Tax-Deed-Sales",
-      "label": "Citrus Clerk &mdash; Tax Deeds"
+      "label": "Citrus Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://citrus.realtaxdeed.com",
@@ -151,7 +151,7 @@
     },
     "clerk": {
       "url": "https://www.clayclerk.com/courts/tax-deeds/",
-      "label": "Clay Clerk &mdash; Tax Deeds"
+      "label": "Clay Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://clay.realtaxdeed.com",
@@ -167,7 +167,7 @@
     },
     "clerk": {
       "url": "https://www.collierclerk.com/finance/tax-deeds/",
-      "label": "Collier Clerk &mdash; Tax Deeds"
+      "label": "Collier Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://collier.realtaxdeed.com",
@@ -183,7 +183,7 @@
     },
     "clerk": {
       "url": "https://www.columbiaclerk.com/tax-deed-sales",
-      "label": "Columbia Clerk &mdash; Tax Deeds"
+      "label": "Columbia Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://columbia.realtaxdeed.com",
@@ -231,7 +231,7 @@
     },
     "clerk": {
       "url": "https://www.duvalclerk.com/court-records/tax-deeds",
-      "label": "Duval Clerk &mdash; Tax Deeds"
+      "label": "Duval Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://duval.realtaxdeed.com",
@@ -247,7 +247,7 @@
     },
     "clerk": {
       "url": "https://www.escambiaclerk.com/175/Tax-Deeds",
-      "label": "Escambia Clerk &mdash; Tax Deeds"
+      "label": "Escambia Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://escambia.realtaxdeed.com",
@@ -263,7 +263,7 @@
     },
     "clerk": {
       "url": "https://www.flaglerclerk.com/199/Tax-Deeds",
-      "label": "Flagler Clerk &mdash; Tax Deeds"
+      "label": "Flagler Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://flagler.realtaxdeed.com",
@@ -407,7 +407,7 @@
     },
     "clerk": {
       "url": "https://www.hernandoclerk.com/261/Tax-Deeds",
-      "label": "Hernando Clerk &mdash; Tax Deeds"
+      "label": "Hernando Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://hernando.realtaxdeed.com",
@@ -423,7 +423,7 @@
     },
     "clerk": {
       "url": "https://www.hcclerk.org/Default/Tax-Deeds",
-      "label": "Highlands Clerk &mdash; Tax Deeds"
+      "label": "Highlands Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://highlands.realtaxdeed.com",
@@ -439,7 +439,7 @@
     },
     "clerk": {
       "url": "https://www.hillsclerk.com/court-records/tax-deeds",
-      "label": "Hillsborough Clerk &mdash; Tax Deeds"
+      "label": "Hillsborough Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://hillsborough.realtaxdeed.com",
@@ -471,7 +471,7 @@
     },
     "clerk": {
       "url": "https://www.clerk.indian-river.org/i-want-to/learn-about/tax-deeds",
-      "label": "IRC Clerk &mdash; Tax Deeds"
+      "label": "IRC Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://indian-river.realtaxdeed.com",
@@ -535,7 +535,7 @@
     },
     "clerk": {
       "url": "https://www.lakecountyclerk.org/court_services/tax_deeds.aspx",
-      "label": "Lake Clerk &mdash; Tax Deeds"
+      "label": "Lake Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://lake.realtaxdeed.com",
@@ -551,7 +551,7 @@
     },
     "clerk": {
       "url": "https://www.leeclerk.org/records-and-information/tax-deeds",
-      "label": "Lee Clerk &mdash; Tax Deeds"
+      "label": "Lee Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://lee.realtaxdeed.com",
@@ -567,7 +567,7 @@
     },
     "clerk": {
       "url": "https://cvweb.leonclerk.com/public/online_services/tax_deed_search/",
-      "label": "Leon Clerk &mdash; Tax Deeds"
+      "label": "Leon Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://leon.realtaxdeed.com",
@@ -631,7 +631,7 @@
     },
     "clerk": {
       "url": "https://www.manateeclerk.com/Departments/Recording/TaxDeeds",
-      "label": "Manatee Clerk &mdash; Tax Deeds"
+      "label": "Manatee Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://manatee.realtaxdeed.com",
@@ -647,7 +647,7 @@
     },
     "clerk": {
       "url": "https://www.marioncountyclerk.org/public-records/tax-deeds/",
-      "label": "Marion Clerk &mdash; Tax Deeds"
+      "label": "Marion Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://marion.realtaxdeed.com",
@@ -663,7 +663,7 @@
     },
     "clerk": {
       "url": "https://www.martinclerk.com/tax-deeds",
-      "label": "Martin Clerk &mdash; Tax Deeds"
+      "label": "Martin Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://martin.realtaxdeed.com",
@@ -679,7 +679,7 @@
     },
     "clerk": {
       "url": "https://www.miamidadeclerk.gov/clerk/tax-deeds.page",
-      "label": "Miami-Dade Clerk &mdash; Tax Deeds"
+      "label": "Miami-Dade Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://miamidade.realtaxdeed.com",
@@ -695,7 +695,7 @@
     },
     "clerk": {
       "url": "https://www.monroe-clerk.com/tax-deed-sales",
-      "label": "Monroe Clerk &mdash; Tax Deeds"
+      "label": "Monroe Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://monroe.realtaxdeed.com",
@@ -711,7 +711,7 @@
     },
     "clerk": {
       "url": "https://www.nassauclerk.com/tax-deed-sales",
-      "label": "Nassau Clerk &mdash; Tax Deeds"
+      "label": "Nassau Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://nassau.realtaxdeed.com",
@@ -727,7 +727,7 @@
     },
     "clerk": {
       "url": "https://www.okaloosaclerk.com/courts/tax-deed-sales/",
-      "label": "Okaloosa Clerk &mdash; Tax Deeds"
+      "label": "Okaloosa Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://okaloosa.realtaxdeed.com",
@@ -759,7 +759,7 @@
     },
     "clerk": {
       "url": "https://myorangeclerk.com/Divisions/Tax-Deeds",
-      "label": "Orange Clerk &mdash; Tax Deeds"
+      "label": "Orange Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://orange.realtaxdeed.com",
@@ -775,7 +775,7 @@
     },
     "clerk": {
       "url": "https://www.osceolaclerk.com/civil/tax-deeds.html",
-      "label": "Osceola Clerk &mdash; Tax Deeds"
+      "label": "Osceola Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://osceola.realtaxdeed.com",
@@ -791,7 +791,7 @@
     },
     "clerk": {
       "url": "https://www.mypalmbeachclerk.com/departments/finance/tax-deed-sales",
-      "label": "PB Clerk &mdash; Tax Deeds"
+      "label": "PB Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://palmbeach.realtaxdeed.com",
@@ -807,7 +807,7 @@
     },
     "clerk": {
       "url": "https://www.pascoclerk.com/253/Tax-Deeds",
-      "label": "Pasco Clerk &mdash; Tax Deeds"
+      "label": "Pasco Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://pasco.realtaxdeed.com",
@@ -823,7 +823,7 @@
     },
     "clerk": {
       "url": "https://www.mypinellasclerk.gov/Home/TaxDeed",
-      "label": "Pinellas Clerk &mdash; Tax Deeds"
+      "label": "Pinellas Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://pinellas.realtaxdeed.com",
@@ -839,7 +839,7 @@
     },
     "clerk": {
       "url": "https://www.polkcountyclerk.net/319/Tax-Deeds",
-      "label": "Polk Clerk &mdash; Tax Deeds"
+      "label": "Polk Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://polk.realtaxdeed.com",
@@ -855,7 +855,7 @@
     },
     "clerk": {
       "url": "https://www.putnam-fl.com/coc/tax-deeds",
-      "label": "Putnam Clerk &mdash; Tax Deeds"
+      "label": "Putnam Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://putnam.realtaxdeed.com",
@@ -871,7 +871,7 @@
     },
     "clerk": {
       "url": "https://www.stjohnsclerk.com/tax-deeds/",
-      "label": "St. Johns Clerk &mdash; Tax Deeds"
+      "label": "St. Johns Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://stjohns.realtaxdeed.com",
@@ -887,7 +887,7 @@
     },
     "clerk": {
       "url": "https://www.stlucieclerk.com/tax-deeds",
-      "label": "St. Lucie Clerk &mdash; Tax Deeds"
+      "label": "St. Lucie Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://stlucie.realtaxdeed.com",
@@ -903,7 +903,7 @@
     },
     "clerk": {
       "url": "https://www.santarosaclerk.com/tax-deeds",
-      "label": "Santa Rosa Clerk &mdash; Tax Deeds"
+      "label": "Santa Rosa Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://santarosa.realtaxdeed.com",
@@ -919,7 +919,7 @@
     },
     "clerk": {
       "url": "https://www.sarasotaclerk.com/court-records/civil-court-records/tax-deeds",
-      "label": "Sarasota Clerk &mdash; Tax Deeds"
+      "label": "Sarasota Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://sarasota.realtaxdeed.com",
@@ -935,7 +935,7 @@
     },
     "clerk": {
       "url": "https://www.seminoleclerk.org/Pages/Tax-Deeds.aspx",
-      "label": "Seminole Clerk &mdash; Tax Deeds"
+      "label": "Seminole Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://seminole.realtaxdeed.com",
@@ -951,7 +951,7 @@
     },
     "clerk": {
       "url": "https://www.sumterclerk.com/tax-deeds",
-      "label": "Sumter Clerk &mdash; Tax Deeds"
+      "label": "Sumter Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://sumter.realtaxdeed.com",
@@ -1015,7 +1015,7 @@
     },
     "clerk": {
       "url": "https://www.clerk.org/tax-deeds",
-      "label": "Volusia Clerk &mdash; Tax Deeds"
+      "label": "Volusia Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://volusia.realtaxdeed.com",
@@ -1047,7 +1047,7 @@
     },
     "clerk": {
       "url": "https://www.waltonclerk.com/tax-deeds",
-      "label": "Walton Clerk &mdash; Tax Deeds"
+      "label": "Walton Clerk — Tax Deeds"
     },
     "auction": {
       "url": "https://walton.realtaxdeed.com",

@@ -148,12 +148,34 @@ def build_stats_entry(county, slug, region, sales_entries, surplus_meta, permit_
 def html_escape(s):
     if s is None:
         return ""
-    return (str(s)
-            .replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;")
-            .replace('"', "&quot;")
-            .replace("'", "&#39;"))
+    text = str(s)
+    # Source JSON sometimes already contains HTML entities (&mdash;). Decode
+    # common ones first so we do not emit broken &amp;mdash; in pages.
+    text = (
+        text.replace("&amp;", "&")
+        .replace("&lt;", "<")
+        .replace("&gt;", ">")
+        .replace("&quot;", '"')
+        .replace("&#39;", "'")
+        .replace("&mdash;", "—")
+        .replace("&ndash;", "–")
+    )
+    return (
+        text.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&#39;")
+    )
+
+
+FLOOD_GIS_COUNTIES = {
+    "palm-beach",
+    "miami-dade",
+    "broward",
+    "hillsborough",
+    "pinellas",
+}
 
 
 PAGE_TEMPLATE = """<!doctype html>
@@ -173,69 +195,50 @@ PAGE_TEMPLATE = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/deedscout.css" />
 <script type="application/ld+json">
 {jsonld}
 </script>
 <style>
-  :root {{
-    --ink:        #0c1320;
-    --ink-soft:   #1a2233;
-    --rule:       #d9d4c7;
-    --rule-soft:  #ece8dc;
-    --paper:      #f6f2e9;
-    --paper-2:    #ffffff;
-    --muted:      #6b6b6b;
-    --text:       #1a1a1a;
-    --accent:     #7a6240;
-    --accent-ink: #4a3a25;
-  }}
-  * {{ box-sizing: border-box; }}
-  body {{
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 16px;
-    line-height: 1.55;
-  }}
-  a {{ color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid rgba(122,98,64,.3); }}
-  a:hover {{ color: var(--accent); border-bottom-color: var(--accent); }}
-  h1, h2, h3 {{ font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent-ink); }}
-  h1 {{ font-size: 38px; margin: 0 0 8px; line-height: 1.15; letter-spacing: -0.01em; }}
-  h2 {{ font-size: 26px; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule-soft); }}
-  h3 {{ font-size: 19px; margin: 24px 0 6px; }}
-  p  {{ margin: 0 0 14px; }}
-  .topbar {{
-    background: var(--ink);
-    color: #c9c6bd;
-    border-bottom: none;
-    padding: 10px 28px;
-    font-size: 12px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }}
-  .topbar a {{ color: #c9c6bd; border: 0; }}
-  .topbar a:hover {{ color: #fff; }}
-  main {{ max-width: 920px; margin: 0 auto; padding: 36px 28px 80px; }}
-  .eyebrow {{
+  .county-main {{ max-width: 920px; margin: 0 auto; padding: 36px 28px 80px; }}
+  .county-main .eyebrow {{
     font-family: 'Inter', sans-serif;
     font-size: 11px;
     letter-spacing: .22em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--muted, #6b6b6b);
     margin: 0 0 8px;
   }}
-  .lede {{
-    font-family: 'Cormorant Garamond', serif;
+  .county-main .lede {{
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 21px;
-    color: var(--ink);
+    color: var(--ink, #0c1320);
     line-height: 1.45;
     margin: 0 0 28px;
     max-width: 660px;
+  }}
+  .county-main h1 {{
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 2.4rem);
+    margin: 0 0 8px;
+    line-height: 1.15;
+    color: var(--accent-ink, #4a3a25);
+  }}
+  .county-main h2 {{
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.55rem;
+    margin: 36px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule, #d9d4c7);
+    color: var(--accent-ink, #4a3a25);
+  }}
+  .county-main h3 {{
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.2rem;
+    margin: 24px 0 6px;
+    color: var(--accent-ink, #4a3a25);
   }}
   .stat-grid {{
     display: grid;
@@ -245,40 +248,52 @@ PAGE_TEMPLATE = """<!doctype html>
   }}
   .stat {{
     padding: 16px 18px;
-    background: var(--paper-2);
-    border: 1px solid var(--rule-soft);
-    border-left: 3px solid var(--accent-ink);
-    border-radius: 2px;
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
+    border-left: 3px solid var(--accent-ink, #4a3a25);
   }}
   .stat .lbl {{
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    letter-spacing: .14em;
+    font-size: 11px;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 6px;
+    color: var(--muted, #6b6b6b);
+    margin-bottom: 6px;
   }}
-  .stat .val {{
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--accent-ink);
-    font-variant-numeric: tabular-nums;
-  }}
-  .stat .sub {{
-    font-size: 11.5px;
-    color: var(--muted);
-    margin-top: 4px;
-  }}
-  table {{ border-collapse: collapse; width: 100%; margin: 12px 0 18px; }}
-  th, td {{ padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--rule-soft); font-size: 14px; }}
-  th {{
-    font-family: 'Inter', sans-serif;
+  .stat .val {{ font-size: 1.15rem; font-weight: 600; color: var(--ink, #0c1320); font-family: 'Cormorant Garamond', Georgia, serif; }}
+  .stat .sub {{ font-size: 13px; color: var(--muted, #6b6b6b); margin-top: 4px; }}
+  .badge {{
+    display: inline-block;
+    padding: 2px 8px;
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
     font-size: 10.5px;
-    letter-spacing: .14em;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
+    color: var(--accent-ink, #4a3a25);
+    margin-left: 6px;
+  }}
+  .badge.ok {{ background: #ecf2e6; border-color: #aac199; color: #2f4a2a; }}
+  .badge.warn {{ background: #faecdb; border-color: #d8b58a; color: #6b3e1f; }}
+  .badge.muted {{ opacity: .75; }}
+  .trust-box {{
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
+    padding: 18px 22px;
+    margin: 24px 0;
+  }}
+  .trust-list {{ margin: 12px 0 0; padding-left: 20px; font-size: 14px; }}
+  .official-links {{ font-size: 14px; line-height: 1.7; }}
+  .official-links li {{ margin-bottom: 8px; }}
+  .county-main table {{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 12px 0 8px;
+  }}
+  .county-main th, .county-main td {{
+    text-align: left;
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--rule, #d9d4c7);
   }}
   ul.cities {{
     columns: 3;
@@ -291,9 +306,8 @@ PAGE_TEMPLATE = """<!doctype html>
   .cta {{
     margin: 32px 0 8px;
     padding: 18px 22px;
-    background: var(--paper-2);
-    border: 1px solid var(--rule);
-    border-radius: 2px;
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -301,63 +315,33 @@ PAGE_TEMPLATE = """<!doctype html>
     gap: 16px;
   }}
   .cta .cta-msg {{ flex: 1 1 380px; }}
-  .cta .cta-msg strong {{ font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--accent-ink); }}
+  .cta .cta-msg strong {{ font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; color: var(--accent-ink, #4a3a25); }}
   .btn {{
     display: inline-block;
     padding: 10px 20px;
-    background: var(--ink);
-    color: #fff;
+    background: var(--ink, #0c1320);
+    color: #fff !important;
     border: 0;
     text-decoration: none;
-    border-bottom: 0;
-    font-family: 'Inter', sans-serif;
     font-size: 12px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    border-radius: 0;
   }}
-  .btn:hover {{ background: var(--accent-ink); color: #fff; border-bottom-color: transparent; }}
-  footer {{
-    border-top: 1px solid var(--rule-soft);
-    padding: 32px 28px;
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
+  .county-footer {{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 24px 28px 60px;
+    color: var(--muted, #6b6b6b);
+    font-size: 13px;
   }}
-  .small {{ font-size: 12.5px; color: var(--muted); }}
-  .badge {{
-    display: inline-block;
-    padding: 2px 8px;
-    background: var(--paper-2);
-    border: 1px solid var(--rule-soft);
-    border-radius: 10px;
-    font-size: 10.5px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
-    margin-left: 6px;
+  .small {{ font-size: 12.5px; color: var(--muted, #6b6b6b); }}
+  @media (max-width: 720px) {{
+    ul.cities {{ columns: 1; }}
   }}
-  .badge.ok {{ background: #ecf2e6; border-color: #aac199; color: #2f4a2a; }}
-  .badge.warn {{ background: #faecdb; border-color: #d8b58a; color: #6b3e1f; }}
-  .badge.muted {{ opacity: .6; }}
-  .trust-box {{
-    background: var(--paper-2);
-    border: 1px solid var(--rule);
-    padding: 18px 22px;
-    margin: 24px 0;
-  }}
-  .trust-list {{ margin: 12px 0 0; padding-left: 20px; font-size: 14px; }}
-  .official-links {{ font-size: 14px; line-height: 1.7; }}
-  .official-links li {{ margin-bottom: 8px; }}
 </style>
 </head>
-<body>
-  <div class="topbar">
-    <span><a href="../index.html">DeedScout</a> &mdash; Florida Property Intelligence</span>
-    <span><a href="../tax-deeds.html">Open registry</a> &nbsp;|&nbsp; <a href="../index.html">Home</a></span>
-  </div>
-
-  <main>
+<body class="ds-body">
+  <main class="ds-main county-main">
     <p class="eyebrow">{eyebrow}</p>
     <h1>{h1}</h1>
     <p class="lede">{lede}</p>
@@ -367,10 +351,11 @@ PAGE_TEMPLATE = """<!doctype html>
     {cta_block}
   </main>
 
-  <footer>
+  <footer class="county-footer">
     <p>
       Generated {generated} from public county data.
       <a href="../tax-deeds.html">Live tools</a> ·
+      <a href="../property-intelligence.html">Property Intelligence</a> ·
       <a href="../parcel-lookup.html">Palm Beach parcel lookup</a> ·
       <a href="index.html">All counties</a>
     </p>
@@ -380,6 +365,7 @@ PAGE_TEMPLATE = """<!doctype html>
       and consult an attorney before bidding.
     </p>
   </footer>
+<script src="../assets/deedscout.js"></script>
 </body>
 </html>
 """
@@ -510,6 +496,20 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
     if permit_source_url:
         parts.append(f'<li><strong>Permit portal:</strong> <a href="{html_escape(permit_source_url)}" target="_blank" rel="noopener">{html_escape(permit_source_url)}</a></li>')
     parts.append(f'<li><strong>DeedScout workflow:</strong> <a href="../tax-deeds.html#/county/{html_escape(slug)}">Open {html_escape(county)} in DeedScout Tax Deeds</a></li>')
+    if slug in FLOOD_GIS_COUNTIES:
+        parts.append(
+            f'<li><strong>Flood / Property Intelligence:</strong> '
+            f'<a href="../property-intelligence.html?county={html_escape(slug)}&amp;mode=pcn">'
+            f'Live flood GIS stamp for {html_escape(county)}</a> '
+            f'<span class="badge ok">Live GIS</span></li>'
+        )
+    else:
+        parts.append(
+            f'<li><strong>Flood research:</strong> '
+            f'<a href="../property-intelligence.html?county={html_escape(slug)}&amp;mode=pcn">'
+            f'Property Intelligence + FEMA MSC deep-link</a> '
+            f'<span class="badge muted">MSC</span></li>'
+        )
     parts.append("</ul>")
     if county.lower() == "palm beach":
         parts.append('<p class="small"><strong>Why WPB has ~4,000 permits but PBC shows 4:</strong> West Palm Beach is a separate Tyler EnerGov scrape (cached, real records). Palm Beach County unincorporated permits are blocked behind reCAPTCHA — DeedScout shows 4 <em>sample illustrative</em> records only.</p>')
@@ -847,12 +847,21 @@ def render_sitemap(counties_data, base_url):
         f"{base_url}/tax-deeds.html",
         f"{base_url}/parcel-lookup.html",
         f"{base_url}/permit-search.html",
+        f"{base_url}/property-intelligence.html",
         f"{base_url}/pricing.html",
+        f"{base_url}/about.html",
+        f"{base_url}/contact.html",
         f"{base_url}/methodology.html",
         f"{base_url}/data-sources.html",
         f"{base_url}/status.html",
         f"{base_url}/faq.html",
+        f"{base_url}/trust.html",
         f"{base_url}/learn/",
+        f"{base_url}/learn/florida-tax-deed-sales.html",
+        f"{base_url}/learn/florida-surplus-funds.html",
+        f"{base_url}/learn/tax-deed-vs-tax-certificate.html",
+        f"{base_url}/learn/parcel-research-checklist.html",
+        f"{base_url}/municipalities/index.html",
         f"{base_url}/counties/index.html",
     ]
     urls.extend(f"{base_url}/counties/{c['slug']}.html" for c in counties_data)
@@ -874,7 +883,7 @@ def main():
     ap.add_argument("--no-sitemap", action="store_true")
     args = ap.parse_args()
 
-    base_url = (args.base_url or "").rstrip("/")
+    base_url = (args.base_url or "https://deedscout.netlify.app").rstrip("/")
 
     sales_doc       = load_json(SALES_PATH, default={"sales": {}})
     surplus_doc     = load_json(SURPLUS_PATH, default={"surplus": {}})

@@ -117,7 +117,6 @@ def render_page(src, slug, coverage, base_url):
 <link rel="stylesheet" href="../assets/deedscout.css" />
 </head>
 <body class="ds-body">
-<script src="../assets/deedscout.js"></script>
 <main class="ds-main" style="padding-top:32px;max-width:920px;margin:0 auto;">
   <p class="ds-section-label">Municipality · {html_escape(parent)} County</p>
   <h1 style="font-family:'Cormorant Garamond',serif;">{html_escape(h1)}</h1>
@@ -125,6 +124,7 @@ def render_page(src, slug, coverage, base_url):
   {body}
   <p style="margin-top:32px;font-size:13px;color:var(--ds-muted);">Generated {html_escape(today)} · <a href="../trust.html">Trust Center</a> · <a href="../data-sources.html">Data Sources</a></p>
 </main>
+<script src="../assets/deedscout.js"></script>
 <script src="../assets/deedscout-errors.js"></script>
 </body>
 </html>"""
