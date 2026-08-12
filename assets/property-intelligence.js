@@ -76,13 +76,24 @@
     return res.json();
   }
 
-  async function arcgisQuery(endpoint, params) {
+  async function arcgisQuery(endpoint, params, timeoutMs) {
     var q = new URLSearchParams(params);
-    var res = await fetch(endpoint + "?" + q.toString());
-    if (!res.ok) throw new Error("ArcGIS " + res.status);
-    var data = await res.json();
-    if (data.error) throw new Error(data.error.message || "ArcGIS error");
-    return data;
+    var ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timer = null;
+    var ms = timeoutMs == null ? 20000 : timeoutMs;
+    try {
+      if (ctrl) timer = setTimeout(function () { ctrl.abort(); }, ms);
+      var res = await fetch(endpoint + "?" + q.toString(), ctrl ? { signal: ctrl.signal } : undefined);
+      if (!res.ok) throw new Error("ArcGIS " + res.status);
+      var data = await res.json();
+      if (data.error) throw new Error(data.error.message || "ArcGIS error");
+      return data;
+    } catch (err) {
+      if (err && err.name === "AbortError") throw new Error("GIS request timed out");
+      throw err;
+    } finally {
+      if (timer) clearTimeout(timer);
+    }
   }
 
   function pick(attrs, keys) {
@@ -159,7 +170,7 @@
       params.resultRecordCount = String(Math.max(ids.length, 8));
     }
     try {
-      var data = await arcgisQuery(cfg.endpoint, params);
+      var data = await arcgisQuery(cfg.endpoint, params, 12000);
       var map = cfg.map || {};
       var byId = {};
       (data.features || []).forEach(function (f) {
@@ -179,7 +190,7 @@
         mergeEnrichParcel(p, byId[String(p.pcn || "")]);
       });
     } catch (e) {
-      /* keep FOLIO-only */
+      /* keep FOLIO-only — enrich is best-effort */
     }
     return parcels;
   }
@@ -837,28 +848,44 @@
     setStatus(zEl, "<em>Querying PZB zoning…</em>");
     setStatus(iEl, "<em>Querying flood zone…</em>");
     if (parcel.centroid) {
-      try {
-        var z = await lookupZoning(parcel.centroid.lon, parcel.centroid.lat);
-        setStatus(zEl, renderZoning(z));
-      } catch (err) {
-        setStatus(zEl, '<p class="pi-empty">Zoning lookup failed: ' + esc(err.message) + "</p>");
-      }
-      try {
-        var flood = await lookupFlood(
-          parcel.centroid.lon,
-          parcel.centroid.lat,
-          parcel.countySlug
-        );
-        setStatus(iEl, renderInsurance(parcel, flood));
-      } catch (err2) {
+      // Run in parallel so a slow zoning call cannot block flood.
+      var zoningPromise;
+      if (parcel.countySlug === "palm-beach") {
+        zoningPromise = lookupZoning(parcel.centroid.lon, parcel.centroid.lat)
+          .then(function (z) {
+            setStatus(zEl, renderZoning(z));
+          })
+          .catch(function (err) {
+            setStatus(zEl, '<p class="pi-empty">Zoning lookup failed: ' + esc(err.message) + "</p>");
+          });
+      } else {
         setStatus(
-          iEl,
-          renderInsurance(parcel, null) +
-            '<p class="pi-empty">Flood GIS error: ' +
-            esc(err2.message) +
-            "</p>"
+          zEl,
+          badge("coming-soon") +
+            '<p class="pi-empty">In-app zoning GIS is Palm Beach (PZB) only right now. Use the county PA / planning site for ' +
+            esc(parcel.countyName || "this county") +
+            ".</p>"
         );
+        zoningPromise = Promise.resolve();
       }
+      var floodPromise = lookupFlood(
+        parcel.centroid.lon,
+        parcel.centroid.lat,
+        parcel.countySlug
+      )
+        .then(function (flood) {
+          setStatus(iEl, renderInsurance(parcel, flood));
+        })
+        .catch(function (err2) {
+          setStatus(
+            iEl,
+            renderInsurance(parcel, null) +
+              '<p class="pi-empty">Flood GIS error: ' +
+              esc(err2.message) +
+              "</p>"
+          );
+        });
+      await Promise.all([zoningPromise, floodPromise]);
     } else {
       setStatus(zEl, '<p class="pi-empty">No parcel geometry returned for zoning intersect.</p>');
       setStatus(iEl, renderInsurance(parcel, null));
