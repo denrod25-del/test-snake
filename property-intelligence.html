@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Intelligence — DeedScout</title>
+  <meta name="description" content="Track zoning, permits, ownership, rent comps, tax deed calendars, and flood/insurance research signals for Florida parcels — with honest Live/Cached/Coming Soon labels." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/deedscout.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f6f2e9'/%3E%3Ctext y='13' x='2' font-size='12' font-family='Georgia' fill='%230c1320'%3ED%3C/text%3E%3C/svg%3E" />
+  <style>
+    .pi-hero { padding: 28px 0 8px; max-width: 720px; }
+    .pi-hero h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin: 8px 0 14px;
+    }
+    .pi-hero h1 em { font-style: italic; color: var(--accent-ink); font-weight: 500; }
+    .pi-hero .lede { font-size: 1.05rem; color: var(--ink-soft, #1a2233); margin-bottom: 8px; }
+    .pi-search {
+      display: grid;
+      grid-template-columns: 160px 140px 1fr auto;
+      gap: 10px;
+      align-items: end;
+      margin: 28px 0 16px;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .pi-search label {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .pi-search input, .pi-search select {
+      font: inherit;
+      font-size: 14px;
+      text-transform: none;
+      letter-spacing: 0;
+      padding: 10px 12px;
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink);
+    }
+    .pi-results { display: grid; gap: 8px; margin-bottom: 24px; }
+    .pi-parcel {
+      text-align: left;
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 12px 14px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .pi-parcel:hover, .pi-parcel.is-active { border-color: var(--accent); background: var(--accent-soft, #f4ede0); }
+    .pi-parcel strong { display: block; font-size: 15px; }
+    .pi-meta, .pi-inline-meta { color: var(--muted); font-size: 13px; }
+    .pi-selected {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.5rem;
+      margin: 8px 0 20px;
+      min-height: 1.4em;
+    }
+    .pi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px 36px;
+      margin-bottom: 48px;
+    }
+    .pi-panel {
+      border-top: 1px solid var(--rule);
+      padding-top: 14px;
+    }
+    .pi-panel h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      margin: 8px 0 12px;
+    }
+    .pi-dl { display: grid; gap: 8px; margin: 0 0 12px; }
+    .pi-dl > div { display: grid; grid-template-columns: 120px 1fr; gap: 8px; }
+    .pi-dl dt { color: var(--muted); font-size: 13px; }
+    .pi-dl dd { margin: 0; }
+    .pi-list { margin: 10px 0 0; padding-left: 18px; }
+    .pi-list li { margin-bottom: 8px; }
+    .pi-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+    .pi-empty { color: var(--muted); }
+    .pi-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+    .pi-rent-form {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .pi-rent-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .pi-rent-form input {
+      font: inherit;
+      padding: 8px 10px;
+      border: 1px solid var(--rule);
+      background: #fff;
+    }
+    .pi-feeds {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      margin: 12px 0 48px;
+    }
+    .pi-feed {
+      border-top: 1px solid var(--rule);
+      padding-top: 14px;
+    }
+    .pi-feed h2 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem;
+      margin: 0 0 10px;
+    }
+    .pi-catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+    .pi-signal {
+      border-top: 1px solid var(--rule);
+      padding-top: 12px;
+    }
+    .pi-signal h3 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.25rem;
+      margin: 8px 0 6px;
+    }
+    .pi-signal p { margin: 0 0 6px; font-size: 14px; color: var(--ink-soft, #1a2233); }
+    @media (max-width: 900px) {
+      .pi-search { grid-template-columns: 1fr 1fr; }
+      .pi-search button { grid-column: 1 / -1; }
+      .pi-grid, .pi-feeds { grid-template-columns: 1fr; }
+      .pi-rent-form { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:48px;">
+  <section class="pi-hero">
+    <p class="ds-section-label">Property Intelligence</p>
+    <h1>Six research signals.<br /><em>Honest about what’s live.</em></h1>
+    <p class="lede">
+      Zoning, permits, ownership, rent comps, tax-deed calendars, and flood/insurance research —
+      in one parcel workflow. Each panel carries a Live / Cached / Coming Soon label. Always verify on the official source.
+    </p>
+  </section>
+
+  <div id="pi-trust"></div>
+
+  <form id="pi-search" class="pi-search" autocomplete="off">
+    <label>County
+      <select id="pi-county">
+        <option value="palm-beach" selected>Palm Beach</option>
+        <option value="miami-dade">Miami-Dade</option>
+        <option value="broward">Broward</option>
+        <option value="hillsborough">Hillsborough</option>
+        <option value="pinellas">Pinellas</option>
+        <option value="duval">Duval</option>
+        <option value="orange">Orange</option>
+        <option value="lee">Lee</option>
+        <option value="sarasota">Sarasota</option>
+        <option value="manatee">Manatee</option>
+        <option value="pasco">Pasco</option>
+      </select>
+    </label>
+    <label>Lookup
+      <select id="pi-mode">
+        <option value="pcn">PCN / Folio</option>
+        <option value="address">Address</option>
+        <option value="owner">Owner</option>
+      </select>
+    </label>
+    <label>Query
+      <input id="pi-query" type="text" placeholder="e.g. 00404236000007980 or 60TH ST" required />
+    </label>
+    <button class="ds-btn ds-btn-primary" type="submit">Look up</button>
+  </form>
+
+  <div id="pi-results" class="pi-results" aria-live="polite"></div>
+  <div id="pi-selected" class="pi-selected" aria-live="polite"></div>
+
+  <section class="pi-grid" aria-label="Parcel signals">
+    <article class="pi-panel">
+      <span data-status="ownership"></span>
+      <h2>Ownership records</h2>
+      <div id="panel-ownership"><p class="pi-empty">Select a parcel to load live PA GIS ownership.</p></div>
+    </article>
+    <article class="pi-panel">
+      <span data-status="zoning"></span>
+      <h2>Zoning</h2>
+      <div id="panel-zoning"><p class="pi-empty">Palm Beach unincorporated zoning loads from PZB GIS after you pick a parcel.</p></div>
+    </article>
+    <article class="pi-panel">
+      <span data-status="permits"></span>
+      <h2>New permits</h2>
+      <div id="panel-permits"><p class="pi-empty">Cached municipal permits matched to the selected parcel.</p></div>
+    </article>
+    <article class="pi-panel">
+      <span data-status="tax"></span>
+      <h2>Tax delinquencies</h2>
+      <div id="panel-tax"><p class="pi-empty">Auction-stage tax deed dates for the parcel’s county.</p></div>
+    </article>
+    <article class="pi-panel">
+      <span data-status="rent"></span>
+      <h2>Rent comparables</h2>
+      <div id="panel-rent"><p class="pi-empty">Pro rent estimate via RentCast after parcel selection.</p></div>
+    </article>
+    <article class="pi-panel">
+      <span data-status="insurance"></span>
+      <h2>Insurance / flood</h2>
+      <div id="panel-insurance"><p class="pi-empty">FEMA MSC deep-link + Coming Soon in-app flood stamp.</p></div>
+    </article>
+  </section>
+
+  <section class="ds-section" style="padding-top:0;">
+    <div class="ds-section-head">
+      <p class="ds-section-label">Live feeds</p>
+      <h2>What’s moving right now</h2>
+    </div>
+    <div class="pi-feeds">
+      <div class="pi-feed">
+        <h2>Zoning map updates</h2>
+        <div id="feed-zoning"><em>Loading…</em></div>
+      </div>
+      <div class="pi-feed">
+        <h2>New permits</h2>
+        <div id="feed-permits"><em>Loading…</em></div>
+      </div>
+      <div class="pi-feed">
+        <h2>Tax deed calendar</h2>
+        <div id="feed-tax"><em>Loading…</em></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ds-section" style="padding-top:0;">
+    <div class="ds-section-head">
+      <p class="ds-section-label">Coverage</p>
+      <h2>Signal catalog</h2>
+      <p>Accurate where we have a source. Explicit Coming Soon where we don’t — no fake “live” badges.</p>
+    </div>
+    <div id="signal-catalog" class="pi-catalog"></div>
+  </section>
+
+  <div class="ds-disclaimer">
+    <strong>Research disclaimer</strong>
+    DeedScout organizes public-record research signals. It is not a title company, flood certifier, insurer, or tax collector.
+    Confirm zoning, ownership, permits, sale dates, and flood/insurance status on official sources before bidding or underwriting.
+  </div>
+</main>
+
+<script src="assets/data-trust.js"></script>
+<script src="assets/deedscout.js"></script>
+<script src="assets/property-intelligence.js"></script>
+<script>
+  (function () {
+    var host = document.getElementById("pi-trust");
+    if (host && window.DeedScoutTrust) {
+      host.innerHTML = DeedScoutTrust.renderTrustPanel({
+        status: "live",
+        headline: "Property Intelligence — mixed Live / Cached / Coming Soon",
+        source: "PBC PZB zoning GIS · county PA ArcGIS · cached permit scrapes · sales.json · RentCast (Pro) · FEMA MSC links",
+        verification: "Always confirm on clerk, PA, municipal, and FEMA sources before decisions.",
+        lastRefreshed: new Date().toISOString(),
+      });
+    }
+    // Stamp panel headings with honest badges
+    var map = {
+      ownership: "live",
+      zoning: "live",
+      permits: "cached",
+      tax: "cached",
+      rent: "live",
+      insurance: "coming-soon",
+    };
+    document.querySelectorAll("[data-status]").forEach(function (el) {
+      var key = el.getAttribute("data-status");
+      if (window.DeedScoutTrust) el.innerHTML = DeedScoutTrust.renderBadge(map[key] || "coming-soon", { compact: true });
+    });
+  })();
+</script>
+</body>
+</html>

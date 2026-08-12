@@ -25,6 +25,16 @@
           <!-- @build:inventory-table:end -->
   </div>
   <div class="ds-prose" style="margin-top:32px;">
+    <h2>Property Intelligence signals</h2>
+    <p>The <a href="property-intelligence.html">Property Intelligence</a> module combines several feeds. See <a href="data/signals/catalog.json"><code>data/signals/catalog.json</code></a> for machine-readable status.</p>
+    <ul>
+      <li><strong>Zoning (Live)</strong> — Palm Beach County PZB ArcGIS district + recent map <code>DT_CHG</code> updates.</li>
+      <li><strong>Ownership (Live)</strong> — County Property Appraiser GIS current owner / last sale fields (not a full deed chain).</li>
+      <li><strong>New permits (Cached)</strong> — Tyler EnerGov scrapes for WPB, Boca, Jupiter, St. Lucie; recent slice in <code>data/signals/recent-permits.json</code>.</li>
+      <li><strong>Rent comps (Live, Pro)</strong> — RentCast long-term rent AVM via <code>/api/rent-lookup</code> (shares AVM credits).</li>
+      <li><strong>Tax delinquencies (Cached, auction-stage)</strong> — <code>sales.json</code> tax deed calendars. Early collector certificate lists are Coming Soon.</li>
+      <li><strong>Insurance / flood (Coming Soon)</strong> — FEMA MSC deep-links today; in-app SFHA stamp planned.</li>
+    </ul>
     <p>Full trust center: <a href="trust.html">DeedScout Trust Center</a> · Operational health: <a href="status.html">System status</a></p>
     <p class="ds-trust-inline">Independent research tool. Not affiliated with any county or auction platform. Not legal, tax, title, or investment advice.</p>
   </div>

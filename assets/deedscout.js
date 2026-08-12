@@ -10,6 +10,7 @@
     { href: "counties/index.html", label: "Counties" },
     { href: "tax-deeds.html", label: "Tax Deeds" },
     { href: "parcel-lookup.html", label: "Parcel Lookup" },
+    { href: "property-intelligence.html", label: "Intelligence" },
     { href: "permit-search.html", label: "Permit Search" },
     { href: "pricing.html", label: "Pricing" },
     { href: "learn/index.html", label: "Learn" },
@@ -86,6 +87,7 @@
     "<div><h4>Products</h4>" +
     '<a href="' + href("tax-deeds.html") + '" style="border:none;">DeedScout Tax Deeds</a>' +
     '<a href="' + href("parcel-lookup.html") + '" style="border:none;">DeedScout Parcel Lookup</a>' +
+    '<a href="' + href("property-intelligence.html") + '" style="border:none;">Property Intelligence</a>' +
     '<a href="' + href("permit-search.html") + '" style="border:none;">DeedScout Permits</a>' +
     '<a href="' + href("subdivision-index.html") + '" style="border:none;">DeedScout Subdivision Index</a>' +
     '<a href="' + href("plat-index.html") + '" style="border:none;">DeedScout Plat Index</a></div>' +

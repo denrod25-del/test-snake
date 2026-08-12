@@ -1,0 +1,53 @@
+{
+  "generated": "2026-08-12T16:24:29Z",
+  "signals": [
+    {
+      "id": "zoning",
+      "name": "Zoning & map updates",
+      "status": "live",
+      "coverage": "Palm Beach County unincorporated (PZB ArcGIS)",
+      "source": "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9",
+      "verification": "Confirm on PZB / municipal zoning maps before relying on district codes."
+    },
+    {
+      "id": "permits",
+      "name": "New permits",
+      "status": "cached",
+      "coverage": "West Palm Beach, Boca Raton, Jupiter, St. Lucie County",
+      "source": "data/permits/",
+      "verification": "Confirm on municipal EnerGov / building portals."
+    },
+    {
+      "id": "ownership",
+      "name": "Ownership records",
+      "status": "live",
+      "coverage": "11 counties via Property Appraiser GIS (current owner + last sale where exposed)",
+      "source": "data/parcels/registry.json",
+      "verification": "Not a full deed chain \u2014 confirm on clerk Official Records / PA site."
+    },
+    {
+      "id": "rent-comps",
+      "name": "Rent comparables",
+      "status": "live",
+      "coverage": "Nationwide via RentCast rent AVM (Pro credits)",
+      "source": "RentCast /v1/avm/rent/long-term",
+      "verification": "Estimates only \u2014 verify with local PM / listings."
+    },
+    {
+      "id": "tax-delinquencies",
+      "name": "Tax delinquencies",
+      "status": "cached",
+      "coverage": "Auction-stage: scraped/curated tax deed sale calendars. Early certificate lists not yet wired.",
+      "source": "sales.json + county tax collectors",
+      "verification": "Always confirm on clerk / tax collector before bidding."
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance / flood signals",
+      "status": "coming-soon",
+      "coverage": "FEMA flood-zone parcel lookup and carrier-rate shift feeds not yet connected. Deep-link to FEMA MSC provided.",
+      "source": "FEMA MSC / county flood GIS (planned)",
+      "verification": "Use FEMA MSC and local flood determinations for insurance underwriting."
+    }
+  ]
+}
