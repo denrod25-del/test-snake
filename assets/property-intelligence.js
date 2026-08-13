@@ -6,14 +6,13 @@
   "use strict";
 
   var FLOOD_LAYERS_URL = "data/signals/flood-layers.json";
+  var ZONING_LAYERS_URL = "data/signals/zoning-layers.json";
   var CERTS_URL = "data/signals/pbc-county-held-certs.json";
   var CATALOG_URL = "data/signals/catalog.json";
   var SALES_URL = "sales.json";
   var CLERK_OR_URL = "https://erec.mypalmbeachclerk.com/";
   var TAX_COLLECTOR_CERTS_PAGE =
     "https://www.pbctax.gov/taxes/property-tax/tax-certificates-and-deeds/";
-  var ZONING_URL =
-    "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9/query";
   var REGISTRY_URL = "data/parcels/registry.json";
   var PERMITS_URL = "data/signals/recent-permits.json";
   var ALERTS_STORAGE_KEY = "deedscout_pi_signal_alerts_v1";
@@ -100,7 +99,20 @@
     if (!attrs || !keys) return null;
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
-      if (attrs[k] != null && attrs[k] !== "") return attrs[k];
+      if (attrs[k] != null && String(attrs[k]).trim() !== "") {
+        return typeof attrs[k] === "string" ? String(attrs[k]).trim() : attrs[k];
+      }
+      // case-insensitive fallback for Hosted layers with mixed case
+      var lower = String(k).toLowerCase();
+      for (var ak in attrs) {
+        if (
+          ak.toLowerCase() === lower &&
+          attrs[ak] != null &&
+          String(attrs[ak]).trim() !== ""
+        ) {
+          return typeof attrs[ak] === "string" ? String(attrs[ak]).trim() : attrs[ak];
+        }
+      }
     }
     return null;
   }
@@ -294,19 +306,87 @@
     return enrichParcels(county, parcels);
   }
 
-  async function lookupZoning(lon, lat) {
-    var data = await arcgisQuery(ZONING_URL, {
-      geometry: lon + "," + lat,
-      geometryType: "esriGeometryPoint",
-      inSR: "4326",
-      spatialRel: "esriSpatialRelIntersects",
+  async function lookupZoning(lon, lat, countySlug, parcel) {
+    if (!zoningConfig) {
+      try {
+        zoningConfig = await loadJson(ZONING_LAYERS_URL);
+      } catch (e) {
+        zoningConfig = { layers: {}, parcelAttrFallback: {} };
+      }
+    }
+    var layer = (zoningConfig.layers || {})[countySlug];
+    if (layer && layer.status === "live" && layer.endpoint && lon != null && lat != null) {
+      var data = await arcgisQuery(layer.endpoint, {
+        geometry: lon + "," + lat,
+        geometryType: "esriGeometryPoint",
+        inSR: "4326",
+        spatialRel: "esriSpatialRelIntersects",
+        outFields: layer.outFields || "*",
+        returnGeometry: "false",
+        f: "json",
+      });
+      var f = (data.features || [])[0];
+      if (!f) return { attrs: null, meta: layer, source: "gis" };
+      var a = f.attributes || {};
+      var map = layer.map || {};
+      return {
+        attrs: {
+          FNAME: pick(a, map.name || ["FNAME", "ZONING"]),
+          FCODE: pick(a, map.code || ["FCODE", "ZONING"]),
+          ZONING_DESC: pick(a, map.desc || ["ZONING_DESC", "ZONING_DETAILS"]),
+          DT_CHG: pick(a, map.changed || ["DT_CHG"]),
+        },
+        meta: layer,
+        source: "gis",
+        raw: a,
+      };
+    }
+    var fallback = (zoningConfig.parcelAttrFallback || {})[countySlug];
+    if (fallback && fallback.status === "live" && parcel && parcel.raw) {
+      var fmap = fallback.map || {};
+      var code = pick(parcel.raw, fmap.code || []);
+      var name = pick(parcel.raw, fmap.name || []);
+      var desc = pick(parcel.raw, fmap.desc || []);
+      if (code || name || desc) {
+        return {
+          attrs: {
+            FNAME: name || code || null,
+            FCODE: code || null,
+            ZONING_DESC: desc || null,
+            DT_CHG: null,
+          },
+          meta: fallback,
+          source: "parcel-attrs",
+        };
+      }
+      return { attrs: null, meta: fallback, source: "parcel-attrs" };
+    }
+    return { attrs: null, meta: layer || fallback || null, source: null };
+  }
+
+  async function recentZoningUpdates() {
+    if (!zoningConfig) {
+      try {
+        zoningConfig = await loadJson(ZONING_LAYERS_URL);
+      } catch (e) {
+        zoningConfig = { layers: {} };
+      }
+    }
+    var layer = (zoningConfig.layers || {})["palm-beach"];
+    var endpoint =
+      (layer && layer.endpoint) ||
+      "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9/query";
+    var data = await arcgisQuery(endpoint, {
+      where: "DT_CHG IS NOT NULL",
       outFields: "FNAME,FCODE,ZONING_DESC,DT_CHG",
       returnGeometry: "false",
+      orderByFields: "DT_CHG DESC",
+      resultRecordCount: "12",
       f: "json",
     });
-    var f = (data.features || [])[0];
-    if (!f) return null;
-    return f.attributes;
+    return (data.features || []).map(function (f) {
+      return f.attributes;
+    });
   }
 
   async function lookupFlood(lon, lat, countySlug) {
@@ -364,20 +444,6 @@
 
   function digitsOnly(s) {
     return String(s || "").replace(/\D/g, "");
-  }
-
-  async function recentZoningUpdates() {
-    var data = await arcgisQuery(ZONING_URL, {
-      where: "DT_CHG IS NOT NULL",
-      outFields: "FNAME,FCODE,ZONING_DESC,DT_CHG",
-      returnGeometry: "false",
-      orderByFields: "DT_CHG DESC",
-      resultRecordCount: "12",
-      f: "json",
-    });
-    return (data.features || []).map(function (f) {
-      return f.attributes;
-    });
   }
 
   function renderParcelCards(parcels) {
@@ -454,11 +520,40 @@
     );
   }
 
-  function renderZoning(z) {
-    if (!z) {
-      return '<p class="pi-empty">No unincorporated PBC zoning polygon hit this point (may be inside a municipality with its own code).</p>';
+  function renderZoning(result) {
+    var z = result && result.attrs;
+    var meta = result && result.meta;
+    var source = result && result.source;
+    if (!z || (!z.FNAME && !z.FCODE && !z.ZONING_DESC)) {
+      if (meta && meta.status === "live") {
+        return (
+          badge("cached") +
+          '<p class="pi-empty">No zoning stamp hit this point in ' +
+          esc(meta.label || "county zoning") +
+          ". Confirm on the county planning / PA map.</p>"
+        );
+      }
+      return (
+        badge("coming-soon") +
+        '<p class="pi-empty">In-app zoning is live for Palm Beach (PZB GIS), Martin (county zoning GIS), and Charlotte (PA parcel attributes). Use the county planning site for ' +
+        esc((meta && meta.name) || "other counties") +
+        ".</p>"
+      );
     }
+    var note =
+      source === "parcel-attrs"
+        ? "Live from parcel-layer attributes (" +
+          esc((meta && meta.label) || "PA fields") +
+          "). Not a separate zoning-map intersect — confirm on planning / PA."
+        : "Live from " +
+          esc((meta && meta.label) || "county zoning GIS") +
+          ". " +
+          esc((meta && meta.note) || "Confirm on official planning maps.");
     return (
+      badge("live") +
+      ' <span class="pi-inline-meta">' +
+      esc((meta && meta.label) || "Zoning") +
+      "</span>" +
       '<dl class="pi-dl">' +
       "<div><dt>District</dt><dd>" +
       esc(z.FNAME || "—") +
@@ -469,11 +564,13 @@
       "<div><dt>Category</dt><dd>" +
       esc(z.ZONING_DESC || "—") +
       "</dd></div>" +
-      "<div><dt>Map last changed</dt><dd>" +
-      esc(fmtDate(z.DT_CHG)) +
-      "</dd></div>" +
+      (z.DT_CHG
+        ? "<div><dt>Map last changed</dt><dd>" + esc(fmtDate(z.DT_CHG)) + "</dd></div>"
+        : "") +
       "</dl>" +
-      '<p class="pi-note">Live from Palm Beach County PZB zoning GIS. Municipal parcels may use city zoning instead.</p>'
+      '<p class="pi-note">' +
+      note +
+      "</p>"
     );
   }
 
@@ -882,6 +979,7 @@
   var salesPayload = {};
   var certsPayload = { certificates: [], count: 0 };
   var floodConfig = null;
+  var zoningConfig = null;
 
   async function selectParcel(parcel) {
     selected = parcel;
@@ -894,29 +992,22 @@
 
     var zEl = $("panel-zoning");
     var iEl = $("panel-insurance");
-    setStatus(zEl, "<em>Querying PZB zoning…</em>");
+    setStatus(zEl, "<em>Querying zoning…</em>");
     setStatus(iEl, "<em>Querying flood zone…</em>");
     if (parcel.centroid) {
       // Run in parallel so a slow zoning call cannot block flood.
-      var zoningPromise;
-      if (parcel.countySlug === "palm-beach") {
-        zoningPromise = lookupZoning(parcel.centroid.lon, parcel.centroid.lat)
-          .then(function (z) {
-            setStatus(zEl, renderZoning(z));
-          })
-          .catch(function (err) {
-            setStatus(zEl, '<p class="pi-empty">Zoning lookup failed: ' + esc(err.message) + "</p>");
-          });
-      } else {
-        setStatus(
-          zEl,
-          badge("coming-soon") +
-            '<p class="pi-empty">In-app zoning GIS is Palm Beach (PZB) only right now. Use the county PA / planning site for ' +
-            esc(parcel.countyName || "this county") +
-            ".</p>"
-        );
-        zoningPromise = Promise.resolve();
-      }
+      var zoningPromise = lookupZoning(
+        parcel.centroid.lon,
+        parcel.centroid.lat,
+        parcel.countySlug,
+        parcel
+      )
+        .then(function (z) {
+          setStatus(zEl, renderZoning(z));
+        })
+        .catch(function (err) {
+          setStatus(zEl, '<p class="pi-empty">Zoning lookup failed: ' + esc(err.message) + "</p>");
+        });
       var floodPromise = lookupFlood(
         parcel.centroid.lon,
         parcel.centroid.lat,
@@ -936,7 +1027,13 @@
         });
       await Promise.all([zoningPromise, floodPromise]);
     } else {
-      setStatus(zEl, '<p class="pi-empty">No parcel geometry returned for zoning intersect.</p>');
+      // Still try Charlotte-style parcel-attr zoning without geometry.
+      try {
+        var zOnly = await lookupZoning(null, null, parcel.countySlug, parcel);
+        setStatus(zEl, renderZoning(zOnly));
+      } catch (e) {
+        setStatus(zEl, '<p class="pi-empty">No parcel geometry returned for zoning intersect.</p>');
+      }
       setStatus(iEl, renderInsurance(parcel, null));
     }
 

@@ -5,9 +5,9 @@
       "id": "zoning",
       "name": "Zoning & map updates",
       "status": "live",
-      "coverage": "Palm Beach County unincorporated (PZB ArcGIS)",
-      "source": "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9",
-      "verification": "Confirm on PZB / municipal zoning maps before relying on district codes."
+      "coverage": "Palm Beach (PZB GIS), Martin (county zoning GIS), Charlotte (PA parcel zoningcode/landuse attributes). Other counties still Coming Soon for in-app zoning.",
+      "source": "data/signals/zoning-layers.json",
+      "verification": "Confirm on PZB / municipal / county planning maps before relying on district codes."
     },
     {
       "id": "permits",
