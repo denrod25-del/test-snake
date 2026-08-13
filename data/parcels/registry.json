@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12",
+  "generated": "2026-08-13",
   "note": "Public ArcGIS MapServer/FeatureServer parcel layers. Field maps normalize county schemas into DeedScout's common shape (pcn, owner, address, market, assessed, saleDate, salePrice, homestead). Always verify on the county PA site before bidding. outFields must exist on the live layer — invalid names cause ArcGIS 400 and break tax-deeds hydration. Optional enrich blocks run a second query after FOLIO match (used for Broward owner/situs).",
   "counties": {
     "palm-beach": {
@@ -317,6 +317,58 @@
         "homestead": []
       },
       "note": "Pasco PA parcels. Parcel IDs use hyphenated format (auto-formatted when digits-only is entered). Confirm on pascopa.com."
+    },
+    "polk": {
+      "name": "Polk",
+      "status": "live",
+      "endpoint": "https://gis.polk-county.net/server/rest/services/Map_Property_Appraiser/MapServer/1/query",
+      "paUrl": "https://www.polkpa.org/",
+      "idFields": ["PARCELID"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": [
+        "PARCELID", "NAME", "PROP_ADRNO", "PROP_ADRDIR", "PROP_ADRSTR", "PROP_ADRSUF",
+        "PROP_CITY", "PROP_ZIP", "TOTALVAL", "ASSESSVAL", "TAXVAL", "HMSTD", "YR_IMPROVED"
+      ],
+      "map": {
+        "pcn": ["PARCELID"],
+        "owner": ["NAME"],
+        "addressParts": ["PROP_ADRNO", "PROP_ADRDIR", "PROP_ADRSTR", "PROP_ADRSUF"],
+        "address": ["PROP_ADRSTR"],
+        "city": ["PROP_CITY"],
+        "zip": ["PROP_ZIP"],
+        "market": ["TOTALVAL"],
+        "assessed": ["ASSESSVAL"],
+        "saleDate": [],
+        "salePrice": [],
+        "homestead": ["HMSTD"],
+        "yearBuilt": ["YR_IMPROVED"]
+      },
+      "note": "Polk County Property Appraiser MapServer. Confirm on polkpa.org before bidding."
+    },
+    "volusia": {
+      "name": "Volusia",
+      "status": "live",
+      "endpoint": "https://maps2.vcgov.org/arcgis/rest/services/Pictometry_Parcels/MapServer/0/query",
+      "paUrl": "https://vcpa.vcgov.org/",
+      "idFields": ["PARID", "ALTKEY"],
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": [
+        "PARID", "ALTKEY", "OWNER1", "ADDRFULL", "CITYNAME", "ZIP1",
+        "TOTJUST", "LASTSALEDT", "LASTSALEPRICE"
+      ],
+      "map": {
+        "pcn": ["PARID", "ALTKEY"],
+        "owner": ["OWNER1"],
+        "address": ["ADDRFULL"],
+        "city": ["CITYNAME"],
+        "zip": ["ZIP1"],
+        "market": ["TOTJUST"],
+        "assessed": ["TOTJUST"],
+        "saleDate": ["LASTSALEDT"],
+        "salePrice": ["LASTSALEPRICE"],
+        "homestead": []
+      },
+      "note": "Volusia County Pictometry_Parcels ownership layer. Confirm on vcpa.vcgov.org."
     }
   }
 }

@@ -1,6 +1,22 @@
 {
-  "generated": "2026-08-13T00:40:00Z",
-  "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting. Orange/Duval/Lee/Sarasota/Manatee/Pasco use FEMA National Flood Hazard Layer (NFHL) Flood Hazard Zones.",
+  "generated": "2026-08-13T00:50:00Z",
+  "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting. defaultLayer is FEMA NFHL Flood Hazard Zones for any parcel-wired county without a dedicated entry.",
+  "defaultLayer": {
+    "name": "Florida (FEMA NFHL)",
+    "status": "live",
+    "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+    "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+    "map": {
+      "zone": ["FLD_ZONE"],
+      "subtype": ["ZONE_SUBTY"],
+      "sfha": ["SFHA_TF"],
+      "bfe": ["STATIC_BFE"],
+      "depth": ["DEPTH"],
+      "firmId": ["DFIRM_ID"]
+    },
+    "label": "FEMA NFHL Flood Hazard Zones",
+    "mscCounty": "Florida"
+  },
   "layers": {
     "palm-beach": {
       "name": "Palm Beach",
@@ -177,6 +193,38 @@
       },
       "label": "FEMA NFHL Flood Hazard Zones (Pasco County, FL)",
       "mscCounty": "Pasco County, FL"
+    },
+    "polk": {
+      "name": "Polk",
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "FEMA NFHL Flood Hazard Zones (Polk County, FL)",
+      "mscCounty": "Polk County, FL"
+    },
+    "volusia": {
+      "name": "Volusia",
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": ["FLD_ZONE"],
+        "subtype": ["ZONE_SUBTY"],
+        "sfha": ["SFHA_TF"],
+        "bfe": ["STATIC_BFE"],
+        "depth": ["DEPTH"],
+        "firmId": ["DFIRM_ID"]
+      },
+      "label": "FEMA NFHL Flood Hazard Zones (Volusia County, FL)",
+      "mscCounty": "Volusia County, FL"
     }
   },
   "delinquencyPortals": {

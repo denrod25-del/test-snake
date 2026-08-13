@@ -236,6 +236,8 @@
         <option value="sarasota">Sarasota</option>
         <option value="manatee">Manatee</option>
         <option value="pasco">Pasco</option>
+        <option value="polk">Polk</option>
+        <option value="volusia">Volusia</option>
       </select>
     </label>
     <label>Lookup
@@ -283,7 +285,7 @@
     <article class="pi-panel">
       <span data-status="insurance"></span>
       <h2>Insurance / flood</h2>
-      <div id="panel-insurance"><p class="pi-empty">Live flood GIS for all parcel-wired counties (incl. FEMA NFHL for Orange–Pasco) + FEMA MSC deep-link.</p></div>
+      <div id="panel-insurance"><p class="pi-empty">Live flood GIS for parcel-wired counties (county layers or FEMA NFHL fallback) + FEMA MSC deep-link.</p></div>
     </article>
   </section>
 
@@ -381,7 +383,7 @@
       host.innerHTML = DeedScoutTrust.renderTrustPanel({
         status: "live",
         headline: "Property Intelligence — mixed Live / Cached / Coming Soon",
-        source: "PBC PZB zoning GIS · county PA ArcGIS · Broward BCPA enrich · cached permit scrapes · sales.json · RentCast (Pro) · county flood GIS + FEMA NFHL (11 counties) · FEMA MSC",
+        source: "PBC PZB zoning GIS · county PA ArcGIS (13 counties) · Broward BCPA enrich · cached permit scrapes · sales.json · RentCast (Pro) · county flood GIS + FEMA NFHL fallback · FEMA MSC",
         verification: "Always confirm on clerk, PA, municipal, and FEMA sources before decisions.",
         lastRefreshed: new Date().toISOString(),
       });

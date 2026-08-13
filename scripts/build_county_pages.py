@@ -181,6 +181,8 @@ FLOOD_GIS_COUNTIES = {
     "sarasota",
     "manatee",
     "pasco",
+    "polk",
+    "volusia",
 }
 
 

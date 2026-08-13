@@ -21,7 +21,7 @@
       "id": "ownership",
       "name": "Ownership & deed pointers",
       "status": "live",
-      "coverage": "11 counties via Property Appraiser GIS (current owner + last sale; PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer)",
+      "coverage": "13 counties via Property Appraiser GIS (current owner + last sale; PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer). Newest: Polk + Volusia.",
       "source": "data/parcels/registry.json",
       "verification": "Not a full multi-deed chain — confirm on clerk Official Records / PA site."
     },
@@ -45,7 +45,7 @@
       "id": "insurance",
       "name": "Insurance / flood signals",
       "status": "live",
-      "coverage": "Palm Beach, Miami-Dade, Broward, Hillsborough, Pinellas (county GIS) plus Orange, Duval, Lee, Sarasota, Manatee, and Pasco via FEMA NFHL Flood Hazard Zones + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
+      "coverage": "Dedicated county flood GIS for PBC/Miami-Dade/Broward/Hillsborough/Pinellas; FEMA NFHL for other parcel-wired counties (incl. Polk + Volusia) with NFHL defaultLayer fallback. Carrier premium rate-shift feeds are still Coming Soon.",
       "source": "data/signals/flood-layers.json · FEMA NFHL · FEMA MSC",
       "verification": "County / NFHL GIS may be pending/partial — verify on FEMA MSC / local flood determination for underwriting."
     },

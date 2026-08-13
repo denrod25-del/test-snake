@@ -282,9 +282,23 @@
         floodConfig = { layers: {} };
       }
     }
-    var layer = (floodConfig.layers || {})[countySlug];
+    var layers = floodConfig.layers || {};
+    var layer = layers[countySlug];
+    var usedDefault = false;
+    if (!layer || layer.status !== "live" || !layer.endpoint) {
+      layer = floodConfig.defaultLayer || null;
+      usedDefault = !!layer;
+    }
     if (!layer || layer.status !== "live" || !layer.endpoint) {
       return { attrs: null, meta: layer || null };
+    }
+    var meta = layer;
+    if (usedDefault) {
+      meta = Object.assign({}, layer, {
+        label:
+          (layer.label || "FEMA NFHL Flood Hazard Zones") +
+          (countySlug ? " (" + countySlug + ")" : ""),
+      });
     }
     var data = await arcgisQuery(layer.endpoint, {
       geometry: lon + "," + lat,
@@ -296,7 +310,7 @@
       f: "json",
     });
     var f = (data.features || [])[0];
-    if (!f) return { attrs: null, meta: layer };
+    if (!f) return { attrs: null, meta: meta };
     var a = f.attributes || {};
     var map = layer.map || {};
     return {
@@ -308,7 +322,7 @@
         DEPTH: pick(a, map.depth || ["DEPTH"]),
         DFIRM_ID: pick(a, map.firmId || ["DFIRM_ID"]),
       },
-      meta: layer,
+      meta: meta,
       raw: a,
     };
   }
@@ -480,7 +494,7 @@
         badge("coming-soon") +
         '<p class="pi-empty">In-app flood GIS is not wired for ' +
         esc(p.countyName || "this county") +
-        " yet. All 11 parcel-wired counties have live flood GIS (county layers or FEMA NFHL); others use FEMA MSC.</p>";
+        " yet. Parcel-wired counties use county GIS or FEMA NFHL; others fall back to FEMA MSC deep-links.</p>";
     }
     return (
       body +
