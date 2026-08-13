@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T23:33:50Z",
+  "generated": "2026-08-13T00:32:45Z",
   "salesGenerated": "2026-08-10T06:59:00Z",
   "featuredSlugs": [
     "palm-beach",
@@ -138,13 +138,7 @@
       "county": "Citrus",
       "slug": "citrus",
       "region": "Central",
-      "nextSale": {
-        "date": "2026-08-12",
-        "label": "August 12, 2026",
-        "shortLabel": "Aug 12",
-        "count": 9,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://citrus.realtaxdeed.com/",
       "permits": {
@@ -223,10 +217,10 @@
       "slug": "duval",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-08-12",
-        "label": "August 12, 2026",
-        "shortLabel": "Aug 12",
-        "count": 57,
+        "date": "2026-09-16",
+        "label": "September 16, 2026",
+        "shortLabel": "Sep 16",
+        "count": 130,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -372,13 +366,7 @@
       "county": "Hernando",
       "slug": "hernando",
       "region": "Tampa Bay",
-      "nextSale": {
-        "date": "2026-08-12",
-        "label": "August 12, 2026",
-        "shortLabel": "Aug 12",
-        "count": 14,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://hernandoclerk.com/additional-services/tax-deeds/",
       "permits": {
@@ -391,10 +379,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-12",
-        "label": "August 12, 2026",
-        "shortLabel": "Aug 12",
-        "count": 29,
+        "date": "2026-08-19",
+        "label": "August 19, 2026",
+        "shortLabel": "Aug 19",
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -595,10 +583,10 @@
       "slug": "marion",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-12",
-        "label": "August 12, 2026",
-        "shortLabel": "Aug 12",
-        "count": 3,
+        "date": "2026-08-13",
+        "label": "August 13, 2026",
+        "shortLabel": "Aug 13",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -733,10 +721,10 @@
       "slug": "palm-beach",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-08-12",
-        "label": "August 12, 2026",
-        "shortLabel": "Aug 12",
-        "count": 5,
+        "date": "2026-09-16",
+        "label": "September 16, 2026",
+        "shortLabel": "Sep 16",
+        "count": 33,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -805,10 +793,10 @@
       "slug": "putnam",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-08-12",
-        "label": "August 12, 2026",
-        "shortLabel": "Aug 12",
-        "count": 36,
+        "date": "2026-08-19",
+        "label": "August 19, 2026",
+        "shortLabel": "Aug 19",
+        "count": 68,
         "source": "scraper"
       },
       "surplusPortal": false,

@@ -15,6 +15,23 @@
     return String(s || "").replace(/[^\dA-Za-z]/g, "").toUpperCase();
   }
 
+  /** Apply a registry idFormat like "##-##-##-####-#####-####" to a compact id. */
+  function applyIdFormat(clean, pattern) {
+    if (!pattern || !clean) return null;
+    var out = "";
+    var i = 0;
+    for (var p = 0; p < pattern.length; p++) {
+      if (pattern.charAt(p) === "#") {
+        if (i >= clean.length) return null;
+        out += clean.charAt(i++);
+      } else {
+        out += pattern.charAt(p);
+      }
+    }
+    if (i !== clean.length) return null;
+    return out;
+  }
+
   function firstAttr(attrs, keys) {
     if (!attrs || !keys) return null;
     for (var i = 0; i < keys.length; i++) {
@@ -109,8 +126,16 @@
       case "pcn": {
         var clean = normalizeId(v);
         if (!clean) return null;
-        var parts = idFields.map(function (f) {
-          return f + "='" + esc(clean) + "'";
+        var raw = v.trim();
+        var formatted = applyIdFormat(clean, county.idFormat);
+        var candidates = [clean];
+        if (raw && normalizeId(raw) === clean && raw !== clean) candidates.push(raw);
+        if (formatted && candidates.indexOf(formatted) < 0) candidates.push(formatted);
+        var parts = [];
+        idFields.forEach(function (f) {
+          candidates.forEach(function (cand) {
+            parts.push(f + "='" + esc(cand) + "'");
+          });
         });
         return parts.length ? parts.join(" OR ") : null;
       }
@@ -344,5 +369,6 @@
     enrichResults: enrichResults,
     queryCounty: queryCounty,
     normalizeId: normalizeId,
+    applyIdFormat: applyIdFormat,
   };
 })(typeof window !== "undefined" ? window : globalThis);

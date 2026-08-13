@@ -480,7 +480,7 @@
         badge("coming-soon") +
         '<p class="pi-empty">In-app flood GIS is not wired for ' +
         esc(p.countyName || "this county") +
-        " yet. Palm Beach, Miami-Dade, Broward, Hillsborough, Pinellas, Orange, Duval, and Lee are live; others use FEMA MSC.</p>";
+        " yet. All 11 parcel-wired counties have live flood GIS (county layers or FEMA NFHL); others use FEMA MSC.</p>";
     }
     return (
       body +

@@ -247,63 +247,76 @@
       "status": "live",
       "endpoint": "https://services3.arcgis.com/icrWMv7eBkctFu1f/arcgis/rest/services/ParcelHosted/FeatureServer/0/query",
       "paUrl": "https://www.sc-pa.com/",
-      "idFields": ["ACCOUNT", "PARCELID"],
+      "idFields": ["ACCOUNT"],
       "searchModes": ["pcn", "owner", "address"],
-      "outFields": ["*"],
+      "outFields": [
+        "ACCOUNT", "NAME1", "FULLADDRESS", "LOCCITY", "LOCZIP",
+        "JUST", "SALE_DATE", "SALE_AMT"
+      ],
       "map": {
-        "pcn": ["ACCOUNT", "PARCELID", "PARCEL_ID"],
-        "owner": ["OWNER1", "OWNER", "OWNER_NAME"],
-        "address": ["SITUS", "SITE_ADDRESS", "STREET"],
-        "city": ["CITY"],
-        "zip": ["ZIP"],
-        "market": ["JUST", "MARKET"],
-        "assessed": ["ASSESSED", "TAXABLE"],
+        "pcn": ["ACCOUNT"],
+        "owner": ["NAME1"],
+        "address": ["FULLADDRESS"],
+        "city": ["LOCCITY"],
+        "zip": ["LOCZIP"],
+        "market": ["JUST"],
+        "assessed": ["JUST"],
         "saleDate": ["SALE_DATE"],
-        "salePrice": ["SALE_PRICE"],
-        "homestead": ["HOMESTEAD"]
-      }
+        "salePrice": ["SALE_AMT"],
+        "homestead": []
+      },
+      "note": "Sarasota County ParcelHosted layer. Confirm on sc-pa.com before bidding."
     },
     "manatee": {
       "name": "Manatee",
       "status": "live",
       "endpoint": "https://gis.manateepao.com/arcgis/rest/services/Website/WebLayers/MapServer/0/query",
       "paUrl": "https://www.manateepao.com/",
-      "idFields": ["PARCELID", "PARCEL_ID"],
+      "idFields": ["PARID"],
       "searchModes": ["pcn", "owner", "address"],
-      "outFields": ["*"],
+      "outFields": [
+        "PARID", "PAR_OWNER_NAME1", "SITUS_ADDRESS", "SITUS_POSTAL_CITY", "SITUS_POSTAL_ZIP",
+        "CAD_JUST_VALUE", "CAD_ASSESSED_CTY", "SALE_DATE_LAST", "SALE_PRICE_LAST"
+      ],
       "map": {
-        "pcn": ["PARCELID", "PARCEL_ID"],
-        "owner": ["OWNER1", "OWNER"],
-        "address": ["SITE_ADDRESS", "SITUS"],
-        "city": ["CITY"],
-        "zip": ["ZIP"],
-        "market": ["JUST", "MARKET"],
-        "assessed": ["ASSESSED"],
-        "saleDate": ["SALE_DATE"],
-        "salePrice": ["SALE_PRICE"],
-        "homestead": ["HOMESTEAD"]
-      }
+        "pcn": ["PARID"],
+        "owner": ["PAR_OWNER_NAME1"],
+        "address": ["SITUS_ADDRESS"],
+        "city": ["SITUS_POSTAL_CITY"],
+        "zip": ["SITUS_POSTAL_ZIP"],
+        "market": ["CAD_JUST_VALUE"],
+        "assessed": ["CAD_ASSESSED_CTY"],
+        "saleDate": ["SALE_DATE_LAST"],
+        "salePrice": ["SALE_PRICE_LAST"],
+        "homestead": []
+      },
+      "note": "Manatee PAO WebLayers. Search by PARID. Confirm on manateepao.com."
     },
     "pasco": {
       "name": "Pasco",
       "status": "live",
       "endpoint": "https://maps.pascopa.com/arcgis/rest/services/Parcels/MapServer/3/query",
       "paUrl": "https://www.pascopa.com/",
-      "idFields": ["PARCELID", "PARCEL_ID"],
-      "searchModes": ["pcn", "owner"],
-      "outFields": ["*"],
+      "idFields": ["ParcelID"],
+      "idFormat": "##-##-##-####-#####-####",
+      "searchModes": ["pcn", "owner", "address"],
+      "outFields": [
+        "ParcelID", "NAD_NAME_1", "PHYS_STREET", "PHYS_CITY", "PHYS_ZIP",
+        "VAL_APPR", "SALE_AMT", "SALE_YEAR", "SALE_MON", "SALE_DAY"
+      ],
       "map": {
-        "pcn": ["PARCELID", "PARCEL_ID"],
-        "owner": ["OWNER1", "OWNER"],
-        "address": ["SITE_ADDRESS", "SITUS"],
-        "city": ["CITY"],
-        "zip": ["ZIP"],
-        "market": ["JUST", "MARKET"],
-        "assessed": ["ASSESSED"],
-        "saleDate": ["SALE_DATE"],
-        "salePrice": ["SALE_PRICE"],
-        "homestead": ["HOMESTEAD"]
-      }
+        "pcn": ["ParcelID"],
+        "owner": ["NAD_NAME_1"],
+        "address": ["PHYS_STREET"],
+        "city": ["PHYS_CITY"],
+        "zip": ["PHYS_ZIP"],
+        "market": ["VAL_APPR"],
+        "assessed": ["VAL_APPR"],
+        "saleDate": [],
+        "salePrice": ["SALE_AMT"],
+        "homestead": []
+      },
+      "note": "Pasco PA parcels. Parcel IDs use hyphenated format (auto-formatted when digits-only is entered). Confirm on pascopa.com."
     }
   }
 }

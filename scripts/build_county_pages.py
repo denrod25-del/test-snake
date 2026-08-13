@@ -178,6 +178,9 @@ FLOOD_GIS_COUNTIES = {
     "orange",
     "duval",
     "lee",
+    "sarasota",
+    "manatee",
+    "pasco",
 }
 
 

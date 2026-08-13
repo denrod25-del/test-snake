@@ -45,7 +45,7 @@
       "id": "insurance",
       "name": "Insurance / flood signals",
       "status": "live",
-      "coverage": "Palm Beach, Miami-Dade, Broward, Hillsborough, Pinellas (county GIS) plus Orange, Duval, and Lee via FEMA NFHL Flood Hazard Zones + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
+      "coverage": "Palm Beach, Miami-Dade, Broward, Hillsborough, Pinellas (county GIS) plus Orange, Duval, Lee, Sarasota, Manatee, and Pasco via FEMA NFHL Flood Hazard Zones + FEMA MSC deep-links. Carrier premium rate-shift feeds are still Coming Soon.",
       "source": "data/signals/flood-layers.json · FEMA NFHL · FEMA MSC",
       "verification": "County / NFHL GIS may be pending/partial — verify on FEMA MSC / local flood determination for underwriting."
     },
