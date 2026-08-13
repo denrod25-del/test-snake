@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T00:50:00Z",
+  "generated": "2026-08-13T02:36:05Z",
   "note": "County flood GIS layers queried by parcel centroid. Always verify on FEMA MSC for underwriting. defaultLayer is FEMA NFHL Flood Hazard Zones for any parcel-wired county without a dedicated entry.",
   "defaultLayer": {
     "name": "Florida (FEMA NFHL)",
@@ -7,12 +7,24 @@
     "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
     "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
     "map": {
-      "zone": ["FLD_ZONE"],
-      "subtype": ["ZONE_SUBTY"],
-      "sfha": ["SFHA_TF"],
-      "bfe": ["STATIC_BFE"],
-      "depth": ["DEPTH"],
-      "firmId": ["DFIRM_ID"]
+      "zone": [
+        "FLD_ZONE"
+      ],
+      "subtype": [
+        "ZONE_SUBTY"
+      ],
+      "sfha": [
+        "SFHA_TF"
+      ],
+      "bfe": [
+        "STATIC_BFE"
+      ],
+      "depth": [
+        "DEPTH"
+      ],
+      "firmId": [
+        "DFIRM_ID"
+      ]
     },
     "label": "FEMA NFHL Flood Hazard Zones",
     "mscCounty": "Florida"
@@ -24,12 +36,24 @@
       "endpoint": "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Environment_Open_Data/MapServer/18/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID,DT_CHG",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "PBC 2023 Pending FIRMs",
       "mscCounty": "Palm Beach County, FL"
@@ -40,10 +64,16 @@
       "endpoint": "https://gisweb.miamidade.gov/arcgis/rest/services/MD_LandInformation/MapServer/35/query",
       "outFields": "FZONE,ZONESUBTY,ELEV",
       "map": {
-        "zone": ["FZONE"],
-        "subtype": ["ZONESUBTY"],
+        "zone": [
+          "FZONE"
+        ],
+        "subtype": [
+          "ZONESUBTY"
+        ],
         "sfha": [],
-        "bfe": ["ELEV"],
+        "bfe": [
+          "ELEV"
+        ],
         "depth": [],
         "firmId": []
       },
@@ -56,12 +86,24 @@
       "endpoint": "https://services.arcgis.com/JMAJrTsHNLrSsWf5/arcgis/rest/services/BCGIS_FEMA_SFHA_2024/FeatureServer/0/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "Broward FEMA SFHA 2024 (BCGIS)",
       "mscCounty": "Broward County, FL"
@@ -72,12 +114,24 @@
       "endpoint": "https://services.arcgis.com/apTfC6SUmnNfnxuF/arcgis/rest/services/Flood_Zones/FeatureServer/0/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "Hillsborough FEMA Flood Zones",
       "mscCounty": "Hillsborough County, FL"
@@ -88,12 +142,24 @@
       "endpoint": "https://services.arcgis.com/f5HgUpxURgEzTccH/arcgis/rest/services/FEMA_NFHL_StaticPinellas/FeatureServer/14/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "Pinellas FEMA NFHL Flood Hazard Zones",
       "mscCounty": "Pinellas County, FL"
@@ -104,12 +170,24 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Orange County, FL)",
       "mscCounty": "Orange County, FL"
@@ -120,12 +198,24 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Duval County, FL)",
       "mscCounty": "Duval County, FL"
@@ -136,12 +226,24 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Lee County, FL)",
       "mscCounty": "Lee County, FL"
@@ -152,12 +254,24 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Sarasota County, FL)",
       "mscCounty": "Sarasota County, FL"
@@ -168,12 +282,24 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Manatee County, FL)",
       "mscCounty": "Manatee County, FL"
@@ -184,12 +310,24 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Pasco County, FL)",
       "mscCounty": "Pasco County, FL"
@@ -200,12 +338,24 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Polk County, FL)",
       "mscCounty": "Polk County, FL"
@@ -216,15 +366,111 @@
       "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
       "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
       "map": {
-        "zone": ["FLD_ZONE"],
-        "subtype": ["ZONE_SUBTY"],
-        "sfha": ["SFHA_TF"],
-        "bfe": ["STATIC_BFE"],
-        "depth": ["DEPTH"],
-        "firmId": ["DFIRM_ID"]
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
       },
       "label": "FEMA NFHL Flood Hazard Zones (Volusia County, FL)",
       "mscCounty": "Volusia County, FL"
+    },
+    "bay": {
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
+      },
+      "name": "Bay",
+      "label": "FEMA NFHL Flood Hazard Zones (Bay County, FL)",
+      "mscCounty": "Bay County, FL"
+    },
+    "martin": {
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
+      },
+      "name": "Martin",
+      "label": "FEMA NFHL Flood Hazard Zones (Martin County, FL)",
+      "mscCounty": "Martin County, FL"
+    },
+    "charlotte": {
+      "status": "live",
+      "endpoint": "https://hazards.fema.gov/arcgis/rest/services/public/NFHLWMS/MapServer/28/query",
+      "outFields": "FLD_ZONE,ZONE_SUBTY,SFHA_TF,STATIC_BFE,DEPTH,DFIRM_ID",
+      "map": {
+        "zone": [
+          "FLD_ZONE"
+        ],
+        "subtype": [
+          "ZONE_SUBTY"
+        ],
+        "sfha": [
+          "SFHA_TF"
+        ],
+        "bfe": [
+          "STATIC_BFE"
+        ],
+        "depth": [
+          "DEPTH"
+        ],
+        "firmId": [
+          "DFIRM_ID"
+        ]
+      },
+      "name": "Charlotte",
+      "label": "FEMA NFHL Flood Hazard Zones (Charlotte County, FL)",
+      "mscCounty": "Charlotte County, FL"
     }
   },
   "delinquencyPortals": {

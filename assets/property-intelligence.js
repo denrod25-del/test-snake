@@ -106,8 +106,8 @@
   }
 
   function buildAddress(attrs, map) {
-    var addr = pick(attrs, map.address || []);
-    if (!addr && map.addressParts && map.addressParts.length) {
+    var addr = null;
+    if (map.addressParts && map.addressParts.length) {
       addr = map.addressParts
         .map(function (k) {
           return pick(attrs, [k]);
@@ -115,6 +115,7 @@
         .filter(Boolean)
         .join(" ");
     }
+    if (!addr) addr = pick(attrs, map.address || []);
     var city = pick(attrs, map.city || []);
     var zip = pick(attrs, map.zip || []);
     return [addr, city, zip ? "FL " + zip : "FL"].filter(Boolean).join(", ");
@@ -206,9 +207,43 @@
     if (!q) throw new Error("Enter a PCN, owner, or address.");
 
     if (mode === "pcn") {
-      var idField = (county.idFields && county.idFields[0]) || "PCN";
-      var cleaned = q.replace(/[-\s]/g, "");
-      where = idField + " LIKE '%" + cleaned.replace(/'/g, "''") + "%'";
+      var cleaned = q.replace(/[^\dA-Za-z]/g, "").toUpperCase();
+      var raw = q.trim();
+      var idFields = (county.idFields && county.idFields.length ? county.idFields : ["PCN"]).slice();
+      var formatted = null;
+      if (county.idFormat) {
+        var pattern = county.idFormat;
+        var out = "";
+        var di = 0;
+        var okFmt = true;
+        for (var pi = 0; pi < pattern.length; pi++) {
+          if (pattern.charAt(pi) === "#") {
+            if (di >= cleaned.length) {
+              okFmt = false;
+              break;
+            }
+            out += cleaned.charAt(di++);
+          } else {
+            out += pattern.charAt(pi);
+          }
+        }
+        if (okFmt && di === cleaned.length) formatted = out;
+      }
+      var candidates = [];
+      function pushCand(v) {
+        if (!v) return;
+        if (candidates.indexOf(v) < 0) candidates.push(v);
+      }
+      pushCand(cleaned);
+      pushCand(raw);
+      pushCand(formatted);
+      var parts = [];
+      idFields.forEach(function (f) {
+        candidates.forEach(function (cand) {
+          parts.push(f + "='" + String(cand).replace(/'/g, "''") + "'");
+        });
+      });
+      where = parts.join(" OR ");
     } else if (mode === "owner") {
       var ownerField = (county.map.owner && county.map.owner[0]) || "OWNER_NAME1";
       where = "UPPER(" + ownerField + ") LIKE '%" + q.toUpperCase().replace(/'/g, "''") + "%'";
@@ -246,7 +281,7 @@
         saleDate: pick(a, map.saleDate || []),
         salePrice: pick(a, map.salePrice || []),
         homestead: pick(a, map.homestead || []),
-        yearBuilt: pick(a, ["YRBLT", "YEAR_BUILT"]),
+        yearBuilt: pick(a, map.yearBuilt || ["YRBLT", "YEAR_BUILT"]),
         deedBook: pick(a, map.deedBook || ["BOOK"]),
         deedPage: pick(a, map.deedPage || ["PAGE"]),
         saleKey: pick(a, map.saleKey || ["SALEKEY"]),

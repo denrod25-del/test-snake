@@ -183,6 +183,9 @@ FLOOD_GIS_COUNTIES = {
     "pasco",
     "polk",
     "volusia",
+    "bay",
+    "martin",
+    "charlotte",
 }
 
 
