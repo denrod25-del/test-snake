@@ -300,7 +300,9 @@
         "STR_NUM",
         "STR_NAME",
         "POST_TYPE",
-        "EXEMPT_COD"
+        "EXEMPT_COD",
+        "ZONING_COD",
+        "DOR_CODE"
       ],
       "map": {
         "pcn": [
@@ -473,7 +475,11 @@
         "S_1DATE",
         "S_1AMOUNT",
         "HSTDAMOUNT",
-        "MINBUILTY"
+        "MINBUILTY",
+        "ZONING",
+        "ZONINGAREA",
+        "LANDUSEDES",
+        "LANDUSECOD"
       ],
       "map": {
         "pcn": [
@@ -534,7 +540,8 @@
         "LOCZIP",
         "JUST",
         "SALE_DATE",
-        "SALE_AMT"
+        "SALE_AMT",
+        "ZONING"
       ],
       "map": {
         "pcn": [
@@ -590,7 +597,9 @@
         "CAD_JUST_VALUE",
         "CAD_ASSESSED_CTY",
         "SALE_DATE_LAST",
-        "SALE_PRICE_LAST"
+        "SALE_PRICE_LAST",
+        "PAR_ZONING",
+        "CUR_DOR_LUC_CODE"
       ],
       "map": {
         "pcn": [

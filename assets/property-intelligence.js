@@ -326,20 +326,22 @@
         f: "json",
       });
       var f = (data.features || [])[0];
-      if (!f) return { attrs: null, meta: layer, source: "gis" };
-      var a = f.attributes || {};
-      var map = layer.map || {};
-      return {
-        attrs: {
-          FNAME: pick(a, map.name || ["FNAME", "ZONING"]),
-          FCODE: pick(a, map.code || ["FCODE", "ZONING"]),
-          ZONING_DESC: pick(a, map.desc || ["ZONING_DESC", "ZONING_DETAILS"]),
-          DT_CHG: pick(a, map.changed || ["DT_CHG"]),
-        },
-        meta: layer,
-        source: "gis",
-        raw: a,
-      };
+      if (f) {
+        var a = f.attributes || {};
+        var map = layer.map || {};
+        return {
+          attrs: {
+            FNAME: pick(a, map.name || ["FNAME", "ZONING"]),
+            FCODE: pick(a, map.code || ["FCODE", "ZONING"]),
+            ZONING_DESC: pick(a, map.desc || ["ZONING_DESC", "ZONING_DETAILS"]),
+            DT_CHG: pick(a, map.changed || ["DT_CHG"]),
+          },
+          meta: layer,
+          source: "gis",
+          raw: a,
+        };
+      }
+      // No polygon hit — try parcel-attribute fallback below when configured.
     }
     var fallback = (zoningConfig.parcelAttrFallback || {})[countySlug];
     if (fallback && fallback.status === "live" && parcel && parcel.raw) {
@@ -359,7 +361,7 @@
           source: "parcel-attrs",
         };
       }
-      return { attrs: null, meta: fallback, source: "parcel-attrs" };
+      return { attrs: null, meta: fallback || layer || null, source: "parcel-attrs" };
     }
     return { attrs: null, meta: layer || fallback || null, source: null };
   }
@@ -535,7 +537,7 @@
       }
       return (
         badge("coming-soon") +
-        '<p class="pi-empty">In-app zoning is live for Palm Beach (PZB GIS), Martin (county zoning GIS), and Charlotte (PA parcel attributes). Use the county planning site for ' +
+        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, and Lee (GIS) plus Charlotte, Manatee, Orange, and Sarasota (PA parcel attributes). Use the county planning site for ' +
         esc((meta && meta.name) || "other counties") +
         ".</p>"
       );

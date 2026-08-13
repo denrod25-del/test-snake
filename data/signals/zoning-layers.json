@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T23:10:00Z",
+  "generated": "2026-08-13T23:39:10Z",
   "note": "Zoning sources for Property Intelligence. Prefer dedicated zoning GIS polygons; parcelAttrFallback reads fields already returned on the parcel feature when no GIS layer is wired. Always verify on the county planning / PA site.",
   "layers": {
     "palm-beach": {
@@ -9,10 +9,19 @@
       "endpoint": "https://maps.co.palm-beach.fl.us/arcgis/rest/services/OpenData/Planning_Open_Data/MapServer/9/query",
       "outFields": "FNAME,FCODE,ZONING_DESC,DT_CHG",
       "map": {
-        "code": ["FCODE", "FNAME"],
-        "name": ["FNAME"],
-        "desc": ["ZONING_DESC"],
-        "changed": ["DT_CHG"]
+        "code": [
+          "FCODE",
+          "FNAME"
+        ],
+        "name": [
+          "FNAME"
+        ],
+        "desc": [
+          "ZONING_DESC"
+        ],
+        "changed": [
+          "DT_CHG"
+        ]
       },
       "label": "Palm Beach County PZB zoning GIS (unincorporated)",
       "note": "Municipal parcels may use city zoning instead."
@@ -24,13 +33,44 @@
       "endpoint": "https://geoweb.martin.fl.us/arcgis/rest/services/Administrative_Areas/Future_Landuse_Zoning/MapServer/1/query",
       "outFields": "ZONING,ZONING_DETAILS",
       "map": {
-        "code": ["ZONING"],
-        "name": ["ZONING"],
-        "desc": ["ZONING_DETAILS"],
+        "code": [
+          "ZONING"
+        ],
+        "name": [
+          "ZONING"
+        ],
+        "desc": [
+          "ZONING_DETAILS"
+        ],
         "changed": []
       },
       "label": "Martin County Zoning GIS",
       "note": "Confirm on Martin County planning / PA maps."
+    },
+    "lee": {
+      "name": "Lee",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://services2.arcgis.com/LvWGAAhHwbCJ2GMP/arcgis/rest/services/Zoning/FeatureServer/0/query",
+      "outFields": "ZONING,GeneralZoning,City_ZoningRemarks,VERIFYDATE",
+      "map": {
+        "code": [
+          "ZONING"
+        ],
+        "name": [
+          "ZONING",
+          "GeneralZoning"
+        ],
+        "desc": [
+          "City_ZoningRemarks",
+          "GeneralZoning"
+        ],
+        "changed": [
+          "VERIFYDATE"
+        ]
+      },
+      "label": "Lee County Zoning GIS",
+      "note": "Confirm on Lee County planning / leepa.org."
     }
   },
   "parcelAttrFallback": {
@@ -38,13 +78,94 @@
       "name": "Charlotte",
       "status": "live",
       "map": {
-        "code": ["zoningcode"],
-        "name": ["zoningcode"],
-        "desc": ["landuse", "description"],
+        "code": [
+          "zoningcode"
+        ],
+        "name": [
+          "zoningcode"
+        ],
+        "desc": [
+          "landuse",
+          "description"
+        ],
         "changed": []
       },
       "label": "Charlotte PA parcel attributes (zoningcode / landuse)",
-      "note": "Stamped on the Property Ownership parcel feature — not a separate zoning-map intersect. Confirm on ccappraiser.com / planning."
+      "note": "Stamped on the Property Ownership parcel feature \u2014 not a separate zoning-map intersect. Confirm on ccappraiser.com / planning."
+    },
+    "manatee": {
+      "name": "Manatee",
+      "status": "live",
+      "map": {
+        "code": [
+          "PAR_ZONING"
+        ],
+        "name": [
+          "PAR_ZONING"
+        ],
+        "desc": [
+          "CUR_DOR_LUC_CODE",
+          "CAD_DOR_LUC_CODE"
+        ],
+        "changed": []
+      },
+      "label": "Manatee PA parcel attributes (PAR_ZONING)",
+      "note": "Stamped on the PAO WebLayers parcel feature \u2014 not a separate zoning-map intersect. Confirm on manateepao.com / planning."
+    },
+    "orange": {
+      "name": "Orange",
+      "status": "live",
+      "map": {
+        "code": [
+          "ZONING_COD"
+        ],
+        "name": [
+          "ZONING_COD"
+        ],
+        "desc": [
+          "DOR_CODE"
+        ],
+        "changed": []
+      },
+      "label": "Orange PA parcel attributes (ZONING_COD)",
+      "note": "Stamped on OCPA parcel polygons \u2014 not a separate zoning-map intersect. Confirm on ocpafl.org / planning."
+    },
+    "sarasota": {
+      "name": "Sarasota",
+      "status": "live",
+      "map": {
+        "code": [
+          "ZONING"
+        ],
+        "name": [
+          "ZONING"
+        ],
+        "desc": [
+          "ZONING"
+        ],
+        "changed": []
+      },
+      "label": "Sarasota PA parcel attributes (ZONING)",
+      "note": "Stamped on ParcelHosted feature \u2014 not a separate zoning-map intersect. Confirm on sc-pa.com / planning."
+    },
+    "lee": {
+      "name": "Lee",
+      "status": "live",
+      "map": {
+        "code": [
+          "ZONING"
+        ],
+        "name": [
+          "ZONING"
+        ],
+        "desc": [
+          "LANDUSEDES",
+          "ZONINGAREA"
+        ],
+        "changed": []
+      },
+      "label": "Lee PA parcel attributes (ZONING / land use)",
+      "note": "Used when the Lee Zoning GIS polygon misses this point. Confirm on leepa.org / planning."
     }
   }
 }

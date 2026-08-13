@@ -5,9 +5,9 @@
       "id": "zoning",
       "name": "Zoning & map updates",
       "status": "live",
-      "coverage": "Palm Beach (PZB GIS), Martin (county zoning GIS), Charlotte (PA parcel zoningcode/landuse attributes). Other counties still Coming Soon for in-app zoning.",
+      "coverage": "Palm Beach, Martin, and Lee (zoning GIS) plus Charlotte, Manatee, Orange, and Sarasota (PA parcel zoning attributes). Other counties still Coming Soon for in-app zoning.",
       "source": "data/signals/zoning-layers.json",
-      "verification": "Confirm on PZB / municipal / county planning maps before relying on district codes."
+      "verification": "Confirm on county planning / PA maps before relying on district codes. Parcel-attribute stamps are not a zoning-map intersect."
     },
     {
       "id": "permits",
