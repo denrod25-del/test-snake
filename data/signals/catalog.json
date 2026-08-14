@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-12T17:25:00Z",
+  "generated": "2026-08-14T00:39:36Z",
   "signals": [
     {
       "id": "zoning",
       "name": "Zoning & map updates",
       "status": "live",
-      "coverage": "Palm Beach, Martin, and Lee (zoning GIS) plus Charlotte, Manatee, Orange, and Sarasota (PA parcel zoning attributes). Other counties still Coming Soon for in-app zoning.",
+      "coverage": "Zoning GIS: Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas (unincorporated), Volusia, Miami-Dade (unincorporated). PA parcel zoning attributes: Charlotte, Manatee, Orange, Sarasota (+ Lee / Miami-Dade fallbacks). Broward and Polk still Coming Soon for in-app zoning.",
       "source": "data/signals/zoning-layers.json",
-      "verification": "Confirm on county planning / PA maps before relying on district codes. Parcel-attribute stamps are not a zoning-map intersect."
+      "verification": "Confirm on county planning / PA maps before relying on district codes. Parcel-attribute stamps are not a zoning-map intersect. Unincorporated GIS layers often miss municipal parcels."
     },
     {
       "id": "permits",
@@ -23,7 +23,7 @@
       "status": "live",
       "coverage": "16 counties via Property Appraiser GIS (current owner + last sale; PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer). Newest: Bay, Martin, Charlotte.",
       "source": "data/parcels/registry.json",
-      "verification": "Not a full multi-deed chain — confirm on clerk Official Records / PA site."
+      "verification": "Not a full multi-deed chain \u2014 confirm on clerk Official Records / PA site."
     },
     {
       "id": "rent-comps",
@@ -31,7 +31,7 @@
       "status": "live",
       "coverage": "Nationwide via RentCast rent AVM (Pro credits)",
       "source": "RentCast /v1/avm/rent/long-term",
-      "verification": "Estimates only — verify with local PM / listings."
+      "verification": "Estimates only \u2014 verify with local PM / listings."
     },
     {
       "id": "tax-delinquencies",
@@ -46,15 +46,15 @@
       "name": "Insurance / flood signals",
       "status": "live",
       "coverage": "Dedicated county flood GIS for PBC/Miami-Dade/Broward/Hillsborough/Pinellas; FEMA NFHL for other parcel-wired counties (16 total, incl. Bay/Martin/Charlotte) with NFHL defaultLayer fallback. Carrier premium rate-shift feeds are still Coming Soon.",
-      "source": "data/signals/flood-layers.json · FEMA NFHL · FEMA MSC",
-      "verification": "County / NFHL GIS may be pending/partial — verify on FEMA MSC / local flood determination for underwriting."
+      "source": "data/signals/flood-layers.json \u00b7 FEMA NFHL \u00b7 FEMA MSC",
+      "verification": "County / NFHL GIS may be pending/partial \u2014 verify on FEMA MSC / local flood determination for underwriting."
     },
     {
       "id": "signal-alerts",
       "name": "Signal watch alerts",
       "status": "coming-soon",
       "coverage": "Beta intake form + browser prefs for zoning / permits / tax calendars / certs. Same-day email delivery not yet automated.",
-      "source": "Netlify form signal-alerts · localStorage",
+      "source": "Netlify form signal-alerts \u00b7 localStorage",
       "verification": "Submitting saves your preference for product follow-up; do not treat as a guaranteed alert feed yet."
     }
   ]

@@ -537,7 +537,7 @@
       }
       return (
         badge("coming-soon") +
-        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, and Lee (GIS) plus Charlotte, Manatee, Orange, and Sarasota (PA parcel attributes). Use the county planning site for ' +
+        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas, Volusia, and Miami-Dade (GIS) plus Charlotte, Manatee, Orange, and Sarasota (PA parcel attributes). Use the county planning site for ' +
         esc((meta && meta.name) || "other counties") +
         ".</p>"
       );

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T23:39:10Z",
+  "generated": "2026-08-14T00:39:23Z",
   "note": "Zoning sources for Property Intelligence. Prefer dedicated zoning GIS polygons; parcelAttrFallback reads fields already returned on the parcel feature when no GIS layer is wired. Always verify on the county planning / PA site.",
   "layers": {
     "palm-beach": {
@@ -71,6 +71,147 @@
       },
       "label": "Lee County Zoning GIS",
       "note": "Confirm on Lee County planning / leepa.org."
+    },
+    "hillsborough": {
+      "name": "Hillsborough",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://maps.hillsboroughcounty.org/arcgis/rest/services/DSD_Viewer_Services/DSD_Viewer_Zoning_Regulatory/FeatureServer/0/query",
+      "outFields": "NZONE,NZONE_DESC,LandDevCode",
+      "map": {
+        "code": [
+          "NZONE"
+        ],
+        "name": [
+          "NZONE",
+          "NZONE_DESC"
+        ],
+        "desc": [
+          "NZONE_DESC",
+          "LandDevCode"
+        ],
+        "changed": []
+      },
+      "label": "Hillsborough County Zoning Atlas GIS",
+      "note": "Official unincorporated Zoning Atlas. Municipal parcels may use city zoning instead \u2014 confirm on planning / hcpafl.org."
+    },
+    "pasco": {
+      "name": "Pasco",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://pascogis.pascocountyfl.net/giswebmm/rest/services/FeatureDatasets/Landuse_Planning/MapServer/4/query",
+      "outFields": "ZN_TYPE,ZONEID",
+      "map": {
+        "code": [
+          "ZN_TYPE"
+        ],
+        "name": [
+          "ZN_TYPE"
+        ],
+        "desc": [
+          "ZN_TYPE"
+        ],
+        "changed": []
+      },
+      "label": "Pasco County Zoning GIS",
+      "note": "Unincorporated zoning districts. Confirm on pascocountyfl.net planning / maps.pascopa.com."
+    },
+    "bay": {
+      "name": "Bay",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://gis.baycountyfl.gov/arcgis/rest/services/LandUsePlanning/FeatureServer/1/query",
+      "outFields": "ZONING,Label,COMMENTS,ORD_NUM,ORD_DATE",
+      "map": {
+        "code": [
+          "ZONING",
+          "Label"
+        ],
+        "name": [
+          "Label",
+          "ZONING"
+        ],
+        "desc": [
+          "COMMENTS",
+          "Label"
+        ],
+        "changed": [
+          "ORD_DATE"
+        ]
+      },
+      "label": "Bay County Zoning GIS",
+      "note": "Confirm on Bay County planning / qPublic PA."
+    },
+    "pinellas": {
+      "name": "Pinellas",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://egis.pinellas.gov/gis/rest/services/PublicWebGIS/Landuse_Zoning/MapServer/1/query",
+      "outFields": "ZONECLASS,ZONEDESC,PREVIOUSZONING,BCCORD",
+      "map": {
+        "code": [
+          "ZONECLASS",
+          "ZONEDESC"
+        ],
+        "name": [
+          "ZONECLASS",
+          "ZONEDESC"
+        ],
+        "desc": [
+          "ZONEDESC"
+        ],
+        "changed": []
+      },
+      "label": "Pinellas unincorporated Zoning GIS",
+      "note": "Unincorporated county zoning only \u2014 cities maintain their own maps. Confirm on egis.pinellas.gov / pcpao.org."
+    },
+    "volusia": {
+      "name": "Volusia",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://maps5.vcgov.org/arcgis/rest/services/Open_Data/Open_Data_4/FeatureServer/36/query",
+      "outFields": "ZONCODE,CITYNAME,PUD_NAME,FRZONCODE,ZONCASE",
+      "map": {
+        "code": [
+          "ZONCODE",
+          "FRZONCODE"
+        ],
+        "name": [
+          "ZONCODE",
+          "PUD_NAME"
+        ],
+        "desc": [
+          "PUD_NAME",
+          "CITYNAME",
+          "ZONCASE"
+        ],
+        "changed": []
+      },
+      "label": "Volusia County Zoning GIS (Open Data)",
+      "note": "County zoning polygons. Municipal overlays may differ \u2014 confirm on volusia.org planning / vcgov.org."
+    },
+    "miami-dade": {
+      "name": "Miami-Dade",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://gisweb.miamidade.gov/arcgis/rest/services/LandManagement/MD_Zoning/MapServer/1/query",
+      "outFields": "ZONE,ZONE_DESC,OVLY,ZONEMUNC,SHORT_DESC",
+      "map": {
+        "code": [
+          "ZONE"
+        ],
+        "name": [
+          "ZONE",
+          "SHORT_DESC"
+        ],
+        "desc": [
+          "ZONE_DESC",
+          "OVLY"
+        ],
+        "changed": []
+      },
+      "label": "Miami-Dade unincorporated Zoning GIS",
+      "note": "Unincorporated zoning. Municipal parcels fall back to PRIMARY_ZONE on the PA parcel layer when present \u2014 confirm on miamidade.gov planning / miamidade.gov/pa."
     }
   },
   "parcelAttrFallback": {
@@ -166,6 +307,25 @@
       },
       "label": "Lee PA parcel attributes (ZONING / land use)",
       "note": "Used when the Lee Zoning GIS polygon misses this point. Confirm on leepa.org / planning."
+    },
+    "miami-dade": {
+      "name": "Miami-Dade",
+      "status": "live",
+      "map": {
+        "code": [
+          "PRIMARY_ZONE"
+        ],
+        "name": [
+          "PRIMARY_ZONE"
+        ],
+        "desc": [
+          "DOR_DESC",
+          "PRIMARY_ZONE"
+        ],
+        "changed": []
+      },
+      "label": "Miami-Dade PA parcel attributes (PRIMARY_ZONE)",
+      "note": "Used when the unincorporated Zoning GIS polygon misses this point (common inside cities). Confirm on miamidade.gov/pa / planning."
     }
   }
 }
