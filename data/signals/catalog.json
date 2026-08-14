@@ -1,11 +1,11 @@
 {
-  "generated": "2026-08-12T17:25:00Z",
+  "generated": "2026-08-14T00:30:00Z",
   "signals": [
     {
       "id": "zoning",
       "name": "Zoning & map updates",
       "status": "live",
-      "coverage": "Palm Beach, Martin, and Lee (zoning GIS) plus Charlotte, Manatee, Orange, and Sarasota (PA parcel zoning attributes). Other counties still Coming Soon for in-app zoning.",
+      "coverage": "Palm Beach, Martin, and Lee (zoning GIS) plus Charlotte, Manatee, Orange, Sarasota, and Duval (PA parcel zoning attributes). Other counties still Coming Soon for in-app zoning.",
       "source": "data/signals/zoning-layers.json",
       "verification": "Confirm on county planning / PA maps before relying on district codes. Parcel-attribute stamps are not a zoning-map intersect."
     },
@@ -21,9 +21,9 @@
       "id": "ownership",
       "name": "Ownership & deed pointers",
       "status": "live",
-      "coverage": "16 counties via Property Appraiser GIS (current owner + last sale; PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer). Newest: Bay, Martin, Charlotte.",
+      "coverage": "16 counties via live Property Appraiser GIS + 7 majors via FDOR 2025 statewide parcel centroids (Alachua, Brevard, Collier, Escambia, Leon, Monroe, Seminole — Cached annual snapshot, point geometry). PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer.",
       "source": "data/parcels/registry.json",
-      "verification": "Not a full multi-deed chain — confirm on clerk Official Records / PA site."
+      "verification": "Not a full multi-deed chain — confirm on clerk Official Records / PA site. FDOR counties are annual DOR snapshots, not live PA polygons."
     },
     {
       "id": "rent-comps",
@@ -45,7 +45,7 @@
       "id": "insurance",
       "name": "Insurance / flood signals",
       "status": "live",
-      "coverage": "Dedicated county flood GIS for PBC/Miami-Dade/Broward/Hillsborough/Pinellas; FEMA NFHL for other parcel-wired counties (16 total, incl. Bay/Martin/Charlotte) with NFHL defaultLayer fallback. Carrier premium rate-shift feeds are still Coming Soon.",
+      "coverage": "Dedicated county flood GIS for PBC/Miami-Dade/Broward/Hillsborough/Pinellas; FEMA NFHL for other parcel-wired counties (23 total: 16 live PA + 7 FDOR cached) with NFHL defaultLayer fallback. Carrier premium rate-shift feeds are still Coming Soon.",
       "source": "data/signals/flood-layers.json · FEMA NFHL · FEMA MSC",
       "verification": "County / NFHL GIS may be pending/partial — verify on FEMA MSC / local flood determination for underwriting."
     },

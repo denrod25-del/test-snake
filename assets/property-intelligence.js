@@ -130,11 +130,17 @@
     if (!addr) addr = pick(attrs, map.address || []);
     var city = pick(attrs, map.city || []);
     var zip = pick(attrs, map.zip || []);
+    if (typeof zip === "number") zip = String(Math.round(zip));
     return [addr, city, zip ? "FL " + zip : "FL"].filter(Boolean).join(", ");
   }
 
   function centroid(geom) {
-    if (!geom || !geom.rings || !geom.rings[0] || !geom.rings[0].length) return null;
+    if (!geom) return null;
+    // Point layers (e.g. FDOR statewide centroids) expose x/y in outSR.
+    if (geom.x != null && geom.y != null && !isNaN(Number(geom.x)) && !isNaN(Number(geom.y))) {
+      return { lon: Number(geom.x), lat: Number(geom.y) };
+    }
+    if (!geom.rings || !geom.rings[0] || !geom.rings[0].length) return null;
     var ring = geom.rings[0];
     var xs = 0;
     var ys = 0;
@@ -143,6 +149,17 @@
       ys += ring[i][1];
     }
     return { lon: xs / ring.length, lat: ys / ring.length };
+  }
+
+  function composeSaleDate(attrs, map) {
+    var direct = pick(attrs, map.saleDate || []);
+    if (direct) return direct;
+    var y = pick(attrs, map.saleYear || []);
+    if (!y) return null;
+    var m = pick(attrs, map.saleMonth || []);
+    var mm = m != null && String(m).trim() !== "" ? String(m).trim() : "01";
+    if (mm.length === 1) mm = "0" + mm;
+    return String(y) + "-" + mm + "-01";
   }
 
   function mergeEnrichParcel(base, extra) {
@@ -211,7 +228,7 @@
   async function lookupParcel(countySlug, mode, query) {
     if (!registry) registry = await loadJson(REGISTRY_URL);
     var county = registry.counties[countySlug];
-    if (!county || county.status !== "live") {
+    if (!county || (county.status !== "live" && county.status !== "cached")) {
       throw new Error("County GIS is not live yet.");
     }
     var where;
@@ -264,6 +281,10 @@
       where = "UPPER(" + addrField + ") LIKE '%" + q.toUpperCase().replace(/'/g, "''") + "%'";
     }
 
+    if (county.extraWhere) {
+      where = "(" + where + ") AND (" + county.extraWhere + ")";
+    }
+
     var queryParams = {
       where: where,
       outFields: (county.outFields || ["*"]).join(","),
@@ -284,13 +305,15 @@
         countySlug: countySlug,
         countyName: county.name,
         paUrl: county.paUrl,
+        dataStatus: county.status || "live",
+        sourceNote: county.note || "",
         pcn: pick(a, map.pcn || county.idFields || []),
         parid: pick(a, ["PARID", "PARCEL_NUMBER", "PCN"]),
         owner: [pick(a, map.owner || []), pick(a, ["OWNER_NAME2"])].filter(Boolean).join(" "),
         address: buildAddress(a, map),
         market: pick(a, map.market || []),
         assessed: pick(a, map.assessed || []),
-        saleDate: pick(a, map.saleDate || []),
+        saleDate: composeSaleDate(a, map),
         salePrice: pick(a, map.salePrice || []),
         homestead: pick(a, map.homestead || []),
         yearBuilt: pick(a, map.yearBuilt || ["YRBLT", "YEAR_BUILT"]),
@@ -487,7 +510,17 @@
         esc(String(p.monthsSinceSale)) +
         "</dd></div>";
     }
+    var trust =
+      p.dataStatus === "cached"
+        ? badge("cached") +
+          '<p class="pi-note">FDOR annual statewide parcel centroid snapshot (point geometry) — not live county PA GIS. Confirm on the Property Appraiser site.</p>'
+        : badge("live");
+    var note =
+      p.dataStatus === "cached"
+        ? "Cached FDOR DOR snapshot owner / JV / last-sale fields. Not a full multi-deed chain — search Official Records and confirm on the county PA."
+        : "Current PA GIS owner + last-sale pointer (book/page when exposed). Not a full multi-deed chain — search Official Records for prior conveyances.";
     return (
+      trust +
       '<dl class="pi-dl">' +
       "<div><dt>Owner</dt><dd>" +
       esc(p.owner || "—") +
@@ -518,7 +551,9 @@
       CLERK_OR_URL +
       '" target="_blank" rel="noopener">Clerk Official Records</a>' +
       "</div>" +
-      '<p class="pi-note">Current PA GIS owner + last-sale pointer (book/page when exposed). Not a full multi-deed chain — search Official Records for prior conveyances.</p>'
+      '<p class="pi-note">' +
+      note +
+      "</p>"
     );
   }
 
@@ -537,7 +572,7 @@
       }
       return (
         badge("coming-soon") +
-        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, and Lee (GIS) plus Charlotte, Manatee, Orange, and Sarasota (PA parcel attributes). Use the county planning site for ' +
+        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, and Lee (GIS) plus Charlotte, Manatee, Orange, Sarasota, and Duval (PA parcel attributes). Use the county planning site for ' +
         esc((meta && meta.name) || "other counties") +
         ".</p>"
       );

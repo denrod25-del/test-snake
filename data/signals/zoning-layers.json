@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T23:39:10Z",
+  "generated": "2026-08-14T00:30:00Z",
   "note": "Zoning sources for Property Intelligence. Prefer dedicated zoning GIS polygons; parcelAttrFallback reads fields already returned on the parcel feature when no GIS layer is wired. Always verify on the county planning / PA site.",
   "layers": {
     "palm-beach": {
@@ -166,6 +166,28 @@
       },
       "label": "Lee PA parcel attributes (ZONING / land use)",
       "note": "Used when the Lee Zoning GIS polygon misses this point. Confirm on leepa.org / planning."
+    },
+    "duval": {
+      "name": "Duval",
+      "status": "live",
+      "map": {
+        "code": [
+          "ZONING",
+          "ZON_LABEL"
+        ],
+        "name": [
+          "ZON_LABEL",
+          "ZONING"
+        ],
+        "desc": [
+          "LND_LABEL",
+          "DESCPU",
+          "PUSE"
+        ],
+        "changed": []
+      },
+      "label": "Duval / COJ PA parcel attributes (ZON_LABEL)",
+      "note": "Stamped on CityBiz Parcels feature — not a separate zoning-map intersect. Confirm on paopropertysearch.coj.net / planning."
     }
   }
 }

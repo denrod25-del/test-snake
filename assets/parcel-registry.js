@@ -208,6 +208,16 @@
       if (nums.length >= 2) market = nums.reduce(function (a, b) { return a + b; }, 0);
     }
     var yearBuilt = firstAttr(attrs, map.yearBuilt || ["YRBLT", "YEAR_BUILT"]) || "";
+    var saleDate = firstAttr(attrs, map.saleDate || []);
+    if (!saleDate && map.saleYear && map.saleYear.length) {
+      var y = firstAttr(attrs, map.saleYear);
+      if (y) {
+        var m = firstAttr(attrs, map.saleMonth || []) || "01";
+        var mm = String(m).trim();
+        if (mm.length === 1) mm = "0" + mm;
+        saleDate = String(y) + "-" + mm + "-01";
+      }
+    }
     return {
       pcn: firstAttr(attrs, map.pcn || county.idFields || []) || "",
       owner: firstAttr(attrs, map.owner || []) || "",
@@ -216,7 +226,7 @@
       zip: firstAttr(attrs, map.zip || []) || "",
       market: market,
       assessed: firstAttr(attrs, map.assessed || []),
-      saleDate: firstAttr(attrs, map.saleDate || []),
+      saleDate: saleDate,
       salePrice: firstAttr(attrs, map.salePrice || []),
       homestead: firstAttr(attrs, map.homestead || []),
       yearBuilt: yearBuilt,
@@ -224,6 +234,7 @@
       countySlug: null,
       countyName: county.name || "",
       sourceNote: county.note || "",
+      dataStatus: county.status || "live",
     };
   }
 
@@ -307,6 +318,9 @@
           opts.where ||
           buildWhere(county, opts.mode || "pcn", opts.query || opts.pcn || "");
         if (!where) throw new Error("Enter a search value");
+        if (county.extraWhere) {
+          where = "(" + where + ") AND (" + county.extraWhere + ")";
+        }
         var outFields = (county.outFields || ["*"]).join(",");
         var params = new URLSearchParams({
           where: where,
@@ -314,6 +328,9 @@
           returnGeometry: opts.returnGeometry ? "true" : "false",
           f: "json",
         });
+        if (opts.returnGeometry) {
+          params.set("outSR", "4326");
+        }
         if (county.supportsPagination !== false) {
           params.set("resultRecordCount", String(opts.limit || 25));
           if (opts.resultOffset) params.set("resultOffset", String(opts.resultOffset));

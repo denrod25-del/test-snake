@@ -186,6 +186,14 @@ FLOOD_GIS_COUNTIES = {
     "bay",
     "martin",
     "charlotte",
+    # FDOR statewide centroids (Cached ownership) still get NFHL flood via defaultLayer.
+    "alachua",
+    "brevard",
+    "collier",
+    "escambia",
+    "leon",
+    "monroe",
+    "seminole",
 }
 
 
