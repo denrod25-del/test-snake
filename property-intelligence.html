@@ -201,6 +201,30 @@
       letter-spacing: 0;
     }
     .pi-alerts-notes { margin-bottom: 14px; }
+    .pi-watch-digest {
+      max-width: 720px;
+      margin: 0 0 48px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule);
+    }
+    .pi-watch-digest h3 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.45rem;
+      margin: 0 0 8px;
+    }
+    .pi-watch-digest .pi-digest-block {
+      margin: 16px 0 0;
+      padding-top: 12px;
+      border-top: 1px solid var(--rule);
+    }
+    .pi-watch-digest .pi-digest-block h4 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
     @media (max-width: 900px) {
       .pi-search { grid-template-columns: 1fr 1fr; }
       .pi-search button { grid-column: 1 / -1; }
@@ -304,8 +328,8 @@
       <p class="ds-section-label">Watch list</p>
       <h2>Signal alerts <span id="alerts-badge"></span></h2>
       <p>
-        Tell us which research signals to watch. Prefs save in this browser and submit as a Beta intake form.
-        Automated same-day email is not live yet — labeled honestly as Coming Soon.
+        Save watch prefs in this browser. Below, an on-page digest filters Live/Cached feeds to your picks.
+        Automated same-day email delivery is still Coming Soon (Beta intake still submits to Netlify Forms).
       </p>
     </div>
     <form id="pi-alerts" class="pi-alerts" name="signal-alerts" method="POST" data-netlify="true" netlify-honeypot="bot-field">
@@ -320,17 +344,30 @@
         <label>Primary county
           <select id="alert-county" name="county">
             <option value="palm-beach">Palm Beach</option>
-            <option value="broward">Broward</option>
             <option value="miami-dade">Miami-Dade</option>
+            <option value="broward">Broward</option>
             <option value="hillsborough">Hillsborough</option>
+            <option value="pinellas">Pinellas</option>
+            <option value="duval">Duval</option>
             <option value="orange">Orange</option>
+            <option value="lee">Lee</option>
+            <option value="sarasota">Sarasota</option>
+            <option value="manatee">Manatee</option>
+            <option value="pasco">Pasco</option>
+            <option value="polk">Polk</option>
+            <option value="volusia">Volusia</option>
+            <option value="bay">Bay</option>
+            <option value="martin">Martin</option>
+            <option value="charlotte">Charlotte</option>
+            <option value="collier">Collier (FDOR cached)</option>
+            <option value="brevard">Brevard (FDOR cached)</option>
             <option value="statewide">Statewide / multiple</option>
           </select>
         </label>
       </div>
       <fieldset class="pi-alerts-checks">
         <legend>Watch for</legend>
-        <label><input type="checkbox" name="watch_zoning" value="yes" checked /> Zoning map updates (PBC)</label>
+        <label><input type="checkbox" name="watch_zoning" value="yes" checked /> Zoning map updates (PBC feed)</label>
         <label><input type="checkbox" name="watch_permits" value="yes" checked /> New permits (cached cities)</label>
         <label><input type="checkbox" name="watch_tax" value="yes" checked /> Tax deed calendar changes</label>
         <label><input type="checkbox" name="watch_certs" value="yes" /> PBC county-held certificates</label>
@@ -345,6 +382,7 @@
       </div>
       <p class="pi-note" id="alert-status" role="status"></p>
     </form>
+    <div id="watch-digest" class="pi-watch-digest" aria-live="polite"></div>
   </section>
 
   <section class="ds-section" style="padding-top:0;">

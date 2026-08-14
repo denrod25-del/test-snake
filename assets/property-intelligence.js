@@ -1113,6 +1113,11 @@
 
   async function initFeeds() {
     try {
+      if (!registry) registry = await loadJson(REGISTRY_URL);
+    } catch (e) {
+      /* optional for digest labels */
+    }
+    try {
       floodConfig = await loadJson(FLOOD_LAYERS_URL);
     } catch (e) {
       floodConfig = { layers: {}, delinquencyPortals: {} };
@@ -1316,9 +1321,225 @@
     };
   }
 
+  function countyDisplayName(slug) {
+    if (!slug || slug === "statewide") return "Statewide";
+    if (registry && registry.counties && registry.counties[slug] && registry.counties[slug].name) {
+      return registry.counties[slug].name;
+    }
+    return slug
+      .split("-")
+      .map(function (p) {
+        return p.charAt(0).toUpperCase() + p.slice(1);
+      })
+      .join(" ");
+  }
+
+  function salesCountyKey(slug) {
+    var name = countyDisplayName(slug);
+    if (slug === "miami-dade") return "Miami-Dade";
+    if (slug === "palm-beach") return "Palm Beach";
+    return name;
+  }
+
+  function permitMatchesCounty(permit, slug) {
+    if (!slug || slug === "statewide") return true;
+    // Cached permit scrapes are municipal (PBC-area + St. Lucie). Match loosely.
+    var src = String(permit.source || "").toLowerCase();
+    var addr = String(permit.address || "").toLowerCase();
+    if (slug === "palm-beach") {
+      return /west-palm|wpb|boca|jupiter|palm.?beach/.test(src) || /palm beach|west palm|boca|jupiter/.test(addr);
+    }
+    if (slug === "martin" || slug === "st-lucie") {
+      return /st.?lucie|stuart|port st/.test(src + " " + addr);
+    }
+    return false;
+  }
+
+  function renderWatchDigest(prefs) {
+    var host = $("watch-digest");
+    if (!host) return;
+    if (!prefs || !prefs.email) {
+      setStatus(
+        host,
+        badge("coming-soon") +
+          '<p class="pi-empty">Save watch prefs above to build an on-page digest from Live/Cached feeds. Automated email delivery is still Coming Soon.</p>'
+      );
+      return;
+    }
+    var countySlug = prefs.county || "statewide";
+    var countyLabel = countyDisplayName(countySlug);
+    var blocks = [];
+    blocks.push(
+      "<h3>Your watch digest</h3>" +
+        '<p class="pi-meta">Filtered for <strong>' +
+        esc(countyLabel) +
+        "</strong> · saved " +
+        esc(fmtDate(prefs.savedAt) || "just now") +
+        ". On-page only — email still Coming Soon.</p>"
+    );
+
+    if (prefs.watch_zoning) {
+      var zoningHtml =
+        countySlug === "palm-beach" || countySlug === "statewide"
+          ? badge("live") +
+            " PBC zoning map edits appear in the Zoning feed below. Open a Palm Beach parcel for a live GIS stamp."
+          : badge("live") +
+            " Zoning GIS / PA attributes are available for many counties in the parcel lookup above. The rolling “map edits” feed is Palm Beach–specific today.";
+      blocks.push('<div class="pi-digest-block"><h4>Zoning</h4><p>' + zoningHtml + "</p></div>");
+    }
+
+    if (prefs.watch_permits) {
+      var permits = ((permitsPayload && permitsPayload.permits) || []).filter(function (p) {
+        return permitMatchesCounty(p, countySlug);
+      });
+      if (!permits.length && countySlug !== "statewide" && countySlug !== "palm-beach") {
+        blocks.push(
+          '<div class="pi-digest-block"><h4>Permits</h4>' +
+            badge("cached") +
+            '<p class="pi-empty">Cached permit scrapes cover WPB / Boca / Jupiter / St. Lucie today — not ' +
+            esc(countyLabel) +
+            '. <a href="permit-search.html">Browse Permit Search</a>.</p></div>'
+        );
+      } else {
+        var slice = (permits.length ? permits : (permitsPayload && permitsPayload.permits) || []).slice(0, 6);
+        var list = slice
+          .map(function (h) {
+            return (
+              "<li><strong>" +
+              esc(h.type || "Permit") +
+              "</strong> · " +
+              esc(h.source) +
+              "<br /><span class=\"pi-meta\">" +
+              esc(h.date || "") +
+              " · " +
+              esc(h.address || h.parcelId || "") +
+              "</span></li>"
+            );
+          })
+          .join("");
+        blocks.push(
+          '<div class="pi-digest-block"><h4>Permits</h4>' +
+            badge("cached") +
+            " Newest matches<ul class=\"pi-list\">" +
+            list +
+            '</ul><p class="pi-note"><a href="permit-search.html">Full Permit Search →</a></p></div>'
+        );
+      }
+    }
+
+    if (prefs.watch_tax) {
+      var byCounty = salesByCounty(salesPayload);
+      var keys =
+        countySlug === "statewide"
+          ? Object.keys(byCounty)
+          : [salesCountyKey(countySlug)].filter(function (k) {
+              return byCounty[k];
+            });
+      var entries = [];
+      keys.forEach(function (county) {
+        (byCounty[county] || []).forEach(function (s) {
+          entries.push({ county: county, saleDate: s.date, parcels: s.count });
+        });
+      });
+      entries.sort(function (a, b) {
+        return String(a.saleDate || "").localeCompare(String(b.saleDate || ""));
+      });
+      var today = new Date().toISOString().slice(0, 10);
+      entries = entries.filter(function (e) {
+        return !e.saleDate || e.saleDate >= today;
+      });
+      var taxList = entries
+        .slice(0, 8)
+        .map(function (s) {
+          return (
+            "<li><strong>" +
+            esc(s.county) +
+            "</strong> · " +
+            esc(fmtDate(s.saleDate)) +
+            (s.parcels != null ? " · " + esc(String(s.parcels)) + " parcels" : "") +
+            "</li>"
+          );
+        })
+        .join("");
+      blocks.push(
+        '<div class="pi-digest-block"><h4>Tax deed calendar</h4>' +
+          badge("cached") +
+          ' Upcoming sale dates<ul class="pi-list">' +
+          (taxList || "<li>No future dates matched for this county in sales.json</li>") +
+          '</ul><p class="pi-note"><a href="tax-deeds.html">Open Tax Deeds →</a></p></div>'
+      );
+    }
+
+    if (prefs.watch_certs) {
+      if (countySlug === "palm-beach" || countySlug === "statewide") {
+        var topCerts = ((certsPayload && certsPayload.certificates) || []).slice(0, 5);
+        var certList = topCerts
+          .map(function (c) {
+            return (
+              "<li><strong>#" +
+              esc(c.certificateNumber) +
+              "</strong> · " +
+              money(c.faceAmount) +
+              " · PIN " +
+              esc(c.pin) +
+              "</li>"
+            );
+          })
+          .join("");
+        blocks.push(
+          '<div class="pi-digest-block"><h4>PBC certificates</h4>' +
+            badge("cached") +
+            " County-held sample (" +
+            esc(String((certsPayload && certsPayload.count) || 0)) +
+            ')<ul class="pi-list">' +
+            (certList || "<li>No cert rows loaded</li>") +
+            '</ul><p class="pi-note"><a href="' +
+            TAX_COLLECTOR_CERTS_PAGE +
+            '" target="_blank" rel="noopener">Tax Collector source →</a></p></div>'
+        );
+      } else {
+        blocks.push(
+          '<div class="pi-digest-block"><h4>Certificates</h4>' +
+            badge("coming-soon") +
+            '<p class="pi-empty">County-held certificate cache is Palm Beach only today. Use the Tax Collector / LienHub links from Property Intelligence for ' +
+            esc(countyLabel) +
+            ".</p></div>"
+        );
+      }
+    }
+
+    if (prefs.watch_flood) {
+      var floodLayer =
+        (floodConfig && floodConfig.layers && floodConfig.layers[countySlug]) ||
+        (floodConfig && floodConfig.defaultLayer) ||
+        null;
+      var floodLabel = (floodLayer && (floodLayer.label || floodLayer.name)) || "FEMA NFHL / MSC";
+      blocks.push(
+        '<div class="pi-digest-block"><h4>Flood / FIRM</h4>' +
+          badge("live") +
+          "<p>Lookup a " +
+          esc(countyLabel) +
+          " parcel above for a flood GIS stamp (" +
+          esc(floodLabel) +
+          '). Deep-link: <a href="property-intelligence.html?county=' +
+          encodeURIComponent(countySlug === "statewide" ? "palm-beach" : countySlug) +
+          '&amp;mode=pcn">open parcel search</a> · <a href="https://msc.fema.gov/portal/home" target="_blank" rel="noopener">FEMA MSC</a>.</p></div>'
+      );
+    }
+
+    if (prefs.notes) {
+      blocks.push(
+        '<div class="pi-digest-block"><h4>Your notes</h4><p class="pi-meta">' + esc(prefs.notes) + "</p></div>"
+      );
+    }
+
+    setStatus(host, blocks.join(""));
+  }
+
   function initAlerts() {
     var badgeHost = $("alerts-badge");
     if (badgeHost && window.DeedScoutTrust) {
+      // Email delivery Coming Soon; on-page digest is Live/Cached once prefs exist.
       badgeHost.innerHTML = DeedScoutTrust.renderBadge("coming-soon", { compact: true });
     }
     var form = $("pi-alerts");
@@ -1334,6 +1555,7 @@
         if (form.watch_permits) form.watch_permits.checked = true;
         if (form.watch_tax) form.watch_tax.checked = true;
         setStatus(status, "Browser prefs cleared. Email intake was not deleted from Netlify Forms.");
+        renderWatchDigest(null);
       });
     }
     form.addEventListener("submit", function (ev) {
@@ -1341,6 +1563,7 @@
       var prefs = collectAlertPrefs(form);
       writeAlertPrefs(prefs);
       setStatus(status, "Saving Beta intake…");
+      renderWatchDigest(prefs);
       var body = new URLSearchParams();
       body.set("form-name", "signal-alerts");
       body.set("email", prefs.email);
@@ -1360,16 +1583,18 @@
           if (!res.ok) throw new Error("Form submit failed (" + res.status + ")");
           setStatus(
             status,
-            "Saved in this browser and submitted as Beta intake. Automated same-day email is still Coming Soon — we use this list to prioritize delivery."
+            "Saved in this browser, refreshed your on-page digest, and submitted Beta intake. Automated same-day email is still Coming Soon."
           );
         })
         .catch(function () {
           setStatus(
             status,
-            "Saved in this browser. Netlify form submit failed locally (expected on localhost) — it will work after Netlify deploy detects the form."
+            "Saved in this browser and refreshed your on-page digest. Netlify form submit failed locally (expected on localhost) — it works after Netlify deploy."
           );
         });
     });
+    // Prefill digest if prefs already exist (feeds may still be loading).
+    renderWatchDigest(readAlertPrefs());
   }
 
   function init() {
@@ -1377,6 +1602,7 @@
     if (form) form.addEventListener("submit", onSearch);
     initAlerts();
     initFeeds().then(function () {
+      renderWatchDigest(readAlertPrefs());
       // Deep-link: property-intelligence.html?county=palm-beach&pcn=...&mode=pcn
       try {
         var params = new URLSearchParams(window.location.search || "");
