@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-14T00:45:20Z",
+  "generated": "2026-08-14T00:52:52Z",
   "note": "Zoning sources for Property Intelligence. Prefer dedicated zoning GIS polygons; parcelAttrFallback reads fields already returned on the parcel feature when no GIS layer is wired. Always verify on the county planning / PA site.",
   "layers": {
     "palm-beach": {
@@ -212,6 +212,30 @@
       },
       "label": "Miami-Dade unincorporated Zoning GIS",
       "note": "Unincorporated zoning. Municipal parcels fall back to PRIMARY_ZONE on the PA parcel layer when present \u2014 confirm on miamidade.gov planning / miamidade.gov/pa."
+    },
+    "polk": {
+      "name": "Polk",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://gis.polk-county.net/hosting/rest/services/All-In-One_Viewer/Land_Use_and_Zoning/MapServer/10/query",
+      "outFields": "FLUNAME,DEV_AREA_D,SPA_NAME,FLU_LDC,DEV_AREA",
+      "map": {
+        "code": [
+          "FLUNAME",
+          "FLU_LDC"
+        ],
+        "name": [
+          "FLUNAME",
+          "DEV_AREA"
+        ],
+        "desc": [
+          "DEV_AREA_D",
+          "SPA_NAME"
+        ],
+        "changed": []
+      },
+      "label": "Polk Future Land Use 2030 GIS (not zoning districts)",
+      "note": "Polk public viewer exposes Future Land Use, not zoning district polygons. Confirm zoning on polk-county.net planning / polkpa.org."
     }
   },
   "parcelAttrFallback": {
