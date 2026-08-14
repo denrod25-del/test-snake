@@ -28,7 +28,7 @@
     <h2>Property Intelligence signals</h2>
     <p>The <a href="property-intelligence.html">Property Intelligence</a> module combines several feeds. See <a href="data/signals/catalog.json"><code>data/signals/catalog.json</code></a> for machine-readable status.</p>
     <ul>
-      <li><strong>Zoning (Live)</strong> — Palm Beach / Martin / Lee zoning GIS + Charlotte / Manatee / Orange / Sarasota / Duval PA parcel zoning attributes (<code>data/signals/zoning-layers.json</code>).</li>
+      <li><strong>Zoning (Live)</strong> — Zoning GIS for Palm Beach / Martin / Lee / Hillsborough / Pasco / Bay / Pinellas (unincorporated) / Volusia / Miami-Dade (unincorporated) + PA parcel zoning attributes for Charlotte / Manatee / Orange / Sarasota / Duval (+ Lee / Miami-Dade fallbacks) (<code>data/signals/zoning-layers.json</code>). Broward and Polk still Coming Soon.</li>
       <li><strong>Ownership (Live + Cached)</strong> — 16-county live Property Appraiser GIS + 7 majors via FDOR 2025 statewide parcel centroids (Alachua, Brevard, Collier, Escambia, Leon, Monroe, Seminole — annual DOR snapshot / point geometry, labeled Cached); PBC includes deed book/page + clerk Official Records link.</li>
       <li><strong>New permits (Cached)</strong> — Tyler EnerGov scrapes for WPB, Boca, Jupiter, St. Lucie; recent slice in <code>data/signals/recent-permits.json</code>.</li>
       <li><strong>Rent comps (Live, Pro)</strong> — RentCast long-term rent AVM via <code>/api/rent-lookup</code> (shares AVM credits).</li>

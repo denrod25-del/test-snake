@@ -119,7 +119,8 @@
         "TOTAL_VAL_CUR",
         "LAND_VAL_CUR",
         "BUILDING_VAL_CUR",
-        "DOR_DESC"
+        "DOR_DESC",
+        "PRIMARY_ZONE"
       ],
       "map": {
         "pcn": [
