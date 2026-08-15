@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-14T00:53:14Z",
+  "generated": "2026-08-15T05:25:00Z",
   "signals": [
     {
       "id": "zoning",
@@ -53,9 +53,9 @@
       "id": "signal-alerts",
       "name": "Signal watch alerts",
       "status": "coming-soon",
-      "coverage": "Beta intake form + browser prefs for zoning / permits / tax calendars / certs. Same-day email delivery not yet automated.",
-      "source": "Netlify form signal-alerts \u00b7 localStorage",
-      "verification": "Submitting saves your preference for product follow-up; do not treat as a guaranteed alert feed yet."
+      "coverage": "On-page watch digest filters Live/Cached zoning / permits / tax / cert / flood feeds from browser prefs (Property Intelligence). Beta intake still posts to Netlify Forms. Automated same-day email delivery is not live yet.",
+      "source": "property-intelligence.html#signal-alerts \u00b7 Netlify form signal-alerts \u00b7 localStorage",
+      "verification": "Digest is on-page only. Do not treat form submit as a guaranteed email alert feed yet."
     }
   ]
 }
