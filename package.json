@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "serve": "python -m http.server 8765",
-    "test:e2e": "node tests/permit-search.e2e.mjs"
+    "test:e2e": "node tests/permit-search.e2e.mjs",
+    "test:spi": "node --test tests/spi/*.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",

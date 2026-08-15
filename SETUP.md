@@ -127,6 +127,29 @@ In addition to the events listed in step 2c, also subscribe the webhook to **`in
 
 After adding env vars, trigger a **redeploy** (Deploys → Trigger deploy → Clear cache and deploy site) so the functions pick up the new variables.
 
+### 3d. Service Property Intelligence (shop API keys)
+
+The `GET /api/property?address=…` briefing API uses **shop API keys**, not DeedScout Pro JWT.
+
+1. In Supabase **SQL Editor**, run `supabase/migrations/20260815_shop_api_keys.sql` (or re-run the shop_api_keys section at the end of `supabase/schema.sql`). Apply this **before** issuing keys or advertising the endpoint.
+2. Optional: set Netlify env `SHOP_API_KEY_PEPPER` to a long random string (used when hashing keys). If you set it later, existing keys stop working — re-issue them.
+3. Issue a key from the repo root (prints plaintext **once** — store it in your vault; never commit it or log it):
+
+```bash
+SUPABASE_URL=https://YOUR-PROJECT.supabase.co \
+SUPABASE_SERVICE_KEY=your_service_role_key \
+node scripts/issue-shop-api-key.mjs "Acme Plumbing"
+```
+
+4. Call the API (server-side only — do not embed shop keys in browser JS):
+
+```bash
+curl -sS -H "X-Api-Key: ds_shop_…" \
+  "https://deedscout.netlify.app/api/property?address=YOUR+ADDRESS&county=palm-beach"
+```
+
+5. Local unit tests: `npm run test:spi`
+
 ### 3c. Wire the webhook
 Now go back to **Stripe → Webhooks** (step 2c) and create the endpoint pointing at the live Netlify URL.
 

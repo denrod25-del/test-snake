@@ -125,7 +125,7 @@ class TestStripeWebhook(unittest.TestCase):
 class TestSupabaseRLS(unittest.TestCase):
     def test_rls_enabled_on_user_tables(self):
         sql = (ROOT / "supabase" / "schema.sql").read_text(encoding="utf-8")
-        for table in ("profiles", "watchlist_parcels", "alert_subscriptions", "surplus_history"):
+        for table in ("profiles", "watchlist_parcels", "alert_subscriptions", "surplus_history", "shop_api_keys"):
             self.assertIn(f"alter table public.{table} enable row level security", sql.lower())
         self.assertIn("users can view own profile", sql.lower())
         self.assertIn("users manage own parcels", sql.lower())

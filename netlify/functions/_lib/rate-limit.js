@@ -15,14 +15,18 @@ function clientKey(event) {
 
 /**
  * @param {object} event Netlify event
- * @param {{ windowMs?: number, max?: number, name?: string }} opts
+ * @param {{ windowMs?: number, max?: number, name?: string, bucketKey?: string }} opts
+ *        `bucketKey` overrides IP-based keying (e.g. shop id for SPI).
  * @returns {{ allowed: true } | { allowed: false, retryAfterSec: number }}
  */
 function checkRateLimit(event, opts = {}) {
   const windowMs = opts.windowMs || 60_000;
   const max = opts.max || 30;
   const name = opts.name || 'default';
-  const key = `${name}:${clientKey(event)}`;
+  const id = opts.bucketKey != null && String(opts.bucketKey).trim() !== ''
+    ? String(opts.bucketKey)
+    : clientKey(event);
+  const key = `${name}:${id}`;
   const now = Date.now();
   let bucket = buckets.get(key);
   if (!bucket || now - bucket.start > windowMs) {

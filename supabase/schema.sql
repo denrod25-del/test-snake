@@ -159,3 +159,27 @@ values
   ('Duval',        '2026-03-05', '142608-0040',          '5510 Hubbard St, Jacksonville, FL',       'Maria Sanchez',            8740.00, 'unclaimed',   '2026-07-03'),
   ('Pinellas',     '2026-03-19', '08-30-15-12834-001-0010','3424 28th Ave N, St Petersburg, FL',  'Coastal Investments LLC',  15330.00, 'claim_filed', '2026-07-17')
 on conflict do nothing;
+
+-- ----------------------------------------------------------------------------
+-- shop_api_keys (SPI — Service Property Intelligence)
+-- Service-role only. Apply migration 20260815_shop_api_keys.sql on existing DBs.
+-- ----------------------------------------------------------------------------
+create table if not exists public.shop_api_keys (
+  id           uuid primary key default gen_random_uuid(),
+  shop_name    text not null,
+  key_prefix   text not null,
+  key_hash     text not null,
+  active       boolean not null default true,
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now(),
+  last_used_at timestamptz
+);
+
+create unique index if not exists shop_api_keys_key_hash_uidx
+  on public.shop_api_keys (key_hash);
+
+create index if not exists shop_api_keys_prefix_idx
+  on public.shop_api_keys (key_prefix);
+
+alter table public.shop_api_keys enable row level security;
+
