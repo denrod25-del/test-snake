@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "serve": "python -m http.server 8765",
-    "test:e2e": "node tests/permit-search.e2e.mjs"
+    "test:e2e": "node tests/permit-search.e2e.mjs",
+    "test:water": "cd water-quality && python -m unittest discover -s tests -t . && cd .. && node water-quality/tests/api.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",

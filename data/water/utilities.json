@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "dataset": "utilities",
+    "schemaVersion": "1.0",
+    "status": "coming-soon",
+    "generatedAt": "2026-08-15T16:48:39.775316Z",
+    "recordCount": 1
+  },
+  "utilities": [
+    {
+      "slug": "seacoast",
+      "name": "Seacoast Utility Authority",
+      "shortName": "Seacoast",
+      "pwsid": null,
+      "hasProfile": false,
+      "website": null,
+      "websiteUnverified": "https://www.sua.com/",
+      "ccrSources": [
+        {
+          "id": "seacoast-ccr-index",
+          "kind": "index_page",
+          "url": "https://www.sua.com/water-quality-report",
+          "verified": false,
+          "note": "Candidate index page for annual CCRs. The ingest follows links matching link_pattern and records the report year from the link text or filename. If this URL 404s, run `python -m fwq probe --utility seacoast` and update it; do not substitute a guessed path."
+        }
+      ],
+      "noticeSources": [
+        {
+          "id": "seacoast-alerts",
+          "kind": "html_list",
+          "url": "https://www.sua.com/",
+          "verified": false,
+          "note": "Candidate alerts location. Seacoast posts boil-water notices to its own site; the exact alerts page must be confirmed by probe. Until then, boil-water notices for this utility come from the manual-entry path."
+        }
+      ]
+    }
+  ]
+}

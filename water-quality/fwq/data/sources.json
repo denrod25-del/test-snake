@@ -1,0 +1,119 @@
+{
+  "$comment": [
+    "Registry of upstream sources for the Florida Water Quality API.",
+    "",
+    "`verified` is the important field. It means: this exact URL was reached by",
+    "`python -m fwq probe` and answered, and the result was recorded in",
+    "`data/water/source-probe.json`. Anything still false is a candidate that",
+    "has NOT been confirmed from this environment and must not be presented to",
+    "users as a working source.",
+    "",
+    "EPA Envirofacts is the backbone. Everything else is either a richer view of",
+    "the same federal data (ECHO, UCMR download files) or genuinely additive",
+    "state/utility data that has no federal equivalent (FDEP enforcement, CCRs,",
+    "boil-water notices).",
+    "",
+    "Egress note: as of the last probe from the build container, data.epa.gov,",
+    "floridadep.gov, and prodenv.dep.state.fl.us were refused at the network",
+    "policy layer (HTTP 403 on CONNECT). CI runners are not subject to that",
+    "policy, which is why ingest runs in GitHub Actions."
+  ],
+  "sources": [
+    {
+      "id": "epa-envirofacts",
+      "name": "EPA Envirofacts SDWIS REST service",
+      "kind": "api",
+      "url": "https://data.epa.gov/efservice",
+      "probe_url": "https://data.epa.gov/efservice/sdwis.water_system/state_code/equals/FL/1:1/JSON",
+      "verified": false,
+      "auth": "none",
+      "provides": ["water_systems", "service_areas", "violations", "lcr_results", "facilities"],
+      "notes": "Primary inventory and violation source. No API key. Answers 404 for empty result sets."
+    },
+    {
+      "id": "epa-ucmr5",
+      "name": "EPA UCMR 5 occurrence data (PFAS + lithium)",
+      "kind": "api",
+      "url": "https://data.epa.gov/efservice",
+      "probe_url": "https://data.epa.gov/efservice/ucmr5.ucmr5_occurrence_data/1:1/JSON",
+      "verified": false,
+      "auth": "none",
+      "provides": ["pfas_results"],
+      "notes": "Table name has moved between UCMR cycles; the client probes several candidates. Bulk download fallback is epa-ucmr5-download."
+    },
+    {
+      "id": "epa-ucmr5-download",
+      "name": "EPA UCMR 5 bulk data download page",
+      "kind": "download",
+      "url": "https://www.epa.gov/dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule",
+      "probe_url": "https://www.epa.gov/dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule",
+      "verified": false,
+      "auth": "none",
+      "provides": ["pfas_results"],
+      "notes": "Zipped fixed-width/CSV national files. Fallback when the Envirofacts UCMR 5 tables are unavailable."
+    },
+    {
+      "id": "epa-echo-sdwa",
+      "name": "EPA ECHO Safe Drinking Water Act REST services",
+      "kind": "api",
+      "url": "https://echodata.epa.gov/echo",
+      "probe_url": "https://echodata.epa.gov/echo/sdw_rest_services.get_systems?output=JSON&p_st=FL&responseset=1",
+      "verified": false,
+      "auth": "none",
+      "provides": ["violations", "enforcement", "compliance_history"],
+      "notes": "Adds enforcement actions and a rolled-up compliance history that SDWIS alone does not expose."
+    },
+    {
+      "id": "fdep-drinking-water",
+      "name": "Florida DEP Source and Drinking Water Program",
+      "kind": "portal",
+      "url": "https://floridadep.gov/water/source-drinking-water",
+      "probe_url": "https://floridadep.gov/water/source-drinking-water",
+      "verified": false,
+      "auth": "none",
+      "provides": ["program_context"],
+      "notes": "Florida holds SDWA primacy, so FDEP is the agency whose data feeds federal SDWIS. Landing page only; not machine-readable."
+    },
+    {
+      "id": "fdep-wafr",
+      "name": "Florida DEP public water system facility search (WAFR)",
+      "kind": "portal",
+      "url": "https://prodenv.dep.state.fl.us/DepPWS/",
+      "probe_url": "https://prodenv.dep.state.fl.us/DepPWS/",
+      "verified": false,
+      "auth": "none",
+      "provides": ["facility_detail", "sample_results"],
+      "notes": "CANDIDATE URL, not confirmed. FDEP's facility-level detail is richer and fresher than the federal SDWIS extract, but the search is form-driven. Confirm the endpoint and whether a machine-readable view exists before wiring an ingest."
+    },
+    {
+      "id": "fdep-geodata",
+      "name": "Florida DEP GIS open data / ArcGIS REST",
+      "kind": "arcgis",
+      "url": "https://ca.dep.state.fl.us/arcgis/rest/services",
+      "probe_url": "https://ca.dep.state.fl.us/arcgis/rest/services?f=json",
+      "verified": false,
+      "auth": "none",
+      "provides": ["facility_geometry", "service_area_geometry"],
+      "notes": "CANDIDATE URL, not confirmed. Wanted for address-level service-area resolution, which ZIP mapping cannot do accurately."
+    },
+    {
+      "id": "census-geocoder",
+      "name": "US Census Bureau geocoding API",
+      "kind": "api",
+      "url": "https://geocoding.geo.census.gov/geocoder",
+      "probe_url": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=1600+Pennsylvania+Ave+NW+Washington+DC&benchmark=Public_AR_Current&format=json",
+      "verified": false,
+      "auth": "none",
+      "provides": ["address_geocoding"],
+      "notes": "Free, no key, already used elsewhere in this repo (water-leads/census_client.py). Turns an address into coordinates for the address -> utility path."
+    }
+  ],
+  "utility_notice_sources": {
+    "$comment": [
+      "Florida has no statewide machine-readable boil-water-notice feed. Notices",
+      "are published per utility and per county health department, so each one",
+      "is registered individually with its own extraction strategy."
+    ],
+    "entries": []
+  }
+}

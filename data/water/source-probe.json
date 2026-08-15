@@ -1,0 +1,78 @@
+{
+  "checkedAt": "2026-08-15T16:48:42.520930Z",
+  "$comment": "Written by `python -m fwq probe`. `reachable: false` here means the source was not reachable from wherever the probe ran, which may be a network policy at the runner rather than an outage at the source.",
+  "results": [
+    {
+      "url": "https://data.epa.gov/efservice/sdwis.water_system/state_code/equals/FL/1:1/JSON",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='data.epa.gov', port=443): Max retries exceeded with url: /efservice/sdwis.water_system/state_code/equals/FL/1:1/JSON (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 305,
+      "id": "epa-envirofacts",
+      "name": "EPA Envirofacts SDWIS REST service"
+    },
+    {
+      "url": "https://data.epa.gov/efservice/ucmr5.ucmr5_occurrence_data/1:1/JSON",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='data.epa.gov', port=443): Max retries exceeded with url: /efservice/ucmr5.ucmr5_occurrence_data/1:1/JSON (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 287,
+      "id": "epa-ucmr5",
+      "name": "EPA UCMR 5 occurrence data (PFAS + lithium)"
+    },
+    {
+      "url": "https://www.epa.gov/dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='www.epa.gov', port=443): Max retries exceeded with url: /dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 307,
+      "id": "epa-ucmr5-download",
+      "name": "EPA UCMR 5 bulk data download page"
+    },
+    {
+      "url": "https://echodata.epa.gov/echo/sdw_rest_services.get_systems?output=JSON&p_st=FL&responseset=1",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='echodata.epa.gov', port=443): Max retries exceeded with url: /echo/sdw_rest_services.get_systems?output=JSON&p_st=FL&responseset=1 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 334,
+      "id": "epa-echo-sdwa",
+      "name": "EPA ECHO Safe Drinking Water Act REST services"
+    },
+    {
+      "url": "https://floridadep.gov/water/source-drinking-water",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='floridadep.gov', port=443): Max retries exceeded with url: /water/source-drinking-water (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 377,
+      "id": "fdep-drinking-water",
+      "name": "Florida DEP Source and Drinking Water Program"
+    },
+    {
+      "url": "https://prodenv.dep.state.fl.us/DepPWS/",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='prodenv.dep.state.fl.us', port=443): Max retries exceeded with url: /DepPWS/ (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 334,
+      "id": "fdep-wafr",
+      "name": "Florida DEP public water system facility search (WAFR)"
+    },
+    {
+      "url": "https://ca.dep.state.fl.us/arcgis/rest/services?f=json",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='ca.dep.state.fl.us', port=443): Max retries exceeded with url: /arcgis/rest/services?f=json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 313,
+      "id": "fdep-geodata",
+      "name": "Florida DEP GIS open data / ArcGIS REST"
+    },
+    {
+      "url": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=1600+Pennsylvania+Ave+NW+Washington+DC&benchmark=Public_AR_Current&format=json",
+      "reachable": false,
+      "httpStatus": null,
+      "detail": "ProxyError: HTTPSConnectionPool(host='geocoding.geo.census.gov', port=443): Max retries exceeded with url: /geocoder/locations/onelineaddress?address=1600+Pennsylvania+Ave+NW+Washington+DC&benchmark=Public_AR_Current&format=json (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))",
+      "elapsedMs": 329,
+      "id": "census-geocoder",
+      "name": "US Census Bureau geocoding API"
+    }
+  ]
+}

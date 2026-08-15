@@ -44,6 +44,7 @@ Monorepo of web apps and static sites built in this workspace. Each folder is an
 | `searchlab/` | SearchLab full-text search app |
 | `scraper/` | Permit and property data scrapers |
 | `symbolic/` | Symbolic reasoning toolkit (also at [denrod25-del/symbolic](https://github.com/denrod25-del/symbolic)) |
+| `water-quality/` | Florida Water Quality API — normalizes EPA SDWIS / UCMR 5 PFAS / CCRs / violations / boil-water notices; serves `/api/water/*` |
 
 ## Run locally
 

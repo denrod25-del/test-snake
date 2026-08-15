@@ -1,0 +1,81 @@
+{
+  "$comment": [
+    "Seacoast Utility Authority — the first utility built out end to end.",
+    "",
+    "IMPORTANT: `pwsid` is deliberately null. Guessing a PWSID would silently",
+    "attach one utility's PFAS results, violations, and boil-water notices to a",
+    "different utility, which is the worst failure this API could have. The",
+    "ingest resolves it by name against SDWIS and writes the answer, together",
+    "with the runner-up matches it rejected, into fwq/data/utilities.lock.json.",
+    "Review that lockfile before trusting the first published run.",
+    "",
+    "Everything marked `verified: false` is unconfirmed from the build",
+    "environment (EPA and FDEP hosts are blocked by network policy here) and is",
+    "checked by `python -m fwq probe`."
+  ],
+  "slug": "seacoast",
+  "name": "Seacoast Utility Authority",
+  "short_name": "Seacoast",
+  "state": "FL",
+  "pwsid": null,
+  "pwsid_resolution": {
+    "strategy": "sdwis_name_search",
+    "search_fragment": "SEACOAST",
+    "expect_state": "FL",
+    "expect_type": "CWS",
+    "expect_counties": ["Palm Beach"],
+    "expect_population_min": 50000,
+    "note": "Seacoast Utility Authority is an independent special district. Confirm the resolved system is the authority itself and not a separately permitted satellite or a similarly named system in another county."
+  },
+  "aliases": [
+    "Seacoast Utility Authority",
+    "Seacoast Utilities",
+    "SUA"
+  ],
+  "expected_service_area": {
+    "$comment": "Used only to sanity-check the SDWIS-derived service area, never as a substitute for it. A large mismatch is reported by the ingest as a warning.",
+    "county": "Palm Beach",
+    "cities": [
+      "Palm Beach Gardens",
+      "North Palm Beach",
+      "Lake Park",
+      "Juno Beach"
+    ],
+    "note": "Also serves portions of unincorporated northern Palm Beach County. City list is a verification hint, not the authoritative service area."
+  },
+  "website": {
+    "url": "https://www.sua.com/",
+    "verified": false,
+    "note": "Candidate URL, unconfirmed from this environment. Probe before publishing it as a link."
+  },
+  "ccr_sources": [
+    {
+      "id": "seacoast-ccr-index",
+      "kind": "index_page",
+      "url": "https://www.sua.com/water-quality-report",
+      "verified": false,
+      "link_pattern": "(?i)(water\\s*quality|consumer\\s*confidence|ccr).*(20\\d{2})",
+      "note": "Candidate index page for annual CCRs. The ingest follows links matching link_pattern and records the report year from the link text or filename. If this URL 404s, run `python -m fwq probe --utility seacoast` and update it; do not substitute a guessed path."
+    }
+  ],
+  "notice_sources": [
+    {
+      "id": "seacoast-alerts",
+      "kind": "html_list",
+      "url": "https://www.sua.com/",
+      "verified": false,
+      "selector": null,
+      "note": "Candidate alerts location. Seacoast posts boil-water notices to its own site; the exact alerts page must be confirmed by probe. Until then, boil-water notices for this utility come from the manual-entry path."
+    }
+  ],
+  "priority_analytes": {
+    "$comment": "Analytes surfaced first in this utility's profile. PFAS lead because they are the reason most people look a Florida utility up, and because UCMR 5 gives real measured values rather than only violation records.",
+    "ids": [
+      "pfoa", "pfos", "pfhxs", "pfna", "hfpo_da", "pfbs",
+      "tthm", "haa5", "lead", "copper", "chlorine", "hardness", "sodium"
+    ]
+  },
+  "data_status_overrides": {
+    "$comment": "Left empty on purpose. Status is computed from actual ingest freshness, never asserted here."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "dataset": "florida-water-quality",
+    "schemaVersion": "1.0",
+    "status": "coming-soon",
+    "generatedAt": "2026-08-15T16:48:39.775316Z",
+    "recordCount": 0,
+    "limitations": "Aggregated from public federal and utility sources. Not a substitute for your utility's own Consumer Confidence Report or for a certified lab test of water at your tap."
+  },
+  "schemaVersion": "1.0",
+  "endpoints": {
+    "analytes": "/api/water/analytes",
+    "systems": "/api/water/systems",
+    "system": "/api/water/system?pwsid=FL0000000",
+    "lookup": "/api/water/lookup?zip=33410",
+    "utilities": "/api/water/utilities",
+    "health": "/api/water/health"
+  },
+  "counts": {
+    "systems": 0,
+    "results": 0,
+    "violations": 0,
+    "boilWaterNotices": 0,
+    "profiles": 0
+  },
+  "sources": [],
+  "profiles": []
+}

@@ -1,0 +1,1458 @@
+{
+  "meta": {
+    "dataset": "analytes",
+    "schemaVersion": "1.0",
+    "status": "cached",
+    "generatedAt": "2026-08-15T16:48:39.775316Z",
+    "recordCount": 81,
+    "limitations": "Regulatory limits are a maintained snapshot, not a live feed from the CFR. Re-verify before relying on them for compliance.",
+    "sources": [
+      "EPA National Primary Drinking Water Regulations"
+    ]
+  },
+  "version": "2026.08.1",
+  "limitReview": {
+    "reviewed": "2026-08-15",
+    "reviewed_against": "EPA National Primary Drinking Water Regulations; PFAS NPDWR (89 FR 32532, April 2024)",
+    "caveat": "The 2024 PFAS NPDWR has been subject to ongoing reconsideration and compliance-date changes. Re-verify PFOA/PFOS/PFHxS/PFNA/HFPO-DA limits and their compliance dates against the current CFR before using them for a compliance determination."
+  },
+  "hazardIndex": {
+    "limit": 1.0,
+    "components": [
+      "pfhxs",
+      "pfna",
+      "hfpo_da",
+      "pfbs"
+    ]
+  },
+  "analytes": [
+    {
+      "id": "adona",
+      "name": "4,8-dioxa-3H-perfluorononanoic acid",
+      "shortName": "ADONA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "919005-14-4"
+    },
+    {
+      "id": "antimony",
+      "name": "Antimony",
+      "shortName": "Antimony",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.006,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.006,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-36-0"
+    },
+    {
+      "id": "arsenic",
+      "name": "Arsenic",
+      "shortName": "Arsenic",
+      "group": "metal",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 10.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-38-2",
+      "healthBasis": "Known human carcinogen; skin, bladder, and lung cancer risk with chronic exposure."
+    },
+    {
+      "id": "atrazine",
+      "name": "Atrazine",
+      "shortName": "Atrazine",
+      "group": "soc",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 3.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.61"
+        },
+        {
+          "kind": "MCLG",
+          "value": 3.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.50"
+        }
+      ],
+      "casrn": "1912-24-9"
+    },
+    {
+      "id": "barium",
+      "name": "Barium",
+      "shortName": "Barium",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 2.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 2.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-39-3"
+    },
+    {
+      "id": "benzene",
+      "name": "Benzene",
+      "shortName": "Benzene",
+      "group": "voc",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 5.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.61"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.50"
+        }
+      ],
+      "casrn": "71-43-2"
+    },
+    {
+      "id": "beryllium",
+      "name": "Beryllium",
+      "shortName": "Beryllium",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.004,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.004,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-41-7"
+    },
+    {
+      "id": "beta_photon",
+      "name": "Beta particle and photon activity",
+      "shortName": "Beta/photon emitters",
+      "group": "radionuclide",
+      "displayUnit": "mrem/yr",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 4.0,
+          "unit": "mrem/yr",
+          "authority": "EPA",
+          "citation": "40 CFR 141.66",
+          "basis": "annual dose equivalent to the total body or any internal organ"
+        }
+      ]
+    },
+    {
+      "id": "bromate",
+      "name": "Bromate",
+      "shortName": "Bromate",
+      "group": "disinfection_byproduct",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 10.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.64"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.53"
+        }
+      ],
+      "casrn": "15541-45-4"
+    },
+    {
+      "id": "bromodichloromethane",
+      "name": "Bromodichloromethane",
+      "shortName": "BDCM",
+      "group": "disinfection_byproduct",
+      "displayUnit": "ug/L",
+      "limits": [],
+      "casrn": "75-27-4"
+    },
+    {
+      "id": "bromoform",
+      "name": "Bromoform",
+      "shortName": "Bromoform",
+      "group": "disinfection_byproduct",
+      "displayUnit": "ug/L",
+      "limits": [],
+      "casrn": "75-25-2"
+    },
+    {
+      "id": "cadmium",
+      "name": "Cadmium",
+      "shortName": "Cadmium",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.005,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.005,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-43-9"
+    },
+    {
+      "id": "chloramines",
+      "name": "Chloramines",
+      "shortName": "Chloramines",
+      "group": "disinfectant_residual",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MRDL",
+          "value": 4.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.65",
+          "basis": "running annual average, as Cl2"
+        },
+        {
+          "kind": "MRDLG",
+          "value": 4.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.65"
+        }
+      ]
+    },
+    {
+      "id": "chloride",
+      "name": "Chloride",
+      "shortName": "Chloride",
+      "group": "secondary",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "SMCL",
+          "value": 250.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 143.3"
+        }
+      ],
+      "casrn": "16887-00-6"
+    },
+    {
+      "id": "chlorine",
+      "name": "Chlorine residual",
+      "shortName": "Chlorine",
+      "group": "disinfectant_residual",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MRDL",
+          "value": 4.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.65",
+          "basis": "running annual average, as Cl2"
+        },
+        {
+          "kind": "MRDLG",
+          "value": 4.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.65"
+        }
+      ],
+      "casrn": "7782-50-5"
+    },
+    {
+      "id": "chlorine_dioxide",
+      "name": "Chlorine dioxide",
+      "shortName": "ClO2",
+      "group": "disinfectant_residual",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MRDL",
+          "value": 0.8,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.65"
+        },
+        {
+          "kind": "MRDLG",
+          "value": 0.8,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.65"
+        }
+      ],
+      "casrn": "10049-04-4"
+    },
+    {
+      "id": "chlorite",
+      "name": "Chlorite",
+      "shortName": "Chlorite",
+      "group": "disinfection_byproduct",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 1.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.64"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.8,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.53"
+        }
+      ],
+      "casrn": "7758-19-2"
+    },
+    {
+      "id": "chloroform",
+      "name": "Chloroform",
+      "shortName": "Chloroform",
+      "group": "disinfection_byproduct",
+      "displayUnit": "ug/L",
+      "limits": [],
+      "casrn": "67-66-3"
+    },
+    {
+      "id": "chromium_total",
+      "name": "Chromium (total)",
+      "shortName": "Chromium",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.1,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.1,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-47-3"
+    },
+    {
+      "id": "copper",
+      "name": "Copper",
+      "shortName": "Copper",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "AL",
+          "value": 1.3,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.80 (Lead and Copper Rule)",
+          "basis": "90th percentile of tap samples"
+        },
+        {
+          "kind": "MCLG",
+          "value": 1.3,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-50-8"
+    },
+    {
+      "id": "cyanide",
+      "name": "Cyanide (as free cyanide)",
+      "shortName": "Cyanide",
+      "group": "inorganic",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.2,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.2,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "57-12-5"
+    },
+    {
+      "id": "dibromochloromethane",
+      "name": "Dibromochloromethane",
+      "shortName": "DBCM",
+      "group": "disinfection_byproduct",
+      "displayUnit": "ug/L",
+      "limits": [],
+      "casrn": "124-48-1"
+    },
+    {
+      "id": "e_coli",
+      "name": "Escherichia coli",
+      "shortName": "E. coli",
+      "group": "microbial",
+      "displayUnit": "presence/absence",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": null,
+          "unit": null,
+          "authority": "EPA",
+          "citation": "40 CFR 141.860",
+          "note": "Presence-based MCL under the RTCR; any confirmed positive is an acute health-based violation."
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "presence/absence",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "healthBasis": "Indicates fecal contamination. An E. coli MCL violation requires a Tier 1 boil-water public notice within 24 hours."
+    },
+    {
+      "id": "edb",
+      "name": "Ethylene dibromide",
+      "shortName": "EDB",
+      "group": "soc",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.05,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.61"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.50"
+        }
+      ],
+      "casrn": "106-93-4",
+      "healthBasis": "Historic soil fumigant; a recurring groundwater contaminant in Florida agricultural areas."
+    },
+    {
+      "id": "fluoride",
+      "name": "Fluoride",
+      "shortName": "Fluoride",
+      "group": "inorganic",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 4.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 4.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        },
+        {
+          "kind": "SMCL",
+          "value": 2.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 143.3",
+          "note": "Above 2 mg/L, dental fluorosis notice is required."
+        }
+      ],
+      "casrn": "16984-48-8"
+    },
+    {
+      "id": "ftca_3_3",
+      "name": "3-perfluoropropyl propanoic acid",
+      "shortName": "3:3 FTCA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "356-02-5"
+    },
+    {
+      "id": "ftca_5_3",
+      "name": "3-perfluoropentyl propanoic acid",
+      "shortName": "5:3 FTCA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "914637-49-3"
+    },
+    {
+      "id": "ftca_7_3",
+      "name": "3-perfluoroheptyl propanoic acid",
+      "shortName": "7:3 FTCA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "812-70-4"
+    },
+    {
+      "id": "gross_alpha",
+      "name": "Gross alpha particle activity",
+      "shortName": "Gross alpha",
+      "group": "radionuclide",
+      "displayUnit": "pCi/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 15.0,
+          "unit": "pCi/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.66",
+          "basis": "excluding radon and uranium"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "pCi/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.55"
+        }
+      ]
+    },
+    {
+      "id": "haa5",
+      "name": "Haloacetic acids (five)",
+      "shortName": "HAA5",
+      "group": "disinfection_byproduct",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 60.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.64",
+          "basis": "locational running annual average"
+        }
+      ],
+      "healthBasis": "Chlorination byproducts; associated with increased cancer risk.",
+      "isAggregate": true
+    },
+    {
+      "id": "hardness",
+      "name": "Hardness (as CaCO3)",
+      "shortName": "Hardness",
+      "group": "physical",
+      "displayUnit": "mg/L as CaCO3",
+      "limits": [],
+      "healthBasis": "Not a health concern. Reported because it drives softener and scale decisions."
+    },
+    {
+      "id": "hfpo_da",
+      "name": "Hexafluoropropylene oxide dimer acid",
+      "shortName": "HFPO-DA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)",
+          "basis": "running annual average"
+        },
+        {
+          "kind": "MCLG",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)"
+        },
+        {
+          "kind": "HBWC",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR Hazard Index"
+        }
+      ],
+      "casrn": "13252-13-6",
+      "healthBasis": "Liver, kidney, immune, and developmental effects."
+    },
+    {
+      "id": "iron",
+      "name": "Iron",
+      "shortName": "Iron",
+      "group": "secondary",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "SMCL",
+          "value": 0.3,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 143.3"
+        }
+      ],
+      "casrn": "7439-89-6"
+    },
+    {
+      "id": "lead",
+      "name": "Lead",
+      "shortName": "Lead",
+      "group": "metal",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "AL",
+          "value": 15.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.80 (Lead and Copper Rule)",
+          "basis": "90th percentile of tap samples"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        },
+        {
+          "kind": "TT",
+          "value": null,
+          "unit": null,
+          "authority": "EPA",
+          "citation": "40 CFR 141.80",
+          "note": "Lead is regulated by treatment technique and action level, not by an MCL."
+        }
+      ],
+      "casrn": "7439-92-1",
+      "healthBasis": "No safe level. Causes irreversible neurodevelopmental harm in children; cardiovascular and kidney effects in adults."
+    },
+    {
+      "id": "lithium",
+      "name": "Lithium",
+      "shortName": "Lithium",
+      "group": "inorganic",
+      "displayUnit": "ug/L",
+      "limits": [],
+      "casrn": "7439-93-2",
+      "healthBasis": "Unregulated; monitored under UCMR 5 alongside PFAS."
+    },
+    {
+      "id": "manganese",
+      "name": "Manganese",
+      "shortName": "Manganese",
+      "group": "secondary",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "SMCL",
+          "value": 0.05,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 143.3"
+        }
+      ],
+      "casrn": "7439-96-5"
+    },
+    {
+      "id": "mercury",
+      "name": "Mercury (inorganic)",
+      "shortName": "Mercury",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.002,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.002,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7439-97-6"
+    },
+    {
+      "id": "netfosaa",
+      "name": "N-ethyl perfluorooctanesulfonamidoacetic acid",
+      "shortName": "NEtFOSAA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "2991-50-6"
+    },
+    {
+      "id": "nfdha",
+      "name": "Nonafluoro-3,6-dioxaheptanoic acid",
+      "shortName": "NFDHA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "151772-58-6"
+    },
+    {
+      "id": "nitrate",
+      "name": "Nitrate (as nitrogen)",
+      "shortName": "Nitrate",
+      "group": "inorganic",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 10.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62",
+          "basis": "single sample, as N"
+        },
+        {
+          "kind": "MCLG",
+          "value": 10.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "14797-55-8",
+      "healthBasis": "Acute risk to infants under six months (methemoglobinemia, 'blue baby syndrome')."
+    },
+    {
+      "id": "nitrite",
+      "name": "Nitrite (as nitrogen)",
+      "shortName": "Nitrite",
+      "group": "inorganic",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 1.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62",
+          "basis": "single sample, as N"
+        },
+        {
+          "kind": "MCLG",
+          "value": 1.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "14797-65-0"
+    },
+    {
+      "id": "nmefosaa",
+      "name": "N-methyl perfluorooctanesulfonamidoacetic acid",
+      "shortName": "NMeFOSAA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "2355-31-9"
+    },
+    {
+      "id": "pce",
+      "name": "Tetrachloroethylene",
+      "shortName": "PCE",
+      "group": "voc",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 5.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.61"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.50"
+        }
+      ],
+      "casrn": "127-18-4"
+    },
+    {
+      "id": "pf3ons_9cl",
+      "name": "9-chlorohexadecafluoro-3-oxanonane-1-sulfonic acid",
+      "shortName": "9Cl-PF3ONS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "756426-58-1"
+    },
+    {
+      "id": "pf3ouds_11cl",
+      "name": "11-chloroeicosafluoro-3-oxaundecane-1-sulfonic acid",
+      "shortName": "11Cl-PF3OUdS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "763051-92-9"
+    },
+    {
+      "id": "pfba",
+      "name": "Perfluorobutanoic acid",
+      "shortName": "PFBA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "375-22-4"
+    },
+    {
+      "id": "pfbs",
+      "name": "Perfluorobutanesulfonic acid",
+      "shortName": "PFBS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [
+        {
+          "kind": "HBWC",
+          "value": 2000.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR Hazard Index"
+        }
+      ],
+      "casrn": "375-73-5",
+      "healthBasis": "Thyroid effects. No individual MCL; regulated only through the Hazard Index."
+    },
+    {
+      "id": "pfda",
+      "name": "Perfluorodecanoic acid",
+      "shortName": "PFDA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "335-76-2"
+    },
+    {
+      "id": "pfdoa",
+      "name": "Perfluorododecanoic acid",
+      "shortName": "PFDoA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "307-55-1"
+    },
+    {
+      "id": "pfdos",
+      "name": "Perfluorododecanesulfonic acid",
+      "shortName": "PFDoS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "79780-39-5"
+    },
+    {
+      "id": "pfds",
+      "name": "Perfluorodecanesulfonic acid",
+      "shortName": "PFDS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "335-77-3"
+    },
+    {
+      "id": "pfeesa",
+      "name": "Perfluoro(2-ethoxyethane)sulfonic acid",
+      "shortName": "PFEESA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "113507-82-7"
+    },
+    {
+      "id": "pfhpa",
+      "name": "Perfluoroheptanoic acid",
+      "shortName": "PFHpA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "375-85-9"
+    },
+    {
+      "id": "pfhps",
+      "name": "Perfluoroheptanesulfonic acid",
+      "shortName": "PFHpS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "375-92-8"
+    },
+    {
+      "id": "pfhxa",
+      "name": "Perfluorohexanoic acid",
+      "shortName": "PFHxA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "307-24-4"
+    },
+    {
+      "id": "pfhxs",
+      "name": "Perfluorohexanesulfonic acid",
+      "shortName": "PFHxS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)",
+          "basis": "running annual average"
+        },
+        {
+          "kind": "MCLG",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)"
+        },
+        {
+          "kind": "HBWC",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR Hazard Index"
+        }
+      ],
+      "casrn": "355-46-4",
+      "healthBasis": "Thyroid and developmental effects."
+    },
+    {
+      "id": "pfmba",
+      "name": "Perfluoro-4-methoxybutanoic acid",
+      "shortName": "PFMBA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "863090-89-5"
+    },
+    {
+      "id": "pfmpa",
+      "name": "Perfluoro-3-methoxypropanoic acid",
+      "shortName": "PFMPA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "377-73-1"
+    },
+    {
+      "id": "pfna",
+      "name": "Perfluorononanoic acid",
+      "shortName": "PFNA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)",
+          "basis": "running annual average"
+        },
+        {
+          "kind": "MCLG",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)"
+        },
+        {
+          "kind": "HBWC",
+          "value": 10.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR Hazard Index"
+        }
+      ],
+      "casrn": "375-95-1",
+      "healthBasis": "Developmental, liver, and immune effects."
+    },
+    {
+      "id": "pfns",
+      "name": "Perfluorononanesulfonic acid",
+      "shortName": "PFNS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "68259-12-1"
+    },
+    {
+      "id": "pfoa",
+      "name": "Perfluorooctanoic acid",
+      "shortName": "PFOA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 4.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)",
+          "basis": "running annual average"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)"
+        }
+      ],
+      "casrn": "335-67-1",
+      "healthBasis": "Linked to kidney and testicular cancer, liver and immune effects, and developmental effects."
+    },
+    {
+      "id": "pfos",
+      "name": "Perfluorooctanesulfonic acid",
+      "shortName": "PFOS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 4.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)",
+          "basis": "running annual average"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ng/L",
+          "authority": "EPA",
+          "citation": "PFAS NPDWR (89 FR 32532)"
+        }
+      ],
+      "casrn": "1763-23-1",
+      "healthBasis": "Linked to liver, immune, thyroid, and developmental effects; classified as likely carcinogenic."
+    },
+    {
+      "id": "pfosa",
+      "name": "Perfluorooctanesulfonamide",
+      "shortName": "PFOSA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "754-91-6"
+    },
+    {
+      "id": "pfpea",
+      "name": "Perfluoropentanoic acid",
+      "shortName": "PFPeA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "2706-90-3"
+    },
+    {
+      "id": "pfpes",
+      "name": "Perfluoropentanesulfonic acid",
+      "shortName": "PFPeS",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "2706-91-4"
+    },
+    {
+      "id": "pfteda",
+      "name": "Perfluorotetradecanoic acid",
+      "shortName": "PFTeDA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "376-06-7"
+    },
+    {
+      "id": "pftrda",
+      "name": "Perfluorotridecanoic acid",
+      "shortName": "PFTrDA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "72629-94-8"
+    },
+    {
+      "id": "pfuna",
+      "name": "Perfluoroundecanoic acid",
+      "shortName": "PFUnA",
+      "group": "pfas",
+      "displayUnit": "ng/L",
+      "limits": [],
+      "casrn": "2058-94-8"
+    },
+    {
+      "id": "ph",
+      "name": "pH",
+      "shortName": "pH",
+      "group": "physical",
+      "displayUnit": "pH",
+      "limits": [
+        {
+          "kind": "SMCL",
+          "value": null,
+          "unit": "pH",
+          "authority": "EPA",
+          "citation": "40 CFR 143.3",
+          "note": "Secondary range is 6.5 to 8.5."
+        }
+      ]
+    },
+    {
+      "id": "radium_combined",
+      "name": "Combined radium-226 and radium-228",
+      "shortName": "Radium 226+228",
+      "group": "radionuclide",
+      "displayUnit": "pCi/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 5.0,
+          "unit": "pCi/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.66"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "pCi/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.55"
+        }
+      ],
+      "isAggregate": true
+    },
+    {
+      "id": "selenium",
+      "name": "Selenium",
+      "shortName": "Selenium",
+      "group": "inorganic",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.05,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.05,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7782-49-2"
+    },
+    {
+      "id": "sodium",
+      "name": "Sodium",
+      "shortName": "Sodium",
+      "group": "inorganic",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "SMCL",
+          "value": 160.0,
+          "unit": "mg/L",
+          "authority": "FL-DEP",
+          "citation": "Florida CCR reporting guidance",
+          "note": "Advisory reporting level, not an enforceable MCL."
+        }
+      ],
+      "casrn": "7440-23-5",
+      "healthBasis": "No federal MCL. Relevant to sodium-restricted diets; Florida requires CCR reporting."
+    },
+    {
+      "id": "sulfate",
+      "name": "Sulfate",
+      "shortName": "Sulfate",
+      "group": "secondary",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "SMCL",
+          "value": 250.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 143.3"
+        }
+      ],
+      "casrn": "14808-79-8"
+    },
+    {
+      "id": "tce",
+      "name": "Trichloroethylene",
+      "shortName": "TCE",
+      "group": "voc",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 5.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.61"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.50"
+        }
+      ],
+      "casrn": "79-01-6"
+    },
+    {
+      "id": "tds",
+      "name": "Total dissolved solids",
+      "shortName": "TDS",
+      "group": "secondary",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "SMCL",
+          "value": 500.0,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 143.3"
+        }
+      ]
+    },
+    {
+      "id": "thallium",
+      "name": "Thallium",
+      "shortName": "Thallium",
+      "group": "metal",
+      "displayUnit": "mg/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 0.002,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.62"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0005,
+          "unit": "mg/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.51"
+        }
+      ],
+      "casrn": "7440-28-0"
+    },
+    {
+      "id": "total_coliform",
+      "name": "Total coliform bacteria",
+      "shortName": "Total coliform",
+      "group": "microbial",
+      "displayUnit": "%positive",
+      "limits": [
+        {
+          "kind": "TT",
+          "value": null,
+          "unit": null,
+          "authority": "EPA",
+          "citation": "40 CFR 141 subpart Y (Revised Total Coliform Rule)",
+          "note": "RTCR replaced the total-coliform MCL with an assessment-and-corrective-action treatment technique. A positive triggers E. coli testing and a Level 1/2 assessment."
+        }
+      ]
+    },
+    {
+      "id": "tthm",
+      "name": "Total trihalomethanes",
+      "shortName": "TTHM",
+      "group": "disinfection_byproduct",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 80.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.64",
+          "basis": "locational running annual average"
+        }
+      ],
+      "healthBasis": "Chlorination byproducts; long-term exposure associated with increased cancer risk and liver/kidney effects.",
+      "isAggregate": true,
+      "components": [
+        "chloroform",
+        "bromodichloromethane",
+        "dibromochloromethane",
+        "bromoform"
+      ]
+    },
+    {
+      "id": "turbidity",
+      "name": "Turbidity",
+      "shortName": "Turbidity",
+      "group": "physical",
+      "displayUnit": "NTU",
+      "limits": [
+        {
+          "kind": "TT",
+          "value": 1.0,
+          "unit": "NTU",
+          "authority": "EPA",
+          "citation": "40 CFR 141.73",
+          "note": "Conventional/direct filtration: must never exceed 1 NTU, and must be <= 0.3 NTU in 95% of monthly samples."
+        }
+      ]
+    },
+    {
+      "id": "uranium",
+      "name": "Uranium",
+      "shortName": "Uranium",
+      "group": "radionuclide",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 30.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.66"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.55"
+        }
+      ],
+      "casrn": "7440-61-1"
+    },
+    {
+      "id": "vinyl_chloride",
+      "name": "Vinyl chloride",
+      "shortName": "Vinyl chloride",
+      "group": "voc",
+      "displayUnit": "ug/L",
+      "limits": [
+        {
+          "kind": "MCL",
+          "value": 2.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.61"
+        },
+        {
+          "kind": "MCLG",
+          "value": 0.0,
+          "unit": "ug/L",
+          "authority": "EPA",
+          "citation": "40 CFR 141.50"
+        }
+      ],
+      "casrn": "75-01-4"
+    }
+  ]
+}

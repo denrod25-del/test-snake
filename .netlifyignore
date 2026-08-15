@@ -27,6 +27,7 @@ tests/
 scraper/
 scripts/
 supabase/
+water-quality/
 
 # Standalone experiments at repo root
 game.html

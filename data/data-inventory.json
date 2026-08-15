@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T23:33:50.129851Z",
+  "generated": "2026-08-15T16:49:44.730352Z",
   "rows": [
     {
       "category": "Tax deed county links",
@@ -8,7 +8,7 @@
       "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html",
       "status": "cached",
       "count": 67,
-      "lastSuccess": "2026-08-12T23:33:50Z",
+      "lastSuccess": "2026-08-15T07:59:24Z",
       "lastAttempt": "2026-08-10T06:59:00Z",
       "limitations": "Official clerk, PA, and auction links maintained manually. Sale-date scraper currently failing upstream.",
       "verification": "Official clerk, property appraiser, and auction source required before bidding."
@@ -45,7 +45,7 @@
       "status": "sample",
       "count": 4,
       "lastSuccess": "2026-04-18T03:00:00Z",
-      "lastAttempt": "2026-08-12T08:07:24Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "Legacy eDSWeb scraper is DEFUNCT (county migrated 2024). Sample data only; use the portal manually for live lookups.",
       "verification": "Sample or blocked — use official portal manually."
     },
@@ -56,8 +56,8 @@
       "sourceUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
       "status": "cached",
       "count": 4000,
-      "lastSuccess": "2026-08-12T08:03:48Z",
-      "lastAttempt": "2026-08-12T08:07:24Z",
+      "lastSuccess": "2026-08-15T07:44:25Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window (capped at 4,000 most-recent permits). No contractor/valuation in public API; use portal link for those.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -68,8 +68,8 @@
       "sourceUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
       "status": "cached",
       "count": 4000,
-      "lastSuccess": "2026-08-12T08:06:57Z",
-      "lastAttempt": "2026-08-12T08:07:24Z",
+      "lastSuccess": "2026-08-15T07:47:37Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -80,8 +80,8 @@
       "sourceUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
       "status": "cached",
       "count": 4000,
-      "lastSuccess": "2026-08-11T08:13:27Z",
-      "lastAttempt": "2026-08-12T08:07:24Z",
+      "lastSuccess": "2026-08-15T07:59:16Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "Cached Tyler EnerGov scrape, 90-day apply-date window. No contractor/valuation in public API.",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -93,7 +93,7 @@
       "status": "cached",
       "count": 4000,
       "lastSuccess": "2026-07-15T08:27:11Z",
-      "lastAttempt": "2026-08-12T08:07:24Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "Most recent 4,000 permits sorted by apply date (SLC's API ignores date filter, so cap gives ~3 months of unincorporated St. Lucie County data).",
       "verification": "Cached municipal scrape — verify on official portal before outreach."
     },
@@ -105,7 +105,7 @@
       "status": "sample",
       "count": 3,
       "lastSuccess": "2026-04-21T00:00:00Z",
-      "lastAttempt": "2026-08-12T08:07:24Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "Click2Gov has no bulk listing; new submissions go through ProjectDox which requires an account. Sample data only — use the portal link directly.",
       "verification": "Sample or blocked — use official portal manually."
     },
@@ -117,7 +117,7 @@
       "status": "sample",
       "count": 3,
       "lastSuccess": "2026-04-21T00:00:00Z",
-      "lastAttempt": "2026-08-12T08:07:24Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "SagesGov requires login for search and is anti-bot. Sample data only — no public bulk export.",
       "verification": "Sample or blocked — use official portal manually."
     },
@@ -152,10 +152,34 @@
       "sourceUrl": "https://deedscout.netlify.app/tax-deeds.html#/surplus",
       "status": "cached",
       "count": 32,
-      "lastSuccess": "2026-08-12T23:33:50Z",
-      "lastAttempt": "2026-08-12T23:33:50Z",
+      "lastSuccess": "2026-08-15T07:59:24Z",
+      "lastAttempt": "2026-08-15T07:59:24Z",
       "limitations": "Curated county surplus claim portal links; not automated filing.",
       "verification": "Follow county surplus claim procedures and deadlines."
+    },
+    {
+      "category": "Water quality",
+      "name": "Florida Water Quality API — public water systems",
+      "jurisdiction": "Florida statewide",
+      "sourceUrl": "https://data.epa.gov/efservice",
+      "status": "coming-soon",
+      "count": null,
+      "lastSuccess": "2026-08-15T16:48:39.775316Z",
+      "lastAttempt": "2026-08-15T16:48:39.775316Z",
+      "limitations": "Normalized from EPA SDWIS and UCMR 5. Inventory and service areas are self-reported by utilities and lag by a reporting cycle. ZIP codes are mail routes, not service-area boundaries.",
+      "verification": "Confirm against your utility's own Consumer Confidence Report."
+    },
+    {
+      "category": "Water quality",
+      "name": "Contaminant limit reference (MCL / MCLG / action levels)",
+      "jurisdiction": "Federal (EPA), applied in Florida",
+      "sourceUrl": "https://www.epa.gov/ground-water-and-drinking-water/national-primary-drinking-water-regulations",
+      "status": "cached",
+      "count": 81,
+      "lastSuccess": "2026-08-15",
+      "lastAttempt": "2026-08-15T16:48:39.775316Z",
+      "limitations": "Maintained snapshot of federal drinking-water limits, not a live feed from the CFR. PFAS limits in particular remain subject to reconsideration.",
+      "verification": "Re-verify against 40 CFR 141 before any compliance use."
     }
   ]
 }

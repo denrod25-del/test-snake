@@ -158,6 +158,49 @@ def main():
         "verification": "Follow county surplus claim procedures and deadlines.",
     })
 
+    # ---- Florida Water Quality API -------------------------------------
+    # Status comes from the dataset's own manifest rather than being asserted
+    # here, so a blocked or stale ingest shows through to status.html.
+    water_index = load_json(ROOT / "data" / "water" / "index.json", {})
+    water_meta = (water_index or {}).get("meta") or {}
+    water_counts = (water_index or {}).get("counts") or {}
+    water_analytes = load_json(ROOT / "data" / "water" / "analytes.json", {})
+
+    rows.append({
+        "category": "Water quality",
+        "name": "Florida Water Quality API — public water systems",
+        "jurisdiction": "Florida statewide",
+        "sourceUrl": "https://data.epa.gov/efservice",
+        "status": water_meta.get("status") or "coming-soon",
+        "count": water_counts.get("systems") or None,
+        "lastSuccess": water_meta.get("generatedAt"),
+        "lastAttempt": water_meta.get("generatedAt"),
+        "limitations": (
+            "Normalized from EPA SDWIS and UCMR 5. Inventory and service areas are "
+            "self-reported by utilities and lag by a reporting cycle. ZIP codes are "
+            "mail routes, not service-area boundaries."
+        ),
+        "verification": "Confirm against your utility's own Consumer Confidence Report.",
+    })
+
+    if water_analytes:
+        rows.append({
+            "category": "Water quality",
+            "name": "Contaminant limit reference (MCL / MCLG / action levels)",
+            "jurisdiction": "Federal (EPA), applied in Florida",
+            "sourceUrl": "https://www.epa.gov/ground-water-and-drinking-water/national-primary-drinking-water-regulations",
+            "status": "cached",
+            "count": (water_analytes.get("meta") or {}).get("recordCount"),
+            "lastSuccess": (water_analytes.get("limitReview") or {}).get("reviewed"),
+            "lastAttempt": (water_analytes.get("meta") or {}).get("generatedAt"),
+            "limitations": (
+                "Maintained snapshot of federal drinking-water limits, not a live feed "
+                "from the CFR. PFAS limits in particular remain subject to "
+                "reconsideration."
+            ),
+            "verification": "Re-verify against 40 CFR 141 before any compliance use.",
+        })
+
     doc = {"generated": generated, "rows": rows}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
