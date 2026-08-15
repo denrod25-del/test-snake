@@ -15,7 +15,7 @@ execution: code
 
 - **Objective:** Ship an on-demand Service Property Intelligence API that turns an address into one pre-dispatch briefing for a Palm Beach plumbing dispatcher — parcel basics, year built, building type, plumbing/permit history, equipment-age hints, flood, water/sewer when sourced, and first-pass opportunity scores — each field honestly labeled Live, Cached, Coming Soon, or unavailable.
 - **Product authority:** This plan owns the briefing API plus first-pass opportunity scores in the same response. Surrounding areas (polished contractor UI; deeper prediction product) are not active scope.
-- **Open blockers:** Who may call the API (open vs Pro vs API key) is unresolved — see Outstanding Questions.
+- **Open blockers:** None.
 
 ## Product Contract
 
@@ -34,6 +34,7 @@ Palm Beach plumbing dispatchers often send techs with only an address, phone num
 - **Full briefing packet in v1, not a minimal strip** `(session-settled: user-directed — chosen over year-built+permits-only: dispatcher needs the full pre-call picture)` — Governs R4, R5, R6.
 - **Geography: Palm Beach metro / already-covered permit cities first** — statewide completeness is not a v1 promise — Governs R7.
 - **Opportunity scores are research hints, not job guarantees** — Governs R8, R9.
+- **v1 access is shop API keys for plumbing-business integrations** `(session-settled: user-directed — chosen over anonymous or DeedScout Pro JWT: dispatch/CRM systems need a shop-scoped credential)` — Governs R11.
 
 ### How This Work Fits Together
 
@@ -51,7 +52,7 @@ This plan owns the **Service Property Intelligence briefing API + first-pass sco
 ### Actors
 
 - A1. Palm Beach plumbing dispatcher (primary beneficiary; may call via a thin client, CRM, or future UI)
-- A2. Integrating system (HTTP client that requests a briefing by address)
+- A2. Integrating system (HTTP client that requests a briefing by address using a shop API key)
 - A3. DeedScout data sources (parcel GIS, flood GIS, cached permit files, trust catalog)
 
 ### Requirements
@@ -74,6 +75,10 @@ This plan owns the **Service Property Intelligence briefing API + first-pass sco
 **Accuracy bar**
 
 - R10. Success means fields that are populated are accurate relative to the cited available source; incomplete coverage is acceptable when labeled.
+
+**Access**
+
+- R11. v1 callers authenticate with a shop API key issued for plumbing-business integrations; unauthenticated requests are rejected.
 
 ### Key Flows
 
@@ -148,13 +153,14 @@ This plan owns the **Service Property Intelligence briefing API + first-pass sco
 
 **Resolve Before Planning**
 
-- Q1. Who may call the API in v1: anonymous/public, DeedScout Pro (JWT) like `/api/rent-lookup`, or a separate API-key for shop integrations?
+- None.
 
 **Deferred to Planning**
 
-- Q2. Exact HTTP path/shape and error model (address encoding, multi-match parcels, timeouts).
-- Q3. Exact opportunity-score heuristics and presentation (numeric scores vs ranked reasons).
-- Q4. Whether any response fields should deep-link to Property Intelligence or official portals for verification.
+- Q1. Exact HTTP path/shape and error model (address encoding, multi-match parcels, timeouts).
+- Q2. Exact opportunity-score heuristics and presentation (numeric scores vs ranked reasons).
+- Q3. Whether any response fields should deep-link to Property Intelligence or official portals for verification.
+- Q4. How shop API keys are issued, stored, rotated, and rate-limited (implementation of R11).
 
 ### Sources / Research
 
