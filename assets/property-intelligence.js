@@ -136,7 +136,7 @@
 
   function centroid(geom) {
     if (!geom) return null;
-    // Point layers (e.g. FDOR statewide centroids) expose x/y in outSR.
+    // Point layers expose x/y in outSR; polygon layers use rings (including FDOR cadastral).
     if (geom.x != null && geom.y != null && !isNaN(Number(geom.x)) && !isNaN(Number(geom.y))) {
       return { lon: Number(geom.x), lat: Number(geom.y) };
     }
@@ -513,11 +513,11 @@
     var trust =
       p.dataStatus === "cached"
         ? badge("cached") +
-          '<p class="pi-note">FDOR annual statewide parcel centroid snapshot (point geometry) — not live county PA GIS. Confirm on the Property Appraiser site.</p>'
+          '<p class="pi-note">FDOR annual statewide cadastral snapshot (parcel polygons) — not live county PA GIS. Confirm on the Property Appraiser site.</p>'
         : badge("live");
     var note =
       p.dataStatus === "cached"
-        ? "Cached FDOR DOR snapshot owner / JV / last-sale fields. Not a full multi-deed chain — search Official Records and confirm on the county PA."
+        ? "Cached FDOR DOR snapshot owner / JV / last-sale fields (polygon geometry). Not a full multi-deed chain — search Official Records and confirm on the county PA."
         : "Current PA GIS owner + last-sale pointer (book/page when exposed). Not a full multi-deed chain — search Official Records for prior conveyances.";
     return (
       trust +
@@ -572,7 +572,7 @@
       }
       return (
         badge("coming-soon") +
-        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas, Volusia, and Miami-Dade (GIS) plus Charlotte, Manatee, Orange, Sarasota, and Duval (PA parcel attributes). Use the county planning site for ' +
+        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas, Volusia, Miami-Dade, and Polk FLU (GIS) plus Charlotte, Manatee, Orange, Sarasota, and Duval (PA parcel attributes). Use the county planning site for ' +
         esc((meta && meta.name) || "other counties") +
         ".</p>"
       );

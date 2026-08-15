@@ -1,11 +1,11 @@
 {
-  "generated": "2026-08-14T00:45:20Z",
+  "generated": "2026-08-14T00:53:14Z",
   "signals": [
     {
       "id": "zoning",
       "name": "Zoning & map updates",
       "status": "live",
-      "coverage": "Zoning GIS: Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas (unincorporated), Volusia, Miami-Dade (unincorporated). PA parcel zoning attributes: Charlotte, Manatee, Orange, Sarasota, Duval (+ Lee / Miami-Dade fallbacks). Broward and Polk still Coming Soon for in-app zoning.",
+      "coverage": "Zoning GIS: Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas (unincorporated), Volusia, Miami-Dade (unincorporated), Polk (Future Land Use \u2014 not zoning districts). PA parcel zoning attributes: Charlotte, Manatee, Orange, Sarasota, Duval (+ Lee / Miami-Dade fallbacks). Broward still Coming Soon for in-app zoning.",
       "source": "data/signals/zoning-layers.json",
       "verification": "Confirm on county planning / PA maps before relying on district codes. Parcel-attribute stamps are not a zoning-map intersect. Unincorporated GIS layers often miss municipal parcels."
     },
@@ -21,9 +21,9 @@
       "id": "ownership",
       "name": "Ownership & deed pointers",
       "status": "live",
-      "coverage": "16 counties via live Property Appraiser GIS + 7 majors via FDOR 2025 statewide parcel centroids (Alachua, Brevard, Collier, Escambia, Leon, Monroe, Seminole \u2014 Cached annual snapshot, point geometry). PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer.",
+      "coverage": "16 counties via live Property Appraiser GIS + 7 majors via FDOR 2025 statewide cadastral polygons (Alachua, Brevard, Collier, Escambia, Leon, Monroe, Seminole \u2014 Cached annual snapshot). PBC includes deed book/page; Broward owner/situs enrich from BCPA House Number layer.",
       "source": "data/parcels/registry.json",
-      "verification": "Not a full multi-deed chain \u2014 confirm on clerk Official Records / PA site. FDOR counties are annual DOR snapshots, not live PA polygons."
+      "verification": "Not a full multi-deed chain \u2014 confirm on clerk Official Records / PA site. FDOR counties are annual DOR snapshots, not live county PA GIS."
     },
     {
       "id": "rent-comps",
