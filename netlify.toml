@@ -103,6 +103,12 @@
   to   = "/.netlify/functions/credits-balance"
   status = 200
 
+# Service Property Intelligence — shop API key auth (not Pro JWT)
+[[redirects]]
+  from = "/api/property"
+  to   = "/.netlify/functions/property-briefing"
+  status = 200
+
 [[redirects]]
   from = "/property-intelligence"
   to   = "/property-intelligence.html"

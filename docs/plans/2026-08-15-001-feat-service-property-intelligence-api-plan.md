@@ -195,7 +195,7 @@ Netlify property-briefing
   -> lookupFlood (flood-layers.json + ArcGIS)
   -> matchCityPermits (full data/permits/*.json)
   -> opportunityHints (yearBuilt + plumbing permits)
-  <- JSON briefing { groups: {trust, data}, opportunities, links }
+  <- JSON briefing { groups: { parcel, building, permits, equipmentAge, flood, waterSewer, opportunities }, links }
 ```
 
 Response groups (each with `status` + `source` + payload): `parcel`, `building`, `permits`, `equipmentAge`, `flood`, `waterSewer`, `opportunities`. Optional `links` to Property Intelligence deep-link and official portals when known.
@@ -240,7 +240,7 @@ Response groups (each with `status` + `source` + payload): `parcel`, `building`,
 - **Goal:** Authenticate SPI callers with hashed shop API keys; reject missing/invalid keys.
 - **Requirements:** R11
 - **Files:** `supabase/migrations/YYYYMMDD_shop_api_keys.sql`, `supabase/schema.sql` (append), `netlify/functions/_lib/shop-auth.js`, `scripts/issue-shop-api-key.mjs` (or `.js`)
-- **Approach:** Create `shop_api_keys` with `id`, `shop_name`, `key_prefix`, `key_hash`, `active`, timestamps. Issue script generates `ds_shop_…` secret, stores SHA-256 hash + prefix, prints plaintext once. `requireShopApiKey(event)` reads `X-Api-Key` or Bearer token, hashes, looks up active row via service role, returns `{ shop, error }`. Extend CORS helper used by SPI to allow `Authorization, X-Api-Key, Content-Type`.
+- **Approach:** Create `shop_api_keys` with `id`, `shop_name`, `key_prefix`, `key_hash` (unique), `active`, timestamps. Issue script generates `ds_shop_…` secret, stores SHA-256 hash + prefix, prints plaintext once. `requireShopApiKey(event)` reads `X-Api-Key` or Bearer token, hashes, looks up active row via service role, returns `{ shop, error }`. Extend CORS helper used by SPI to allow `Authorization, X-Api-Key, Content-Type`.
 - **Dependencies:** None
 - **Test scenarios:**
   - Missing key → 401
