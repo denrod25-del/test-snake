@@ -12,10 +12,12 @@ Python pipeline in `water-quality/`, published JSON in `data/water/`, served by
 
 | Piece | State |
 |---|---|
-| Normalization core (units, analytes, schema) | Done, 99 tests passing |
+| Normalization core (units, analytes, schema) | Done, 126 tests passing |
 | Source clients (SDWIS, UCMR 5, CCR, notices) | Done, exercised against a fake transport |
 | Normalizers + ZIP index + profile assembly | Done |
 | HTTP API + routing + CI ingest workflow | Done |
+| Consumer page (`/water-quality.html`) | Done, browser-verified |
+| Utility configs | 11 Florida systems, none resolved yet |
 | Analyte dictionary (`/api/water/analytes`) | **Live now** — 81 analytes, committed |
 | Everything upstream-dependent | **Not yet populated** — see below |
 
@@ -28,7 +30,8 @@ runners are not subject to that policy, which is why the ingest runs there.
 Until the first ingest completes, `/api/water/systems`, `/api/water/system`,
 and `/api/water/lookup` return **HTTP 503** with `status: "coming-soon"` and an
 explanation. They do not return empty lists, and they do not return invented
-numbers.
+numbers. The page renders a matching empty state and keeps working for the
+contaminant reference, which needs no upstream data.
 
 To populate it:
 
@@ -59,6 +62,20 @@ Tests (hermetic — no network, synthetic fixtures):
 npm run test:water                   # from the repo root: Python + API suites
 ```
 
+Local dev server. `python -m http.server` cannot serve `/api/water/*`, so the
+page's lookup and profile panels are untestable against it; this routes the API
+through the real Netlify function handler:
+
+```bash
+node water-quality/devserver.mjs               # committed dataset
+node water-quality/devserver.mjs --fixtures    # synthetic dataset, full page works
+```
+
+Then open <http://localhost:8765/water-quality.html>. With `--fixtures`, ZIP
+**33410** returns two candidates, one with a PFOA exceedance and an incomplete
+Hazard Index — the data is invented (fictional `FL999xxxx` utilities) and is for
+development only.
+
 ## Endpoints
 
 | Endpoint | Returns |
@@ -74,6 +91,27 @@ All are public, CORS-open, GET-only, and rate-limited to 120 req/min per IP.
 Every payload carries a `meta` block with a data-trust status matching
 `assets/data-trust.js` (`live` / `cached` / `sample` / `blocked` / `broken` /
 `coming-soon`).
+
+## The page
+
+`/water-quality.html` is the consumer front end: ZIP lookup, ranked utility
+candidates, then a profile with summary tiles (exceedances, open health-based
+violations, PFAS Hazard Index, active boil-water notices), a contaminant table
+showing each result against its federal limit, and health-based violations.
+
+Framing choices that are deliberate:
+
+- It never says water is "safe" or "unsafe". It reports measurements against
+  limits, with the sampling date and source on every row.
+- Non-detects render as `< reporting limit`, never as `0`, with the note that
+  this is not the same as zero and not a measurement of your tap.
+- The lead row carries the caveat that lead is usually picked up from household
+  plumbing *after* the water leaves the utility, so a clean system-level number
+  does not rule it out at your tap.
+- Contaminants with no federal limit are listed and labelled "Unregulated" —
+  with the note that no limit means EPA has not set one, not that any amount is
+  known to be safe.
+- People on private wells are told none of it applies to them.
 
 ## The normalization contract
 
@@ -147,6 +185,22 @@ Confidence is conservative: only `high` is applied automatically, `low` is
 refused outright, and a changed PWSID is visible in the lockfile diff. Review
 that diff — it reassigns every record for that utility.
 
+## Configured utilities
+
+Eleven Florida systems ship with configs: Seacoast, Palm Beach County WUD, West
+Palm Beach, Boca Raton, Boynton Beach, Delray Beach, Jupiter, Miami-Dade WASD,
+JEA, OUC, and Tampa. **None has a PWSID yet** — that is what `fwq resolve`
+produces.
+
+Only Seacoast carries candidate CCR and alerts URLs. For the rest no candidate
+URL has been identified, and inventing ten of them would put ten dead links in
+the API, so those arrays are empty until a real one is confirmed.
+
+Some fragments are deliberately ambiguous and expected to resolve as `medium`
+needing review — `TAMPA` will also match wholesale providers, `JUPITER` will
+match systems in Martin County. The county and population expectations exist to
+catch exactly that, and the lockfile records the rejected candidates.
+
 ## Seacoast Utility Authority
 
 `fwq/data/utilities/seacoast.json` is the first end-to-end build-out: name
@@ -197,7 +251,9 @@ water-quality/
   before building an ingest against them.
 - **No service-area geometry**, so address lookup is ZIP-accurate at best.
 - **Boil-water notices have no statewide feed.** The classifier and manual-entry
-  path work; per-utility scraping needs each alerts page confirmed individually.
+  path work and are tested; per-utility scraping needs each alerts page
+  confirmed individually. Add notices by hand in
+  `fwq/data/manual_notices.json` during a live event.
 - **CCR parsing is untested against a real document.** The value-parsing core is
   well covered, but no actual utility PDF has been run through it — layouts vary
   enough that the first real ones will need iteration.

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Florida Water Quality — DeedScout</title>
+  <meta name="description" content="Look up your Florida water utility by ZIP code and see normalized EPA data: PFAS results, contaminant levels against federal limits, Safe Drinking Water Act violations, and boil-water notices." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/deedscout.css" />
+  <style>
+    /* Status colours. Every one is paired with a text label in the markup —
+       nothing here is the only carrier of meaning. */
+    :root {
+      --wq-exceed:      #8c2f24;
+      --wq-exceed-bg:   #f7e9e6;
+      --wq-detect:      #8a6410;
+      --wq-detect-bg:   #f9f1de;
+      --wq-clear:       #35603f;
+      --wq-clear-bg:    #eaf1ea;
+      --wq-neutral-bg:  #f0ede4;
+    }
+
+    .wq-search { background: var(--paper-2); border: 1px solid var(--rule);
+      border-radius: 10px; padding: 22px; box-shadow: var(--shadow); margin-bottom: 28px; }
+    .wq-search form { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+    .wq-field { display: flex; flex-direction: column; gap: 5px; }
+    .wq-field label { font-size: 12px; font-weight: 600; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--muted); }
+    .wq-field input { font: inherit; padding: 9px 11px; border: 1px solid var(--rule);
+      border-radius: 6px; background: var(--paper); color: var(--text); min-width: 150px; }
+    .wq-field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .wq-hint { font-size: 13px; color: var(--muted); margin: 12px 0 0; }
+
+    .wq-caveat { background: var(--wq-neutral-bg); border-left: 3px solid var(--accent);
+      padding: 12px 14px; border-radius: 0 6px 6px 0; font-size: 13.5px;
+      color: var(--ink-soft); margin: 16px 0; }
+
+    .wq-candidates { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .wq-candidate { display: flex; justify-content: space-between; gap: 14px;
+      align-items: flex-start; flex-wrap: wrap; width: 100%; text-align: left;
+      background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px;
+      padding: 14px 16px; cursor: pointer; font: inherit; color: inherit;
+      transition: border-color .15s ease, box-shadow .15s ease; }
+    .wq-candidate:hover, .wq-candidate:focus-visible { border-color: var(--accent);
+      box-shadow: var(--shadow); }
+    .wq-candidate h3 { margin: 0 0 4px; font-size: 16px; }
+    .wq-candidate-meta { font-size: 13px; color: var(--muted); margin: 0; }
+    .wq-confidence { font-size: 12px; font-weight: 600; white-space: nowrap;
+      padding: 3px 9px; border-radius: 999px; background: var(--wq-neutral-bg);
+      color: var(--ink-soft); }
+
+    .wq-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 12px; margin: 20px 0; }
+    .wq-tile { background: var(--paper-2); border: 1px solid var(--rule);
+      border-radius: 8px; padding: 14px 16px; }
+    .wq-tile-label { font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em;
+      color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+    .wq-tile-value { font-size: 26px; line-height: 1.1; font-weight: 600;
+      font-family: 'Cormorant Garamond', Georgia, serif; margin: 0; }
+    .wq-tile-note { font-size: 12px; color: var(--muted); margin: 5px 0 0; }
+    .wq-tile.is-exceed { background: var(--wq-exceed-bg); border-color: #e0c4bf; }
+    .wq-tile.is-exceed .wq-tile-value { color: var(--wq-exceed); }
+    .wq-tile.is-clear { background: var(--wq-clear-bg); border-color: #cadbcd; }
+
+    table.wq-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.wq-table th, table.wq-table td { text-align: left; padding: 9px 10px;
+      border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+    table.wq-table th { font-size: 11.5px; text-transform: uppercase;
+      letter-spacing: .05em; color: var(--muted); border-bottom-color: var(--rule); }
+    table.wq-table td.num { text-align: right; font-variant-numeric: tabular-nums;
+      white-space: nowrap; }
+    .wq-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    .wq-flag { display: inline-block; font-size: 11.5px; font-weight: 600;
+      padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+    .wq-flag.exceed { background: var(--wq-exceed-bg); color: var(--wq-exceed); }
+    .wq-flag.detect { background: var(--wq-detect-bg); color: var(--wq-detect); }
+    .wq-flag.clear  { background: var(--wq-clear-bg);  color: var(--wq-clear); }
+
+    /* Value-versus-limit bar. Decorative: the number and the flag next to it
+       already say everything this shows. */
+    .wq-bar { position: relative; height: 6px; border-radius: 3px;
+      background: var(--rule-soft); margin-top: 6px; overflow: hidden; }
+    .wq-bar span { display: block; height: 100%; border-radius: 3px;
+      background: var(--wq-clear); }
+    .wq-bar.detect span { background: var(--wq-detect); }
+    .wq-bar.exceed span { background: var(--wq-exceed); }
+
+    .wq-empty { background: var(--paper-2); border: 1px dashed var(--rule);
+      border-radius: 10px; padding: 26px; text-align: left; }
+    .wq-empty h3 { margin-top: 0; }
+    .wq-empty code { background: var(--wq-neutral-bg); padding: 1px 5px;
+      border-radius: 3px; font-size: 13px; }
+
+    .wq-panel { margin-top: 34px; }
+    .wq-panel > h2 { margin-bottom: 4px; }
+    .wq-panel-sub { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+
+    .wq-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+    .wq-chip { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px;
+      border: 1px solid var(--rule); background: var(--paper-2); cursor: pointer;
+      color: var(--ink-soft); }
+    .wq-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent);
+      color: #fff; }
+
+    .wq-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap; }
+
+    @media (max-width: 620px) {
+      .wq-search form { flex-direction: column; align-items: stretch; }
+      .wq-field input { width: 100%; }
+    }
+  </style>
+</head>
+<body class="ds-body">
+<main class="ds-main" style="padding-top:40px;">
+
+  <div class="ds-section-head">
+    <p class="ds-section-label">Florida Water Quality</p>
+    <h1>What's actually in your Florida tap water.</h1>
+    <p>
+      EPA's drinking-water data is public but scattered across systems that use different
+      units, different contaminant names, and different definitions of "detected." This
+      normalizes it: one utility, one page, every number traceable to its source.
+    </p>
+  </div>
+
+  <div id="wq-status-line" style="margin-bottom:20px;" aria-live="polite"></div>
+
+  <!-- ── Lookup ──────────────────────────────────────────────────────── -->
+  <section class="wq-search" aria-labelledby="wq-search-h">
+    <h2 id="wq-search-h" style="margin-top:0;font-size:19px;">Find your water utility</h2>
+    <form id="wq-form">
+      <div class="wq-field">
+        <label for="wq-zip">ZIP code</label>
+        <input id="wq-zip" name="zip" inputmode="numeric" autocomplete="postal-code"
+               pattern="[0-9]{5}" maxlength="10" placeholder="33410" required />
+      </div>
+      <div class="wq-field">
+        <label for="wq-city">City <span style="text-transform:none;font-weight:400;">(optional, narrows it)</span></label>
+        <input id="wq-city" name="city" autocomplete="address-level2" placeholder="Palm Beach Gardens" />
+      </div>
+      <button class="ds-btn ds-btn-primary" type="submit">Look up</button>
+    </form>
+    <p class="wq-hint">
+      A ZIP code is a mail route, not a water service area &mdash; several utilities often
+      share one. You'll get a ranked list, not a single answer. The definitive source is
+      the utility name printed on your water bill.
+    </p>
+  </section>
+
+  <div id="wq-results" aria-live="polite"></div>
+  <div id="wq-profile"></div>
+
+  <!-- ── Analyte reference ───────────────────────────────────────────── -->
+  <section class="wq-panel" aria-labelledby="wq-analytes-h">
+    <h2 id="wq-analytes-h" class="serif">What gets measured, and against what limit</h2>
+    <p class="wq-panel-sub">
+      The contaminant dictionary this API normalizes everything onto &mdash; every limit names
+      the authority that set it. Contaminants with an enforceable limit are listed first.
+      A contaminant with no federal limit is still measured and reported: no limit means
+      EPA has not set one, not that any amount is known to be safe.
+    </p>
+    <div class="wq-filters" id="wq-analyte-filters" role="group" aria-label="Filter contaminants by group"></div>
+    <div class="wq-scroll">
+      <table class="wq-table" id="wq-analyte-table">
+        <caption class="wq-visually-hidden">Contaminants and their regulatory limits</caption>
+        <thead>
+          <tr>
+            <th scope="col">Contaminant</th>
+            <th scope="col">Group</th>
+            <th scope="col" class="num">Limit</th>
+            <th scope="col">Type</th>
+            <th scope="col">Why it's regulated</th>
+          </tr>
+        </thead>
+        <tbody><tr><td colspan="5">Loading&hellip;</td></tr></tbody>
+      </table>
+    </div>
+    <p class="wq-hint" id="wq-analyte-footnote"></p>
+  </section>
+
+  <!-- ── Trust ───────────────────────────────────────────────────────── -->
+  <dl class="ds-trust-block" style="margin-top:36px;">
+    <dt>Data sources</dt>
+    <dd>EPA SDWIS (inventory, violations, lead &amp; copper) and EPA UCMR 5 (PFAS), via Envirofacts. Utility Consumer Confidence Reports and boil-water notices where published.</dd>
+    <dt>Last updated</dt>
+    <dd id="wq-trust-updated">See the status line at the top of this page.</dd>
+    <dt>Known limitations</dt>
+    <dd>ZIP codes are not service-area boundaries. SDWIS inventory is self-reported by utilities and lags by a reporting cycle. Sample results reflect the monitoring EPA requires, which is periodic &mdash; not a continuous measurement of what is in your tap right now.</dd>
+    <dt>Verification required</dt>
+    <dd>This is aggregated public data for research. It is not a substitute for your utility's own Consumer Confidence Report, and not a substitute for a certified lab test of water at your tap. Nothing here is health advice.</dd>
+  </dl>
+
+  <p class="ds-disclaimer" style="margin-top:18px;">
+    Full method notes and per-source freshness: <a href="/data-sources.html">Data Sources</a>
+    &middot; <a href="/status.html">System Status</a>.
+    If you're on a private well, none of this applies &mdash; well water is unregulated and untested unless you test it.
+  </p>
+
+</main>
+
+<script src="/assets/data-trust.js"></script>
+<script src="/assets/deedscout.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var API = "/api/water";
+  var esc = (window.DeedScoutTrust && window.DeedScoutTrust.escapeHtml) || function (s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ── fetch helper ────────────────────────────────────────────────────
+  // A 503 from this API is a designed state ("not ingested yet"), not a
+  // failure. It is returned to the caller so each panel can render its own
+  // honest empty state rather than a generic error.
+  function api(path) {
+    return fetch(API + path, { headers: { Accept: "application/json" } })
+      .then(function (res) {
+        return res.json()
+          .catch(function () { return { error: "bad_response" }; })
+          .then(function (body) { return { ok: res.ok, status: res.status, body: body }; });
+      })
+      .catch(function () {
+        return { ok: false, status: 0, body: { error: "network_error" } };
+      });
+  }
+
+  function comingSoon(title, body) {
+    return (
+      '<div class="wq-empty">' +
+      "<h3>" + esc(title) + "</h3>" +
+      "<p>" + body + "</p>" +
+      "</div>"
+    );
+  }
+
+  var NOT_INGESTED_BODY =
+    "The Florida system inventory hasn't been ingested yet, so utility lookup " +
+    "isn't available. The pipeline and this page are built; the scheduled " +
+    "<em>Ingest Florida Water Quality</em> job populates the data. " +
+    "The contaminant reference below works now.";
+
+  // ── status line ─────────────────────────────────────────────────────
+  function renderStatus() {
+    return api("/health").then(function (res) {
+      var el = $("wq-status-line");
+      var trust = window.DeedScoutTrust;
+      if (!res.ok) {
+        el.innerHTML = trust
+          ? trust.renderBadge("coming-soon", { compact: true }) +
+            ' <span style="font-size:13px;color:var(--muted);">Dataset not generated yet &mdash; utility lookup is unavailable.</span>'
+          : "";
+        return null;
+      }
+      var meta = res.body.meta || {};
+      var counts = res.body.counts || {};
+      var when = meta.generatedAt && trust ? trust.formatDate(meta.generatedAt) : null;
+      var summary = counts.systems
+        ? counts.systems.toLocaleString() + " water systems"
+        : "no systems ingested yet";
+      el.innerHTML =
+        (trust ? trust.renderBadge(meta.status || "coming-soon", {
+          compact: true,
+          source: (meta.sources || []).join(", "),
+          lastRefreshed: when,
+        }) : "") +
+        ' <span style="font-size:13px;color:var(--muted);">' +
+        esc(summary) + (when ? " &middot; updated " + esc(when) : "") +
+        "</span>";
+      if (when) $("wq-trust-updated").textContent = when;
+      return meta;
+    });
+  }
+
+  // ── lookup ──────────────────────────────────────────────────────────
+  function renderCandidates(payload) {
+    var out = $("wq-results");
+    $("wq-profile").innerHTML = "";
+
+    if (!payload.candidateCount) {
+      out.innerHTML = comingSoon(
+        "No utility found for that area",
+        esc(payload.caveat || "Nothing matched.")
+      );
+      return;
+    }
+
+    var items = payload.candidates.map(function (c) {
+      var pct = Math.round((c.confidence || 0) * 100);
+      var meta = [];
+      if (c.systemType) meta.push(esc(c.systemType) + " system");
+      if (c.populationServed) meta.push("serves ~" + c.populationServed.toLocaleString() + " people");
+      if (c.counties && c.counties.length) meta.push(esc(c.counties.join(", ")) + " County");
+      return (
+        '<li><button class="wq-candidate" type="button" data-pwsid="' + esc(c.pwsid) + '">' +
+        "<span>" +
+        "<h3>" + esc(c.name) + "</h3>" +
+        '<p class="wq-candidate-meta">' + meta.join(" &middot; ") + "</p>" +
+        '<p class="wq-candidate-meta" style="margin-top:4px;">' +
+        esc((c.reasons || []).join("; ")) + "</p>" +
+        "</span>" +
+        '<span class="wq-confidence">' + pct + "% match</span>" +
+        "</button></li>"
+      );
+    });
+
+    out.innerHTML =
+      '<section class="wq-panel" aria-labelledby="wq-cand-h">' +
+      '<h2 id="wq-cand-h" class="serif">' +
+      (payload.isDefinitive
+        ? "One utility serves this area"
+        : payload.candidateCount + " utilities report serving this area") +
+      "</h2>" +
+      '<div class="wq-caveat">' + esc(payload.caveat || "") + "</div>" +
+      '<ul class="wq-candidates">' + items.join("") + "</ul>" +
+      "</section>";
+
+    Array.prototype.forEach.call(out.querySelectorAll(".wq-candidate"), function (btn) {
+      btn.addEventListener("click", function () { loadProfile(btn.dataset.pwsid); });
+    });
+
+    if (payload.candidateCount === 1) loadProfile(payload.candidates[0].pwsid);
+  }
+
+  // ── profile ─────────────────────────────────────────────────────────
+  function resultFlag(r) {
+    if (!r.detected) return { cls: "clear", label: "Not detected" };
+    if (r.comparison && r.comparison.exceeds) return { cls: "exceed", label: "Over limit" };
+    if (r.comparison) {
+      return { cls: "detect", label: Math.round(r.comparison.ratioToLimit * 100) + "% of limit" };
+    }
+    return { cls: "detect", label: "Detected" };
+  }
+
+  function formatValue(r) {
+    if (!r.detected) {
+      return r.detectionLimit != null
+        ? '<span style="color:var(--muted);">&lt; ' + r.detectionLimit + " " + esc(r.unit) + "</span>"
+        : '<span style="color:var(--muted);">ND</span>';
+    }
+    return esc(String(r.value)) + " " + esc(r.unit);
+  }
+
+  function resultRow(r) {
+    var flag = resultFlag(r);
+    var limit = r.comparison
+      ? esc(String(r.comparison.limitValue)) + " " + esc(r.comparison.limitUnit) +
+        ' <span style="color:var(--muted);">(' + esc(r.comparison.limitKind) + ")</span>"
+      : '<span style="color:var(--muted);">no federal limit</span>';
+    var bar = "";
+    if (r.detected && r.comparison) {
+      var ratio = Math.min(r.comparison.ratioToLimit, 1.6) / 1.6;
+      bar = '<div class="wq-bar ' + flag.cls + '" aria-hidden="true"><span style="width:' +
+        Math.max(2, ratio * 100) + '%"></span></div>';
+    }
+    var provenance = (r.provenance && r.provenance.source) || "";
+    return (
+      "<tr>" +
+      "<th scope=\"row\" style=\"font-weight:600;\">" + esc(r.analyteName || r.analyteId) +
+      (r.is90thPercentile
+        ? '<div style="font-weight:400;font-size:12px;color:var(--muted);">90th-percentile of tap samples</div>'
+        : "") +
+      "</th>" +
+      '<td class="num">' + formatValue(r) + bar + "</td>" +
+      '<td class="num">' + limit + "</td>" +
+      '<td><span class="wq-flag ' + flag.cls + '">' + esc(flag.label) + "</span></td>" +
+      '<td style="font-size:12.5px;color:var(--muted);">' +
+      esc(r.sampleDate ? r.sampleDate.slice(0, 10) : "date unknown") +
+      (provenance ? " &middot; " + esc(provenance) : "") +
+      "</td>" +
+      "</tr>"
+    );
+  }
+
+  function hazardTile(hi) {
+    if (!hi) return "";
+    var cls = hi.exceeds ? " is-exceed" : (hi.complete ? " is-clear" : "");
+    var note = hi.complete
+      ? (hi.exceeds ? "Above EPA's limit of 1.0" : "Below EPA's limit of 1.0")
+      : "Incomplete &mdash; " + hi.missingComponents.length + " of the four PFAS were never sampled, so this understates the true index";
+    return (
+      '<div class="wq-tile' + cls + '">' +
+      '<p class="wq-tile-label">PFAS Hazard Index</p>' +
+      '<p class="wq-tile-value">' + esc(String(hi.value)) + "</p>" +
+      '<p class="wq-tile-note">' + note + "</p>" +
+      "</div>"
+    );
+  }
+
+  function renderProfile(p) {
+    var s = p.summary || {};
+    var v = s.violations || {};
+    var pfas = s.pfas || {};
+    var sys = p.system || {};
+    var area = sys.serviceArea || {};
+
+    var tiles = [
+      '<div class="wq-tile' + (s.exceedanceCount ? " is-exceed" : " is-clear") + '">' +
+        '<p class="wq-tile-label">Over a federal limit</p>' +
+        '<p class="wq-tile-value">' + (s.exceedanceCount || 0) + "</p>" +
+        '<p class="wq-tile-note">of ' + (s.analytesMeasured || 0) + " contaminants measured</p></div>",
+      '<div class="wq-tile' + (v.openHealthBased ? " is-exceed" : "") + '">' +
+        '<p class="wq-tile-label">Open health violations</p>' +
+        '<p class="wq-tile-value">' + (v.openHealthBased || 0) + "</p>" +
+        '<p class="wq-tile-note">' + (v.open || 0) + " open of " + (v.total || 0) + " on record</p></div>",
+      hazardTile(pfas.hazardIndex),
+      '<div class="wq-tile' + (s.activeBoilWaterNotices ? " is-exceed" : "") + '">' +
+        '<p class="wq-tile-label">Active boil-water notices</p>' +
+        '<p class="wq-tile-value">' + (s.activeBoilWaterNotices || 0) + "</p>" +
+        '<p class="wq-tile-note">from utility notices on file</p></div>',
+    ].join("");
+
+    var results = (p.priorityResults && p.priorityResults.length ? p.priorityResults : p.results) || [];
+    var table = results.length
+      ? '<div class="wq-scroll"><table class="wq-table">' +
+        "<thead><tr><th scope=\"col\">Contaminant</th><th scope=\"col\" class=\"num\">Detected</th>" +
+        "<th scope=\"col\" class=\"num\">Federal limit</th><th scope=\"col\">Status</th>" +
+        "<th scope=\"col\">Sampled</th></tr></thead><tbody>" +
+        results.map(resultRow).join("") +
+        "</tbody></table></div>"
+      : "<p>No sample results have been ingested for this system yet.</p>";
+
+    var violations = (p.violations || []).filter(function (x) { return x.isHealthBased; }).slice(0, 10);
+    var violationsHtml = violations.length
+      ? '<div class="wq-scroll"><table class="wq-table">' +
+        "<thead><tr><th scope=\"col\">Contaminant</th><th scope=\"col\">Type</th>" +
+        "<th scope=\"col\">Began</th><th scope=\"col\">Status</th></tr></thead><tbody>" +
+        violations.map(function (x) {
+          return "<tr><th scope=\"row\" style=\"font-weight:600;\">" +
+            esc(x.analyteName || "Unspecified") + "</th>" +
+            "<td>" + esc(x.category) + "</td>" +
+            "<td>" + esc(x.beginDate || "unknown") + "</td>" +
+            '<td><span class="wq-flag ' + (x.resolved ? "clear" : "exceed") + '">' +
+            (x.resolved ? "Resolved" : "Open") + "</span></td></tr>";
+        }).join("") +
+        "</tbody></table></div>"
+      : "<p>No health-based Safe Drinking Water Act violations on record for this system.</p>";
+
+    var where = [];
+    if (area.cities && area.cities.length) where.push(esc(area.cities.slice(0, 6).join(", ")));
+    if (area.counties && area.counties.length) where.push(esc(area.counties.join(", ")) + " County");
+
+    $("wq-profile").innerHTML =
+      '<section class="wq-panel" aria-labelledby="wq-profile-h">' +
+      '<h2 id="wq-profile-h" class="serif">' + esc(sys.name || p.pwsid) + "</h2>" +
+      '<p class="wq-panel-sub">' +
+      esc(sys.pwsid || "") +
+      (sys.populationServed ? " &middot; serves ~" + sys.populationServed.toLocaleString() + " people" : "") +
+      (sys.primarySource ? " &middot; " + esc(sys.primarySource) : "") +
+      (where.length ? " &middot; " + where.join(" &middot; ") : "") +
+      "</p>" +
+      (p.note ? '<div class="wq-caveat">' + esc(p.note) + "</div>" : "") +
+      '<div class="wq-tiles">' + tiles + "</div>" +
+      "<h3>Contaminant results</h3>" +
+      '<p class="wq-panel-sub">"Not detected" means the lab found nothing above its reporting limit &mdash; it is not the same as zero, and it is not a measurement of your tap.</p>' +
+      table +
+      "<h3 style=\"margin-top:26px;\">Health-based violations</h3>" +
+      violationsHtml +
+      '<div class="wq-caveat" style="margin-top:20px;">' +
+      "These figures come from EPA's compliance monitoring of this utility's system, " +
+      "not from a test of water at your address. Lead in particular is usually picked " +
+      "up from household plumbing after the water leaves the utility, so a clean " +
+      "system-level number does not rule it out at your tap." +
+      "</div>" +
+      "</section>";
+
+    $("wq-profile").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function loadProfile(pwsid) {
+    $("wq-profile").innerHTML = '<p style="color:var(--muted);">Loading ' + esc(pwsid) + "&hellip;</p>";
+    api("/system?pwsid=" + encodeURIComponent(pwsid)).then(function (res) {
+      if (!res.ok) {
+        $("wq-profile").innerHTML = comingSoon(
+          "Profile unavailable",
+          esc((res.body && res.body.message) || "This system's profile could not be loaded.")
+        );
+        return;
+      }
+      renderProfile(res.body);
+    });
+  }
+
+  // ── analyte reference ───────────────────────────────────────────────
+  var analyteState = { all: [], group: "all" };
+
+  var GROUP_LABELS = {
+    pfas: "PFAS", disinfection_byproduct: "Disinfection byproducts",
+    disinfectant_residual: "Disinfectants", metal: "Metals", inorganic: "Inorganics",
+    radionuclide: "Radionuclides", microbial: "Microbial", voc: "Volatile organics",
+    soc: "Pesticides & industrial", secondary: "Aesthetic (non-health)", physical: "Physical",
+  };
+
+  function enforceableLimitOf(a) {
+    var found = null;
+    (a.limits || []).forEach(function (l) {
+      if (!found && ["MCL", "AL", "MRDL"].indexOf(l.kind) >= 0 && l.value != null) found = l;
+    });
+    return found;
+  }
+
+  function renderAnalyteTable() {
+    var rows = analyteState.all.filter(function (a) {
+      return analyteState.group === "all" || a.group === analyteState.group;
+    });
+    // Regulated contaminants first. Filtered to PFAS, 27 of 33 have no federal
+    // limit; leaving them interleaved buries the six that actually have one.
+    rows = rows.slice().sort(function (a, b) {
+      var ra = enforceableLimitOf(a) ? 0 : 1;
+      var rb = enforceableLimitOf(b) ? 0 : 1;
+      if (ra !== rb) return ra - rb;
+      if (a.group !== b.group) return a.group < b.group ? -1 : 1;
+      return a.shortName.localeCompare(b.shortName);
+    });
+    var tbody = document.querySelector("#wq-analyte-table tbody");
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="5">No contaminants in this group.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(function (a) {
+      var enforceable = enforceableLimitOf(a);
+      var secondary = (a.limits || []).filter(function (l) { return l.kind === "SMCL"; })[0];
+      var limitText, kindText;
+      if (enforceable) {
+        limitText = enforceable.value + " " + enforceable.unit;
+        kindText = enforceable.kind === "AL" ? "Action level" :
+                   enforceable.kind === "MRDL" ? "Max disinfectant" : "Enforceable (MCL)";
+      } else if (secondary && secondary.value != null) {
+        limitText = secondary.value + " " + secondary.unit;
+        kindText = '<span style="color:var(--muted);">Aesthetic only</span>';
+      } else {
+        limitText = "&mdash;";
+        kindText = '<span style="color:var(--muted);">Unregulated</span>';
+      }
+      return "<tr>" +
+        "<th scope=\"row\" style=\"font-weight:600;\">" + esc(a.shortName) +
+        (a.shortName !== a.name
+          ? '<div style="font-weight:400;font-size:12px;color:var(--muted);">' + esc(a.name) + "</div>"
+          : "") +
+        "</th>" +
+        "<td>" + esc(GROUP_LABELS[a.group] || a.group) + "</td>" +
+        '<td class="num">' + limitText + "</td>" +
+        "<td>" + kindText + "</td>" +
+        '<td style="font-size:12.5px;color:var(--muted);">' +
+        (a.healthBasis ? esc(a.healthBasis) : "&mdash;") + "</td>" +
+        "</tr>";
+    }).join("");
+  }
+
+  function renderAnalyteFilters(groups) {
+    var el = $("wq-analyte-filters");
+    el.innerHTML = ["all"].concat(groups).map(function (g) {
+      return '<button class="wq-chip" type="button" data-group="' + esc(g) + '" aria-pressed="' +
+        (g === analyteState.group) + '">' +
+        (g === "all" ? "All" : esc(GROUP_LABELS[g] || g)) + "</button>";
+    }).join("");
+    Array.prototype.forEach.call(el.querySelectorAll(".wq-chip"), function (btn) {
+      btn.addEventListener("click", function () {
+        analyteState.group = btn.dataset.group;
+        Array.prototype.forEach.call(el.querySelectorAll(".wq-chip"), function (b) {
+          b.setAttribute("aria-pressed", String(b === btn));
+        });
+        renderAnalyteTable();
+      });
+    });
+  }
+
+  function loadAnalytes() {
+    return api("/analytes").then(function (res) {
+      if (!res.ok) {
+        document.querySelector("#wq-analyte-table tbody").innerHTML =
+          '<tr><td colspan="5">The contaminant reference could not be loaded.</td></tr>';
+        return;
+      }
+      analyteState.all = (res.body.analytes || []).slice().sort(function (a, b) {
+        if (a.group !== b.group) return a.group < b.group ? -1 : 1;
+        return a.shortName.localeCompare(b.shortName);
+      });
+      var groups = [];
+      analyteState.all.forEach(function (a) {
+        if (groups.indexOf(a.group) < 0) groups.push(a.group);
+      });
+      groups.sort();
+      renderAnalyteFilters(groups);
+      renderAnalyteTable();
+
+      var review = res.body.limitReview || {};
+      $("wq-analyte-footnote").innerHTML =
+        esc(analyteState.all.length + " contaminants") +
+        (review.reviewed ? " &middot; limits last reviewed " + esc(review.reviewed) : "") +
+        (review.caveat ? " &middot; " + esc(review.caveat) : "");
+    });
+  }
+
+  // ── wiring ──────────────────────────────────────────────────────────
+  $("wq-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    var zip = $("wq-zip").value.trim();
+    var city = $("wq-city").value.trim();
+    if (!/^\d{5}/.test(zip)) return;
+
+    $("wq-results").innerHTML = '<p style="color:var(--muted);">Searching&hellip;</p>';
+    var query = "/lookup?zip=" + encodeURIComponent(zip.slice(0, 5)) +
+      (city ? "&city=" + encodeURIComponent(city) : "");
+
+    api(query).then(function (res) {
+      if (res.status === 503) {
+        $("wq-results").innerHTML = comingSoon("Utility lookup isn't live yet", NOT_INGESTED_BODY);
+        return;
+      }
+      if (!res.ok) {
+        $("wq-results").innerHTML = comingSoon(
+          "Lookup failed",
+          esc((res.body && res.body.message) || "Please try again.")
+        );
+        return;
+      }
+      renderCandidates(res.body);
+    });
+  });
+
+  // Deep link: /water-quality.html?zip=33410 or ?pwsid=FL...
+  var params = new URLSearchParams(window.location.search);
+  renderStatus();
+  loadAnalytes();
+  if (params.get("pwsid")) {
+    loadProfile(params.get("pwsid"));
+  } else if (params.get("zip")) {
+    $("wq-zip").value = params.get("zip");
+    if (params.get("city")) $("wq-city").value = params.get("city");
+    $("wq-form").dispatchEvent(new Event("submit"));
+  }
+})();
+</script>
+</body>
+</html>

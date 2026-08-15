@@ -123,6 +123,11 @@
   to   = "/property-intelligence.html"
   status = 200
 
+[[redirects]]
+  from = "/water-quality"
+  to   = "/water-quality.html"
+  status = 200
+
 # DeedScout uses hash routes inside tax-deeds.html. Supabase Auth often
 # redirects to /account or /pricing — serve shim pages that forward tokens.
 [[redirects]]

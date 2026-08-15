@@ -1,0 +1,25 @@
+{
+  "$comment": [
+    "Hand-entered boil-water notices.",
+    "",
+    "Florida has no statewide machine-readable boil-water-notice feed, and during",
+    "an actual event the fastest correct answer is a person transcribing the",
+    "utility's own published wording. Entries here are merged with anything the",
+    "scrapers find and are tagged with a `manual entry` provenance note so their",
+    "origin stays visible in the API response.",
+    "",
+    "Rules for adding one:",
+    "  - `pwsid` must match the utility's resolved PWSID in utilities.lock.json.",
+    "  - `sourceUrl` must point at the utility's own notice. Do not enter a",
+    "    notice you cannot cite.",
+    "  - Set `status` to \"rescinded\" and fill `rescindedAt` when it is lifted.",
+    "    Leaving a resolved notice marked active is the error that erodes trust",
+    "    fastest; deleting the entry instead loses the history.",
+    "  - `areaDescription` should quote the utility, not paraphrase it.",
+    "",
+    "Fields: pwsid, issuedAt (YYYY-MM-DD), status (active|rescinded|unknown),",
+    "rescindedAt, areaDescription, affectedZips[], affectedStreets[], reason,",
+    "isPrecautionary, sourceUrl, noticeId (optional; derived when omitted)."
+  ],
+  "notices": []
+}

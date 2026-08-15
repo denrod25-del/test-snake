@@ -1,0 +1,69 @@
+{
+  "$comment": [
+    "City of West Palm Beach Public Utilities \u2014 utility config for the Florida Water Quality API.",
+    "",
+    "`pwsid` is null on purpose. It is resolved by name against SDWIS by",
+    "`python -m fwq resolve`, scored against the expectations below, and",
+    "written to fwq/data/utilities.lock.json with the rejected candidates.",
+    "A hardcoded PWSID that is subtly wrong would attach this utility's",
+    "page to another community's PFAS results and violations.",
+    "",
+    "`expect_population_min` is a conservative lower bound used to reject a",
+    "same-named satellite system, not an assertion about headcount.",
+    "",
+    "No website, CCR index, or alerts page is listed: unlike Seacoast, no",
+    "candidate URL for this utility has been identified, and guessing one",
+    "would put a dead link in the API. Add them once confirmed by probe."
+  ],
+  "slug": "west-palm-beach",
+  "name": "City of West Palm Beach Public Utilities",
+  "short_name": "West Palm Beach",
+  "state": "FL",
+  "pwsid": null,
+  "pwsid_resolution": {
+    "strategy": "sdwis_name_search",
+    "search_fragment": "WEST PALM BEACH",
+    "expect_state": "FL",
+    "expect_type": "CWS",
+    "expect_counties": [
+      "Palm Beach"
+    ],
+    "expect_population_min": 50000,
+    "note": "Confirm the resolved system is the main community system, not a separately permitted satellite, wholesale interconnect, or a similarly named system in another county."
+  },
+  "aliases": [
+    "West Palm Beach Utilities",
+    "WPB Public Utilities"
+  ],
+  "expected_service_area": {
+    "$comment": "Verification hint only. The authoritative service area comes from SDWIS geographic_area rows; a large mismatch is reported as an ingest warning.",
+    "county": "Palm Beach",
+    "cities": [
+      "West Palm Beach",
+      "Palm Beach",
+      "South Palm Beach"
+    ]
+  },
+  "ccr_sources": [],
+  "notice_sources": [],
+  "priority_analytes": {
+    "$comment": "Analytes surfaced first in this utility's profile: the six PFAS named in EPA's 2024 rule, the two regulated disinfection-byproduct groups, lead and copper, the disinfectant residual, and the non-health figures people actually ask about (hardness, sodium).",
+    "ids": [
+      "pfoa",
+      "pfos",
+      "pfhxs",
+      "pfna",
+      "hfpo_da",
+      "pfbs",
+      "tthm",
+      "haa5",
+      "lead",
+      "copper",
+      "chlorine",
+      "chloramines",
+      "nitrate",
+      "hardness",
+      "sodium"
+    ]
+  }
+}

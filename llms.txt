@@ -11,11 +11,26 @@ DeedScout is deployed at https://deedscout.netlify.app/
 - [Counties](https://deedscout.netlify.app/counties/index.html): SEO county pages with official source links
 - [Parcel Lookup](https://deedscout.netlify.app/parcel-lookup.html): Palm Beach parcel research
 - [Permit Search](https://deedscout.netlify.app/permit-search.html): Municipal permit search with source health labels
+- [Water Quality](https://deedscout.netlify.app/water-quality.html): Florida drinking-water lookup by ZIP — normalized EPA SDWIS and UCMR 5 PFAS results, contaminant levels against federal limits, SDWA violations, boil-water notices
 - [Pricing](https://deedscout.netlify.app/pricing.html): Free, Pro ($49/mo), Investor Pro (waitlist), Team
 - [Methodology](https://deedscout.netlify.app/methodology.html): How we label Live, Cached, Sample, Blocked, Broken
 - [Data Sources](https://deedscout.netlify.app/data-sources.html): Source inventory and refresh policy
 - [Status](https://deedscout.netlify.app/status.html): Scraper and source health
 - [FAQ](https://deedscout.netlify.app/faq.html)
+
+## Public API
+
+Read-only, no auth, CORS-open, at https://deedscout.netlify.app/api/water/
+
+- `GET /api/water/health` — dataset freshness and per-source status
+- `GET /api/water/analytes` — contaminant dictionary with EPA limits and citations
+- `GET /api/water/systems` — Florida public water system inventory
+- `GET /api/water/system?pwsid=FL0000000` — one system's full profile
+- `GET /api/water/lookup?zip=33410` — ranked candidate utilities for a ZIP
+
+Every response carries a `meta.status` using the data trust labels below. A ZIP is
+a mail route, not a water service area, so lookup returns ranked candidates rather
+than a single definitive utility.
 
 ## Data trust labels
 

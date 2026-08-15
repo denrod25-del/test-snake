@@ -100,6 +100,47 @@ class TestUtilityResolution(unittest.TestCase):
             },
         })
 
+    def test_no_shipped_config_hardcodes_a_pwsid(self):
+        # The whole audit trail depends on this. A PWSID typed into a config
+        # bypasses name resolution, scoring, and the reviewable lockfile diff.
+        for slug, config in utilities.load_configs().items():
+            with self.subTest(slug=slug):
+                self.assertIsNone(config.pwsid, f"{slug} pins a PWSID in its config")
+
+    def test_every_shipped_config_is_resolvable_and_self_consistent(self):
+        registry_ids = set(__import__("fwq.analytes", fromlist=["x"]).registry().analytes)
+        for slug, config in utilities.load_configs().items():
+            with self.subTest(slug=slug):
+                self.assertTrue(config.name)
+                self.assertTrue(
+                    config.resolution.get("search_fragment"),
+                    "resolution needs a search fragment or it cannot find the system",
+                )
+                self.assertEqual(config.state, "FL")
+                unknown = set(config.priority_analytes) - registry_ids
+                self.assertEqual(
+                    unknown, set(),
+                    f"{slug} lists analytes absent from analytes.json: {unknown}",
+                )
+
+    def test_no_config_publishes_an_unverified_url_as_verified(self):
+        for slug, config in utilities.load_configs().items():
+            for source in (*config.ccr_sources, *config.notice_sources):
+                with self.subTest(slug=slug, source=source.id):
+                    if source.verified:
+                        self.fail(
+                            f"{slug}/{source.id} claims verified=true, but no source "
+                            "has been probed successfully from any environment yet"
+                        )
+
+    def test_slugs_and_search_fragments_are_distinct(self):
+        configs = utilities.load_configs()
+        fragments = [c.search_fragment.casefold() for c in configs.values()]
+        self.assertEqual(
+            len(fragments), len(set(fragments)),
+            "two utilities sharing a search fragment would resolve to the same system",
+        )
+
     def test_seacoast_config_ships_without_a_hardcoded_pwsid(self):
         configs = utilities.load_configs()
         self.assertIn("seacoast", configs)
