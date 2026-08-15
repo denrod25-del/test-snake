@@ -15,6 +15,21 @@ name: Ingest Florida Water Quality
 on:
   schedule:
     - cron: '0 9 * * 4'
+
+  # TEMPORARY — remove once this branch merges to the default branch.
+  #
+  # `workflow_dispatch` and `schedule` only fire for workflows that already
+  # exist on the default branch, so until this merges there is no way to run
+  # the first ingest. This push trigger is scoped to the feature branch so the
+  # ingest can run and prove itself against real EPA data before merge.
+  # It cannot loop: the commit this workflow makes carries [skip ci].
+  push:
+    branches:
+      - claude/florida-water-quality-api-8pykvz
+    paths:
+      - 'water-quality/**'
+      - '.github/workflows/ingest-water-quality.yml'
+
   workflow_dispatch:
     inputs:
       utility:
@@ -72,8 +87,11 @@ jobs:
         continue-on-error: true
         run: python -m fwq probe
 
+      # Also runs unprompted when no lockfile exists: without resolved PWSIDs
+      # the ingest has no focus systems and produces an inventory with no
+      # results, violations, or profiles attached to anything.
       - name: Resolve utility PWSIDs
-        if: inputs.resolve
+        if: inputs.resolve || hashFiles('water-quality/fwq/data/utilities.lock.json') == ''
         run: |
           python -m fwq resolve ${{ inputs.utility && format('--utility {0}', inputs.utility) || '' }}
           echo "::notice::Review the utilities.lock.json diff — a changed PWSID reassigns every record for that utility."
@@ -87,9 +105,51 @@ jobs:
       - name: Validate published dataset
         run: python -m fwq validate
 
-      - name: Test the API against the freshly built dataset
+      # This suite builds its own synthetic dataset in a temp dir; it is a
+      # regression check on the handler, not on what was just ingested.
+      - name: Run API handler tests
         working-directory: .
         run: node water-quality/tests/api.test.mjs
+
+      # ...so check the real dataset separately. Serving a manifest that claims
+      # systems while the endpoints 404, or a lookup that returns nothing for a
+      # populated ZIP, would be worse than publishing nothing.
+      - name: Smoke-test the API against the ingested dataset
+        working-directory: .
+        run: |
+          node -e '
+          const { handler } = require("./netlify/functions/water-api.js");
+          const get = (ep, q = {}) => handler({
+            httpMethod: "GET", path: "/api/water/" + ep,
+            queryStringParameters: q, rawQuery: new URLSearchParams(q).toString(),
+            headers: { "x-nf-client-connection-ip": "ci" },
+          });
+          (async () => {
+            const fail = (m) => { console.error("::error::" + m); process.exitCode = 1; };
+
+            const health = JSON.parse((await get("health")).body);
+            const systems = health.counts.systems;
+            console.log(`status=${health.meta.status} systems=${systems} profiles=${health.counts.profiles}`);
+            if (!systems) return fail("ingest produced no water systems");
+
+            const list = await get("systems", { limit: "1" });
+            if (list.statusCode !== 200) return fail(`/systems returned ${list.statusCode}`);
+            const first = JSON.parse(list.body).systems[0];
+
+            const one = await get("system", { pwsid: first.pwsid });
+            if (one.statusCode !== 200) return fail(`/system?pwsid=${first.pwsid} returned ${one.statusCode}`);
+
+            const zip = (first.serviceArea.zips || [])[0];
+            if (zip) {
+              const look = JSON.parse((await get("lookup", { zip })).body);
+              if (!look.candidateCount) return fail(`lookup for ZIP ${zip} found nothing, but ${first.pwsid} reports serving it`);
+              console.log(`lookup ${zip} -> ${look.candidateCount} candidate(s)`);
+            }
+
+            for (const p of health.counts.profiles ? JSON.parse((await get("utilities")).body).utilities : []) {
+              if (p.pwsid) console.log(`profile: ${p.slug} -> ${p.pwsid}`);
+            }
+          })();'
 
       - name: Summarize
         if: always()
