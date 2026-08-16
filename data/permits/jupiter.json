@@ -1,12 +1,70 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-15T07:59:16Z",
+  "generated": "2026-08-16T08:00:03Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424111150002310": [
+      {
+        "permitNumber": "26-097315-BLDR",
+        "parcelId": "30424111150002310",
+        "address": "198  HAMPTON CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "New Screened Enclosure",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-15",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/eff97c9d-fa33-4745-aaf1-4f3e579456cd"
+      },
+      {
+        "permitNumber": "26-096651-BLDR",
+        "parcelId": "30424111150002310",
+        "address": "198  HAMPTON CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "LIKE FOR LIKE REPLACEMENT OF FRONT DOOR AND TRANSOM",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-21",
+        "issuedDate": "2026-08-06",
+        "finalDate": null,
+        "expirationDate": "2027-02-02",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/16426740-3945-4e13-9855-bd7055821322"
+      }
+    ],
+    "30434108040000080": [
+      {
+        "permitNumber": "26-097314-GEN",
+        "parcelId": "30434108040000080",
+        "address": "205  XANADU PL  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Generator",
+        "subtype": "Generator",
+        "description": "Install new 38  kW generator and transfer switch.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-15",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bf31f8ec-7cbb-48ce-96df-96214764c7fa"
+      }
+    ],
     "30434108060030040": [
       {
         "permitNumber": "26-097313-AC",
@@ -21257,26 +21315,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-19",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3d03a8c3-5932-43d1-a9af-51a4a89117da"
-      }
-    ],
-    "30424111150002310": [
-      {
-        "permitNumber": "26-096651-BLDR",
-        "parcelId": "30424111150002310",
-        "address": "198  HAMPTON CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "LIKE FOR LIKE REPLACEMENT OF FRONT DOOR AND TRANSOM",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-08-06",
-        "finalDate": null,
-        "expirationDate": "2027-02-02",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/16426740-3945-4e13-9855-bd7055821322"
       }
     ],
     "30424104010070090": [
@@ -75243,24 +75281,6 @@
         "finalDate": "2026-05-04",
         "expirationDate": "2026-10-28",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/006df116-fb8b-43d9-83fe-2d417c3807d2"
-      },
-      {
-        "permitNumber": "26-093702-COMM",
-        "parcelId": "30434120110105030",
-        "address": "1001 SEAFARER CIR Unit: 503 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Replace front door with impact door",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-15",
-        "issuedDate": "2026-04-01",
-        "finalDate": "2026-04-22",
-        "expirationDate": "2026-10-19",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/cd416e93-7802-4131-9698-a3aa17d33701"
       }
     ],
     "30424103260190020": [
@@ -76593,26 +76613,6 @@
         "finalDate": null,
         "expirationDate": "2026-12-21",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9603cdd1-c8f5-47fd-8ea8-a29ca4adc3fd"
-      }
-    ],
-    "30424115020003920": [
-      {
-        "permitNumber": "26-009477-ROOF-R",
-        "parcelId": "30424115020003920",
-        "address": "422  MEADOWLARK DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "CONCRETE TILE REROOF ON EXISTING PLYWOOD DECK",
-        "status": "97 - Closed - Duplicate",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-14",
-        "issuedDate": null,
-        "finalDate": "2026-03-16",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2f6f878c-c244-4351-b0f8-00941b12bc36"
       }
     ]
   }

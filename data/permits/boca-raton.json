@@ -1,12 +1,70 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-08-15T07:47:37Z",
+  "generated": "2026-08-16T07:48:12Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "06434730330001610": [
+      {
+        "permitNumber": "BPM-2026-02185",
+        "parcelId": "06434730330001610",
+        "address": "50 SE 12th St  1610 Unit: 1610 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Plumbing/ Piping/ Plumbing Fixtures Multifamily",
+        "subtype": "Plumbing Piping/ Fixtures",
+        "description": "Running new sewer to main line",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-15",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/e1cc8050-4563-454f-a5f0-7ccd1ab845d0"
+      },
+      {
+        "permitNumber": "BPR-2026-01537",
+        "parcelId": "06434730330001610",
+        "address": "50 SE 12th St  1610 Unit: 1610 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Plumbing/Piping/Plumbing Fixtures - Building (Residential)",
+        "subtype": "Plumbing Piping/ Fixtures",
+        "description": "Running new sewer line to main",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-03",
+        "issuedDate": null,
+        "finalDate": "2026-06-03",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a93e8c46-903a-4ee3-bf7f-980e5eb0d316"
+      }
+    ],
+    "06424725110080040": [
+      {
+        "permitNumber": "BPR-2026-02229",
+        "parcelId": "06424725110080040",
+        "address": "67 SW 10th Ter   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Fence - NO POOL - Building (Residential)",
+        "subtype": "Fence - No Pool",
+        "description": "6' h vinyl fence and (1) gate",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-15",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/aad473b7-0b51-470e-8a10-03cc9c1e787e"
+      }
+    ],
     "06434709050011102": [
       {
         "permitNumber": "BPM-2026-02184",
@@ -57821,26 +57879,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/17438c0b-f5d7-4d10-aea2-6cc7159b2ff2"
       }
     ],
-    "06434730330001610": [
-      {
-        "permitNumber": "BPR-2026-01537",
-        "parcelId": "06434730330001610",
-        "address": "50 SE 12th St  1610 Unit: 1610 Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Plumbing/Piping/Plumbing Fixtures - Building (Residential)",
-        "subtype": "Plumbing Piping/ Fixtures",
-        "description": "Running new sewer line to main",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-03",
-        "issuedDate": null,
-        "finalDate": "2026-06-03",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a93e8c46-903a-4ee3-bf7f-980e5eb0d316"
-      }
-    ],
     "06434732110020204": [
       {
         "permitNumber": "BPM-2026-01416",
@@ -74769,46 +74807,6 @@
         "finalDate": "2026-05-22",
         "expirationDate": "2026-11-18",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/73a28efb-f882-40e6-81b9-0aa727b98ac7"
-      }
-    ],
-    "06434729100090280": [
-      {
-        "permitNumber": "BPR-2026-01232",
-        "parcelId": "06434729100090280",
-        "address": "2280 E Silver Palm Rd   Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Fence/Site Wall - Building (Residential)",
-        "subtype": "Fence/Site Wall/ Gate",
-        "description": "PRIVATE PROVIDER PLAN REVIEW AND INSPECTIONS: Retaining wall on north side, east side and partial south side of property",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-01",
-        "issuedDate": "2026-05-15",
-        "finalDate": null,
-        "expirationDate": "2026-12-21",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/25cb8674-41c2-495a-a1ec-fedce0dd5fdc"
-      }
-    ],
-    "06434632170020331": [
-      {
-        "permitNumber": "BPQ-2026-01085",
-        "parcelId": "06434632170020331",
-        "address": "7424 NE Bay Cove Ct   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "A/c changeout ",
-        "description": "Replacement of the existing a/c unit in the same location",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-01",
-        "issuedDate": "2026-05-05",
-        "finalDate": null,
-        "expirationDate": "2027-01-25",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/dd932e8c-9634-4862-922e-aaf3bdd3d241"
       }
     ]
   }
