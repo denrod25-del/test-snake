@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-16T08:00:11Z",
-  "salesGenerated": "2026-08-10T06:59:00Z",
+  "generated": "2026-08-17T06:51:12Z",
+  "salesGenerated": "2026-08-17T06:51:12Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -46,7 +46,7 @@
         "date": "2026-08-18",
         "label": "August 18, 2026",
         "shortLabel": "Aug 18",
-        "count": 5,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 32,
+        "count": 23,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -124,7 +124,7 @@
         "date": "2026-08-18",
         "label": "August 18, 2026",
         "shortLabel": "Aug 18",
-        "count": 17,
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -138,7 +138,13 @@
       "county": "Citrus",
       "slug": "citrus",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-16",
+        "label": "September 16, 2026",
+        "shortLabel": "Sep 16",
+        "count": 16,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://citrus.realtaxdeed.com/",
       "permits": {
@@ -217,10 +223,10 @@
       "slug": "duval",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 130,
+        "date": "2026-08-26",
+        "label": "August 26, 2026",
+        "shortLabel": "Aug 26",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -238,7 +244,7 @@
         "date": "2026-09-02",
         "label": "September 2, 2026",
         "shortLabel": "Sep 2",
-        "count": 41,
+        "count": 39,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -366,7 +372,13 @@
       "county": "Hernando",
       "slug": "hernando",
       "region": "Tampa Bay",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-16",
+        "label": "September 16, 2026",
+        "shortLabel": "Sep 16",
+        "count": 19,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://hernandoclerk.com/additional-services/tax-deeds/",
       "permits": {
@@ -382,7 +394,7 @@
         "date": "2026-08-19",
         "label": "August 19, 2026",
         "shortLabel": "Aug 19",
-        "count": 37,
+        "count": 36,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -400,7 +412,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 6,
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -426,13 +438,7 @@
       "county": "Indian River",
       "slug": "indian-river",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-08-25",
-        "label": "August 25, 2026",
-        "shortLabel": "Aug 25",
-        "count": 1,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -496,7 +502,7 @@
         "date": "2026-08-18",
         "label": "August 18, 2026",
         "shortLabel": "Aug 18",
-        "count": 9,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -514,7 +520,7 @@
         "date": "2026-08-19",
         "label": "August 19, 2026",
         "shortLabel": "Aug 19",
-        "count": 13,
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -586,7 +592,7 @@
         "date": "2026-08-19",
         "label": "August 19, 2026",
         "shortLabel": "Aug 19",
-        "count": 95,
+        "count": 88,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -688,7 +694,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 10,
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -706,7 +712,7 @@
         "date": "2026-08-18",
         "label": "August 18, 2026",
         "shortLabel": "Aug 18",
-        "count": 6,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -724,7 +730,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 33,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -778,7 +784,7 @@
         "date": "2026-08-20",
         "label": "August 20, 2026",
         "shortLabel": "Aug 20",
-        "count": 35,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -796,7 +802,7 @@
         "date": "2026-08-19",
         "label": "August 19, 2026",
         "shortLabel": "Aug 19",
-        "count": 68,
+        "count": 70,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -814,7 +820,7 @@
         "date": "2026-08-17",
         "label": "August 17, 2026",
         "shortLabel": "Aug 17",
-        "count": 4,
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -880,7 +886,7 @@
         "date": "2026-08-17",
         "label": "August 17, 2026",
         "shortLabel": "Aug 17",
-        "count": 5,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -946,7 +952,7 @@
         "date": "2026-08-25",
         "label": "August 25, 2026",
         "shortLabel": "Aug 25",
-        "count": 14,
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -976,7 +982,7 @@
         "date": "2026-08-18",
         "label": "August 18, 2026",
         "shortLabel": "Aug 18",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": false,
