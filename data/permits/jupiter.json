@@ -1,12 +1,106 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-16T08:00:03Z",
+  "generated": "2026-08-17T08:06:11Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424115010210050": [
+      {
+        "permitNumber": "26-097317-ELECR-R",
+        "parcelId": "30424115010210050",
+        "address": "6238  LESLIE ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Electrical",
+        "subtype": "Electrical",
+        "description": "panel upgrade",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-16",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/dde657b8-e079-455c-a511-de70b18a1421"
+      },
+      {
+        "permitNumber": "26-097148-ELECR-R",
+        "parcelId": "30424115010210050",
+        "address": "6238  LESLIE ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "*** MASTER PERMIT #26-097147-BLDR *** PV SOLAR PANEL INSTALLATION ROOF MOUNTED",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-10",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c72e65ef-2780-43cd-9d19-c59b13d43d8d"
+      },
+      {
+        "permitNumber": "26-097147-BLDR",
+        "parcelId": "30424115010210050",
+        "address": "6238  LESLIE ST  PRIVATE PROVIDER JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "PV SOLAR PANEL INSTALLATION ROOF MOUNTED ***(PP for Plan review & Inspections)***",
+        "status": "30 - In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-10",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ee137dd0-ac67-47eb-934c-473a10fdb54a"
+      }
+    ],
+    "30434105040073020": [
+      {
+        "permitNumber": "26-097316-ELEC-C",
+        "parcelId": "30434105040073020",
+        "address": "300 N A1A   Unit: I202 JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Electrical",
+        "subtype": "Electrical",
+        "description": "1. MASTER BATH :new vanity  recessed lights and receptacle for washlet.\n2. GUEST BATH : new vanity recessed lights, receptacle for washlet, mirror receptacle.\n3. PANEL REPLACEMENT:\n1. Demo existing Federal pacific panel and install new 24-30 circuit panel and surge breaker type protection.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-16",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1021e805-b1af-49ce-9036-12af15bfec82"
+      },
+      {
+        "permitNumber": "26-096850-PLUMC",
+        "parcelId": "30434105040073020",
+        "address": "300 N A1A Unit: G302 JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Plumbing",
+        "subtype": "Plumbing",
+        "description": "Two Shower Pans, Two shower valves, and Two toilets",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-28",
+        "issuedDate": "2026-08-04",
+        "finalDate": null,
+        "expirationDate": "2027-01-31",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1af8747e-578a-41c4-8b80-3bfee660ea1a"
+      }
+    ],
     "30424111150002310": [
       {
         "permitNumber": "26-097315-BLDR",
@@ -6577,44 +6671,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-08",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/792d565f-9ed7-4b0d-b043-a97b1ba80ebc"
-      }
-    ],
-    "30424115010210050": [
-      {
-        "permitNumber": "26-097148-ELECR-R",
-        "parcelId": "30424115010210050",
-        "address": "6238  LESLIE ST  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT #26-097147-BLDR *** PV SOLAR PANEL INSTALLATION ROOF MOUNTED",
-        "status": "10 - Received JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-10",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c72e65ef-2780-43cd-9d19-c59b13d43d8d"
-      },
-      {
-        "permitNumber": "26-097147-BLDR",
-        "parcelId": "30424115010210050",
-        "address": "6238  LESLIE ST  PRIVATE PROVIDER JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "PV SOLAR PANEL INSTALLATION ROOF MOUNTED ***(PP for Plan review & Inspections)***",
-        "status": "30 - In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-10",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ee137dd0-ac67-47eb-934c-473a10fdb54a"
       }
     ],
     "30424115020005130": [
@@ -16213,26 +16269,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-02",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4bc8795a-db6b-4a73-9739-f7cfc911ffa4"
-      }
-    ],
-    "30434105040073020": [
-      {
-        "permitNumber": "26-096850-PLUMC",
-        "parcelId": "30434105040073020",
-        "address": "300 N A1A Unit: G302 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Plumbing",
-        "subtype": "Plumbing",
-        "description": "Two Shower Pans, Two shower valves, and Two toilets",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-28",
-        "issuedDate": "2026-08-04",
-        "finalDate": null,
-        "expirationDate": "2027-01-31",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1af8747e-578a-41c4-8b80-3bfee660ea1a"
       }
     ],
     "30424101220000020": [
@@ -76553,66 +76589,6 @@
         "finalDate": null,
         "expirationDate": "2026-12-28",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b3c14e1a-12a2-4925-b780-ced031561605"
-      }
-    ],
-    "30424110150000160": [
-      {
-        "permitNumber": "26-093704-MECHR",
-        "parcelId": "30424110150000160",
-        "address": "130  STILLWATER CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Mechanical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT #25-092003-BLDR *** The installation of a 9k BTU mini split system",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-16",
-        "issuedDate": "2026-03-24",
-        "finalDate": "2026-04-16",
-        "expirationDate": "2026-10-12",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/09f04b6b-e822-4a4e-8ad3-dbb822d1f185"
-      }
-    ],
-    "30424102060000072": [
-      {
-        "permitNumber": "26-093703-BLDR",
-        "parcelId": "30424102060000072",
-        "address": "200  ANGLERS CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACE 2 WINDOWS, 2 DOORS WITH IMPACT",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-16",
-        "issuedDate": "2026-03-19",
-        "finalDate": "2026-06-03",
-        "expirationDate": "2026-11-30",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4baaf8c4-4734-48d3-b82b-6f306fbae72e"
-      }
-    ],
-    "30424111020000190": [
-      {
-        "permitNumber": "26-009478-ROOF-R",
-        "parcelId": "30424111020000190",
-        "address": "137  HAWKSBILL WAY  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "TILE TO TILE ROOF REPLACEMENT INCLUDING FLAT",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-15",
-        "issuedDate": "2026-04-13",
-        "finalDate": null,
-        "expirationDate": "2026-12-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9603cdd1-c8f5-47fd-8ea8-a29ca4adc3fd"
       }
     ]
   }
