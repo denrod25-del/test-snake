@@ -80,4 +80,53 @@ describe('property-briefing handler', () => {
     assert.equal(body.groups.opportunities.label, 'research_hint');
     assert.ok(body.links.propertyIntelligence);
   });
+
+  it('still assembles permits when parcel has candidates (auto-pick or multi)', async () => {
+    let permitsCalled = false;
+    const res = await handlePropertyBriefing(
+      {
+        httpMethod: 'GET',
+        headers: { 'x-api-key': 'x' },
+        queryStringParameters: { address: '1100 25TH ST' },
+      },
+      {
+        requireShopApiKey: async () => ({ shop: { id: 's1', name: 'Test Shop' } }),
+        assembleParcel: async () => ({
+          status: 'live',
+          source: 'gis',
+          autoPicked: true,
+          candidates: [
+            { pcn: null, address: '1100 25TH ST' },
+            { pcn: 'P1', address: '1100 25TH ST' },
+          ],
+          data: {
+            pcn: 'P1',
+            address: '1100 25TH ST',
+            yearBuilt: 1969,
+            centroid: { lon: -80.1, lat: 26.7 },
+          },
+        }),
+        assembleFlood: async () => ({ status: 'live', data: { zone: 'X' } }),
+        assemblePermits: async ({ address, pcn }) => {
+          permitsCalled = true;
+          assert.equal(address, '1100 25TH ST');
+          assert.equal(pcn, 'P1');
+          return {
+            permits: {
+              status: 'cached',
+              source: 'wpb',
+              data: { plumbing: [{ type: 'Plumbing' }], other: [], matchCount: 1 },
+            },
+            equipmentAge: { status: 'cached', data: { lastPlumbingWorkDate: '2026-01-01' } },
+          };
+        },
+      }
+    );
+    assert.equal(res.statusCode, 200);
+    assert.equal(permitsCalled, true);
+    const body = JSON.parse(res.body);
+    assert.equal(body.groups.permits.status, 'cached');
+    assert.equal(body.groups.flood.status, 'live');
+    assert.equal(body.groups.building.data.yearBuilt, 1969);
+  });
 });
