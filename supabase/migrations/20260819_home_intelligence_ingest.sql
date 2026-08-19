@@ -127,3 +127,52 @@ begin
   return v_utility_id;
 end;
 $$;
+
+create or replace function public.hi_upsert_properties_batch(p_rows jsonb)
+returns integer
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  r jsonb;
+  v_count integer := 0;
+begin
+  for r in select value from jsonb_array_elements(coalesce(p_rows, '[]'::jsonb)) loop
+    perform public.hi_upsert_property_from_geojson(
+      r->>'parcel_id', r->>'site_address', r->>'site_address_normalized',
+      r->>'street_number', r->>'street_name', r->>'street_suffix',
+      r->>'city', r->>'municipality', r->>'postal_code', r->>'property_use_description',
+      nullif(r->>'acres','')::numeric,
+      nullif(r->>'market_value','')::numeric,
+      nullif(r->>'assessed_value','')::numeric,
+      nullif(r->>'taxable_value','')::numeric,
+      nullif(r->>'last_sale_date','')::date,
+      nullif(r->>'last_sale_price','')::numeric,
+      r->'geometry', r->>'source_record_id'
+    );
+    v_count := v_count + 1;
+  end loop;
+  return v_count;
+end;
+$$;
+
+create or replace function public.hi_replace_utility_service_areas_batch(p_rows jsonb)
+returns integer
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  r jsonb;
+  v_count integer := 0;
+begin
+  for r in select value from jsonb_array_elements(coalesce(p_rows, '[]'::jsonb)) loop
+    perform public.hi_replace_utility_service_area(
+      r->>'name', r->>'phone', r->>'source_record_id', r->'geometry'
+    );
+    v_count := v_count + 1;
+  end loop;
+  return v_count;
+end;
+$$;
