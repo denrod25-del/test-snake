@@ -56,38 +56,28 @@ async function resolveProperty({ parcelId, address }) {
 
 async function propertyWater(property) {
   const client = sb();
-  let utility = null;
+  const { data: matches, error: utilityError } = await client
+    .rpc('hi_resolve_water_utility', { p_property_id: property.id });
+  if (utilityError) throw utilityError;
 
-  if (property?.centroid) {
-    // Supabase/PostgREST cannot express the PostGIS spatial join cleanly here,
-    // so V1 expects ingestion to materialize utility_id in metadata or a later RPC.
-    // Fallback below joins using municipality only when an exact PWS mapping exists.
-  }
-
-  const utilityName = property?.water_utility_name || null;
-  if (utilityName) {
-    const { data } = await client
-      .from('hi_utilities')
-      .select('*')
-      .eq('name', utilityName)
-      .maybeSingle();
-    utility = data || null;
-  }
-
+  const utility = matches?.[0] || null;
   const pwsId = utility?.epa_pws_id || null;
   let pws = null;
   let violations = [];
   let results = [];
 
   if (pwsId) {
-    const [{ data: pwsData }, { data: v }, { data: r }] = await Promise.all([
+    const [pwsQuery, violationQuery, resultQuery] = await Promise.all([
       client.from('hi_public_water_systems').select('*').eq('pws_id', pwsId).maybeSingle(),
       client.from('hi_water_violations').select('*').eq('pws_id', pwsId).order('begin_date', { ascending: false }).limit(100),
       client.from('hi_water_results').select('*').eq('pws_id', pwsId).order('sample_date', { ascending: false }).limit(250),
     ]);
-    pws = pwsData || null;
-    violations = v || [];
-    results = r || [];
+    if (pwsQuery.error) throw pwsQuery.error;
+    if (violationQuery.error) throw violationQuery.error;
+    if (resultQuery.error) throw resultQuery.error;
+    pws = pwsQuery.data || null;
+    violations = violationQuery.data || [];
+    results = resultQuery.data || [];
   }
 
   return { utility, pws, violations, results };
