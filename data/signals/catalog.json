@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-15T05:25:00Z",
+  "generated": "2026-08-19T14:34:42Z",
   "signals": [
     {
       "id": "zoning",
@@ -52,10 +52,10 @@
     {
       "id": "signal-alerts",
       "name": "Signal watch alerts",
-      "status": "coming-soon",
-      "coverage": "On-page watch digest filters Live/Cached zoning / permits / tax / cert / flood feeds from browser prefs (Property Intelligence). Beta intake still posts to Netlify Forms. Automated same-day email delivery is not live yet.",
-      "source": "property-intelligence.html#signal-alerts \u00b7 Netlify form signal-alerts \u00b7 localStorage",
-      "verification": "Digest is on-page only. Do not treat form submit as a guaranteed email alert feed yet."
+      "status": "live",
+      "coverage": "On-page watch digest + daily email digest via Resend (requires RESEND_API_KEY in Netlify env + Supabase sign-in to persist prefs). Covers zoning, permits, tax calendar, PBC certs, and flood signals filtered to your primary county. Netlify Forms Beta intake still works as fallback for anonymous users.",
+      "source": "send-alert-digest scheduled function \u00b7 property-intelligence.html#signal-alerts \u00b7 Netlify form signal-alerts \u00b7 Supabase alert_subscriptions \u00b7 localStorage",
+      "verification": "Email digests depend on Resend API key configuration. On-page digest is immediate. Verify signal data on official sources."
     }
   ]
 }
