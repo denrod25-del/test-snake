@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-18T08:03:39Z",
+  "generated": "2026-08-19T08:04:18Z",
   "salesGenerated": "2026-08-17T06:51:12Z",
   "featuredSlugs": [
     "palm-beach",
@@ -43,10 +43,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-18",
-        "label": "August 18, 2026",
-        "shortLabel": "Aug 18",
-        "count": 2,
+        "date": "2026-08-25",
+        "label": "August 25, 2026",
+        "shortLabel": "Aug 25",
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -121,10 +121,10 @@
       "slug": "charlotte",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-18",
-        "label": "August 18, 2026",
-        "shortLabel": "Aug 18",
-        "count": 10,
+        "date": "2026-08-25",
+        "label": "August 25, 2026",
+        "shortLabel": "Aug 25",
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -499,10 +499,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-18",
-        "label": "August 18, 2026",
-        "shortLabel": "Aug 18",
-        "count": 4,
+        "date": "2026-08-25",
+        "label": "August 25, 2026",
+        "shortLabel": "Aug 25",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -649,10 +649,10 @@
       "slug": "nassau",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-08-18",
-        "label": "August 18, 2026",
-        "shortLabel": "Aug 18",
-        "count": 2,
+        "date": "2026-09-01",
+        "label": "September 1, 2026",
+        "shortLabel": "Sep 1",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -709,10 +709,10 @@
       "slug": "osceola",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-18",
-        "label": "August 18, 2026",
-        "shortLabel": "Aug 18",
-        "count": 4,
+        "date": "2026-09-15",
+        "label": "September 15, 2026",
+        "shortLabel": "Sep 15",
+        "count": 16,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -979,10 +979,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-18",
-        "label": "August 18, 2026",
-        "shortLabel": "Aug 18",
-        "count": 2,
+        "date": "2026-08-20",
+        "label": "August 20, 2026",
+        "shortLabel": "Aug 20",
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": false,
