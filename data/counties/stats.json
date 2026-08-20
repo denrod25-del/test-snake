@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-19T08:04:18Z",
+  "generated": "2026-08-20T08:02:53Z",
   "salesGenerated": "2026-08-17T06:51:12Z",
   "featuredSlugs": [
     "palm-beach",
@@ -157,10 +157,10 @@
       "slug": "clay",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-08-19",
-        "label": "August 19, 2026",
-        "shortLabel": "Aug 19",
-        "count": 7,
+        "date": "2026-09-02",
+        "label": "September 2, 2026",
+        "shortLabel": "Sep 2",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -391,10 +391,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-19",
-        "label": "August 19, 2026",
-        "shortLabel": "Aug 19",
-        "count": 36,
+        "date": "2026-08-26",
+        "label": "August 26, 2026",
+        "shortLabel": "Aug 26",
+        "count": 44,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -517,10 +517,10 @@
       "slug": "leon",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-19",
-        "label": "August 19, 2026",
-        "shortLabel": "Aug 19",
-        "count": 9,
+        "date": "2026-09-16",
+        "label": "September 16, 2026",
+        "shortLabel": "Sep 16",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -589,10 +589,10 @@
       "slug": "marion",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-19",
-        "label": "August 19, 2026",
-        "shortLabel": "Aug 19",
-        "count": 88,
+        "date": "2026-09-09",
+        "label": "September 9, 2026",
+        "shortLabel": "Sep 9",
+        "count": 98,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -799,10 +799,10 @@
       "slug": "putnam",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-08-19",
-        "label": "August 19, 2026",
-        "shortLabel": "Aug 19",
-        "count": 70,
+        "date": "2026-08-26",
+        "label": "August 26, 2026",
+        "shortLabel": "Aug 26",
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": false,
