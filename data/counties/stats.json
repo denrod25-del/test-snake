@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-20T08:02:53Z",
+  "generated": "2026-08-21T08:05:01Z",
   "salesGenerated": "2026-08-17T06:51:12Z",
   "featuredSlugs": [
     "palm-beach",
@@ -73,10 +73,10 @@
       "slug": "brevard",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-20",
-        "label": "August 20, 2026",
-        "shortLabel": "Aug 20",
-        "count": 23,
+        "date": "2026-09-17",
+        "label": "September 17, 2026",
+        "shortLabel": "Sep 17",
+        "count": 48,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -409,10 +409,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-08-20",
-        "label": "August 20, 2026",
-        "shortLabel": "Aug 20",
-        "count": 5,
+        "date": "2026-08-27",
+        "label": "August 27, 2026",
+        "shortLabel": "Aug 27",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -618,13 +618,7 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-08-20",
-        "label": "August 20, 2026",
-        "shortLabel": "Aug 20",
-        "count": 1,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -691,10 +685,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-20",
-        "label": "August 20, 2026",
-        "shortLabel": "Aug 20",
-        "count": 9,
+        "date": "2026-08-27",
+        "label": "August 27, 2026",
+        "shortLabel": "Aug 27",
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -781,10 +775,10 @@
       "slug": "polk",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-20",
-        "label": "August 20, 2026",
-        "shortLabel": "Aug 20",
-        "count": 27,
+        "date": "2026-09-17",
+        "label": "September 17, 2026",
+        "shortLabel": "Sep 17",
+        "count": 41,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -835,10 +829,10 @@
       "slug": "sarasota",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-20",
-        "label": "August 20, 2026",
-        "shortLabel": "Aug 20",
-        "count": 1,
+        "date": "2026-09-10",
+        "label": "September 10, 2026",
+        "shortLabel": "Sep 10",
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -979,10 +973,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-20",
-        "label": "August 20, 2026",
-        "shortLabel": "Aug 20",
-        "count": 7,
+        "date": "2026-08-27",
+        "label": "August 27, 2026",
+        "shortLabel": "Aug 27",
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": false,
