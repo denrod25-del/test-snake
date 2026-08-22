@@ -31,21 +31,41 @@ function flattenParcelMap(permitsByParcel) {
   return out;
 }
 
-function matchRows(rows, { pcn, address }) {
-  const np = normalizeId(pcn);
-  const street = String(address || '')
+function streetCore(address) {
+  let s = String(address || '')
     .toUpperCase()
     .split(',')[0]
     .trim();
+  s = s.replace(/\s+(FL|FLORIDA)\s+\d{5}(-\d{4})?\s*$/i, '');
+  s = s.replace(/\s+\d{5}(-\d{4})?\s*$/, '');
+  s = s.replace(/\./g, '');
+  // Drop common suffix so "1100 25TH ST" matches "1100 25TH STREET"
+  s = s.replace(/\s+(STREET|ST|AVENUE|AVE|BOULEVARD|BLVD|DRIVE|DR|ROAD|RD|LANE|LN|COURT|CT|CIRCLE|CIR|PLACE|PL|TERRACE|TER|HIGHWAY|HWY|PARKWAY|PKWY)\s*$/i, '');
+  return s.replace(/\s+/g, ' ').trim();
+}
+
+function matchRows(rows, { pcn, address }) {
+  const np = normalizeId(pcn);
+  const street = streetCore(address);
   const hits = [];
   for (const row of rows) {
     const rpcn = normalizeId(row.parcelId);
-    const rad = String(row.address || '').toUpperCase();
+    const rad = streetCore(row.address);
     if (np && rpcn && (rpcn === np || rpcn.includes(np) || np.includes(rpcn))) {
       hits.push(row);
       continue;
     }
-    if (street.length > 8 && rad.includes(street.slice(0, 12))) hits.push(row);
+    if (street.length >= 6 && rad && (rad.includes(street) || street.includes(rad))) {
+      hits.push(row);
+      continue;
+    }
+    // Fallback: first 12 chars of original street segment (legacy behavior)
+    const rawStreet = String(address || '')
+      .toUpperCase()
+      .split(',')[0]
+      .trim();
+    const rawRow = String(row.address || '').toUpperCase();
+    if (rawStreet.length > 8 && rawRow.includes(rawStreet.slice(0, 12))) hits.push(row);
   }
   return hits;
 }
@@ -198,6 +218,7 @@ module.exports = {
   isPlumbing,
   flattenParcelMap,
   matchRows,
+  streetCore,
   activeCities,
   PLUMBING_RE,
 };

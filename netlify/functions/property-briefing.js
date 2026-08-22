@@ -50,13 +50,17 @@ async function handlePropertyBriefing(event, deps = {}) {
   const parcel = await assembleParcel({ address, countySlug: county });
   const building = assembleBuilding(parcel);
 
+  // Flat parcel object when single hit or auto-picked; { parcels } when unresolved multi-match.
+  const primary =
+    (parcelLib.resolvedPrimary && parcelLib.resolvedPrimary(parcel)) ||
+    (parcel.data && !Array.isArray(parcel.data.parcels) ? parcel.data : null);
+
   let flood = {
     status: 'unavailable',
     source: 'flood',
     data: null,
     message: 'Need a single parcel centroid for flood lookup.',
   };
-  const primary = parcel.data && !parcel.candidates ? parcel.data : null;
   if (primary && primary.centroid) {
     flood = await assembleFlood({
       lon: primary.centroid.lon,
@@ -65,29 +69,17 @@ async function handlePropertyBriefing(event, deps = {}) {
     });
   }
 
-  let permits = {
-    status: 'unavailable',
-    source: 'permits',
-    data: null,
-    message: parcel.candidates
-      ? 'Resolve a single parcel before matching permits.'
-      : undefined,
-  };
-  let equipmentAge = {
-    status: 'unavailable',
-    source: 'equipmentAge',
-    data: null,
-  };
-  if (!parcel.candidates) {
-    const pcn = primary && primary.pcn;
-    const addr = (primary && primary.address) || address;
-    const assembled = await assemblePermits({ pcn, address: addr });
-    permits = assembled.permits;
-    equipmentAge = enrichEquipmentWithYearBuilt(
-      assembled.equipmentAge,
-      primary && primary.yearBuilt
-    );
-  }
+  // Always match Cached permits by address (and PCN when known) — even on multi-match.
+  const addrForPermits = (primary && primary.address) || address;
+  const assembled = await assemblePermits({
+    pcn: primary && primary.pcn,
+    address: addrForPermits,
+  });
+  const permits = assembled.permits;
+  const equipmentAge = enrichEquipmentWithYearBuilt(
+    assembled.equipmentAge,
+    primary && primary.yearBuilt
+  );
 
   const waterSewer = {
     status: 'coming-soon',

@@ -13,6 +13,14 @@ describe('SPI route wiring', () => {
     assert.match(toml, /to\s*=\s*"\/\.netlify\/functions\/property-briefing"/);
   });
 
+  it('property-briefing bundles parcel + permit JSON via included_files', () => {
+    const toml = fs.readFileSync(path.join(root, 'netlify.toml'), 'utf8');
+    assert.match(toml, /functions\."property-briefing"/);
+    assert.match(toml, /data\/parcels\/registry\.json/);
+    assert.match(toml, /data\/permits\/west-palm-beach\.json/);
+    assert.match(toml, /data\/signals\/flood-layers\.json/);
+  });
+
   it('property-briefing function file exists', () => {
     assert.ok(
       fs.existsSync(path.join(root, 'netlify/functions/property-briefing.js'))

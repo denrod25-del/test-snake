@@ -23,6 +23,18 @@
 [functions."stripe-webhook"]
   included_files = []
 
+# Service Property Intelligence — bundle static caches so the function does not
+# depend on flaky HTTP fetches of the published site (registry / permit JSON).
+[functions."property-briefing"]
+  included_files = [
+    "data/parcels/registry.json",
+    "data/permits/index.json",
+    "data/permits/west-palm-beach.json",
+    "data/permits/boca-raton.json",
+    "data/permits/jupiter.json",
+    "data/signals/flood-layers.json",
+  ]
+
 # Weekly surplus refresh (Tuesdays 08:00 UTC) — uses Netlify SUPABASE_* env.
 [functions."refresh-surplus"]
   schedule = "0 8 * * 2"
