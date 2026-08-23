@@ -73,3 +73,6 @@ data/.firecrawl-auth-url.txt
 
 # Temporary DBPR license extract downloads (regenerate via scripts/build_fl_plumbing_hvac_spreadsheet.py)
 tmp-fl-contractors/
+
+# Optional county splits of the FL contractor spreadsheet (regenerate locally if needed)
+data/florida-contractors/by-county/
