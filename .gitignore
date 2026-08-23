@@ -70,3 +70,6 @@ data/.enrich-reviews-cache.json
 
 data/.firecrawl-auth.json
 data/.firecrawl-auth-url.txt
+
+# Temporary DBPR license extract downloads (regenerate via scripts/build_fl_plumbing_hvac_spreadsheet.py)
+tmp-fl-contractors/
