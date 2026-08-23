@@ -1,12 +1,90 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-22T08:00:19Z",
+  "generated": "2026-08-23T07:59:52Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424115010340040": [
+      {
+        "permitNumber": "26-097486-BLDR",
+        "parcelId": "30424115010340040",
+        "address": "6312  MICHAEL ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Remove and replace existing windows and sliding glass doors with new PGT impact windows and French Doors",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/55e05877-ab07-4f59-895b-ac4e6de812a9"
+      },
+      {
+        "permitNumber": "26-009614-ROOF-R",
+        "parcelId": "30424115010340040",
+        "address": "6312  MICHAEL ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "TEAR OFF & REROOF SHINGLE",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-04-27",
+        "issuedDate": "2026-05-11",
+        "finalDate": "2026-05-19",
+        "expirationDate": "2026-11-16",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ef5e219c-e596-4147-99b7-3d84f5888511"
+      }
+    ],
+    "30434118070005370": [
+      {
+        "permitNumber": "26-009893-ROOF-R",
+        "parcelId": "30434118070005370",
+        "address": "376  EAGLE DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "Full Roof Replacement Tile to Aluminum (Main House and Detached) with Peel and Stick Underlayment",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a8e9ec08-dd5a-45f9-902f-7a0ccc9024cc"
+      }
+    ],
+    "30424110150000310": [
+      {
+        "permitNumber": "26-097485-BLDR",
+        "parcelId": "30424110150000310",
+        "address": "160  STILLWATER CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "REPLACE GARAGE DOOR LIKE FOR LIKE 12 X 7",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b9886835-074f-423a-90e3-693dfd1ec71b"
+      }
+    ],
     "30424115010260030": [
       {
         "permitNumber": "26-097484-BLDR",
@@ -45099,24 +45177,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-20",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/845cdfd6-31dc-424b-8d80-aa11011bc8ca"
-      },
-      {
-        "permitNumber": "26-093864-COMM",
-        "parcelId": "30424124050230030",
-        "address": "430  UNIVERSITY BLVD  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Commercial Alteration",
-        "subtype": "Alteration",
-        "description": "Playground equipment (Chabad)",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-24",
-        "issuedDate": "2026-04-01",
-        "finalDate": "2026-06-01",
-        "expirationDate": "2026-11-25",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/efaa9fb4-e1e3-473a-b075-49f1316acfc0"
       }
     ],
     "30424109060000050": [
@@ -65791,26 +65851,6 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/605fc62e-660e-4a12-8e75-3dd83e3d197b"
       }
     ],
-    "30424115010340040": [
-      {
-        "permitNumber": "26-009614-ROOF-R",
-        "parcelId": "30424115010340040",
-        "address": "6312  MICHAEL ST  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "TEAR OFF & REROOF SHINGLE",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-27",
-        "issuedDate": "2026-05-11",
-        "finalDate": "2026-05-19",
-        "expirationDate": "2026-11-16",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ef5e219c-e596-4147-99b7-3d84f5888511"
-      }
-    ],
     "30424036090070050": [
       {
         "permitNumber": "26-094566-AC",
@@ -76527,46 +76567,6 @@
         "finalDate": "2026-04-23",
         "expirationDate": "2026-10-19",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/69fbaf47-40cb-458c-9798-6adb5dc24119"
-      }
-    ],
-    "30424112160002090": [
-      {
-        "permitNumber": "26-093865-BLDR",
-        "parcelId": "30424112160002090",
-        "address": "104  PASEOS WAY  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACE 23 WINDOWS AND 5 DOORS WITH IMPACT",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-24",
-        "issuedDate": "2026-04-06",
-        "finalDate": "2026-08-17",
-        "expirationDate": "2027-02-10",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1bec2e78-b35f-46c0-ba64-2d89afbf8152"
-      }
-    ],
-    "30424115080820050": [
-      {
-        "permitNumber": "26-009503-ROOF-R",
-        "parcelId": "30424115080820050",
-        "address": "6015  ADAMS ST  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Remove existing roofing system down to the sheathing. Inspect and re-nail to meet code. Install new metal panel system.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-24",
-        "issuedDate": "2026-04-08",
-        "finalDate": "2026-05-01",
-        "expirationDate": "2026-10-27",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c50f05f7-d5bd-4ae9-80f7-ba09255abcaa"
       }
     ]
   }
