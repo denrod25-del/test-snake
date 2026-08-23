@@ -85,17 +85,24 @@ create policy "Users manage own parcels"
   with check (auth.uid() = user_id);
 
 -- ----------------------------------------------------------------------------
--- alert_subscriptions (Pro: per-county email alert preferences)
--- Property Intelligence Beta intake currently uses Netlify Forms (signal-alerts)
--- + browser localStorage. Extend this table when automated signal email ships:
---   zoning / permits / tax_calendar / certs / flood booleans.
+-- alert_subscriptions (per-county email alert preferences)
+-- Property Intelligence watch form upserts here when the user is signed in;
+-- send-alert-digest Netlify scheduled function reads rows + resolves email
+-- from auth.users to send Resend digests daily.
 -- ----------------------------------------------------------------------------
 create table if not exists public.alert_subscriptions (
-  id          uuid primary key default gen_random_uuid(),
-  user_id     uuid not null references auth.users(id) on delete cascade,
-  county      text not null,
-  surplus     boolean default false,
-  created_at  timestamptz default now(),
+  id             uuid primary key default gen_random_uuid(),
+  user_id        uuid not null references auth.users(id) on delete cascade,
+  county         text not null,
+  surplus        boolean default false,
+  watch_zoning   boolean default true,
+  watch_permits  boolean default true,
+  watch_tax      boolean default true,
+  watch_certs    boolean default false,
+  watch_flood    boolean default false,
+  notes          text default '',
+  created_at     timestamptz default now(),
+  updated_at     timestamptz default now(),
   unique (user_id, county)
 );
 

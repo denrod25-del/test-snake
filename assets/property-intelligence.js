@@ -1562,8 +1562,53 @@
       ev.preventDefault();
       var prefs = collectAlertPrefs(form);
       writeAlertPrefs(prefs);
-      setStatus(status, "Saving Beta intake…");
+      setStatus(status, "Saving…");
       renderWatchDigest(prefs);
+
+      // 1. Upsert to Supabase alert_subscriptions if signed in (enables daily email digest).
+      (async function () {
+        try {
+          var token = null;
+          if (window.__dsSupabase) {
+            var sess = await window.__dsSupabase.auth.getSession();
+            token = sess?.data?.session?.access_token;
+          }
+          if (!token) {
+            var keys = Object.keys(localStorage);
+            for (var i = 0; i < keys.length; i++) {
+              if (keys[i].indexOf("sb-") === 0 && keys[i].indexOf("auth-token") >= 0) {
+                var raw = JSON.parse(localStorage.getItem(keys[i]));
+                token = raw?.access_token || raw?.currentSession?.access_token;
+                if (token) break;
+              }
+            }
+          }
+          if (token && window.__dsSupabase) {
+            var sess2 = await window.__dsSupabase.auth.getUser(token);
+            var userId = sess2?.data?.user?.id;
+            if (userId) {
+              await window.__dsSupabase.from("alert_subscriptions").upsert(
+                {
+                  user_id: userId,
+                  county: prefs.county || "statewide",
+                  watch_zoning: prefs.watch_zoning,
+                  watch_permits: prefs.watch_permits,
+                  watch_tax: prefs.watch_tax,
+                  watch_certs: prefs.watch_certs,
+                  watch_flood: prefs.watch_flood,
+                  notes: prefs.notes || "",
+                  updated_at: new Date().toISOString(),
+                },
+                { onConflict: "user_id,county" }
+              );
+            }
+          }
+        } catch (e) {
+          /* best-effort; Netlify form is the fallback */
+        }
+      })();
+
+      // 2. Also post to Netlify Forms (Beta intake backup).
       var body = new URLSearchParams();
       body.set("form-name", "signal-alerts");
       body.set("email", prefs.email);
@@ -1583,13 +1628,13 @@
           if (!res.ok) throw new Error("Form submit failed (" + res.status + ")");
           setStatus(
             status,
-            "Saved in this browser, refreshed your on-page digest, and submitted Beta intake. Automated same-day email is still Coming Soon."
+            "Saved. On-page digest refreshed. If you're signed in, daily email digests will start once RESEND_API_KEY is configured in Netlify."
           );
         })
         .catch(function () {
           setStatus(
             status,
-            "Saved in this browser and refreshed your on-page digest. Netlify form submit failed locally (expected on localhost) — it works after Netlify deploy."
+            "Saved in this browser and refreshed your on-page digest. Netlify form submit failed locally (expected on localhost)."
           );
         });
     });
