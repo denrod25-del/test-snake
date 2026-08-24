@@ -22,6 +22,44 @@
     return document.getElementById(id);
   };
 
+  /** Create/reuse Supabase client so signed-in sessions on this origin can sync watches. */
+  function ensureSupabaseClient() {
+    if (window.__dsSupabase) return window.__dsSupabase;
+    if (window.__dsSb) {
+      window.__dsSupabase = window.__dsSb;
+      return window.__dsSupabase;
+    }
+    var cfg = window.FTDR_CONFIG || {};
+    if (
+      !window.supabase ||
+      !cfg.AUTH_ENABLED ||
+      !cfg.SUPABASE_URL ||
+      cfg.SUPABASE_URL.indexOf("YOUR-PROJECT") >= 0 ||
+      !cfg.SUPABASE_ANON_KEY
+    ) {
+      return null;
+    }
+    var client = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+    });
+    window.__dsSupabase = client;
+    window.__dsSb = client;
+    return client;
+  }
+
+  async function getSignedInUser() {
+    var sb = ensureSupabaseClient();
+    if (!sb) return null;
+    try {
+      var res = await sb.auth.getSession();
+      var session = res && res.data && res.data.session;
+      if (session && session.user) return session.user;
+    } catch (e) {
+      /* ignore */
+    }
+    return null;
+  }
+
   function esc(s) {
     if (s == null) return "";
     return String(s)
@@ -918,14 +956,15 @@
     setStatus(out, "<em>Requesting RentCast rent estimate…</em>");
     var token = null;
     try {
-      if (window.supabase && window.__dsSupabase) {
-        var session = await window.__dsSupabase.auth.getSession();
+      var sb = ensureSupabaseClient();
+      if (sb) {
+        var session = await sb.auth.getSession();
         token = session?.data?.session?.access_token;
       }
     } catch (e) {
       /* ignore */
     }
-    // tax-deeds stores session differently; try localStorage supabase token patterns
+    // Fallback: read persisted Supabase auth token from localStorage
     if (!token) {
       try {
         var keys = Object.keys(localStorage);
@@ -1539,14 +1578,29 @@
   function initAlerts() {
     var badgeHost = $("alerts-badge");
     if (badgeHost && window.DeedScoutTrust) {
-      // Email delivery Coming Soon; on-page digest is Live/Cached once prefs exist.
-      badgeHost.innerHTML = DeedScoutTrust.renderBadge("coming-soon", { compact: true });
+      badgeHost.innerHTML = DeedScoutTrust.renderBadge("live", { compact: true });
     }
     var form = $("pi-alerts");
     if (!form) return;
     applyAlertPrefs(readAlertPrefs());
     var status = $("alert-status");
+    var authStatus = $("alert-auth-status");
     var clearBtn = $("alert-clear");
+
+    getSignedInUser().then(function (user) {
+      if (!authStatus) return;
+      if (user) {
+        authStatus.textContent =
+          "Signed in as " + (user.email || user.id) + " — saving will sync daily email prefs.";
+        if (user.email && $("alert-email") && !$("alert-email").value) {
+          $("alert-email").value = user.email;
+        }
+      } else {
+        authStatus.innerHTML =
+          'Not signed in on this browser. <a href="/tax-deeds.html#/account">Sign in on Tax Deeds</a>, then come back and Save.';
+      }
+    });
+
     if (clearBtn) {
       clearBtn.addEventListener("click", function () {
         localStorage.removeItem(ALERTS_STORAGE_KEY);
@@ -1558,6 +1612,7 @@
         renderWatchDigest(null);
       });
     }
+
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var prefs = collectAlertPrefs(form);
@@ -1565,80 +1620,71 @@
       setStatus(status, "Saving…");
       renderWatchDigest(prefs);
 
-      // 1. Upsert to Supabase alert_subscriptions if signed in (enables daily email digest).
       (async function () {
+        var syncNote = "";
         try {
-          var token = null;
-          if (window.__dsSupabase) {
-            var sess = await window.__dsSupabase.auth.getSession();
-            token = sess?.data?.session?.access_token;
-          }
-          if (!token) {
-            var keys = Object.keys(localStorage);
-            for (var i = 0; i < keys.length; i++) {
-              if (keys[i].indexOf("sb-") === 0 && keys[i].indexOf("auth-token") >= 0) {
-                var raw = JSON.parse(localStorage.getItem(keys[i]));
-                token = raw?.access_token || raw?.currentSession?.access_token;
-                if (token) break;
-              }
-            }
-          }
-          if (token && window.__dsSupabase) {
-            var sess2 = await window.__dsSupabase.auth.getUser(token);
-            var userId = sess2?.data?.user?.id;
-            if (userId) {
-              await window.__dsSupabase.from("alert_subscriptions").upsert(
-                {
-                  user_id: userId,
-                  county: prefs.county || "statewide",
-                  watch_zoning: prefs.watch_zoning,
-                  watch_permits: prefs.watch_permits,
-                  watch_tax: prefs.watch_tax,
-                  watch_certs: prefs.watch_certs,
-                  watch_flood: prefs.watch_flood,
-                  notes: prefs.notes || "",
-                  updated_at: new Date().toISOString(),
-                },
-                { onConflict: "user_id,county" }
-              );
+          var sb = ensureSupabaseClient();
+          var user = await getSignedInUser();
+          if (!sb) {
+            syncNote = " Supabase client unavailable — browser prefs only.";
+          } else if (!user) {
+            syncNote =
+              " Not signed in — browser prefs saved; sign in on Tax Deeds to enable daily email.";
+          } else {
+            var up = await sb.from("alert_subscriptions").upsert(
+              {
+                user_id: user.id,
+                county: prefs.county || "statewide",
+                watch_zoning: prefs.watch_zoning,
+                watch_permits: prefs.watch_permits,
+                watch_tax: prefs.watch_tax,
+                watch_certs: prefs.watch_certs,
+                watch_flood: prefs.watch_flood,
+                notes: prefs.notes || "",
+                updated_at: new Date().toISOString(),
+              },
+              { onConflict: "user_id,county" }
+            );
+            if (up.error) {
+              syncNote = " Account sync failed: " + up.error.message;
+            } else {
+              syncNote =
+                " Synced to your account for daily email (needs RESEND_API_KEY in Netlify).";
             }
           }
         } catch (e) {
-          /* best-effort; Netlify form is the fallback */
+          syncNote = " Account sync skipped.";
+        }
+
+        var body = new URLSearchParams();
+        body.set("form-name", "signal-alerts");
+        body.set("email", prefs.email);
+        body.set("county", prefs.county);
+        body.set("notes", prefs.notes);
+        body.set("watch_zoning", prefs.watch_zoning ? "yes" : "no");
+        body.set("watch_permits", prefs.watch_permits ? "yes" : "no");
+        body.set("watch_tax", prefs.watch_tax ? "yes" : "no");
+        body.set("watch_certs", prefs.watch_certs ? "yes" : "no");
+        body.set("watch_flood", prefs.watch_flood ? "yes" : "no");
+        try {
+          var res = await fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: body.toString(),
+          });
+          if (!res.ok) throw new Error("Form submit failed (" + res.status + ")");
+          setStatus(status, "Saved. On-page digest refreshed." + syncNote);
+        } catch (err) {
+          setStatus(
+            status,
+            "Saved in this browser and refreshed your on-page digest." +
+              syncNote +
+              " (Netlify form submit failed locally — expected on localhost.)"
+          );
         }
       })();
-
-      // 2. Also post to Netlify Forms (Beta intake backup).
-      var body = new URLSearchParams();
-      body.set("form-name", "signal-alerts");
-      body.set("email", prefs.email);
-      body.set("county", prefs.county);
-      body.set("notes", prefs.notes);
-      body.set("watch_zoning", prefs.watch_zoning ? "yes" : "no");
-      body.set("watch_permits", prefs.watch_permits ? "yes" : "no");
-      body.set("watch_tax", prefs.watch_tax ? "yes" : "no");
-      body.set("watch_certs", prefs.watch_certs ? "yes" : "no");
-      body.set("watch_flood", prefs.watch_flood ? "yes" : "no");
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error("Form submit failed (" + res.status + ")");
-          setStatus(
-            status,
-            "Saved. On-page digest refreshed. If you're signed in, daily email digests will start once RESEND_API_KEY is configured in Netlify."
-          );
-        })
-        .catch(function () {
-          setStatus(
-            status,
-            "Saved in this browser and refreshed your on-page digest. Netlify form submit failed locally (expected on localhost)."
-          );
-        });
     });
-    // Prefill digest if prefs already exist (feeds may still be loading).
+
     renderWatchDigest(readAlertPrefs());
   }
 

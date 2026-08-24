@@ -10,6 +10,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/deedscout.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f6f2e9'/%3E%3Ctext y='13' x='2' font-size='12' font-family='Georgia' fill='%230c1320'%3ED%3C/text%3E%3C/svg%3E" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Same publishable keys as tax-deeds.html — needed so watch prefs can upsert
+    // into alert_subscriptions when the user is already signed in on this origin.
+    window.FTDR_CONFIG = window.FTDR_CONFIG || {
+      SUPABASE_URL: "https://wmkbksqztpofxoqbyrdd.supabase.co",
+      SUPABASE_ANON_KEY: "sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDjj",
+      SITE_URL: (function () {
+        var h = location.hostname;
+        if (h === "deedscout.app" || h === "www.deedscout.app") return "https://deedscout.app";
+        if (h === "deedscout.netlify.app") return "https://deedscout.netlify.app";
+        return "https://deedscout.netlify.app";
+      })(),
+      AUTH_ENABLED: true,
+    };
+  </script>
   <style>
     .pi-hero { padding: 28px 0 8px; max-width: 720px; }
     .pi-hero h1 {
@@ -331,7 +347,9 @@
         Save watch prefs in this browser. Below, an on-page digest filters Live/Cached feeds to your picks.
         If you're signed in to DeedScout, prefs sync to Supabase and you'll receive a daily email digest
         (once RESEND_API_KEY is configured in Netlify env).
+        Sign in on <a href="/tax-deeds.html#/account">Tax Deeds → Account</a>, then return here and save.
       </p>
+      <p class="pi-note" id="alert-auth-status" role="status"></p>
     </div>
     <form id="pi-alerts" class="pi-alerts" name="signal-alerts" method="POST" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="signal-alerts" />
