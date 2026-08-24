@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-08-23T07:49:26Z",
+  "generated": "2026-08-24T07:55:38Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -43,6 +43,84 @@
         "finalDate": null,
         "expirationDate": "2026-11-28",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6c7a3c4d-c7c0-4504-ba0e-a0f56048a357"
+      }
+    ],
+    "06434730140150022": [
+      {
+        "permitNumber": "BPC-2026-01563",
+        "parcelId": "06434730140150022",
+        "address": "1200 SW Mulberry Way   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Addition Interior and/ or Exterior Alteration - Building (Commercial)",
+        "subtype": "Addition Int And/ Or Ext Alteration",
+        "description": "Addition Exterior and Interior as per approved plan",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-23",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/9c7fb54e-54c9-4ade-9fa6-90d95458ec48"
+      },
+      {
+        "permitNumber": "BPQ-2026-01810",
+        "parcelId": "06434730140150022",
+        "address": "1200 SW Mulberry Way   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "Install 18 Impact Windows and 7 Doors",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-27",
+        "issuedDate": null,
+        "finalDate": "2026-07-28",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/f013f70a-8eee-4174-894d-ce5ecd3dfbe4"
+      }
+    ],
+    "06434719380000760": [
+      {
+        "permitNumber": "BPQ-2026-02005",
+        "parcelId": "06434719380000760",
+        "address": "47 NW Hawthorne Pl   Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "A/c changeout ",
+        "description": "REPLACE 4 TON SPLIT AC SYSTEM",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-23",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/73487707-0b98-4481-995b-1b5d80c5ab90"
+      }
+    ],
+    "06434730240080091": [
+      {
+        "permitNumber": "BPQ-2026-02004",
+        "parcelId": "06434730240080091",
+        "address": "1080  Walnut Ter   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "A/c changeout ",
+        "description": "ac change out with private provider inspection",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-23",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6afc834b-ec2e-4430-8508-3a48e6cc49a3"
       }
     ],
     "06434631310011020": [
@@ -5989,24 +6067,6 @@
         "finalDate": "2026-06-23",
         "expirationDate": "2027-06-23",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/cf9870e3-9743-44c2-9822-e9f713843e43"
-      },
-      {
-        "permitNumber": "FRS-2026-00228",
-        "parcelId": "06434720150020021",
-        "address": "1354 N Dixie Hwy  Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Fire Overtime Inspection",
-        "subtype": "FRS- Overtime Inspections",
-        "description": "BDA Test for BPM-2024-00354",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-11",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": "2027-05-11",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/0b4a7d11-2d68-4ae6-9b5e-a60af2208707"
       }
     ],
     "06434707020300280": [
@@ -28055,26 +28115,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/1039749c-a072-46e7-8e6c-afb00b581449"
       }
     ],
-    "06434730140150022": [
-      {
-        "permitNumber": "BPQ-2026-01810",
-        "parcelId": "06434730140150022",
-        "address": "1200 SW Mulberry Way   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "Install 18 Impact Windows and 7 Doors",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-27",
-        "issuedDate": null,
-        "finalDate": "2026-07-28",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/f013f70a-8eee-4174-894d-ce5ecd3dfbe4"
-      }
-    ],
     "06434705210012050": [
       {
         "permitNumber": "BPM-2026-01972",
@@ -40052,7 +40092,7 @@
         "type": "Interior Only Alteration - Building (Commercial)",
         "subtype": "Interior Only Alteration",
         "description": "Interior Renovation",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -54760,7 +54800,7 @@
         "type": "Interior Only Alteration - Building (Commercial)",
         "subtype": "Interior Only Alteration",
         "description": "Interior alteration to accommodate a new service bar to include a new hand sink, 2 under counter refrigerators & Ice bin",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -74813,46 +74853,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6ce5944c-b59e-4cc6-bfb6-87cb5f3a0706"
-      }
-    ],
-    "06424710030020070": [
-      {
-        "permitNumber": "BPQ-2026-01154",
-        "parcelId": "06424710030020070",
-        "address": "2535 NW 41st St   Boca Raton FL 33434",
-        "city": "Boca Raton",
-        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Re-roof ",
-        "description": "install new standing seam metal roof",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-11",
-        "issuedDate": null,
-        "finalDate": "2026-05-11",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2c34b377-407b-4e66-822e-518437f7ab66"
-      }
-    ],
-    "06424716100000650": [
-      {
-        "permitNumber": "BPR-2026-01297",
-        "parcelId": "06424716100000650",
-        "address": "20980  Cipres Way   Boca Raton FL 33433",
-        "city": "Boca Raton",
-        "type": "Electrical Service/ Panel Work - Building (Residential)",
-        "subtype": "Electrical",
-        "description": "Replace 200amp meter can & rusted down pipe",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-11",
-        "issuedDate": "2026-05-18",
-        "finalDate": "2026-06-08",
-        "expirationDate": "2026-11-23",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c63939a5-afb3-4274-818c-217beba6e251"
       }
     ]
   }
