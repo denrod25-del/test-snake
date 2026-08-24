@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-23T08:00:00Z",
-  "salesGenerated": "2026-08-17T06:51:12Z",
+  "generated": "2026-08-24T06:51:30Z",
+  "salesGenerated": "2026-08-24T06:51:30Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -46,7 +46,7 @@
         "date": "2026-08-25",
         "label": "August 25, 2026",
         "shortLabel": "Aug 25",
-        "count": 4,
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 48,
+        "count": 46,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -124,7 +124,7 @@
         "date": "2026-08-25",
         "label": "August 25, 2026",
         "shortLabel": "Aug 25",
-        "count": 18,
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -142,7 +142,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 16,
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -244,7 +244,7 @@
         "date": "2026-09-02",
         "label": "September 2, 2026",
         "shortLabel": "Sep 2",
-        "count": 39,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -376,7 +376,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 19,
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -394,7 +394,7 @@
         "date": "2026-08-26",
         "label": "August 26, 2026",
         "shortLabel": "Aug 26",
-        "count": 44,
+        "count": 43,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -412,7 +412,7 @@
         "date": "2026-08-27",
         "label": "August 27, 2026",
         "shortLabel": "Aug 27",
-        "count": 6,
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -520,7 +520,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 3,
+        "count": 43,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -574,7 +574,7 @@
         "date": "2026-08-31",
         "label": "August 31, 2026",
         "shortLabel": "Aug 31",
-        "count": 8,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -606,7 +606,13 @@
       "county": "Martin",
       "slug": "martin",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-10-07",
+        "label": "October 7, 2026",
+        "shortLabel": "Oct 7",
+        "count": 24,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -618,7 +624,13 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-03",
+        "label": "September 3, 2026",
+        "shortLabel": "Sep 3",
+        "count": 11,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -688,7 +700,7 @@
         "date": "2026-08-27",
         "label": "August 27, 2026",
         "shortLabel": "Aug 27",
-        "count": 8,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -706,7 +718,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 16,
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -724,7 +736,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 27,
+        "count": 23,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -742,7 +754,7 @@
         "date": "2026-08-27",
         "label": "August 27, 2026",
         "shortLabel": "Aug 27",
-        "count": 28,
+        "count": 24,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -778,7 +790,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 41,
+        "count": 38,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -796,7 +808,7 @@
         "date": "2026-08-26",
         "label": "August 26, 2026",
         "shortLabel": "Aug 26",
-        "count": 37,
+        "count": 40,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -814,7 +826,7 @@
         "date": "2026-08-24",
         "label": "August 24, 2026",
         "shortLabel": "Aug 24",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -850,7 +862,7 @@
         "date": "2026-09-10",
         "label": "September 10, 2026",
         "shortLabel": "Sep 10",
-        "count": 8,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -880,7 +892,7 @@
         "date": "2026-09-14",
         "label": "September 14, 2026",
         "shortLabel": "Sep 14",
-        "count": 11,
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -946,7 +958,7 @@
         "date": "2026-08-25",
         "label": "August 25, 2026",
         "shortLabel": "Aug 25",
-        "count": 13,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
