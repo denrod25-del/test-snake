@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24T08:05:51Z",
+  "generated": "2026-08-25T08:10:18Z",
   "salesGenerated": "2026-08-24T06:51:30Z",
   "featuredSlugs": [
     "palm-beach",
@@ -823,10 +823,10 @@
       "slug": "santa-rosa",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-24",
-        "label": "August 24, 2026",
-        "shortLabel": "Aug 24",
-        "count": 2,
+        "date": "2026-08-31",
+        "label": "August 31, 2026",
+        "shortLabel": "Aug 31",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
