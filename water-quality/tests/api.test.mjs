@@ -211,6 +211,108 @@ test('lookup requires a query', async () => {
   assert.equal((await getJson('lookup')).status, 400);
 });
 
+// --- address lookup -------------------------------------------------------
+// fetch is stubbed for every case below; none of these touch the network.
+
+const realFetch = globalThis.fetch;
+function stubGeocoder(impl) {
+  globalThis.fetch = impl;
+  return () => { globalThis.fetch = realFetch; };
+}
+function censusMatch({ zip = '33410', city = 'EXAMPLE GARDENS', state = 'FL' } = {}) {
+  return {
+    ok: true,
+    json: async () => ({ result: { addressMatches: [{
+      matchedAddress: `1 EXAMPLE ST, ${city}, ${state}, ${zip}`,
+      addressComponents: { zip, city, state },
+      coordinates: { x: -80.1, y: 26.8 },
+    }] } }),
+  };
+}
+
+test('address lookup geocodes then ranks, and labels the method used', async () => {
+  let requested = null;
+  const restore = stubGeocoder(async (url) => { requested = url; return censusMatch(); });
+  try {
+    const { status, body } = await getJson('lookup', { address: '1 Example St, Example Gardens FL' });
+    assert.equal(status, 200);
+    assert.equal(body.method, 'geocode+zip+city');
+    assert.equal(body.candidateCount, 2);
+    assert.equal(body.candidates[0].pwsid, 'FL9990001');
+    assert.equal(body.geocode.zip, '33410');
+    assert.match(body.caveat, /not a service-area boundary lookup/);
+    assert.ok(requested.includes('onelineaddress'), 'must call the Census geocoder');
+    assert.ok(!requested.includes(' '), 'address must be URL-encoded');
+  } finally { restore(); }
+});
+
+test('an unreachable geocoder is not reported as a bad address', async () => {
+  const restore = stubGeocoder(async () => { throw new Error('ETIMEDOUT'); });
+  try {
+    const { status, body } = await getJson('lookup', { address: '1 Example St' });
+    assert.equal(status, 200, 'a dead upstream is not the caller’s error to fix');
+    assert.equal(body.candidateCount, 0);
+    assert.match(body.caveat, /could not be reached/);
+    assert.doesNotMatch(body.caveat, /could not be geocoded/,
+      'must not blame the address when the geocoder is down');
+  } finally { restore(); }
+});
+
+test('a non-200 from the geocoder is treated as unreachable, not as no-match', async () => {
+  const restore = stubGeocoder(async () => ({ ok: false, status: 503 }));
+  try {
+    const { body } = await getJson('lookup', { address: '1 Example St' });
+    assert.match(body.caveat, /could not be reached/);
+  } finally { restore(); }
+});
+
+test('an address that matches nothing says so and points at ZIP lookup', async () => {
+  const restore = stubGeocoder(async () => ({
+    ok: true, json: async () => ({ result: { addressMatches: [] } }),
+  }));
+  try {
+    const { body } = await getJson('lookup', { address: 'nowhere at all' });
+    assert.equal(body.candidateCount, 0);
+    assert.match(body.caveat, /could not be geocoded/);
+    assert.match(body.caveat, /ZIP/);
+  } finally { restore(); }
+});
+
+test('an out-of-state address is refused rather than matched on ZIP alone', async () => {
+  const restore = stubGeocoder(async () =>
+    censusMatch({ zip: '90210', city: 'BEVERLY HILLS', state: 'CA' }));
+  try {
+    const { body } = await getJson('lookup', { address: '1 Example St, Beverly Hills CA' });
+    assert.equal(body.candidateCount, 0);
+    assert.match(body.caveat, /outside this dataset/);
+  } finally { restore(); }
+});
+
+test('an explicit zip wins over address, and skips the geocoder entirely', async () => {
+  let called = false;
+  const restore = stubGeocoder(async () => { called = true; return censusMatch(); });
+  try {
+    const { body } = await getJson('lookup', { zip: '33408', address: '1 Example St' });
+    assert.equal(body.method, 'zip');
+    assert.equal(called, false, 'no reason to geocode when a ZIP was given');
+  } finally { restore(); }
+});
+
+test('address lookup matches the Python implementation', async () => {
+  const restore = stubGeocoder(async () => censusMatch());
+  try {
+    const { body } = await getJson('lookup', { address: '1 Example St' });
+    const python = JSON.parse(execFileSync('python3', [
+      '-m', 'fwq', '--out', DATA_DIR, 'lookup', '--zip', '33410', '--city', 'EXAMPLE GARDENS',
+    ], { cwd: path.join(REPO_ROOT, 'water-quality'), encoding: 'utf8' }));
+    assert.deepEqual(
+      body.candidates.map((c) => [c.pwsid, c.confidence]),
+      python.candidates.map((c) => [c.pwsid, c.confidence]),
+      'the address path must rank identically to the equivalent ZIP+city lookup',
+    );
+  } finally { restore(); }
+});
+
 test('utilities withholds an unverified website URL', async () => {
   const { status, body } = await getJson('utilities');
   assert.equal(status, 200);

@@ -6,6 +6,7 @@ import unittest
 from datetime import datetime, timezone
 
 from fwq import normalize, utilities
+from fwq import geo as geo_module
 from fwq.geo import ServiceIndex
 
 from . import fixtures
@@ -85,6 +86,105 @@ class TestServiceIndex(unittest.TestCase):
         result = self.index.lookup_city("Example Gardens")
         self.assertEqual(result["candidateCount"], 2)
         self.assertFalse(result["isDefinitive"])
+
+
+class FakeGeocoder:
+    """Stands in for the Census Bureau geocoder.
+
+    `payload` is returned verbatim; `raise_with` simulates the geocoder being
+    unreachable, which must be distinguished from an address that simply does
+    not match.
+    """
+
+    def __init__(self, payload=None, raise_with: Exception | None = None):
+        self.payload = payload
+        self.raise_with = raise_with
+        self.urls: list[str] = []
+
+    def get_json(self, url, *, empty_on_404: bool = True):
+        self.urls.append(url)
+        if self.raise_with is not None:
+            raise self.raise_with
+        return self.payload
+
+
+def _census_match(zip_code="33410", city="EXAMPLE GARDENS", state="FL"):
+    return {"result": {"addressMatches": [{
+        "matchedAddress": f"1 EXAMPLE ST, {city}, {state}, {zip_code}",
+        "addressComponents": {"zip": zip_code, "city": city, "state": state},
+        "coordinates": {"x": -80.1, "y": 26.8},
+    }]}}
+
+
+class TestAddressResolution(unittest.TestCase):
+    def setUp(self):
+        self.index = ServiceIndex.from_systems(_systems())
+
+    def test_geocode_extracts_the_fields_the_lookup_needs(self):
+        client = FakeGeocoder(_census_match())
+        geo = geo_module.geocode_address(client, "1 Example St, Example Gardens FL")
+        self.assertEqual(geo["zip"], "33410")
+        self.assertEqual(geo["state"], "FL")
+        self.assertEqual((geo["lat"], geo["lon"]), (26.8, -80.1))
+
+    def test_address_is_url_encoded_into_the_request(self):
+        client = FakeGeocoder(_census_match())
+        geo_module.geocode_address(client, "1 Example St #4, Palm Beach Gardens")
+        self.assertNotIn(" ", client.urls[0])
+        self.assertIn("%23", client.urls[0], "the '#' must be encoded, not truncate the URL")
+
+    def test_zip_plus_four_from_the_geocoder_is_truncated(self):
+        client = FakeGeocoder(_census_match(zip_code="33410-1234"))
+        self.assertEqual(geo_module.geocode_address(client, "x")["zip"], "33410")
+
+    def test_no_match_returns_none(self):
+        self.assertIsNone(
+            geo_module.geocode_address(FakeGeocoder({"result": {"addressMatches": []}}), "x")
+        )
+        self.assertIsNone(geo_module.geocode_address(FakeGeocoder(None), "x"))
+
+    def test_resolved_address_returns_ranked_candidates_and_states_its_method(self):
+        result = geo_module.resolve_address(
+            self.index, FakeGeocoder(_census_match()), "1 Example St"
+        )
+        self.assertEqual(result["method"], "geocode+zip+city")
+        self.assertEqual(result["candidateCount"], 2)
+        self.assertEqual(result["candidates"][0]["pwsid"], fixtures.SYNTHETIC_PWSID_A)
+        self.assertEqual(result["geocode"]["zip"], "33410")
+
+    def test_caveat_admits_this_is_not_a_service_area_boundary_lookup(self):
+        result = geo_module.resolve_address(
+            self.index, FakeGeocoder(_census_match()), "1 Example St"
+        )
+        self.assertIn("not a service-area boundary lookup", result["caveat"])
+
+    def test_out_of_state_address_is_refused_rather_than_matched_by_zip(self):
+        result = geo_module.resolve_address(
+            self.index,
+            FakeGeocoder(_census_match(zip_code="90210", city="BEVERLY HILLS", state="CA")),
+            "1 Example St, Beverly Hills CA",
+        )
+        self.assertEqual(result["candidateCount"], 0)
+        self.assertIn("outside Florida", result["caveat"])
+
+    def test_unmatched_address_says_so_and_suggests_a_zip_lookup(self):
+        result = geo_module.resolve_address(
+            self.index, FakeGeocoder({"result": {"addressMatches": []}}), "nowhere"
+        )
+        self.assertEqual(result["candidateCount"], 0)
+        self.assertIn("could not be geocoded", result["caveat"])
+
+    def test_unreachable_geocoder_is_not_reported_as_a_bad_address(self):
+        # These are different failures and the wording must not conflate them:
+        # "we couldn't reach the geocoder" is our problem, "no such address" is
+        # the user's, and only the second should send them to fix their input.
+        result = geo_module.resolve_address(
+            self.index, FakeGeocoder(raise_with=RuntimeError("connection refused")),
+            "1 Example St",
+        )
+        self.assertEqual(result["candidateCount"], 0)
+        self.assertIn("could not be reached", result["caveat"])
+        self.assertNotIn("could not be geocoded", result["caveat"])
 
 
 class TestUtilityResolution(unittest.TestCase):

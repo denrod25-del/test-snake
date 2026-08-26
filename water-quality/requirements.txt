@@ -6,3 +6,8 @@ requests>=2.31.0
 # registered in the dataset but their tables are not extracted.
 beautifulsoup4>=4.12.0   # HTML CCRs and utility notice pages
 pymupdf>=1.24.0          # PDF CCRs
+
+# Both optional dependencies above are exercised by the test suite
+# (tests/test_ccr_document.py, tests/test_notices.py). Without them those
+# suites skip rather than fail, but CI installs everything here, so the PDF and
+# HTML extraction paths are covered on every run.

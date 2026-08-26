@@ -32,6 +32,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable, Sequence
+from urllib.parse import quote
 
 from .schema import WaterSystem
 
@@ -268,33 +269,32 @@ def geocode_address(client: Any, address: str) -> dict[str, Any] | None:
     """Geocode a one-line address with the Census Bureau geocoder.
 
     Free and key-less, and already the geocoder this repo uses elsewhere
-    (`water-leads/census_client.py`).
+    (`water-leads/census_client.py`). Returns `None` when the address does not
+    match anything; raises whatever the client raises if the geocoder itself is
+    unreachable, so a down geocoder is never mistaken for a bad address.
     """
     url = (
-        f"{CENSUS_GEOCODER}?address={requests_quote(address)}"
+        f"{CENSUS_GEOCODER}?address={quote(str(address), safe='')}"
         "&benchmark=Public_AR_Current&format=json"
     )
     payload = client.get_json(url, empty_on_404=False)
-    matches = (payload or {}).get("result", {}).get("addressMatches") or []
+    if not isinstance(payload, dict):
+        return None
+    matches = (payload.get("result") or {}).get("addressMatches") or []
     if not matches:
         return None
     match = matches[0]
-    components = match.get("addressComponents", {})
-    coords = match.get("coordinates", {})
+    components = match.get("addressComponents") or {}
+    coords = match.get("coordinates") or {}
+    zip_code = re.sub(r"\D", "", str(components.get("zip") or ""))[:5] or None
     return {
         "matchedAddress": match.get("matchedAddress"),
-        "zip": components.get("zip"),
+        "zip": zip_code,
         "city": components.get("city"),
         "state": components.get("state"),
         "lat": coords.get("y"),
         "lon": coords.get("x"),
     }
-
-
-def requests_quote(value: str) -> str:
-    from urllib.parse import quote
-
-    return quote(str(value), safe="")
 
 
 def resolve_address(index: ServiceIndex, client: Any, address: str) -> dict[str, Any]:
@@ -305,7 +305,15 @@ def resolve_address(index: ServiceIndex, client: Any, address: str) -> dict[str,
     method used so a caller can tell a real point-in-polygon answer from this
     approximation once geometry lands.
     """
-    geo = geocode_address(client, address)
+    try:
+        geo = geocode_address(client, address)
+    except Exception as exc:  # noqa: BLE001 - geocoder down is not a bad address
+        log.warning("geocoder unavailable: %s", exc)
+        return _empty_lookup(
+            "The address geocoder could not be reached, so this address could not "
+            "be resolved. Try a ZIP code lookup instead.",
+            {"address": address},
+        )
     if geo is None:
         return _empty_lookup(
             "Address could not be geocoded. Try a ZIP code lookup instead.",

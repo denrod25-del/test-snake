@@ -12,11 +12,14 @@ Python pipeline in `water-quality/`, published JSON in `data/water/`, served by
 
 | Piece | State |
 |---|---|
-| Normalization core (units, analytes, schema) | Done, 126 tests passing |
+| Normalization core (units, analytes, schema) | Done, 180 tests passing |
 | Source clients (SDWIS, UCMR 5, CCR, notices) | Done, exercised against a fake transport |
 | Normalizers + ZIP index + profile assembly | Done |
 | HTTP API + routing + CI ingest workflow | Done |
 | Consumer page (`/water-quality.html`) | Done, browser-verified |
+| ZIP / city / address → utility | Done, all three wired and tested |
+| UCMR 5 PFAS ingest | Envirofacts, with a bulk-file fallback |
+| CCR parsing | PDF + HTML paths proven against generated documents |
 | Utility configs | 11 Florida systems, none resolved yet |
 | Analyte dictionary (`/api/water/analytes`) | **Live now** — 81 analytes, committed |
 | Everything upstream-dependent | **Not yet populated** — see below |
@@ -86,6 +89,7 @@ development only.
 | `GET /api/water/systems` | inventory; `?county=`, `?zip=`, `?type=`, `?q=`, `?limit=`, `?offset=` |
 | `GET /api/water/system?pwsid=FL…` | one system's full profile |
 | `GET /api/water/lookup?zip=33410` | ranked candidate utilities; `&city=` narrows |
+| `GET /api/water/lookup?address=…` | geocodes the address, then ranks the same way |
 
 All are public, CORS-open, GET-only, and rate-limited to 120 req/min per IP.
 Every payload carries a `meta` block with a data-trust status matching
@@ -145,6 +149,18 @@ one.
 **Provenance on every record.** Source system, source URL, retrieval timestamp,
 and upstream row id. A number without a citation is not publishable.
 
+**PFAS has a fallback.** `envirofacts.fetch_ucmr5` probes candidate table names
+because EPA has renamed the UCMR tables between cycles, and none is guaranteed to
+answer. Since PFAS is the headline of this dataset, `fwq/sources/ucmr_bulk.py`
+reads EPA's published bulk download instead — ZIP or delimited text, delimiter
+sniffed, filtered to the state as rows stream past so the national file never
+lands in memory. Bulk rows come out in the same shape Envirofacts produces, so
+they run through the same normalizer with no special-casing, proven by a test
+that asserts both paths yield identical records.
+
+Point it at a downloaded file with `python -m fwq ingest --ucmr5-file ucmr5.zip`.
+The manifest records which path the data actually came from.
+
 **PFAS Hazard Index.** EPA's mixture rule (`sum(measured / HBWC) ≤ 1` across
 PFHxS, PFNA, HFPO-DA, PFBS) is computed per system. It distinguishes "measured,
 non-detect" (contributes zero) from "never sampled" (marks the index
@@ -163,11 +179,22 @@ ZIP. Ranking prefers community systems over transient ones (a campground on the
 same ZIP is not your utility), boosts a city match, and penalizes inactive
 systems. Each candidate carries the reasons it was proposed.
 
-Address resolution (`fwq.geo.resolve_address`) geocodes via the Census Bureau
-and then falls back to ZIP+city, labelling itself `geocode+zip+city`. Real
-point-in-polygon resolution needs service-area geometry from FDEP or utility
-GIS — tracked as `fdep-geodata` in `fwq/data/sources.json` and not yet
-confirmed reachable.
+`?address=` geocodes with the Census Bureau geocoder (free, no key) server-side
+in the Netlify function, then falls back to ZIP+city matching and labels itself
+`geocode+zip+city`. Real point-in-polygon resolution needs service-area geometry
+from FDEP or utility GIS — tracked as `fdep-geodata` in `fwq/data/sources.json`
+and not yet confirmed reachable.
+
+Three failures the address path keeps separate, because conflating them sends
+people to fix the wrong thing:
+
+| What happened | Response |
+|---|---|
+| Geocoder unreachable | 200, "the geocoder could not be reached" — our problem |
+| Address matches nothing | 200, "that address could not be geocoded" — check spelling |
+| Address is outside Florida | 200, "outside this dataset's Florida coverage" |
+
+None of them is a 500, and none is an empty list without an explanation.
 
 ## PWSID resolution
 
@@ -254,8 +281,11 @@ water-quality/
   path work and are tested; per-utility scraping needs each alerts page
   confirmed individually. Add notices by hand in
   `fwq/data/manual_notices.json` during a live event.
-- **CCR parsing is untested against a real document.** The value-parsing core is
-  well covered, but no actual utility PDF has been run through it — layouts vary
-  enough that the first real ones will need iteration.
+- **CCR parsing has not seen a *real* utility document.** The PDF and HTML paths
+  are now proven end to end against generated CCRs (`tests/test_ccr_document.py`),
+  so the wiring is known good and a malformed or non-PDF payload degrades instead
+  of aborting the ingest. But real CCRs use borderless tables, multi-column
+  layouts, and footnote markers inside cells; the first real ones will still need
+  iteration.
 - **Regulatory limits need re-verification.** The PFAS NPDWR has been subject to
   ongoing reconsideration; see `limit_review` in `analytes.json`.

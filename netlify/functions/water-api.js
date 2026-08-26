@@ -233,45 +233,146 @@ function handleSystem(params) {
   });
 }
 
-function handleLookup(params) {
+// A lookup that found nothing is a valid answer, not an error, so it returns
+// 200 with a caveat explaining why rather than an empty list a caller has to
+// interpret. Mirrors fwq.geo._empty_lookup.
+function emptyLookup(query, caveat, geocode = null) {
+  const payload = {
+    query,
+    method: 'none',
+    isDefinitive: false,
+    candidateCount: 0,
+    candidates: [],
+    caveat,
+  };
+  if (geocode) payload.geocode = geocode;
+  return payload;
+}
+
+const CENSUS_GEOCODER =
+  'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress';
+const GEOCODE_TIMEOUT_MS = 6000;
+
+/**
+ * Geocode a one-line address with the Census Bureau geocoder (free, no key).
+ *
+ * Returns `{ geo }` on a match, `{ geo: null }` when the address matches
+ * nothing, and `{ unavailable: true }` when the geocoder could not be reached.
+ * Those last two are different failures and the caller must word them
+ * differently — only one of them is the user's to fix.
+ */
+async function geocodeAddress(address) {
+  const url =
+    `${CENSUS_GEOCODER}?address=${encodeURIComponent(address)}` +
+    '&benchmark=Public_AR_Current&format=json';
+  try {
+    const res = await fetch(url, {
+      headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(GEOCODE_TIMEOUT_MS),
+    });
+    if (!res.ok) return { unavailable: true };
+    const body = await res.json();
+    const match = ((body.result || {}).addressMatches || [])[0];
+    if (!match) return { geo: null };
+    const c = match.addressComponents || {};
+    const xy = match.coordinates || {};
+    return {
+      geo: {
+        matchedAddress: match.matchedAddress || null,
+        zip: normalizeZip(c.zip || ''),
+        city: c.city || null,
+        state: c.state || null,
+        lat: xy.y ?? null,
+        lon: xy.x ?? null,
+      },
+    };
+  } catch (err) {
+    console.warn('water-api: geocoder unavailable', err.message);
+    return { unavailable: true };
+  }
+}
+
+async function handleLookup(params) {
   const index = readDataset('service-index');
   if (!index) return notIngested('service-index');
 
-  const zip = params.get('zip');
-  const city = params.get('city');
-  if (!zip && !city) {
-    return fail(400, 'missing_query', 'Pass ?zip=33410 or ?city=Jupiter.');
+  let zip = params.get('zip');
+  let city = params.get('city');
+  const address = params.get('address');
+  if (!zip && !city && !address) {
+    return fail(400, 'missing_query',
+      'Pass ?zip=33410, ?city=Jupiter, or ?address=1 Main St, Jupiter FL.');
   }
 
-  const caveat =
+  let caveat =
     'ZIP codes are mail routes, not water service areas. This is a ranked list ' +
     'of systems that report serving this area, not a determination of who bills ' +
     'you. Confirm against your water bill.';
 
-  let pwsids;
+  let geocode = null;
   let method;
+
+  // Address resolution geocodes to a point, then falls back to ZIP+city
+  // matching, because no service-area geometry is wired yet. The response says
+  // which method was used so a caller can tell a real point-in-polygon answer
+  // from this approximation once geometry lands.
+  if (address && !zip) {
+    const { geo, unavailable } = await geocodeAddress(address);
+    if (unavailable) {
+      return json(200, emptyLookup(
+        { address },
+        'The address geocoder could not be reached, so this address could not be ' +
+        'resolved. Try a ZIP code lookup instead.',
+      ), { maxAge: 0 });
+    }
+    if (!geo) {
+      return json(200, emptyLookup(
+        { address },
+        'That address could not be geocoded. Check the spelling, or look up your ' +
+        'ZIP code instead.',
+      ), { maxAge: 0 });
+    }
+    if (geo.state && geo.state.toUpperCase() !== 'FL') {
+      return json(200, emptyLookup(
+        { address },
+        `That address geocoded to ${geo.state}, outside this dataset's Florida coverage.`,
+      ));
+    }
+    if (!geo.zip) {
+      return json(200, emptyLookup(
+        { address },
+        'That address geocoded without a ZIP code, so it could not be matched to a utility.',
+      ));
+    }
+    geocode = geo;
+    zip = geo.zip;
+    city = city || geo.city;
+    caveat =
+      'Resolved by geocoding the address and matching its ZIP and city against ' +
+      'SDWIS-reported service areas. This is not a service-area boundary lookup: ' +
+      'utility service-area geometry is not yet wired, so an address near a ' +
+      'boundary may match the wrong system. Confirm against your water bill.';
+  }
+
+  let pwsids;
   if (zip) {
     const clean = normalizeZip(zip);
     if (!clean) return fail(400, 'invalid_zip', 'ZIP must be five digits.');
     pwsids = index.byZip[clean] || [];
-    method = city ? 'zip+city' : 'zip';
+    method = geocode ? 'geocode+zip+city' : (city ? 'zip+city' : 'zip');
   } else {
     pwsids = index.byCity[normPlace(city)] || [];
     method = 'city';
   }
 
   if (pwsids.length === 0) {
-    return json(200, {
-      query: { zip: zip || null, city: city || null },
-      method: 'none',
-      isDefinitive: false,
-      candidateCount: 0,
-      candidates: [],
-      caveat:
-        'No water system in the dataset reports serving this area. It may be ' +
-        'served by private wells, by a system that has not reported it to SDWIS, ' +
-        'or it may be outside Florida.',
-    });
+    return json(200, emptyLookup(
+      { zip: zip || null, city: city || null, address: address || null },
+      'No water system in the dataset reports serving this area. It may be ' +
+      'served by private wells, by a system that has not reported it to SDWIS, ' +
+      'or it may be outside Florida.',
+      geocode,
+    ));
   }
 
   const cityMatches = city ? new Set(index.byCity[normPlace(city)] || []) : new Set();
@@ -320,9 +421,10 @@ function handleLookup(params) {
     || a.name.localeCompare(b.name));
 
   return json(200, {
-    query: { zip: zip || null, city: city || null },
+    query: { zip: zip || null, city: city || null, address: address || null },
     method,
     generatedAt: index.generatedAt,
+    ...(geocode ? { geocode } : {}),
     isDefinitive: candidates.length === 1,
     candidateCount: candidates.length,
     candidates,
@@ -370,7 +472,9 @@ exports.handler = async (event) => {
   }
 
   try {
-    return route(params);
+    // Awaited, not returned bare: handleLookup is async, and a bare return
+    // would let a rejection escape this catch and surface as an opaque 502.
+    return await route(params);
   } catch (err) {
     console.error('water-api error', endpoint, err);
     return fail(500, 'internal_error', 'The request could not be completed.');

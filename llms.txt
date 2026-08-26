@@ -27,6 +27,7 @@ Read-only, no auth, CORS-open, at https://deedscout.netlify.app/api/water/
 - `GET /api/water/systems` — Florida public water system inventory
 - `GET /api/water/system?pwsid=FL0000000` — one system's full profile
 - `GET /api/water/lookup?zip=33410` — ranked candidate utilities for a ZIP
+- `GET /api/water/lookup?address=1+Main+St+Jupiter+FL` — geocodes, then ranks
 
 Every response carries a `meta.status` using the data trust labels below. A ZIP is
 a mail route, not a water service area, so lookup returns ranked candidates rather

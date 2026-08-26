@@ -70,6 +70,65 @@ class TestIngestPipeline(unittest.TestCase):
         self.assertEqual(blocked.overall_status, DataStatus.BLOCKED)
         self.assertEqual(blocked.systems, [])
 
+    def test_ucmr5_bulk_file_takes_over_when_envirofacts_does_not_answer(self):
+        from tests import test_ucmr_bulk as bulk_fixtures
+
+        with tempfile.TemporaryDirectory() as tmp:
+            bulk_path = Path(tmp) / "ucmr5.txt"
+            bulk_path.write_text(bulk_fixtures._table(), encoding="utf-8")
+
+            result = build.ingest_state(
+                fixtures.FakeClient(fail={"ucmr5"}),
+                focus_pwsids=[fixtures.SYNTHETIC_PWSID_A],
+                retrieved_at=RETRIEVED,
+                codemap_path=CODEMAP,
+                ucmr5_bulk_path=bulk_path,
+            )
+
+        pfas = [r for r in result.results if r.analyte and r.analyte.group == "pfas"]
+        self.assertTrue(pfas, "PFAS results must survive an Envirofacts outage")
+        self.assertEqual({r.analyte_id for r in pfas}, {"pfoa", "pfos"})
+
+        outcome = next(o for o in result.outcomes if o.source_id == "epa-ucmr5")
+        self.assertEqual(outcome.status, DataStatus.LIVE)
+        self.assertIn("bulk file", outcome.detail,
+                      "the manifest must say the data came from the fallback")
+
+    def test_bulk_file_is_filtered_to_the_focus_systems(self):
+        from tests import test_ucmr_bulk as bulk_fixtures
+
+        with tempfile.TemporaryDirectory() as tmp:
+            bulk_path = Path(tmp) / "ucmr5.txt"
+            bulk_path.write_text(bulk_fixtures._table(), encoding="utf-8")
+            result = build.ingest_state(
+                fixtures.FakeClient(fail={"ucmr5"}),
+                focus_pwsids=[fixtures.SYNTHETIC_PWSID_A],
+                retrieved_at=RETRIEVED,
+                codemap_path=CODEMAP,
+                ucmr5_bulk_path=bulk_path,
+            )
+        # The file also contains rows for SYNTHETIC_PWSID_B and a Georgia
+        # system; neither is a focus system, so neither should appear.
+        self.assertEqual(
+            {r.pwsid for r in result.results if r.provenance.source.value == "epa-ucmr5"},
+            {fixtures.SYNTHETIC_PWSID_A},
+        )
+
+    def test_an_unreadable_bulk_file_degrades_instead_of_crashing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bad = Path(tmp) / "not-ucmr.txt"
+            bad.write_text("this is prose, not a table\n", encoding="utf-8")
+            result = build.ingest_state(
+                fixtures.FakeClient(fail={"ucmr5"}),
+                focus_pwsids=[fixtures.SYNTHETIC_PWSID_A],
+                retrieved_at=RETRIEVED,
+                codemap_path=CODEMAP,
+                ucmr5_bulk_path=bad,
+            )
+        self.assertTrue(result.systems, "the rest of the ingest must still complete")
+        broken = [o for o in result.outcomes if o.source_id == "epa-ucmr5-download"]
+        self.assertEqual(broken[0].status, DataStatus.BROKEN)
+
     def test_one_degraded_section_downgrades_live_to_cached(self):
         degraded = build.ingest_state(
             fixtures.FakeClient(fail={"ucmr5"}),

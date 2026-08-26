@@ -130,19 +130,30 @@
   <!-- ── Lookup ──────────────────────────────────────────────────────── -->
   <section class="wq-search" aria-labelledby="wq-search-h">
     <h2 id="wq-search-h" style="margin-top:0;font-size:19px;">Find your water utility</h2>
+    <div class="wq-filters" id="wq-mode" role="group" aria-label="Search by">
+      <button class="wq-chip" type="button" data-mode="zip" aria-pressed="true">By ZIP code</button>
+      <button class="wq-chip" type="button" data-mode="address" aria-pressed="false">By street address</button>
+    </div>
+
     <form id="wq-form">
-      <div class="wq-field">
+      <div class="wq-field" data-mode-field="zip">
         <label for="wq-zip">ZIP code</label>
         <input id="wq-zip" name="zip" inputmode="numeric" autocomplete="postal-code"
-               pattern="[0-9]{5}" maxlength="10" placeholder="33410" required />
+               pattern="[0-9]{5}" maxlength="10" placeholder="33410" />
       </div>
-      <div class="wq-field">
+      <div class="wq-field" data-mode-field="zip">
         <label for="wq-city">City <span style="text-transform:none;font-weight:400;">(optional, narrows it)</span></label>
         <input id="wq-city" name="city" autocomplete="address-level2" placeholder="Palm Beach Gardens" />
       </div>
+      <div class="wq-field" data-mode-field="address" hidden>
+        <label for="wq-address">Street address</label>
+        <input id="wq-address" name="address" autocomplete="street-address"
+               placeholder="4200 Hood Rd, Palm Beach Gardens FL" style="min-width:320px;" />
+      </div>
       <button class="ds-btn ds-btn-primary" type="submit">Look up</button>
     </form>
-    <p class="wq-hint">
+
+    <p class="wq-hint" id="wq-mode-hint">
       A ZIP code is a mail route, not a water service area &mdash; several utilities often
       share one. You'll get a ranked list, not a single answer. The definitive source is
       the utility name printed on your water bill.
@@ -310,6 +321,7 @@
       );
     });
 
+    var matched = payload.geocode && payload.geocode.matchedAddress;
     out.innerHTML =
       '<section class="wq-panel" aria-labelledby="wq-cand-h">' +
       '<h2 id="wq-cand-h" class="serif">' +
@@ -317,6 +329,9 @@
         ? "One utility serves this area"
         : payload.candidateCount + " utilities report serving this area") +
       "</h2>" +
+      (matched
+        ? '<p class="wq-panel-sub">Matched to <strong>' + esc(matched) + "</strong></p>"
+        : "") +
       '<div class="wq-caveat">' + esc(payload.caveat || "") + "</div>" +
       '<ul class="wq-candidates">' + items.join("") + "</ul>" +
       "</section>";
@@ -599,15 +614,54 @@
   }
 
   // ── wiring ──────────────────────────────────────────────────────────
+  // ── search mode ─────────────────────────────────────────────────────
+  var searchMode = "zip";
+
+  var MODE_HINTS = {
+    zip:
+      "A ZIP code is a mail route, not a water service area &mdash; several utilities " +
+      "often share one. You'll get a ranked list, not a single answer. The definitive " +
+      "source is the utility name printed on your water bill.",
+    address:
+      "Your address is geocoded, then matched to utilities by its ZIP and city. This " +
+      "is <strong>not</strong> a service-area boundary lookup &mdash; utility " +
+      "boundaries aren't wired yet, so an address near one may match the wrong " +
+      "system. Confirm against your water bill.",
+  };
+
+  function setMode(mode) {
+    searchMode = mode;
+    Array.prototype.forEach.call($("wq-mode").querySelectorAll(".wq-chip"), function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
+    });
+    Array.prototype.forEach.call(
+      document.querySelectorAll("[data-mode-field]"),
+      function (el) { el.hidden = el.dataset.modeField !== mode; }
+    );
+    $("wq-mode-hint").innerHTML = MODE_HINTS[mode];
+  }
+
+  Array.prototype.forEach.call($("wq-mode").querySelectorAll(".wq-chip"), function (btn) {
+    btn.addEventListener("click", function () { setMode(btn.dataset.mode); });
+  });
+
   $("wq-form").addEventListener("submit", function (event) {
     event.preventDefault();
-    var zip = $("wq-zip").value.trim();
-    var city = $("wq-city").value.trim();
-    if (!/^\d{5}/.test(zip)) return;
+
+    var query;
+    if (searchMode === "address") {
+      var address = $("wq-address").value.trim();
+      if (address.length < 6) return;
+      query = "/lookup?address=" + encodeURIComponent(address);
+    } else {
+      var zip = $("wq-zip").value.trim();
+      var city = $("wq-city").value.trim();
+      if (!/^\d{5}/.test(zip)) return;
+      query = "/lookup?zip=" + encodeURIComponent(zip.slice(0, 5)) +
+        (city ? "&city=" + encodeURIComponent(city) : "");
+    }
 
     $("wq-results").innerHTML = '<p style="color:var(--muted);">Searching&hellip;</p>';
-    var query = "/lookup?zip=" + encodeURIComponent(zip.slice(0, 5)) +
-      (city ? "&city=" + encodeURIComponent(city) : "");
 
     api(query).then(function (res) {
       if (res.status === 503) {
@@ -631,6 +685,10 @@
   loadAnalytes();
   if (params.get("pwsid")) {
     loadProfile(params.get("pwsid"));
+  } else if (params.get("address")) {
+    setMode("address");
+    $("wq-address").value = params.get("address");
+    $("wq-form").dispatchEvent(new Event("submit"));
   } else if (params.get("zip")) {
     $("wq-zip").value = params.get("zip");
     if (params.get("city")) $("wq-city").value = params.get("city");

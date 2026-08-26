@@ -92,7 +92,10 @@ def cmd_ingest(args: argparse.Namespace) -> int:
         cache_ttl_hours=args.cache_ttl,
         rate_limit_sec=args.rate_limit,
     ) as client:
-        result = build.ingest_state(client, state=args.state, focus_pwsids=focus)
+        result = build.ingest_state(
+            client, state=args.state, focus_pwsids=focus,
+            ucmr5_bulk_path=args.ucmr5_file,
+        )
         result.resolutions = [
             utilities.ResolutionOutcome(**{
                 "slug": slug,
@@ -239,6 +242,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_ingest.add_argument("--pwsid", action="append", help="extra PWSID to deep-pull")
     p_ingest.add_argument("--no-cache", action="store_true")
     p_ingest.add_argument("--cache-ttl", type=float, default=24.0)
+    p_ingest.add_argument(
+        "--ucmr5-file", type=Path, default=None,
+        help="UCMR 5 bulk file (.zip or delimited text) downloaded from EPA, "
+             "used when the Envirofacts UCMR tables do not answer",
+    )
     p_ingest.set_defaults(func=cmd_ingest)
 
     p_dictionary = sub.add_parser(

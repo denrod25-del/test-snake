@@ -199,6 +199,95 @@ class TestCandidateConversion(unittest.TestCase):
         self.assertTrue(payload["provenance"]["retrievedAt"])
 
 
+class TestHtmlScraping(unittest.TestCase):
+    """The scraper over a utility alerts page. Requires beautifulsoup4."""
+
+    def setUp(self):
+        try:
+            import bs4  # noqa: F401
+        except ImportError:
+            self.skipTest("beautifulsoup4 not installed")
+
+    ALERTS_PAGE = """
+    <html><body>
+      <section class="alerts">
+        <article>
+          <h3>Precautionary Boil Water Notice - Example Gardens</h3>
+          <p>Issued August 3, 2026. Customers in ZIP 33410 along Example Street
+             should bring water to a rolling boil for one minute before drinking.
+             This notice remains in effect until further notice.</p>
+        </article>
+        <article>
+          <h3>Hydrant Flushing Schedule</h3>
+          <p>Crews will flush hydrants in the north service area next week.
+             Discoloration is normal and temporary. No action is required.</p>
+        </article>
+      </section>
+    </body></html>
+    """
+
+    def test_only_boil_water_content_becomes_a_notice(self):
+        candidates = notices.extract_candidates_from_html(
+            self.ALERTS_PAGE, "https://example.test/alerts"
+        )
+        self.assertTrue(candidates, "the boil-water article must be found")
+        converted = [
+            notices.candidate_to_notice(c, fixtures.SYNTHETIC_PWSID_A, RETRIEVED)
+            for c in candidates
+        ]
+        kept = [n for n in converted if n is not None]
+        self.assertTrue(kept)
+        for notice in kept:
+            self.assertIn("boil", (notice.area_description or "").casefold())
+        self.assertFalse(
+            any("flush" in (n.area_description or "").casefold()
+                and "boil" not in (n.area_description or "").casefold()
+                for n in kept),
+            "the hydrant-flushing article is not a boil-water notice",
+        )
+
+    def test_scraped_notice_carries_date_zip_and_active_status(self):
+        candidates = notices.extract_candidates_from_html(
+            self.ALERTS_PAGE, "https://example.test/alerts"
+        )
+        notice = next(
+            n for n in (
+                notices.candidate_to_notice(c, fixtures.SYNTHETIC_PWSID_A, RETRIEVED)
+                for c in candidates
+            ) if n is not None
+        )
+        self.assertEqual(notice.status, "active")
+        self.assertEqual(notice.issued_at, date(2026, 8, 3))
+        self.assertIn("33410", notice.affected_zips)
+        self.assertTrue(notice.is_precautionary)
+        self.assertEqual(notice.provenance.source_url, "https://example.test/alerts")
+
+    def test_the_same_notice_scraped_twice_keeps_one_id(self):
+        ids = set()
+        for _ in range(2):
+            for candidate in notices.extract_candidates_from_html(
+                self.ALERTS_PAGE, "https://example.test/alerts"
+            ):
+                notice = notices.candidate_to_notice(
+                    candidate, fixtures.SYNTHETIC_PWSID_A, RETRIEVED
+                )
+                if notice:
+                    ids.add(notice.notice_id)
+        self.assertEqual(
+            len(ids), 1,
+            "nested elements and repeat scrapes must not multiply one notice",
+        )
+
+    def test_a_page_with_no_notices_yields_nothing(self):
+        self.assertEqual(
+            notices.extract_candidates_from_html(
+                "<html><body><p>Pay your bill online.</p></body></html>",
+                "https://example.test/",
+            ),
+            [],
+        )
+
+
 class TestManualEntries(unittest.TestCase):
     def test_missing_file_yields_no_notices_rather_than_an_error(self):
         with mock.patch.object(notices, "MANUAL_PATH", Path("/nonexistent/x.json")):

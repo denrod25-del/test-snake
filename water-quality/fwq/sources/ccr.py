@@ -408,13 +408,29 @@ def extract_tables_from_pdf(data: bytes) -> list[list[list[str]]]:
     to "document registered but not parsed" rather than failing the ingest.
     """
     try:
-        import fitz  # type: ignore[import-untyped]
+        # `fitz` is the legacy module name and is deprecated upstream; prefer
+        # `pymupdf` and fall back so older pinned installs keep working.
+        import pymupdf  # type: ignore[import-untyped]
     except ImportError:
-        log.warning("PyMuPDF not installed; CCR PDFs will be registered but not parsed")
-        return []
+        try:
+            import fitz as pymupdf  # type: ignore[import-untyped, no-redef]
+        except ImportError:
+            log.warning(
+                "PyMuPDF not installed; CCR PDFs will be registered but not parsed"
+            )
+            return []
 
     tables: list[list[list[str]]] = []
-    with fitz.open(stream=data, filetype="pdf") as doc:
+    try:
+        doc = pymupdf.open(stream=data, filetype="pdf")
+    except Exception as exc:  # noqa: BLE001 - the payload may not be a PDF at all
+        # Utilities routinely serve an HTML "page moved" or login page from a
+        # .pdf URL. That must degrade to "document registered, not parsed",
+        # not abort the ingest for every other utility behind it.
+        log.warning("CCR payload is not a readable PDF (%s bytes): %s", len(data), exc)
+        return []
+
+    with doc:
         for page in doc:
             try:
                 found = page.find_tables()

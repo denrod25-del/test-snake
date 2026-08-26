@@ -39,7 +39,7 @@ from .schema import (
     Violation,
     WaterSystem,
 )
-from .sources import envirofacts, notices
+from .sources import envirofacts, notices, ucmr_bulk
 from .sources.http import Client, SourceUnavailable
 
 log = logging.getLogger(__name__)
@@ -155,6 +155,7 @@ def ingest_state(
     focus_pwsids: Sequence[str] = (),
     retrieved_at: datetime | None = None,
     codemap_path: Path | None = None,
+    ucmr5_bulk_path: Path | str | None = None,
 ) -> IngestResult:
     """Pull and normalize a state's systems, plus deep data for focus systems.
 
@@ -166,6 +167,9 @@ def ingest_state(
     `codemap_path` redirects the learned SDWIS contaminant-code map. Tests pass
     a temporary path so a test run never writes fixture-derived mappings into
     the package's shipped data directory.
+
+    `ucmr5_bulk_path` points at a UCMR 5 bulk file downloaded from EPA, used
+    only when the Envirofacts UCMR tables do not answer.
     """
     retrieved_at = retrieved_at or datetime.now(timezone.utc)
     out = IngestResult(generated_at=retrieved_at)
@@ -234,6 +238,29 @@ def ingest_state(
     report.counts["lcrResults"] = len(out.results)
 
     ucmr_rows = pulled.get("ucmr5") or []
+    ucmr_source = f"Envirofacts table {pulled.get('ucmr5_table')}"
+
+    # Fall back to a downloaded bulk file when Envirofacts does not answer.
+    # PFAS is the headline of this dataset; it should not be lost because a
+    # table got renamed between UCMR cycles.
+    if not ucmr_rows and ucmr5_bulk_path:
+        focus = set(focus_pwsids)
+        try:
+            bulk = ucmr_bulk.read_bulk_file(ucmr5_bulk_path, state=state)
+        except (OSError, ucmr_bulk.UcmrParseError) as exc:
+            log.error("UCMR 5 bulk file unusable: %s", exc)
+            out.outcomes.append(
+                SourceOutcome("epa-ucmr5-download", DataStatus.BROKEN, str(exc))
+            )
+        else:
+            summary = ucmr_bulk.summarize(bulk)
+            log.info("UCMR 5 bulk file: %s", summary)
+            ucmr_rows = [
+                r for r in bulk
+                if str(normalize._pick(r, "pwsid") or "").upper() in focus
+            ]
+            ucmr_source = f"bulk file {Path(ucmr5_bulk_path).name} ({summary['rows']} FL rows)"
+
     ucmr_count = 0
     for row in ucmr_rows:
         result = normalize.normalize_ucmr5_result(row, retrieved_at, report=report)
@@ -245,8 +272,9 @@ def ingest_state(
         SourceOutcome(
             "epa-ucmr5",
             DataStatus.LIVE if ucmr_rows else DataStatus.BLOCKED,
-            f"table={pulled.get('ucmr5_table')}" if ucmr_rows
-            else "UCMR 5 not reachable under any known table name",
+            ucmr_source if ucmr_rows
+            else "UCMR 5 unavailable: no Envirofacts table answered and no bulk "
+                 "file was supplied (see --ucmr5-file)",
             ucmr_count,
         )
     )
