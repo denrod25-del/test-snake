@@ -251,11 +251,13 @@
     );
   }
 
-  var NOT_INGESTED_BODY =
-    "The Florida system inventory hasn't been ingested yet, so utility lookup " +
-    "isn't available. The pipeline and this page are built; the scheduled " +
-    "<em>Ingest Florida Water Quality</em> job populates the data. " +
-    "The contaminant reference below works now.";
+  // Reached only when the dataset is unavailable AND the live EPA fallback also
+  // failed — i.e. EPA itself is unreachable, not a normal not-yet-ingested state.
+  var UPSTREAM_DOWN_BODY =
+    "This deployment hasn't ingested the dataset yet, so lookups run live " +
+    "against EPA &mdash; and EPA didn't answer just now. This is usually " +
+    "temporary; try again in a few minutes. The contaminant reference below " +
+    "works either way.";
 
   // ── status line ─────────────────────────────────────────────────────
   function renderStatus() {
@@ -263,9 +265,12 @@
       var el = $("wq-status-line");
       var trust = window.DeedScoutTrust;
       if (!res.ok) {
+        // No ingested dataset. Lookup still works: the API queries EPA live for
+        // utility identification. Only sample results need the ingest.
         el.innerHTML = trust
-          ? trust.renderBadge("coming-soon", { compact: true }) +
-            ' <span style="font-size:13px;color:var(--muted);">Dataset not generated yet &mdash; utility lookup is unavailable.</span>'
+          ? trust.renderBadge("live", { compact: true }) +
+            ' <span style="font-size:13px;color:var(--muted);">Utility lookup runs live against EPA. ' +
+            'Sample results and PFAS data need the scheduled ingest.</span>'
           : "";
         return null;
       }
@@ -322,8 +327,15 @@
     });
 
     var matched = payload.geocode && payload.geocode.matchedAddress;
+    var live = payload.meta && payload.meta.status === "live";
     out.innerHTML =
       '<section class="wq-panel" aria-labelledby="wq-cand-h">' +
+      (live
+        ? '<div class="wq-caveat"><strong>Live EPA query.</strong> ' +
+          "This deployment hasn't ingested the dataset yet, so these utilities " +
+          "were looked up from EPA just now. Utility identification is complete; " +
+          "contaminant results and PFAS data need the scheduled ingest.</div>"
+        : "") +
       '<h2 id="wq-cand-h" class="serif">' +
       (payload.isDefinitive
         ? "One utility serves this area"
@@ -415,11 +427,21 @@
     var sys = p.system || {};
     var area = sys.serviceArea || {};
 
+    // "0 over the limit" is only reassuring if something was actually measured.
+    // With no results — a live EPA query, or a system with no ingested sampling
+    // — the tile must stay neutral and say so. Green here would read as "your
+    // water is fine" on the strength of no data at all.
+    var measured = s.analytesMeasured || 0;
+    var exceedTone = s.exceedanceCount ? " is-exceed" : (measured ? " is-clear" : "");
     var tiles = [
-      '<div class="wq-tile' + (s.exceedanceCount ? " is-exceed" : " is-clear") + '">' +
+      '<div class="wq-tile' + exceedTone + '">' +
         '<p class="wq-tile-label">Over a federal limit</p>' +
-        '<p class="wq-tile-value">' + (s.exceedanceCount || 0) + "</p>" +
-        '<p class="wq-tile-note">of ' + (s.analytesMeasured || 0) + " contaminants measured</p></div>",
+        '<p class="wq-tile-value">' + (measured ? (s.exceedanceCount || 0) : "&mdash;") + "</p>" +
+        '<p class="wq-tile-note">' +
+        (measured
+          ? "of " + measured + " contaminants measured"
+          : "no sample results available &mdash; this is not a clean result") +
+        "</p></div>",
       '<div class="wq-tile' + (v.openHealthBased ? " is-exceed" : "") + '">' +
         '<p class="wq-tile-label">Open health violations</p>' +
         '<p class="wq-tile-value">' + (v.openHealthBased || 0) + "</p>" +
@@ -665,7 +687,7 @@
 
     api(query).then(function (res) {
       if (res.status === 503) {
-        $("wq-results").innerHTML = comingSoon("Utility lookup isn't live yet", NOT_INGESTED_BODY);
+        $("wq-results").innerHTML = comingSoon("EPA didn't answer", UPSTREAM_DOWN_BODY);
         return;
       }
       if (!res.ok) {

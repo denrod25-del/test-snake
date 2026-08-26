@@ -28,6 +28,7 @@ const fs = require('fs');
 const path = require('path');
 
 const { checkRateLimit, rateLimitResponse } = require('./_lib/rate-limit');
+const envirofacts = require('./_lib/envirofacts');
 
 // FWQ_DATA_DIR lets the test harness point the function at a fixture dataset
 // instead of the committed one. Unset in production.
@@ -196,7 +197,72 @@ function handleSystems(params) {
   });
 }
 
-function handleSystem(params) {
+// Live single-system profile: inventory plus violations, both of which are
+// categorical and need no unit handling. `results` stays empty on purpose and
+// the note says why — a JS reimplementation of the result normalizer is exactly
+// the duplication this design refuses.
+async function liveSystem(pwsid) {
+  let system;
+  let violations = [];
+  try {
+    system = await envirofacts.systemById(pwsid);
+    if (system) violations = await envirofacts.violationsFor(pwsid);
+  } catch (err) {
+    console.warn('water-api: live EPA system fetch failed', err.message);
+    return json(503, {
+      error: 'upstream_unavailable',
+      message:
+        'The dataset has not been ingested yet, and EPA could not be reached to ' +
+        'answer this live. Try again shortly.',
+      meta: { dataset: 'systems', status: 'broken' },
+    }, { maxAge: 0 });
+  }
+
+  if (!system) {
+    return fail(404, 'system_not_found', `EPA reports no system ${pwsid}.`);
+  }
+
+  const open = violations.filter((v) => v.resolved === false);
+  return json(200, {
+    system,
+    generatedAt: new Date().toISOString(),
+    summary: {
+      resultCount: 0,
+      analytesMeasured: 0,
+      exceedanceCount: 0,
+      violations: {
+        total: violations.length,
+        open: open.length,
+        openHealthBased: open.filter((v) => v.isHealthBased).length,
+        healthBased: violations.filter((v) => v.isHealthBased).length,
+      },
+      activeBoilWaterNotices: 0,
+      pfas: null,
+    },
+    priorityResults: [],
+    exceedances: [],
+    results: [],
+    violations: violations.sort((a, b) =>
+      String(b.beginDate || '').localeCompare(String(a.beginDate || ''))),
+    boilWaterNotices: [],
+    consumerConfidenceReports: [],
+    meta: {
+      dataset: 'systems',
+      status: 'live',
+      note:
+        'Queried EPA SDWIS directly because this deployment has not ingested the ' +
+        'dataset yet.',
+    },
+    note:
+      'Live EPA query. System details and Safe Drinking Water Act violations are ' +
+      'shown. Sample results — including PFAS — are not available live: they need ' +
+      'unit conversion and non-detect handling that only the ingest pipeline does, ' +
+      'and approximating that here would risk misreporting a contaminant level. ' +
+      'Run the ingest to populate them.',
+  }, { maxAge: 600 });
+}
+
+async function handleSystem(params) {
   const pwsid = String(params.get('pwsid') || '').trim().toUpperCase();
   if (!pwsid) return fail(400, 'missing_pwsid', 'Pass ?pwsid=FL0000000.');
   if (!PWSID_RE.test(pwsid)) {
@@ -212,7 +278,7 @@ function handleSystem(params) {
   // Fall back to the inventory so a valid system without a deep profile still
   // answers with what is known, rather than a bare 404.
   const dataset = readDataset('systems');
-  if (!dataset) return notIngested('systems');
+  if (!dataset) return liveSystem(pwsid);
   const system = dataset.systems.find((s) => s.pwsid === pwsid);
   if (!system) {
     return fail(404, 'system_not_found',
@@ -247,6 +313,59 @@ function emptyLookup(query, caveat, geocode = null) {
   };
   if (geocode) payload.geocode = geocode;
   return payload;
+}
+
+// Ranking lives here, once, so the indexed path and the live-EPA fallback
+// cannot drift apart and give a caller different answers for the same ZIP.
+// `infos` accepts either shape: the service index stores zips/counties flat,
+// the live client nests them under serviceArea.
+function rankCandidates(infos, { zip, city, cityMatches = new Set() }) {
+  const typeWeight = {
+    community: 1.0,
+    'non-transient non-community': 0.4,
+    'transient non-community': 0.15,
+  };
+
+  const candidates = infos.map((info) => {
+    const area = info.serviceArea || {};
+    const zips = info.zips || area.zips || [];
+    const counties = info.counties || area.counties || [];
+    const pwsid = info.pwsid;
+    const reasons = [`Reported as serving ${zip ? `ZIP ${normalizeZip(zip)}` : city}`];
+    let confidence = typeWeight[info.systemType] ?? 0.3;
+
+    if (city && cityMatches.has(pwsid)) {
+      confidence += 0.35;
+      reasons.push(`also reports serving ${city}`);
+    } else if (city && cityMatches.size > 0) {
+      confidence -= 0.15;
+    }
+    if (zips.length > 0) {
+      confidence += Math.min(0.2, 1 / zips.length);
+      reasons.push(`serves ${zips.length} ZIP code(s) in total`);
+    }
+    if (info.isActive === false) {
+      confidence -= 0.5;
+      reasons.push('marked inactive in SDWIS');
+    }
+
+    return {
+      pwsid,
+      name: info.name || pwsid,
+      confidence: Math.round(Math.max(0, Math.min(1, confidence)) * 1000) / 1000,
+      reasons,
+      populationServed: info.populationServed ?? null,
+      systemType: info.systemType ?? null,
+      counties,
+      profileUrl: `/api/water/system?pwsid=${pwsid}`,
+    };
+  });
+
+  candidates.sort((a, b) =>
+    b.confidence - a.confidence
+    || (b.populationServed || 0) - (a.populationServed || 0)
+    || a.name.localeCompare(b.name));
+  return candidates;
 }
 
 const CENSUS_GEOCODER =
@@ -292,9 +411,110 @@ async function geocodeAddress(address) {
   }
 }
 
+// When data/water/ has not been ingested, answer a ZIP lookup by querying EPA
+// directly. This is only viable because the question is small — one ZIP's
+// service-area rows plus the matching inventory — and because it needs no unit
+// conversion or non-detect handling. Sample results are NOT fetched live; see
+// the header of _lib/envirofacts.js for why.
+async function liveLookup({ zip, city, address, geocode }) {
+  const clean = normalizeZip(zip);
+  if (!clean) {
+    return fail(400, 'invalid_zip',
+      'Live lookup needs a ZIP. Pass ?zip=33410, or ingest the dataset for city search.');
+  }
+
+  let systems;
+  try {
+    ({ systems } = await envirofacts.systemsForZip(clean));
+  } catch (err) {
+    console.warn('water-api: live EPA lookup failed', err.message);
+    return json(503, {
+      error: 'upstream_unavailable',
+      message:
+        'The dataset has not been ingested yet, and EPA could not be reached to ' +
+        'answer this live. Try again shortly.',
+      meta: { dataset: 'service-index', status: 'broken' },
+    }, { maxAge: 0 });
+  }
+
+  if (systems.length === 0) {
+    return json(200, emptyLookup(
+      { zip: clean, city: city || null, address: address || null },
+      'EPA reports no water system serving this ZIP. It may be served by private ' +
+      'wells, by a system that has not reported this ZIP to SDWIS, or the ZIP may ' +
+      'be outside Florida.',
+      geocode,
+    ), { maxAge: 600 });
+  }
+
+  const cityMatches = new Set();
+  if (city) {
+    const needle = normPlace(city);
+    for (const s of systems) {
+      if ((s.serviceArea.cities || []).some((c) => normPlace(c) === needle)) {
+        cityMatches.add(s.pwsid);
+      }
+    }
+  }
+
+  const candidates = rankCandidates(systems, { zip: clean, city, cityMatches });
+  return json(200, {
+    query: { zip: clean, city: city || null, address: address || null },
+    method: geocode ? 'live-epa+geocode' : 'live-epa',
+    ...(geocode ? { geocode } : {}),
+    isDefinitive: candidates.length === 1,
+    candidateCount: candidates.length,
+    candidates,
+    meta: {
+      dataset: 'service-index',
+      status: 'live',
+      note:
+        'Queried EPA SDWIS directly because this deployment has not ingested the ' +
+        'dataset yet. Utility identification is complete; sample results and ' +
+        'PFAS data require the ingest.',
+    },
+    caveat:
+      'ZIP codes are mail routes, not water service areas. This is a ranked list ' +
+      'of systems that report serving this ZIP, not a determination of who bills ' +
+      'you. Confirm against your water bill.',
+  }, { maxAge: 600 });
+}
+
 async function handleLookup(params) {
   const index = readDataset('service-index');
-  if (!index) return notIngested('service-index');
+  if (!index) {
+    // Fall through to a live EPA query rather than 503-ing. The address branch
+    // below still needs to run first so ?address= works in live mode too.
+    const address0 = params.get('address');
+    let zip0 = params.get('zip');
+    let city0 = params.get('city');
+    let geocode0 = null;
+    if (!zip0 && !city0 && !address0) {
+      return fail(400, 'missing_query',
+        'Pass ?zip=33410, ?city=Jupiter, or ?address=1 Main St, Jupiter FL.');
+    }
+    if (address0 && !zip0) {
+      const { geo, unavailable } = await geocodeAddress(address0);
+      if (unavailable) {
+        return json(200, emptyLookup({ address: address0 },
+          'The address geocoder could not be reached, so this address could not be ' +
+          'resolved. Try a ZIP code lookup instead.'), { maxAge: 0 });
+      }
+      if (!geo) {
+        return json(200, emptyLookup({ address: address0 },
+          'That address could not be geocoded. Check the spelling, or look up your ' +
+          'ZIP code instead.'), { maxAge: 0 });
+      }
+      if (geo.state && geo.state.toUpperCase() !== 'FL') {
+        return json(200, emptyLookup({ address: address0 },
+          `That address geocoded to ${geo.state}, outside this dataset's Florida coverage.`));
+      }
+      geocode0 = geo;
+      zip0 = geo.zip;
+      city0 = city0 || geo.city;
+    }
+    return liveLookup({ zip: zip0, city: city0, address: address0, geocode: geocode0 });
+  }
 
   let zip = params.get('zip');
   let city = params.get('city');
@@ -376,49 +596,10 @@ async function handleLookup(params) {
   }
 
   const cityMatches = city ? new Set(index.byCity[normPlace(city)] || []) : new Set();
-  const typeWeight = {
-    community: 1.0,
-    'non-transient non-community': 0.4,
-    'transient non-community': 0.15,
-  };
-
-  const candidates = pwsids.map((pwsid) => {
-    const info = index.systems[pwsid] || {};
-    const reasons = [`Reported as serving ${zip ? `ZIP ${normalizeZip(zip)}` : city}`];
-    let confidence = typeWeight[info.systemType] ?? 0.3;
-
-    if (city && cityMatches.has(pwsid)) {
-      confidence += 0.35;
-      reasons.push(`also reports serving ${city}`);
-    } else if (city && cityMatches.size > 0) {
-      confidence -= 0.15;
-    }
-    const zipCount = (info.zips || []).length;
-    if (zipCount > 0) {
-      confidence += Math.min(0.2, 1 / zipCount);
-      reasons.push(`serves ${zipCount} ZIP code(s) in total`);
-    }
-    if (info.isActive === false) {
-      confidence -= 0.5;
-      reasons.push('marked inactive in SDWIS');
-    }
-
-    return {
-      pwsid,
-      name: info.name || pwsid,
-      confidence: Math.round(Math.max(0, Math.min(1, confidence)) * 1000) / 1000,
-      reasons,
-      populationServed: info.populationServed ?? null,
-      systemType: info.systemType ?? null,
-      counties: info.counties || [],
-      profileUrl: `/api/water/system?pwsid=${pwsid}`,
-    };
-  });
-
-  candidates.sort((a, b) =>
-    b.confidence - a.confidence
-    || (b.populationServed || 0) - (a.populationServed || 0)
-    || a.name.localeCompare(b.name));
+  const candidates = rankCandidates(
+    pwsids.map((pwsid) => ({ pwsid, ...(index.systems[pwsid] || {}) })),
+    { zip, city, cityMatches },
+  );
 
   return json(200, {
     query: { zip: zip || null, city: city || null, address: address || null },

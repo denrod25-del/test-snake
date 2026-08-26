@@ -12,7 +12,7 @@ Python pipeline in `water-quality/`, published JSON in `data/water/`, served by
 
 | Piece | State |
 |---|---|
-| Normalization core (units, analytes, schema) | Done, 180 tests passing |
+| Normalization core (units, analytes, schema) | Done, 196 tests passing |
 | Source clients (SDWIS, UCMR 5, CCR, notices) | Done, exercised against a fake transport |
 | Normalizers + ZIP index + profile assembly | Done |
 | HTTP API + routing + CI ingest workflow | Done |
@@ -22,7 +22,8 @@ Python pipeline in `water-quality/`, published JSON in `data/water/`, served by
 | CCR parsing | PDF + HTML paths proven against generated documents |
 | Utility configs | 11 Florida systems, none resolved yet |
 | Analyte dictionary (`/api/water/analytes`) | **Live now** — 81 analytes, committed |
-| Everything upstream-dependent | **Not yet populated** — see below |
+| Utility lookup without an ingest | **Works** — falls back to a live EPA query |
+| Sample results / PFAS | **Need the ingest** — see below |
 
 **The upstream data has not been ingested yet.** The build environment this was
 developed in blocks outbound access to `data.epa.gov`, `floridadep.gov`,
@@ -30,11 +31,19 @@ developed in blocks outbound access to `data.epa.gov`, `floridadep.gov`,
 (HTTP 403 on CONNECT — see `data/water/source-probe.json`). GitHub Actions
 runners are not subject to that policy, which is why the ingest runs there.
 
-Until the first ingest completes, `/api/water/systems`, `/api/water/system`,
-and `/api/water/lookup` return **HTTP 503** with `status: "coming-soon"` and an
-explanation. They do not return empty lists, and they do not return invented
-numbers. The page renders a matching empty state and keeps working for the
-contaminant reference, which needs no upstream data.
+Until the first ingest completes the API does **not** simply fail. It degrades
+in three tiers:
+
+| Endpoint | Without an ingest |
+|---|---|
+| `/analytes` | Serves normally — the dictionary is committed, not upstream data |
+| `/lookup`, `/system` | **Queries EPA live**, labelled `status: "live"` |
+| `/systems` | 503 `coming-soon` — a whole-state inventory has no small live query |
+
+The live fallback answers the question people actually arrive with — *which
+utility serves me, and does it have violations* — from one small Envirofacts
+query. What it deliberately does **not** do is fetch sample results. See
+[the live fallback](#the-live-fallback).
 
 To populate it:
 
@@ -116,6 +125,27 @@ Framing choices that are deliberate:
   with the note that no limit means EPA has not set one, not that any amount is
   known to be safe.
 - People on private wells are told none of it applies to them.
+
+## The live fallback
+
+`netlify/functions/_lib/envirofacts.js` queries EPA directly when `data/water/`
+is unpopulated: service-area rows for one ZIP plus the matching inventory, or
+one system plus its violations. Records come back in the same shape the ingested
+dataset produces, and ranking runs through the same `rankCandidates` function, so
+the two paths cannot drift and give different answers for the same ZIP.
+
+**It refuses to fetch sample results, on purpose.** Results need unit conversion,
+analyte-name resolution, and non-detect handling — the logic `fwq/` implements
+carefully and covers with most of its tests. A second implementation in
+JavaScript would drift from the first, and the drift would land in the
+safety-critical direction: a mis-converted PFAS value, or a non-detect read as a
+measurement. So a live profile returns violations and system details, an empty
+`results` array, and a note saying exactly why.
+
+The consumer page follows the same rule. With no results, the "over a federal
+limit" tile shows an em dash and reads *"no sample results available — this is
+not a clean result"*, in neutral grey. Showing a green zero there would tell
+someone their water is fine on the strength of no data at all.
 
 ## The normalization contract
 
