@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-25T08:10:18Z",
+  "generated": "2026-08-26T08:05:25Z",
   "salesGenerated": "2026-08-24T06:51:30Z",
   "featuredSlugs": [
     "palm-beach",
@@ -43,10 +43,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-25",
-        "label": "August 25, 2026",
-        "shortLabel": "Aug 25",
-        "count": 1,
+        "date": "2026-09-01",
+        "label": "September 1, 2026",
+        "shortLabel": "Sep 1",
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -121,10 +121,10 @@
       "slug": "charlotte",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-25",
-        "label": "August 25, 2026",
-        "shortLabel": "Aug 25",
-        "count": 8,
+        "date": "2026-09-01",
+        "label": "September 1, 2026",
+        "shortLabel": "Sep 1",
+        "count": 19,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -499,10 +499,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-08-25",
-        "label": "August 25, 2026",
-        "shortLabel": "Aug 25",
-        "count": 1,
+        "date": "2026-09-01",
+        "label": "September 1, 2026",
+        "shortLabel": "Sep 1",
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -955,10 +955,10 @@
       "slug": "volusia",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-25",
-        "label": "August 25, 2026",
-        "shortLabel": "Aug 25",
-        "count": 12,
+        "date": "2026-09-01",
+        "label": "September 1, 2026",
+        "shortLabel": "Sep 1",
+        "count": 16,
         "source": "scraper"
       },
       "surplusPortal": true,
