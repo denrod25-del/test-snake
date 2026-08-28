@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-27T11:06:18Z",
+  "generated": "2026-08-28T11:32:07Z",
   "salesGenerated": "2026-08-24T06:51:30Z",
   "featuredSlugs": [
     "palm-beach",
@@ -409,10 +409,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-08-27",
-        "label": "August 27, 2026",
-        "shortLabel": "Aug 27",
-        "count": 5,
+        "date": "2026-09-03",
+        "label": "September 3, 2026",
+        "shortLabel": "Sep 3",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -697,10 +697,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-08-27",
-        "label": "August 27, 2026",
-        "shortLabel": "Aug 27",
-        "count": 7,
+        "date": "2026-09-03",
+        "label": "September 3, 2026",
+        "shortLabel": "Sep 3",
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -751,10 +751,10 @@
       "slug": "pasco",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-08-27",
-        "label": "August 27, 2026",
-        "shortLabel": "Aug 27",
-        "count": 24,
+        "date": "2026-09-24",
+        "label": "September 24, 2026",
+        "shortLabel": "Sep 24",
+        "count": 23,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -769,9 +769,9 @@
       "slug": "pinellas",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-08-27",
-        "label": "August 27, 2026",
-        "shortLabel": "Aug 27",
+        "date": "2026-09-10",
+        "label": "September 10, 2026",
+        "shortLabel": "Sep 10",
         "count": null,
         "source": "cadence"
       },
@@ -985,9 +985,9 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-08-27",
-        "label": "August 27, 2026",
-        "shortLabel": "Aug 27",
+        "date": "2026-09-03",
+        "label": "September 3, 2026",
+        "shortLabel": "Sep 3",
         "count": 4,
         "source": "scraper"
       },
