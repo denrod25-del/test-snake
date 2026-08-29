@@ -610,7 +610,7 @@
       }
       return (
         badge("coming-soon") +
-        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas, Volusia, Miami-Dade, and Polk FLU (GIS) plus Charlotte, Manatee, Orange, Sarasota, and Duval (PA parcel attributes). Use the county planning site for ' +
+        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas, Volusia, Miami-Dade, Broward BMSD, and Polk FLU (GIS) plus Charlotte, Manatee, Orange, Sarasota, and Duval (PA parcel attributes). Use the county planning site for ' +
         esc((meta && meta.name) || "other counties") +
         ".</p>"
       );
@@ -1401,7 +1401,7 @@
       setStatus(
         host,
         badge("coming-soon") +
-          '<p class="pi-empty">Save watch prefs above to build an on-page digest from Live/Cached feeds. Automated email delivery is still Coming Soon.</p>'
+          '<p class="pi-empty">Save watch prefs above to build an on-page digest from Live/Cached feeds. Sign in and save to also receive the daily email digest.</p>'
       );
       return;
     }
@@ -1414,7 +1414,7 @@
         esc(countyLabel) +
         "</strong> · saved " +
         esc(fmtDate(prefs.savedAt) || "just now") +
-        ". On-page only — email still Coming Soon.</p>"
+        ". On-page now; daily email when signed in with Resend configured.</p>"
     );
 
     if (prefs.watch_zoning) {

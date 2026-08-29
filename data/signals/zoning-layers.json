@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-14T00:52:52Z",
+  "generated": "2026-08-29T23:10:00Z",
   "note": "Zoning sources for Property Intelligence. Prefer dedicated zoning GIS polygons; parcelAttrFallback reads fields already returned on the parcel feature when no GIS layer is wired. Always verify on the county planning / PA site.",
   "layers": {
     "palm-beach": {
@@ -236,6 +236,29 @@
       },
       "label": "Polk Future Land Use 2030 GIS (not zoning districts)",
       "note": "Polk public viewer exposes Future Land Use, not zoning district polygons. Confirm zoning on polk-county.net planning / polkpa.org."
+    },
+    "broward": {
+      "name": "Broward",
+      "status": "live",
+      "mode": "gis",
+      "endpoint": "https://services.arcgis.com/JMAJrTsHNLrSsWf5/ArcGIS/rest/services/Broward_Municipal_Service_District_Zoning/FeatureServer/2/query",
+      "outFields": "ZONING,DESCRIPTION,TITLEDESCRIPTION",
+      "map": {
+        "code": [
+          "ZONING"
+        ],
+        "name": [
+          "ZONING",
+          "TITLEDESCRIPTION"
+        ],
+        "desc": [
+          "DESCRIPTION",
+          "TITLEDESCRIPTION"
+        ],
+        "changed": []
+      },
+      "label": "Broward BMSD Zoning GIS (unincorporated)",
+      "note": "Unincorporated Broward Municipal Services District only. Municipal parcels (Fort Lauderdale, Pompano Beach, etc.) use city zoning — confirm on bcpa.net / city planning maps."
     }
   },
   "parcelAttrFallback": {
