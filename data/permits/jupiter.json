@@ -1,12 +1,50 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-29T07:52:37Z",
+  "generated": "2026-08-30T07:51:41Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424101030040070": [
+      {
+        "permitNumber": "26-097640-ELEC-C",
+        "parcelId": "30424101030040070",
+        "address": "101  FERN ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Commercial Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "hook up electrical to existing junction box within 6 ft",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-29",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5cf5e41c-24f1-4844-bb0d-daed24cc4ae0"
+      },
+      {
+        "permitNumber": "26-097639-COMM",
+        "parcelId": "30424101030040070",
+        "address": "101  FERN ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Sign",
+        "subtype": "Sign",
+        "description": "illuiminated channel letters and flat cut aluminum letters nstalled on wall",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-29",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a065d35-3f84-4034-b14e-55b4ac9be462"
+      }
+    ],
     "30424112160001580": [
       {
         "permitNumber": "26-009899-ROOF-R",
@@ -76669,44 +76707,6 @@
         "finalDate": null,
         "expirationDate": "2026-09-28",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3700a4bc-51ec-49bb-a912-950d56bf5aab"
-      },
-      {
-        "permitNumber": "26-094002-PLUMR",
-        "parcelId": "30424034090001170",
-        "address": "6752  VIEWPOINT CT  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Plumbing Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "New bathroom 1 toilet 1 lavatory 1 tub (MASTER 25-089183-BLDR)",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-31",
-        "issuedDate": "2026-04-01",
-        "finalDate": null,
-        "expirationDate": "2026-09-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2d8d59a4-cedc-46de-9a42-ce5d83e89c53"
-      }
-    ],
-    "30424122030840110": [
-      {
-        "permitNumber": "26-094003-BLDR",
-        "parcelId": "30424122030840110",
-        "address": "6147  DIMOND ST  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Fence",
-        "subtype": "Fence",
-        "description": "Fence",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-31",
-        "issuedDate": "2026-04-03",
-        "finalDate": null,
-        "expirationDate": "2026-09-30",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/e085d5f9-2593-46a8-b4d1-ba7816533fad"
       }
     ]
   }
