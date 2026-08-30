@@ -28,7 +28,8 @@
   schedule = "0 8 * * 2"
 
 # Daily signal-alert digest (12:00 UTC) — uses RESEND_API_KEY + SUPABASE_* env.
-[functions."send-alert-digest"]
+# Cron must be on a separate function; Netlify blocks public HTTP on scheduled functions.
+[functions."send-alert-digest-cron"]
   schedule = "0 12 * * *"
 
 [[headers]]
