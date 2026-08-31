@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-08-30T07:41:07Z",
+  "generated": "2026-08-31T07:48:23Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -43,6 +43,140 @@
         "finalDate": null,
         "expirationDate": "2026-11-28",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6c7a3c4d-c7c0-4504-ba0e-a0f56048a357"
+      }
+    ],
+    "06424703010001470": [
+      {
+        "permitNumber": "BPR-2026-02361",
+        "parcelId": "06424703010001470",
+        "address": "3286  Harrington Dr   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
+        "subtype": "Swimming Pool/Spa",
+        "description": "Replaster and retile the swimming pool",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-30",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/47c0e0aa-f88f-4334-be4f-25baece6beae"
+      }
+    ],
+    "06434731080050200": [
+      {
+        "permitNumber": "BPQ-2026-02063",
+        "parcelId": "06434731080050200",
+        "address": "661 SW 17th St   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "INSTALLATION OF 2 IMPACT WINDOWS",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-30",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/0f835871-609c-4418-91be-35ebcd270abd"
+      }
+    ],
+    "06424704010000070": [
+      {
+        "permitNumber": "BPR-2026-02360",
+        "parcelId": "06424704010000070",
+        "address": "5211 NW 37th Ave   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Solar/Photovoltaic System - Building (Residential)",
+        "subtype": "Photovoltaic",
+        "description": "Install solar panels and microinverters",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-30",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7eba3d54-a2c2-496c-8752-3d9fd6f6a231"
+      },
+      {
+        "permitNumber": "BPR-2026-02307",
+        "parcelId": "06424704010000070",
+        "address": "5211 NW 37th Ave   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
+        "subtype": "Swimming Pool/Spa",
+        "description": "New pool, spa, gas heater and autofill",
+        "status": "PreScreen",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-24",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2ca9fd9a-afd5-4b44-96eb-cf75ecd32094"
+      },
+      {
+        "permitNumber": "BPR-2026-02254",
+        "parcelId": "06424704010000070",
+        "address": "5211 NW 37th Ave   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "New Standby Generator Residential",
+        "subtype": "Emergency Standby Generator",
+        "description": "install 150kw and 1200a ser A.T.S",
+        "status": "PreScreen",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-18",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8254ec2c-16d4-4fdd-b0bc-134b9594a176"
+      }
+    ],
+    "06424723187200070": [
+      {
+        "permitNumber": "BPM-2026-02316",
+        "parcelId": "06424723187200070",
+        "address": "5720  Coach House Cir  G Unit: G Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior Multifamily",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "ac changeout like for like",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-30",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/60b5826c-4ec2-421f-8207-cbfb75b1acdb"
+      },
+      {
+        "permitNumber": "BPQ-2026-02019",
+        "parcelId": "06424723187200070",
+        "address": "5720  Coach House Cir  G Unit: G Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "A/c changeout ",
+        "description": "ac changeout, like for like",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-24",
+        "issuedDate": null,
+        "finalDate": "2026-08-25",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5101d30b-f70e-4671-ac09-54e71e9c40ea"
       }
     ],
     "06424704040000480": [
@@ -7827,26 +7961,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/ef3ceca5-a16f-4208-981a-1eeae1e671f6"
       }
     ],
-    "06424723187200070": [
-      {
-        "permitNumber": "BPQ-2026-02019",
-        "parcelId": "06424723187200070",
-        "address": "5720  Coach House Cir  G Unit: G Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "A/c changeout ",
-        "description": "ac changeout, like for like",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-24",
-        "issuedDate": null,
-        "finalDate": "2026-08-25",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5101d30b-f70e-4671-ac09-54e71e9c40ea"
-      }
-    ],
     "06434705020010080": [
       {
         "permitNumber": "BPC-2026-01568",
@@ -8135,44 +8249,6 @@
         "finalDate": "2026-08-21",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/4e6af1cd-dbd4-43fa-b689-cf162be7c7d1"
-      }
-    ],
-    "06424704010000070": [
-      {
-        "permitNumber": "BPR-2026-02307",
-        "parcelId": "06424704010000070",
-        "address": "5211 NW 37th Ave   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
-        "subtype": "Swimming Pool/Spa",
-        "description": "New pool, spa, gas heater and autofill",
-        "status": "PreScreen",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-24",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2ca9fd9a-afd5-4b44-96eb-cf75ecd32094"
-      },
-      {
-        "permitNumber": "BPR-2026-02254",
-        "parcelId": "06424704010000070",
-        "address": "5211 NW 37th Ave   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "New Standby Generator Residential",
-        "subtype": "Emergency Standby Generator",
-        "description": "install 150kw and 1200a ser A.T.S",
-        "status": "PreScreen",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-18",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8254ec2c-16d4-4fdd-b0bc-134b9594a176"
       }
     ],
     "06434720040000080": [
@@ -8996,7 +9072,7 @@
         "type": "Interior Only Alteration - Building (Commercial)",
         "subtype": "Interior Only Alteration",
         "description": "Interior Alterations for Grab-N-Go",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -17281,24 +17357,6 @@
         "finalDate": "2026-07-09",
         "expirationDate": "2027-07-10",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/88054e0e-b3f7-432f-84e8-f93fcc16932c"
-      },
-      {
-        "permitNumber": "BPC-2026-00858",
-        "parcelId": "06434717090020010",
-        "address": "2120 N Dixie Hwy   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Fire Alarm  System - Building (Commercial)",
-        "subtype": "Fire Alarm System",
-        "description": "new fire alarm installation",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-15",
-        "issuedDate": "2026-07-02",
-        "finalDate": "2026-07-10",
-        "expirationDate": "2027-01-05",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/1b1c68b5-c075-4411-9c89-e0d7adef7b2b"
       }
     ],
     "06434730100090210": [
@@ -45054,7 +45112,7 @@
         "type": "Re - Roof - Building (Commercial)",
         "subtype": "Re-roof",
         "description": "Re-roof with Cement Tiles",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -58455,24 +58513,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/80abb83d-63c0-4097-b3d5-8a583812e5b9"
-      },
-      {
-        "permitNumber": "BPC-2026-00859",
-        "parcelId": "06434708200000032",
-        "address": "5001  Egret Point Cir   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Addition Interior and/ or Exterior Alteration - Building (Commercial)",
-        "subtype": "Addition Int And/ Or Ext Alteration",
-        "description": "Addition of carriage house",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-15",
-        "issuedDate": null,
-        "finalDate": "2026-05-15",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d4ee39b3-f7f2-4b99-b382-cf32b9934a80"
       }
     ],
     "06434718040001010": [
@@ -74007,24 +74047,6 @@
         "finalDate": "2026-05-18",
         "expirationDate": "2027-05-18",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/0244d9f7-1a53-4dfd-88c1-778a36e14de3"
-      },
-      {
-        "permitNumber": "BPC-2026-00857",
-        "parcelId": "06434706060020020",
-        "address": "621 NW 53rd St   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Concrete Repair/Guardrail",
-        "subtype": "Concrete Repair/Guardrail",
-        "description": "One Park Place Garage Concrete Repairs",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-15",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/14bb3ba4-b432-48cb-b33d-6b4517e06ac6"
       }
     ],
     "06424704050000220": [
@@ -74699,86 +74721,6 @@
         "finalDate": "2026-06-16",
         "expirationDate": "2026-12-14",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/db30ecb1-9142-49b7-8945-97195a809000"
-      }
-    ],
-    "06434705020080130": [
-      {
-        "permitNumber": "BPR-2026-01371",
-        "parcelId": "06434705020080130",
-        "address": "380  Forsyth St   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Addition/Interior and/or Exterior Alteration - Building (Residential)",
-        "subtype": "Addition Int And/ Or Ext Alteration",
-        "description": "Residential addition and full interior and exterior remodeling, as per approved plans.",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-15",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/ea68b309-e7c5-4867-beb8-d10644763b39"
-      }
-    ],
-    "06434717000001100": [
-      {
-        "permitNumber": "000195-2026",
-        "parcelId": "06434717000001100",
-        "address": "3198 N Federal Hwy   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Trade Permits - Irrigation Permit",
-        "subtype": "Irrigation Permit",
-        "description": "EXTERIOR FACADE RENOVATION TO INCLUDE IMPACT WINDOWS AND METAL AWNINGS",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-15",
-        "issuedDate": "2026-06-03",
-        "finalDate": null,
-        "expirationDate": "2027-02-08",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5b04d80c-cd77-4a2f-972c-359b07ad3a60"
-      }
-    ],
-    "06434717190001820": [
-      {
-        "permitNumber": "BPM-2026-01224",
-        "parcelId": "06434717190001820",
-        "address": "400 NE 20th St  D303 Unit: D303 Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Electrical Water Heater Changeout Multifamily",
-        "subtype": "Water heater changeout (elect)",
-        "description": "New water heater install / replacement",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-15",
-        "issuedDate": "2026-06-02",
-        "finalDate": null,
-        "expirationDate": "2026-11-29",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/0be765a0-bf4b-4d69-8836-26154d071eb7"
-      }
-    ],
-    "06424715020010330": [
-      {
-        "permitNumber": "BPR-2026-01370",
-        "parcelId": "06424715020010330",
-        "address": "20896  Hamaca Ct   Boca Raton FL 33433",
-        "city": "Boca Raton",
-        "type": "Site Built Shed/Gazebo - Building (Residential)",
-        "subtype": "Site built shed/ gazebo",
-        "description": "Installation of Aluminum Pergola\nFees paid under Permit BPR-2026-01011",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-15",
-        "issuedDate": "2026-05-26",
-        "finalDate": "2026-08-06",
-        "expirationDate": "2027-02-01",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2d75e934-1d72-4427-838b-37b1317c51b9"
       }
     ]
   }

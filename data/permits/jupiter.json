@@ -1,12 +1,50 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-08-30T07:51:41Z",
+  "generated": "2026-08-31T08:00:06Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424124040000760": [
+      {
+        "permitNumber": "26-097641-WHEAT",
+        "parcelId": "30424124040000760",
+        "address": "322  MARLBERRY CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Water Heater Replacement",
+        "subtype": "Replacement",
+        "description": "Change out existing 40 gallon water heater for same",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-30",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bf1c379d-bf34-41e0-b58c-0ac83af7a046"
+      },
+      {
+        "permitNumber": "26-095352-AC",
+        "parcelId": "30424124040000760",
+        "address": "322  MARLBERRY CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "An exact replacement of the existing AC system with no duct work",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-05-28",
+        "issuedDate": "2026-06-02",
+        "finalDate": "2026-06-12",
+        "expirationDate": "2026-12-08",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/54814529-6eda-4a47-8495-7b0da976fc4b"
+      }
+    ],
     "30424101030040070": [
       {
         "permitNumber": "26-097640-ELEC-C",
@@ -33159,24 +33197,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-08",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/00448fef-7f1a-4612-bb20-0baac4203393"
-      },
-      {
-        "permitNumber": "26-094004-BLDR",
-        "parcelId": "30424101090000310",
-        "address": "308  FERN ST  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "INCORRECT PERMIT WORKCLASS, SEE 26-094090-BLDR Interior Alteration and Addition",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-31",
-        "issuedDate": null,
-        "finalDate": "2026-04-03",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4e0198d7-7c91-44d7-a23a-502cbe3ef051"
       }
     ],
     "30434121050140030": [
@@ -56057,26 +56077,6 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/167e0dfb-1eb8-48aa-884e-5437faf30719"
       }
     ],
-    "30424124040000760": [
-      {
-        "permitNumber": "26-095352-AC",
-        "parcelId": "30424124040000760",
-        "address": "322  MARLBERRY CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "A/C Changeout",
-        "subtype": "Change Out",
-        "description": "An exact replacement of the existing AC system with no duct work",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": "2026-06-02",
-        "finalDate": "2026-06-12",
-        "expirationDate": "2026-12-08",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/54814529-6eda-4a47-8495-7b0da976fc4b"
-      }
-    ],
     "30424114090001340": [
       {
         "permitNumber": "26-095351-PLUMR",
@@ -76687,26 +76687,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-22",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c8763278-b617-4dee-b525-61871042f26f"
-      }
-    ],
-    "30424034090001170": [
-      {
-        "permitNumber": "26-094005-ELECR-R",
-        "parcelId": "30424034090001170",
-        "address": "6752  VIEWPOINT CT  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "electrical per plans (MASTER 25-089183-BLDR)",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-03-31",
-        "issuedDate": "2026-04-01",
-        "finalDate": null,
-        "expirationDate": "2026-09-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3700a4bc-51ec-49bb-a912-950d56bf5aab"
       }
     ]
   }
