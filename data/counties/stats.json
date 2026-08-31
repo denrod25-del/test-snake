@@ -1,6 +1,6 @@
 {
-  "generated": "2026-08-30T07:51:49Z",
-  "salesGenerated": "2026-08-24T06:51:30Z",
+  "generated": "2026-08-31T07:01:38Z",
+  "salesGenerated": "2026-08-31T07:01:38Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -46,7 +46,7 @@
         "date": "2026-09-01",
         "label": "September 1, 2026",
         "shortLabel": "Sep 1",
-        "count": 4,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 46,
+        "count": 41,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -124,7 +124,7 @@
         "date": "2026-09-01",
         "label": "September 1, 2026",
         "shortLabel": "Sep 1",
-        "count": 19,
+        "count": 16,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -226,7 +226,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 113,
+        "count": 105,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -244,7 +244,7 @@
         "date": "2026-09-02",
         "label": "September 2, 2026",
         "shortLabel": "Sep 2",
-        "count": 27,
+        "count": 17,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -376,7 +376,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 18,
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -394,7 +394,7 @@
         "date": "2026-09-02",
         "label": "September 2, 2026",
         "shortLabel": "Sep 2",
-        "count": 41,
+        "count": 40,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -412,7 +412,7 @@
         "date": "2026-09-03",
         "label": "September 3, 2026",
         "shortLabel": "Sep 3",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -502,7 +502,7 @@
         "date": "2026-09-01",
         "label": "September 1, 2026",
         "shortLabel": "Sep 1",
-        "count": 10,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -520,7 +520,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 43,
+        "count": 38,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -574,7 +574,7 @@
         "date": "2026-08-31",
         "label": "August 31, 2026",
         "shortLabel": "Aug 31",
-        "count": 7,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -592,7 +592,7 @@
         "date": "2026-09-09",
         "label": "September 9, 2026",
         "shortLabel": "Sep 9",
-        "count": 98,
+        "count": 85,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -628,7 +628,7 @@
         "date": "2026-09-03",
         "label": "September 3, 2026",
         "shortLabel": "Sep 3",
-        "count": 11,
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -655,9 +655,9 @@
       "slug": "nassau",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-09-01",
-        "label": "September 1, 2026",
-        "shortLabel": "Sep 1",
+        "date": "2026-09-15",
+        "label": "September 15, 2026",
+        "shortLabel": "Sep 15",
         "count": 1,
         "source": "scraper"
       },
@@ -697,10 +697,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-03",
-        "label": "September 3, 2026",
-        "shortLabel": "Sep 3",
-        "count": 2,
+        "date": "2026-09-10",
+        "label": "September 10, 2026",
+        "shortLabel": "Sep 10",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -736,7 +736,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 23,
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -754,7 +754,7 @@
         "date": "2026-09-24",
         "label": "September 24, 2026",
         "shortLabel": "Sep 24",
-        "count": 23,
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -808,7 +808,7 @@
         "date": "2026-09-02",
         "label": "September 2, 2026",
         "shortLabel": "Sep 2",
-        "count": 71,
+        "count": 62,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -826,7 +826,7 @@
         "date": "2026-08-31",
         "label": "August 31, 2026",
         "shortLabel": "Aug 31",
-        "count": 3,
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -844,7 +844,7 @@
         "date": "2026-09-10",
         "label": "September 10, 2026",
         "shortLabel": "Sep 10",
-        "count": 2,
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -862,7 +862,7 @@
         "date": "2026-09-10",
         "label": "September 10, 2026",
         "shortLabel": "Sep 10",
-        "count": 7,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -958,7 +958,7 @@
         "date": "2026-09-01",
         "label": "September 1, 2026",
         "shortLabel": "Sep 1",
-        "count": 16,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
