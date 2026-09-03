@@ -13,11 +13,19 @@ const {
   isPlumbing,
   flattenParcelMap,
   matchRows,
+  streetCore,
   activeCities,
   enrichEquipmentWithYearBuilt,
 } = require('../../netlify/functions/_lib/spi-permits.js');
 const { assembleOpportunities } = require('../../netlify/functions/_lib/spi-opportunities.js');
-const { assembleBuilding } = require('../../netlify/functions/_lib/spi-parcel.js');
+const {
+  assembleBuilding,
+  stripUnitAndCity,
+  addressQueryVariants,
+  normalizeStreetKey,
+  pickPrimaryParcel,
+  resolvedPrimary,
+} = require('../../netlify/functions/_lib/spi-parcel.js');
 
 describe('shop-auth', () => {
   it('hashes keys deterministically', () => {
@@ -84,6 +92,15 @@ describe('spi-permits helpers', () => {
     );
     assert.equal(hits.length, 1);
     assert.equal(hits[0].type, 'Plumbing');
+  });
+
+  it('matches street across St/Street and city suffix', () => {
+    assert.equal(streetCore('1100 25TH ST, WEST PALM BEACH FL'), '1100 25TH');
+    const hits = matchRows(
+      [{ parcelId: 'x', address: '1100 25TH STREET', type: 'Plumbing' }],
+      { address: '1100 25TH ST West Palm Beach FL 33407' }
+    );
+    assert.equal(hits.length, 1);
   });
 
   it('activeCities skips sample scope', () => {
@@ -154,5 +171,60 @@ describe('assembleBuilding', () => {
     });
     assert.equal(g.status, 'coming-soon');
     assert.equal(g.data.yearBuilt, 1990);
+  });
+
+  it('works with auto-picked parcel that still lists candidates', () => {
+    const g = assembleBuilding({
+      status: 'live',
+      source: 'gis',
+      candidates: [{ pcn: '1' }, { pcn: '2' }],
+      autoPicked: true,
+      data: { yearBuilt: 1969, pcn: '1', address: '1100 25TH ST' },
+    });
+    assert.equal(g.status, 'coming-soon');
+    assert.equal(g.data.yearBuilt, 1969);
+  });
+});
+
+describe('address query hardening', () => {
+  it('strips city/state/zip/unit', () => {
+    assert.equal(
+      stripUnitAndCity('1100 25TH ST, West Palm Beach, FL 33407'),
+      '1100 25TH ST'
+    );
+    assert.equal(
+      stripUnitAndCity('1100 25TH ST WEST PALM BEACH FL 33407'),
+      '1100 25TH ST'
+    );
+    assert.equal(stripUnitAndCity('100 Main St Apt 2B'), '100 Main St');
+  });
+
+  it('builds St/Street variants', () => {
+    const v = addressQueryVariants('1100 25TH STREET, West Palm Beach FL');
+    assert.ok(v.includes('1100 25TH ST') || v.includes('1100 25TH STREET'));
+    assert.ok(v.some((x) => x.includes('1100 25TH')));
+    assert.ok(v[0].length <= v[v.length - 1].length);
+  });
+
+  it('normalizes street keys across suffix', () => {
+    assert.equal(normalizeStreetKey('1100 25TH STREET'), normalizeStreetKey('1100 25TH ST'));
+  });
+
+  it('auto-picks when same site address', () => {
+    const picked = pickPrimaryParcel(
+      [
+        { pcn: null, address: '1100 25TH ST', yearBuilt: 1969, owner: 'A' },
+        { pcn: 'ABC', address: '1100 25TH STREET', yearBuilt: 1969, owner: 'A' },
+      ],
+      '1100 25TH ST'
+    );
+    assert.ok(picked);
+    assert.equal(picked.primary.pcn, 'ABC');
+    assert.equal(picked.reason, 'same_site_address');
+  });
+
+  it('resolvedPrimary ignores unresolved multi-match bags', () => {
+    assert.equal(resolvedPrimary({ data: { parcels: [{ pcn: '1' }] } }), null);
+    assert.equal(resolvedPrimary({ data: { pcn: '1', address: 'x' } }).pcn, '1');
   });
 });

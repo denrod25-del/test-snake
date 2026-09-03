@@ -3,10 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const { getCanonicalSiteUrl } = require('./config');
 
+// Netlify esbuild + included_files usually land under process.cwd() (/var/task)
+// with the same relative paths as the repo. Also try common __dirname offsets.
 const REPO_ROOT_CANDIDATES = [
+  process.cwd(),
   path.resolve(__dirname, '../../..'),
   path.resolve(__dirname, '../../../..'),
-  process.cwd(),
+  path.resolve(__dirname, '..'),
+  path.resolve(__dirname, '../..'),
+  '/var/task',
 ];
 
 function resolveLocal(relPath) {
