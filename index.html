@@ -19,7 +19,10 @@
     "operatingSystem": "Web",
     "url": "https://deedscout.app/",
     "description": "Florida public-records research layer for tax deed investors — county auction links, parcel lookup, permit signals, surplus resources, watchlists, alerts, and research notes.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "offers": [
+      { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Pro", "price": "49", "priceCurrency": "USD", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "49", "priceCurrency": "USD", "billingDuration": "P1M" } }
+    ]
   }
   </script>
   <script>
@@ -36,17 +39,16 @@
   <section class="ds-hero">
     <div class="ds-hero-inner">
       <div>
-        <p class="ds-hero-eyebrow">DeedScout · Tax deed investors</p>
-        <h1>Florida tax deed research, <em>organized county by county.</em></h1>
+        <p class="ds-hero-eyebrow">Florida tax deed investors · Public Beta</p>
+        <h1>DeedScout</h1>
         <p class="ds-hero-lede">
-          DeedScout organizes Florida tax-deed research: official county clerk and auction links, parcel tools, permit signals, and Pro workflow exports. RealAuction sale dates and parcel counts are recovering for many counties; always confirm on the official source before bidding.
+          Florida tax deed research, <em>organized county by county</em> — official clerk and auction links, parcel tools, permit signals, and Pro watchlists, alerts, and CSV export. Always confirm sale dates on the official source before bidding.
         </p>
         <div class="ds-hero-ctas">
           <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Start Free</a>
-          <a class="ds-btn ds-btn-secondary" href="pricing.html">View Pro Pricing</a>
-          <a class="ds-btn ds-btn-secondary" href="counties/index.html">Browse Counties</a>
+          <a class="ds-btn ds-btn-secondary" href="tax-deeds.html#/pricing">Upgrade to Pro — $49/mo</a>
         </div>
-        <p class="ds-hero-tagline">Official county links · Cached permit data with honest labels · Pro watchlists &amp; CSV export</p>
+        <p class="ds-hero-tagline">Official county links · Honest Live/Cached labels · <a href="counties/index.html">Browse 67 counties</a> · <a href="pricing.html">Compare Free vs Pro</a></p>
       </div>
       <div class="ds-hero-stats">
         <div class="ds-stat"><div class="val">67</div><div class="lbl">Counties indexed</div></div>
@@ -114,11 +116,11 @@
     <p class="small" style="margin-top:12px;color:var(--muted);">Watch the <a href="demo/product-video.html">product walkthrough video</a> (~65s). Experimental demos live under <a href="labs/plumbing-reviews.html">DeedScout Labs</a> — separate from core property research.</p>
   </section>
 
-  <section class="ds-section">
+  <section class="ds-section" id="pro">
     <div class="ds-section-head">
-      <p class="ds-section-label">Pro workflow</p>
+      <p class="ds-section-label">Pro · $49/mo</p>
       <h2>Upgrade when you need more than links</h2>
-      <p>County records are free. DeedScout Pro adds organization, monitoring, and exports — with clear live vs coming-soon labels on <a href="pricing.html">Pricing</a>.</p>
+      <p>County records are free. DeedScout Pro adds organization, monitoring, and exports — live Stripe checkout, cancel anytime.</p>
     </div>
     <div class="ds-grid-3">
       <div class="ds-card" style="cursor:default;">
@@ -137,7 +139,10 @@
         <p>Download filtered research rows for spreadsheets and CRM workflows.</p>
       </div>
     </div>
-    <p style="margin-top:20px;text-align:center;"><a class="ds-btn ds-btn-primary" href="pricing.html">Compare Free vs Pro →</a></p>
+    <div class="ds-home-pro-ctas">
+      <a class="ds-btn ds-btn-primary" href="tax-deeds.html#/pricing">Upgrade to Pro — $49/mo</a>
+      <a class="ds-btn ds-btn-secondary" href="pricing.html">Compare Free vs Pro</a>
+    </div>
   </section>
 
   <section class="ds-section">
@@ -188,6 +193,17 @@
       <p><strong>Not affiliated with any county, clerk, auction platform, property appraiser, or government agency.</strong></p>
       <p>DeedScout is a research layer. Always verify final records with the official county source before bidding or making decisions.</p>
       <p>We label every dataset as <strong>Live</strong>, <strong>Cached</strong>, <strong>Sample</strong>, <strong>Blocked</strong>, <strong>Broken</strong>, or <strong>Coming Soon</strong> — with source URL and last refresh time where available. See the <a href="trust.html">Trust Center</a>, <a href="methodology.html">methodology</a>, and <a href="data-sources.html">data sources</a>.</p>
+    </div>
+  </section>
+
+  <section class="ds-section ds-home-close-cta" aria-label="Get started">
+    <div class="ds-home-close-inner">
+      <h2>Ready to organize your next sale?</h2>
+      <p>Start free on the 67-county directory, then unlock Pro watchlists, alerts, and CSV export when you need the workflow.</p>
+      <div class="ds-hero-ctas" style="justify-content:center;margin-bottom:0;">
+        <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Start Free</a>
+        <a class="ds-btn ds-btn-secondary" href="tax-deeds.html#/pricing">Upgrade to Pro — $49/mo</a>
+      </div>
     </div>
   </section>
 

@@ -211,6 +211,40 @@ body.ds-body .ds-primary-nav a.nav-pro {
 }
 .ds-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
 .ds-hero-tagline { font-size: 13px; color: var(--muted); margin: 0; letter-spacing: .04em; }
+.ds-hero-tagline a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.ds-hero-tagline a:hover { color: var(--accent-ink); }
+
+.ds-home-pro-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.ds-home-close-cta {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: linear-gradient(180deg, #faf7f1 0%, var(--paper) 100%);
+  text-align: center;
+}
+.ds-home-close-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+.ds-home-close-cta h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.15;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+.ds-home-close-cta p {
+  color: var(--ink-soft, #1a2233);
+  margin: 0 0 24px;
+  font-size: 1.05rem;
+}
 
 .ds-hero-stats {
   display: grid;
