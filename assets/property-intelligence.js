@@ -316,7 +316,34 @@
       where = "UPPER(" + ownerField + ") LIKE '%" + q.toUpperCase().replace(/'/g, "''") + "%'";
     } else {
       var addrField = (county.map.address && county.map.address[0]) || "SITE_ADDR_STR";
-      where = "UPPER(" + addrField + ") LIKE '%" + q.toUpperCase().replace(/'/g, "''") + "%'";
+      var street = q
+        .split(",")[0]
+        .replace(/\s+(FL|FLORIDA)\s+\d{5}(-\d{4})?\s*$/i, "")
+        .replace(/\s+\d{5}(-\d{4})?\s*$/, "")
+        .replace(/\s+(APT|APARTMENT|UNIT|STE|SUITE|#)\s*\.?\s*[A-Z0-9-]+$/i, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      var streetUpper = (street || q).toUpperCase().replace(/\./g, "").replace(/'/g, "''");
+      var likes = ["UPPER(" + addrField + ") LIKE '%" + streetUpper + "%'"];
+      var suffixMap = {
+        ST: "STREET",
+        STREET: "ST",
+        AVE: "AVENUE",
+        AVENUE: "AVE",
+        BLVD: "BOULEVARD",
+        BOULEVARD: "BLVD",
+        DR: "DRIVE",
+        DRIVE: "DR",
+        RD: "ROAD",
+        ROAD: "RD",
+      };
+      var parts = streetUpper.split(/\s+/);
+      var last = parts[parts.length - 1];
+      if (suffixMap[last] && parts.length >= 2) {
+        var alt = parts.slice(0, -1).concat(suffixMap[last]).join(" ");
+        likes.push("UPPER(" + addrField + ") LIKE '%" + alt + "%'");
+      }
+      where = likes.join(" OR ");
     }
 
     if (county.extraWhere) {
