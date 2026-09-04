@@ -169,7 +169,13 @@ def _host_candidates(home_url: str) -> list[str]:
 
 
 def is_live_realauction_host(session: requests.Session, home_url: str) -> bool:
-    """False when the subdomain redirects to www.realauction.com marketing."""
+    """
+    False when the subdomain redirects to www.realauction.com marketing.
+
+    Note: many live county portals show a logged-out "Splash Page" homepage
+    with a login form. That is NOT dead — PREVIEW calendars still work. Do
+    not treat splash titles as offline.
+    """
     try:
         r = session.get(home_url, headers=BROWSER_HEADERS, timeout=25, allow_redirects=True)
     except requests.RequestException:
@@ -179,8 +185,6 @@ def is_live_realauction_host(session: requests.Session, home_url: str) -> bool:
         return False
     title = ""
     try:
-        from bs4 import BeautifulSoup
-
         soup = BeautifulSoup(r.text, "lxml")
         title = (soup.title.get_text(strip=True) if soup.title else "").lower()
     except Exception:
@@ -193,6 +197,7 @@ def is_live_realauction_host(session: requests.Session, home_url: str) -> bool:
 def scrape_realauction_county(home_url: str) -> list[dict]:
     """Return [{date, count, source, officialUrl}, ...] for one RealAuction county."""
     session = requests.Session()
+    scrape_realauction_county.last_error = None  # type: ignore[attr-defined]
     last_empty_reason = "no future preview dates"
     for candidate in _host_candidates(home_url):
         if not is_live_realauction_host(session, candidate):
@@ -221,9 +226,11 @@ def scrape_realauction_county(home_url: str) -> list[dict]:
                 }
             )
         if out:
+            scrape_realauction_county.last_error = None  # type: ignore[attr-defined]
             return out
         last_empty_reason = (
-            f"preview dates found on {candidate} but no tax-deed parcel days"
+            f"preview dates found on {candidate} but no tax-deed parcel days "
+            f"(foreclosure-only calendar)"
         )
     # Signal empty to caller; message is useful for scrape_sales logging.
     scrape_realauction_county.last_error = last_empty_reason  # type: ignore[attr-defined]

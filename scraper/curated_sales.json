@@ -1,52 +1,52 @@
 {
-  "generated": "2026-08-09T22:16:11Z",
-  "verifiedAt": "2026-08-09",
+  "generated": "2026-09-04T18:31:30Z",
+  "verifiedAt": "2026-09-04",
   "counties": {
     "Miami-Dade": [
       {
-        "date": "2026-07-16",
+        "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-07-23",
+        "date": "2026-09-17",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-06",
+        "date": "2026-09-24",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-13",
+        "date": "2026-10-01",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-20",
+        "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-27",
+        "date": "2026-10-15",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -64,49 +64,49 @@
     ],
     "Palm Beach": [
       {
-        "date": "2026-07-16",
+        "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://palmbeach.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-07-23",
+        "date": "2026-09-17",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://palmbeach.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-06",
+        "date": "2026-09-24",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://palmbeach.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-13",
+        "date": "2026-10-01",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://palmbeach.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-20",
+        "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://palmbeach.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-27",
+        "date": "2026-10-15",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://palmbeach.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -114,49 +114,49 @@
     ],
     "Hillsborough": [
       {
-        "date": "2026-07-16",
+        "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://hillsborough.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-07-23",
+        "date": "2026-09-17",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://hillsborough.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-06",
+        "date": "2026-09-24",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://hillsborough.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-13",
+        "date": "2026-10-01",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://hillsborough.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-20",
+        "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://hillsborough.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-27",
+        "date": "2026-10-15",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://hillsborough.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -164,49 +164,49 @@
     ],
     "Orange": [
       {
-        "date": "2026-07-17",
+        "date": "2026-09-04",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://orange.realtaxdeed.com",
         "opening": "Thursday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-07-24",
+        "date": "2026-09-11",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://orange.realtaxdeed.com",
         "opening": "Thursday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-07",
+        "date": "2026-09-18",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://orange.realtaxdeed.com",
         "opening": "Thursday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-14",
+        "date": "2026-09-25",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://orange.realtaxdeed.com",
         "opening": "Thursday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-21",
+        "date": "2026-10-02",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://orange.realtaxdeed.com",
         "opening": "Thursday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-28",
+        "date": "2026-10-09",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://orange.realtaxdeed.com",
         "opening": "Thursday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -214,33 +214,9 @@
     ],
     "Pinellas": [
       {
-        "date": "2026-07-23",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://pinellas.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-08-13",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://pinellas.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-08-27",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://pinellas.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
         "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -248,7 +224,7 @@
       {
         "date": "2026-09-24",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -256,7 +232,31 @@
       {
         "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
+        "officialUrl": "https://pinellas.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-10-22",
+        "source": "cadence",
+        "verifiedAt": "2026-09-04",
+        "officialUrl": "https://pinellas.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-11-12",
+        "source": "cadence",
+        "verifiedAt": "2026-09-04",
+        "officialUrl": "https://pinellas.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-11-26",
+        "source": "cadence",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -264,49 +264,49 @@
     ],
     "Duval": [
       {
-        "date": "2026-07-14",
+        "date": "2026-09-08",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://duval.realtaxdeed.com",
         "opening": "Monday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-07-21",
+        "date": "2026-09-15",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://duval.realtaxdeed.com",
         "opening": "Monday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-07-28",
+        "date": "2026-09-22",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://duval.realtaxdeed.com",
         "opening": "Monday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-04",
+        "date": "2026-10-06",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://duval.realtaxdeed.com",
         "opening": "Monday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-11",
+        "date": "2026-10-13",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://duval.realtaxdeed.com",
         "opening": "Monday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-18",
+        "date": "2026-10-20",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://duval.realtaxdeed.com",
         "opening": "Monday sale \u00b7 9:30 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -314,49 +314,49 @@
     ],
     "Lee": [
       {
-        "date": "2026-07-16",
+        "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://lee.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-07-23",
+        "date": "2026-09-17",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://lee.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-06",
+        "date": "2026-09-24",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://lee.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-13",
+        "date": "2026-10-01",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://lee.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-20",
+        "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://lee.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       },
       {
-        "date": "2026-08-27",
+        "date": "2026-10-15",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://lee.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -364,25 +364,9 @@
     ],
     "Polk": [
       {
-        "date": "2026-07-16",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://polk.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
-        "date": "2026-08-20",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://polk.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
         "date": "2026-09-17",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://polk.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -390,7 +374,23 @@
       {
         "date": "2026-10-15",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
+        "officialUrl": "https://polk.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-11-19",
+        "source": "cadence",
+        "verifiedAt": "2026-09-04",
+        "officialUrl": "https://polk.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-12-17",
+        "source": "cadence",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://polk.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -398,17 +398,9 @@
     ],
     "Brevard": [
       {
-        "date": "2026-08-13",
-        "source": "cadence",
-        "verifiedAt": "2026-07-12",
-        "officialUrl": "https://brevard.realforeclose.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
         "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://brevard.realforeclose.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -416,107 +408,31 @@
       {
         "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-07-12",
+        "verifiedAt": "2026-09-04",
+        "officialUrl": "https://brevard.realforeclose.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-11-12",
+        "source": "cadence",
+        "verifiedAt": "2026-09-04",
+        "officialUrl": "https://brevard.realforeclose.com",
+        "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-12-10",
+        "source": "cadence",
+        "verifiedAt": "2026-09-04",
         "officialUrl": "https://brevard.realforeclose.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
       }
-    ],
-    "Lake": [
-      {
-        "date": "2026-09-03",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://lake.realtaxdeed.com",
-        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2026-10-01",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://lake.realtaxdeed.com",
-        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2026-11-05",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://lake.realtaxdeed.com",
-        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2026-12-03",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://lake.realtaxdeed.com",
-        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2027-01-07",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://lake.realtaxdeed.com",
-        "opening": "Thursday sale \u00b7 10:00 AM ET (1st Thursday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      }
-    ],
-    "Martin": [
-      {
-        "date": "2026-08-19",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://martin.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2026-09-16",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://martin.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2026-10-21",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://martin.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2026-11-18",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://martin.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2026-12-16",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://martin.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      },
-      {
-        "date": "2027-01-20",
-        "source": "cadence",
-        "verifiedAt": "2026-08-09",
-        "officialUrl": "https://martin.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 10:00 AM ET (3rd Wednesday typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding. Live RealAuction tax-deed calendar currently empty/foreclosure-only."
-      }
     ]
   },
   "stats": {
-    "counties": 12,
-    "dates": 61
+    "counties": 10,
+    "dates": 51
   }
 }

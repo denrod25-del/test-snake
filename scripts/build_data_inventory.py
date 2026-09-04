@@ -54,6 +54,33 @@ def main():
     generated = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     rows = []
 
+    sales_stats = sales.get("stats") or {}
+    scraped_n = int(sales_stats.get("scraped") or 0)
+    curated_n = int(sales_stats.get("curated") or 0)
+    failed_n = int(sales_stats.get("failed") or 0)
+    skipped_n = int(sales_stats.get("skipped") or 0)
+    if scraped_n > 0:
+        sales_status = "cached"
+        sales_limit = (
+            f"Browser-UA RealAuction/DeedAuction scrape recovered live sale dates + parcel counts "
+            f"for {scraped_n} counties"
+            + (f"; {curated_n} metro(s) on documented cadence fallback" if curated_n else "")
+            + (f"; {failed_n} scrape miss(es)" if failed_n else "")
+            + (f"; {skipped_n} marketing/splash hosts skipped" if skipped_n else "")
+            + ". Confirm every date and parcel list on the official clerk or auction site."
+        )
+    elif curated_n > 0:
+        sales_status = "cached"
+        sales_limit = (
+            "Live auction scrape returned no counties; top metros use documented sale cadence only "
+            "(not live parcel counts). Platform links remain official."
+        )
+    else:
+        sales_status = "broken"
+        sales_limit = (
+            "Automated sale-calendar scrape returned no upcoming dates; platform and clerk links remain official."
+        )
+
     rows.append({
         "category": "Tax deed county links",
         "name": "DeedScout Tax Deeds — 67-county directory",
@@ -63,7 +90,10 @@ def main():
         "count": 67,
         "lastSuccess": stats.get("generated"),
         "lastAttempt": sales.get("generated") or stats.get("salesGenerated"),
-        "limitations": "Official clerk, PA, and auction links maintained manually. Sale-date scraper currently failing upstream.",
+        "limitations": (
+            "Official clerk, PA, and auction links maintained manually. "
+            + sales_limit
+        ),
         "verification": "Official clerk, property appraiser, and auction source required before bidding.",
     })
 
@@ -72,11 +102,11 @@ def main():
         "name": "Auction platform directory (RealAuction, LienHub, etc.)",
         "jurisdiction": "Florida statewide",
         "sourceUrl": "https://www.realauction.com",
-        "status": "broken" if (sales.get("stats") or {}).get("scraped", 0) == 0 else "cached",
-        "count": (sales.get("stats") or {}).get("scraped"),
-        "lastSuccess": sales.get("generated") if (sales.get("stats") or {}).get("scraped") else None,
+        "status": sales_status,
+        "count": scraped_n or None,
+        "lastSuccess": sales.get("generated") if scraped_n else None,
         "lastAttempt": sales.get("generated"),
-        "limitations": "Automated sale-calendar scrape returning 403 from upstream; platform links remain official.",
+        "limitations": sales_limit,
         "verification": "Confirm sale list and rules on vendor site before bidding.",
     })
 

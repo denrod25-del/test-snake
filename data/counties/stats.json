@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-04T07:54:18Z",
-  "salesGenerated": "2026-08-31T07:01:38Z",
+  "generated": "2026-09-04T18:33:00Z",
+  "salesGenerated": "2026-09-04T18:32:51Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -43,10 +43,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-09-15",
-        "label": "September 15, 2026",
-        "shortLabel": "Sep 15",
-        "count": 1,
+        "date": "2026-09-29",
+        "label": "September 29, 2026",
+        "shortLabel": "Sep 29",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 41,
+        "count": 38,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -124,7 +124,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 29,
+        "count": 28,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -142,7 +142,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 15,
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -160,7 +160,7 @@
         "date": "2026-09-23",
         "label": "September 23, 2026",
         "shortLabel": "Sep 23",
-        "count": 7,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -226,7 +226,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 105,
+        "count": 93,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -244,7 +244,7 @@
         "date": "2026-10-07",
         "label": "October 7, 2026",
         "shortLabel": "Oct 7",
-        "count": 44,
+        "count": 42,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -376,7 +376,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 14,
+        "count": 11,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -394,7 +394,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 22,
+        "count": 24,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -412,7 +412,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 7,
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -502,7 +502,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 60,
+        "count": 57,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -520,7 +520,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 38,
+        "count": 30,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -592,7 +592,7 @@
         "date": "2026-09-09",
         "label": "September 9, 2026",
         "shortLabel": "Sep 9",
-        "count": 85,
+        "count": 76,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -624,7 +624,13 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-10",
+        "label": "September 10, 2026",
+        "shortLabel": "Sep 10",
+        "count": 1,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -694,7 +700,7 @@
         "date": "2026-09-10",
         "label": "September 10, 2026",
         "shortLabel": "Sep 10",
-        "count": 9,
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -712,7 +718,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 15,
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -730,7 +736,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 20,
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -748,7 +754,7 @@
         "date": "2026-09-24",
         "label": "September 24, 2026",
         "shortLabel": "Sep 24",
-        "count": 20,
+        "count": 19,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -784,7 +790,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 38,
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -802,7 +808,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 58,
+        "count": 54,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -856,7 +862,7 @@
         "date": "2026-09-10",
         "label": "September 10, 2026",
         "shortLabel": "Sep 10",
-        "count": 6,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -886,7 +892,7 @@
         "date": "2026-09-14",
         "label": "September 14, 2026",
         "shortLabel": "Sep 14",
-        "count": 9,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -952,7 +958,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 19,
+        "count": 16,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -978,7 +984,13 @@
       "county": "Walton",
       "slug": "walton",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-22",
+        "label": "September 22, 2026",
+        "shortLabel": "Sep 22",
+        "count": 5,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {

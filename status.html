@@ -20,7 +20,7 @@
   <div class="ds-prose" style="margin-top:24px;">
     <p><strong>Known issues</strong></p>
     <ul>
-      <li>RealAuction tax deed sale scraper: <span class="ds-status ds-status-cached">Recovering</span> — browser-UA scrape returns live dates + parcel counts for many RealAuction counties; blocked portals still use cadence / official links.</li>
+      <li>RealAuction tax deed sale scraper: <span class="ds-status ds-status-cached">Cached</span> — browser-UA PREVIEW scrape returns live dates + parcel counts for most RealAuction counties; splash / foreclosure-only / marketing hosts use cadence or official clerk links.</li>
       <li>Palm Beach unincorporated permits: <span class="ds-status ds-status-sample">Sample</span> (4 demo records) — county portal requires reCAPTCHA.</li>
       <li>Royal Palm Beach &amp; Boynton Beach permits: <span class="ds-status ds-status-sample">Sample</span> — no public bulk API.</li>
     </ul>
@@ -35,7 +35,7 @@
     headline: "Tax deed sale date scraper",
     source: "RealAuction / LienHub / DeedAuction aggregators",
     verification: "Confirm every sale date and parcel list on the official clerk or auction site before bidding.",
-    note: "RealAuction live preview scrape is recovering (parcel counts when AREA=W loads). Counties still blocked use curated cadence or clerk links only."
+    note: "Browser-UA RealAuction PREVIEW scrape returns live dates + parcel counts for most counties. Splash, foreclosure-only, and marketing hosts use curated cadence or clerk links only."
   });
   html += DeedScoutTrust.renderTrustPanel({
     status: "cached",
