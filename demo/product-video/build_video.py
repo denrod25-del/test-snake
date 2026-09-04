@@ -42,11 +42,11 @@ SEQUENCE = [
 ]
 
 LIVE_PAGES = [
-    ("https://deedscout.netlify.app/", "home.png"),
-    ("https://deedscout.netlify.app/tax-deeds.html", "tax-deeds.png"),
-    ("https://deedscout.netlify.app/permit-search.html", "permits.png"),
-    ("https://deedscout.netlify.app/parcel-lookup.html", "parcel.png"),
-    ("https://deedscout.netlify.app/pricing.html", "pricing.png"),
+    ("https://deedscout.app/", "home.png"),
+    ("https://deedscout.app/tax-deeds.html", "tax-deeds.png"),
+    ("https://deedscout.app/permit-search.html", "permits.png"),
+    ("https://deedscout.app/parcel-lookup.html", "parcel.png"),
+    ("https://deedscout.app/pricing.html", "pricing.png"),
 ]
 
 
@@ -260,7 +260,7 @@ def assemble() -> None:
             {"label": label, "duration": dur, "kind": kind, "source": source}
             for kind, source, dur, label in SEQUENCE
         ],
-        "live_site": "https://deedscout.netlify.app/",
+        "live_site": "https://deedscout.app/",
     }
     (OUT / "manifest.json").write_text(json.dumps(meta, indent=2))
     print(json.dumps(meta, indent=2), flush=True)

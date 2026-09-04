@@ -212,11 +212,11 @@
 
 - [ ] **Step 5: Rename the site to something predictable**
 
-  Netlify dashboard → **Site configuration → Change site name** → set to `deedscout`. The temporary URL becomes `https://deedscout.netlify.app` (we'll point the real domain at this in Task 12).
+  Netlify dashboard → **Site configuration → Change site name** → set to `deedscout`. The temporary URL becomes `https://deedscout.app` (we'll point the real domain at this in Task 12).
 
 - [ ] **Step 6: Verify**
 
-  Visit `https://deedscout.netlify.app`. Expected: the registry page loads with the 67 counties listed. Auth UI will say "Configure SUPABASE_URL in tax-deeds.html to enable auth" — that's expected until Task 8.
+  Visit `https://deedscout.app`. Expected: the registry page loads with the 67 counties listed. Auth UI will say "Configure SUPABASE_URL in tax-deeds.html to enable auth" — that's expected until Task 8.
 
 ---
 
@@ -422,7 +422,7 @@
 
 - [ ] **Step 4: Verify**
 
-  Hit `https://deedscout.netlify.app/api/checkout` directly in the browser. Expected: an error response (because the function expects a POST with a JWT), but the function should be **reachable** — meaning you get a JSON error like `{"error":"Method not allowed"}` or similar, not a 404 or a Netlify "Function not found" page.
+  Hit `https://deedscout.app/api/checkout` directly in the browser. Expected: an error response (because the function expects a POST with a JWT), but the function should be **reachable** — meaning you get a JSON error like `{"error":"Method not allowed"}` or similar, not a 404 or a Netlify "Function not found" page.
 
 ---
 
@@ -432,7 +432,7 @@
 
 - [ ] **Step 1: Visit the Netlify staging URL**
 
-  https://deedscout.netlify.app
+  https://deedscout.app
 
 - [ ] **Step 2: Smoke check the registry**
 
@@ -461,7 +461,7 @@
 
   Stripe dashboard (test mode) → **Developers → Webhooks → Add endpoint**.
 
-  - **Endpoint URL:** `https://deedscout.netlify.app/api/stripe-webhook`
+  - **Endpoint URL:** `https://deedscout.app/api/stripe-webhook`
     (We'll change this to the real domain after Task 12 DNS cutover.)
   - **Description:** `DeedScout subscription state sync`
   - **Listen to:** Events on your account
@@ -527,7 +527,7 @@
   **www subdomain:**
   - Type: `CNAME`
   - Name: `www`
-  - Target: `deedscout.netlify.app`
+  - Target: `deedscout.app`
   - Proxy status: **DNS only**
   - TTL: Auto
 
@@ -552,7 +552,7 @@
 - [ ] **Step 5: Update Stripe webhook URL**
 
   Stripe dashboard → **Developers → Webhooks → click your endpoint → "..." menu → Update details**.
-  - Change URL from `https://deedscout.netlify.app/api/stripe-webhook` to `https://deedscout.app/api/stripe-webhook`.
+  - Change URL from `https://deedscout.app/api/stripe-webhook` to `https://deedscout.app/api/stripe-webhook`.
   - Save.
 
 - [ ] **Step 6: Update Supabase Site URL**

@@ -17,7 +17,7 @@
 //   SUPABASE_URL
 //   SUPABASE_SERVICE_KEY
 //
-// Endpoint (production): https://deedscout.netlify.app/api/stripe-webhook
+// Endpoint (production): https://deedscout.app/api/stripe-webhook
 // Without STRIPE_WEBHOOK_SECRET, Checkout still works but Pro status only
 // updates when the user clicks "Refresh subscription status" (or the
 // post-checkout poll in tax-deeds.html).

@@ -7,7 +7,7 @@
 export const CONFIG = {
   SUPABASE_URL:      import.meta.env.VITE_SUPABASE_URL      ?? '',
   SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY ?? '',
-  SITE_URL:          import.meta.env.VITE_SITE_URL          ?? 'https://deedscout.netlify.app',
+  SITE_URL:          import.meta.env.VITE_SITE_URL          ?? 'https://deedscout.app',
   PRO_PRICE_DISPLAY: import.meta.env.VITE_PRO_PRICE_DISPLAY ?? '$49',
   AUTH_ENABLED:      Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY),
 } as const;

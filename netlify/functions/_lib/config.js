@@ -142,12 +142,12 @@ function getSiteUrl(event) {
   const fromEnv = cleanEnv('PUBLIC_SITE_URL');
   if (fromEnv) return fromEnv.replace(/\/+$/, '');
   const host = event?.headers?.host || event?.headers?.Host;
-  return host ? `https://${host}` : 'https://deedscout.netlify.app';
+  return host ? `https://${host}` : 'https://deedscout.app';
 }
 
 /** Stripe success/cancel URLs must always hit production — not deploy previews. */
 function getCanonicalSiteUrl() {
-  return (cleanEnv('PUBLIC_SITE_URL') || 'https://deedscout.netlify.app').replace(/\/+$/, '');
+  return (cleanEnv('PUBLIC_SITE_URL') || 'https://deedscout.app').replace(/\/+$/, '');
 }
 
 module.exports = {

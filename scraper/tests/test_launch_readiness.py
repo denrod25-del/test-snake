@@ -67,10 +67,12 @@ class TestLaunchReadiness(unittest.TestCase):
         self.assertNotIn('href="plumbing-reviews.html"', idx)
         self.assertIn("labs/plumbing-reviews.html", idx)
 
-    def test_domain_dual_support(self):
+    def test_domain_canonical(self):
         td = (ROOT / "tax-deeds.html").read_text(encoding="utf-8")
-        self.assertIn("deedscout.app", td)
-        self.assertIn("deedscout.netlify.app", td)
+        self.assertIn("https://deedscout.app", td)
+        self.assertIn("deedscout.netlify.app", td)  # legacy host still mapped / redirected
+        toml = (ROOT / "netlify.toml").read_text(encoding="utf-8")
+        self.assertIn('to   = "https://deedscout.app/:splat"', toml)
 
     def test_advanced_lookups_enabled(self):
         td = (ROOT / "tax-deeds.html").read_text(encoding="utf-8")

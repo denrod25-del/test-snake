@@ -14,7 +14,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-USER_AGENT = "DeedScout-LinkCheck/1.0 (+https://deedscout.netlify.app/)"
+USER_AGENT = "DeedScout-LinkCheck/1.0 (+https://deedscout.app/)"
 
 
 def head_ok(url: str, timeout: float = 15.0) -> tuple[bool, str]:

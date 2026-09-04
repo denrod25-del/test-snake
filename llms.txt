@@ -2,20 +2,20 @@
 
 > Florida public-records research layer for tax deed investors — county auction links, parcel lookup, permit signals, surplus resources, watchlists, alerts, and research notes.
 
-DeedScout is deployed at https://deedscout.netlify.app/
+DeedScout is deployed at https://deedscout.app/
 
 ## Primary pages
 
-- [Home](https://deedscout.netlify.app/index.html): SaaS landing and product overview
-- [Tax Deeds](https://deedscout.netlify.app/tax-deeds.html): 67-county directory (DeedScout Tax Deeds module)
-- [Counties](https://deedscout.netlify.app/counties/index.html): SEO county pages with official source links
-- [Parcel Lookup](https://deedscout.netlify.app/parcel-lookup.html): Palm Beach parcel research
-- [Permit Search](https://deedscout.netlify.app/permit-search.html): Municipal permit search with source health labels
-- [Pricing](https://deedscout.netlify.app/pricing.html): Free, Pro ($49/mo), Investor Pro (waitlist), Team
-- [Methodology](https://deedscout.netlify.app/methodology.html): How we label Live, Cached, Sample, Blocked, Broken
-- [Data Sources](https://deedscout.netlify.app/data-sources.html): Source inventory and refresh policy
-- [Status](https://deedscout.netlify.app/status.html): Scraper and source health
-- [FAQ](https://deedscout.netlify.app/faq.html)
+- [Home](https://deedscout.app/index.html): SaaS landing and product overview
+- [Tax Deeds](https://deedscout.app/tax-deeds.html): 67-county directory (DeedScout Tax Deeds module)
+- [Counties](https://deedscout.app/counties/index.html): SEO county pages with official source links
+- [Parcel Lookup](https://deedscout.app/parcel-lookup.html): Palm Beach parcel research
+- [Permit Search](https://deedscout.app/permit-search.html): Municipal permit search with source health labels
+- [Pricing](https://deedscout.app/pricing.html): Free, Pro ($49/mo), Investor Pro (waitlist), Team
+- [Methodology](https://deedscout.app/methodology.html): How we label Live, Cached, Sample, Blocked, Broken
+- [Data Sources](https://deedscout.app/data-sources.html): Source inventory and refresh policy
+- [Status](https://deedscout.app/status.html): Scraper and source health
+- [FAQ](https://deedscout.app/faq.html)
 
 ## Data trust labels
 
@@ -32,5 +32,5 @@ DeedScout is not affiliated with any county, clerk, auction platform, property a
 
 ## Contact
 
-- General: https://deedscout.netlify.app/contact.html
-- Security: https://deedscout.netlify.app/security.html
+- General: https://deedscout.app/contact.html
+- Security: https://deedscout.app/security.html

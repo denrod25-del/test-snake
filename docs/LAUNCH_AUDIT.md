@@ -25,7 +25,7 @@ Last run: 2026-07-11
 
 | Step | How to verify (production URL only) |
 |------|--------------------------------------|
-| Sign up | https://deedscout.netlify.app/tax-deeds.html → Sign In → Create account |
+| Sign up | https://deedscout.app/tax-deeds.html → Sign In → Create account |
 | Email confirm | Link must land on same host (not deploy preview) |
 | Pro checkout | `#/pricing` → Subscribe → Stripe test/live |
 | Pro sync | Account → **Refresh subscription status** |
@@ -70,7 +70,7 @@ Last run: 2026-07-11
 ## QA checklist (run before announcing launch)
 
 - [ ] `python -m unittest scraper.tests.test_public_site scraper.tests.test_launch_readiness -v`
-- [ ] `python scripts/build_curated_sales.py && python scraper/scrape_sales.py && python scripts/build_county_pages.py --base-url https://deedscout.netlify.app`
+- [ ] `python scripts/build_curated_sales.py && python scraper/scrape_sales.py && python scripts/build_county_pages.py --base-url https://deedscout.app`
 - [ ] Homepage hero mentions scraper offline + cadence for top metros
 - [ ] Palm Beach / Miami-Dade county pages show typical sale dates with cadence label
 - [ ] No plumbing link in Tax Deeds masthead

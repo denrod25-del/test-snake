@@ -19,9 +19,10 @@
       SUPABASE_ANON_KEY: "sb_publishable_t2758aerT0VWEM5JxUJuLw_y5WScDjj",
       SITE_URL: (function () {
         var h = location.hostname;
-        if (h === "deedscout.app" || h === "www.deedscout.app") return "https://deedscout.app";
-        if (h === "deedscout.netlify.app") return "https://deedscout.netlify.app";
-        return "https://deedscout.netlify.app";
+        if (h === "deedscout.app" || h === "www.deedscout.app" || h === "deedscout.netlify.app") {
+          return "https://deedscout.app";
+        }
+        return "https://deedscout.app";
       })(),
       AUTH_ENABLED: true,
     };

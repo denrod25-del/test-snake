@@ -1,7 +1,7 @@
 """
 build_municipality_pages.py — SEO pages for municipal permit sources (not counties).
 
-    python scripts/build_municipality_pages.py --base-url https://deedscout.netlify.app
+    python scripts/build_municipality_pages.py --base-url https://deedscout.app
 """
 
 import argparse
@@ -132,7 +132,7 @@ def render_page(src, slug, coverage, base_url):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--base-url", default="https://deedscout.netlify.app")
+    ap.add_argument("--base-url", default="https://deedscout.app")
     args = ap.parse_args()
     base_url = (args.base_url or "").rstrip("/")
 

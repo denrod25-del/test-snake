@@ -902,7 +902,7 @@ def main():
     ap.add_argument("--no-sitemap", action="store_true")
     args = ap.parse_args()
 
-    base_url = (args.base_url or "https://deedscout.netlify.app").rstrip("/")
+    base_url = (args.base_url or "https://deedscout.app").rstrip("/")
 
     sales_doc       = load_json(SALES_PATH, default={"sales": {}})
     surplus_doc     = load_json(SURPLUS_PATH, default={"surplus": {}})

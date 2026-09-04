@@ -1,5 +1,5 @@
 # Unrelated monorepo mini-projects — not part of the DeedScout public site.
-# Netlify publishes the repo root; this keeps demo/lab apps off deedscout.netlify.app.
+# Netlify publishes the repo root; this keeps demo/lab apps off deedscout.app.
 fl-bankruptcy/
 florida-bookings/
 water-leads/

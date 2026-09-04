@@ -31,8 +31,8 @@ You need three free accounts:
 ### 1c. Configure email auth
 1. **Authentication → Providers → Email** — make sure it's enabled (it is by default).
 2. **Authentication → URL Configuration**:
-   - **Site URL:** `https://your-site.netlify.app` (you'll get this URL after step 3)
-   - **Redirect URLs:** add `https://your-site.netlify.app/**`
+   - **Site URL:** `https://deedscout.app` (production) — or your Netlify URL during early setup
+   - **Redirect URLs:** add `https://deedscout.app/**`, `https://www.deedscout.app/**`, and `https://deedscout.netlify.app/**` (legacy subdomain still redirects)
 3. (Recommended for a real launch) **Authentication → Email Templates** — customize the confirmation and reset emails to match your brand.
 
 ### 1d. Grab your keys
@@ -74,7 +74,7 @@ You need three free accounts:
    - `invoice.payment_failed`
 4. After creating, **reveal & copy the signing secret** (starts with `whsec_`). This goes into `STRIPE_WEBHOOK_SECRET`.
 
-**Production endpoint for DeedScout:** `https://deedscout.netlify.app/api/stripe-webhook`
+**Production endpoint for DeedScout:** `https://deedscout.app/api/stripe-webhook`
 
 ### 2d. Grab your keys
 **Developers → API keys:**
@@ -145,7 +145,7 @@ node scripts/issue-shop-api-key.mjs "Acme Plumbing"
 
 ```bash
 curl -sS -H "X-Api-Key: ds_shop_…" \
-  "https://deedscout.netlify.app/api/property?address=YOUR+ADDRESS&county=palm-beach"
+  "https://deedscout.app/api/property?address=YOUR+ADDRESS&county=palm-beach"
 ```
 
 5. Local unit tests: `npm run test:spi`

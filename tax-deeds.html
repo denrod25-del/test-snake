@@ -24,9 +24,11 @@
       // Always use production for email-confirm / OAuth redirects (not deploy-preview URLs).
       SITE_URL:          (function(){
         var h = location.hostname;
-        if (h === 'deedscout.app' || h === 'www.deedscout.app') return 'https://deedscout.app';
-        if (h === 'deedscout.netlify.app') return 'https://deedscout.netlify.app';
-        return 'https://deedscout.netlify.app';
+        // Canonical production origin (never deploy-preview).
+        if (h === 'deedscout.app' || h === 'www.deedscout.app' || h === 'deedscout.netlify.app') {
+          return 'https://deedscout.app';
+        }
+        return 'https://deedscout.app';
       })(),
       PRO_PRICE_DISPLAY: "$49",
       AUTH_ENABLED:      true,
@@ -6665,7 +6667,7 @@
         if (/invalid api key/i.test(msg)) {
           msg = 'Supabase key is wrong in tax-deeds.html. In Supabase → Settings → API, copy the publishable key (sb_publishable_...) into SUPABASE_ANON_KEY here. Netlify env vars do not control sign-in. Never paste the secret (sb_secret_) key in the browser config.';
         } else if (/not confirmed|email.*confirm/i.test(msg)) {
-          msg = 'Email not confirmed yet. Check your inbox for the confirmation link (use the live site deedscout.netlify.app), then sign in again.';
+          msg = 'Email not confirmed yet. Check your inbox for the confirmation link (use the live site deedscout.app), then sign in again.';
         } else if (/invalid login credentials/i.test(msg)) {
           msg = 'Wrong email or password. If you just signed up, confirm your email first.';
         }
@@ -6689,7 +6691,7 @@
         u.hash = '#/account';
         return u.href;
       }
-      var base = (FTDR_CONFIG.SITE_URL || 'https://deedscout.netlify.app').replace(/\/+$/, '');
+      var base = (FTDR_CONFIG.SITE_URL || 'https://deedscout.app').replace(/\/+$/, '');
       return base + '/tax-deeds.html#/account';
     }
 
@@ -6698,7 +6700,7 @@
     }
 
     function getLiveSiteUrl() {
-      return (FTDR_CONFIG.SITE_URL || 'https://deedscout.netlify.app').replace(/\/+$/, '');
+      return (FTDR_CONFIG.SITE_URL || 'https://deedscout.app').replace(/\/+$/, '');
     }
 
     function warnIfDeployPreview() {
@@ -6932,7 +6934,7 @@
     window.forceSyncProFromConsole = async function () {
       try {
         if (!window.__dsSb) {
-          alert('Supabase client missing. Hard refresh (Ctrl+F5) on deedscout.netlify.app');
+          alert('Supabase client missing. Hard refresh (Ctrl+F5) on deedscout.app');
           return;
         }
         const { data: { session } } = await window.__dsSb.auth.getSession();
