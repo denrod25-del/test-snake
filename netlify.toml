@@ -70,6 +70,20 @@
   [headers.values]
     Cache-Control = "no-store, no-cache, must-revalidate"
 
+# Primary domain is deedscout.app — send legacy Netlify subdomain there.
+# Must be first and must use the absolute-host form (Host conditions are not supported).
+[[redirects]]
+  from = "https://deedscout.netlify.app/*"
+  to   = "https://deedscout.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://deedscout.netlify.app"
+  to   = "https://deedscout.app/"
+  status = 301
+  force = true
+
 # Pretty paths to functions
 [[redirects]]
   from = "/api/checkout"
@@ -222,11 +236,3 @@
   from = "/counties/:slug"
   to   = "/counties/:slug.html"
   status = 200
-
-# Primary domain is deedscout.app — send legacy Netlify subdomain there.
-[[redirects]]
-  from = "https://deedscout.netlify.app/*"
-  to   = "https://deedscout.app/:splat"
-  status = 301
-  force = true
-  conditions = {Host = ["deedscout.netlify.app"]}

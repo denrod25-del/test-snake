@@ -73,6 +73,10 @@ class TestLaunchReadiness(unittest.TestCase):
         self.assertIn("deedscout.netlify.app", td)  # legacy host still mapped / redirected
         toml = (ROOT / "netlify.toml").read_text(encoding="utf-8")
         self.assertIn('to   = "https://deedscout.app/:splat"', toml)
+        self.assertNotIn("Host =", toml)
+        redirects = (ROOT / "_redirects").read_text(encoding="utf-8")
+        self.assertIn("https://deedscout.netlify.app/*", redirects)
+        self.assertIn("https://deedscout.app/:splat", redirects)
 
     def test_advanced_lookups_enabled(self):
         td = (ROOT / "tax-deeds.html").read_text(encoding="utf-8")
