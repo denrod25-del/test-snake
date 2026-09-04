@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T23:10:00Z",
+  "generated": "2026-09-04T23:52:56Z",
   "note": "Zoning sources for Property Intelligence. Prefer dedicated zoning GIS polygons; parcelAttrFallback reads fields already returned on the parcel feature when no GIS layer is wired. Always verify on the county planning / PA site.",
   "layers": {
     "palm-beach": {
@@ -258,7 +258,7 @@
         "changed": []
       },
       "label": "Broward BMSD Zoning GIS (unincorporated)",
-      "note": "Unincorporated Broward Municipal Services District only. Municipal parcels (Fort Lauderdale, Pompano Beach, etc.) use city zoning — confirm on bcpa.net / city planning maps."
+      "note": "Unincorporated Broward Municipal Services District only. Municipal parcels (Fort Lauderdale, Pompano Beach, etc.) use city zoning \u2014 confirm on bcpa.net / city planning maps."
     }
   },
   "parcelAttrFallback": {
@@ -395,6 +395,276 @@
       },
       "label": "Miami-Dade PA parcel attributes (PRIMARY_ZONE)",
       "note": "Used when the unincorporated Zoning GIS polygon misses this point (common inside cities). Confirm on miamidade.gov/pa / planning."
+    },
+    "alachua": {
+      "name": "Alachua",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Alachua FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "brevard": {
+      "name": "Brevard",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Brevard FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "collier": {
+      "name": "Collier",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Collier FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "escambia": {
+      "name": "Escambia",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Escambia FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "leon": {
+      "name": "Leon",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Leon FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "monroe": {
+      "name": "Monroe",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Monroe FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "seminole": {
+      "name": "Seminole",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Seminole FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "osceola": {
+      "name": "Osceola",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Osceola FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "lake": {
+      "name": "Lake",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Lake FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "marion": {
+      "name": "Marion",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Marion FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "st-lucie": {
+      "name": "St. Lucie",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "St. Lucie FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "clay": {
+      "name": "Clay",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Clay FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "hernando": {
+      "name": "Hernando",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Hernando FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "indian-river": {
+      "name": "Indian River",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Indian River FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
+    },
+    "okaloosa": {
+      "name": "Okaloosa",
+      "status": "cached",
+      "map": {
+        "code": [
+          "DOR_UC"
+        ],
+        "name": [
+          "DOR_UC"
+        ],
+        "desc": [
+          "DOR_UC"
+        ],
+        "changed": []
+      },
+      "label": "Okaloosa FDOR DOR land-use code (DOR_UC)",
+      "note": "Annual FDOR cadastral use code \u2014 not a county zoning district. Confirm zoning on the county planning / PA site."
     }
   }
 }

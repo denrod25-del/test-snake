@@ -432,7 +432,12 @@
       // No polygon hit — try parcel-attribute fallback below when configured.
     }
     var fallback = (zoningConfig.parcelAttrFallback || {})[countySlug];
-    if (fallback && fallback.status === "live" && parcel && parcel.raw) {
+    if (
+      fallback &&
+      (fallback.status === "live" || fallback.status === "cached") &&
+      parcel &&
+      parcel.raw
+    ) {
       var fmap = fallback.map || {};
       var code = pick(parcel.raw, fmap.code || []);
       var name = pick(parcel.raw, fmap.name || []);
@@ -637,14 +642,19 @@
       }
       return (
         badge("coming-soon") +
-        '<p class="pi-empty">In-app zoning is live for Palm Beach, Martin, Lee, Hillsborough, Pasco, Bay, Pinellas, Volusia, Miami-Dade, Broward BMSD, and Polk FLU (GIS) plus Charlotte, Manatee, Orange, Sarasota, and Duval (PA parcel attributes). Use the county planning site for ' +
+        '<p class="pi-empty">In-app zoning GIS / PA attributes cover major metros; FDOR counties show Cached DOR land-use codes (not zoning districts). Use the county planning site for ' +
         esc((meta && meta.name) || "other counties") +
         ".</p>"
       );
     }
+    var trust =
+      source === "parcel-attrs" && meta && meta.status === "cached"
+        ? "cached"
+        : "live";
     var note =
       source === "parcel-attrs"
-        ? "Live from parcel-layer attributes (" +
+        ? (trust === "cached" ? "Cached " : "Live ") +
+          "from parcel-layer attributes (" +
           esc((meta && meta.label) || "PA fields") +
           "). Not a separate zoning-map intersect — confirm on planning / PA."
         : "Live from " +
@@ -652,7 +662,7 @@
           ". " +
           esc((meta && meta.note) || "Confirm on official planning maps.");
     return (
-      badge("live") +
+      badge(trust) +
       ' <span class="pi-inline-meta">' +
       esc((meta && meta.label) || "Zoning") +
       "</span>" +

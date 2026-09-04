@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-14",
+  "generated": "2026-09-04",
   "note": "Public ArcGIS MapServer/FeatureServer parcel layers. Field maps normalize county schemas into DeedScout's common shape (pcn, owner, address, market, assessed, saleDate, salePrice, homestead). Always verify on the county PA site before bidding. outFields must exist on the live layer \u2014 invalid names cause ArcGIS 400 and break tax-deeds hydration. Optional enrich blocks run a second query after FOLIO match (used for Broward owner/situs). status=cached counties use FDOR statewide cadastral polygons (annual DOR snapshot; CO_NO = DOR county number + 10 on this service); prefer live county PA GIS when available.",
   "counties": {
     "palm-beach": {
@@ -967,7 +967,11 @@
         "zipcode",
         "totvalue",
         "assessedvalue",
-        "AccountLink"
+        "AccountLink",
+        "zoningcode",
+        "landuse",
+        "description",
+        "usecode"
       ],
       "map": {
         "pcn": [
@@ -1487,6 +1491,566 @@
       },
       "source": "fdor-cadastral-2025",
       "note": "FDOR 2025 statewide cadastral polygons (CO_NO=69 = DOR Seminole+10). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on scpafl.org."
+    },
+    "osceola": {
+      "name": "Osceola",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://www.property-appraiser.org/",
+      "extraWhere": "CO_NO=59",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=59). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
+    },
+    "lake": {
+      "name": "Lake",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://www.lakecopropappr.com/",
+      "extraWhere": "CO_NO=45",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=45). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
+    },
+    "marion": {
+      "name": "Marion",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://www.pa.marion.fl.us/",
+      "extraWhere": "CO_NO=52",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=52). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
+    },
+    "st-lucie": {
+      "name": "St. Lucie",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://www.paslc.gov/",
+      "extraWhere": "CO_NO=66",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=66). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
+    },
+    "clay": {
+      "name": "Clay",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://www.ccpao.com/",
+      "extraWhere": "CO_NO=20",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=20). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
+    },
+    "hernando": {
+      "name": "Hernando",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://www.hernandocounty.us/departments/departments-f-m/property-appraiser",
+      "extraWhere": "CO_NO=37",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=37). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
+    },
+    "indian-river": {
+      "name": "Indian River",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://www.ircpa.org/",
+      "extraWhere": "CO_NO=41",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=41). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
+    },
+    "okaloosa": {
+      "name": "Okaloosa",
+      "status": "cached",
+      "endpoint": "https://services9.arcgis.com/Gh9awoU677aKree0/ArcGIS/rest/services/Florida_Statewide_Cadastral/FeatureServer/0/query",
+      "paUrl": "https://okaloosapa.com/",
+      "extraWhere": "CO_NO=56",
+      "idFields": [
+        "PARCELNO",
+        "PARCEL_ID"
+      ],
+      "searchModes": [
+        "pcn",
+        "owner",
+        "address"
+      ],
+      "outFields": [
+        "PARCELNO",
+        "PARCEL_ID",
+        "OWN_NAME",
+        "PHY_ADDR1",
+        "PHY_CITY",
+        "PHY_ZIPCD",
+        "JV",
+        "AV_SD",
+        "SALE_PRC1",
+        "SALE_YR1",
+        "SALE_MO1",
+        "DOR_UC",
+        "CO_NO",
+        "ASMNT_YR"
+      ],
+      "map": {
+        "pcn": [
+          "PARCELNO",
+          "PARCEL_ID"
+        ],
+        "owner": [
+          "OWN_NAME"
+        ],
+        "address": [
+          "PHY_ADDR1"
+        ],
+        "city": [
+          "PHY_CITY"
+        ],
+        "zip": [
+          "PHY_ZIPCD"
+        ],
+        "market": [
+          "JV"
+        ],
+        "assessed": [
+          "AV_SD",
+          "JV"
+        ],
+        "saleDate": [],
+        "saleYear": [
+          "SALE_YR1"
+        ],
+        "saleMonth": [
+          "SALE_MO1"
+        ],
+        "salePrice": [
+          "SALE_PRC1"
+        ],
+        "homestead": []
+      },
+      "source": "fdor-cadastral-2025",
+      "note": "FDOR 2025 statewide cadastral polygons (CO_NO=56). Annual DOR snapshot \u2014 Cached, not live county PA GIS. Confirm on the county Property Appraiser."
     }
   }
 }

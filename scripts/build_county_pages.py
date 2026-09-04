@@ -194,6 +194,15 @@ FLOOD_GIS_COUNTIES = {
     "leon",
     "monroe",
     "seminole",
+    # Additional FDOR majors (Cached ownership) — NFHL via defaultLayer.
+    "osceola",
+    "lake",
+    "marion",
+    "st-lucie",
+    "clay",
+    "hernando",
+    "indian-river",
+    "okaloosa",
 }
 
 
