@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-03T07:56:37Z",
+  "generated": "2026-09-04T07:54:18Z",
   "salesGenerated": "2026-08-31T07:01:38Z",
   "featuredSlugs": [
     "palm-beach",
@@ -409,10 +409,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-03",
-        "label": "September 3, 2026",
-        "shortLabel": "Sep 3",
-        "count": 2,
+        "date": "2026-09-17",
+        "label": "September 17, 2026",
+        "shortLabel": "Sep 17",
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -624,13 +624,7 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-09-03",
-        "label": "September 3, 2026",
-        "shortLabel": "Sep 3",
-        "count": 10,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -984,13 +978,7 @@
       "county": "Walton",
       "slug": "walton",
       "region": "Northwest",
-      "nextSale": {
-        "date": "2026-09-03",
-        "label": "September 3, 2026",
-        "shortLabel": "Sep 3",
-        "count": 4,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
