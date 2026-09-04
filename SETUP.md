@@ -104,7 +104,7 @@ You need three free accounts:
 | `STRIPE_SECRET_KEY` | `sk_test_...` |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_...` (from step 2c) |
 | `STRIPE_PRICE_ID_PRO` | `price_...` (from step 2a) |
-| `PUBLIC_SITE_URL` | `https://your-site.netlify.app` |
+| `PUBLIC_SITE_URL` | `https://deedscout.app` |
 | `BATCHDATA_API_TOKEN` | Bearer token from `app.batchdata.com` (skip-tracing) |
 | `RENTCAST_API_KEY` | API key from `app.rentcast.io` (AVM lookups) |
 | `PRO_SKIP_TRACE_GRANT` *(optional)* | Monthly skip-trace credits per Pro user. Default: `50` |
