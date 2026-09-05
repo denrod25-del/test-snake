@@ -84,7 +84,7 @@ Last run: 2026-09-04
 ## Remaining post-launch (not blockers)
 
 - Expand parcel GIS registry beyond current wired metros
-- Fund / set `BATCHDATA_API_TOKEN` + `RENTCAST_API_KEY` if AVM/skip-trace vendor calls should succeed in production
+- Fund / set `BATCHDATA_API_TOKEN` + `RENTCAST_API_KEY` on Netlify (Clear-cache redeploy) if AVM / skip-trace should succeed in production — see `docs/ENABLE_PAID_RESEARCH_APIS.md`
 - Re-check splash / marketing RealAuction counties when clerks re-enable PREVIEW calendars
 
 ### Shipped in this wave
