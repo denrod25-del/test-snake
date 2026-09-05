@@ -85,7 +85,15 @@ class TestLaunchReadiness(unittest.TestCase):
         self.assertTrue((ROOT / "data" / "parcels" / "registry.json").exists())
 
     def test_launch_audit_doc(self):
-        self.assertTrue((ROOT / "docs" / "LAUNCH_AUDIT.md").exists())
+        path = ROOT / "docs" / "LAUNCH_AUDIT.md"
+        self.assertTrue(path.exists())
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("deedscout.app", text)
+        self.assertIn("31", text)  # Property Intelligence parcel counties
+        self.assertNotIn("Manual — user action", text)
+        self.assertNotIn("Forced redirect is **commented out**", text)
+        # Must not claim a global sale-scraper outage as current state
+        self.assertNotIn("Sale-date scraper currently failing upstream", text)
 
 
 if __name__ == "__main__":
