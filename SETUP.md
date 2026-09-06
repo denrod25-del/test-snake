@@ -106,16 +106,16 @@ You need three free accounts:
 | `STRIPE_PRICE_ID_PRO` | `price_...` (from step 2a) |
 | `PUBLIC_SITE_URL` | `https://deedscout.app` |
 | `BATCHDATA_API_TOKEN` | Bearer token from `app.batchdata.com` (skip-tracing) |
-| `RENTCAST_API_KEY` | API key from `app.rentcast.io` (AVM lookups) |
+| `RENTCAST_API_KEY` | API key from `app.rentcast.io` (AVM + rent lookups) |
 | `PRO_SKIP_TRACE_GRANT` *(optional)* | Monthly skip-trace credits per Pro user. Default: `50` |
 | `PRO_AVM_GRANT` *(optional)* | Monthly AVM credits per Pro user. Default: `200` |
 
-**Vendor sign-ups:**
+**Vendor sign-ups (step-by-step):** see [`docs/ENABLE_PAID_RESEARCH_APIS.md`](docs/ENABLE_PAID_RESEARCH_APIS.md).
 
-- **BatchData** (skip-tracing) — sign up at https://batchdata.com → Pricing → Pay-as-you-go starts ~$0.05/skip. Get the Bearer token from **API → Tokens**. Docs: https://docs.batchdata.com/reference/skip-trace
-- **RentCast** (AVM) — sign up at https://app.rentcast.io → API → Get API key. Free tier (50 calls/mo) is enough for testing; the $74/mo Standard tier (1,000 calls/mo) covers the default 200-AVM-per-user grant for ~5 paying customers. Docs: https://app.rentcast.io/app/api
+- **BatchData** (skip-tracing) — https://batchdata.com → Pricing → Pay-as-you-go (~$0.05/skip). Token from **API → Tokens**. Docs: https://docs.batchdata.com/reference/skip-trace
+- **RentCast** (AVM + rent) — https://app.rentcast.io → API → Get API key. Free tier (~50/mo) is enough for testing; Standard (~$74/mo, 1,000 calls) covers the default 200-AVM grant for a handful of Pro users. Docs: https://app.rentcast.io/app/api
 
-You can launch without these keys — the Pro UI gates and the React Pricing page still work. Skip-trace and AVM endpoints will return a `vendor_error` (and refund the credit) until the keys are set.
+You can deploy without these keys — Pro UI gates still work. Skip-trace / AVM / rent return `vendor_not_configured` (**no credit spent**) until keys are set and the site is redeployed.
 
 **Run the new SQL migration:**
 

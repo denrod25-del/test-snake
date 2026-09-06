@@ -41,7 +41,15 @@ exports.handler = async (event) => {
     .select('credit_type, balance, monthly_grant, last_refilled')
     .eq('user_id', user.id);
 
-  const out = { isPro, skip_trace: null, avm: null };
+  const out = {
+    isPro,
+    skip_trace: null,
+    avm: null,
+    vendors: {
+      skip_trace: Boolean(process.env.BATCHDATA_API_TOKEN),
+      avm: Boolean(process.env.RENTCAST_API_KEY),
+    },
+  };
   for (const r of rows || []) {
     out[r.credit_type] = {
       balance:       r.balance,
