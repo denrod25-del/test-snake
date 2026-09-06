@@ -2,6 +2,14 @@
 
 Generated from the Florida DBPR Construction Industry license extract (Current + Active).
 
+## Outreach lists (option A)
+
+Ready-to-call family/independent shops (corporate/franchise excluded):
+
+- Folder: [`outreach/`](outreach/)
+- Start with **`outreach/outreach-board.html`** (browser) or **`outreach/call-ready-priority-counties.csv`**
+- Import into PalmLeads: `python scripts/build_outreach_leads.py --import-plumbing-leads plumbing-leads/leads.db`
+
 ## How to open these files
 
 **Do not open the `.xlsx` inside Cursor** — you’ll get “binary file not supported.”  
