@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-09-05T07:41:31Z",
+  "generated": "2026-09-06T07:41:26Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,178 @@
         "finalDate": null,
         "expirationDate": "2027-02-16",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06434717130030080": [
+      {
+        "permitNumber": "BPQ-2026-02121",
+        "parcelId": "06434717130030080",
+        "address": "640 NE Broadview Dr   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "replace 1 garage door 12x7",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/fe293099-d34e-463e-b010-21ea0cb52f42"
+      },
+      {
+        "permitNumber": "000400-2026",
+        "parcelId": "06434717130030080",
+        "address": "640 NE Broadview Dr   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Trade Permits - Natural and LP Gas",
+        "subtype": "Natural and LP Gas",
+        "description": "Interior Renovation",
+        "status": "In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/35f92caf-26c1-4b63-9a91-dd5434bacd70"
+      },
+      {
+        "permitNumber": "BPR-2026-02203",
+        "parcelId": "06434717130030080",
+        "address": "640 NE Broadview Dr   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Electrical Wiring/ Fixtures",
+        "subtype": "Electrical Wiring/ Fixtures",
+        "description": "Demo Electrical equipment for pool . (no new pool at this time )",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-13",
+        "issuedDate": null,
+        "finalDate": "2026-08-13",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c3ca0cdf-c5d7-4b47-844f-eca22ce92263"
+      },
+      {
+        "permitNumber": "BPR-2026-02080",
+        "parcelId": "06434717130030080",
+        "address": "640 NE Broadview Dr   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
+        "subtype": "Swimming Pool/Spa",
+        "description": "Pool demolition",
+        "status": "Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-30",
+        "issuedDate": "2026-08-14",
+        "finalDate": null,
+        "expirationDate": "2027-02-10",
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7c2f90db-1543-4303-b4cd-6aa62d9a420d"
+      }
+    ],
+    "06424723030020030": [
+      {
+        "permitNumber": "BPM-2026-02390",
+        "parcelId": "06424723030020030",
+        "address": "1977 N Conference Dr   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior Multifamily",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "REPLACEMENT OF 2 TON SPLIT SYSTEM",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/38c29e49-2852-4c57-888b-e0186cbb1689"
+      }
+    ],
+    "06434729050050131": [
+      {
+        "permitNumber": "BPR-2026-02442",
+        "parcelId": "06434729050050131",
+        "address": "1261  Spanish River Rd   Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
+        "subtype": "Interior Only Alteration",
+        "description": "Demolition of fire sprinkler system",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/ff371a93-b58d-4d3c-b790-0be208ffab13"
+      },
+      {
+        "permitNumber": "BPR-2026-02343",
+        "parcelId": "06434729050050131",
+        "address": "1261  Spanish River Rd   Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
+        "subtype": "Interior Only Alteration",
+        "description": "Demo existing fire sprinkler system",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-27",
+        "issuedDate": null,
+        "finalDate": "2026-08-27",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8dd431b9-55f2-4746-a8d6-417a2846b70f"
+      }
+    ],
+    "06424704110000030": [
+      {
+        "permitNumber": "BPQ-2026-02120",
+        "parcelId": "06424704110000030",
+        "address": "3595 NW Clubside Cir   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "A/c changeout ",
+        "description": "REPLACEMNET OF 5 TON SPLIT SYSTEM",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/802af0a9-c5d8-4c67-b992-32f7119d7150"
+      }
+    ],
+    "06434732120021130": [
+      {
+        "permitNumber": "BPM-2026-02389",
+        "parcelId": "06434732120021130",
+        "address": "1111 S Ocean Blvd  1130 Unit: 1130 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Electrical Interior only Multifamily",
+        "subtype": "Electrical Interior Only",
+        "description": "kitchen, bath remodel",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/1c4cb484-04d8-49b3-aa3e-6eb1a36f1a0e"
       }
     ],
     "06424725020230180": [
@@ -12377,26 +12549,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/f5bae51e-ddd9-4150-b5c0-fa3e76314ee7"
       }
     ],
-    "06434729050050131": [
-      {
-        "permitNumber": "BPR-2026-02343",
-        "parcelId": "06434729050050131",
-        "address": "1261  Spanish River Rd   Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
-        "subtype": "Interior Only Alteration",
-        "description": "Demo existing fire sprinkler system",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-27",
-        "issuedDate": null,
-        "finalDate": "2026-08-27",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8dd431b9-55f2-4746-a8d6-417a2846b70f"
-      }
-    ],
     "06434729100160370": [
       {
         "permitNumber": "BPR-2026-02342",
@@ -13117,62 +13269,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7ea5f6f2-31d8-4505-bec7-06d0573d513b"
-      }
-    ],
-    "06434717130030080": [
-      {
-        "permitNumber": "000400-2026",
-        "parcelId": "06434717130030080",
-        "address": "640 NE Broadview Dr   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Trade Permits - Natural and LP Gas",
-        "subtype": "Natural and LP Gas",
-        "description": "Interior Renovation",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-27",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/35f92caf-26c1-4b63-9a91-dd5434bacd70"
-      },
-      {
-        "permitNumber": "BPR-2026-02203",
-        "parcelId": "06434717130030080",
-        "address": "640 NE Broadview Dr   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Electrical Wiring/ Fixtures",
-        "subtype": "Electrical Wiring/ Fixtures",
-        "description": "Demo Electrical equipment for pool . (no new pool at this time )",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-13",
-        "issuedDate": null,
-        "finalDate": "2026-08-13",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c3ca0cdf-c5d7-4b47-844f-eca22ce92263"
-      },
-      {
-        "permitNumber": "BPR-2026-02080",
-        "parcelId": "06434717130030080",
-        "address": "640 NE Broadview Dr   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
-        "subtype": "Swimming Pool/Spa",
-        "description": "Pool demolition",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-30",
-        "issuedDate": "2026-08-14",
-        "finalDate": null,
-        "expirationDate": "2027-02-10",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7c2f90db-1543-4303-b4cd-6aa62d9a420d"
       }
     ],
     "06434717100200030": [
@@ -15644,7 +15740,7 @@
         "type": "Exterior Building Painting Multifamily",
         "subtype": "Exterior Painting",
         "description": "REPAINTING BLDG C - BOCA TEECA CONDOMINIUM NO. 6 CA (250 NW 67 ST.)",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -15662,7 +15758,7 @@
         "type": "Exterior Building Painting Multifamily",
         "subtype": "Exterior Painting",
         "description": "\nREPAINTING BLDG B - BOCA TEECA CONDOMINIUM NO. 6 CA (6699 NW 2 AVE.)",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -15680,7 +15776,7 @@
         "type": "Exterior Building Painting Multifamily",
         "subtype": "Exterior Painting",
         "description": "REPAINTING BLDG A - BOCA TEECA CONDOMINIUM NO. 6 CA (6661 NW 2 AVE.)",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -73819,24 +73915,6 @@
         "finalDate": "2026-08-03",
         "expirationDate": "2027-02-01",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/651dc9ca-7caf-4147-946b-81a9afce2129"
-      },
-      {
-        "permitNumber": "BPM-2026-01304",
-        "parcelId": "06424704010000080",
-        "address": "3678 NW 52nd St   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
-        "subtype": "Window/ door/ shutter ",
-        "description": "Installation of 7 Doors of 10x9 Bridgeport black design of Clopay and 1 small door of 6'2x9 of modern steel flush black Clopay",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-22",
-        "issuedDate": null,
-        "finalDate": "2026-05-22",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/4eb330be-7bbc-4959-8536-89b535377aed"
       }
     ],
     "06424704110000530": [
@@ -74531,86 +74609,6 @@
         "finalDate": null,
         "expirationDate": "2026-11-24",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/489a5c61-ec06-4d35-b1fe-fd3f6a0fa9a8"
-      }
-    ],
-    "06424711050000210": [
-      {
-        "permitNumber": "BPQ-2026-01270",
-        "parcelId": "06424711050000210",
-        "address": "2390 NW 41st St   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "REPLACE 7 WINDOWS AND 5 DOORS TO IMPACT",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-22",
-        "issuedDate": "2026-05-22",
-        "finalDate": "2026-07-01",
-        "expirationDate": "2026-12-28",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/bbd82cd9-b0d3-49eb-860e-28c2d775472f"
-      }
-    ],
-    "06424715030130190": [
-      {
-        "permitNumber": "BPQ-2026-01268",
-        "parcelId": "06424715030130190",
-        "address": "2800 NW 30th St   Boca Raton FL 33434",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "REPLACE 11 WINDOWS AND 3 DOORS TO IMPACT",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-22",
-        "issuedDate": "2026-05-22",
-        "finalDate": null,
-        "expirationDate": "2026-11-18",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/0e58bfff-9fc2-4909-92c0-38b38355b46c"
-      }
-    ],
-    "06424725040330050": [
-      {
-        "permitNumber": "BPQ-2026-01269",
-        "parcelId": "06424725040330050",
-        "address": "1371 SW 4th St Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "REPLACING 8 WINDOWS AND 2 DOORS WITH RETROFIT IMPACT WINDOWS AND DOORS",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-22",
-        "issuedDate": "2026-05-22",
-        "finalDate": "2026-06-25",
-        "expirationDate": "2026-12-21",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/17f5ad05-2836-4752-8a4d-41ae5e76c217"
-      }
-    ],
-    "06434731100030150": [
-      {
-        "permitNumber": "BPR-2026-01445",
-        "parcelId": "06434731100030150",
-        "address": "787  Camino Lakes Cir   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Driveway/Sidewalk - Building (Residential)",
-        "subtype": "Driveway/Sidewalk",
-        "description": "INSTALL BRICK PAVERS IN DRIVEWAY & WALKWAY",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-22",
-        "issuedDate": "2026-05-25",
-        "finalDate": null,
-        "expirationDate": "2026-12-28",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b60208d7-1fef-4469-a661-3f8e9616f80b"
       }
     ]
   }

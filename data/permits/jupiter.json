@@ -1,12 +1,68 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-05T07:52:55Z",
+  "generated": "2026-09-06T07:52:44Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434119050000030": [
+      {
+        "permitNumber": "26-097822-ELECR-R",
+        "parcelId": "30434119050000030",
+        "address": "306  VILLA DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "Kitchen remodel",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/468da1d7-f9c5-4a66-9ef4-dc2eec84aff0"
+      },
+      {
+        "permitNumber": "26-097717-PLUMC",
+        "parcelId": "30434119050000030",
+        "address": "306 VILLA DR JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Plumbing Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "Kitchen, bathrooms remodel *** Master permit 26-096182-BLDR***",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-01",
+        "issuedDate": "2026-09-03",
+        "finalDate": null,
+        "expirationDate": "2027-03-02",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/889c9a83-ba5a-4509-94da-1caccb67aba1"
+      },
+      {
+        "permitNumber": "26-096182-BLDR",
+        "parcelId": "30434119050000030",
+        "address": "306  VILLA DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Remodel bathrooms, floors, paint, windows and doors.  Enclose the courtyard to living space.",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-01",
+        "issuedDate": "2026-09-03",
+        "finalDate": null,
+        "expirationDate": "2027-03-02",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/32437772-1eb9-4ead-b871-d1aafee27bb3"
+      }
+    ],
     "30434118110006590": [
       {
         "permitNumber": "26-097821-AC",
@@ -4501,44 +4557,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bd0b60dd-4665-4de6-96ca-94deb5ac9db4"
-      }
-    ],
-    "30434119050000030": [
-      {
-        "permitNumber": "26-097717-PLUMC",
-        "parcelId": "30434119050000030",
-        "address": "306 VILLA DR JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Plumbing Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "Kitchen, bathrooms remodel *** Master permit 26-096182-BLDR***",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-01",
-        "issuedDate": "2026-09-03",
-        "finalDate": null,
-        "expirationDate": "2027-03-02",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/889c9a83-ba5a-4509-94da-1caccb67aba1"
-      },
-      {
-        "permitNumber": "26-096182-BLDR",
-        "parcelId": "30434119050000030",
-        "address": "306  VILLA DR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "Remodel bathrooms, floors, paint, windows and doors.  Enclose the courtyard to living space.",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-01",
-        "issuedDate": "2026-09-03",
-        "finalDate": null,
-        "expirationDate": "2027-03-02",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/32437772-1eb9-4ead-b871-d1aafee27bb3"
       }
     ],
     "30424114060002170": [
@@ -76659,26 +76677,6 @@
         "finalDate": "2026-06-29",
         "expirationDate": "2026-12-23",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ce6a746f-dce4-41c3-b9a5-522d8a641ffc"
-      }
-    ],
-    "30434120110121010": [
-      {
-        "permitNumber": "26-094174-ELEC-C",
-        "parcelId": "30434120110121010",
-        "address": "1201 SEAFARER CIR Unit: GARBAGE ROOM JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Electrical",
-        "subtype": "Electrical",
-        "description": "Furnish and install wiring and a new circuit breaker for the new AED Device to be installed in the existing Garbage room located in building 12. The new circuit will be taken from the existing panel located in the Garbage room",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-04-20",
-        "finalDate": null,
-        "expirationDate": "2026-12-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bb6c2749-dd46-4e07-aeb0-73fdeeb3f2db"
       }
     ]
   }
