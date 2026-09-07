@@ -1,12 +1,70 @@
 {
   "county": "West Palm Beach",
   "slug": "west-palm-beach",
-  "generated": "2026-09-06T07:38:20Z",
+  "generated": "2026-09-07T07:46:41Z",
   "source": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov SelfService scrape \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "74424321020002070": [
+      {
+        "permitNumber": "26090325-RES-PLUMB",
+        "parcelId": "74424321020002070",
+        "address": "7051  Elkhorn Dr  West Palm Beach FL 33411",
+        "city": "West Palm Beach",
+        "type": "General Plumbing - Residential",
+        "subtype": "General",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-06",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/63589edb-cece-42f0-9d91-39ff69b833c7"
+      }
+    ],
+    "74434309070140370": [
+      {
+        "permitNumber": "26090324-RES-BLDG",
+        "parcelId": "74434309070140370",
+        "address": "1372  11th St  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Windows and Doors - Residential",
+        "subtype": "Windows and Doors",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-06",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1d88e890-f8e2-45d6-88e5-886e54a1fb50"
+      },
+      {
+        "permitNumber": "26070336-RES-ANC",
+        "parcelId": "74434309070140370",
+        "address": "1372 11th St West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Fence  - Residential",
+        "subtype": "Fence",
+        "description": "",
+        "status": "Complete",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-07",
+        "issuedDate": "2026-07-23",
+        "finalDate": "2026-07-24",
+        "expirationDate": "2027-01-20",
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/f68196d5-dc57-4a51-9744-35637cef9748"
+      }
+    ],
     "74434321010160010": [
       {
         "permitNumber": "26090323-RES-BLDG",
@@ -1350,7 +1408,7 @@
         "type": "Mechanical Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "Fees Due",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -2298,7 +2356,7 @@
         "type": "Gas Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "On Hold",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -2618,7 +2676,7 @@
         "type": "Gas Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "On Hold",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -2692,7 +2750,7 @@
         "type": "Gas Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "On Hold",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -2842,7 +2900,7 @@
         "type": "Electrical Sub-Permit - Commercial",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "Requires Resubmit for Prescreen ",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -8216,7 +8274,7 @@
         "type": "Mechanical Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "Fees Due",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -8408,7 +8466,7 @@
         "type": "A/C Changeout - Residential",
         "subtype": "Change Out",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "Void",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -8484,7 +8542,7 @@
         "type": "Pool/Spa/Fountain Electrical Sub-Permit - Residential",
         "subtype": "Pool/Spa/Fountain Electrical Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "Requires Resubmit for Prescreen ",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -68843,26 +68901,6 @@
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/196761c4-cd74-4430-93e9-80e6165120c3"
       }
     ],
-    "74434309070140370": [
-      {
-        "permitNumber": "26070336-RES-ANC",
-        "parcelId": "74434309070140370",
-        "address": "1372 11th St West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Fence  - Residential",
-        "subtype": "Fence",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-07",
-        "issuedDate": "2026-07-23",
-        "finalDate": "2026-07-24",
-        "expirationDate": "2027-01-20",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/f68196d5-dc57-4a51-9744-35637cef9748"
-      }
-    ],
     "74434334090060240": [
       {
         "permitNumber": "26070335-RES-BLDG",
@@ -73189,46 +73227,6 @@
         "finalDate": "2026-07-07",
         "expirationDate": "2026-07-07",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/a99b4a6e-d424-465d-9a6b-e56bffbc4dc4"
-      }
-    ],
-    "74414224100000120": [
-      {
-        "permitNumber": "26061598-RES-MECH",
-        "parcelId": "74414224100000120",
-        "address": "7980  Sandhill Ct  West Palm Beach FL 33412",
-        "city": "West Palm Beach",
-        "type": "Mechanical Sub-Permit - Residential",
-        "subtype": "Sub-Permit",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-29",
-        "issuedDate": "2026-07-07",
-        "finalDate": null,
-        "expirationDate": "2027-01-11",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ed4d1282-78c0-42b5-8ae4-6c1a2cc08f4c"
-      }
-    ],
-    "74414224100000260": [
-      {
-        "permitNumber": "26061597-RES-MECH",
-        "parcelId": "74414224100000260",
-        "address": "7828  Sandhill Ct  West Palm Beach FL 33412",
-        "city": "West Palm Beach",
-        "type": "Mechanical Sub-Permit - Residential",
-        "subtype": "Sub-Permit",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-29",
-        "issuedDate": "2026-07-07",
-        "finalDate": null,
-        "expirationDate": "2027-01-18",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/839f40f6-ba6b-45c5-85eb-636de91a3764"
       }
     ]
   }

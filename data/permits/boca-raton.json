@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-09-06T07:41:26Z",
+  "generated": "2026-09-07T07:49:57Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,46 @@
         "finalDate": null,
         "expirationDate": "2027-02-16",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06434730310004060": [
+      {
+        "permitNumber": "BPM-2026-02391",
+        "parcelId": "06434730310004060",
+        "address": "501 SW 11th Pl  406 Unit: 406 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior Multifamily",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "ac change out with private provider inspection",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-06",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/68c97ec0-3560-4e54-a178-667c10236f1a"
+      }
+    ],
+    "06434708040460010": [
+      {
+        "permitNumber": "BPQ-2026-02122",
+        "parcelId": "06434708040460010",
+        "address": "3798 NE 4th Ave   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "INSTALLATION OF IMPACT WINDOWS AND DOORS",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-06",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d045d6b2-dcab-45e5-810a-31175d6686eb"
       }
     ],
     "06434717130030080": [
@@ -1108,7 +1148,7 @@
         "type": "Paving/Resurfacing",
         "subtype": "Paving/Resurfacing",
         "description": "mill paving and restripe to existing layout",
-        "status": "PreScreen",
+        "status": "In Review",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -6678,7 +6718,7 @@
         "type": "Electrical Service/ Panel Work Multifamily",
         "subtype": "Electrical Service/Panel Work",
         "description": "LIKE FOE LIKE 150A INTERIOR PANEL REPLACEMENT WITH SURGE PROTECTION",
-        "status": "Resubmit Requested",
+        "status": "In Review",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -9452,7 +9492,7 @@
         "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "Window/ door/ shutter ",
         "description": "REMOVE AND REPLACE 23 WINDOWS AND 5 DOORS TO IMPACT",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -29384,7 +29424,7 @@
         "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "A/c changeout ",
         "description": "REPLACEMENT OF 3 TON SPLIT SYSTEM",
-        "status": "PreScreen",
+        "status": "In Review",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -74569,46 +74609,6 @@
         "finalDate": "2026-08-25",
         "expirationDate": "2027-02-22",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/576e946b-e9a9-4aef-9802-efc8e9485df9"
-      }
-    ],
-    "06434717240012080": [
-      {
-        "permitNumber": "BPM-2026-01305",
-        "parcelId": "06434717240012080",
-        "address": "2600  Greenwood Ter  208 Unit: 208 Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Electrical Water Heater Changeout Multifamily",
-        "subtype": "Water heater changeout (elect)",
-        "description": "38GAL ELECTRIC WATER HEATER REPLACEMENT",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-22",
-        "issuedDate": "2026-06-02",
-        "finalDate": "2026-07-15",
-        "expirationDate": "2027-01-11",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/eef13c78-fd55-40b9-a988-02cc3136d9de"
-      }
-    ],
-    "06434730130120132": [
-      {
-        "permitNumber": "BPQ-2026-01271",
-        "parcelId": "06434730130120132",
-        "address": "671  Juneberry Ct   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "REMOVE AND REPLACE WITH IMPACT 17 WINDOWS AND 6 DOORS.",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-22",
-        "issuedDate": "2026-05-28",
-        "finalDate": null,
-        "expirationDate": "2026-11-24",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/489a5c61-ec06-4d35-b1fe-fd3f6a0fa9a8"
       }
     ]
   }

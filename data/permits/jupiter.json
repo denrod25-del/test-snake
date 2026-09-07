@@ -1,7 +1,7 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-06T07:52:44Z",
+  "generated": "2026-09-07T07:59:11Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
