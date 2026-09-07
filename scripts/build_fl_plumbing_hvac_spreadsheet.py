@@ -121,6 +121,7 @@ CORPORATE_BRANDS = [
     (r"\bplumbing\s*today\b", "Corporate (PE)", "Wrench Group (Leonard Green & Partners)", "Confirmed"),
     (r"\benergy\s*today\b", "Corporate (PE)", "Wrench Group (Leonard Green & Partners)", "Confirmed"),
     (r"\bred\s*cap\s*(plumbing|air|heating|hvac)?\b", "Corporate (PE)", "Wrench Group (Leonard Green & Partners)", "Confirmed"),
+    (r"\blindstrom\b", "Corporate (PE)", "Wrench Group (Leonard Green & Partners)", "Confirmed"),
     # Florida Cool Inc. was acquired by Wrench and folded into CoolToday (2020).
     (r"^florida\s*cool(\s+inc\.?|\s+llc)?$", "Corporate (PE)", "Wrench Group (Leonard Green & Partners) — Florida Cool / CoolToday", "Confirmed"),
     # Apex Service Partners (Alpine Investors) — Florida brands

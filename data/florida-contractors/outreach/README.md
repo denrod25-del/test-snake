@@ -1,6 +1,6 @@
 # Outreach lead lists (Family / Independent)
 
-Generated: **2026-09-06 08:30** UTC
+Generated: **2026-09-07 01:35** UTC
 
 Corporate and franchise brands are **excluded**. These lists are for pitching local shops.
 
@@ -14,9 +14,9 @@ Corporate and franchise brands are **excluded**. These lists are for pitching lo
 
 | File | Use |
 | --- | --- |
-| `call-ready-priority-counties.csv` | Best dial list (phone + priority counties) — **599** leads |
-| `call-ready.csv` | All FL family/independent with a phone — **888** |
-| `research-queue.csv` | Priority-county shops still needing a phone lookup — **11411** |
+| `call-ready-priority-counties.csv` | Best dial list (phone + priority counties) — **417** leads |
+| `call-ready.csv` | All FL family/independent with a phone — **596** |
+| `research-queue.csv` | Priority-county shops still needing a phone lookup — **11593** |
 | `outreach-board.html` | Click-to-copy SMS/email board |
 | `plumbing-leads-import.json` | Import into the `plumbing-leads` app |
 

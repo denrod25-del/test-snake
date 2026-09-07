@@ -125,7 +125,11 @@ def match_maps(row: dict, by_norm, by_tok) -> tuple[dict | None, str]:
     key = normalize(row["company_name"])
     hit = by_norm.get(key)
     if hit:
-        return hit, "exact_name"
+        # Exact business-name match still must be the same market — FL has
+        # many duplicate trade names across counties.
+        if same_place(row, hit):
+            return hit, "exact_name"
+        # Fall through instead of attaching a wrong-area phone.
     rt = tokens(row["company_name"])
     if len(rt) < 2:
         return None, ""
