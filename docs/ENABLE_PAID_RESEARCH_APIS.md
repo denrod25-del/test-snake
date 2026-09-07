@@ -72,4 +72,4 @@ so you can confirm configuration without exposing secrets.
 
 ## 6. After it works
 
-Optional copy polish on `pricing.html` / Tax Deeds pricing foot: change “need vendor API keys on Netlify” to “live for Pro” once both vendor flags are true in production.
+Pricing copy on `pricing.html` / Tax Deeds treats AVM / rent / skip-trace as **live for Pro** once both Netlify keys are set. If a redeploy drops a key, functions return `vendor_not_configured` (no credit spent) — re-add the env var and clear-cache deploy.
