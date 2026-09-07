@@ -1,47 +1,31 @@
 # Outreach lead lists (Family / Independent)
 
-Generated: **2026-09-07 01:35** UTC
+## Start calling today
 
-Corporate and franchise brands are **excluded**. These lists are for pitching local shops.
+1. Download **`START-HERE-day1-dial-sheet.html`** from Artifacts (or open `DAY1-dial-sheet.html` here).
+2. Double-click it → opens in your browser.
+3. Tap each phone number to dial. Check **done** as you go.
+4. Log results in **`START-HERE-call-tracker.csv`** (`interested` / `callback` / `not interested` / `no answer`).
 
-## Start here
+**Goal:** 25–40 calls today.
 
-1. Open **`outreach-board.html`** in your browser (double-click).
-2. Filter to **Palm Beach** / **Broward** / etc.
-3. Click **Copy SMS** and call/text the phone number shown.
+Phones on the Day 1 sheet are filtered so the **area code matches the county** (wrong-market duplicates removed).
 
 ## Files
 
 | File | Use |
 | --- | --- |
-| `call-ready-priority-counties.csv` | Best dial list (phone + priority counties) — **417** leads |
-| `call-ready.csv` | All FL family/independent with a phone — **596** |
-| `research-queue.csv` | Priority-county shops still needing a phone lookup — **11593** |
-| `outreach-board.html` | Click-to-copy SMS/email board |
-| `plumbing-leads-import.json` | Import into the `plumbing-leads` app |
-
-## Priority counties
-
-Palm Beach, Broward, Miami-Dade, Martin, St. Lucie, Lee, Collier, Hillsborough, Pinellas, Orange, Duval, Sarasota, Manatee, Pasco
-
-## Tier key
-
-- **A** — Family-owned + phone + priority county (call first)
-- **B** — Independent + phone + priority county
-- **C** — Has phone, other Florida county
-- **D** — Priority county, no phone yet (research)
+| `DAY1-dial-sheet.html` | Call now — script + Copy SMS |
+| `DAY1-dial-sheet.csv` | Same list in Excel/Sheets |
+| `call-tracker.csv` | Log outcomes |
+| `call-ready-verified-local.csv` | Broader verified dial list after Day 1 |
+| `call-ready-priority-counties.csv` | All priority-county rows with a phone |
+| `research-queue.csv` | Still need phone research |
+| `outreach-board.html` | Larger board with filters |
 
 ## Import into plumbing-leads
 
 ```bash
-cd plumbing-leads
-python -c "import sys; sys.path.insert(0,'..'); ..."
-# or:
-python ../scripts/build_outreach_leads.py --import-plumbing-leads leads.db
-python main.py
-# open http://127.0.0.1:8000
+python scripts/build_outreach_leads.py --import-plumbing-leads plumbing-leads/leads.db
+cd plumbing-leads && python main.py
 ```
-
-## Honesty
-
-Phones/websites come from matching `data/companies.json` (Google Maps scrape) onto DBPR license names. Matches are exact-name or high-confidence fuzzy with same city/county. Unmatched priority-county shops are in `research-queue.csv`.
