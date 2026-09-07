@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-06T07:52:52Z",
-  "salesGenerated": "2026-09-04T18:32:51Z",
+  "generated": "2026-09-07T07:02:57Z",
+  "salesGenerated": "2026-09-07T07:02:57Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -244,7 +244,7 @@
         "date": "2026-10-07",
         "label": "October 7, 2026",
         "shortLabel": "Oct 7",
-        "count": 42,
+        "count": 41,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -259,9 +259,9 @@
       "slug": "flagler",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-09-08",
-        "label": "September 8, 2026",
-        "shortLabel": "Sep 8",
+        "date": "2026-11-17",
+        "label": "November 17, 2026",
+        "shortLabel": "Nov 17",
         "count": 1,
         "source": "scraper"
       },
@@ -808,7 +808,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 54,
+        "count": 57,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -826,7 +826,7 @@
         "date": "2026-10-05",
         "label": "October 5, 2026",
         "shortLabel": "Oct 5",
-        "count": 5,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,

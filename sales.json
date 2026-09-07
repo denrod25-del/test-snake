@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-04T18:32:51Z",
+  "generated": "2026-09-07T07:02:57Z",
   "stats": {
     "scraped": 32,
     "manual": 0,
@@ -56,7 +56,7 @@
       {
         "date": "2026-11-03",
         "source": "scraper",
-        "count": 13,
+        "count": 20,
         "officialUrl": "https://bay.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/03/2026"
       }
     ],
@@ -70,7 +70,7 @@
       {
         "date": "2026-10-22",
         "source": "scraper",
-        "count": 53,
+        "count": 51,
         "officialUrl": "https://brevard.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/22/2026"
       }
     ],
@@ -166,13 +166,13 @@
       {
         "date": "2026-10-07",
         "source": "scraper",
-        "count": 42,
+        "count": 41,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/07/2026"
       },
       {
         "date": "2026-11-04",
         "source": "scraper",
-        "count": 39,
+        "count": 38,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/04/2026"
       },
       {
@@ -190,7 +190,7 @@
       {
         "date": "2027-02-03",
         "source": "scraper",
-        "count": 58,
+        "count": 57,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=02/03/2027"
       },
       {
@@ -219,12 +219,6 @@
       }
     ],
     "Flagler": [
-      {
-        "date": "2026-09-08",
-        "source": "scraper",
-        "count": 1,
-        "officialUrl": "https://flagler.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/08/2026"
-      },
       {
         "date": "2026-11-17",
         "source": "scraper",
@@ -326,7 +320,7 @@
       {
         "date": "2026-09-22",
         "source": "scraper",
-        "count": 25,
+        "count": 24,
         "officialUrl": "https://lee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/22/2026"
       },
       {
@@ -350,7 +344,7 @@
       {
         "date": "2026-10-27",
         "source": "scraper",
-        "count": 60,
+        "count": 59,
         "officialUrl": "https://lee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/27/2026"
       },
       {
@@ -536,7 +530,7 @@
       {
         "date": "2026-12-16",
         "source": "scraper",
-        "count": 14,
+        "count": 16,
         "officialUrl": "https://palmbeach.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/16/2026"
       }
     ],
@@ -572,7 +566,7 @@
       {
         "date": "2026-09-16",
         "source": "scraper",
-        "count": 54,
+        "count": 57,
         "officialUrl": "https://putnam.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/16/2026"
       },
       {
@@ -600,7 +594,7 @@
       {
         "date": "2026-10-05",
         "source": "scraper",
-        "count": 5,
+        "count": 4,
         "officialUrl": "https://santarosa.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/05/2026"
       }
     ],
@@ -670,13 +664,19 @@
         "source": "scraper",
         "count": 5,
         "officialUrl": "https://walton.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/22/2026"
+      },
+      {
+        "date": "2026-09-29",
+        "source": "scraper",
+        "count": 3,
+        "officialUrl": "https://walton.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/29/2026"
       }
     ],
     "Pinellas": [
       {
         "date": "2026-09-10",
         "source": "cadence",
-        "verifiedAt": "2026-09-04",
+        "verifiedAt": "2026-09-07",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -684,7 +684,7 @@
       {
         "date": "2026-09-24",
         "source": "cadence",
-        "verifiedAt": "2026-09-04",
+        "verifiedAt": "2026-09-07",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -692,7 +692,7 @@
       {
         "date": "2026-10-08",
         "source": "cadence",
-        "verifiedAt": "2026-09-04",
+        "verifiedAt": "2026-09-07",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -700,7 +700,7 @@
       {
         "date": "2026-10-22",
         "source": "cadence",
-        "verifiedAt": "2026-09-04",
+        "verifiedAt": "2026-09-07",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -708,7 +708,7 @@
       {
         "date": "2026-11-12",
         "source": "cadence",
-        "verifiedAt": "2026-09-04",
+        "verifiedAt": "2026-09-07",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -716,7 +716,7 @@
       {
         "date": "2026-11-26",
         "source": "cadence",
-        "verifiedAt": "2026-09-04",
+        "verifiedAt": "2026-09-07",
         "officialUrl": "https://pinellas.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 10:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
