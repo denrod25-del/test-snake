@@ -41,6 +41,16 @@ exports.handler = async (event) => {
   const normalizedPcn = String(parcelId).replace(/[^0-9A-Za-z]/g, '').toUpperCase();
   const slug = String(countySlug).toLowerCase();
 
+  // Fail fast before spending a credit when the vendor key is missing.
+  if (!process.env.RENTCAST_API_KEY) {
+    return json(503, {
+      error: 'vendor_not_configured',
+      message:
+        'Rent lookup is not configured on this server yet (RENTCAST_API_KEY missing). Add the RentCast key in Netlify → Environment variables, then redeploy. No credit was spent.',
+      vendors: { skip_trace: !!process.env.BATCHDATA_API_TOKEN, avm: false },
+    });
+  }
+
   const spent = await spendCredit(user.id, 'avm', {
     parcel_id: normalizedPcn,
     county_slug: slug,

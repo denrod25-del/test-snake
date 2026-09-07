@@ -87,6 +87,16 @@ exports.handler = async (event) => {
   const normalizedPcn = String(parcelId).replace(/[^0-9A-Za-z]/g, '').toUpperCase();
   const slug = String(countySlug).toLowerCase();
 
+  // Fail fast before spending a credit when the vendor key is missing.
+  if (!process.env.BATCHDATA_API_TOKEN) {
+    return json(503, {
+      error: 'vendor_not_configured',
+      message:
+        'Skip-trace is not configured on this server yet (BATCHDATA_API_TOKEN missing). Add the BatchData token in Netlify → Environment variables, then redeploy. No credit was spent.',
+      vendors: { skip_trace: false, avm: !!process.env.RENTCAST_API_KEY },
+    });
+  }
+
   // ── Cache hit? ──────────────────────────────────────────────────────────
   const { data: cached } = await sb
     .from('skip_trace_cache')
