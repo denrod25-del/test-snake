@@ -70,6 +70,16 @@ Expected when a key is still missing:
 
 so you can confirm configuration without exposing secrets.
 
-## 6. After it works
+## Troubleshooting
 
-Pricing copy on `pricing.html` / Tax Deeds treats AVM / rent / skip-trace as **live for Pro** once both Netlify keys are set. If a redeploy drops a key, functions return `vendor_not_configured` (no credit spent) — re-add the env var and clear-cache deploy.
+### Skip-trace returns `vendor_error` / 502 while AVM works
+
+1. In Netlify → Environment variables, open `BATCHDATA_API_TOKEN`.
+   - Value must be the **raw token only** (no leading `Bearer `).
+   - Save → **Deploys → Clear cache and deploy site**.
+2. In [BatchData](https://app.batchdata.com) confirm the wallet has pay-as-you-go funds (empty wallet often returns 402).
+3. Re-test; the API now returns `detail` plus a clearer `vendor_auth_failed` / `vendor_unfunded` / `vendor_bad_request` when it can classify the failure. Credits are always refunded on vendor failure.
+
+### RentCast AVM works but skip-trace does not
+
+That means Netlify env + Pro credits are fine — the problem is BatchData-specific (token or wallet), not DeedScout auth.

@@ -88,7 +88,7 @@ exports.handler = async (event) => {
   const slug = String(countySlug).toLowerCase();
 
   // Fail fast before spending a credit when the vendor key is missing.
-  if (!process.env.BATCHDATA_API_TOKEN) {
+  if (!sanitizeBatchDataToken(process.env.BATCHDATA_API_TOKEN)) {
     return json(503, {
       error: 'vendor_not_configured',
       message:
@@ -141,13 +141,15 @@ exports.handler = async (event) => {
   } catch (err) {
     console.error('BatchData skip-trace failed', err);
     await refundCredit(user.id, 'skip_trace', 'vendor_error');
-    const missing = /BATCHDATA_API_TOKEN not set/i.test(String(err?.message || ''));
+    const detail = String(err?.message || err);
+    const missing = /BATCHDATA_API_TOKEN not set/i.test(detail);
+    const classified = classifyBatchDataError(detail);
     return json(missing ? 503 : 502, {
-      error: missing ? 'vendor_not_configured' : 'vendor_error',
+      error: missing ? 'vendor_not_configured' : (classified.error || 'vendor_error'),
       message: missing
         ? 'Skip-trace is not configured on this server yet (BATCHDATA_API_TOKEN missing). Your credit was not kept.'
-        : 'The skip-tracing vendor returned an error. Your credit has been refunded.',
-      detail: String(err?.message || err),
+        : classified.message,
+      detail,
     });
   }
 
@@ -185,45 +187,81 @@ exports.handler = async (event) => {
  * cache per-parcel and refund cleanly on individual failures.
  */
 async function callBatchData({ ownerName, address }) {
-  const token = process.env.BATCHDATA_API_TOKEN;
+  const token = sanitizeBatchDataToken(process.env.BATCHDATA_API_TOKEN);
   if (!token) throw new Error('BATCHDATA_API_TOKEN not set');
 
-  const url = `${VENDOR_BASE}/api/v1/property/skip-trace`;
+  const url = `${VENDOR_BASE.replace(/\/+$/, '')}/api/v1/property/skip-trace`;
   const { firstName, lastName } = splitOwnerName(ownerName);
   const { street, city, state, zip } = parseAddress(address);
 
-  const payload = {
-    requests: [{
-      propertyAddress: {
-        street: street || null,
-        city:   city   || null,
-        state:  state  || 'FL',
-        zip:    zip    || null,
-      },
-      // Name fields are optional — BatchData will skip-trace by address alone
-      // if both are blank, but match accuracy improves materially with a name.
-      name: (firstName || lastName) ? {
-        first: firstName || null,
-        last:  lastName  || null,
-      } : undefined,
-    }],
-  };
+  if (!street) {
+    throw new Error('BatchData 400: could not parse a street address from the property address');
+  }
+
+  const propertyAddress = { state: state || 'FL' };
+  if (street) propertyAddress.street = street;
+  if (city) propertyAddress.city = city;
+  if (zip) propertyAddress.zip = zip;
+
+  const request = { propertyAddress };
+  // Name is optional — BatchData skip-traces by address alone when omitted.
+  // Only send when both halves look usable (avoid swapped/empty junk).
+  if (firstName && lastName) {
+    request.name = { first: firstName, last: lastName };
+  }
+
+  const payload = { requests: [request] };
 
   const resp = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type':  'application/json',
-      'Accept':        'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
     body: JSON.stringify(payload),
   });
 
   if (!resp.ok) {
     const errBody = await resp.text();
-    throw new Error(`BatchData ${resp.status}: ${errBody.slice(0, 300)}`);
+    throw new Error(`BatchData ${resp.status}: ${errBody.slice(0, 400)}`);
   }
   return await resp.json();
+}
+
+/** Trim + strip a duplicated "Bearer " if the Netlify env value already includes it. */
+function sanitizeBatchDataToken(raw) {
+  if (!raw) return '';
+  return String(raw).trim().replace(/^Bearer\s+/i, '').trim();
+}
+
+function classifyBatchDataError(detail) {
+  const status = Number((/BatchData\s+(\d{3})/i.exec(detail) || [])[1] || 0);
+  if (status === 401 || status === 403) {
+    return {
+      error: 'vendor_auth_failed',
+      message:
+        'BatchData rejected the API token (401/403). In Netlify, set BATCHDATA_API_TOKEN to the raw token only (no "Bearer " prefix), then Clear-cache redeploy. Your credit was refunded.',
+    };
+  }
+  if (status === 402 || /insufficient|wallet|balance|payment|fund/i.test(detail)) {
+    return {
+      error: 'vendor_unfunded',
+      message:
+        'BatchData wallet looks empty or unpaid. Add pay-as-you-go funds at app.batchdata.com, then retry. Your credit was refunded.',
+    };
+  }
+  if (status === 400 || status === 422) {
+    return {
+      error: 'vendor_bad_request',
+      message:
+        'BatchData rejected the address payload. Try a fuller street/city/state/ZIP from the parcel record. Your credit was refunded.',
+    };
+  }
+  return {
+    error: 'vendor_error',
+    message: 'The skip-tracing vendor returned an error. Your credit has been refunded.',
+  };
 }
 
 /**

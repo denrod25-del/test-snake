@@ -22,7 +22,7 @@ class TestPaidResearchVendors(unittest.TestCase):
         self.assertIn("vendor_not_configured", avm)
         self.assertIn("vendor_not_configured", rent)
         # Preflight must run before the first credit spend call.
-        self.assertLess(skip.index("!process.env.BATCHDATA_API_TOKEN"), skip.index("spendCredit("))
+        self.assertLess(skip.index("sanitizeBatchDataToken(process.env.BATCHDATA_API_TOKEN)"), skip.index("spendCredit("))
         self.assertLess(avm.index("!process.env.RENTCAST_API_KEY"), avm.index("spendCredit("))
         self.assertLess(rent.index("!process.env.RENTCAST_API_KEY"), rent.index("spendCredit("))
 
@@ -35,6 +35,12 @@ class TestPaidResearchVendors(unittest.TestCase):
     def test_advanced_lookups_feature_flag_on(self):
         html = (ROOT / "tax-deeds.html").read_text(encoding="utf-8")
         self.assertRegex(html, re.compile(r"advanced_lookups\s*:\s*true"))
+
+    def test_batchdata_token_is_sanitized(self):
+        skip = (ROOT / "netlify" / "functions" / "skip-trace.js").read_text(encoding="utf-8")
+        self.assertIn("sanitizeBatchDataToken", skip)
+        self.assertIn("classifyBatchDataError", skip)
+        self.assertIn("replace(/^Bearer\\s+/i", skip)
 
 
 if __name__ == "__main__":
