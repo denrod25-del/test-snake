@@ -16,26 +16,54 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/deedscout.css" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<script defer data-domain="deedscout.app" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Indian River County, FL \u2014 Tax Deed Sales, Permits & Property Research",
-  "description": "Indian River County is in Florida's Southeast region. This page links official clerk, auction, and property appraiser sources for tax-deed research. Counts and dates are labeled with data-status badges \u2014 verify on official sources before bidding.",
-  "url": "https://deedscout.app/counties/indian-river.html",
-  "about": {
-    "@type": "Place",
-    "name": "Indian River County, Florida",
-    "containedInPlace": {
-      "@type": "State",
-      "name": "Florida"
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Indian River County, FL Tax Deed Sales, Permits & Property Research",
+      "description": "Indian River County is in Florida's Southeast region. This page links official clerk, auction, and property appraiser sources for tax-deed research. Counts and dates are labeled with data-status badges \u2014 verify on official sources before bidding.",
+      "url": "https://deedscout.app/counties/indian-river.html",
+      "about": {
+        "@type": "Place",
+        "name": "Indian River County, Florida",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "Florida"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "DeedScout",
+        "url": "https://deedscout.app/"
+      },
+      "datePublished": "2026-09-07"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When is the next tax deed sale in Indian River County?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DeedScout does not yet scrape a live sale date for Indian River County. Use the official clerk or auction link on this page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where are Indian River County tax deed sales held?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Indian River County tax deed sales are held through the county clerk or linked auction platform. Always open the official source linked on this page before bidding."
+          }
+        }
+      ]
     }
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "DeedScout"
-  },
-  "datePublished": "2026-09-07"
+  ]
 }
 </script>
 <style>
@@ -155,6 +183,45 @@
   }
   .cta .cta-msg { flex: 1 1 380px; }
   .cta .cta-msg strong { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; color: var(--accent-ink, #4a3a25); }
+  .county-next-sale {
+    margin: 0 0 24px;
+    padding: 18px 22px;
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
+  }
+  .county-next-sale h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 26px;
+    margin: 0 0 8px;
+    color: var(--ink, #0c1320);
+  }
+  .county-next-sale p { margin: 0; font-size: 15px; line-height: 1.5; }
+  .county-alert-capture {
+    margin: 28px 0;
+    padding: 18px 22px;
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
+  }
+  .county-alert-capture h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    margin: 0 0 8px;
+  }
+  .county-alert-capture .ds-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+    margin-top: 12px;
+  }
+  .county-alert-capture label { flex: 1 1 220px; font-size: 13px; }
+  .county-alert-capture input[type="email"] {
+    width: 100%;
+    margin-top: 4px;
+    padding: 10px 12px;
+    border: 1px solid var(--rule, #d9d4c7);
+  }
+  .county-learn { margin: 28px 0 8px; }
   .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -185,7 +252,8 @@
     <h1>Indian River County, FL</h1>
     <p class="lede">Indian River County is in Florida&#39;s Southeast region. This page links official clerk, auction, and property appraiser sources for tax-deed research. Counts and dates are labeled with data-status badges — verify on official sources before bidding.</p>
 
-    <div class="stat-grid">
+    <section class="county-next-sale" aria-label="Tax deed sales"><h2>Indian River County tax deed sales</h2><p>We do not yet scrape live dates for this county. Check the official clerk link below, or <a href="/pricing.html">get an alert</a> when we add it.</p></section>
+<div class="stat-grid">
       <div class="stat">
         <div class="lbl">Region</div>
         <div class="val">Southeast</div>
@@ -194,7 +262,7 @@
     
       <div class="stat">
         <div class="lbl">Next tax-deed sale</div>
-        <div class="val">No verified sale date in DeedScout — verify on the official clerk or auction source.</div>
+        <div class="val">No verified sale date in DeedScout. Verify on the official clerk or auction source.</div>
         <div class="sub">Verify on official clerk or auction site &lt;span class=&quot;badge warn&quot;&gt;Sale-date automation limited&lt;/span&gt;</div>
       </div>
     
@@ -249,6 +317,31 @@
 . Bidders should verify auction-day rules with the Tax Collector's office before participating.</p>
 <p>The investor process:</p><ol><li><strong>Tax certificate sale</strong> (early summer) — investors bid on the right to collect delinquent taxes plus interest.</li><li><strong>Two-year hold</strong> — certificate accrues interest while the owner has the chance to redeem.</li><li><strong>Application for tax deed</strong> — the certificate holder applies after two years; a public auction is scheduled.</li><li><strong>Tax-deed sale</strong> — the property itself is sold to the highest bidder; certificate holder is paid first from proceeds.</li><li><strong>Surplus claim</strong> (if applicable) — excess proceeds go to lienholders and the former owner under §197.582.</li></ol>
 <p class="small"><strong>DeedScout organizes research.</strong> Always verify with the official county, clerk, auction, property appraiser, or municipal source before bidding, buying, contacting owners, or making financial decisions.</p>
+
+    <section class="county-alert-capture" aria-label="Sale date email alerts">
+      <h2>Email me before the next Indian River sale</h2>
+      <p class="small">One field. We only email when a scraped sale date is coming up for this county.</p>
+      <form class="ds-form" name="county-sale-alert" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="county-sale-alert" />
+        <input type="hidden" name="county" value="Indian River" />
+        <input type="hidden" name="county_slug" value="indian-river" />
+        <p hidden><label>Don't fill: <input name="bot-field" /></label></p>
+        <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@firm.com" /></label>
+        <button type="submit" class="ds-btn ds-btn-primary plausible-event-name=digest_signup">Notify me</button>
+      </form>
+    </section>
+    
+
+    <section class="county-learn" aria-label="Learn">
+      <h2>Related guides</h2>
+      <ul class="official-links">
+        <li><a href="../learn/florida-tax-deed-sales.html">How Florida tax deed sales work</a></li>
+        <li><a href="../learn/florida-surplus-funds.html">Florida surplus funds after a tax deed sale</a></li>
+        <li><a href="../learn/parcel-research-checklist.html">Parcel research checklist</a></li>
+        <li><a href="../learn/tax-deed-vs-tax-certificate.html">Tax deed vs tax certificate</a></li>
+      </ul>
+    </section>
+    
 
     
     <div class="cta">

@@ -3,25 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DeedScout — Florida Tax Deed Research, County by County</title>
-  <meta name="description" content="DeedScout turns fragmented Florida public records into one workflow for county auction links, parcel research, permit signals, surplus resources, watchlists, alerts, and exports." />
+  <title>DeedScout · Florida Tax Deed Sale Calendar and Parcel Research</title>
+  <meta name="description" content="DeedScout tracks Florida tax deed sale dates across all 67 counties, with official clerk links, parcel research tools, watchlists, alerts, and exports." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/deedscout.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23f6f2e9'/%3E%3Ctext y='13' x='2' font-size='12' font-family='Georgia' fill='%230c1320'%3ED%3C/text%3E%3C/svg%3E" />
+  <script defer data-domain="deedscout.app" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "DeedScout",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web",
-    "url": "https://deedscout.app/",
-    "description": "Florida public-records research layer for tax deed investors — county auction links, parcel lookup, permit signals, surplus resources, watchlists, alerts, and research notes.",
-    "offers": [
-      { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
-      { "@type": "Offer", "name": "Pro", "price": "49", "priceCurrency": "USD", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "49", "priceCurrency": "USD", "billingDuration": "P1M" } }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "DeedScout",
+        "url": "https://deedscout.app/",
+        "description": "Florida tax deed sale calendar and public-records research tool for investors.",
+        "areaServed": { "@type": "State", "name": "Florida" },
+        "sameAs": []
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "DeedScout",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://deedscout.app/",
+        "description": "Florida public-records research layer for tax deed investors: county auction links, parcel lookup, permit signals, surplus resources, watchlists, alerts, and research notes.",
+        "offers": [
+          { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Pro", "price": "49", "priceCurrency": "USD", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "49", "priceCurrency": "USD", "billingDuration": "P1M" } }
+        ]
+      }
     ]
   }
   </script>
@@ -29,7 +43,12 @@
     (function () {
       var q = window.location.search || "";
       var h = window.location.hash || "";
-      if (q || h) window.location.replace("tax-deeds.html" + q + h);
+      // Legacy deep links into the Tax Deeds SPA. Marketing params must not redirect.
+      var LEGACY = /(^|[?&])(county|parcel|sale|view|tab)=/i;
+      var isLegacyHash = h && h.length > 1 && h !== "#";
+      if ((q && LEGACY.test(q)) || isLegacyHash) {
+        window.location.replace("tax-deeds.html" + q + h);
+      }
     })();
   </script>
 </head>
@@ -39,22 +58,24 @@
   <section class="ds-hero">
     <div class="ds-hero-inner">
       <div>
-        <p class="ds-hero-eyebrow">Florida tax deed investors · Public Beta</p>
-        <h1>DeedScout</h1>
+        <p class="ds-hero-eyebrow">Florida tax deed investors</p>
+        <h1>Never miss a Florida tax deed sale again</h1>
         <p class="ds-hero-lede">
-          Florida tax deed research, <em>organized county by county</em> — official clerk and auction links, parcel tools, permit signals, and Pro watchlists, alerts, and CSV export. Always confirm sale dates on the official source before bidding.
+          67 counties. One calendar. Upcoming auction dates pulled from the clerks
+          and auction platforms, with email alerts before every sale and a link
+          to the official source for every date we show.
         </p>
         <div class="ds-hero-ctas">
-          <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Start Free</a>
-          <a class="ds-btn ds-btn-secondary" href="tax-deeds.html#/pricing">Upgrade to Pro — $49/mo</a>
+          <a class="ds-btn ds-btn-primary plausible-event-name=signup_start" href="tax-deeds.html">See upcoming sales free</a>
+          <a class="ds-btn ds-btn-secondary plausible-event-name=pro_intent" href="pricing.html">Pro · $49/mo</a>
         </div>
-        <p class="ds-hero-tagline">Official county links · Honest Live/Cached labels · <a href="counties/index.html">Browse 67 counties</a> · <a href="pricing.html">Compare Free vs Pro</a></p>
+        <p class="ds-hero-tagline">Every date links to the official clerk or auction source · <a href="counties/index.html">Browse 67 counties</a> · <a href="pricing.html">Compare Free vs Pro</a></p>
       </div>
-      <div class="ds-hero-stats">
-        <div class="ds-stat"><div class="val">67</div><div class="lbl">Counties indexed</div></div>
-        <div class="ds-stat"><div class="val">4</div><div class="lbl">Cached permit cities</div></div>
-        <div class="ds-stat"><div class="val">6</div><div class="lbl">Research modules</div></div>
-        <div class="ds-stat"><div class="val">1</div><div class="lbl">Workflow</div></div>
+      <div class="ds-hero-stats" id="hero-sale-stats" aria-live="polite">
+        <div class="ds-stat"><div class="val">67</div><div class="lbl">Florida counties</div></div>
+        <div class="ds-stat"><div class="val" id="hero-stat-events">—</div><div class="lbl">Upcoming sales tracked</div></div>
+        <div class="ds-stat"><div class="val" id="hero-stat-counties">—</div><div class="lbl">Counties with live dates</div></div>
+        <div class="ds-stat"><div class="val" id="hero-stat-refresh">—</div><div class="lbl">Last refresh</div></div>
       </div>
     </div>
   </section>
@@ -140,7 +161,7 @@
       </div>
     </div>
     <div class="ds-home-pro-ctas">
-      <a class="ds-btn ds-btn-primary" href="tax-deeds.html#/pricing">Upgrade to Pro — $49/mo</a>
+      <a class="ds-btn ds-btn-primary plausible-event-name=pro_intent" href="pricing.html">Upgrade to Pro · $49/mo</a>
       <a class="ds-btn ds-btn-secondary" href="pricing.html">Compare Free vs Pro</a>
     </div>
   </section>
@@ -198,11 +219,11 @@
 
   <section class="ds-section ds-home-close-cta" aria-label="Get started">
     <div class="ds-home-close-inner">
-      <h2>Ready to organize your next sale?</h2>
-      <p>Start free on the 67-county directory, then unlock Pro watchlists, alerts, and CSV export when you need the workflow.</p>
+      <h2>Which counties are you bidding in?</h2>
+      <p>Browse all 67 free. When you are watching more than one county, Pro sends you the sale dates before they pass.</p>
       <div class="ds-hero-ctas" style="justify-content:center;margin-bottom:0;">
-        <a class="ds-btn ds-btn-primary" href="tax-deeds.html">Start Free</a>
-        <a class="ds-btn ds-btn-secondary" href="tax-deeds.html#/pricing">Upgrade to Pro — $49/mo</a>
+        <a class="ds-btn ds-btn-primary plausible-event-name=signup_start" href="tax-deeds.html">See upcoming sales free</a>
+        <a class="ds-btn ds-btn-secondary plausible-event-name=pro_intent" href="pricing.html">Pro · $49/mo</a>
       </div>
     </div>
   </section>
@@ -212,15 +233,14 @@
       <div>
         <h2>Florida Property Opportunity Digest</h2>
         <p>Weekly county activity signals for tax deed investors. Example: upcoming sale dates, new permit hotspots, and county links — not investment advice.</p>
-        <div class="ds-example" style="margin-top:16px;font-size:12px;"><div class="ds-example-label">Example weekly digest</div>DeedScout Weekly · Palm Beach County
-Next sale: check clerk (verify before bidding)
-WPB permits (cached): 47 plumbing permits last 7 days
-Reminder: PBC unincorporated permits are SAMPLE only in DeedScout.</div>
+        <div class="ds-example" style="margin-top:16px;font-size:12px;"><div class="ds-example-label">Example weekly digest</div>DeedScout Weekly · Florida tax deeds
+Broward: next sale Oct 26 · 15 parcels
+Palm Beach: next sale on clerk calendar (verify before bidding)
+WPB permits (cached): recent plumbing activity in Tyler EnerGov scrape</div>
       </div>
       <form class="ds-form" name="weekly-digest" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="weekly-digest" />
         <p hidden><label>Don't fill: <input name="bot-field" /></label></p>
-        <label>Name<input type="text" name="name" required autocomplete="name" /></label>
         <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@firm.com" /></label>
         <label>Primary interest
           <select name="interest" required>
@@ -231,7 +251,7 @@ Reminder: PBC unincorporated permits are SAMPLE only in DeedScout.</div>
             <option>Permit activity</option>
           </select>
         </label>
-        <button type="submit" class="ds-btn ds-btn-primary" style="width:100%;">Join the Weekly Digest</button>
+        <button type="submit" class="ds-btn ds-btn-primary plausible-event-name=digest_signup" style="width:100%;">Join the Weekly Digest</button>
       </form>
     </div>
   </section>
@@ -255,7 +275,27 @@ Sep 04, 2026
 <script src="/assets/data-trust.js"></script>
 <script>
 (function () {
+  function fillHeroSaleStats(sales) {
+    if (!sales || !sales.sales) return;
+    var counties = Object.keys(sales.sales);
+    var events = 0;
+    counties.forEach(function (k) {
+      var rows = sales.sales[k];
+      if (Array.isArray(rows)) events += rows.length;
+    });
+    var evEl = document.getElementById("hero-stat-events");
+    var coEl = document.getElementById("hero-stat-counties");
+    var rfEl = document.getElementById("hero-stat-refresh");
+    if (evEl) evEl.textContent = String(events);
+    if (coEl) coEl.textContent = String(counties.length);
+    if (rfEl && sales.generated) {
+      var d = new Date(sales.generated);
+      rfEl.textContent = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    }
+  }
+
   fetch("sales.json", { cache: "no-store" }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }).then(function(sales){
+    fillHeroSaleStats(sales);
     if (!window.DeedScoutTrust) return;
     var curated = sales && sales.stats ? (sales.stats.curated || 0) : 0;
     var scraped = sales && sales.stats ? (sales.stats.scraped || 0) : 0;
