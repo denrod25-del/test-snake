@@ -1,12 +1,148 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-07T07:59:11Z",
+  "generated": "2026-09-08T07:54:56Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424113170000310": [
+      {
+        "permitNumber": "26-009916-ROOF-R",
+        "parcelId": "30424113170000310",
+        "address": "115  SEGOVIA WAY  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "Re-roof existing tile roof to new tile roof",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/e2b41846-4b06-41e1-bdff-2faa72162d08"
+      }
+    ],
+    "30434108050050050": [
+      {
+        "permitNumber": "26-097825-AC",
+        "parcelId": "30434108050050050",
+        "address": "105  BONEFISH CIR W JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "hvac equipment change out",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a73ab140-9c9b-4fc5-ae49-fc2c1f1dd1cb"
+      }
+    ],
+    "30424101330000110": [
+      {
+        "permitNumber": "26-009915-ROOF-R",
+        "parcelId": "30424101330000110",
+        "address": "813  SUMMERWOOD DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "shingle to shingle residential reroof",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/986d1a20-7101-4a79-a422-06dccc8a66d4"
+      }
+    ],
+    "30424108020001160": [
+      {
+        "permitNumber": "26-097824-ELECR-R",
+        "parcelId": "30424108020001160",
+        "address": "275  CARINA DR  JUPITER FL 33478",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "going off main permit issued on the renovation. Doing general outlets & lighting",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5f89178c-0779-47d6-a3b8-d8f3e2c80e27"
+      },
+      {
+        "permitNumber": "26-097505-NIMPT",
+        "parcelId": "30424108020001160",
+        "address": "275  CARINA DR  JUPITER FL 33478",
+        "city": "JUPITER",
+        "type": "Impact Fee Schedule - Impact Fees - Effective January 1, 2026",
+        "subtype": "Impact Fees - Effective January 1, 2026",
+        "description": "Lanai enclosure. Adding 2 slider and 3 windows. The room will be air conditioned. Both electrical and mechanical plans will be submitted as sub-permit.",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-24",
+        "issuedDate": null,
+        "finalDate": "2026-08-25",
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/109dc92c-49a6-41bc-a4d7-8cc2f62cbd5a"
+      },
+      {
+        "permitNumber": "26-095730-BLDR",
+        "parcelId": "30424108020001160",
+        "address": "275  CARINA DR  JUPITER FL 33478",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Lanai enclosure. Adding 2 slider and 3 windows. The room will be air conditioned. Both electrical and mechanical plans will be submitted as sub-permit.",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-12",
+        "issuedDate": "2026-08-26",
+        "finalDate": null,
+        "expirationDate": "2027-02-22",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a68fd1f6-aeb2-41e7-ad9e-ab9c1618691b"
+      }
+    ],
+    "30424110210090022": [
+      {
+        "permitNumber": "26-097823-AC",
+        "parcelId": "30424110210090022",
+        "address": "902  WINGFOOT DR  Unit: A JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "Ac change out",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/e029809d-7867-4db6-9f3c-ea06955d50d9"
+      }
+    ],
     "30434119050000030": [
       {
         "permitNumber": "26-097822-ELECR-R",
@@ -8555,24 +8691,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-03",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/cd3c8383-8cd3-4672-8db3-644649983632"
-      },
-      {
-        "permitNumber": "26-094177-BLDR",
-        "parcelId": "30424123070000402",
-        "address": "1530 LIMETREE BAY AVE JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "interior rebuild of insulation, drywall, tile due to water damage",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-05-19",
-        "finalDate": null,
-        "expirationDate": "2027-01-18",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9b57cb7b-b0de-44e4-934e-326cad04c0c3"
       }
     ],
     "30424113170001250": [
@@ -11463,44 +11581,6 @@
         "finalDate": "2026-08-14",
         "expirationDate": "2027-02-09",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/76eb8703-a55f-4ef7-b007-5285cd82b332"
-      }
-    ],
-    "30424108020001160": [
-      {
-        "permitNumber": "26-097505-NIMPT",
-        "parcelId": "30424108020001160",
-        "address": "275  CARINA DR  JUPITER FL 33478",
-        "city": "JUPITER",
-        "type": "Impact Fee Schedule - Impact Fees - Effective January 1, 2026",
-        "subtype": "Impact Fees - Effective January 1, 2026",
-        "description": "Lanai enclosure. Adding 2 slider and 3 windows. The room will be air conditioned. Both electrical and mechanical plans will be submitted as sub-permit.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-24",
-        "issuedDate": null,
-        "finalDate": "2026-08-25",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/109dc92c-49a6-41bc-a4d7-8cc2f62cbd5a"
-      },
-      {
-        "permitNumber": "26-095730-BLDR",
-        "parcelId": "30424108020001160",
-        "address": "275  CARINA DR  JUPITER FL 33478",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "Lanai enclosure. Adding 2 slider and 3 windows. The room will be air conditioned. Both electrical and mechanical plans will be submitted as sub-permit.",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-12",
-        "issuedDate": "2026-08-26",
-        "finalDate": null,
-        "expirationDate": "2027-02-22",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a68fd1f6-aeb2-41e7-ad9e-ab9c1618691b"
       }
     ],
     "30424111020000590": [
@@ -15653,24 +15733,6 @@
         "finalDate": "2026-05-18",
         "expirationDate": "2026-11-12",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/76622431-df8f-4f2d-99b1-5e7e97577357"
-      },
-      {
-        "permitNumber": "26-094178-ELECR-R",
-        "parcelId": "30424101110010090",
-        "address": "501  DOUGLAS DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT #26-092975-BLDR *** Install per drawings",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-04-29",
-        "finalDate": "2026-07-24",
-        "expirationDate": "2027-01-19",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/64ad41d9-9706-4c89-b45b-ba628e04de90"
       }
     ],
     "30424110010000870": [
@@ -71533,24 +71595,6 @@
         "finalDate": "2026-07-08",
         "expirationDate": "2027-01-04",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/88f00db7-1d52-4e92-8a2e-e4dbb0747508"
-      },
-      {
-        "permitNumber": "26-009552-ROOF-R",
-        "parcelId": "30434116020003390",
-        "address": "120  SAND PINE DR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Re-Roof Shingle to Shingle on Main Home",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-04-15",
-        "finalDate": "2026-06-03",
-        "expirationDate": "2026-11-30",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/06dd9089-2366-4ba7-a61b-475ef63fbade"
       }
     ],
     "30424124090001590": [
@@ -74503,24 +74547,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-05",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7facd44c-ff66-4ee6-bda9-3ed8d0298420"
-      },
-      {
-        "permitNumber": "26-094179-PLUMR",
-        "parcelId": "30424110010000220",
-        "address": "143  VILLAGE CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Plumbing Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT #26-093435-BLDR *** Addition of a den and master suite including a bathroom",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-09",
-        "issuedDate": "2026-04-10",
-        "finalDate": null,
-        "expirationDate": "2027-01-12",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f94fe423-72f2-4eee-a94b-1f2458155b3b"
       }
     ],
     "30424115080750160": [
@@ -76617,66 +76643,6 @@
         "finalDate": "2026-06-29",
         "expirationDate": "2026-12-23",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1af07dbc-73ab-4348-8cf4-525edbf38f11"
-      }
-    ],
-    "30424112060000340": [
-      {
-        "permitNumber": "26-009553-ROOF-R",
-        "parcelId": "30424112060000340",
-        "address": "407  GEORGIAN PARK DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Reroof shingle to shingle",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-09",
-        "issuedDate": "2026-04-27",
-        "finalDate": "2026-05-14",
-        "expirationDate": "2026-11-09",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d7e5f223-6037-4351-a237-7ab95fb6f320"
-      }
-    ],
-    "30434116030015020": [
-      {
-        "permitNumber": "26-094176-AC",
-        "parcelId": "30434116030015020",
-        "address": "101  OCEAN BLUFFS BLVD  Unit: 502 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "A/C Changeout",
-        "subtype": "Change Out",
-        "description": "(1) LENNOX 2.5-TON A/C CHANGE-OUT, LIKE FOR LIKE",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-04-09",
-        "finalDate": "2026-06-18",
-        "expirationDate": "2026-12-14",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/e8aedd62-30c4-4049-b6bb-41aeb022d450"
-      }
-    ],
-    "30434105050007060": [
-      {
-        "permitNumber": "26-094175-COMM",
-        "parcelId": "30434105050007060",
-        "address": "717 S US HIGHWAY 1   Unit: 706 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACE 4 WINDOWS, 2 SLIDING GLASS DOORS WITH IMPACT LIKE FOR LIKE.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-08",
-        "issuedDate": "2026-04-17",
-        "finalDate": "2026-06-29",
-        "expirationDate": "2026-12-23",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ce6a746f-dce4-41c3-b9a5-522d8a641ffc"
       }
     ]
   }
