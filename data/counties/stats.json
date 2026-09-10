@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-09T07:56:19Z",
+  "generated": "2026-09-10T07:45:19Z",
   "salesGenerated": "2026-09-07T07:02:57Z",
   "featuredSlugs": [
     "palm-beach",
@@ -589,10 +589,10 @@
       "slug": "marion",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-09",
-        "label": "September 9, 2026",
-        "shortLabel": "Sep 9",
-        "count": 76,
+        "date": "2026-09-16",
+        "label": "September 16, 2026",
+        "shortLabel": "Sep 16",
+        "count": 43,
         "source": "scraper"
       },
       "surplusPortal": true,
