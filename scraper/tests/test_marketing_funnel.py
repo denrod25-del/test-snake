@@ -29,7 +29,7 @@ class TestMarketingFunnel(unittest.TestCase):
         self.assertNotIn("Public Beta</p>", html.split("<h1>")[0])
 
     def test_plausible_on_core_marketing_pages(self):
-        needle = "plausible.io/js/script.tagged-events.outbound-links.js"
+        needle = "plausible.io/js/pa-W5hLWZYnOYQ6KHHQAhUDL.js"
         for rel in (
             "index.html",
             "pricing.html",

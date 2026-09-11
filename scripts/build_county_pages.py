@@ -225,7 +225,12 @@ PAGE_TEMPLATE = """<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/deedscout.css" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<script defer data-domain="deedscout.app" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-W5hLWZYnOYQ6KHHQAhUDL.js"></script>
+<script>
+  window.plausible=window.plausible||function(){{(plausible.q=plausible.q||[]).push(arguments)}},plausible.init=plausible.init||function(i){{plausible.o=i||{{}}}};
+  plausible.init({{ outboundLinks: true, taggedEvents: true }});
+</script>
 <script type="application/ld+json">
 {jsonld}
 </script>
