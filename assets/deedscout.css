@@ -479,8 +479,10 @@ body.ds-body a.ds-link:hover { color: var(--ink); border-bottom-color: transpare
 /* ---------- Pricing ---------- */
 .ds-pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  max-width: 820px;
+  margin: 0 auto;
 }
 .ds-pricing-card {
   background: var(--paper-2);
@@ -778,6 +780,21 @@ body.ds-tool .ds-form-light textarea {
 
 .ds-pricing-live { font-size: 12px; color: var(--muted); margin: 0 0 16px; padding-top: 12px; border-top: 1px solid var(--rule-soft); }
 .ds-pricing-live strong { color: var(--ink); display: block; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
+.ds-pricing-anchor {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0 0 16px;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.ds-pricing-footnote {
+  max-width: 720px;
+  margin: 28px auto 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
 
 /* ---------- Nav labs dropdown ---------- */
 .ds-nav-labs { position: relative; display: inline-flex; align-items: center; }

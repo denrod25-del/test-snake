@@ -224,6 +224,13 @@ PAGE_TEMPLATE = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/assets/deedscout.css" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-W5hLWZYnOYQ6KHHQAhUDL.js"></script>
+<script>
+  window.plausible=window.plausible||function(){{(plausible.q=plausible.q||[]).push(arguments)}},plausible.init=plausible.init||function(i){{plausible.o=i||{{}}}};
+  plausible.init({{ outboundLinks: true, taggedEvents: true }});
+</script>
 <script type="application/ld+json">
 {jsonld}
 </script>
@@ -344,6 +351,45 @@ PAGE_TEMPLATE = """<!doctype html>
   }}
   .cta .cta-msg {{ flex: 1 1 380px; }}
   .cta .cta-msg strong {{ font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; color: var(--accent-ink, #4a3a25); }}
+  .county-next-sale {{
+    margin: 0 0 24px;
+    padding: 18px 22px;
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
+  }}
+  .county-next-sale h2 {{
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 26px;
+    margin: 0 0 8px;
+    color: var(--ink, #0c1320);
+  }}
+  .county-next-sale p {{ margin: 0; font-size: 15px; line-height: 1.5; }}
+  .county-alert-capture {{
+    margin: 28px 0;
+    padding: 18px 22px;
+    background: #fff;
+    border: 1px solid var(--rule, #d9d4c7);
+  }}
+  .county-alert-capture h2 {{
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    margin: 0 0 8px;
+  }}
+  .county-alert-capture .ds-form {{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: end;
+    margin-top: 12px;
+  }}
+  .county-alert-capture label {{ flex: 1 1 220px; font-size: 13px; }}
+  .county-alert-capture input[type="email"] {{
+    width: 100%;
+    margin-top: 4px;
+    padding: 10px 12px;
+    border: 1px solid var(--rule, #d9d4c7);
+  }}
+  .county-learn {{ margin: 28px 0 8px; }}
   .btn {{
     display: inline-block;
     padding: 10px 20px;
@@ -405,11 +451,34 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
     """Compose the per-county body HTML."""
     parts = []
 
-    # ----- Stat grid -----
+    # ----- Above-the-fold next sale (query intent) -----
     next_sale = pick_next_sale(sales_entries)
+    if next_sale:
+        sale_label = fmt_date_iso(next_sale["date"])
+        count = next_sale.get("count")
+        count_bit = f"{count} parcels scheduled. " if count else ""
+        official = next_sale.get("officialUrl") or sales_source_url or "#"
+        parts.append(
+            f'<section class="county-next-sale" aria-label="Next tax deed sale">'
+            f'<h2>Next {html_escape(county)} County tax deed sale: {html_escape(sale_label)}</h2>'
+            f'<p>{html_escape(count_bit)}'
+            f'<a href="{html_escape(official)}" rel="nofollow noopener" target="_blank">'
+            f'Verify on the official auction site</a> before bidding.</p>'
+            f'</section>'
+        )
+    else:
+        parts.append(
+            f'<section class="county-next-sale" aria-label="Tax deed sales">'
+            f'<h2>{html_escape(county)} County tax deed sales</h2>'
+            f'<p>We do not yet scrape live dates for this county. Check the official clerk link below, or '
+            f'<a href="/pricing.html">get an alert</a> when we add it.</p>'
+            f'</section>'
+        )
+
+    # ----- Stat grid -----
     next_sale_str = (
         fmt_date_iso(next_sale["date"]) if next_sale
-        else "No verified sale date in DeedScout — verify on the official clerk or auction source."
+        else "No verified sale date in DeedScout. Verify on the official clerk or auction source."
     )
     next_sale_count = next_sale.get("count") if next_sale else None
     next_sale_sub = (
@@ -654,15 +723,44 @@ def build_county_body(county, slug, region, cities, sales_entries, surplus_entry
         "or making financial decisions.</p>"
     )
 
+    # ----- County email capture -----
+    parts.append(f"""
+    <section class="county-alert-capture" aria-label="Sale date email alerts">
+      <h2>Email me before the next {html_escape(county)} sale</h2>
+      <p class="small">One field. We only email when a scraped sale date is coming up for this county.</p>
+      <form class="ds-form" name="county-sale-alert" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="county-sale-alert" />
+        <input type="hidden" name="county" value="{html_escape(county)}" />
+        <input type="hidden" name="county_slug" value="{html_escape(slug)}" />
+        <p hidden><label>Don't fill: <input name="bot-field" /></label></p>
+        <label>Email<input type="email" name="email" required autocomplete="email" placeholder="you@firm.com" /></label>
+        <button type="submit" class="ds-btn ds-btn-primary plausible-event-name=digest_signup">Notify me</button>
+      </form>
+    </section>
+    """)
+
+    # ----- Learn links -----
+    parts.append("""
+    <section class="county-learn" aria-label="Learn">
+      <h2>Related guides</h2>
+      <ul class="official-links">
+        <li><a href="../learn/florida-tax-deed-sales.html">How Florida tax deed sales work</a></li>
+        <li><a href="../learn/florida-surplus-funds.html">Florida surplus funds after a tax deed sale</a></li>
+        <li><a href="../learn/parcel-research-checklist.html">Parcel research checklist</a></li>
+        <li><a href="../learn/tax-deed-vs-tax-certificate.html">Tax deed vs tax certificate</a></li>
+      </ul>
+    </section>
+    """)
+
     return "\n".join(parts)
 
 
 def build_jsonld(county, slug, base_url, region, sales_entries, permit_coverage, lede):
     """Build a Schema.org JSON-LD blob for the page."""
-    obj = {
-        "@context": "https://schema.org",
+    next_sale = pick_next_sale(sales_entries)
+    article = {
         "@type": "Article",
-        "headline": f"{county} County, FL — Tax Deed Sales, Permits & Property Research",
+        "headline": f"{county} County, FL Tax Deed Sales, Permits & Property Research",
         "description": lede,
         "url": f"{base_url}/counties/{slug}.html" if base_url else f"counties/{slug}.html",
         "about": {
@@ -670,11 +768,11 @@ def build_jsonld(county, slug, base_url, region, sales_entries, permit_coverage,
             "name": f"{county} County, Florida",
             "containedInPlace": {"@type": "State", "name": "Florida"},
         },
-        "publisher": {"@type": "Organization", "name": "DeedScout"},
+        "publisher": {"@type": "Organization", "name": "DeedScout", "url": "https://deedscout.app/"},
         "datePublished": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
     }
     if sales_entries:
-        obj["mentions"] = [{
+        article["mentions"] = [{
             "@type": "Event",
             "name": f"{county} County tax-deed sale",
             "startDate": s["date"],
@@ -685,7 +783,32 @@ def build_jsonld(county, slug, base_url, region, sales_entries, permit_coverage,
                 "name": f"{county} County, FL",
             },
         } for s in sales_entries[:5]]
-    return json.dumps(obj, indent=2)
+
+    when_answer = (
+        f"The next scraped {county} County tax deed sale is {fmt_date_iso(next_sale['date'])}."
+        if next_sale else
+        f"DeedScout does not yet scrape a live sale date for {county} County. Use the official clerk or auction link on this page."
+    )
+    where_answer = (
+        f"{county} County tax deed sales are held through the county clerk or linked auction platform. "
+        "Always open the official source linked on this page before bidding."
+    )
+    faq = {
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": f"When is the next tax deed sale in {county} County?",
+                "acceptedAnswer": {"@type": "Answer", "text": when_answer},
+            },
+            {
+                "@type": "Question",
+                "name": f"Where are {county} County tax deed sales held?",
+                "acceptedAnswer": {"@type": "Answer", "text": where_answer},
+            },
+        ],
+    }
+    return json.dumps({"@context": "https://schema.org", "@graph": [article, faq]}, indent=2)
 
 
 def render_cta_block(county, slug, *, index=False):
@@ -836,7 +959,8 @@ def render_index_page(counties_data, base_url):
             else:
                 permit_suffix = ' <span class="badge muted">County · See permit status on page</span>'
             return (
-                f'<li><a href="{html_escape(c["slug"])}.html">{html_escape(c["county"])} County, FL</a>'
+                f'<li><a class="plausible-event-name=county_view" href="{html_escape(c["slug"])}.html">'
+                f'{html_escape(c["county"])} County, FL</a>'
                 f'{permit_suffix}</li>'
             )
         rows = "\n".join(_row(c) for c in items)
@@ -889,6 +1013,8 @@ def render_sitemap(counties_data, base_url):
         f"{base_url}/learn/florida-surplus-funds.html",
         f"{base_url}/learn/tax-deed-vs-tax-certificate.html",
         f"{base_url}/learn/parcel-research-checklist.html",
+        f"{base_url}/florida-surplus-funds/",
+        f"{base_url}/florida-surplus-funds-by-county.html",
         f"{base_url}/municipalities/index.html",
         f"{base_url}/counties/index.html",
     ]
