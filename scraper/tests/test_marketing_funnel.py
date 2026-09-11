@@ -83,6 +83,13 @@ class TestMarketingFunnel(unittest.TestCase):
         self.assertIn('name="email"', form)
         self.assertIn("Broward: next sale Oct 26", html)
 
+    def test_checkout_success_plausible_event(self):
+        html = (ROOT / "tax-deeds.html").read_text(encoding="utf-8")
+        self.assertIn("trackCheckoutSuccessOnce", html)
+        self.assertIn("plausible('checkout_success')", html)
+        self.assertIn("docs/PLAUSIBLE_FUNNEL.md", str(ROOT / "docs" / "PLAUSIBLE_FUNNEL.md"))
+        self.assertTrue((ROOT / "docs" / "PLAUSIBLE_FUNNEL.md").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

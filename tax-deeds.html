@@ -6601,9 +6601,24 @@
       return new URLSearchParams(hashPart).get('checkout');
     }
 
+    function trackCheckoutSuccessOnce() {
+      // Fire once per browser session so refresh / post-checkout polling does not
+      // inflate the Plausible checkout_success goal.
+      try {
+        if (sessionStorage.getItem('ds_plausible_checkout_success') === '1') return;
+        sessionStorage.setItem('ds_plausible_checkout_success', '1');
+      } catch (e) { /* private mode: still attempt one fire */ }
+      try {
+        if (typeof window.plausible === 'function') {
+          window.plausible('checkout_success');
+        }
+      } catch (e) { /* ignore analytics failures */ }
+    }
+
     function normalizeCheckoutReturnUrl() {
       var status = getCheckoutReturnStatus();
       if (!status) return status;
+      if (status === 'success') trackCheckoutSuccessOnce();
       var hashBase = (window.location.hash.split('?')[0] || '');
       if (!hashBase || hashBase === '#') {
         window.location.hash = status === 'success' ? '#/account' : '#/pricing';
