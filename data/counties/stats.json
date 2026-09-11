@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-10T07:45:19Z",
+  "generated": "2026-09-11T07:55:22Z",
   "salesGenerated": "2026-09-07T07:02:57Z",
   "featuredSlugs": [
     "palm-beach",
@@ -624,13 +624,7 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-09-10",
-        "label": "September 10, 2026",
-        "shortLabel": "Sep 10",
-        "count": 1,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -697,10 +691,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-10",
-        "label": "September 10, 2026",
-        "shortLabel": "Sep 10",
-        "count": 8,
+        "date": "2026-09-17",
+        "label": "September 17, 2026",
+        "shortLabel": "Sep 17",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -769,9 +763,9 @@
       "slug": "pinellas",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-10",
-        "label": "September 10, 2026",
-        "shortLabel": "Sep 10",
+        "date": "2026-09-24",
+        "label": "September 24, 2026",
+        "shortLabel": "Sep 24",
         "count": null,
         "source": "cadence"
       },
@@ -840,13 +834,7 @@
       "county": "Sarasota",
       "slug": "sarasota",
       "region": "Southwest",
-      "nextSale": {
-        "date": "2026-09-10",
-        "label": "September 10, 2026",
-        "shortLabel": "Sep 10",
-        "count": 1,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.sarasotaclerk.com/Home-and-Property/Tax-Deeds/Surplus-Funds-from-Tax-Deed-Sale",
       "permits": {
@@ -859,10 +847,10 @@
       "slug": "seminole",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-10",
-        "label": "September 10, 2026",
-        "shortLabel": "Sep 10",
-        "count": 4,
+        "date": "2026-10-15",
+        "label": "October 15, 2026",
+        "shortLabel": "Oct 15",
+        "count": 11,
         "source": "scraper"
       },
       "surplusPortal": true,
