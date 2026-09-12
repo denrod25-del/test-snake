@@ -78,7 +78,7 @@ This plan owns the **Field Service Ops v1 pay-closed core**. The broader “Serv
 
 - R3. A shop can create and manage jobs tagged as plumbing, HVAC, or electrical (same product for all three trades).
 - R4. A CSR can create a customer (or select existing) and book a job with trade, problem description, service address, and preferred time window.
-- R5. A customer can submit an online service request; the request appears in an office queue until a CSR confirms it into a scheduled job or declines it.
+- R5. A customer can submit an online service request; the request appears in an office queue until a CSR confirms it into an unassigned job ready for dispatch or declines it.
 - R6. A dispatcher can view a day board of unassigned and scheduled jobs and assign a technician plus time window.
 - R7. A job supports a clear field lifecycle: at least En route, On site, and Done (plus unpaid-complete with balance due when payment is not collected).
 
@@ -134,7 +134,7 @@ This plan owns the **Field Service Ops v1 pay-closed core**. The broader “Serv
   - **Actors:** A4, A5, A1
   - **Steps:** Status to Done → build invoice from pricebook → collect card/ACH on phone → job paid (or balance due) → owner sees payment on today’s list.
   - **Outcome:** Money collected before the truck leaves when payment succeeds.
-  - **Covered by:** R7–R12
+  - **Covered by:** R7–R13
 
 - F5. Optional property briefing
   - **Trigger:** Tech or office wants address context before/during the job.
@@ -234,10 +234,13 @@ This plan owns the **Field Service Ops v1 pay-closed core**. The broader “Serv
 
 - Q1. Final public brand name and domain.
 - Q2. List price / packaging tiers for “cheaper.”
-- Q3. (Resolved in KTD5/KTD6) Stripe Connect Express + Payment Element; no Terminal hardware in v1.
-- Q4. (Resolved in KTD1) New `field-service-ops/` Vite + React + TS + Supabase app; separate Netlify site.
-- Q5. (Resolved in KTD8) Inline briefing panel via FSO proxy to SPI.
-- Q6. (Resolved in KTD7) Invoices only in v1 — no separate estimate document type.
+
+**Resolved in Planning**
+
+- Q3. Stripe Connect Express + Payment Element; no Terminal hardware in v1 — KTD5, KTD6.
+- Q4. New `field-service-ops/` Vite + React + TS + Supabase app; separate Netlify site — KTD1.
+- Q5. Inline briefing panel via FSO proxy to SPI — KTD8.
+- Q6. Invoices only; no separate estimate document type — KTD7.
 
 ### Sources / Research
 
@@ -254,13 +257,13 @@ This plan owns the **Field Service Ops v1 pay-closed core**. The broader “Serv
 - KTD1. **New top-level Vite + React + TypeScript SPA** at `field-service-ops/` with React Router, own `package.json`, own Netlify site publishing `dist/` — not Next.js, not under `deedscout.app`. Governs R1.
 - KTD2. **Dedicated Supabase project for FSO** (auth + Postgres + Storage for job photos) with `shop_id` on every tenant table and RLS enforcing membership. Do not reuse DeedScout `profiles` / Pro subscription schema. Governs R2, R16.
 - KTD3. **Roles as membership flags on `shop_members`** (`is_owner`, `is_csr`, `is_dispatcher`, `is_tech`) so one user can hold multiple roles. Governs R16.
-- KTD4. **Public online request is unauthenticated, shop-scoped by public slug** (`/r/:shopSlug`); CSR confirm/decline is authenticated. Governs R5, F2, AE2.
+- KTD4. **Public online request is unauthenticated, shop-scoped by public slug** (`/r/:shopSlug`); resolve slug→shop server-side (RPC or Netlify function) — never trust client `shop_id`; CSR confirm/decline is authenticated; rate-limit public creates. Governs R5, F2, AE2.
 - KTD5. **Stripe Connect Express** for each shop; platform creates PaymentIntents on the connected account so payouts go to the shop. Governs R11, F4.
 - KTD6. **On-site collect via Stripe Payment Element** (card + US bank/ACH when enabled) in the tech mobile web UI — not Stripe Terminal hardware in v1. Governs R8, R11, AE3.
-- KTD7. **Invoice-only quoting in v1** — pricebook lines + custom lines on the invoice; no separate estimate entity. Governs R10, R13.
-- KTD8. **SPI as inline job panel** — FSO Netlify function proxies to `https://deedscout.app/api/property` with a per-shop SPI API key stored server-side; UI renders trust-labeled groups; core job flow never blocks on SPI failure. Governs R14, R15, AE5, F5.
+- KTD7. **No separate estimate entity in v1** — pricebook lines + custom lines on the invoice only. Governs R10, R13.
+- KTD8. **SPI as inline job panel** — FSO Netlify function (JWT + shop membership required) proxies to `https://deedscout.app/api/property` with a per-shop SPI API key stored server-side only (AES-GCM ciphertext in a service-role-only column/store; never selected by member RLS); UI renders trust-labeled groups; core job flow never blocks on SPI failure. Governs R14, R15, AE5, F5.
 - KTD9. **Working UI brand string “Field Service Ops”** (replaceable) until Q1 brand name lands — no DeedScout chrome. Governs R1, R15.
-- KTD10. **Photo uploads via Supabase Storage** scoped by `shop_id/job_id/` with RLS; notes as text rows. Governs R8.
+- KTD10. **Photo uploads via private Supabase Storage** scoped by `shop_id/job_id/` with RLS, signed URLs for display, size/MIME limits; notes as text rows. Governs R8.
 
 ### High-Level Technical Design
 
@@ -273,10 +276,11 @@ Supabase (FSO project): shops, members, customers, service_requests,
   ^
   | service role / Stripe webhook
 FSO Netlify functions
-  - create-connect-account / account-link
-  - create-payment-intent (Connect destination)
-  - stripe-connect-webhook
-  - property-briefing-proxy -> DeedScout GET /api/property + X-Api-Key
+  - create-connect-account / account-link (owner-only)
+  - create-payment-intent (direct charge on connected account)
+  - stripe-connect-webhook (Connect events; metadata shop_id + invoice_id)
+  - create-public-request (optional; or SECURITY DEFINER RPC)
+  - property-briefing-proxy (JWT + membership) -> DeedScout GET /api/property + X-Api-Key
 ```
 
 ```mermaid
@@ -292,12 +296,12 @@ sequenceDiagram
   FSO->>Stripe: PaymentIntent on connected account
   Stripe-->>FSO: clientSecret
   FSO-->>Tech: clientSecret
-  Tech->>Stripe: Payment Element confirm
+  Tech->>Stripe: Payment Element confirm with stripeAccount
   Stripe-->>FSO: webhook payment_intent.succeeded
   FSO->>DB: Mark payment + job paid
 ```
 
-Job lifecycle states (directional): `request` (online only) → `unassigned` → `scheduled` → `en_route` → `on_site` → `done` with `payment_status` in `unpaid | partial | paid`.
+Online intake lives in `service_requests` (`pending|confirmed|declined`). Job statuses: `unassigned` → `scheduled` → `en_route` → `on_site` → `done` with `payment_status` in `unpaid | partial | processing | paid` (ACH may sit in `processing` until settled).
 
 ### Assumptions
 
@@ -321,7 +325,7 @@ Job lifecycle states (directional): `request` (online only) → `unassigned` →
 3. U3 book path (customers, CSR jobs, online requests)
 4. U4 dispatch + tech job mobile lifecycle + photos
 5. U5 pricebook + invoices + Stripe Connect pay
-6. U6 SPI inline panel + verification harness
+6. U6 SPI inline panel + ops docs
 
 ### Research Inputs
 
@@ -345,7 +349,7 @@ Job lifecycle states (directional): `request` (online only) → `unassigned` →
 - **Goal:** Runnable `field-service-ops` Vite+React+TS app with working-title shell, router placeholders, and Netlify build/publish config for a separate site.
 - **Requirements:** R1, R15, KTD1, KTD9
 - **Files:** `field-service-ops/package.json`, `field-service-ops/vite.config.ts`, `field-service-ops/index.html`, `field-service-ops/src/main.tsx`, `field-service-ops/src/App.tsx`, `field-service-ops/src/styles.css`, `field-service-ops/netlify.toml`, `field-service-ops/README.md`, `PROJECTS.md` (one-line entry)
-- **Approach:** Clone structure/spirit of `app/` (Vite React TS + react-router). Routes placeholders: `/login`, `/app` (office), `/tech`, `/r/:shopSlug` (public request). Brand string “Field Service Ops”. Netlify: `publish = dist`, SPA redirects, `functions = netlify/functions`. README: `npm install && npm run dev` and local URL.
+- **Approach:** Clone structure/spirit of `app/` (Vite React TS + react-router). Routes placeholders: `/login`, `/app` (office), `/tech`, `/r/:shopSlug` (public request). Brand string “Field Service Ops”. Netlify: `publish = dist`, `functions = netlify/functions`, SPA `/* → /index.html` **after** `/api/*` redirects to `/.netlify/functions/*` for `create-connect-account`, `create-payment-intent`, `stripe-connect-webhook`, `property-briefing-proxy`, and public-request if used (mirror root DeedScout `netlify.toml` pattern). README: `npm install && npm run dev` and local URL.
 - **Dependencies:** None
 - **Test scenarios:**
   - `npm run typecheck` / build succeeds
@@ -356,30 +360,34 @@ Job lifecycle states (directional): `request` (online only) → `unassigned` →
 ### U2. Multi-tenant schema, auth, and roles
 
 - **Goal:** Shops, memberships, RLS isolation, signup creates shop #N, invites assign roles.
-- **Requirements:** R2, R16, F6, AE1, KTD2, KTD3
+- **Requirements:** R2, R16, F6, KTD2, KTD3
 - **Files:** `field-service-ops/supabase/migrations/20260912_fso_tenancy.sql`, `field-service-ops/supabase/schema.sql`, `field-service-ops/src/lib/supabase.ts`, `field-service-ops/src/auth/*`, `field-service-ops/src/pages/Login.tsx`, `field-service-ops/src/pages/Team.tsx`, `field-service-ops/tests/tenancy.test.ts` (or `*.test.ts` colocated)
-- **Approach:** Tables: `shops` (id, name, slug unique, stripe_connect_account_id nullable, spi_api_key_ciphertext or vault ref nullable, timestamps), `shop_members` (shop_id, user_id, role flags, unique shop+user). RLS: select/write only when `auth.uid()` is an active member of `shop_id`. Signup flow: create auth user → create shop + owner membership. Invite: owner adds email/role (magic link or password invite v1-simple). Never join across shops in queries without membership check.
+- **Approach:** Tables: `shops` (id, name, slug unique, stripe_connect_account_id nullable, timestamps — **no** SPI secret column readable by members). SPI secrets: service-role-only store (AES-GCM ciphertext table/column with no authenticated SELECT, or equivalent); owner writes via Netlify function only. `shop_members` (shop_id, user_id, role flags, unique shop+user). Default RLS: select/write when `auth.uid()` is an active member of `shop_id`. **Bootstrap:** `SECURITY DEFINER` RPC `create_shop_with_owner(name, slug)` (or auth trigger) inserts shop + owner membership in one privileged transaction — clients do not direct-insert shops under membership RLS. **Invites (v1):** password/set-password invite via Admin API Netlify function (defer magic-link-only). Never join across shops without membership check.
 - **Dependencies:** U1
 - **Test scenarios:**
-  - AE1: member of shop B cannot read shop A customers/jobs (RLS policy tests with two users)
+  - Member of shop B cannot read shop A’s `shops`/`shop_members` rows
+  - `create_shop_with_owner` succeeds for a newly signed-up user with no prior membership
   - Owner can invite a tech; tech cannot invite owners (authorization rules)
   - User with CSR+tech flags can access both office book and tech routes
   - Unauthenticated access to `/app` redirects to login
+  - Member SELECT on shops never returns SPI secret material
 - **Verification:** Migration applies on FSO Supabase; Vitest/node tests for policy helpers and/or documented SQL policy assertions
 
 ### U3. Customers, CSR booking, and online requests
 
 - **Goal:** Complete F1/F2 book path with trade tags and office-controlled online requests.
-- **Requirements:** R3, R4, R5, F1, F2, AE2, KTD4
-- **Files:** `field-service-ops/supabase/migrations/20260912_fso_customers_jobs.sql` (or extend tenancy migration), `field-service-ops/src/pages/Customers.tsx`, `field-service-ops/src/pages/BookJob.tsx`, `field-service-ops/src/pages/RequestQueue.tsx`, `field-service-ops/src/pages/PublicRequest.tsx`, `field-service-ops/tests/booking.test.ts`
-- **Approach:** `customers` (shop_id, name, phone, email, address fields). `service_requests` (shop_id, status `pending|confirmed|declined`, trade, description, contact, address, preferred_window). `jobs` created on CSR book or on confirm (trade enum plumbing/hvac/electrical, status `unassigned`, customer_id, address, window). Public page `/r/:shopSlug` inserts `service_requests` only (no job yet). Confirm copies into `jobs` and marks request confirmed.
+- **Requirements:** R3, R4, R5, F1, F2, AE1, AE2, KTD4
+- **Files:** `field-service-ops/supabase/migrations/20260912_fso_customers_jobs.sql` (or extend tenancy migration), `field-service-ops/src/pages/Customers.tsx`, `field-service-ops/src/pages/BookJob.tsx`, `field-service-ops/src/pages/RequestQueue.tsx`, `field-service-ops/src/pages/PublicRequest.tsx`, `field-service-ops/netlify/functions/create-public-request.js` (if not using RPC only), `field-service-ops/tests/booking.test.ts`
+- **Approach:** `customers` (shop_id, name, phone, email, address fields). `service_requests` (shop_id, status `pending|confirmed|declined`, trade, description, contact, address, preferred_window). `jobs` created on CSR book or on confirm (trade enum plumbing/hvac/electrical, status `unassigned`, customer_id, address, window). **Public path:** `/r/:shopSlug` must not accept client-supplied `shop_id` — resolve slug→shop in a `SECURITY DEFINER` RPC or Netlify function and INSERT with that resolved id; deny anon SELECT/UPDATE/DELETE on `service_requests`. Add per-slug + IP rate limit (429) and field length validation on public create. Confirm copies into `jobs` as `unassigned` and marks request confirmed.
 - **Dependencies:** U2
 - **Test scenarios:**
   - CSR creates customer + job → job `unassigned` with trade
   - AE2: public submit creates pending request, no job row until confirm
-  - Confirm creates job; decline leaves no job
+  - AE1: member of shop B cannot read shop A customers/jobs
+  - Confirm creates unassigned job; decline leaves no job
   - Invalid shop slug → friendly 404 on public form
-  - Cross-tenant: cannot read other shop customers
+  - Public forge of another shop’s UUID as shop_id is rejected
+  - Rate-limit exceeded → 429
 - **Verification:** Unit/integration tests with mocked Supabase or local test project
 
 ### U4. Dispatch board and tech job mobile lifecycle
@@ -387,41 +395,44 @@ Job lifecycle states (directional): `request` (online only) → `unassigned` →
 - **Goal:** Assign techs/windows; tech mobile web runs en route → on site → done with notes/photos; office can update too.
 - **Requirements:** R6, R7, R8, R9, F3, KTD10
 - **Files:** `field-service-ops/src/pages/DispatchBoard.tsx`, `field-service-ops/src/pages/TechJobList.tsx`, `field-service-ops/src/pages/TechJobDetail.tsx`, `field-service-ops/src/components/JobStatusControls.tsx`, Storage policies in migration, `field-service-ops/tests/dispatch-tech.test.ts`
-- **Approach:** Day board lists unassigned + scheduled for selected date; assign `tech_user_id` + window → status `scheduled`. Tech list filters jobs assigned to current user. Status transitions enforce order loosely (allow office override). Notes table; photos to Storage. Mobile-first CSS for `/tech` routes. Unpaid completion allowed (payment_status stays unpaid) — pairs with U5.
+- **Approach:** Day board lists unassigned + scheduled for selected date; assign `tech_user_id` + window → status `scheduled`. Tech list filters jobs assigned to current user. Status transitions enforce order loosely (allow office override for **status** — R9 status half). Notes table; photos to **private** Storage bucket under `shop_id/job_id/` with RLS, signed URLs for display, size/MIME allowlist. Mobile-first CSS for `/tech` routes. Unpaid completion allowed (payment_status stays unpaid) — pairs with U5.
 - **Dependencies:** U3
 - **Test scenarios:**
   - Assign tech → job appears on that tech’s list only
   - Status path en_route → on_site → done
   - Office can set status on same job
-  - Photo upload path rejects cross-shop object keys
+  - Photo upload path rejects cross-shop object keys; unauthenticated object GET fails
   - Unassigned jobs do not appear on tech list
 - **Verification:** Component/hook tests + manual phone-width check locally
 
 ### U5. Pricebook, invoices, and Stripe Connect on-site pay
 
 - **Goal:** Build invoices from pricebook; tech collects card/ACH on-site; owner sees today’s payments; unpaid balance visible.
-- **Requirements:** R10, R11, R12, R13, F4, AE3, AE4, KTD5, KTD6, KTD7
+- **Requirements:** R9, R10, R11, R12, R13, F4, AE3, AE4, KTD5, KTD6, KTD7
 - **Files:** `field-service-ops/supabase/migrations/20260912_fso_billing.sql`, `field-service-ops/src/pages/Pricebook.tsx`, `field-service-ops/src/pages/TodayMoney.tsx`, `field-service-ops/src/components/InvoiceBuilder.tsx`, `field-service-ops/src/components/OnSitePay.tsx`, `field-service-ops/netlify/functions/package.json`, `field-service-ops/netlify/functions/create-connect-account.js`, `field-service-ops/netlify/functions/create-payment-intent.js`, `field-service-ops/netlify/functions/stripe-connect-webhook.js`, `field-service-ops/netlify/functions/_lib/stripe.js`, `field-service-ops/tests/payments.test.ts`
-- **Approach:** `pricebook_items` (shop_id, name, trade, unit_amount_cents). `invoices` + `invoice_lines`. `payments` (amount, status, stripe_payment_intent_id). Owner Connect onboarding via Account Link. `create-payment-intent` authenticates user JWT, verifies shop membership + Connect account, creates PI on connected account for invoice balance. Webhook marks payment succeeded/failed/processing and updates job `payment_status`. TodayMoney aggregates paid/partial for local day. Skip payment → AE4 balance due.
+- **Approach:** `pricebook_items` (shop_id, name, trade, unit_amount_cents). `invoices` + `invoice_lines`. `payments` (amount, status, stripe_payment_intent_id). Owner-only Connect onboarding via Account Link (`is_owner` enforced server-side). `create-payment-intent` authenticates JWT, verifies membership + Connect account, creates **direct** PaymentIntent on the connected account (`stripeAccount`), stamps `metadata.shop_id` + `metadata.invoice_id`; Payment Element loads Stripe.js with `stripeAccount`. Webhook verifies signature, binds event to matching Connect account + metadata, marks payment succeeded/failed/processing and updates job `payment_status`. Office can build/edit invoice when tech cannot (R9 invoice half). TodayMoney aggregates paid/partial/processing for local day. Skip payment → AE4 balance due.
 - **Dependencies:** U4
 - **Test scenarios:**
   - Invoice totals from pricebook + custom line
   - AE3: succeeded webhook → job paid + appears on TodayMoney
   - AE4: done without pay → balance due visible
   - PaymentIntent rejected if shop has no Connect account
+  - Tech JWT cannot start Connect onboarding (403)
+  - Webhook with mismatched Connect account/metadata rejected
   - Partial payment leaves remaining balance
   - Cross-tenant cannot pay another shop’s invoice
-- **Verification:** Function tests with mocked Stripe; webhook signature test; manual test mode card smoke after Connect test account
+- **Verification:** Function tests with mocked Stripe; webhook signature + binding tests; manual test mode card smoke after Connect Express test account
 
-### U6. SPI inline briefing panel and verification harness
+### U6. SPI inline briefing panel and ops docs
 
-- **Goal:** Optional inline property briefing on the job via proxy; wire AE/SC automated coverage; document dogfood ops.
-- **Requirements:** R14, R15, F5, AE5, SC1–SC4, KTD8
-- **Files:** `field-service-ops/netlify/functions/property-briefing-proxy.js`, `field-service-ops/src/components/PropertyBriefingPanel.tsx`, `field-service-ops/src/pages/TechJobDetail.tsx` (integrate), office job detail integrate, `field-service-ops/tests/briefing-panel.test.ts`, `field-service-ops/tests/e2e/smoke.md` or playwright/vitest smoke, `field-service-ops/README.md` (SPI key + Connect setup)
-- **Approach:** Panel behind “Property briefing” disclosure (not primary nav). Proxy loads shop’s SPI key server-side, calls DeedScout `/api/property`, returns JSON; on error show unavailable state without blocking job. Render group trust labels. Add regression tests for AE1–AE5 where automatable; document manual SC1–SC3 phone path. Update `PROJECTS.md` if not done in U1.
-- **Dependencies:** U4 (job address), U5 optional; SPI key config on shop (owner settings field)
+- **Goal:** Optional inline property briefing on the job via authenticated proxy; document dogfood ops for SPI key + Connect.
+- **Requirements:** R14, R15, F5, AE5, KTD8
+- **Files:** `field-service-ops/netlify/functions/property-briefing-proxy.js`, `field-service-ops/src/components/PropertyBriefingPanel.tsx`, `field-service-ops/src/pages/TechJobDetail.tsx` (integrate), office job detail integrate, `field-service-ops/tests/briefing-panel.test.ts`, `field-service-ops/README.md` (SPI key + Connect setup)
+- **Approach:** Panel behind “Property briefing” disclosure (not primary nav). Proxy requires Supabase JWT + active membership for the job’s shop, loads SPI key via service role only, calls DeedScout `/api/property`, returns JSON; never returns the SPI key to the client. On error show unavailable without blocking job. Render group trust labels. Owner configures SPI key through a Netlify function write path. README covers env vars and dogfood checklist (SC1–SC3 remain Definition of Done / Verification manual smoke, not U6 pass criteria).
+- **Dependencies:** U4 (job address); U5 not required for briefing
 - **Test scenarios:**
   - AE5: mocked SPI partial response renders parcel + unavailable permits, no invented fields
+  - Unauthenticated or cross-tenant proxy call → 401/403
   - SPI 401/500 → panel error/unavailable, job actions still enabled
   - Shop without SPI key → panel explains setup, no crash
   - Briefing control is secondary (not required to mark Done)
