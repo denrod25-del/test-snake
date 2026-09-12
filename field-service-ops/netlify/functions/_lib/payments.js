@@ -16,15 +16,16 @@ function buildPaymentIntentParams({ amountCents, currency, shopId, invoiceId, jo
   return {
     amount: amountCents,
     currency: currency || 'usd',
+    automatic_payment_methods: { enabled: true },
     metadata: { shop_id: shopId, invoice_id: invoiceId, job_id: jobId },
-    // Direct charge on connected account
+    // Direct charge on connected account — pass stripeAccount to stripe.paymentIntents.create
     stripeAccount: connectAccountId,
   };
 }
 
 function assertWebhookBinding(event, { shopConnectAccountId, invoiceId, shopId }) {
   const meta = (event.data && event.data.object && event.data.object.metadata) || {};
-  const account = event.account || event.data?.object?.on_behalf_of || null;
+  const account = event.account || null;
   if (shopConnectAccountId && account && account !== shopConnectAccountId) {
     return { ok: false, reason: 'account_mismatch' };
   }
@@ -44,4 +45,20 @@ function mapPaymentStatus(stripeStatus) {
   return 'pending';
 }
 
-module.exports = { buildPaymentIntentParams, assertWebhookBinding, mapPaymentStatus };
+function jobPaymentStatusFromPayments(totalCents, payments) {
+  const list = payments || [];
+  const applied = list
+    .filter((p) => p.status === 'succeeded' || p.status === 'processing')
+    .reduce((sum, p) => sum + (p.amount_cents || p.amountCents || 0), 0);
+  if (applied <= 0) return 'unpaid';
+  const anyProcessing = list.some((p) => p.status === 'processing');
+  if (applied < totalCents) return anyProcessing ? 'processing' : 'partial';
+  return anyProcessing ? 'processing' : 'paid';
+}
+
+module.exports = {
+  buildPaymentIntentParams,
+  assertWebhookBinding,
+  mapPaymentStatus,
+  jobPaymentStatusFromPayments,
+};

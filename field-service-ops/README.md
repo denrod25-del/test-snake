@@ -40,9 +40,25 @@ Public request form: **http://localhost:5173/r/dogfood**
 2. Apply `supabase/migrations/20260912_fso_core.sql` (or `supabase/schema.sql`).
 3. Set env for the SPA: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`.
 4. Create a **separate Netlify site** with base directory `field-service-ops` (or publish `field-service-ops/dist` with functions from `field-service-ops/netlify/functions`).
-5. Netlify function env: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `SPI_KEY_ENCRYPTION_SECRET`, `PUBLIC_SITE_URL`.
-6. Stripe Connect Express platform settings + webhook for connected account events → `/api/stripe-connect-webhook`.
-7. Issue a DeedScout SPI shop key (`scripts/issue-shop-api-key.mjs` in repo root) and store it via owner `/api/set-spi-key` (service-role ciphertext only).
+5. Netlify function env (FSO site):
+   - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY`
+   - `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`
+   - `SPI_KEY_ENCRYPTION_SECRET`, `PUBLIC_SITE_URL`
+   - optional `SPI_BASE_URL` (default `https://deedscout.app`)
+6. Stripe Connect Express platform settings + webhook for **connected account** `payment_intent.*` events → `/api/stripe-connect-webhook`.
+7. Issue a DeedScout SPI shop key (`scripts/issue-shop-api-key.mjs` in repo root) and store it via owner `POST /api/set-spi-key` `{ shopId, spiKey }` (AES-GCM ciphertext in `shop_spi_secrets`, service-role only).
+
+### Wired API routes
+
+| Route | Auth | Purpose |
+|-------|------|---------|
+| `POST /api/create-payment-intent` | JWT + member | Direct PI on connected account |
+| `POST /api/create-connect-account` | JWT + owner | Express Account Link |
+| `POST /api/stripe-connect-webhook` | Stripe signature | Mark payments / job payment_status |
+| `POST /api/create-public-request` | none (rate-limited) | RPC `submit_public_request` by slug |
+| `POST /api/property-briefing` | JWT + member | Proxy to DeedScout SPI |
+| `POST /api/set-spi-key` | JWT + owner | Store encrypted SPI key |
+| `POST /api/invite-member` | JWT + owner | Admin createUser + membership |
 
 ## Architecture notes
 
