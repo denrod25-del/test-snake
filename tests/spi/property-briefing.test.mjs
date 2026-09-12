@@ -81,6 +81,45 @@ describe('property-briefing handler', () => {
     assert.ok(body.links.propertyIntelligence);
   });
 
+  it('passes the parcel centroid to the septic signal and returns its group', async () => {
+    let seen = null;
+    const res = await handlePropertyBriefing(
+      { httpMethod: 'GET', headers: {}, queryStringParameters: { address: '1 Test St' } },
+      {
+        requireShopApiKey: async () => ({ shop: { id: 's1', name: 'Test Shop' } }),
+        assembleParcel: async () => ({
+          status: 'live',
+          source: 'gis',
+          data: {
+            pcn: '123',
+            address: '1 Test St',
+            centroid: { lon: -80.1, lat: 26.7 },
+            countySlug: 'palm-beach',
+          },
+        }),
+        assembleFlood: async () => ({ status: 'live', data: { zone: 'X' } }),
+        assembleSeptic: async (args) => {
+          seen = args;
+          return {
+            status: 'live',
+            source: 'data/signals/septic-layers.json',
+            data: { wastewater: { value: 'septic' }, waterSource: { value: 'well' }, flags: [] },
+          };
+        },
+        assemblePermits: async () => ({
+          permits: { status: 'cached', source: 'wpb', data: { coverageWindow: [], plumbing: [], other: [], matchCount: 0 } },
+          equipmentAge: { status: 'unavailable', data: null },
+        }),
+      }
+    );
+
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(seen, { lon: -80.1, lat: 26.7, countySlug: 'palm-beach' });
+    const body = JSON.parse(res.body);
+    assert.equal(body.groups.waterSewer.data.wastewater.value, 'septic');
+    assert.equal(body.groups.waterSewer.data.waterSource.value, 'well');
+  });
+
   it('still assembles permits when parcel has candidates (auto-pick or multi)', async () => {
     let permitsCalled = false;
     const res = await handlePropertyBriefing(

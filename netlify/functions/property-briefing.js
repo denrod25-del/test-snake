@@ -5,6 +5,7 @@ const shopAuth = require('./_lib/shop-auth');
 const { checkRateLimit, rateLimitResponse } = require('./_lib/rate-limit');
 const parcelLib = require('./_lib/spi-parcel');
 const floodLib = require('./_lib/spi-flood');
+const septicLib = require('./_lib/spi-septic');
 const permitsLib = require('./_lib/spi-permits');
 const { assembleOpportunities } = require('./_lib/spi-opportunities');
 const { getCanonicalSiteUrl } = require('./_lib/config');
@@ -14,6 +15,7 @@ async function handlePropertyBriefing(event, deps = {}) {
   const assembleParcel = deps.assembleParcel || parcelLib.assembleParcel;
   const assembleBuilding = deps.assembleBuilding || parcelLib.assembleBuilding;
   const assembleFlood = deps.assembleFlood || floodLib.assembleFlood;
+  const assembleSeptic = deps.assembleSeptic || septicLib.assembleSeptic;
   const assemblePermits = deps.assemblePermits || permitsLib.assemblePermits;
   const enrichEquipmentWithYearBuilt =
     deps.enrichEquipmentWithYearBuilt || permitsLib.enrichEquipmentWithYearBuilt;
@@ -81,12 +83,20 @@ async function handlePropertyBriefing(event, deps = {}) {
     primary && primary.yearBuilt
   );
 
-  const waterSewer = {
-    status: 'coming-soon',
-    source: 'data/signals/catalog.json',
+  // Septic vs sewer and well vs municipal, off the same centroid flood uses.
+  let waterSewer = {
+    status: 'unavailable',
+    source: 'data/signals/septic-layers.json',
     data: null,
-    message: 'Water/sewer utility is not a sourced Live signal in DeedScout yet.',
+    message: 'Need a single parcel centroid for water/sewer lookup.',
   };
+  if (primary && primary.centroid) {
+    waterSewer = await assembleSeptic({
+      lon: primary.centroid.lon,
+      lat: primary.centroid.lat,
+      countySlug: county,
+    });
+  }
 
   const opportunities = assembleOpportunities({
     parcel,

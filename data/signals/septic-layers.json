@@ -1,0 +1,393 @@
+{
+  "generated": "2026-09-12",
+  "note": "County sanitary-sewer and potable-water service-area polygons, queried by parcel centroid (same pattern as flood-layers.json). coverage is load-bearing: only a layer marked \"countywide\" may turn an empty intersect into a septic/well answer \u2014 for a \"partial\" or \"unknown\" layer, no intersect means the area is unmapped, which proves nothing. Set coverage only after confirming the layer spans the whole county, not one utility's territory or unincorporated areas alone. There is no statewide default layer: unlike FEMA NFHL for flood, no verified national or Florida-wide sewer service-area service is wired in, so defaultLayer is null by design rather than by omission.",
+  "boundaryMeters": 75,
+  "boundaryNote": "Parcels within this many meters of a service-area edge lose confidence and are flagged. County GIS is typically accurate to 10-30 m.",
+  "defaultLayer": null,
+  "layers": {
+    "palm-beach": {
+      "name": "Palm Beach",
+      "portal": "https://opendata2-pbcgov.opendata.arcgis.com/",
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": "Palm Beach County Water Utilities Department",
+        "label": "PBCWUD wastewater service areas",
+        "outFields": "*",
+        "map": {
+          "name": [
+            "SERVICE_AREA",
+            "NAME",
+            "LABEL"
+          ],
+          "provider": [
+            "UTILITY",
+            "PROVIDER",
+            "AGENCY"
+          ],
+          "status": [
+            "STATUS",
+            "SERVICE_STATUS",
+            "PHASE"
+          ]
+        }
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": "Palm Beach County Water Utilities Department",
+        "label": "PBCWUD potable water service areas",
+        "outFields": "*",
+        "map": {
+          "name": [
+            "SERVICE_AREA",
+            "NAME",
+            "LABEL"
+          ],
+          "provider": [
+            "UTILITY",
+            "PROVIDER",
+            "AGENCY"
+          ],
+          "status": [
+            "STATUS",
+            "SERVICE_STATUS",
+            "PHASE"
+          ]
+        }
+      }
+    },
+    "bay": {
+      "name": "Bay",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "broward": {
+      "name": "Broward",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "charlotte": {
+      "name": "Charlotte",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "duval": {
+      "name": "Duval",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "hillsborough": {
+      "name": "Hillsborough",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "lee": {
+      "name": "Lee",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "manatee": {
+      "name": "Manatee",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "martin": {
+      "name": "Martin",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "miami-dade": {
+      "name": "Miami-Dade",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "orange": {
+      "name": "Orange",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "pasco": {
+      "name": "Pasco",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "pinellas": {
+      "name": "Pinellas",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "polk": {
+      "name": "Polk",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "sarasota": {
+      "name": "Sarasota",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    },
+    "volusia": {
+      "name": "Volusia",
+      "portal": null,
+      "sewer": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      },
+      "water": {
+        "status": "planned",
+        "endpoint": null,
+        "coverage": "unknown",
+        "provider": null,
+        "label": null,
+        "outFields": "*",
+        "map": {}
+      }
+    }
+  }
+}
