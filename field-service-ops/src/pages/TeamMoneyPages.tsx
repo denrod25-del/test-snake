@@ -1,18 +1,19 @@
 import { FormEvent, useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
+import { useShopData } from '../data/ShopDataContext';
 import { apiPost } from '../lib/api';
 import * as demo from '../lib/demo-store';
 import { formatUsd, invoiceTotalCents } from '../lib/invoice';
 
 export function TodayMoneyPage() {
   const { shop } = useAuth();
+  const { payments, jobs, invoices } = useShopData();
   if (!shop) return null;
-  const state = demo.getState();
   const today = new Date().toISOString().slice(0, 10);
-  const payments = state.payments.filter(
-    (p) => p.shopId === shop.id && p.createdAt.slice(0, 10) === today && p.status === 'succeeded',
+  const paidToday = payments.filter(
+    (p) => p.createdAt.slice(0, 10) === today && p.status === 'succeeded',
   );
-  const jobs = state.jobs.filter((j) => j.shopId === shop.id && j.paymentStatus !== 'paid' && j.status === 'done');
+  const balanceDue = jobs.filter((j) => j.paymentStatus !== 'paid' && j.status === 'done');
 
   return (
     <div className="grid two">
@@ -26,13 +27,13 @@ export function TodayMoneyPage() {
             </tr>
           </thead>
           <tbody>
-            {payments.map((p) => (
+            {paidToday.map((p) => (
               <tr key={p.id}>
                 <td>{p.stripePaymentIntentId || p.id}</td>
                 <td>{formatUsd(p.amountCents)}</td>
               </tr>
             ))}
-            {payments.length === 0 && (
+            {paidToday.length === 0 && (
               <tr>
                 <td colSpan={2} className="muted">
                   No successful payments today.
@@ -45,8 +46,8 @@ export function TodayMoneyPage() {
       <section className="panel">
         <h2>Balance due</h2>
         <ul>
-          {jobs.map((j) => {
-            const inv = state.invoices.find((i) => i.jobId === j.id);
+          {balanceDue.map((j) => {
+            const inv = invoices.find((i) => i.jobId === j.id);
             return (
               <li key={j.id}>
                 {j.address} · {inv ? formatUsd(invoiceTotalCents(inv.lines)) : 'no invoice'} ·{' '}
@@ -54,7 +55,7 @@ export function TodayMoneyPage() {
               </li>
             );
           })}
-          {jobs.length === 0 && <li className="muted">No outstanding balances.</li>}
+          {balanceDue.length === 0 && <li className="muted">No outstanding balances.</li>}
         </ul>
       </section>
     </div>
@@ -63,17 +64,13 @@ export function TodayMoneyPage() {
 
 export function TeamPage() {
   const { shop, user, membership, accessToken, demoMode, refresh } = useAuth();
+  const { members, refreshData } = useShopData();
   const [email, setEmail] = useState('');
   const [isTech, setIsTech] = useState(true);
   const [isCsr, setIsCsr] = useState(false);
   const [msg, setMsg] = useState('');
 
   if (!shop || !user) return null;
-  const members = demoMode
-    ? demo.getState().members.filter((m) => m.shopId === shop.id)
-    : membership
-      ? [membership]
-      : [];
 
   async function onInvite(e: FormEvent) {
     e.preventDefault();
@@ -81,6 +78,8 @@ export function TeamPage() {
       if (demoMode) {
         demo.inviteMember(shop!.id, user!.id, email, { isTech, isCsr, isDispatcher: false });
         setMsg(`Invited ${email}`);
+        refresh();
+        await refreshData();
       } else {
         const res = await apiPost<{ temporaryPassword?: string }>(
           '/api/invite-member',
@@ -92,9 +91,9 @@ export function TeamPage() {
             ? `Invited ${email}. Temp password: ${res.temporaryPassword}`
             : `Invited ${email}`,
         );
+        await refreshData();
       }
       setEmail('');
-      refresh();
     } catch (err) {
       setMsg(err instanceof Error ? err.message : 'Invite failed');
     }
@@ -124,13 +123,14 @@ export function TeamPage() {
         </tbody>
       </table>
       {membership?.isOwner ? (
-          <form className="stack" onSubmit={(e) => void onInvite(e)}>
+        <form className="stack" onSubmit={(e) => void onInvite(e)}>
           <label>
             Invite email
             <input required value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label>
-            <input type="checkbox" checked={isTech} onChange={(e) => setIsTech(e.target.checked)} /> Tech
+            <input type="checkbox" checked={isTech} onChange={(e) => setIsTech(e.target.checked)} />{' '}
+            Tech
           </label>
           <label>
             <input type="checkbox" checked={isCsr} onChange={(e) => setIsCsr(e.target.checked)} /> CSR

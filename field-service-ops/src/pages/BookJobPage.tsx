@@ -1,10 +1,11 @@
 import { FormEvent, useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
-import * as demo from '../lib/demo-store';
+import { useShopData } from '../data/ShopDataContext';
 import type { Trade } from '../lib/types';
 
 export function BookJobPage() {
-  const { shop, user, refresh } = useAuth();
+  const { shop, user } = useAuth();
+  const { customers, createCustomer, createJob } = useShopData();
   const [customerId, setCustomerId] = useState('');
   const [newCustomer, setNewCustomer] = useState({ name: '', phone: '', email: '', address: '' });
   const [trade, setTrade] = useState<Trade>('plumbing');
@@ -12,34 +13,41 @@ export function BookJobPage() {
   const [address, setAddress] = useState('');
   const [windowPref, setWindowPref] = useState('Tomorrow AM');
   const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
 
   if (!shop || !user) return null;
-  const customers = demo.customersForShop(shop.id);
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    let cid = customerId || null;
-    if (!cid) {
-      const c = demo.createCustomer(shop!.id, user!.id, newCustomer);
-      cid = c.id;
+    setBusy(true);
+    setMessage('');
+    try {
+      let cid = customerId || null;
+      if (!cid) {
+        const c = await createCustomer(newCustomer);
+        cid = c.id;
+      }
+      const cust = customers.find((c) => c.id === cid);
+      await createJob({
+        customerId: cid,
+        trade,
+        description,
+        address: address || cust?.address || newCustomer.address || '',
+        preferredWindow: windowPref,
+      });
+      setMessage('Job created as unassigned — assign it on Dispatch.');
+      setDescription('');
+    } catch (err) {
+      setMessage(err instanceof Error ? err.message : 'Failed to book');
+    } finally {
+      setBusy(false);
     }
-    const cust = demo.customersForShop(shop!.id).find((c) => c.id === cid);
-    demo.createJob(shop!.id, user!.id, {
-      customerId: cid,
-      trade,
-      description,
-      address: address || cust?.address || '',
-      preferredWindow: windowPref,
-    });
-    setMessage('Job created as unassigned — assign it on Dispatch.');
-    setDescription('');
-    refresh();
   }
 
   return (
     <section className="panel">
       <h2>Book a job</h2>
-      <form className="stack" onSubmit={onSubmit}>
+      <form className="stack" onSubmit={(e) => void onSubmit(e)}>
         <label>
           Existing customer
           <select value={customerId} onChange={(e) => setCustomerId(e.target.value)}>
@@ -100,13 +108,19 @@ export function BookJobPage() {
         </label>
         <label>
           Service address
-          <input value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Defaults to customer address" />
+          <input
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="Defaults to customer address"
+          />
         </label>
         <label>
           Preferred window
           <input value={windowPref} onChange={(e) => setWindowPref(e.target.value)} />
         </label>
-        <button type="submit">Create job</button>
+        <button type="submit" disabled={busy}>
+          {busy ? 'Saving…' : 'Create job'}
+        </button>
         {message && <p className="muted">{message}</p>}
       </form>
     </section>

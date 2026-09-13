@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
-import * as demo from '../lib/demo-store';
+import { useShopData } from '../data/ShopDataContext';
 
 export function TechJobListPage() {
   const { shop, user } = useAuth();
+  const { jobs } = useShopData();
   if (!shop || !user) return null;
-  const jobs = demo
-    .getState()
-    .jobs.filter((j) => j.shopId === shop.id && j.techUserId === user.id);
+  const mine = jobs.filter((j) => j.techUserId === user.id);
 
   return (
     <section className="panel">
       <h2>My jobs</h2>
       <div className="stack">
-        {jobs.map((j) => (
+        {mine.map((j) => (
           <Link key={j.id} to={`/tech/jobs/${j.id}`} className="panel" style={{ margin: 0 }}>
             <strong>
               {j.trade} · {j.status}
@@ -22,7 +21,7 @@ export function TechJobListPage() {
             <div>{j.description}</div>
           </Link>
         ))}
-        {jobs.length === 0 && <p className="muted">No jobs assigned to you.</p>}
+        {mine.length === 0 && <p className="muted">No jobs assigned to you.</p>}
       </div>
     </section>
   );

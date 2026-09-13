@@ -1,33 +1,32 @@
 import { FormEvent, useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
-import * as demo from '../lib/demo-store';
+import { useShopData } from '../data/ShopDataContext';
 import { formatUsd } from '../lib/invoice';
 import type { Trade } from '../lib/types';
 
 export function PricebookPage() {
-  const { shop, user, refresh } = useAuth();
+  const { shop, user } = useAuth();
+  const { pricebook, upsertPricebookItem } = useShopData();
   const [name, setName] = useState('');
   const [trade, setTrade] = useState<Trade>('plumbing');
   const [amount, setAmount] = useState('89');
 
   if (!shop || !user) return null;
-  const items = demo.getState().pricebook.filter((p) => p.shopId === shop.id);
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    demo.upsertPricebookItem(shop!.id, user!.id, {
+    await upsertPricebookItem({
       name,
       trade,
       unitAmountCents: Math.round(parseFloat(amount) * 100),
     });
     setName('');
-    refresh();
   }
 
   return (
     <section className="panel">
       <h2>Pricebook</h2>
-      <form className="grid two" onSubmit={onSubmit}>
+      <form className="grid two" onSubmit={(e) => void onSubmit(e)}>
         <label>
           Name
           <input required value={name} onChange={(e) => setName(e.target.value)} />
@@ -57,7 +56,7 @@ export function PricebookPage() {
           </tr>
         </thead>
         <tbody>
-          {items.map((i) => (
+          {pricebook.map((i) => (
             <tr key={i.id}>
               <td>{i.name}</td>
               <td>{i.trade}</td>

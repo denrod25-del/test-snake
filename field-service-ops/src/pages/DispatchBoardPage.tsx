@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
-import * as demo from '../lib/demo-store';
+import { useShopData } from '../data/ShopDataContext';
 
 export function DispatchBoardPage() {
-  const { shop, user, refresh } = useAuth();
+  const { shop, user } = useAuth();
+  const { jobs, members, assignJob } = useShopData();
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   if (!shop || !user) return null;
-  const state = demo.getState();
-  const jobs = state.jobs.filter((j) => j.shopId === shop.id);
-  const techs = state.members.filter((m) => m.shopId === shop.id && m.isTech);
+  const techs = members.filter((m) => m.isTech);
 
   return (
     <section className="panel">
@@ -45,8 +44,7 @@ export function DispatchBoardPage() {
                   onChange={(e) => {
                     const tech = e.target.value;
                     if (!tech) return;
-                    demo.assignJob(shop.id, user.id, j.id, tech, date);
-                    refresh();
+                    void assignJob(j.id, tech, date);
                   }}
                 >
                   <option value="">Unassigned</option>

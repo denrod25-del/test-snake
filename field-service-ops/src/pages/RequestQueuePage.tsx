@@ -1,10 +1,10 @@
 import { useAuth } from '../auth/AuthContext';
-import * as demo from '../lib/demo-store';
+import { useShopData } from '../data/ShopDataContext';
 
 export function RequestQueuePage() {
-  const { shop, user, refresh } = useAuth();
+  const { shop, user } = useAuth();
+  const { requests, confirmRequest, declineRequest } = useShopData();
   if (!shop || !user) return null;
-  const requests = demo.getState().requests.filter((r) => r.shopId === shop.id);
 
   return (
     <section className="panel">
@@ -37,22 +37,13 @@ export function RequestQueuePage() {
               <td>
                 {r.status === 'pending' && (
                   <div className="stack">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        demo.confirmRequest(shop.id, user.id, r.id);
-                        refresh();
-                      }}
-                    >
+                    <button type="button" onClick={() => void confirmRequest(r.id)}>
                       Confirm → job
                     </button>
                     <button
                       type="button"
                       className="secondary"
-                      onClick={() => {
-                        demo.declineRequest(shop.id, user.id, r.id);
-                        refresh();
-                      }}
+                      onClick={() => void declineRequest(r.id)}
                     >
                       Decline
                     </button>

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
+import { useShopData } from '../data/ShopDataContext';
 import * as demo from '../lib/demo-store';
 import { formatUsd, invoiceTotalCents } from '../lib/invoice';
 
 export function TodayPage() {
-  const { shop, user, refresh } = useAuth();
+  const { shop, user, demoMode, refresh } = useAuth();
+  const { jobs, invoices, loading, error } = useShopData();
   if (!shop || !user) return null;
-  const state = demo.getState();
-  const jobs = state.jobs.filter((j) => j.shopId === shop.id);
   const open = jobs.filter((j) => j.status !== 'done');
   const unpaid = jobs.filter((j) => j.status === 'done' && j.paymentStatus !== 'paid');
 
@@ -15,6 +15,8 @@ export function TodayPage() {
     <div className="grid two">
       <section className="panel">
         <h2>Today</h2>
+        {loading && <p className="muted">Loading shop data…</p>}
+        {error && <p className="badge danger">{error}</p>}
         <p className="muted">
           {open.length} open jobs · {unpaid.length} done with balance due
         </p>
@@ -64,7 +66,7 @@ export function TodayPage() {
             Stripe Connect:{' '}
             {shop.stripeConnectAccountId ? (
               <span className="badge ok">linked</span>
-            ) : (
+            ) : demoMode ? (
               <button
                 type="button"
                 onClick={() => {
@@ -74,13 +76,17 @@ export function TodayPage() {
               >
                 Enable demo Connect
               </button>
+            ) : (
+              <span className="badge warn">
+                not linked — use <Link to="/app/settings">Settings</Link>
+              </span>
             )}
           </li>
           <li>
             SPI key:{' '}
             {shop.hasSpiKey ? (
               <span className="badge ok">configured</span>
-            ) : (
+            ) : demoMode ? (
               <button
                 type="button"
                 className="secondary"
@@ -91,15 +97,16 @@ export function TodayPage() {
               >
                 Mark SPI configured
               </button>
+            ) : (
+              <span className="badge warn">
+                configure in <Link to="/app/settings">Settings</Link>
+              </span>
             )}
           </li>
         </ul>
         <p className="muted">
-          Demo invoices in shop:{' '}
-          {state.invoices
-            .filter((i) => i.shopId === shop.id)
-            .map((i) => formatUsd(invoiceTotalCents(i.lines)))
-            .join(', ') || 'none'}
+          Invoices in shop:{' '}
+          {invoices.map((i) => formatUsd(invoiceTotalCents(i.lines))).join(', ') || 'none'}
         </p>
       </section>
     </div>

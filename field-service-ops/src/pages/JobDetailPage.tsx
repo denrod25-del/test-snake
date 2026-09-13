@@ -4,26 +4,34 @@ import { useAuth } from '../auth/AuthContext';
 import { PropertyBriefingPanel } from '../components/PropertyBriefingPanel';
 import { InvoiceBuilder } from '../components/InvoiceBuilder';
 import { JobStatusControls } from '../components/JobStatusControls';
-import { apiPost } from '../lib/api';
-import * as demo from '../lib/demo-store';
+import { OnSitePayPanel } from '../components/OnSitePayPanel';
+import { useShopData } from '../data/ShopDataContext';
 import { formatUsd, invoiceTotalCents, remainingBalanceCents } from '../lib/invoice';
 import type { InvoiceLine } from '../lib/types';
 
 export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
   const { jobId = '' } = useParams();
-  const { shop, user, accessToken, demoMode, refresh } = useAuth();
+  const { shop, user, accessToken, demoMode } = useAuth();
+  const {
+    jobs,
+    invoices,
+    payments,
+    pricebook,
+    updateJobStatus,
+    updateJobNotes,
+    saveInvoice,
+    collectDemoPayment,
+    refreshData,
+  } = useShopData();
   const [notes, setNotes] = useState('');
-  const [payMsg, setPayMsg] = useState('');
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
 
-  const state = demo.getState();
-  const job = state.jobs.find((j) => j.id === jobId);
-  const invoice = state.invoices.find((i) => i.jobId === jobId);
-  const payments = state.payments.filter((p) => p.jobId === jobId);
-  const pricebook = shop ? state.pricebook.filter((p) => p.shopId === shop.id) : [];
-
+  const job = jobs.find((j) => j.id === jobId);
+  const invoice = invoices.find((i) => i.jobId === jobId);
+  const jobPayments = payments.filter((p) => p.jobId === jobId);
   const lines = useMemo(() => invoice?.lines || [], [invoice]);
   const total = invoiceTotalCents(lines);
-  const remaining = remainingBalanceCents(total, payments);
+  const remaining = remainingBalanceCents(total, jobPayments);
 
   if (!shop || !user) return null;
   if (!job || job.shopId !== shop.id) {
@@ -35,55 +43,14 @@ export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
     );
   }
 
-  function saveNotes(e: FormEvent) {
+  async function saveNotes(e: FormEvent) {
     e.preventDefault();
-    demo.updateJobNotes(shop!.id, user!.id, job!.id, notes || job!.notes);
-    refresh();
+    await updateJobNotes(job!.id, notes || job!.notes, photoFile || undefined);
+    setPhotoFile(null);
   }
 
-  function onSaveInvoice(next: InvoiceLine[]) {
-    demo.saveInvoice(shop!.id, user!.id, job!.id, next);
-    refresh();
-  }
-
-  async function collect(succeed: boolean) {
-    try {
-      if (!invoice) {
-        setPayMsg('Build an invoice first.');
-        return;
-      }
-      const amount = remaining || total;
-      if (demoMode) {
-        demo.collectDemoPayment(shop!.id, user!.id, invoice.id, amount, succeed);
-        setPayMsg(succeed ? 'Payment collected (demo).' : 'Payment failed (demo).');
-        refresh();
-        return;
-      }
-      if (!succeed) {
-        setPayMsg('Live mode: use Stripe Payment Element decline cards for failure tests.');
-        return;
-      }
-      const res = await apiPost<{ clientSecret?: string; demo?: boolean; stripeAccount?: string }>(
-        '/api/create-payment-intent',
-        {
-          shopId: shop!.id,
-          invoiceId: invoice.id,
-          jobId: job!.id,
-          amountCents: amount,
-        },
-        accessToken,
-      );
-      if (res.demo) {
-        setPayMsg('API returned demo client secret (Stripe keys not configured on server).');
-      } else {
-        setPayMsg(
-          `PaymentIntent created${res.stripeAccount ? ` on ${res.stripeAccount}` : ''}. Mount Payment Element with clientSecret next.`,
-        );
-      }
-      refresh();
-    } catch (err) {
-      setPayMsg(err instanceof Error ? err.message : 'Pay failed');
-    }
+  async function onSaveInvoice(next: InvoiceLine[]) {
+    await saveInvoice(job!.id, next);
   }
 
   return (
@@ -100,38 +67,31 @@ export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
         <JobStatusControls
           status={job.status}
           onChange={(status) => {
-            demo.updateJobStatus(shop.id, user.id, job.id, status);
-            refresh();
+            void updateJobStatus(job.id, status);
           }}
         />
         <p style={{ marginTop: '0.75rem' }}>
-          Payment: <span className={`badge ${job.paymentStatus === 'paid' ? 'ok' : 'warn'}`}>{job.paymentStatus}</span>
+          Payment:{' '}
+          <span className={`badge ${job.paymentStatus === 'paid' ? 'ok' : 'warn'}`}>
+            {job.paymentStatus}
+          </span>
         </p>
       </section>
 
       <section className="panel">
         <h2>Notes / photos</h2>
-        <form className="stack" onSubmit={saveNotes}>
+        <form className="stack" onSubmit={(e) => void saveNotes(e)}>
           <textarea
             defaultValue={job.notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Field notes"
           />
           <label>
-            Add photo (demo stores data URL)
+            Add photo {demoMode ? '(demo stores data URL)' : '(private Storage)'}
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = () => {
-                  demo.updateJobNotes(shop.id, user.id, job.id, notes || job.notes, String(reader.result));
-                  refresh();
-                };
-                reader.readAsDataURL(file);
-              }}
+              onChange={(e) => setPhotoFile(e.target.files?.[0] || null)}
             />
           </label>
           <button type="submit">Save notes</button>
@@ -143,37 +103,42 @@ export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
         </div>
       </section>
 
-      <InvoiceBuilder pricebook={pricebook} lines={lines} onSave={onSaveInvoice} />
+      <InvoiceBuilder
+        key={`${invoice?.id || 'new'}-${lines.map((l) => l.id).join(',')}`}
+        pricebook={pricebook}
+        lines={lines}
+        onSave={(next) => void onSaveInvoice(next)}
+      />
 
-      <section className="panel">
-        <h2>On-site pay</h2>
-        <p className="muted">
-          Demo Payment Element stand-in. Production uses Stripe Connect + Payment Element on the
-          connected account.
-        </p>
-        <p>
+      <OnSitePayPanel
+        shopId={shop.id}
+        jobId={job.id}
+        invoiceId={invoice?.id || null}
+        amountCents={remaining || total}
+        accessToken={accessToken}
+        demoMode={demoMode}
+        disabled={!invoice || remaining === 0}
+        onDemoCollect={async (succeed) => {
+          if (!invoice) throw new Error('Build an invoice first.');
+          await collectDemoPayment(invoice.id, remaining || total, succeed);
+        }}
+        onLivePaid={() => {
+          void refreshData();
+        }}
+      />
+
+      <div className="status-row">
+        <button
+          type="button"
+          className="secondary"
+          onClick={() => void updateJobStatus(job.id, 'done')}
+        >
+          Mark done unpaid
+        </button>
+        <span className="muted">
           Total {formatUsd(total)} · Remaining {formatUsd(remaining)}
-        </p>
-        <div className="status-row">
-          <button type="button" onClick={() => void collect(true)} disabled={!invoice || remaining === 0}>
-            {demoMode ? 'Collect card (demo success)' : 'Create PaymentIntent'}
-          </button>
-          <button type="button" className="secondary" onClick={() => void collect(false)} disabled={!invoice}>
-            Simulate failure
-          </button>
-          <button
-            type="button"
-            className="secondary"
-            onClick={() => {
-              demo.updateJobStatus(shop.id, user.id, job.id, 'done');
-              refresh();
-            }}
-          >
-            Mark done unpaid
-          </button>
-        </div>
-        {payMsg && <p className="muted">{payMsg}</p>}
-      </section>
+        </span>
+      </div>
 
       <PropertyBriefingPanel
         address={job.address}

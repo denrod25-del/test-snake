@@ -38,8 +38,8 @@ Public request form: **http://localhost:5173/r/dogfood**
 
 1. Create a **dedicated** Supabase project (do not reuse DeedScout).
 2. Apply `supabase/migrations/20260912_fso_core.sql` (or `supabase/schema.sql`).
-3. Set env for the SPA: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`.
-4. Create a **separate Netlify site** with base directory `field-service-ops` (or publish `field-service-ops/dist` with functions from `field-service-ops/netlify/functions`).
+3. Set env for the SPA: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, optional `VITE_STRIPE_PUBLISHABLE_KEY`.
+4. Apply both migrations (core + confirm/photos) or the full `schema.sql` plus the photos storage migration.
 5. Netlify function env (FSO site):
    - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY`
    - `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`
@@ -64,8 +64,10 @@ Public request form: **http://localhost:5173/r/dogfood**
 ## Architecture notes
 
 - Vite + React + TypeScript SPA; React Router browser history.
+- **Demo mode** (no `VITE_SUPABASE_*`): `localStorage` via `demo-store`.
+- **Live mode**: `ShopDataProvider` loads shop tables through Supabase RLS; mutations go to Postgres (and `job-photos` Storage). Apply `supabase/migrations/*.sql` including `20260913_fso_confirm_and_photos.sql` (`confirm_service_request` + private bucket).
 - Netlify `/api/*` redirects are declared **before** the SPA `/*` fallback in `netlify.toml`.
-- Payments: Stripe Connect **direct charges** on the connected account + Payment Element.
+- Payments: Stripe Connect **direct charges** on the connected account + **Payment Element** (`OnSitePayPanel`). Set `VITE_STRIPE_PUBLISHABLE_KEY` (or return `publishableKey` from `create-payment-intent`).
 - SPI: authenticated FSO proxy → `https://deedscout.app/api/property` (never expose the SPI key to the browser).
 
 ## Out of scope (v1)
