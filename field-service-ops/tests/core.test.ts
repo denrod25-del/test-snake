@@ -46,3 +46,13 @@ describe('briefing honesty', () => {
     expect(trustLabel('cached')).toBe('Cached');
   });
 });
+
+describe('schema public shop lookup', () => {
+  it('exposes get_public_shop and not broad anon shops select', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { join } = await import('node:path');
+    const sql = readFileSync(join(__dirname, '../supabase/schema.sql'), 'utf8');
+    expect(sql).toContain('get_public_shop');
+    expect(sql).not.toContain('shops_public_slug');
+  });
+});

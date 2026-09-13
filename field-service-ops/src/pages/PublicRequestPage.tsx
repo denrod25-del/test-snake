@@ -1,11 +1,14 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { apiPost } from '../lib/api';
+import { isDemoMode, supabase } from '../lib/supabase';
 import * as demo from '../lib/demo-store';
 import type { Trade } from '../lib/types';
 
 export function PublicRequestPage() {
   const { shopSlug = '' } = useParams();
-  const shop = demo.getState().shops.find((s) => s.slug === shopSlug);
+  const [shopName, setShopName] = useState<string | null>(null);
+  const [shopMissing, setShopMissing] = useState(false);
   const [trade, setTrade] = useState<Trade>('plumbing');
   const [description, setDescription] = useState('');
   const [contactName, setContactName] = useState('');
@@ -15,7 +18,33 @@ export function PublicRequestPage() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState('');
 
-  if (!shop) {
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      if (isDemoMode) {
+        const shop = demo.getState().shops.find((s) => s.slug === shopSlug);
+        if (!cancelled) {
+          if (shop) setShopName(shop.name);
+          else setShopMissing(true);
+        }
+        return;
+      }
+      if (!supabase) {
+        setShopMissing(true);
+        return;
+      }
+      const { data, error } = await supabase.rpc('get_public_shop', { p_slug: shopSlug });
+      if (cancelled) return;
+      const row = Array.isArray(data) ? data[0] : data;
+      if (!error && row?.name) setShopName(String(row.name));
+      else setShopMissing(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [shopSlug]);
+
+  if (shopMissing) {
     return (
       <div className="hero-login">
         <div className="hero-card">
@@ -27,19 +56,39 @@ export function PublicRequestPage() {
     );
   }
 
-  function onSubmit(e: FormEvent) {
+  if (!shopName) {
+    return (
+      <div className="hero-login">
+        <div className="hero-card muted">Loading…</div>
+      </div>
+    );
+  }
+
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
+    setError('');
     try {
-      demo.createPublicRequest(shopSlug, {
-        trade,
-        description,
-        contactName,
-        contactPhone,
-        address,
-        preferredWindow,
-      });
+      if (isDemoMode) {
+        demo.createPublicRequest(shopSlug, {
+          trade,
+          description,
+          contactName,
+          contactPhone,
+          address,
+          preferredWindow,
+        });
+      } else {
+        await apiPost('/api/create-public-request', {
+          slug: shopSlug,
+          trade,
+          description,
+          contactName,
+          contactPhone,
+          address,
+          preferredWindow,
+        });
+      }
       setDone(true);
-      setError('');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed');
     }
@@ -52,13 +101,13 @@ export function PublicRequestPage() {
           <p className="muted" style={{ margin: 0 }}>
             Request service
           </p>
-          <h1>{shop.name}</h1>
+          <h1>{shopName}</h1>
           <p className="muted">Office will confirm your appointment — this is not self-scheduling.</p>
         </div>
         {done ? (
           <p className="badge ok">Request submitted. The office will follow up.</p>
         ) : (
-          <form className="stack" onSubmit={onSubmit}>
+          <form className="stack" onSubmit={(e) => void onSubmit(e)}>
             <label>
               Trade
               <select value={trade} onChange={(e) => setTrade(e.target.value as Trade)}>

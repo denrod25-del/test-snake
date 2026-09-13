@@ -4,13 +4,14 @@ import { useAuth } from '../auth/AuthContext';
 import { PropertyBriefingPanel } from '../components/PropertyBriefingPanel';
 import { InvoiceBuilder } from '../components/InvoiceBuilder';
 import { JobStatusControls } from '../components/JobStatusControls';
+import { apiPost } from '../lib/api';
 import * as demo from '../lib/demo-store';
 import { formatUsd, invoiceTotalCents, remainingBalanceCents } from '../lib/invoice';
 import type { InvoiceLine } from '../lib/types';
 
 export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
   const { jobId = '' } = useParams();
-  const { shop, user, refresh } = useAuth();
+  const { shop, user, accessToken, demoMode, refresh } = useAuth();
   const [notes, setNotes] = useState('');
   const [payMsg, setPayMsg] = useState('');
 
@@ -45,15 +46,40 @@ export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
     refresh();
   }
 
-  function collect(succeed: boolean) {
+  async function collect(succeed: boolean) {
     try {
       if (!invoice) {
         setPayMsg('Build an invoice first.');
         return;
       }
       const amount = remaining || total;
-      demo.collectDemoPayment(shop!.id, user!.id, invoice.id, amount, succeed);
-      setPayMsg(succeed ? 'Payment collected (demo).' : 'Payment failed (demo).');
+      if (demoMode) {
+        demo.collectDemoPayment(shop!.id, user!.id, invoice.id, amount, succeed);
+        setPayMsg(succeed ? 'Payment collected (demo).' : 'Payment failed (demo).');
+        refresh();
+        return;
+      }
+      if (!succeed) {
+        setPayMsg('Live mode: use Stripe Payment Element decline cards for failure tests.');
+        return;
+      }
+      const res = await apiPost<{ clientSecret?: string; demo?: boolean; stripeAccount?: string }>(
+        '/api/create-payment-intent',
+        {
+          shopId: shop!.id,
+          invoiceId: invoice.id,
+          jobId: job!.id,
+          amountCents: amount,
+        },
+        accessToken,
+      );
+      if (res.demo) {
+        setPayMsg('API returned demo client secret (Stripe keys not configured on server).');
+      } else {
+        setPayMsg(
+          `PaymentIntent created${res.stripeAccount ? ` on ${res.stripeAccount}` : ''}. Mount Payment Element with clientSecret next.`,
+        );
+      }
       refresh();
     } catch (err) {
       setPayMsg(err instanceof Error ? err.message : 'Pay failed');
@@ -129,10 +155,10 @@ export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
           Total {formatUsd(total)} · Remaining {formatUsd(remaining)}
         </p>
         <div className="status-row">
-          <button type="button" onClick={() => collect(true)} disabled={!invoice || remaining === 0}>
-            Collect card (demo success)
+          <button type="button" onClick={() => void collect(true)} disabled={!invoice || remaining === 0}>
+            {demoMode ? 'Collect card (demo success)' : 'Create PaymentIntent'}
           </button>
-          <button type="button" className="secondary" onClick={() => collect(false)} disabled={!invoice}>
+          <button type="button" className="secondary" onClick={() => void collect(false)} disabled={!invoice}>
             Simulate failure
           </button>
           <button
@@ -149,7 +175,14 @@ export function JobDetailPage({ mode }: { mode: 'office' | 'tech' }) {
         {payMsg && <p className="muted">{payMsg}</p>}
       </section>
 
-      <PropertyBriefingPanel address={job.address} shopHasSpi={shop.hasSpiKey} />
+      <PropertyBriefingPanel
+        address={job.address}
+        shopId={shop.id}
+        jobId={job.id}
+        shopHasSpi={shop.hasSpiKey}
+        accessToken={accessToken}
+        demoMode={demoMode}
+      />
     </div>
   );
 }

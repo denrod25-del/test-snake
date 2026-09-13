@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
+import { apiPost } from '../lib/api';
 import * as demo from '../lib/demo-store';
 import { formatUsd, invoiceTotalCents } from '../lib/invoice';
 
@@ -61,20 +62,37 @@ export function TodayMoneyPage() {
 }
 
 export function TeamPage() {
-  const { shop, user, membership, refresh } = useAuth();
+  const { shop, user, membership, accessToken, demoMode, refresh } = useAuth();
   const [email, setEmail] = useState('');
   const [isTech, setIsTech] = useState(true);
   const [isCsr, setIsCsr] = useState(false);
   const [msg, setMsg] = useState('');
 
   if (!shop || !user) return null;
-  const members = demo.getState().members.filter((m) => m.shopId === shop.id);
+  const members = demoMode
+    ? demo.getState().members.filter((m) => m.shopId === shop.id)
+    : membership
+      ? [membership]
+      : [];
 
-  function onInvite(e: FormEvent) {
+  async function onInvite(e: FormEvent) {
     e.preventDefault();
     try {
-      demo.inviteMember(shop!.id, user!.id, email, { isTech, isCsr, isDispatcher: false });
-      setMsg(`Invited ${email}`);
+      if (demoMode) {
+        demo.inviteMember(shop!.id, user!.id, email, { isTech, isCsr, isDispatcher: false });
+        setMsg(`Invited ${email}`);
+      } else {
+        const res = await apiPost<{ temporaryPassword?: string }>(
+          '/api/invite-member',
+          { shopId: shop!.id, email, roles: { isTech, isCsr } },
+          accessToken,
+        );
+        setMsg(
+          res.temporaryPassword
+            ? `Invited ${email}. Temp password: ${res.temporaryPassword}`
+            : `Invited ${email}`,
+        );
+      }
       setEmail('');
       refresh();
     } catch (err) {
@@ -106,7 +124,7 @@ export function TeamPage() {
         </tbody>
       </table>
       {membership?.isOwner ? (
-        <form className="stack" onSubmit={onInvite}>
+          <form className="stack" onSubmit={(e) => void onInvite(e)}>
           <label>
             Invite email
             <input required value={email} onChange={(e) => setEmail(e.target.value)} />

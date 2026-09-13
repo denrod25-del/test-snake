@@ -56,6 +56,7 @@ Public request form: **http://localhost:5173/r/dogfood**
 | `POST /api/create-connect-account` | JWT + owner | Express Account Link |
 | `POST /api/stripe-connect-webhook` | Stripe signature | Mark payments / job payment_status |
 | `POST /api/create-public-request` | none (rate-limited) | RPC `submit_public_request` by slug |
+| (SPA) `get_public_shop(slug)` | anon RPC | Public `/r/:slug` name lookup (id/name/slug only) |
 | `POST /api/property-briefing` | JWT + member | Proxy to DeedScout SPI |
 | `POST /api/set-spi-key` | JWT + owner | Store encrypted SPI key |
 | `POST /api/invite-member` | JWT + owner | Admin createUser + membership |

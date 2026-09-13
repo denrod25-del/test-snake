@@ -22,12 +22,18 @@ export function OfficeLayout() {
           <NavLink to="/app/pricebook">Pricebook</NavLink>
           <NavLink to="/app/money">Money</NavLink>
           <NavLink to="/app/team">Team</NavLink>
+          <NavLink to="/app/settings">Settings</NavLink>
           <NavLink to="/tech">Tech</NavLink>
         </nav>
       </header>
       <p className="muted" style={{ marginTop: '-0.75rem' }}>
         {shop?.name || 'No shop'} · {user?.email}{' '}
-        <button type="button" className="secondary" onClick={logout} style={{ marginLeft: 8 }}>
+        <button
+          type="button"
+          className="secondary"
+          onClick={() => void logout()}
+          style={{ marginLeft: 8 }}
+        >
           Log out
         </button>
       </p>
@@ -47,7 +53,7 @@ export function TechLayout() {
         <nav className="nav">
           <NavLink to="/tech">My jobs</NavLink>
           <NavLink to="/app">Office</NavLink>
-          <button type="button" className="secondary" onClick={logout}>
+          <button type="button" className="secondary" onClick={() => void logout()}>
             Log out
           </button>
         </nav>

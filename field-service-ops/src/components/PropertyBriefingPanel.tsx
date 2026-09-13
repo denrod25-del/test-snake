@@ -1,30 +1,48 @@
 import { useState } from 'react';
+import { apiPost } from '../lib/api';
 import { demoBriefingForAddress } from '../lib/demo-store';
 import { normalizeBriefing, trustLabel, type BriefingResponse } from '../lib/briefing';
 
 export function PropertyBriefingPanel({
   address,
+  shopId,
+  jobId,
   shopHasSpi,
+  accessToken,
+  demoMode,
 }: {
   address: string;
+  shopId: string;
+  jobId: string;
   shopHasSpi: boolean;
+  accessToken: string | null;
+  demoMode: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<BriefingResponse | null>(null);
   const [error, setError] = useState('');
 
-  function load() {
+  async function load() {
     setOpen(true);
-    if (!shopHasSpi) {
-      setData(null);
-      setError('SPI key not configured for this shop. Job work continues without briefing.');
-      return;
-    }
+    setError('');
     try {
-      setData(normalizeBriefing(demoBriefingForAddress(address)));
-      setError('');
-    } catch {
-      setError('Briefing unavailable');
+      if (demoMode) {
+        if (!shopHasSpi) {
+          setData(null);
+          setError('SPI key not configured for this shop. Job work continues without briefing.');
+          return;
+        }
+        setData(normalizeBriefing(demoBriefingForAddress(address)));
+        return;
+      }
+      const briefing = await apiPost<BriefingResponse>(
+        '/api/property-briefing',
+        { shopId, jobId, address },
+        accessToken,
+      );
+      setData(normalizeBriefing(briefing));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Briefing unavailable');
       setData(null);
     }
   }
@@ -33,7 +51,7 @@ export function PropertyBriefingPanel({
     <section className="panel">
       <h2>Property briefing</h2>
       <p className="muted">Optional Florida add-on — not required to finish or get paid.</p>
-      <button type="button" className="secondary" onClick={load}>
+      <button type="button" className="secondary" onClick={() => void load()}>
         {open ? 'Refresh briefing' : 'Open property briefing'}
       </button>
       {error && <p className="badge warn">{error}</p>}

@@ -9,6 +9,7 @@ import { PricebookPage } from './pages/PricebookPage';
 import { PublicRequestPage } from './pages/PublicRequestPage';
 import { RequestQueuePage } from './pages/RequestQueuePage';
 import { TechJobListPage } from './pages/TechJobListPage';
+import { SettingsPage } from './pages/SettingsPage';
 import { TeamPage, TodayMoneyPage } from './pages/TeamMoneyPages';
 import { TodayPage } from './pages/TodayPage';
 
@@ -33,6 +34,7 @@ export function App() {
         <Route path="pricebook" element={<PricebookPage />} />
         <Route path="money" element={<TodayMoneyPage />} />
         <Route path="team" element={<TeamPage />} />
+        <Route path="settings" element={<SettingsPage />} />
         <Route path="jobs/:jobId" element={<JobDetailPage mode="office" />} />
       </Route>
       <Route

@@ -204,7 +204,23 @@ create policy invoice_lines_via_invoice on public.invoice_lines for all using (
   )
 );
 
--- Public may resolve shop slug for request page (id/name/slug only)
-create policy shops_public_slug on public.shops for select to anon using (true);
+-- Public slug lookup returns id/name/slug only (no broad anon SELECT on shops)
+create or replace function public.get_public_shop(p_slug text)
+returns table (id uuid, name text, slug text)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select s.id, s.name, s.slug
+  from public.shops s
+  where s.slug = lower(trim(p_slug))
+  limit 1;
+$$;
+
+grant execute on function public.get_public_shop(text) to anon, authenticated;
+grant execute on function public.create_shop_with_owner(text, text) to authenticated;
+grant execute on function public.submit_public_request(text, text, text, text, text, text, text) to service_role;
+grant execute on function public.is_shop_member(uuid) to authenticated;
 
 revoke all on public.shop_spi_secrets from anon, authenticated;
