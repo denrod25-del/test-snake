@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import * as demo from '../lib/demo-store';
 import { formatUsd, invoiceTotalCents } from '../lib/invoice';
@@ -31,6 +32,7 @@ export function TodayPage() {
                 <td>
                   <strong>{j.trade}</strong>
                   <div className="muted">{j.address}</div>
+                  <Link to={`/app/jobs/${j.id}`}>Open</Link>
                 </td>
                 <td>
                   <span className="badge">{j.status}</span>
