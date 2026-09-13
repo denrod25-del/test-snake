@@ -37,9 +37,9 @@ Public request form: **http://localhost:5173/r/dogfood**
 ## Production setup
 
 1. Create a **dedicated** Supabase project (do not reuse DeedScout).
-2. Apply `supabase/migrations/20260912_fso_core.sql` (or `supabase/schema.sql`).
+2. Apply `supabase/migrations/20260912_fso_core.sql` and `20260913_fso_confirm_and_photos.sql` (or `schema.sql` + the photos Storage migration).
 3. Set env for the SPA: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, optional `VITE_STRIPE_PUBLISHABLE_KEY`.
-4. Apply both migrations (core + confirm/photos) or the full `schema.sql` plus the photos storage migration.
+4. Create a **separate Netlify site** with base directory `field-service-ops` (or publish `field-service-ops/dist` with functions from `field-service-ops/netlify/functions`).
 5. Netlify function env (FSO site):
    - `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY`
    - `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`
