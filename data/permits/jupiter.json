@@ -1,12 +1,184 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-12T07:53:26Z",
+  "generated": "2026-09-13T07:53:42Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434120050150020": [
+      {
+        "permitNumber": "26-097947-MECHR",
+        "parcelId": "30434120050150020",
+        "address": "627  OCEAN DUNES CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Mechanical",
+        "subtype": "Mechanical",
+        "description": "HVAC DUCT REPLACEMENT ONLY - NO SYSTEM - DUE TO AGE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c58c538e-7972-4cba-b699-3991eb21a815"
+      }
+    ],
+    "30424115020002270": [
+      {
+        "permitNumber": "26-097946-BLDR",
+        "parcelId": "30424115020002270",
+        "address": "485  PEACOCK LN S JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "replace 1 garage door 16'2x7",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2fb2d1f6-da84-4e15-b254-919fe750eacc"
+      },
+      {
+        "permitNumber": "20-003445-ROOF-R",
+        "parcelId": "30424115020002270",
+        "address": "485  PEACOCK LN S Jupiter FL 33458",
+        "city": "Jupiter",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "Remove existing roof material to deck; renail to code. Install self-adhered underlayment, install tile roof.",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2020-09-09",
+        "issuedDate": "2020-09-15",
+        "finalDate": "2021-05-27",
+        "expirationDate": "2021-11-15",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5c72703d-6a4b-4d38-af82-754cda62a216"
+      }
+    ],
+    "30424101100000540": [
+      {
+        "permitNumber": "26-097945-AC",
+        "parcelId": "30424101100000540",
+        "address": "206  CIRCLE  E JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "An exact AC change out no ductwork",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a8e3f1f8-43b5-41eb-86b6-0793729a4f30"
+      }
+    ],
+    "30424102030090280": [
+      {
+        "permitNumber": "26-009931-ROOF-R",
+        "parcelId": "30424102030090280",
+        "address": "695  PAWNEE ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "remove existing shingle and flat roof and install a new metal and flat roof system",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d57e5b08-0af7-4ace-ade1-bafc9f8a8f3e"
+      }
+    ],
+    "30434116020006060": [
+      {
+        "permitNumber": "26-097944-ELECR-R",
+        "parcelId": "30434116020006060",
+        "address": "192  CAPE POINTE CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "WIRE POOL EQUIPMENT PER MASTER.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-12",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/61c0813a-f69a-4ac6-9ed4-fb7e0e75e296"
+      },
+      {
+        "permitNumber": "26-097901-PLUMR",
+        "parcelId": "30434116020006060",
+        "address": "192  CAPE POINTE CIR  Private Provider JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Plumbing Residential Pool",
+        "subtype": "Pool",
+        "description": "New pool and spa. Deck renovation - MASTER PERMIT 26-097296-POOLR",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-10",
+        "issuedDate": "2026-09-11",
+        "finalDate": null,
+        "expirationDate": "2027-03-10",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/495538a4-0825-4370-9ca8-a5f7dc601e9e"
+      },
+      {
+        "permitNumber": "26-097900-ELECR-R",
+        "parcelId": "30434116020006060",
+        "address": "192  CAPE POINTE CIR  Private Provider JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Electrical Residential Pool",
+        "subtype": "Pool",
+        "description": "New pool and spa. Deck renovation - MASTER PERMIT 26-097296-POOLR",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-10",
+        "issuedDate": "2026-09-11",
+        "finalDate": null,
+        "expirationDate": "2027-03-10",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ce0fcf64-a924-405d-99ed-143750f0aec4"
+      },
+      {
+        "permitNumber": "26-097296-POOLR",
+        "parcelId": "30434116020006060",
+        "address": "192  CAPE POINTE CIR  Private Provider JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential In Ground Pool/Spa",
+        "subtype": "In Ground Pool/Spa",
+        "description": "New pool and spa. Deck renovation",
+        "status": "NOC Required",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-14",
+        "issuedDate": "2026-09-11",
+        "finalDate": null,
+        "expirationDate": "2027-03-10",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/83ca1729-b2dc-4c60-996d-bb92224a1fd1"
+      }
+    ],
     "30424114070004010": [
       {
         "permitNumber": "26-097943-PLUMR",
@@ -547,62 +719,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-10",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/68047188-f685-42ed-9297-9b8a13b05972"
-      }
-    ],
-    "30434116020006060": [
-      {
-        "permitNumber": "26-097901-PLUMR",
-        "parcelId": "30434116020006060",
-        "address": "192  CAPE POINTE CIR  Private Provider JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Plumbing Residential Pool",
-        "subtype": "Pool",
-        "description": "New pool and spa. Deck renovation - MASTER PERMIT 26-097296-POOLR",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-10",
-        "issuedDate": "2026-09-11",
-        "finalDate": null,
-        "expirationDate": "2027-03-10",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/495538a4-0825-4370-9ca8-a5f7dc601e9e"
-      },
-      {
-        "permitNumber": "26-097900-ELECR-R",
-        "parcelId": "30434116020006060",
-        "address": "192  CAPE POINTE CIR  Private Provider JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Electrical Residential Pool",
-        "subtype": "Pool",
-        "description": "New pool and spa. Deck renovation - MASTER PERMIT 26-097296-POOLR",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-10",
-        "issuedDate": "2026-09-11",
-        "finalDate": null,
-        "expirationDate": "2027-03-10",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/ce0fcf64-a924-405d-99ed-143750f0aec4"
-      },
-      {
-        "permitNumber": "26-097296-POOLR",
-        "parcelId": "30434116020006060",
-        "address": "192  CAPE POINTE CIR  Private Provider JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential In Ground Pool/Spa",
-        "subtype": "In Ground Pool/Spa",
-        "description": "New pool and spa. Deck renovation",
-        "status": "NOC Required",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-14",
-        "issuedDate": "2026-09-11",
-        "finalDate": null,
-        "expirationDate": "2027-03-10",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/83ca1729-b2dc-4c60-996d-bb92224a1fd1"
       }
     ],
     "30424111150002350": [
@@ -1993,6 +2109,46 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6b0b298f-5f19-41c1-ae89-d47f732aad67"
       }
     ],
+    "30424124040001090": [
+      {
+        "permitNumber": "26-097693-PLUMR",
+        "parcelId": "30424124040001090",
+        "address": "212  HONEYSUCKLE DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "double check valve replacement, no plumbing to the home",
+        "status": "52 - Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-31",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7802ed3b-0049-41d5-be0f-b1d7cbd8a8ec"
+      }
+    ],
+    "30424124090002230": [
+      {
+        "permitNumber": "26-097687-PLUMR",
+        "parcelId": "30424124090002230",
+        "address": "137  POINCIANA DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "double check valve replacement only, no plumbing to home/property",
+        "status": "52 - Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-31",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7665f8b0-36b4-45f8-8d15-b0f57e6705d0"
+      }
+    ],
     "30434120110185040": [
       {
         "permitNumber": "26-097678-COMM",
@@ -2971,7 +3127,7 @@
         "appliedDate": "2026-08-13",
         "issuedDate": "2026-08-18",
         "finalDate": null,
-        "expirationDate": "2027-02-14",
+        "expirationDate": "2027-03-11",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6d215486-4fd6-4ef4-97e9-a1628191c21e"
       }
     ],
@@ -3641,6 +3797,26 @@
         "finalDate": null,
         "expirationDate": "2027-02-06",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/05bbc228-0800-4a9d-8c4d-82f209ecae01"
+      }
+    ],
+    "30424111120000170": [
+      {
+        "permitNumber": "26-096694-BLDR",
+        "parcelId": "30424111120000170",
+        "address": "258  LOCHA DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "EXISTING CONCRETE TIE BEAM, BLOCK WALL, DOORS TO BE REMOVED TO ALLOW FOR INSTALLATION OF A NEW NANAWALL SYSTEM (6 IMPACT GLASS PANELS) IN THE MAIN LIVING ROOM. IN THE MASTERS QUARTERS, REMOVE AN EXISTING WINDOW THAT WILL BE CONVERTED INTO A DOOR TO ACCESS THE PATIO.",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-22",
+        "issuedDate": "2026-08-10",
+        "finalDate": null,
+        "expirationDate": "2027-03-09",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/25690a7e-299e-4777-a1a8-6f2d89bb6110"
       }
     ],
     "30424111010030020": [
@@ -5091,6 +5267,26 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/8acebdd1-fb0a-4224-a7ba-0b54dcf2ad50"
       }
     ],
+    "30424115010170070": [
+      {
+        "permitNumber": "25-091136-BLDR",
+        "parcelId": "30424115010170070",
+        "address": "6170  MULLIN ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Replace two (2) existing exterior doors with new impact doors.",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2025-10-21",
+        "issuedDate": "2025-10-28",
+        "finalDate": null,
+        "expirationDate": "2026-12-21",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/94c0858f-9c9a-4a6a-b0cd-5649d7a672f0"
+      }
+    ],
     "30434118070005550": [
       {
         "permitNumber": "25-090078-BLDR",
@@ -5225,6 +5421,24 @@
         "finalDate": null,
         "expirationDate": "2027-03-10",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/13a30bd8-b1de-4971-b139-be03e3cc9811"
+      },
+      {
+        "permitNumber": "25-086782-ELEC-C",
+        "parcelId": "30424103240000060",
+        "address": "2144 W INDIANTOWN RD  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Commercial Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "MASTER PERMIT #24-083574-COMM:      electrical work associated with remodel",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2025-04-09",
+        "issuedDate": "2025-07-14",
+        "finalDate": null,
+        "expirationDate": "2027-03-11",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1b9eb98e-6bd1-4889-8646-74861619557c"
       },
       {
         "permitNumber": "24-083574-COMM",
@@ -26691,24 +26905,6 @@
         "finalDate": "2020-10-02",
         "expirationDate": "2021-03-30",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/86c6aed5-302e-458c-9adb-b52e0e801bf0"
-      },
-      {
-        "permitNumber": "20-044019-MECHC",
-        "parcelId": "30424112000005100",
-        "address": "1701  MILITARY TRL  Unit: 150 A & 150 C Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Commercial Mechanical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "Interior Renovation of existing space incl. new finishes ;casework; lighting; hvac, plumbing, electrical for office space & some warehouse space",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-07-24",
-        "finalDate": "2020-10-07",
-        "expirationDate": "2021-04-05",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/8d4ca92a-284e-49bf-b677-ef5c4bd60d57"
       }
     ],
     "30424032010001180": [
@@ -67579,26 +67775,6 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/349956f7-506e-4c0a-8661-90dd49cd93a2"
       }
     ],
-    "30424115020002270": [
-      {
-        "permitNumber": "20-003445-ROOF-R",
-        "parcelId": "30424115020002270",
-        "address": "485  PEACOCK LN S Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Remove existing roof material to deck; renail to code. Install self-adhered underlayment, install tile roof.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-09-09",
-        "issuedDate": "2020-09-15",
-        "finalDate": "2021-05-27",
-        "expirationDate": "2021-11-15",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5c72703d-6a4b-4d38-af82-754cda62a216"
-      }
-    ],
     "30424102160000260": [
       {
         "permitNumber": "20-045550-BLDR",
@@ -71355,24 +71531,6 @@
         "finalDate": "2020-10-07",
         "expirationDate": "2021-04-05",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/cec683b2-8f71-487c-8f49-2ae5e19e69b8"
-      },
-      {
-        "permitNumber": "20-043990-MECHC",
-        "parcelId": "30424124170021040",
-        "address": "600  UNIVERSITY BLVD  Unit: 104 Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Commercial Mechanical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "MECHANICAL PER PLANS",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-08-27",
-        "finalDate": "2020-10-07",
-        "expirationDate": "2021-03-31",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/36498c7c-c52e-465b-9964-a9f5fff1067e"
       }
     ],
     "30424110300140022": [
@@ -76375,126 +76533,6 @@
         "finalDate": "2020-10-08",
         "expirationDate": "2021-03-23",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3bd113c4-fad1-4eac-82db-69739bd04972"
-      }
-    ],
-    "30424123080110240": [
-      {
-        "permitNumber": "20-044011-COMM",
-        "parcelId": "30424123080110240",
-        "address": "1116  UNIVERSITY BLVD  Unit: 24 Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Commercial Shutter",
-        "subtype": "Shutter",
-        "description": "Accordion Shutters on 3 Sliding Glass doors and 1 Window",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-08-21",
-        "finalDate": "2020-09-15",
-        "expirationDate": "2021-03-10",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/11f6e53d-a2e9-47ad-bffd-a0c4e3cf2afd"
-      }
-    ],
-    "30424115020003650": [
-      {
-        "permitNumber": "20-044000-BLDR",
-        "parcelId": "30424115020003650",
-        "address": "486  OTTER LN N Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Install 3 Impact windows and 3 SGD's",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-08-07",
-        "finalDate": "2020-10-28",
-        "expirationDate": "2021-03-15",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2f31e530-51d6-4eef-978c-543c391f2e15"
-      }
-    ],
-    "30424112020010090": [
-      {
-        "permitNumber": "20-043999-BLDR",
-        "parcelId": "30424112020010090",
-        "address": "601  OAK TER  Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Residential Fence",
-        "subtype": "Fence",
-        "description": "281 ft of 4 ft chain link fence with 1 gate pool barrier",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-08-11",
-        "finalDate": "2020-08-28",
-        "expirationDate": "2021-02-24",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/12bc775d-eef6-41a8-9257-9300aa8dfb57"
-      }
-    ],
-    "30424036080000040": [
-      {
-        "permitNumber": "20-043997-BLDR",
-        "parcelId": "30424036080000040",
-        "address": "963  DOLPHIN CT  Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACEMENT OF 12 WINDOWS & 2 DOORS W/ IMPACT",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-08-26",
-        "finalDate": "2020-10-30",
-        "expirationDate": "2021-03-16",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9767bf26-8d3d-4ac1-a0b2-831e043725bd"
-      }
-    ],
-    "30424027140000460": [
-      {
-        "permitNumber": "20-043994-ELECR-R",
-        "parcelId": "30424027140000460",
-        "address": "132  GOTHIC CIR  Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Residential Electrical",
-        "subtype": "Electrical",
-        "description": "Replace rusted service riser",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-07-24",
-        "finalDate": "2020-09-15",
-        "expirationDate": "2021-03-01",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/0b27e596-46b3-49d6-932c-ede397b8187e"
-      }
-    ],
-    "30434117030005980": [
-      {
-        "permitNumber": "20-043991-BLDR",
-        "parcelId": "30434117030005980",
-        "address": "462  MARINER DR  Jupiter FL 33477",
-        "city": "Jupiter",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACE (1) WINDOW",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-07-28",
-        "finalDate": "2020-10-30",
-        "expirationDate": "2021-03-16",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/98060b07-a4c2-40c2-8186-3f0b4b189a74"
       }
     ]
   }
