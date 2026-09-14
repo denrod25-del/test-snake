@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-09-13T07:43:36Z",
+  "generated": "2026-09-14T07:52:28Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,104 @@
         "finalDate": null,
         "expirationDate": "2027-03-09",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06434632480000490": [
+      {
+        "permitNumber": "BPM-2026-02442",
+        "parcelId": "06434632480000490",
+        "address": "100 NW 69th Cir  42 Unit: 42 Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
+        "subtype": "Window/ door/ shutter ",
+        "description": "RETROFIT IMPACT 1 FD",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-13",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/895ad53d-8109-4afc-ab19-224bb2f1e660"
+      }
+    ],
+    "06424710080002580": [
+      {
+        "permitNumber": "BPR-2026-02502",
+        "parcelId": "06424710080002580",
+        "address": "3205  St Charles Pl   Boca Raton FL 33434",
+        "city": "Boca Raton",
+        "type": "Addition/Interior and/or Exterior Alteration - Building (Residential)",
+        "subtype": "Addition Int And/ Or Ext Alteration",
+        "description": "Kitchen and bathroom update, move load-bearing wall, new floors throughout.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-13",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6e3fccd4-9824-4a67-9691-8853a4c6b6b0"
+      }
+    ],
+    "06434720180230060": [
+      {
+        "permitNumber": "BPQ-2026-02180",
+        "parcelId": "06434720180230060",
+        "address": "224 NE 3rd Ct   Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Re-roof ",
+        "description": "re-roof",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-13",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b2f4ca29-f9a9-4e6d-b7c9-cd901e7e4b94"
+      }
+    ],
+    "06424703050000170": [
+      {
+        "permitNumber": "BPQ-2026-02179",
+        "parcelId": "06424703050000170",
+        "address": "3320 NW 53rd Cir   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "INSTALLATION OF 2 IMPACT DOORS AND 1 IMPACT WINDOW",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-13",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2ef7ad67-a4ce-49d1-84a3-82a1647cfe0a"
+      },
+      {
+        "permitNumber": "BPQ-2026-01700",
+        "parcelId": "06424703050000170",
+        "address": "3320 NW 53rd Cir   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "replace 1 garage door 16x7",
+        "status": "Complete",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-11",
+        "issuedDate": "2026-07-20",
+        "finalDate": "2026-08-13",
+        "expirationDate": "2027-02-08",
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c0046b55-9d23-47c0-adfa-c22f25a6256a"
       }
     ],
     "06434731030070120": [
@@ -5461,24 +5559,6 @@
         "finalDate": "2026-09-10",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/fa8c33f3-8e56-4e78-979c-00a7f73de569"
-      },
-      {
-        "permitNumber": "BPM-2026-01372",
-        "parcelId": "06434716060030020",
-        "address": "2066 N Ocean Blvd  2SE Unit: 2SE Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Interior Renovation/ Alteration Multifamily",
-        "subtype": "Interior Only Alteration",
-        "description": "A full interior renovation",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/9b45c0c7-1f73-48fb-bfa7-276b627fbdbd"
       }
     ],
     "06434717090060100": [
@@ -26636,7 +26716,7 @@
         "type": "Plumbing/Piping/Plumbing Fixtures - Building (Residential)",
         "subtype": "Plumbing Piping/ Fixtures",
         "description": "PRIVATE PROVIDER PLAN REVIEW & INSPECTIONS: Remove the existing tub. Then install a new SHOWER base in the same location. The water and drain will attach to the existing plumbing.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -37824,7 +37904,7 @@
         "type": "Fence/Site Wall - Building (Residential)",
         "subtype": "Fence/Site Wall/ Gate",
         "description": "RETAINER WALL METAL 4' FENCE ANS STAIRS",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -43498,7 +43578,7 @@
         "type": "Interior Renovation/ Alteration Multifamily",
         "subtype": "Interior Only Alteration",
         "description": "Interior Condo Unit Remodel",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -43742,7 +43822,7 @@
         "type": "Interior Renovation/ Alteration Multifamily",
         "subtype": "Interior Only Alteration",
         "description": "Bathroom remodel \nNo electrical or Mechanical work to be done",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -47408,7 +47488,7 @@
         "type": "New Accessory Building Detached- Building (Residential)",
         "subtype": "New Accessory Building Detached",
         "description": "PRIVATE PROVIDR PLAN REVIEW AND INSPECTIONS: New  ADU",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -51907,26 +51987,6 @@
         "finalDate": "2026-07-27",
         "expirationDate": "2027-01-25",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b58d1f07-c366-4cb5-b30c-f7c5461bab51"
-      }
-    ],
-    "06424703050000170": [
-      {
-        "permitNumber": "BPQ-2026-01700",
-        "parcelId": "06424703050000170",
-        "address": "3320 NW 53rd Cir   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "replace 1 garage door 16x7",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-11",
-        "issuedDate": "2026-07-20",
-        "finalDate": "2026-08-13",
-        "expirationDate": "2027-02-08",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c0046b55-9d23-47c0-adfa-c22f25a6256a"
       }
     ],
     "06424725300820110": [
@@ -58654,7 +58714,7 @@
         "type": "Interior Only Alteration - Building (Commercial)",
         "subtype": "Interior Only Alteration",
         "description": "Interior alteration of exisiting space for future tenant",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -59904,7 +59964,7 @@
         "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
         "subtype": "Window/ door/ shutter ",
         "description": "Install 2 Hurricane windows and 1 1 Hurricane door.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -69633,24 +69693,6 @@
         "finalDate": "2026-09-11",
         "expirationDate": "2027-03-09",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7604c4ac-40ee-467f-906f-7e00771e4624"
-      },
-      {
-        "permitNumber": "BPR-2026-01490",
-        "parcelId": "06424723230072020",
-        "address": "5317  Buckhead Cir  2020 Unit: 2020 Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
-        "subtype": "Interior Only Alteration",
-        "description": "Replacement of flooring in master bedroom and bathroom",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": null,
-        "finalDate": "2026-05-29",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5a8165eb-9d10-4412-90c3-012699450507"
       }
     ],
     "06434729480010010": [
@@ -70491,24 +70533,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-17",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8f97004c-c61f-4896-9fbb-c36ff1c14c21"
-      },
-      {
-        "permitNumber": "BPC-2026-00950",
-        "parcelId": "06424725350000520",
-        "address": "1140 SW 19th Ave   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Fence/ Site Wall",
-        "subtype": "Fence/Wall/ Gate",
-        "description": "Finish small section of fence to comply as pool barrier",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": null,
-        "finalDate": "2026-05-29",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/fb5df036-65b5-432a-b1ca-5f6d58f821d9"
       }
     ],
     "06424704010000010": [
@@ -74601,26 +74625,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-10",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a4d122cb-0946-4b2c-a8e8-97ffec796d84"
-      }
-    ],
-    "06434717040080020": [
-      {
-        "permitNumber": "BPR-2026-01489",
-        "parcelId": "06434717040080020",
-        "address": "2745 NE 4th Way   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Fence/Site Wall - Building (Residential)",
-        "subtype": "Fence/Site Wall/ Gate",
-        "description": "White PVC fence installed 6 ft high with 3 gates - 160 LFT total",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": "2026-06-29",
-        "finalDate": "2026-07-06",
-        "expirationDate": "2027-01-04",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/88cc2b67-014b-43dd-a0c2-ff390af8350e"
       }
     ]
   }

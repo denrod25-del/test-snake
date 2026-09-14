@@ -1,12 +1,68 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-13T07:53:42Z",
+  "generated": "2026-09-14T08:02:25Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434105050006020": [
+      {
+        "permitNumber": "26-097949-AC",
+        "parcelId": "30434105050006020",
+        "address": "717 S US HIGHWAY 1   Unit: 602 JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "(1) LENNOX 2TON A/C CHANGE-OUT, LIKE FOR LIKE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-13",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/96ba64cc-75ff-4c47-b103-52bed708cea5"
+      },
+      {
+        "permitNumber": "20-048775-WHEAT",
+        "parcelId": "30434105050006020",
+        "address": "717 S US HIGHWAY 1   Unit: 602 Jupiter FL 33477",
+        "city": "Jupiter",
+        "type": "Water Heater Replacement",
+        "subtype": "Replacement",
+        "description": "water heater change out",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2020-12-29",
+        "issuedDate": "2020-12-31",
+        "finalDate": "2021-05-26",
+        "expirationDate": "2021-11-22",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/324e27ea-34dd-4142-a6bf-5b5b06df4dcb"
+      },
+      {
+        "permitNumber": "20-044093-AC",
+        "parcelId": "30434105050006020",
+        "address": "717 S US HIGHWAY 1   Unit: 602 Jupiter FL 33477",
+        "city": "Jupiter",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "Bryant 2 ton 14 seer",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2020-07-23",
+        "issuedDate": "2020-07-24",
+        "finalDate": "2020-08-03",
+        "expirationDate": "2021-01-25",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9343eaa7-1a1f-49ba-b70d-c1efaef2dae7"
+      }
+    ],
     "30434120050150020": [
       {
         "permitNumber": "26-097947-MECHR",
@@ -3229,6 +3285,26 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f03884c8-80e0-41e4-8257-f739fffa697c"
       }
     ],
+    "30434119020030310": [
+      {
+        "permitNumber": "26-009857-ROOF-R",
+        "parcelId": "30434119020030310",
+        "address": "423  RED HAWK DR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Roof New (Sub)",
+        "subtype": "No Fee Sub-Permit",
+        "description": "*** MASTER PERMIT #26-094306-BLDR *** NEW ROOF PER PLAN",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-10",
+        "issuedDate": "2026-08-21",
+        "finalDate": null,
+        "expirationDate": "2027-03-01",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/987d9113-db7e-4e25-bdcb-ec7191bffc0b"
+      }
+    ],
     "30424110020001240": [
       {
         "permitNumber": "26-097137-BLDR",
@@ -4899,6 +4975,26 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b2134f56-0f51-44c6-907b-2f69341e24a8"
       }
     ],
+    "3043411815": [
+      {
+        "permitNumber": "26-095181-ROOF-C",
+        "parcelId": "3043411815",
+        "address": "121  NAUTICAL WAY  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Re-Roof",
+        "subtype": "Roof - Commercial - Re-Roof",
+        "description": "Remove roof material to deck; re-nail; install SA underlayment and tile. ",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-05-21",
+        "issuedDate": "2026-07-01",
+        "finalDate": null,
+        "expirationDate": "2027-03-09",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b96211b8-2d74-4437-ae53-bf8ee4fdf86a"
+      }
+    ],
     "30424124240022100": [
       {
         "permitNumber": "26-095132-PLUMC",
@@ -5075,6 +5171,26 @@
         "finalDate": "2020-09-15",
         "expirationDate": "2021-03-02",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d91b2121-8110-4ecb-911d-0786be2c8e7d"
+      }
+    ],
+    "30424122031010010": [
+      {
+        "permitNumber": "26-092694-POOLR",
+        "parcelId": "30424122031010010",
+        "address": "6146  KENDRICK ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential In Ground Pool/Spa",
+        "subtype": "In Ground Pool/Spa",
+        "description": "New swimming pool and paver deck",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-01-20",
+        "issuedDate": "2026-02-11",
+        "finalDate": null,
+        "expirationDate": "2026-10-14",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6345352e-14f7-4ba8-9b01-254a9893d0b2"
       }
     ],
     "30434119010000100": [
@@ -10039,42 +10155,6 @@
         "finalDate": "2021-08-26",
         "expirationDate": "2022-02-21",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/dde4ee34-4563-4fb0-bb31-64f18fc885d0"
-      },
-      {
-        "permitNumber": "20-044037-PLUMR",
-        "parcelId": "30434107090000410",
-        "address": "108  QUAYSIDE DR  Jupiter FL 33477",
-        "city": "Jupiter",
-        "type": "Residential Plumbing Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "Install 3/4 backflow for poolfill for 20-043910-POOLR",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-08-19",
-        "finalDate": "2021-08-26",
-        "expirationDate": "2022-02-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a67d53ba-65cf-4dd2-a20b-2ec79130b627"
-      },
-      {
-        "permitNumber": "20-044036-ELECR-R",
-        "parcelId": "30434107090000410",
-        "address": "108  QUAYSIDE DR  Jupiter FL 33477",
-        "city": "Jupiter",
-        "type": "Electrical Residential Pool",
-        "subtype": "Pool",
-        "description": "New pool and Spa with pavers",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-08-19",
-        "finalDate": "2021-08-24",
-        "expirationDate": "2022-02-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c3abfc9f-7a51-4f6b-a9fa-489b547316e4"
       }
     ],
     "30434107250008060": [
@@ -13265,24 +13345,6 @@
         "finalDate": "2020-08-25",
         "expirationDate": "2021-02-22",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/040c9cd0-b38a-4c32-b5e3-13d3ea718c32"
-      },
-      {
-        "permitNumber": "20-044022-COMM",
-        "parcelId": "30424102470000010",
-        "address": "401  MAPLEWOOD DR  Unit: 2 Jupiter FL 33458",
-        "city": "Jupiter",
-        "type": "Commercial Addition",
-        "subtype": "Addition",
-        "description": "Demo existing drywall walls, Install new carpet and base, build new alum frame and drywall for (3) offices, (1) storage room and (1) conference room",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": null,
-        "finalDate": "2020-08-13",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/590622c1-f14d-4238-bbcc-4fcf4b3d9516"
       }
     ],
     "30434105040111060": [
@@ -57001,44 +57063,6 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/896f0924-ed99-49e4-a138-ba52359b1a7a"
       }
     ],
-    "30434105050006020": [
-      {
-        "permitNumber": "20-048775-WHEAT",
-        "parcelId": "30434105050006020",
-        "address": "717 S US HIGHWAY 1   Unit: 602 Jupiter FL 33477",
-        "city": "Jupiter",
-        "type": "Water Heater Replacement",
-        "subtype": "Replacement",
-        "description": "water heater change out",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-12-29",
-        "issuedDate": "2020-12-31",
-        "finalDate": "2021-05-26",
-        "expirationDate": "2021-11-22",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/324e27ea-34dd-4142-a6bf-5b5b06df4dcb"
-      },
-      {
-        "permitNumber": "20-044093-AC",
-        "parcelId": "30434105050006020",
-        "address": "717 S US HIGHWAY 1   Unit: 602 Jupiter FL 33477",
-        "city": "Jupiter",
-        "type": "A/C Changeout",
-        "subtype": "Change Out",
-        "description": "Bryant 2 ton 14 seer",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-23",
-        "issuedDate": "2020-07-24",
-        "finalDate": "2020-08-03",
-        "expirationDate": "2021-01-25",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9343eaa7-1a1f-49ba-b70d-c1efaef2dae7"
-      }
-    ],
     "30424027180000770": [
       {
         "permitNumber": "20-048774-BLDR",
@@ -76513,26 +76537,6 @@
         "finalDate": "2020-09-15",
         "expirationDate": "2021-03-10",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bc114c9f-1eb3-44b2-8124-aec146d40cbf"
-      }
-    ],
-    "30434118070005100": [
-      {
-        "permitNumber": "20-044023-ELECR-R",
-        "parcelId": "30434118070005100",
-        "address": "318  EAGLE DR  Jupiter FL 33477",
-        "city": "Jupiter",
-        "type": "Residential Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "Install electrical per plan for enclosed Terrace 20-043466-bldr",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2020-07-22",
-        "issuedDate": "2020-07-24",
-        "finalDate": "2020-10-08",
-        "expirationDate": "2021-03-23",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3bd113c4-fad1-4eac-82db-69739bd04972"
       }
     ]
   }
