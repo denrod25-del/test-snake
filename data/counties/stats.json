@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-14T08:02:33Z",
-  "salesGenerated": "2026-09-14T07:04:59Z",
+  "generated": "2026-09-14T20:45:12Z",
+  "salesGenerated": "2026-09-14T20:45:04Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -30,7 +30,13 @@
       "county": "Baker",
       "slug": "baker",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-29",
+        "label": "September 29, 2026",
+        "shortLabel": "Sep 29",
+        "count": 1,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -450,7 +456,13 @@
       "county": "Jackson",
       "slug": "jackson",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-15",
+        "label": "September 15, 2026",
+        "shortLabel": "Sep 15",
+        "count": 19,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -684,7 +696,13 @@
       "county": "Okeechobee",
       "slug": "okeechobee",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-17",
+        "label": "September 17, 2026",
+        "shortLabel": "Sep 17",
+        "count": 9,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -912,7 +930,13 @@
       "county": "Suwannee",
       "slug": "suwannee",
       "region": "North Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-10-08",
+        "label": "October 8, 2026",
+        "shortLabel": "Oct 8",
+        "count": 29,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -996,7 +1020,13 @@
       "county": "Washington",
       "slug": "washington",
       "region": "Northwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-15",
+        "label": "September 15, 2026",
+        "shortLabel": "Sep 15",
+        "count": 14,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {

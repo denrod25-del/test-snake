@@ -7,7 +7,12 @@ from unittest.mock import MagicMock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from realauction import _host_candidates, is_live_realauction_host, is_tax_deed_preview_html
+from realauction import (
+    _host_candidates,
+    is_live_realauction_host,
+    is_tax_deed_preview_html,
+    scrape_realauction_county,
+)
 
 
 class TestRealAuctionHelpers(unittest.TestCase):
@@ -45,6 +50,29 @@ class TestRealAuctionHelpers(unittest.TestCase):
         resp.text = "<html><title>Online Auction Software Solutions</title></html>"
         session.get.return_value = resp
         self.assertFalse(is_live_realauction_host(session, "https://collier.realtaxdeed.com"))
+
+    def test_primary_empty_calendar_not_labeled_foreclosure_only(self):
+        """Live tax-deed host with no future dates must not report sibling FC-only."""
+        from unittest.mock import patch
+
+        with patch("realauction.requests.Session") as SessionCls, patch(
+            "realauction.is_live_realauction_host", return_value=True
+        ), patch(
+            "realauction.discover_preview_dates",
+            side_effect=lambda session, url, max_dates=8: (
+                []
+                if "realtaxdeed" in url
+                else ["2026-09-20", "2026-09-27"]
+            ),
+        ), patch(
+            "realauction.count_parcels_for_date", return_value=0
+        ):
+            SessionCls.return_value = MagicMock()
+            sales = scrape_realauction_county("https://sarasota.realtaxdeed.com")
+        self.assertEqual(sales, [])
+        err = scrape_realauction_county.last_error
+        self.assertIn("no future tax-deed sale dates on https://sarasota.realtaxdeed.com", err)
+        self.assertNotIn("foreclosure-only calendar)", err)
 
 
 if __name__ == "__main__":

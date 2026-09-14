@@ -199,13 +199,22 @@ def scrape_realauction_county(home_url: str) -> list[dict]:
     session = requests.Session()
     scrape_realauction_county.last_error = None  # type: ignore[attr-defined]
     last_empty_reason = "no future preview dates"
-    for candidate in _host_candidates(home_url):
+    candidates = _host_candidates(home_url)
+    # When the configured (primary) host is live but lists no future preview
+    # days, still try the sibling — some counties keep tax deeds only on
+    # *.realforeclose.com. If the sibling is foreclosure-only, keep the
+    # primary empty-calendar reason instead of a misleading foreclosure fail.
+    primary_live_no_dates = False
+    primary_url = candidates[0] if candidates else home_url
+    for idx, candidate in enumerate(candidates):
         if not is_live_realauction_host(session, candidate):
             last_empty_reason = f"host not live ({candidate})"
             continue
         dates = discover_preview_dates(session, candidate)
         if not dates:
             last_empty_reason = f"no future preview dates on {candidate}"
+            if idx == 0:
+                primary_live_no_dates = True
             continue
         out = []
         for iso in dates:
@@ -228,6 +237,12 @@ def scrape_realauction_county(home_url: str) -> list[dict]:
         if out:
             scrape_realauction_county.last_error = None  # type: ignore[attr-defined]
             return out
+        if primary_live_no_dates and idx > 0:
+            last_empty_reason = (
+                f"no future tax-deed sale dates on {primary_url} "
+                f"(sibling host has preview days but no tax-deed parcels)"
+            )
+            break
         last_empty_reason = (
             f"preview dates found on {candidate} but no tax-deed parcel days "
             f"(foreclosure-only calendar)"

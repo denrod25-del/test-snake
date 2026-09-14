@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-14T07:04:59Z",
+  "generated": "2026-09-14T20:45:04Z",
   "stats": {
-    "scraped": 31,
+    "scraped": 36,
     "manual": 0,
     "curated": 1,
-    "failed": 2,
+    "failed": 1,
     "skipped": 9
   },
   "sales": {
@@ -26,6 +26,14 @@
         "source": "scraper",
         "count": 6,
         "officialUrl": "https://alachua.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/06/2026"
+      }
+    ],
+    "Baker": [
+      {
+        "date": "2026-09-29",
+        "source": "scraper",
+        "count": 1,
+        "officialUrl": "https://baker.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/29/2026"
       }
     ],
     "Bay": [
@@ -328,6 +336,32 @@
         "officialUrl": "https://hillsborough.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/12/2026"
       }
     ],
+    "Jackson": [
+      {
+        "date": "2026-09-15",
+        "source": "scraper",
+        "count": 19,
+        "officialUrl": "https://jackson.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/15/2026"
+      },
+      {
+        "date": "2026-09-22",
+        "source": "scraper",
+        "count": 11,
+        "officialUrl": "https://jackson.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/22/2026"
+      },
+      {
+        "date": "2026-09-29",
+        "source": "scraper",
+        "count": 13,
+        "officialUrl": "https://jackson.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/29/2026"
+      },
+      {
+        "date": "2026-10-06",
+        "source": "scraper",
+        "count": 13,
+        "officialUrl": "https://jackson.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/06/2026"
+      }
+    ],
     "Lee": [
       {
         "date": "2026-09-15",
@@ -422,6 +456,56 @@
         "officialUrl": "https://martin.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/07/2026"
       }
     ],
+    "Miami-Dade": [
+      {
+        "date": "2026-09-17",
+        "source": "cadence",
+        "verifiedAt": "2026-09-14",
+        "officialUrl": "https://miamidade.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-09-24",
+        "source": "cadence",
+        "verifiedAt": "2026-09-14",
+        "officialUrl": "https://miamidade.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-10-01",
+        "source": "cadence",
+        "verifiedAt": "2026-09-14",
+        "officialUrl": "https://miamidade.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-10-08",
+        "source": "cadence",
+        "verifiedAt": "2026-09-14",
+        "officialUrl": "https://miamidade.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-10-15",
+        "source": "cadence",
+        "verifiedAt": "2026-09-14",
+        "officialUrl": "https://miamidade.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2026-10-22",
+        "source": "cadence",
+        "verifiedAt": "2026-09-14",
+        "officialUrl": "https://miamidade.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      }
+    ],
     "Nassau": [
       {
         "date": "2026-09-29",
@@ -458,6 +542,26 @@
         "source": "scraper",
         "count": 1,
         "officialUrl": "https://nassau.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/17/2026"
+      }
+    ],
+    "Okeechobee": [
+      {
+        "date": "2026-09-17",
+        "source": "scraper",
+        "count": 9,
+        "officialUrl": "https://okeechobee.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/17/2026"
+      },
+      {
+        "date": "2026-10-08",
+        "source": "scraper",
+        "count": 13,
+        "officialUrl": "https://okeechobee.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/08/2026"
+      },
+      {
+        "date": "2026-10-29",
+        "source": "scraper",
+        "count": 11,
+        "officialUrl": "https://okeechobee.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/29/2026"
       }
     ],
     "Orange": [
@@ -594,20 +698,6 @@
         "officialUrl": "https://putnam.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/30/2026"
       }
     ],
-    "St. Lucie": [
-      {
-        "date": "2026-09-14",
-        "source": "scraper",
-        "count": 3,
-        "officialUrl": "https://stlucie.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/14/2026"
-      },
-      {
-        "date": "2026-10-05",
-        "source": "scraper",
-        "count": 11,
-        "officialUrl": "https://stlucie.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/05/2026"
-      }
-    ],
     "Santa Rosa": [
       {
         "date": "2026-10-05",
@@ -628,6 +718,28 @@
         "source": "scraper",
         "count": 3,
         "officialUrl": "https://seminole.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/12/2026"
+      }
+    ],
+    "St. Lucie": [
+      {
+        "date": "2026-09-14",
+        "source": "scraper",
+        "count": 3,
+        "officialUrl": "https://stlucie.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/14/2026"
+      },
+      {
+        "date": "2026-10-05",
+        "source": "scraper",
+        "count": 11,
+        "officialUrl": "https://stlucie.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/05/2026"
+      }
+    ],
+    "Suwannee": [
+      {
+        "date": "2026-10-08",
+        "source": "scraper",
+        "count": 29,
+        "officialUrl": "https://suwannee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/08/2026"
       }
     ],
     "Volusia": [
@@ -682,54 +794,60 @@
         "officialUrl": "https://walton.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/29/2026"
       }
     ],
-    "Miami-Dade": [
+    "Washington": [
       {
-        "date": "2026-09-17",
-        "source": "cadence",
-        "verifiedAt": "2026-09-14",
-        "officialUrl": "https://miamidade.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+        "date": "2026-09-15",
+        "source": "scraper",
+        "count": 14,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/15/2026"
       },
       {
-        "date": "2026-09-24",
-        "source": "cadence",
-        "verifiedAt": "2026-09-14",
-        "officialUrl": "https://miamidade.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+        "date": "2026-09-29",
+        "source": "scraper",
+        "count": 10,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=09/29/2026"
       },
       {
-        "date": "2026-10-01",
-        "source": "cadence",
-        "verifiedAt": "2026-09-14",
-        "officialUrl": "https://miamidade.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+        "date": "2026-10-06",
+        "source": "scraper",
+        "count": 11,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/06/2026"
       },
       {
-        "date": "2026-10-08",
-        "source": "cadence",
-        "verifiedAt": "2026-09-14",
-        "officialUrl": "https://miamidade.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+        "date": "2026-10-27",
+        "source": "scraper",
+        "count": 12,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=10/27/2026"
       },
       {
-        "date": "2026-10-15",
-        "source": "cadence",
-        "verifiedAt": "2026-09-14",
-        "officialUrl": "https://miamidade.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+        "date": "2026-11-03",
+        "source": "scraper",
+        "count": 11,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/03/2026"
       },
       {
-        "date": "2026-10-22",
-        "source": "cadence",
-        "verifiedAt": "2026-09-14",
-        "officialUrl": "https://miamidade.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+        "date": "2026-11-17",
+        "source": "scraper",
+        "count": 10,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/17/2026"
+      },
+      {
+        "date": "2026-12-01",
+        "source": "scraper",
+        "count": 11,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/01/2026"
+      },
+      {
+        "date": "2026-12-08",
+        "source": "scraper",
+        "count": 17,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/08/2026"
+      },
+      {
+        "date": "2027-01-12",
+        "source": "scraper",
+        "count": 14,
+        "officialUrl": "https://washington.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/12/2027"
       }
     ]
   }
