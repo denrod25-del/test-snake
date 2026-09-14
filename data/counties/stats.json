@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-13T07:53:50Z",
-  "salesGenerated": "2026-09-07T07:02:57Z",
+  "generated": "2026-09-14T07:04:59Z",
+  "salesGenerated": "2026-09-14T07:04:59Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -76,7 +76,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 38,
+        "count": 34,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -124,7 +124,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 28,
+        "count": 22,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -142,7 +142,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 14,
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -226,7 +226,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 93,
+        "count": 83,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -244,7 +244,7 @@
         "date": "2026-10-07",
         "label": "October 7, 2026",
         "shortLabel": "Oct 7",
-        "count": 41,
+        "count": 34,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -376,7 +376,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 11,
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -412,7 +412,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 5,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -502,7 +502,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 57,
+        "count": 44,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -520,7 +520,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 30,
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -571,10 +571,10 @@
       "slug": "manatee",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-14",
-        "label": "September 14, 2026",
-        "shortLabel": "Sep 14",
-        "count": 3,
+        "date": "2026-09-28",
+        "label": "September 28, 2026",
+        "shortLabel": "Sep 28",
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -592,7 +592,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 43,
+        "count": 42,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -624,7 +624,13 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-09-17",
+        "label": "September 17, 2026",
+        "shortLabel": "Sep 17",
+        "count": null,
+        "source": "cadence"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -649,9 +655,9 @@
       "slug": "nassau",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-09-15",
-        "label": "September 15, 2026",
-        "shortLabel": "Sep 15",
+        "date": "2026-09-29",
+        "label": "September 29, 2026",
+        "shortLabel": "Sep 29",
         "count": 1,
         "source": "scraper"
       },
@@ -694,7 +700,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 6,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -712,7 +718,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 13,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -730,7 +736,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 15,
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -748,7 +754,7 @@
         "date": "2026-09-24",
         "label": "September 24, 2026",
         "shortLabel": "Sep 24",
-        "count": 19,
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -763,11 +769,11 @@
       "slug": "pinellas",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-24",
-        "label": "September 24, 2026",
-        "shortLabel": "Sep 24",
-        "count": null,
-        "source": "cadence"
+        "date": "2026-10-21",
+        "label": "October 21, 2026",
+        "shortLabel": "Oct 21",
+        "count": 17,
+        "source": "scraper"
       },
       "surplusPortal": true,
       "surplusUrl": "https://www.mypinellasclerk.gov/Home/TaxDeedSurplus",
@@ -784,7 +790,7 @@
         "date": "2026-09-17",
         "label": "September 17, 2026",
         "shortLabel": "Sep 17",
-        "count": 37,
+        "count": 31,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -802,7 +808,7 @@
         "date": "2026-09-16",
         "label": "September 16, 2026",
         "shortLabel": "Sep 16",
-        "count": 57,
+        "count": 54,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -820,7 +826,7 @@
         "date": "2026-10-05",
         "label": "October 5, 2026",
         "shortLabel": "Oct 5",
-        "count": 4,
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -880,7 +886,7 @@
         "date": "2026-09-14",
         "label": "September 14, 2026",
         "shortLabel": "Sep 14",
-        "count": 7,
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -946,7 +952,7 @@
         "date": "2026-09-15",
         "label": "September 15, 2026",
         "shortLabel": "Sep 15",
-        "count": 16,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
