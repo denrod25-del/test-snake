@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-14T08:02:33Z",
+  "generated": "2026-09-15T07:54:55Z",
   "salesGenerated": "2026-09-14T07:04:59Z",
   "featuredSlugs": [
     "palm-beach",
@@ -883,10 +883,10 @@
       "slug": "st-lucie",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-09-14",
-        "label": "September 14, 2026",
-        "shortLabel": "Sep 14",
-        "count": 3,
+        "date": "2026-10-05",
+        "label": "October 5, 2026",
+        "shortLabel": "Oct 5",
+        "count": 11,
         "source": "scraper"
       },
       "surplusPortal": true,
