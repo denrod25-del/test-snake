@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-15T07:54:55Z",
+  "generated": "2026-09-16T07:54:59Z",
   "salesGenerated": "2026-09-14T07:04:59Z",
   "featuredSlugs": [
     "palm-beach",
@@ -13,10 +13,10 @@
       "slug": "alachua",
       "region": "North Central",
       "nextSale": {
-        "date": "2026-09-15",
-        "label": "September 15, 2026",
-        "shortLabel": "Sep 15",
-        "count": 3,
+        "date": "2026-09-22",
+        "label": "September 22, 2026",
+        "shortLabel": "Sep 22",
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -121,10 +121,10 @@
       "slug": "charlotte",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-09-15",
-        "label": "September 15, 2026",
-        "shortLabel": "Sep 15",
-        "count": 22,
+        "date": "2026-09-29",
+        "label": "September 29, 2026",
+        "shortLabel": "Sep 29",
+        "count": 30,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -499,10 +499,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-09-15",
-        "label": "September 15, 2026",
-        "shortLabel": "Sep 15",
-        "count": 44,
+        "date": "2026-09-22",
+        "label": "September 22, 2026",
+        "shortLabel": "Sep 22",
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -715,10 +715,10 @@
       "slug": "osceola",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-15",
-        "label": "September 15, 2026",
-        "shortLabel": "Sep 15",
-        "count": 7,
+        "date": "2026-10-13",
+        "label": "October 13, 2026",
+        "shortLabel": "Oct 13",
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -949,10 +949,10 @@
       "slug": "volusia",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-15",
-        "label": "September 15, 2026",
-        "shortLabel": "Sep 15",
-        "count": 12,
+        "date": "2026-09-29",
+        "label": "September 29, 2026",
+        "shortLabel": "Sep 29",
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
