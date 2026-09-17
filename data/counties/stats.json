@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-16T07:54:59Z",
+  "generated": "2026-09-17T07:55:08Z",
   "salesGenerated": "2026-09-14T07:04:59Z",
   "featuredSlugs": [
     "palm-beach",
@@ -139,10 +139,10 @@
       "slug": "citrus",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 13,
+        "date": "2026-10-07",
+        "label": "October 7, 2026",
+        "shortLabel": "Oct 7",
+        "count": 34,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -223,10 +223,10 @@
       "slug": "duval",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 83,
+        "date": "2026-10-14",
+        "label": "October 14, 2026",
+        "shortLabel": "Oct 14",
+        "count": 171,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -373,10 +373,10 @@
       "slug": "hernando",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 8,
+        "date": "2026-10-14",
+        "label": "October 14, 2026",
+        "shortLabel": "Oct 14",
+        "count": 30,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -391,10 +391,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 24,
+        "date": "2026-10-07",
+        "label": "October 7, 2026",
+        "shortLabel": "Oct 7",
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -517,10 +517,10 @@
       "slug": "leon",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 18,
+        "date": "2026-10-21",
+        "label": "October 21, 2026",
+        "shortLabel": "Oct 21",
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -589,10 +589,10 @@
       "slug": "marion",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 42,
+        "date": "2026-10-14",
+        "label": "October 14, 2026",
+        "shortLabel": "Oct 14",
+        "count": 96,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -733,10 +733,10 @@
       "slug": "palm-beach",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 13,
+        "date": "2026-10-14",
+        "label": "October 14, 2026",
+        "shortLabel": "Oct 14",
+        "count": 38,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -805,10 +805,10 @@
       "slug": "putnam",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-09-16",
-        "label": "September 16, 2026",
-        "shortLabel": "Sep 16",
-        "count": 54,
+        "date": "2026-09-30",
+        "label": "September 30, 2026",
+        "shortLabel": "Sep 30",
+        "count": 55,
         "source": "scraper"
       },
       "surplusPortal": false,
