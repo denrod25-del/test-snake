@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-17T07:55:08Z",
+  "generated": "2026-09-18T07:54:33Z",
   "salesGenerated": "2026-09-14T07:04:59Z",
   "featuredSlugs": [
     "palm-beach",
@@ -73,10 +73,10 @@
       "slug": "brevard",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-17",
-        "label": "September 17, 2026",
-        "shortLabel": "Sep 17",
-        "count": 34,
+        "date": "2026-10-22",
+        "label": "October 22, 2026",
+        "shortLabel": "Oct 22",
+        "count": 48,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -409,9 +409,9 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-17",
-        "label": "September 17, 2026",
-        "shortLabel": "Sep 17",
+        "date": "2026-09-24",
+        "label": "September 24, 2026",
+        "shortLabel": "Sep 24",
         "count": 4,
         "source": "scraper"
       },
@@ -625,9 +625,9 @@
       "slug": "miami-dade",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-09-17",
-        "label": "September 17, 2026",
-        "shortLabel": "Sep 17",
+        "date": "2026-09-24",
+        "label": "September 24, 2026",
+        "shortLabel": "Sep 24",
         "count": null,
         "source": "cadence"
       },
@@ -697,10 +697,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-17",
-        "label": "September 17, 2026",
-        "shortLabel": "Sep 17",
-        "count": 4,
+        "date": "2026-09-24",
+        "label": "September 24, 2026",
+        "shortLabel": "Sep 24",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -787,9 +787,9 @@
       "slug": "polk",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-17",
-        "label": "September 17, 2026",
-        "shortLabel": "Sep 17",
+        "date": "2026-10-15",
+        "label": "October 15, 2026",
+        "shortLabel": "Oct 15",
         "count": 31,
         "source": "scraper"
       },
