@@ -12,6 +12,7 @@ Monorepo of web apps and static sites built in this workspace. Each folder is an
 | `forge-path/` | Forge Path — interactive learning paths |
 | `js-quest/` | JavaScript quest / tutorial app |
 | `app/` | Main Vite/React app |
+| `field-service-ops/` | Field Service Ops — multi-tenant Book→Dispatch→Job→Pay (Vite + Supabase) |
 | `school-shooting-tracker/` | School shooting tracker |
 
 ## Static HTML / lightweight sites
