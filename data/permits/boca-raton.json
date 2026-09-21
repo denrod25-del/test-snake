@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-09-20T07:44:03Z",
+  "generated": "2026-09-21T07:54:32Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,82 @@
         "finalDate": null,
         "expirationDate": "2027-03-15",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06424716130000850": [
+      {
+        "permitNumber": "BPR-2026-02572",
+        "parcelId": "06424716130000850",
+        "address": "20961  Certosa Ter   Boca Raton FL 33433",
+        "city": "Boca Raton",
+        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
+        "subtype": "Interior Only Alteration",
+        "description": "Kitchen Remodel.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/50539780-8868-478f-aa45-76ca8f95d307"
+      },
+      {
+        "permitNumber": "BPQ-2026-02181",
+        "parcelId": "06424716130000850",
+        "address": "20961  Certosa Ter   Boca Raton FL 33433",
+        "city": "Boca Raton",
+        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Re-roof ",
+        "description": "Re-Roof Tile",
+        "status": "Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-14",
+        "issuedDate": "2026-09-16",
+        "finalDate": null,
+        "expirationDate": "2027-03-15",
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5d822883-4c4e-4f4b-8f67-989f2ff1572b"
+      },
+      {
+        "permitNumber": "BPQ-2026-01386",
+        "parcelId": "06424716130000850",
+        "address": "20961  Certosa Ter   Boca Raton FL 33433",
+        "city": "Boca Raton",
+        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "A/c changeout ",
+        "description": "EXACT AC CHANGE OUT - LIKE FOR LIKE",
+        "status": "In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-05",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/1c6355ee-8070-41bb-931e-2dd0eff2edfb"
+      }
+    ],
+    "06424701030070000": [
+      {
+        "permitNumber": "BPC-2026-01765",
+        "parcelId": "06424701030070000",
+        "address": "1001 NW Broken Sound Pkwy   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "Changeout 5 units",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/07afe33f-c609-4c30-a7ef-021d2ca89b8c"
       }
     ],
     "06424724070220050": [
@@ -9761,44 +9837,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/3d3abe9a-a72d-455e-aaef-aeeef769d008"
       }
     ],
-    "06424716130000850": [
-      {
-        "permitNumber": "BPQ-2026-02181",
-        "parcelId": "06424716130000850",
-        "address": "20961  Certosa Ter   Boca Raton FL 33433",
-        "city": "Boca Raton",
-        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Re-roof ",
-        "description": "Re-Roof Tile",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-14",
-        "issuedDate": "2026-09-16",
-        "finalDate": null,
-        "expirationDate": "2027-03-15",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5d822883-4c4e-4f4b-8f67-989f2ff1572b"
-      },
-      {
-        "permitNumber": "BPQ-2026-01386",
-        "parcelId": "06424716130000850",
-        "address": "20961  Certosa Ter   Boca Raton FL 33433",
-        "city": "Boca Raton",
-        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "A/c changeout ",
-        "description": "EXACT AC CHANGE OUT - LIKE FOR LIKE",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-05",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/1c6355ee-8070-41bb-931e-2dd0eff2edfb"
-      }
-    ],
     "06434632480000490": [
       {
         "permitNumber": "BPM-2026-02442",
@@ -15748,7 +15786,7 @@
         "type": "Electrical Water Heater Changeout Multifamily",
         "subtype": "Water heater changeout (elect)",
         "description": "Remove old water heater and install the new water heater in the same location",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -73139,24 +73177,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-25",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2874f4f4-5314-40b7-8191-826147efcadd"
-      },
-      {
-        "permitNumber": "BPC-2026-01004",
-        "parcelId": "06434719320010000",
-        "address": "1098 NW 2nd Ave   Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Re - Roof - Building (Commercial)",
-        "subtype": "Re-roof",
-        "description": "Spray Ployuretheane Foam Roof System",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-04",
-        "issuedDate": null,
-        "finalDate": "2026-06-04",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/3bc6ea24-f4cc-44ef-a426-2985cb81e12b"
       }
     ],
     "06424725050280040": [
@@ -74477,26 +74497,6 @@
         "finalDate": "2026-06-04",
         "expirationDate": "2027-01-09",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/bc1a5f71-00c6-47d6-b33c-97cd8e909b89"
-      }
-    ],
-    "06434632470010000": [
-      {
-        "permitNumber": "BPM-2026-01434",
-        "parcelId": "06434632470010000",
-        "address": "7801 N Federal Hwy   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Exterior Building Painting Multifamily",
-        "subtype": "Exterior Painting",
-        "description": "Exterior Re-paint. \n\nNo Color Change",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-04",
-        "issuedDate": "2026-06-22",
-        "finalDate": null,
-        "expirationDate": "2026-12-19",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6264928a-ba3d-43d2-be1f-c24853ee0f2f"
       }
     ]
   }

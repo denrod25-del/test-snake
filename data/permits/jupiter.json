@@ -1,12 +1,204 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-20T07:53:05Z",
+  "generated": "2026-09-21T08:03:57Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424113170000230": [
+      {
+        "permitNumber": "26-009948-ROOF-R",
+        "parcelId": "30424113170000230",
+        "address": "106  SEGOVIA WAY  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "Re-roof existing tile roof to new tile",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/48a20037-0630-4948-a096-cbf2243a2137"
+      }
+    ],
+    "30424115020006440": [
+      {
+        "permitNumber": "26-098103-ELECR-R",
+        "parcelId": "30424115020006440",
+        "address": "252  SPOONBILL LN N JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Electrical",
+        "subtype": "Electrical",
+        "description": "Replace the existing pool water heater.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a1a1d657-6e8f-4351-8e10-46b784228590"
+      }
+    ],
+    "30434106300000170": [
+      {
+        "permitNumber": "26-098102-AC",
+        "parcelId": "30434106300000170",
+        "address": "366  FISHERMANS WAY  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "AC CHANGEOUT 2 TON SPLIT SYSTEM",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/00cff99e-e38f-403a-88d0-1b6d6002f3a7"
+      },
+      {
+        "permitNumber": "26-098101-AC",
+        "parcelId": "30434106300000170",
+        "address": "366  FISHERMANS WAY  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "AC CHANGEOUT 5-TON SPLIT SYSTEM",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3472268a-6f06-408a-8900-00a40f0ed931"
+      },
+      {
+        "permitNumber": "26-097670-BLDR",
+        "parcelId": "30434106300000170",
+        "address": "366  FISHERMANS WAY  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Replace 19 windows, 3 sliding glass doors, 2 doors with impact like for like",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-31",
+        "issuedDate": "2026-09-04",
+        "finalDate": null,
+        "expirationDate": "2027-03-03",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/813c098a-f95d-4a7f-9f2c-0a3276f8086b"
+      },
+      {
+        "permitNumber": "26-009885-ROOF-R",
+        "parcelId": "30434106300000170",
+        "address": "366  FISHERMANS WAY  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "TILE TO TILE REROOF",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-19",
+        "issuedDate": "2026-08-31",
+        "finalDate": null,
+        "expirationDate": "2027-03-08",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/69217c07-d22b-4610-83e6-5204473fa3c0"
+      }
+    ],
+    "30424034090001750": [
+      {
+        "permitNumber": "26-098100-BLDR",
+        "parcelId": "30424034090001750",
+        "address": "6857  BIG CYPRESS DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Exterior Wall/Shower Repair",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a497bad5-906c-40f3-b5e4-0ae4cf999498"
+      }
+    ],
+    "30424115020003890": [
+      {
+        "permitNumber": "26-009947-ROOF-R",
+        "parcelId": "30424115020003890",
+        "address": "416  MEADOWLARK DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "re roof 3700 soft tile - tile",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1e1a9a77-bb4e-4451-93a0-5a7a7d56d1ee"
+      }
+    ],
+    "30424110200000560": [
+      {
+        "permitNumber": "26-098099-ELECR-R",
+        "parcelId": "30424110200000560",
+        "address": "179  MOCCASIN TRL N JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "electric",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-20",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c0994cee-6a03-4b4b-84c3-c47bf0f49e95"
+      },
+      {
+        "permitNumber": "26-095781-COCNTR",
+        "parcelId": "30424110200000560",
+        "address": "179 MOCCASIN TRL N JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Change of Contractor - Change of Contractor",
+        "subtype": "Change of Contractor",
+        "description": "CHANGE OF CONTRACTOR FOR PERMIT #26-093711-BLDR ",
+        "status": "30 - In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-16",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5a85482f-e719-4bd2-b2ae-acef9d14dc33"
+      }
+    ],
     "30424032050000490": [
       {
         "permitNumber": "26-098098-BLDR",
@@ -14913,44 +15105,6 @@
         "finalDate": "2026-08-12",
         "expirationDate": "2027-02-02",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a970416d-aeaa-4fdf-85f2-928133514c0a"
-      }
-    ],
-    "30434106300000170": [
-      {
-        "permitNumber": "26-097670-BLDR",
-        "parcelId": "30434106300000170",
-        "address": "366  FISHERMANS WAY  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Replace 19 windows, 3 sliding glass doors, 2 doors with impact like for like",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-31",
-        "issuedDate": "2026-09-04",
-        "finalDate": null,
-        "expirationDate": "2027-03-03",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/813c098a-f95d-4a7f-9f2c-0a3276f8086b"
-      },
-      {
-        "permitNumber": "26-009885-ROOF-R",
-        "parcelId": "30434106300000170",
-        "address": "366  FISHERMANS WAY  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "TILE TO TILE REROOF",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": "2026-08-31",
-        "finalDate": null,
-        "expirationDate": "2027-03-08",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/69217c07-d22b-4610-83e6-5204473fa3c0"
       }
     ],
     "30424101030080080": [
@@ -55901,26 +56055,6 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/4656eb8f-cacc-42b4-9039-fca2fac74859"
       }
     ],
-    "30424110200000560": [
-      {
-        "permitNumber": "26-095781-COCNTR",
-        "parcelId": "30424110200000560",
-        "address": "179 MOCCASIN TRL N JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Change of Contractor - Change of Contractor",
-        "subtype": "Change of Contractor",
-        "description": "CHANGE OF CONTRACTOR FOR PERMIT #26-093711-BLDR ",
-        "status": "30 - In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-16",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5a85482f-e719-4bd2-b2ae-acef9d14dc33"
-      }
-    ],
     "30424114060002210": [
       {
         "permitNumber": "26-095779-BLDR",
@@ -75463,24 +75597,6 @@
         "finalDate": "2026-05-21",
         "expirationDate": "2026-11-17",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/df7452f9-999b-4db0-bdda-d553fbc9b4ae"
-      },
-      {
-        "permitNumber": "26-094453-BLDR",
-        "parcelId": "30424034090001650",
-        "address": "18861  MISTY LAKE DR  PRIVATE PROVIDER JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Replace existing windows and doors with impact. like for like. Stucco perimeter of house and put Tyvek with 15#felt and tyvek. ***PRIVATE PROVIDER FOR INSPECTIONS ONLY***",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-21",
-        "issuedDate": "2026-05-04",
-        "finalDate": "2026-08-12",
-        "expirationDate": "2027-01-25",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7eaeae3e-d183-4af5-b536-13263969e3fd"
       }
     ],
     "30434116020003390": [
@@ -76577,124 +76693,6 @@
         "finalDate": "2026-04-24",
         "expirationDate": "2026-10-21",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3bb193ca-657e-4d6f-9129-d9668e73c6fe"
-      },
-      {
-        "permitNumber": "26-094454-COCNTR",
-        "parcelId": "30434118100005021",
-        "address": "160 EAGLE DR JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Change of Contractor - Change of Contractor",
-        "subtype": "Change of Contractor",
-        "description": "COC for permit 25-091932-COMM",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-21",
-        "issuedDate": "2026-04-24",
-        "finalDate": "2026-04-24",
-        "expirationDate": "2026-10-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/714e8439-d9ce-4b61-9fd7-ebc3afe4054d"
-      }
-    ],
-    "30424113230003030": [
-      {
-        "permitNumber": "26-094452-ELECR-R",
-        "parcelId": "30424113230003030",
-        "address": "115  DUNMORE DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Electrical",
-        "subtype": "Electrical",
-        "description": "REPLACE DAMAGED 200AMP METER/CAN COMBO WITH NEW 200AMP METER/CAN - UPDATE GROUNDING SYSTEM PER NEC",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-21",
-        "issuedDate": "2026-04-24",
-        "finalDate": "2026-05-29",
-        "expirationDate": "2026-11-24",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2cb7a836-1278-4086-a7a9-985c8cb64d3b"
-      }
-    ],
-    "30434117020001076": [
-      {
-        "permitNumber": "26-094451-BLDR",
-        "parcelId": "30434117020001076",
-        "address": "118  INNER HARBOUR WAY  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "CHANGE OUT 1 EXTERIOR DOOR NO SIZE CHANGE",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-21",
-        "issuedDate": "2026-04-30",
-        "finalDate": "2026-07-13",
-        "expirationDate": "2026-12-28",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/e87a4125-223a-4a5d-95ed-8a8c2fa6ee73"
-      }
-    ],
-    "30434031150016180": [
-      {
-        "permitNumber": "26-094450-COMM",
-        "parcelId": "30434031150016180",
-        "address": "1748  JUPITER COVE DR  Unit: 618A JUPITER FL 33469",
-        "city": "JUPITER",
-        "type": "Commercial Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACE 10 WINDOWS W/ IMPACT (NO SIZE CHANGE)",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-21",
-        "issuedDate": "2026-04-30",
-        "finalDate": "2026-06-08",
-        "expirationDate": "2026-12-02",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/50ff975a-efe0-4e2f-9ecc-4fa3936c9924"
-      }
-    ],
-    "30424034090001190": [
-      {
-        "permitNumber": "26-094449-BLDR",
-        "parcelId": "30424034090001190",
-        "address": "6780  VIEWPOINT CT  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Replacing 4 windows",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-21",
-        "issuedDate": "2026-04-28",
-        "finalDate": "2026-06-08",
-        "expirationDate": "2026-12-01",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6d42f784-831d-46d1-b84c-8033725ef638"
-      }
-    ],
-    "30424113170000070": [
-      {
-        "permitNumber": "26-094448-ELECR-R",
-        "parcelId": "30424113170000070",
-        "address": "318  MURCIA DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Electrical",
-        "subtype": "Electrical",
-        "description": "Panel change, circuit re-route, new load shed, new SPD, and update GEC",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-21",
-        "issuedDate": "2026-04-27",
-        "finalDate": "2026-05-14",
-        "expirationDate": "2026-11-09",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/057ffdc5-56db-40e7-abf2-53ec1b1b5704"
       }
     ]
   }
