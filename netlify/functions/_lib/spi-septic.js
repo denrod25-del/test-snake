@@ -113,7 +113,13 @@ function pointParams(layer, lon, lat, extra) {
 // area still means service is available, so the risk sits on the other side:
 // asserting septic for a house 20 m from the sewer boundary. One extra query,
 // and only in the case that needs it.
-async function isNearBoundary(layer, lon, lat, queryImpl) {
+//
+// The probe counts only polygons that establish service. A planned expansion
+// containing the point comes back from the buffered query at distance zero,
+// and treating that as "near a boundary" would discount confidence twice over
+// for a parcel that is squarely outside all existing service — it already
+// carries its own planned_service_expansion flag.
+async function isNearExistingServiceBoundary(layer, lon, lat, queryImpl) {
   try {
     const data = await queryImpl(
       layer.endpoint,
@@ -122,7 +128,14 @@ async function isNearBoundary(layer, lon, lat, queryImpl) {
         units: 'esriSRUnit_Meter',
       })
     );
-    return (data.features || []).length > 0;
+    const map = layer.map || {};
+    return (data.features || []).some((f) => {
+      const a = f.attributes || {};
+      const status = classifyServiceStatus(
+        pick(a, map.status || ['STATUS', 'SERVICE_STATUS', 'PHASE'])
+      );
+      return establishesService(status);
+    });
   } catch (err) {
     return false; // a failed proximity probe must not change the answer
   }
@@ -169,12 +182,14 @@ async function assembleAxis({
     };
   });
 
-  const source = {
+  // A countywide layer can carry several utilities, so the serving utility
+  // named on the matched polygon is more specific than the registry default.
+  const sourceFor = (feature) => ({
     endpoint: layer.endpoint,
-    provider: layer.provider || null,
+    provider: (feature && feature.provider) || layer.provider || null,
     label: layer.label || null,
     asOf: layer.dataAsOf || null,
-  };
+  });
 
   const establishing = labelled.find((f) => establishesService(f.status));
   if (establishing) {
@@ -184,7 +199,7 @@ async function assembleAxis({
       CONFIDENCE.INSIDE,
       'inside_service_area',
       `Inside ${where}.`,
-      source
+      sourceFor(establishing)
     );
   }
 
@@ -213,7 +228,7 @@ async function assembleAxis({
   }
 
   let confidence = CONFIDENCE.OUTSIDE;
-  if (await isNearBoundary(layer, lon, lat, queryImpl)) {
+  if (await isNearExistingServiceBoundary(layer, lon, lat, queryImpl)) {
     confidence -= CONFIDENCE.BOUNDARY_PENALTY;
     if (flags.indexOf('near_service_boundary') === -1) flags.push('near_service_boundary');
   }
@@ -223,7 +238,7 @@ async function assembleAxis({
     confidence,
     'outside_service_area',
     `Outside every mapped ${axisLabel} service area in this county.`,
-    source
+    sourceFor(null)
   );
 }
 

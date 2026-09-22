@@ -128,6 +128,28 @@ describe('spi-septic: inside a service area', () => {
     assert.equal(group.data.wastewater.source.provider, 'Example County Utilities');
   });
 
+  it('credits the utility named on the matched polygon over the registry default', async () => {
+    const group = await assembleSeptic({
+      ...AT,
+      loadJsonFn: loadWith(
+        config({ sewer: { map: { provider: ['UTILITY'] }, provider: 'Registry Default Utility' } })
+      ),
+      fetchFn: fetcher({
+        intersect: [{ attributes: { NAME: 'Zone 1', UTILITY: 'Seacoast Utility Authority' } }],
+      }),
+    });
+    assert.equal(group.data.wastewater.source.provider, 'Seacoast Utility Authority');
+  });
+
+  it('falls back to the registry provider when the polygon names none', async () => {
+    const group = await assembleSeptic({
+      ...AT,
+      loadJsonFn: loadWith(config()),
+      fetchFn: fetcher({ intersect: [{ attributes: { NAME: 'Zone 1' } }] }),
+    });
+    assert.equal(group.data.wastewater.source.provider, 'Example County Utilities');
+  });
+
   it('reports municipal water on the water axis', async () => {
     const group = await assembleSeptic({
       ...AT,
@@ -249,6 +271,39 @@ describe('spi-septic: planned expansions', () => {
     assert.equal(group.data.wastewater.value, 'septic');
     assert.equal(group.data.wastewater.basis, 'outside_service_area');
     assert.ok(group.data.flags.includes('planned_service_expansion'));
+  });
+
+  it('does not fire the boundary penalty for a planned area containing the point', async () => {
+    // The buffered probe returns the same containing planned polygon at
+    // distance zero; that is not proximity to existing service.
+    const planned = [{ attributes: { NAME: 'North Expansion', STATUS: 'Planned' } }];
+    const group = await assembleSeptic({
+      ...AT,
+      loadJsonFn: loadWith(config()),
+      fetchFn: fetcher({ intersect: planned, nearby: planned }),
+    });
+
+    assert.equal(group.data.wastewater.value, 'septic');
+    assert.equal(group.data.wastewater.confidence, CONFIDENCE.OUTSIDE);
+    assert.ok(group.data.flags.includes('planned_service_expansion'));
+    assert.ok(!group.data.flags.includes('near_service_boundary'));
+  });
+
+  it('still fires the boundary penalty for existing service just out of reach', async () => {
+    const group = await assembleSeptic({
+      ...AT,
+      loadJsonFn: loadWith(config()),
+      fetchFn: fetcher({
+        intersect: [],
+        nearby: [{ attributes: { NAME: 'Central Service Area', STATUS: 'Existing' } }],
+      }),
+    });
+
+    assert.ok(group.data.flags.includes('near_service_boundary'));
+    assert.equal(
+      group.data.wastewater.confidence,
+      Number((CONFIDENCE.OUTSIDE - CONFIDENCE.BOUNDARY_PENALTY).toFixed(3))
+    );
   });
 
   it('prefers an existing polygon when both overlap the point', async () => {
