@@ -33,6 +33,7 @@
     "data/permits/boca-raton.json",
     "data/permits/jupiter.json",
     "data/signals/flood-layers.json",
+    "data/signals/septic-layers.json",
   ]
 
 # Weekly surplus refresh (Tuesdays 08:00 UTC) — uses Netlify SUPABASE_* env.

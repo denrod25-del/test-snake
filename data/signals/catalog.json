@@ -56,6 +56,14 @@
       "coverage": "On-page watch digest + daily email digest via Resend (requires RESEND_API_KEY in Netlify env + Supabase sign-in to persist prefs). Covers zoning, permits, tax calendar, PBC certs, and flood signals filtered to your primary county. Netlify Forms Beta intake still works as fallback for anonymous users.",
       "source": "send-alert-digest scheduled function \u00b7 property-intelligence.html#signal-alerts \u00b7 Netlify form signal-alerts \u00b7 Supabase alert_subscriptions \u00b7 localStorage",
       "verification": "Email digests depend on Resend API key configuration. On-page digest is immediate. Verify signal data on official sources."
+    },
+    {
+      "id": "water-sewer",
+      "name": "Septic/sewer & well/municipal water",
+      "status": "coming-soon",
+      "coverage": "Scaffolded for the 16 live-parcel counties; no county service-area layer is wired live yet, so lookups return coming-soon rather than a guess.",
+      "source": "data/signals/septic-layers.json",
+      "verification": "County GIS lags physical connections. Confirm with the county health department or the serving utility before relying on it for a transaction, permit, or installation. A parcel outside a mapped sewer area is only read as septic where the layer covers the whole county."
     }
   ]
 }
