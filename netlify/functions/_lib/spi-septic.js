@@ -36,12 +36,46 @@ function gradeFor(confidence) {
 
 // A polygon marked planned/proposed does not change today's answer — a parcel
 // inside a future sewer expansion is still on septic until the line is built.
+//
+// 'absent' and 'unknown' are deliberately different answers. Most service-area
+// layers carry no status column at all, and membership in the layer is itself
+// the evidence ('absent'). A value that is present but unrecognized — Inactive,
+// Abandoned, Disconnected, a coded number — is the opposite: it means we cannot
+// read this polygon, so it must never establish service.
 function classifyServiceStatus(value) {
   const v = String(value == null ? '' : value).toUpperCase().trim();
-  if (!v) return 'unknown';
-  if (/PLAN|PROPOS|FUTURE|UNDER (DESIGN|CONSTRUCTION)|PHASE ?[2-9]/.test(v)) return 'planned';
-  if (/EXIST|ACTIVE|CURRENT|IN.SERVICE|SERVED|COMPLETE/.test(v)) return 'existing';
+  if (!v) return 'absent';
+
+  // Negations are tested first, and every positive below is word-anchored,
+  // because the obvious patterns are substrings of their own opposites:
+  // INACTIVE contains ACTIVE, UNSERVED contains SERVED, INCOMPLETE contains
+  // COMPLETE. A retired or disconnected area is not read as "no service"
+  // either — that would be a confident answer from a status we are guessing
+  // at, so it lands in 'unknown' and blocks both readings.
+  if (
+    /\bINACTIVE\b|\bUNSERVED\b|\bINCOMPLETE\b|\bNO(T)?[ _-]?(IN[ _-]?)?SERVICE(D)?\b|\bOUT[ _-]?OF[ _-]?SERVICE\b|DISCONNECT|ABANDON|DECOMMISSION|\bREMOVED\b|\bRETIRED\b/.test(
+      v
+    )
+  ) {
+    return 'unknown';
+  }
+
+  if (/PLAN|PROPOS|FUTURE|UNDER[ _-](DESIGN|CONSTRUCTION)|PHASE ?[2-9]/.test(v)) return 'planned';
+
+  if (
+    /\bEXIST(ING)?\b|\bACTIVE\b|\bCURRENT\b|\bIN[ _-]?SERVICE\b|\bSERVED\b|\bCOMPLETED?\b|\bCONNECTED\b/.test(
+      v
+    )
+  ) {
+    return 'existing';
+  }
+
   return 'unknown';
+}
+
+// Only an explicit existing status, or no status column at all, proves service.
+function establishesService(status) {
+  return status === 'existing' || status === 'absent';
 }
 
 function determination(value, confidence, basis, explanation, source) {
@@ -108,6 +142,7 @@ async function assembleAxis({
   outsideValue,
   axisLabel,
   flags,
+  failures,
 }) {
   if (!layer || layer.status !== 'live' || !layer.endpoint) {
     return noData(`No live ${axisLabel} service-area layer for this county.`);
@@ -117,6 +152,7 @@ async function assembleAxis({
   try {
     data = await queryImpl(layer.endpoint, pointParams(layer, lon, lat));
   } catch (err) {
+    if (failures) failures.push(axisLabel);
     return noData(`${axisLabel} layer query failed: ${err.message || String(err)}`);
   }
 
@@ -124,8 +160,10 @@ async function assembleAxis({
   const features = data.features || [];
   const labelled = features.map((f) => {
     const a = f.attributes || {};
+    const rawStatus = pick(a, map.status || ['STATUS', 'SERVICE_STATUS', 'PHASE']);
     return {
-      status: classifyServiceStatus(pick(a, map.status || ['STATUS', 'SERVICE_STATUS', 'PHASE'])),
+      rawStatus,
+      status: classifyServiceStatus(rawStatus),
       name: pick(a, map.name || ['SERVICE_AREA', 'NAME', 'LABEL']),
       provider: pick(a, map.provider || ['UTILITY', 'PROVIDER', 'AGENCY']),
     };
@@ -138,9 +176,9 @@ async function assembleAxis({
     asOf: layer.dataAsOf || null,
   };
 
-  const existing = labelled.find((f) => f.status !== 'planned');
-  if (existing) {
-    const where = existing.name || existing.provider || 'a mapped service area';
+  const establishing = labelled.find((f) => establishesService(f.status));
+  if (establishing) {
+    const where = establishing.name || establishing.provider || 'a mapped service area';
     return determination(
       insideValue,
       CONFIDENCE.INSIDE,
@@ -150,8 +188,21 @@ async function assembleAxis({
     );
   }
 
-  if (labelled.length > 0 && flags.indexOf('planned_service_expansion') === -1) {
+  if (
+    labelled.some((f) => f.status === 'planned') &&
+    flags.indexOf('planned_service_expansion') === -1
+  ) {
     flags.push('planned_service_expansion');
+  }
+
+  // A polygon we intersected but cannot interpret is neither proof of service
+  // nor proof of its absence, so it blocks the outside-the-area inference too.
+  const unreadable = labelled.find((f) => f.status === 'unknown');
+  if (unreadable) {
+    return noData(
+      `Intersects a ${axisLabel} polygon whose service status ("${unreadable.rawStatus}") is not recognized, ` +
+        'so it can be read neither as service nor as its absence.'
+    );
   }
 
   // Outside every existing polygon. Only meaningful for a countywide layer.
@@ -218,6 +269,7 @@ async function assembleSeptic({
 
   const queryImpl = fetchFn || arcgisQuery;
   const flags = [];
+  const failures = [];
 
   const [wastewater, waterSource] = await Promise.all([
     assembleAxis({
@@ -229,6 +281,7 @@ async function assembleSeptic({
       outsideValue: 'septic',
       axisLabel: 'sanitary sewer',
       flags,
+      failures,
     }),
     assembleAxis({
       layer: waterLayer,
@@ -239,10 +292,22 @@ async function assembleSeptic({
       outsideValue: 'well',
       axisLabel: 'potable water',
       flags,
+      failures,
     }),
   ]);
 
-  group.status = 'live';
+  // Honest data labels (AGENTS.md): if every live layer query failed, nothing
+  // was actually retrieved, so the group must not carry a Live badge. The
+  // per-axis determinations are still returned — they explain what went wrong.
+  const liveAxes = [sewerLayer, waterLayer].filter(
+    (l) => l && l.status === 'live' && l.endpoint
+  ).length;
+  if (failures.length > 0 && failures.length === liveAxes) {
+    group.status = 'unavailable';
+    group.message = `Every live service-area query failed (${failures.join(', ')}).`;
+  } else {
+    group.status = 'live';
+  }
   group.data = {
     wastewater,
     waterSource,
@@ -257,6 +322,7 @@ module.exports = {
   assembleSeptic,
   assembleAxis,
   classifyServiceStatus,
+  establishesService,
   gradeFor,
   CONFIDENCE,
   BOUNDARY_METERS,

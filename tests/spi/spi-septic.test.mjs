@@ -6,6 +6,7 @@ const require = createRequire(import.meta.url);
 const {
   assembleSeptic,
   classifyServiceStatus,
+  establishesService,
   gradeFor,
   CONFIDENCE,
 } = require('../../netlify/functions/_lib/spi-septic.js');
@@ -64,10 +65,37 @@ describe('spi-septic: service status', () => {
     }
   });
 
-  it('returns unknown for blank or unrecognized values', () => {
-    assert.equal(classifyServiceStatus(''), 'unknown');
-    assert.equal(classifyServiceStatus(null), 'unknown');
+  it('separates an absent status column from an unrecognized value', () => {
+    // A layer with no status column at all: membership is the evidence.
+    assert.equal(classifyServiceStatus(''), 'absent');
+    assert.equal(classifyServiceStatus(null), 'absent');
+    // Present but unreadable: not evidence of anything.
     assert.equal(classifyServiceStatus('Zone 4'), 'unknown');
+    assert.equal(classifyServiceStatus('7'), 'unknown');
+  });
+
+  it('does not read a negated status as service', () => {
+    // Each of these contains its own opposite as a substring, or negates it:
+    // INACTIVE/ACTIVE, UNSERVED/SERVED, INCOMPLETE/COMPLETE.
+    for (const v of [
+      'Inactive',
+      'Unserved',
+      'Incomplete',
+      'Not In Service',
+      'Out of Service',
+      'Disconnected',
+      'Abandoned',
+      'Retired',
+    ]) {
+      assert.equal(classifyServiceStatus(v), 'unknown', v);
+    }
+  });
+
+  it('only an explicit existing status, or none at all, establishes service', () => {
+    assert.equal(establishesService('existing'), true);
+    assert.equal(establishesService('absent'), true);
+    assert.equal(establishesService('unknown'), false);
+    assert.equal(establishesService('planned'), false);
   });
 });
 
@@ -176,6 +204,38 @@ describe('spi-septic: outside every service area', () => {
   });
 });
 
+describe('spi-septic: unreadable service status', () => {
+  it('claims neither service nor its absence when the status cannot be read', async () => {
+    const group = await assembleSeptic({
+      ...AT,
+      loadJsonFn: loadWith(config()),
+      fetchFn: fetcher({
+        intersect: [{ attributes: { NAME: 'Old Plant Area', STATUS: 'Inactive' } }],
+      }),
+    });
+
+    // Not sewer (the polygon does not establish service) and not septic
+    // (we did intersect something), so the only honest answer is unknown.
+    assert.equal(group.data.wastewater.value, 'unknown');
+    assert.equal(group.data.wastewater.basis, 'no_data');
+    assert.match(group.data.wastewater.explanation, /"Inactive"/);
+  });
+
+  it('still uses a readable polygon when an unreadable one also overlaps', async () => {
+    const group = await assembleSeptic({
+      ...AT,
+      loadJsonFn: loadWith(config()),
+      fetchFn: fetcher({
+        intersect: [
+          { attributes: { NAME: 'Old Plant Area', STATUS: 'Abandoned' } },
+          { attributes: { NAME: 'Central Service Area', STATUS: 'Existing' } },
+        ],
+      }),
+    });
+    assert.equal(group.data.wastewater.value, 'sewer');
+  });
+});
+
 describe('spi-septic: planned expansions', () => {
   it('does not count a planned polygon as existing service', async () => {
     const group = await assembleSeptic({
@@ -246,15 +306,39 @@ describe('spi-septic: unavailable paths', () => {
     assert.equal(group.message, 'registry missing');
   });
 
-  it('degrades to no_data when the GIS query fails', async () => {
+  it('does not badge the group live when every live query failed', async () => {
+    // Honest data labels: nothing was retrieved, so the group cannot read Live.
     const group = await assembleSeptic({
       ...AT,
       loadJsonFn: loadWith(config()),
       fetchFn: fetcher({ onError: 'ArcGIS 503' }),
     });
-    assert.equal(group.status, 'live');
+
+    assert.equal(group.status, 'unavailable');
+    assert.match(group.message, /Every live service-area query failed/);
+    // The per-axis explanations still come back so the caller can see why.
     assert.equal(group.data.wastewater.basis, 'no_data');
     assert.match(group.data.wastewater.explanation, /ArcGIS 503/);
+  });
+
+  it('stays live when one axis fails and another succeeds', async () => {
+    const cfg = config({
+      sewer: { endpoint: 'https://sewer.example.gov/0/query' },
+      water: { endpoint: 'https://water.example.gov/0/query' },
+    });
+    const group = await assembleSeptic({
+      ...AT,
+      loadJsonFn: loadWith(cfg),
+      fetchFn: async (endpoint, params) => {
+        if (endpoint.includes('sewer')) throw new Error('ArcGIS 503');
+        if (params.distance) return { features: [] };
+        return { features: [{ attributes: { NAME: 'Water District 1' } }] };
+      },
+    });
+
+    assert.equal(group.status, 'live');
+    assert.equal(group.data.wastewater.basis, 'no_data');
+    assert.equal(group.data.waterSource.value, 'municipal');
   });
 
   it('keeps the answer when only the proximity probe fails', async () => {
