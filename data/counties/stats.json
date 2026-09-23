@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-22T07:55:38Z",
+  "generated": "2026-09-23T07:59:48Z",
   "salesGenerated": "2026-09-21T07:06:25Z",
   "featuredSlugs": [
     "palm-beach",
@@ -13,10 +13,10 @@
       "slug": "alachua",
       "region": "North Central",
       "nextSale": {
-        "date": "2026-09-22",
-        "label": "September 22, 2026",
-        "shortLabel": "Sep 22",
-        "count": 4,
+        "date": "2026-10-06",
+        "label": "October 6, 2026",
+        "shortLabel": "Oct 6",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -499,10 +499,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-09-22",
-        "label": "September 22, 2026",
-        "shortLabel": "Sep 22",
-        "count": 15,
+        "date": "2026-09-29",
+        "label": "September 29, 2026",
+        "shortLabel": "Sep 29",
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -979,10 +979,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-09-22",
-        "label": "September 22, 2026",
-        "shortLabel": "Sep 22",
-        "count": 5,
+        "date": "2026-09-29",
+        "label": "September 29, 2026",
+        "shortLabel": "Sep 29",
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": false,
