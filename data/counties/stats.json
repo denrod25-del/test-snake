@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-24T07:57:49Z",
+  "generated": "2026-09-25T07:57:50Z",
   "salesGenerated": "2026-09-21T07:06:25Z",
   "featuredSlugs": [
     "palm-beach",
@@ -409,10 +409,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-24",
-        "label": "September 24, 2026",
-        "shortLabel": "Sep 24",
-        "count": 2,
+        "date": "2026-10-01",
+        "label": "October 1, 2026",
+        "shortLabel": "Oct 1",
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -625,9 +625,9 @@
       "slug": "miami-dade",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-09-24",
-        "label": "September 24, 2026",
-        "shortLabel": "Sep 24",
+        "date": "2026-10-01",
+        "label": "October 1, 2026",
+        "shortLabel": "Oct 1",
         "count": null,
         "source": "cadence"
       },
@@ -697,10 +697,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-09-24",
-        "label": "September 24, 2026",
-        "shortLabel": "Sep 24",
-        "count": 1,
+        "date": "2026-10-08",
+        "label": "October 8, 2026",
+        "shortLabel": "Oct 8",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -751,10 +751,10 @@
       "slug": "pasco",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-24",
-        "label": "September 24, 2026",
-        "shortLabel": "Sep 24",
-        "count": 13,
+        "date": "2026-10-15",
+        "label": "October 15, 2026",
+        "shortLabel": "Oct 15",
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
