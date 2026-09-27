@@ -1,12 +1,70 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-26T07:52:40Z",
+  "generated": "2026-09-27T07:54:36Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424027140000530": [
+      {
+        "permitNumber": "26-098228-WHEAT",
+        "parcelId": "30424027140000530",
+        "address": "146  VICTORIAN LN  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Water Heater Replacement",
+        "subtype": "Replacement",
+        "description": "(1) TEMPRA 24 PLUS WATER HEATER CHANGE-OUT UNDER WARRANTY - LABOR ONLY - VENDOR SUPPLIED WARRANTY REPLACEMENT PART",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-26",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b91e13ab-4a48-4aed-b8aa-72e03930a883"
+      }
+    ],
+    "30424124010000970": [
+      {
+        "permitNumber": "26-098227-BLDR",
+        "parcelId": "30424124010000970",
+        "address": "114  DAY LILY DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "replace 1 garage door 16x7",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-26",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d46e6bb2-891e-4b52-8ac2-67f1c04e0c1a"
+      },
+      {
+        "permitNumber": "26-095444-PLUMR",
+        "parcelId": "30424124010000970",
+        "address": "114  DAY LILY DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Plumbing",
+        "subtype": "Plumbing",
+        "description": "Double Detector check replacement",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-06-02",
+        "issuedDate": "2026-06-10",
+        "finalDate": "2026-07-27",
+        "expirationDate": "2027-01-25",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a00f401-29ac-4f1b-8e24-7de2df08803a"
+      }
+    ],
     "30424122030940131": [
       {
         "permitNumber": "26-098226-BLDR",
@@ -24049,7 +24107,7 @@
         "appliedDate": "2026-08-21",
         "issuedDate": "2026-08-26",
         "finalDate": null,
-        "expirationDate": "2027-03-22",
+        "expirationDate": "2027-03-25",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/1798b23c-c8e7-4ba8-9aea-27fa7956fc35"
       }
     ],
@@ -64219,26 +64277,6 @@
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7febe0af-800e-4688-9eb6-e926b0754b9b"
       }
     ],
-    "30424124010000970": [
-      {
-        "permitNumber": "26-095444-PLUMR",
-        "parcelId": "30424124010000970",
-        "address": "114  DAY LILY DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Plumbing",
-        "subtype": "Plumbing",
-        "description": "Double Detector check replacement",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-02",
-        "issuedDate": "2026-06-10",
-        "finalDate": "2026-07-27",
-        "expirationDate": "2027-01-25",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a00f401-29ac-4f1b-8e24-7de2df08803a"
-      }
-    ],
     "30424115010350020": [
       {
         "permitNumber": "26-009711-ROOF-R",
@@ -69535,24 +69573,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-18",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/26bc156e-ef83-48de-99df-bdcd73fe166f"
-      },
-      {
-        "permitNumber": "26-094558-COMM",
-        "parcelId": "30434105090020606",
-        "address": "100  OCEAN TRAIL WAY  Unit: 606 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Alteration",
-        "subtype": "Alteration",
-        "description": "REMODEL PER PLANS",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-27",
-        "issuedDate": "2026-05-18",
-        "finalDate": null,
-        "expirationDate": "2027-02-02",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3421f649-ca1d-4625-8aeb-ca1be3da3330"
       }
     ],
     "30424114070004040": [
@@ -75855,24 +75875,6 @@
         "finalDate": "2026-07-21",
         "expirationDate": "2027-01-13",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/91560c1f-bd60-45de-b3fa-b9fd75f5f6bc"
-      },
-      {
-        "permitNumber": "26-094559-PLUMR",
-        "parcelId": "30424103140000245",
-        "address": "6547  CHASEWOOD DR  Unit: E JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Plumbing",
-        "subtype": "Plumbing",
-        "description": "REMOVE EXISTING TUB AND INSTALL NEW TUB/SHOWER UNIT THAT COMES WITH SURROUNDING WALL. PERMIT CANCELLED, PERMIT TYPE INCORRECT see 26-094616-PLUMC.",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-27",
-        "issuedDate": null,
-        "finalDate": "2026-04-29",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/95affa39-0517-436a-938e-550b9a20c1a0"
       }
     ],
     "30424110040003260": [
