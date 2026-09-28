@@ -1,33 +1,107 @@
 {
   "county": "West Palm Beach",
   "slug": "west-palm-beach",
-  "generated": "2026-09-27T07:42:15Z",
+  "generated": "2026-09-28T07:59:59Z",
   "source": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov SelfService scrape \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
-    "74434333110020020": [
+    "74414224170180000": [
       {
-        "permitNumber": "26091556-RES-ELEC",
-        "parcelId": "74434333110020020",
-        "address": "805  Hillcrest Blvd  West Palm Beach FL 33405",
+        "permitNumber": "26091563-RES-PLUMB",
+        "parcelId": "74414224170180000",
+        "address": "7991  Cranes Pointe Way  West Palm Beach FL 33412",
         "city": "West Palm Beach",
-        "type": "Electrical Sub-Permit - Residential",
-        "subtype": "Sub-Permit",
+        "type": "Backflow - Residential",
+        "subtype": "Backflow",
         "description": "",
         "status": "Submitted - Online",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
-        "appliedDate": "2026-09-26",
+        "appliedDate": "2026-09-27",
         "issuedDate": null,
         "finalDate": null,
         "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/3f45b0f7-85b0-49a6-b8a9-4d84f5aa446f"
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/a0916d65-d146-43ef-b6cd-131ad67bf561"
+      },
+      {
+        "permitNumber": "26091377-RES-PLUMB",
+        "parcelId": "74414224170180000",
+        "address": "7991  Cranes Pointe Way  West Palm Beach FL 33412",
+        "city": "West Palm Beach",
+        "type": "Backflow - Residential",
+        "subtype": "Backflow",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-23",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/389f9f31-7a1a-44f9-a789-5681e4a05435"
+      }
+    ],
+    "74434309010000672": [
+      {
+        "permitNumber": "26091562-RES-PLUMB",
+        "parcelId": "74434309010000672",
+        "address": "409  27th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Backflow - Residential",
+        "subtype": "Backflow",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/b0d243ee-4bec-4fb0-97da-605f521b03a5"
+      },
+      {
+        "permitNumber": "26091560-RES-PLUMB",
+        "parcelId": "74434309010000672",
+        "address": "409  27th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Irrigation - Residential",
+        "subtype": "Irrigation",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/b4db8710-d4e2-4535-a92e-9f702d0ac726"
       }
     ],
     "74434319030170080": [
+      {
+        "permitNumber": "26091561-REVISION",
+        "parcelId": "74434319030170080",
+        "address": "143 N Chillingworth Dr  West Palm Beach FL 33409",
+        "city": "West Palm Beach",
+        "type": "Building Revisions - Residential Revision",
+        "subtype": "Residential Revision",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/3d26f78a-ca96-45d6-b52d-07c2bba62b19"
+      },
       {
         "permitNumber": "26091555-RES-ANC",
         "parcelId": "74434319030170080",
@@ -65,6 +139,86 @@
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/97a5cd53-045a-45f9-b46d-1a40bd1e22cf"
       }
     ],
+    "74434321010060062": [
+      {
+        "permitNumber": "26091559-COM-BLDG",
+        "parcelId": "74434321010060062",
+        "address": "210 S Olive Ave  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Interior (<5000 sq ft) - Commercial",
+        "subtype": "Interior (<5000 sq ft)",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ec07a4d6-1307-4cdd-9de2-4ef358fa6e2f"
+      }
+    ],
+    "74434334090060621": [
+      {
+        "permitNumber": "26091558-RES-MECH",
+        "parcelId": "74434334090060621",
+        "address": "207  Edgewood Dr  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "A/C Changeout - Residential",
+        "subtype": "Change Out",
+        "description": "",
+        "status": "Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/98c52b03-4264-4919-98eb-095c2245cd57"
+      }
+    ],
+    "74424319090000610": [
+      {
+        "permitNumber": "26091557-RES-BLDG",
+        "parcelId": "74424319090000610",
+        "address": "2360  Sapphire Cir  West Palm Beach FL 33411",
+        "city": "West Palm Beach",
+        "type": "Roofing - Residential",
+        "subtype": "Roofing",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/051c9388-6e65-4767-93e3-ff3c50bb6f43"
+      }
+    ],
+    "74434333110020020": [
+      {
+        "permitNumber": "26091556-RES-ELEC",
+        "parcelId": "74434333110020020",
+        "address": "805  Hillcrest Blvd  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Electrical Sub-Permit - Residential",
+        "subtype": "Sub-Permit",
+        "description": "",
+        "status": "Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-26",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/3f45b0f7-85b0-49a6-b8a9-4d84f5aa446f"
+      }
+    ],
     "74434306030070120": [
       {
         "permitNumber": "26091554-RES-BLDG",
@@ -94,7 +248,7 @@
         "type": "Gas Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "Fees Due",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -112,7 +266,7 @@
         "type": "Gas Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Submitted - Online",
+        "status": "Fees Due",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -3192,7 +3346,7 @@
         "type": "Plumbing Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -4196,7 +4350,7 @@
         "type": "Gas Sub-Permit - Residential",
         "subtype": "Sub-Permit",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -7242,7 +7396,7 @@
         "type": "Building Revisions - Residential Revision",
         "subtype": "Residential Revision",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -7287,26 +7441,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-15",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/cc4d53a6-6b97-4fe7-aca0-abb9272e3fac"
-      }
-    ],
-    "74414224170180000": [
-      {
-        "permitNumber": "26091377-RES-PLUMB",
-        "parcelId": "74414224170180000",
-        "address": "7991  Cranes Pointe Way  West Palm Beach FL 33412",
-        "city": "West Palm Beach",
-        "type": "Backflow - Residential",
-        "subtype": "Backflow",
-        "description": "",
-        "status": "Submitted - Online",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-23",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/389f9f31-7a1a-44f9-a789-5681e4a05435"
       }
     ],
     "74434334100130500": [
@@ -17461,24 +17595,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-08",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/c5bfa9d7-17ee-49cb-8fa5-d739b19fa0a4"
-      },
-      {
-        "permitNumber": "26071038-COM-MECH",
-        "parcelId": "74434305010280011",
-        "address": "1700  45th St  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "A/C Changeout - Commercial",
-        "subtype": "Change Out",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-07-24",
-        "finalDate": null,
-        "expirationDate": "2027-01-20",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/4f7d7de0-37da-45aa-8f2f-606d53062f5f"
       }
     ],
     "74434319160000030": [
@@ -23221,24 +23337,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-24",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/f253751d-5c04-4930-bf7a-93bd2db1cbd8"
-      },
-      {
-        "permitNumber": "26071064-COM-FIRE",
-        "parcelId": "74434322250000046",
-        "address": "529 S Flagler Dr  Unit: TH4F West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Fire Sprinkler/Fire Suppression - Fire",
-        "subtype": "Fire Sprinkler/Fire Suppression",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-08-03",
-        "finalDate": null,
-        "expirationDate": "2027-02-01",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/a17eacb2-f769-4e84-82d6-c41118dd1363"
       }
     ],
     "74434309050410120": [
@@ -27404,7 +27502,7 @@
         "type": "Building Miscellaneous - Residential",
         "subtype": "Miscellaneous",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -27440,7 +27538,7 @@
         "type": "Fence  - Residential",
         "subtype": "Fence",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -27458,7 +27556,7 @@
         "type": "Driveway/Sidewalk - Paving",
         "subtype": "Driveway/Sidewalk",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -27720,7 +27818,7 @@
         "type": "Windows and Doors - Residential",
         "subtype": "Windows and Doors",
         "description": "",
-        "status": "In Review",
+        "status": "Requires Resubmit",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -29916,7 +30014,7 @@
         "type": "Roofing - Residential",
         "subtype": "Roofing",
         "description": "",
-        "status": "In Review",
+        "status": "Requires Resubmit",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -31137,24 +31235,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-23",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/81c828f0-4584-44e7-8f38-5925de92c8d2"
-      },
-      {
-        "permitNumber": "26071063-COM-BLDG",
-        "parcelId": "74424302090001020",
-        "address": "5401 N Haverhill Rd  Unit: 102 West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Interior (<5000 sq ft) - Commercial",
-        "subtype": "Interior (<5000 sq ft)",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-09-14",
-        "finalDate": null,
-        "expirationDate": "2027-03-23",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/7e3aedb3-e4ad-47c6-8ac7-900ec08d84b3"
       }
     ],
     "74424311030000050": [
@@ -31492,7 +31572,7 @@
         "type": "Windows and Doors - Residential",
         "subtype": "Windows and Doors",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -33273,24 +33353,6 @@
         "finalDate": null,
         "expirationDate": "2027-06-30",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/e5a3e514-51fe-4215-8cbe-ddbb6e19f2ed"
-      },
-      {
-        "permitNumber": "26071119-RES-BLDG",
-        "parcelId": "74434410060020440",
-        "address": "353  Orange Way  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "New Building - Residential",
-        "subtype": "New 1 & 2 Family",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-09-11",
-        "finalDate": null,
-        "expirationDate": "2027-03-17",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/31199f9c-ee51-4743-8b42-edba237d2c00"
       }
     ],
     "74434328060250010": [
@@ -33414,7 +33476,7 @@
         "type": "Roofing - Residential",
         "subtype": "Roofing",
         "description": "",
-        "status": "In Review",
+        "status": "Requires Resubmit",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -60110,14 +60172,14 @@
         "type": "General Sign Permit",
         "subtype": "General",
         "description": "",
-        "status": "In Review",
+        "status": "Issued",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
         "appliedDate": "2026-08-12",
-        "issuedDate": null,
+        "issuedDate": "2026-09-27",
         "finalDate": null,
-        "expirationDate": null,
+        "expirationDate": "2027-03-26",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ad35f8c4-73f2-49a0-9b94-3415a9a9dc6a"
       },
       {
@@ -72169,24 +72231,6 @@
         "finalDate": "2026-08-05",
         "expirationDate": "2027-02-01",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/00edd7c8-6540-4700-b500-4dfcd510149f"
-      },
-      {
-        "permitNumber": "26071103-COM-PLUMB",
-        "parcelId": "74434322120010021",
-        "address": "700 N Olive Ave  West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Backflow \u2013 Commercial - Domestic",
-        "subtype": "Backflow - Domestic",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-08-04",
-        "finalDate": "2026-08-05",
-        "expirationDate": "2027-02-01",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/e4b3ac0d-0b70-45f4-b942-d07a1fb1dc93"
       }
     ],
     "74424315060001270": [
@@ -72732,12 +72776,12 @@
         "type": "Landscape - Right-of-Way",
         "subtype": "Landscape (Right-of-Way)",
         "description": "",
-        "status": "In Review",
+        "status": "Issued",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
         "appliedDate": "2026-07-21",
-        "issuedDate": null,
+        "issuedDate": "2026-09-27",
         "finalDate": null,
         "expirationDate": null,
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/604dc1bb-ce74-4646-a729-70afd8305c73"
@@ -72792,12 +72836,12 @@
         "type": "Landscape - Right-of-Way",
         "subtype": "Landscape (Right-of-Way)",
         "description": "",
-        "status": "In Review",
+        "status": "Issued",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
         "appliedDate": "2026-07-21",
-        "issuedDate": null,
+        "issuedDate": "2026-09-27",
         "finalDate": null,
         "expirationDate": null,
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ef6cc6f8-6d41-4d4e-a05d-6a311868baa0"
@@ -73275,46 +73319,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-10",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/633abba2-52ac-4d2f-ba57-7c98ac0e597e"
-      }
-    ],
-    "74434304250011510": [
-      {
-        "permitNumber": "26071039-COM-ELEC",
-        "parcelId": "74434304250011510",
-        "address": "5600 N Flagler Dr  Unit: 1510 West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "General Electrical - Commercial",
-        "subtype": "General",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-07-29",
-        "finalDate": "2026-08-05",
-        "expirationDate": "2027-02-01",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/05321fdf-e669-4e42-843a-0f35d8daa679"
-      }
-    ],
-    "74434333190000560": [
-      {
-        "permitNumber": "26071059-RES-PLUMB",
-        "parcelId": "74434333190000560",
-        "address": "3400  Parker Ave  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Backflow - Residential",
-        "subtype": "Backflow",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-21",
-        "issuedDate": "2026-08-12",
-        "finalDate": "2026-08-28",
-        "expirationDate": "2027-02-24",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ebf17928-fba6-4b65-9b67-5a0782950283"
       }
     ]
   }

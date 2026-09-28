@@ -1,12 +1,106 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-09-27T07:54:36Z",
+  "generated": "2026-09-28T08:14:03Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424124010000190": [
+      {
+        "permitNumber": "26-098231-ELECR-R",
+        "parcelId": "30424124010000190",
+        "address": "150  SWEET BAY CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Electrical Sub Permit",
+        "subtype": "No Fee Sub-Permit",
+        "description": "Kitchen renovation, keeping same footprint",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-28",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6482be36-d046-49ad-a98c-3857f79324e3"
+      },
+      {
+        "permitNumber": "26-097607-BLDR",
+        "parcelId": "30424124010000190",
+        "address": "150  SWEET BAY CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Kitchen Remodel-Same footprint",
+        "status": "70 - Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-27",
+        "issuedDate": "2026-09-08",
+        "finalDate": null,
+        "expirationDate": "2027-03-07",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/83d19fb0-2975-4205-90c3-555ebf612069"
+      },
+      {
+        "permitNumber": "26-096680-WHEAT",
+        "parcelId": "30424124010000190",
+        "address": "150  SWEET BAY CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Water Heater Replacement",
+        "subtype": "Replacement",
+        "description": "50 gal electric water heater changeout same for same size",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-07-22",
+        "issuedDate": "2026-07-23",
+        "finalDate": "2026-08-04",
+        "expirationDate": "2027-01-25",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9218ac9b-20a5-4d8c-b67f-0ff184aeeaef"
+      }
+    ],
+    "30434116020005620": [
+      {
+        "permitNumber": "26-098229-ELECR-R",
+        "parcelId": "30434116020005620",
+        "address": "126  CAPE POINTE CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Electrical",
+        "subtype": "Electrical",
+        "description": "Replace the downpipes @ sweep at the base of the electric meter",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-27",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7a4146d6-61a4-4409-a973-f7b89d5af66c"
+      },
+      {
+        "permitNumber": "26-009617-ROOF-R",
+        "parcelId": "30434116020005620",
+        "address": "126  CAPE POINTE CIR  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "Remove and replace existing shingle roof, to include renail and underlayment.",
+        "status": "99 - Closed - JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-04-28",
+        "issuedDate": "2026-04-30",
+        "finalDate": "2026-05-26",
+        "expirationDate": "2026-11-18",
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bb6159cb-9e2d-481f-a653-1c69ecd27953"
+      }
+    ],
     "30424027140000530": [
       {
         "permitNumber": "26-098228-WHEAT",
@@ -17763,24 +17857,6 @@
         "finalDate": null,
         "expirationDate": "2027-01-27",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5c1613d7-7023-4e17-88f0-fa954448e245"
-      },
-      {
-        "permitNumber": "26-094561-GASC",
-        "parcelId": "30434118100005082",
-        "address": "222  EAGLE DR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Gas Lines",
-        "subtype": "Gas Lines",
-        "description": "INSTALLATION OF NEW GAS SYSTEM",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-27",
-        "issuedDate": "2026-05-15",
-        "finalDate": null,
-        "expirationDate": "2027-02-01",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6b34b840-9e5c-4c2e-b9a9-904bd01d7aad"
       }
     ],
     "30424102030120080": [
@@ -20667,44 +20743,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/24798776-a157-4b27-ba76-52b59894966a"
-      }
-    ],
-    "30424124010000190": [
-      {
-        "permitNumber": "26-097607-BLDR",
-        "parcelId": "30424124010000190",
-        "address": "150  SWEET BAY CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Alteration",
-        "subtype": "Alteration",
-        "description": "Kitchen Remodel-Same footprint",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-27",
-        "issuedDate": "2026-09-08",
-        "finalDate": null,
-        "expirationDate": "2027-03-07",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/83d19fb0-2975-4205-90c3-555ebf612069"
-      },
-      {
-        "permitNumber": "26-096680-WHEAT",
-        "parcelId": "30424124010000190",
-        "address": "150  SWEET BAY CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Water Heater Replacement",
-        "subtype": "Replacement",
-        "description": "50 gal electric water heater changeout same for same size",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-22",
-        "issuedDate": "2026-07-23",
-        "finalDate": "2026-08-04",
-        "expirationDate": "2027-01-25",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9218ac9b-20a5-4d8c-b67f-0ff184aeeaef"
       }
     ],
     "30434107090002020": [
@@ -76531,26 +76569,6 @@
         "finalDate": "2026-08-05",
         "expirationDate": "2026-12-28",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/03689b47-8276-4f83-9116-c47a4a60e796"
-      }
-    ],
-    "30434116020005620": [
-      {
-        "permitNumber": "26-009617-ROOF-R",
-        "parcelId": "30434116020005620",
-        "address": "126  CAPE POINTE CIR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Remove and replace existing shingle roof, to include renail and underlayment.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-04-28",
-        "issuedDate": "2026-04-30",
-        "finalDate": "2026-05-26",
-        "expirationDate": "2026-11-18",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bb6159cb-9e2d-481f-a653-1c69ecd27953"
       }
     ],
     "30424115020005970": [
