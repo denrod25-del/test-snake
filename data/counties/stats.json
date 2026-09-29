@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-28T08:14:11Z",
+  "generated": "2026-09-29T08:03:17Z",
   "salesGenerated": "2026-09-28T07:12:17Z",
   "featuredSlugs": [
     "palm-beach",
@@ -571,9 +571,9 @@
       "slug": "manatee",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-09-28",
-        "label": "September 28, 2026",
-        "shortLabel": "Sep 28",
+        "date": "2026-10-12",
+        "label": "October 12, 2026",
+        "shortLabel": "Oct 12",
         "count": 1,
         "source": "scraper"
       },
