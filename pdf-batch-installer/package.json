@@ -1,0 +1,18 @@
+{
+  "name": "pdf-batch-installer",
+  "version": "1.0.0",
+  "description": "Batch-download every PDF from an Apache-style directory listing (e.g. the Gentoomen Library mirror). Zero dependencies.",
+  "type": "module",
+  "bin": {
+    "pdf-batch-installer": "download.mjs"
+  },
+  "scripts": {
+    "start": "node download.mjs",
+    "list": "node download.mjs --list",
+    "install-all": "node download.mjs --recursive"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
