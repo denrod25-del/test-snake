@@ -1,0 +1,8 @@
+# Core deep-learning stack. All installable from PyPI.
+# NOTE: running training/inference also downloads the GPT-2 weights from
+# huggingface.co on first use, so the machine needs access to that host.
+torch>=2.2
+transformers>=4.40
+peft>=0.10
+datasets>=2.18
+accelerate>=0.29
