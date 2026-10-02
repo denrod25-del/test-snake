@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-01T08:04:21Z",
+  "generated": "2026-10-02T08:00:33Z",
   "salesGenerated": "2026-09-28T07:12:17Z",
   "featuredSlugs": [
     "palm-beach",
@@ -409,10 +409,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-10-01",
-        "label": "October 1, 2026",
-        "shortLabel": "Oct 1",
-        "count": 3,
+        "date": "2026-10-08",
+        "label": "October 8, 2026",
+        "shortLabel": "Oct 8",
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -625,10 +625,10 @@
       "slug": "miami-dade",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-10-01",
-        "label": "October 1, 2026",
-        "shortLabel": "Oct 1",
-        "count": 1,
+        "date": "2026-10-08",
+        "label": "October 8, 2026",
+        "shortLabel": "Oct 8",
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
