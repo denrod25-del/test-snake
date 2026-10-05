@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-10-04T09:48:23Z",
+  "generated": "2026-10-05T08:07:27Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,64 @@
         "finalDate": null,
         "expirationDate": "2027-03-15",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06424723200080360": [
+      {
+        "permitNumber": "BPR-2026-02704",
+        "parcelId": "06424723200080360",
+        "address": "5346  Park Place Cir   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Driveway/Sidewalk - Building (Residential)",
+        "subtype": "Driveway/Sidewalk",
+        "description": "Remove & Replace 648 SqFt concrete driveway with brick pavers.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/0ebdf611-161f-4772-84fc-cd24fef551e3"
+      }
+    ],
+    "06424716130000140": [
+      {
+        "permitNumber": "BPR-2026-02703",
+        "parcelId": "06424716130000140",
+        "address": "7467  Estrella Cir   Boca Raton FL 33433",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC - Building (Residential)",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "Install 3 HVAC Systems 1-3 ton and 2- 2 ton units",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d957ae5a-7e99-46df-b392-d73360070183"
+      },
+      {
+        "permitNumber": "BPR-2026-02688",
+        "parcelId": "06424716130000140",
+        "address": "7467  Estrella Cir   Boca Raton FL 33433",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC - Building (Residential)",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "INSTALL 3 UNITS, TWO 2 TON UNITS AND ONE 3 TON UNIT.",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-01",
+        "issuedDate": null,
+        "finalDate": "2026-10-02",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/cf9102a7-4e26-44b1-be04-5987bf044fcc"
       }
     ],
     "06434708070020170": [
@@ -2321,26 +2379,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/46b3891c-c284-479f-a075-d477962d6ecf"
-      }
-    ],
-    "06424716130000140": [
-      {
-        "permitNumber": "BPR-2026-02688",
-        "parcelId": "06424716130000140",
-        "address": "7467  Estrella Cir   Boca Raton FL 33433",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC - Building (Residential)",
-        "subtype": "Mechanical HVAC Int/Ext",
-        "description": "INSTALL 3 UNITS, TWO 2 TON UNITS AND ONE 3 TON UNIT.",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-01",
-        "issuedDate": null,
-        "finalDate": "2026-10-02",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/cf9102a7-4e26-44b1-be04-5987bf044fcc"
       }
     ],
     "06424726190110030": [
@@ -44870,7 +44908,7 @@
         "type": "Plumbing/ Piping/ Plumbing Fixtures Multifamily",
         "subtype": "Plumbing Piping/ Fixtures",
         "description": "Shower pan and drain replacement. Toilet flange replacement",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -51508,7 +51546,7 @@
         "type": "Interior Renovation/ Alteration Multifamily",
         "subtype": "Interior Only Alteration",
         "description": "Replace kitchen, Bathroom and lighting fixtures",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -55086,7 +55124,7 @@
         "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "Re-roof ",
         "description": "PRIVATE PROVIDER PLAN REVIEW AND INSPECTIONS: Shingle and flat roof replacement",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -73547,24 +73585,6 @@
         "finalDate": "2026-08-10",
         "expirationDate": "2027-02-03",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/94ca773e-6782-429c-8de4-cdf5fe331593"
-      },
-      {
-        "permitNumber": "BPQ-2026-01507",
-        "parcelId": "06424726099121010",
-        "address": "912 SW 9th Street Cir  101 Unit: 101 Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "REPLACE 1 DOOR AND 5 WINDOWS IMPACT",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-18",
-        "issuedDate": null,
-        "finalDate": "2026-06-18",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/4a9c950c-7716-49fc-8db7-80afe49125e0"
       }
     ],
     "06424726180050190": [
@@ -74201,24 +74221,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/f79d7655-78ba-4cd3-8924-0f254e5dfa2b"
-      },
-      {
-        "permitNumber": "BPC-2026-01104",
-        "parcelId": "06434720000040050",
-        "address": "550 NE 5th Ave   Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Dock/ Seawall/ Boatlift",
-        "subtype": "Dock / Seawall / Boatlift",
-        "description": "New Seawall & Dock",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-18",
-        "issuedDate": null,
-        "finalDate": "2026-06-18",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/56cc8732-7a94-4d5c-841e-f77ae2e9dffc"
       }
     ],
     "06424711030001900": [
