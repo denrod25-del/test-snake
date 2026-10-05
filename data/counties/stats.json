@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-04T09:59:09Z",
-  "salesGenerated": "2026-09-28T07:12:17Z",
+  "generated": "2026-10-05T07:17:34Z",
+  "salesGenerated": "2026-10-05T07:17:33Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -16,7 +16,7 @@
         "date": "2026-10-06",
         "label": "October 6, 2026",
         "shortLabel": "Oct 6",
-        "count": 6,
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -46,7 +46,7 @@
         "date": "2026-10-06",
         "label": "October 6, 2026",
         "shortLabel": "Oct 6",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-10-22",
         "label": "October 22, 2026",
         "shortLabel": "Oct 22",
-        "count": 42,
+        "count": 40,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -124,7 +124,7 @@
         "date": "2026-10-06",
         "label": "October 6, 2026",
         "shortLabel": "Oct 6",
-        "count": 25,
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -142,7 +142,7 @@
         "date": "2026-10-07",
         "label": "October 7, 2026",
         "shortLabel": "Oct 7",
-        "count": 30,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -226,7 +226,7 @@
         "date": "2026-10-14",
         "label": "October 14, 2026",
         "shortLabel": "Oct 14",
-        "count": 144,
+        "count": 130,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -244,7 +244,7 @@
         "date": "2026-10-07",
         "label": "October 7, 2026",
         "shortLabel": "Oct 7",
-        "count": 31,
+        "count": 23,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -376,7 +376,7 @@
         "date": "2026-10-14",
         "label": "October 14, 2026",
         "shortLabel": "Oct 14",
-        "count": 21,
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -412,7 +412,7 @@
         "date": "2026-10-08",
         "label": "October 8, 2026",
         "shortLabel": "Oct 8",
-        "count": 8,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -502,7 +502,7 @@
         "date": "2026-10-06",
         "label": "October 6, 2026",
         "shortLabel": "Oct 6",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -520,7 +520,7 @@
         "date": "2026-10-21",
         "label": "October 21, 2026",
         "shortLabel": "Oct 21",
-        "count": 45,
+        "count": 33,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -610,7 +610,7 @@
         "date": "2026-10-07",
         "label": "October 7, 2026",
         "shortLabel": "Oct 7",
-        "count": 19,
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -700,7 +700,7 @@
         "date": "2026-10-08",
         "label": "October 8, 2026",
         "shortLabel": "Oct 8",
-        "count": 7,
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -718,7 +718,7 @@
         "date": "2026-10-13",
         "label": "October 13, 2026",
         "shortLabel": "Oct 13",
-        "count": 11,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -736,7 +736,7 @@
         "date": "2026-10-14",
         "label": "October 14, 2026",
         "shortLabel": "Oct 14",
-        "count": 25,
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -808,7 +808,7 @@
         "date": "2026-10-07",
         "label": "October 7, 2026",
         "shortLabel": "Oct 7",
-        "count": 59,
+        "count": 52,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -826,7 +826,7 @@
         "date": "2026-10-05",
         "label": "October 5, 2026",
         "shortLabel": "Oct 5",
-        "count": 3,
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -862,7 +862,7 @@
         "date": "2026-10-15",
         "label": "October 15, 2026",
         "shortLabel": "Oct 15",
-        "count": 10,
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -892,7 +892,7 @@
         "date": "2026-10-05",
         "label": "October 5, 2026",
         "shortLabel": "Oct 5",
-        "count": 10,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -958,7 +958,7 @@
         "date": "2026-10-06",
         "label": "October 6, 2026",
         "shortLabel": "Oct 6",
-        "count": 15,
+        "count": 8,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -985,10 +985,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-10-06",
-        "label": "October 6, 2026",
-        "shortLabel": "Oct 6",
-        "count": 1,
+        "date": "2026-10-13",
+        "label": "October 13, 2026",
+        "shortLabel": "Oct 13",
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": false,
