@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-05T08:18:08Z",
+  "generated": "2026-10-06T08:03:48Z",
   "salesGenerated": "2026-10-05T07:17:33Z",
   "featuredSlugs": [
     "palm-beach",
@@ -823,10 +823,10 @@
       "slug": "santa-rosa",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-10-05",
-        "label": "October 5, 2026",
-        "shortLabel": "Oct 5",
-        "count": 1,
+        "date": "2026-10-26",
+        "label": "October 26, 2026",
+        "shortLabel": "Oct 26",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -888,13 +888,7 @@
       "county": "St. Lucie",
       "slug": "st-lucie",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-10-05",
-        "label": "October 5, 2026",
-        "shortLabel": "Oct 5",
-        "count": 4,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.stlucieclerk.com/tax-deeds/surplus-funds",
       "permits": {
