@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-06T08:03:48Z",
+  "generated": "2026-10-07T08:03:17Z",
   "salesGenerated": "2026-10-05T07:17:33Z",
   "featuredSlugs": [
     "palm-beach",
@@ -13,10 +13,10 @@
       "slug": "alachua",
       "region": "North Central",
       "nextSale": {
-        "date": "2026-10-06",
-        "label": "October 6, 2026",
-        "shortLabel": "Oct 6",
-        "count": 5,
+        "date": "2026-12-01",
+        "label": "December 1, 2026",
+        "shortLabel": "Dec 1",
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -43,10 +43,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-10-06",
-        "label": "October 6, 2026",
-        "shortLabel": "Oct 6",
-        "count": 2,
+        "date": "2026-10-20",
+        "label": "October 20, 2026",
+        "shortLabel": "Oct 20",
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -120,13 +120,7 @@
       "county": "Charlotte",
       "slug": "charlotte",
       "region": "Southwest",
-      "nextSale": {
-        "date": "2026-10-06",
-        "label": "October 6, 2026",
-        "shortLabel": "Oct 6",
-        "count": 18,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://taxdeeds.charlotteclerk.com/TaxDeed/Surplus",
       "permits": {
@@ -499,10 +493,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-10-06",
-        "label": "October 6, 2026",
-        "shortLabel": "Oct 6",
-        "count": 2,
+        "date": "2026-10-20",
+        "label": "October 20, 2026",
+        "shortLabel": "Oct 20",
+        "count": 33,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -949,10 +943,10 @@
       "slug": "volusia",
       "region": "Central",
       "nextSale": {
-        "date": "2026-10-06",
-        "label": "October 6, 2026",
-        "shortLabel": "Oct 6",
-        "count": 8,
+        "date": "2026-10-13",
+        "label": "October 13, 2026",
+        "shortLabel": "Oct 13",
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
