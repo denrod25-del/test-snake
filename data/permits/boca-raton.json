@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-10-10T07:49:00Z",
+  "generated": "2026-10-11T07:49:38Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,66 @@
         "finalDate": null,
         "expirationDate": "2027-04-05",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06424735150050020": [
+      {
+        "permitNumber": "BPM-2026-02683",
+        "parcelId": "06424735150050020",
+        "address": "23317  Water Cir   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
+        "subtype": "Window/ door/ shutter ",
+        "description": "Replace 16 windows and 5 Doors with impact",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-10",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/3047f312-4c37-4c3a-aadf-c9fb5ff086d2"
+      }
+    ],
+    "06424704140000180": [
+      {
+        "permitNumber": "BPQ-2026-02405",
+        "parcelId": "06424704140000180",
+        "address": "6569 NW 39th Ter   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "replace 1 garage door 16x8",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-10",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/22c949d6-c33a-4d98-b2a1-6901b4aeeb1b"
+      }
+    ],
+    "06424716100000280": [
+      {
+        "permitNumber": "BPQ-2026-02404",
+        "parcelId": "06424716100000280",
+        "address": "20801  Pinar Trl   Boca Raton FL 33433",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "replace 2 garage doors 9x7 (2)",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-10",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2040b773-c803-4f3e-91b3-936d540b595c"
       }
     ],
     "06434729630088060": [
@@ -38151,24 +38211,6 @@
         "finalDate": "2026-08-28",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/25af5bbc-2dac-4ee9-b67f-8a201bc45881"
-      },
-      {
-        "permitNumber": "BPC-2026-01147",
-        "parcelId": "06434720150060053",
-        "address": "601 N Federal Hwy   Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC Interior Only - Building (Commercial)",
-        "subtype": "Mechanical HVAC Interior Only",
-        "description": "AC Change Out Like For Like 8.5 Daikin RTU",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-24",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/cf4eb5fc-8b86-4a28-a5d3-ea08d5866133"
       }
     ],
     "06434729560044130": [
@@ -46886,7 +46928,7 @@
         "type": "Electrical Sevice/ Panel Work - Building (Commercial)",
         "subtype": "Electrical Service/Panel Work",
         "description": "Replacement of two electrical panels inside of a warehouse.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -56861,24 +56903,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-23",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/83a9acfd-5143-4824-b255-c9ff0dd96355"
-      },
-      {
-        "permitNumber": "BPM-2026-01623",
-        "parcelId": "06434717040020060",
-        "address": "2498 NE 5th Ave   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC Interior And Exterior Multifamily",
-        "subtype": "Mechanical HVAC Int/Ext",
-        "description": "EQUAL CHANGE OUT OF 3 TON PACKAGE UNIT WITH 10KW HEATER",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-24",
-        "issuedDate": null,
-        "finalDate": "2026-06-25",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/bcb47f62-9cd1-4478-b2db-41771ae7320d"
       }
     ],
     "06434717060070190": [
@@ -74181,24 +74205,6 @@
         "finalDate": "2026-07-01",
         "expirationDate": "2026-12-28",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2de9c45f-2571-4376-94d6-8dd59e08cf42"
-      },
-      {
-        "permitNumber": "BPQ-2026-01567",
-        "parcelId": "06434730240230041",
-        "address": "1388  Walnut Ter   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Exact Air Conditioning Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "A/c changeout ",
-        "description": "Trane >> Daikin 3.5 ton split system with 7.5kw heater",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-24",
-        "issuedDate": null,
-        "finalDate": "2026-06-24",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/02bdb421-b4f1-48f0-a1bc-555466c822cc"
       }
     ],
     "06434730140150032": [
