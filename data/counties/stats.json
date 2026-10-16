@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-15T07:48:42Z",
+  "generated": "2026-10-16T07:57:42Z",
   "salesGenerated": "2026-10-12T07:20:41Z",
   "featuredSlugs": [
     "palm-beach",
@@ -409,10 +409,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-10-15",
-        "label": "October 15, 2026",
-        "shortLabel": "Oct 15",
-        "count": 3,
+        "date": "2026-10-22",
+        "label": "October 22, 2026",
+        "shortLabel": "Oct 22",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -618,13 +618,7 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-10-15",
-        "label": "October 15, 2026",
-        "shortLabel": "Oct 15",
-        "count": 4,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -691,10 +685,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-10-15",
-        "label": "October 15, 2026",
-        "shortLabel": "Oct 15",
-        "count": 9,
+        "date": "2026-10-22",
+        "label": "October 22, 2026",
+        "shortLabel": "Oct 22",
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -745,10 +739,10 @@
       "slug": "pasco",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-10-15",
-        "label": "October 15, 2026",
-        "shortLabel": "Oct 15",
-        "count": 4,
+        "date": "2026-10-29",
+        "label": "October 29, 2026",
+        "shortLabel": "Oct 29",
+        "count": 29,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -781,10 +775,10 @@
       "slug": "polk",
       "region": "Central",
       "nextSale": {
-        "date": "2026-10-15",
-        "label": "October 15, 2026",
-        "shortLabel": "Oct 15",
-        "count": 20,
+        "date": "2026-11-19",
+        "label": "November 19, 2026",
+        "shortLabel": "Nov 19",
+        "count": 54,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -853,10 +847,10 @@
       "slug": "seminole",
       "region": "Central",
       "nextSale": {
-        "date": "2026-10-15",
-        "label": "October 15, 2026",
-        "shortLabel": "Oct 15",
-        "count": 2,
+        "date": "2026-11-12",
+        "label": "November 12, 2026",
+        "shortLabel": "Nov 12",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
