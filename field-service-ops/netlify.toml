@@ -1,0 +1,49 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# API routes before SPA fallback
+[[redirects]]
+  from = "/api/create-connect-account"
+  to = "/.netlify/functions/create-connect-account"
+  status = 200
+
+[[redirects]]
+  from = "/api/create-payment-intent"
+  to = "/.netlify/functions/create-payment-intent"
+  status = 200
+
+[[redirects]]
+  from = "/api/stripe-connect-webhook"
+  to = "/.netlify/functions/stripe-connect-webhook"
+  status = 200
+
+[[redirects]]
+  from = "/api/create-public-request"
+  to = "/.netlify/functions/create-public-request"
+  status = 200
+
+[[redirects]]
+  from = "/api/property-briefing"
+  to = "/.netlify/functions/property-briefing-proxy"
+  status = 200
+
+[[redirects]]
+  from = "/api/set-spi-key"
+  to = "/.netlify/functions/set-spi-key"
+  status = 200
+
+[[redirects]]
+  from = "/api/invite-member"
+  to = "/.netlify/functions/invite-member"
+  status = 200
+
+# SPA history fallback (must be last)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
