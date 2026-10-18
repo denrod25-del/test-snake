@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-10-17T07:44:44Z",
+  "generated": "2026-10-18T07:44:17Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,64 @@
         "finalDate": null,
         "expirationDate": "2027-04-05",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06424710130002150": [
+      {
+        "permitNumber": "BPR-2026-02854",
+        "parcelId": "06424710130002150",
+        "address": "4654 NW 26th Way   Boca Raton FL 33434",
+        "city": "Boca Raton",
+        "type": "Interior and Exterior Work - Building (Residential)",
+        "subtype": "Interior and Exterior Work",
+        "description": "Interior Alteration and Renovation of existing Kitchen and Bedrooms and Exterior Windows and Doors Replacement.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-17",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7fee0bfd-f1d1-4517-a3f6-dffdde1528e9"
+      },
+      {
+        "permitNumber": "BPR-2026-02415",
+        "parcelId": "06424710130002150",
+        "address": "4654 NW 26th Way   Boca Raton FL 33434",
+        "city": "Boca Raton",
+        "type": "Fuel Tank and Line - Building (Residential)",
+        "subtype": "Fuel Tank and Line",
+        "description": "INSTALL 57 GAL LP AG TANK AND LINE TO RANGE",
+        "status": "Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-03",
+        "issuedDate": "2026-09-24",
+        "finalDate": null,
+        "expirationDate": "2027-03-23",
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d8a5ec82-f989-4696-b316-f9f8578f888b"
+      }
+    ],
+    "06434719230000530": [
+      {
+        "permitNumber": "BPM-2026-02745",
+        "parcelId": "06434719230000530",
+        "address": "790  St Albans Dr   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
+        "subtype": "Window/ door/ shutter ",
+        "description": "SCOPE OF WORK: RETROFIT REPLACEMENT OF (5) WINDOWS AND (7) DOORS",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-17",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/464e1e73-81b8-4a0f-a0f2-5715c1e33ce6"
       }
     ],
     "06424712070020000": [
@@ -38861,26 +38919,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8dd50651-29da-497c-8f30-c126980a55e3"
       }
     ],
-    "06424710130002150": [
-      {
-        "permitNumber": "BPR-2026-02415",
-        "parcelId": "06424710130002150",
-        "address": "4654 NW 26th Way   Boca Raton FL 33434",
-        "city": "Boca Raton",
-        "type": "Fuel Tank and Line - Building (Residential)",
-        "subtype": "Fuel Tank and Line",
-        "description": "INSTALL 57 GAL LP AG TANK AND LINE TO RANGE",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-03",
-        "issuedDate": "2026-09-24",
-        "finalDate": null,
-        "expirationDate": "2027-03-23",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d8a5ec82-f989-4696-b316-f9f8578f888b"
-      }
-    ],
     "06424711020001400": [
       {
         "permitNumber": "BPQ-2026-02114",
@@ -74221,24 +74259,6 @@
         "finalDate": "2026-09-14",
         "expirationDate": "2027-03-10",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2674de50-dee7-4fa8-9108-df9a8197b09e"
-      },
-      {
-        "permitNumber": "BPQ-2026-01638",
-        "parcelId": "06434705130002100",
-        "address": "5961 NW 2nd Ave  2100 Unit: 2100 Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "WINDOWS AND DOOR REPLACEMENT",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-01",
-        "issuedDate": null,
-        "finalDate": "2026-07-01",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/9c7c4881-6841-411f-98fb-901d4167dc9e"
       }
     ],
     "06434728200014020": [
@@ -74419,26 +74439,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/f3d2cd46-fe0b-473b-b901-089703df8390"
-      }
-    ],
-    "06424703160250010": [
-      {
-        "permitNumber": "BPC-2026-01201",
-        "parcelId": "06424703160250010",
-        "address": "3001 W Yamato Rd   Boca Raton FL 33434",
-        "city": "Boca Raton",
-        "type": "Re - Roof - Building (Commercial)",
-        "subtype": "Re-roof",
-        "description": "Remove existing metal roof and install new metal roof (CITY JOB)",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-01",
-        "issuedDate": "2026-08-05",
-        "finalDate": null,
-        "expirationDate": "2027-04-12",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/f4c3503d-9d46-41e9-a217-fdf65e3a39ee"
       }
     ]
   }
