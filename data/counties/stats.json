@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-18T07:53:41Z",
-  "salesGenerated": "2026-10-12T07:20:41Z",
+  "generated": "2026-10-19T07:10:54Z",
+  "salesGenerated": "2026-10-19T07:10:54Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -46,7 +46,7 @@
         "date": "2026-10-20",
         "label": "October 20, 2026",
         "shortLabel": "Oct 20",
-        "count": 18,
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-10-22",
         "label": "October 22, 2026",
         "shortLabel": "Oct 22",
-        "count": 31,
+        "count": 24,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -124,7 +124,7 @@
         "date": "2026-10-20",
         "label": "October 20, 2026",
         "shortLabel": "Oct 20",
-        "count": 28,
+        "count": 21,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -223,10 +223,10 @@
       "slug": "duval",
       "region": "Northeast",
       "nextSale": {
-        "date": "2027-01-13",
-        "label": "January 13, 2027",
-        "shortLabel": "Jan 13",
-        "count": 1,
+        "date": "2026-10-28",
+        "label": "October 28, 2026",
+        "shortLabel": "Oct 28",
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -244,7 +244,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 28,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -376,7 +376,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 22,
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -394,7 +394,7 @@
         "date": "2026-10-21",
         "label": "October 21, 2026",
         "shortLabel": "Oct 21",
-        "count": 21,
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -412,7 +412,7 @@
         "date": "2026-10-22",
         "label": "October 22, 2026",
         "shortLabel": "Oct 22",
-        "count": 6,
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -502,7 +502,7 @@
         "date": "2026-10-20",
         "label": "October 20, 2026",
         "shortLabel": "Oct 20",
-        "count": 32,
+        "count": 25,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -520,7 +520,7 @@
         "date": "2026-10-21",
         "label": "October 21, 2026",
         "shortLabel": "Oct 21",
-        "count": 31,
+        "count": 26,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -574,7 +574,7 @@
         "date": "2026-10-26",
         "label": "October 26, 2026",
         "shortLabel": "Oct 26",
-        "count": 6,
+        "count": 5,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -618,7 +618,13 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-10-22",
+        "label": "October 22, 2026",
+        "shortLabel": "Oct 22",
+        "count": null,
+        "source": "cadence"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -688,7 +694,7 @@
         "date": "2026-10-22",
         "label": "October 22, 2026",
         "shortLabel": "Oct 22",
-        "count": 13,
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -724,7 +730,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 44,
+        "count": 38,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -760,7 +766,7 @@
         "date": "2026-10-21",
         "label": "October 21, 2026",
         "shortLabel": "Oct 21",
-        "count": 11,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -778,7 +784,7 @@
         "date": "2026-11-19",
         "label": "November 19, 2026",
         "shortLabel": "Nov 19",
-        "count": 54,
+        "count": 51,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -832,7 +838,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 21,
+        "count": 19,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -876,7 +882,13 @@
       "county": "St. Lucie",
       "slug": "st-lucie",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-11-09",
+        "label": "November 9, 2026",
+        "shortLabel": "Nov 9",
+        "count": 16,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.stlucieclerk.com/tax-deeds/surplus-funds",
       "permits": {
@@ -940,7 +952,7 @@
         "date": "2026-10-27",
         "label": "October 27, 2026",
         "shortLabel": "Oct 27",
-        "count": 15,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
