@@ -1,12 +1,32 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-10-18T07:53:33Z",
+  "generated": "2026-10-19T08:11:36Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424102020200140": [
+      {
+        "permitNumber": "26-010003-ROOF-R",
+        "parcelId": "30424102020200140",
+        "address": "1006  CENTER ST  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "RE-ROOF (REMOVE EXISTING ROOF AND REPLACE WITH NEW SHINGLES AND SKYLIGHT ROOF)",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-18",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c7d82b27-0b3b-4f81-9b6a-06f6769944ed"
+      }
+    ],
     "30424101070030170": [
       {
         "permitNumber": "26-098603-BLDR",
@@ -61387,24 +61407,6 @@
         "finalDate": null,
         "expirationDate": "2026-12-21",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/11eb486f-0d21-428c-a140-bebebf962afb"
-      },
-      {
-        "permitNumber": "26-009658-ROOF-R",
-        "parcelId": "30424113260000520",
-        "address": "117 W VILLAGE WAY  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Roof New (Sub)",
-        "subtype": "No Fee Sub-Permit",
-        "description": "55.6 sq Eagle Bel Air with quickdrives (MASTER 26-092597-BLDR)",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-12",
-        "issuedDate": "2026-05-20",
-        "finalDate": "2026-08-10",
-        "expirationDate": "2027-02-03",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7fbd901a-f761-45a2-86d2-0e3db9f2432c"
       }
     ],
     "30424027100005140": [
