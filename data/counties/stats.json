@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-21T07:59:59Z",
+  "generated": "2026-10-22T07:59:40Z",
   "salesGenerated": "2026-10-19T07:10:54Z",
   "featuredSlugs": [
     "palm-beach",
@@ -157,9 +157,9 @@
       "slug": "clay",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-10-21",
-        "label": "October 21, 2026",
-        "shortLabel": "Oct 21",
+        "date": "2026-11-04",
+        "label": "November 4, 2026",
+        "shortLabel": "Nov 4",
         "count": 4,
         "source": "scraper"
       },
@@ -391,10 +391,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-10-21",
-        "label": "October 21, 2026",
-        "shortLabel": "Oct 21",
-        "count": 18,
+        "date": "2026-10-28",
+        "label": "October 28, 2026",
+        "shortLabel": "Oct 28",
+        "count": 23,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -517,10 +517,10 @@
       "slug": "leon",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-10-21",
-        "label": "October 21, 2026",
-        "shortLabel": "Oct 21",
-        "count": 26,
+        "date": "2026-11-04",
+        "label": "November 4, 2026",
+        "shortLabel": "Nov 4",
+        "count": 34,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -763,10 +763,10 @@
       "slug": "pinellas",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-10-21",
-        "label": "October 21, 2026",
-        "shortLabel": "Oct 21",
-        "count": 6,
+        "date": "2026-11-18",
+        "label": "November 18, 2026",
+        "shortLabel": "Nov 18",
+        "count": 30,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -799,10 +799,10 @@
       "slug": "putnam",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-10-21",
-        "label": "October 21, 2026",
-        "shortLabel": "Oct 21",
-        "count": 70,
+        "date": "2026-11-04",
+        "label": "November 4, 2026",
+        "shortLabel": "Nov 4",
+        "count": 60,
         "source": "scraper"
       },
       "surplusPortal": false,
