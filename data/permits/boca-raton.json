@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-10-24T07:45:35Z",
+  "generated": "2026-10-25T07:45:47Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,46 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06434709050011607": [
+      {
+        "permitNumber": "BPM-2026-02803",
+        "parcelId": "06434709050011607",
+        "address": "4301 N Ocean Blvd  1607 Unit: 1607 Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Electrical Water Heater Changeout Multifamily",
+        "subtype": "Water heater changeout (elect)",
+        "description": "Remove old water heater and replace it with a new one in the same location",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-24",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/dc631653-83e7-42fb-81f8-7885fa87e127"
+      }
+    ],
+    "06434708210000430": [
+      {
+        "permitNumber": "BPC-2026-01998",
+        "parcelId": "06434708210000430",
+        "address": "698 NE Spanish River Blvd  0430 Unit: 0430 Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "exact ac change out no ductwork",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-24",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/71675257-a4b3-4d4d-a96a-e9c4255a324a"
       }
     ],
     "06434720230060030": [
@@ -5288,7 +5328,7 @@
         "type": "Electrical Service/ Panel Work Multifamily",
         "subtype": "Electrical Service/Panel Work",
         "description": "Repair electrical panel 120/240/vol 100amp",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -9408,7 +9448,7 @@
         "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
         "subtype": "Window/ door/ shutter ",
         "description": "Replacement of the existing W & D with new impact ones",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -74287,46 +74327,6 @@
         "finalDate": "2026-08-06",
         "expirationDate": "2027-02-02",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/daee98c7-e446-4376-a25b-8d38a4dd08ce"
-      }
-    ],
-    "06434732140000082": [
-      {
-        "permitNumber": "BPM-2026-01760",
-        "parcelId": "06434732140000082",
-        "address": "2600 S Ocean Blvd  0082 Unit: 0082 Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Fire Sprinkler System Multifamily",
-        "subtype": "Fire Sprinkler System",
-        "description": "Add/Relocate fire sprinkler heads to accomodate new tenant layout",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-08",
-        "issuedDate": null,
-        "finalDate": "2026-07-08",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a0dc8c30-0c30-4c6e-9557-f6ab79fe6d2b"
-      }
-    ],
-    "06434719050030040": [
-      {
-        "permitNumber": "BPR-2026-01862",
-        "parcelId": "06434719050030040",
-        "address": "732 NW 7th Dr   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Interior and Exterior Work - Building (Residential)",
-        "subtype": "Interior and Exterior Work",
-        "description": "installation of new decorative Hardie siding on finished exterior front wall",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-08",
-        "issuedDate": "2026-09-21",
-        "finalDate": null,
-        "expirationDate": "2027-03-20",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/12a44807-00fc-4332-bc06-d791d3697a12"
       }
     ]
   }

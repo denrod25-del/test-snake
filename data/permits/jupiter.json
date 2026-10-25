@@ -1,7 +1,7 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-10-24T07:56:47Z",
+  "generated": "2026-10-25T07:57:25Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
@@ -10545,7 +10545,7 @@
         "appliedDate": "2026-10-08",
         "issuedDate": "2026-10-13",
         "finalDate": null,
-        "expirationDate": "2027-04-11",
+        "expirationDate": "2027-04-22",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f3cb9233-4488-42f6-b110-c49f7c75be13"
       },
       {
