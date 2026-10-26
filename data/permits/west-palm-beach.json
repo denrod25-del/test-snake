@@ -1,12 +1,260 @@
 {
   "county": "West Palm Beach",
   "slug": "west-palm-beach",
-  "generated": "2026-10-25T07:42:32Z",
+  "generated": "2026-10-26T07:59:53Z",
   "source": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov SelfService scrape \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "74434309050420190": [
+      {
+        "permitNumber": "26101525-RES-BLDG",
+        "parcelId": "74434309050420190",
+        "address": "611  30th St  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Roofing - Residential",
+        "subtype": "Roofing",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/c1b4b7be-0c74-4f70-b784-7277994b0287"
+      }
+    ],
+    "74434304010000760": [
+      {
+        "permitNumber": "26101524-COM-FIRE",
+        "parcelId": "74434304010000760",
+        "address": "6000 N Flagler Dr  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Temporary Tent - Fire",
+        "subtype": "Temporary Tent",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/e08e898b-9a3f-4692-aabf-8e721b660161"
+      }
+    ],
+    "74434316150060010": [
+      {
+        "permitNumber": "26101523-COM-MECH",
+        "parcelId": "74434316150060010",
+        "address": "550  21st St  Unit: A West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "A/C Changeout - Commercial",
+        "subtype": "Change Out",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/791a88ef-2153-4b8d-ba25-83c1fcfd127b"
+      },
+      {
+        "permitNumber": "26101418-COM-MECH",
+        "parcelId": "74434316150060010",
+        "address": "550  21st St  Unit: A West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "A/C Changeout - Commercial",
+        "subtype": "Change Out",
+        "description": "",
+        "status": "Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/26622d7a-0b2f-4cb7-9ff9-23c6bcc86a4f"
+      }
+    ],
+    "74434318110001210": [
+      {
+        "permitNumber": "26101522-RES-PLUMB",
+        "parcelId": "74434318110001210",
+        "address": "1335  Bear Island Dr  West Palm Beach FL 33409",
+        "city": "West Palm Beach",
+        "type": "Pool/Spa/Fountain Plumbing Residential (Sub-Permit)",
+        "subtype": "Pool/Spa/Fountain Plumbing (Sub-Permit)",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/2e626c6a-8b2e-4186-83d7-b0cc412dbd0c"
+      },
+      {
+        "permitNumber": "26101521-RES-POOL",
+        "parcelId": "74434318110001210",
+        "address": "1335  Bear Island Dr  West Palm Beach FL 33409",
+        "city": "West Palm Beach",
+        "type": "Pool/Spa/Fountain - Residential",
+        "subtype": "Pool/Spa/Fountain",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/e212c95c-4c88-4f83-b564-da7ebf2a00af"
+      }
+    ],
+    "74434328150010130": [
+      {
+        "permitNumber": "26101520-SE-PRIVATE",
+        "parcelId": "74434328150010130",
+        "address": "939  Belvedere Rd  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Special Events - Private Property",
+        "subtype": "Special Event Permit - Private Property",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/149d8494-9a70-422b-af01-fdfa9a3ec418"
+      },
+      {
+        "permitNumber": "26090801-SE-PRIVATE",
+        "parcelId": "74434328150010130",
+        "address": "939  Belvedere Rd  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Special Events - Private Property",
+        "subtype": "Special Event Permit - Private Property",
+        "description": "",
+        "status": "Requires Resubmit",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-15",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/4dbd89e5-90ba-4522-a02f-d10fa2e69db1"
+      },
+      {
+        "permitNumber": "26081448-SE-PRIVATE",
+        "parcelId": "74434328150010130",
+        "address": "939  Belvedere Rd  West Palm Beach FL 33405",
+        "city": "West Palm Beach",
+        "type": "Special Events - Private Property",
+        "subtype": "Special Event Permit - Private Property",
+        "description": "",
+        "status": "Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-08-25",
+        "issuedDate": "2026-09-09",
+        "finalDate": null,
+        "expirationDate": "2027-03-08",
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ac3b7648-5b35-47cf-a15f-056f798d375b"
+      }
+    ],
+    "74434322120040090": [
+      {
+        "permitNumber": "26101519-COM-MECH",
+        "parcelId": "74434322120040090",
+        "address": "500 N Dixie Hwy  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "A/C Changeout - Commercial",
+        "subtype": "Change Out",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/416a82aa-8ef7-4b22-91c2-6f78803aa762"
+      },
+      {
+        "permitNumber": "26090406-REVISION",
+        "parcelId": "74434322120040090",
+        "address": "500 N Dixie Hwy  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Building Revisions - Commercial Revision",
+        "subtype": "Commercial Revision",
+        "description": "",
+        "status": "Complete",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-09-08",
+        "issuedDate": "2026-09-30",
+        "finalDate": "2026-09-30",
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/d981913e-a51f-4f2b-9481-dc4301ccfa64"
+      }
+    ],
+    "74434321170010000": [
+      {
+        "permitNumber": "26101518-COM-FIRE",
+        "parcelId": "74434321170010000",
+        "address": "650  Okeechobee Blvd  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Temporary Tent - Fire",
+        "subtype": "Temporary Tent",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/e8512274-98eb-4b2e-ba05-1659019193ee"
+      },
+      {
+        "permitNumber": "26100697-SE-PRIVATE",
+        "parcelId": "74434321170010000",
+        "address": "650  Okeechobee Blvd  West Palm Beach FL 33401",
+        "city": "West Palm Beach",
+        "type": "Special Events - Private Property",
+        "subtype": "Special Event Permit - Private Property",
+        "description": "",
+        "status": "In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-13",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/aaa1b9d5-d396-42ed-a566-3209966271d5"
+      }
+    ],
     "74434410220001750": [
       {
         "permitNumber": "26101517-ENG-CONST",
@@ -4523,26 +4771,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/2ef130ec-ef98-4399-8d48-39ddcbb786fb"
-      }
-    ],
-    "74434316150060010": [
-      {
-        "permitNumber": "26101418-COM-MECH",
-        "parcelId": "74434316150060010",
-        "address": "550  21st St  Unit: A West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "A/C Changeout - Commercial",
-        "subtype": "Change Out",
-        "description": "",
-        "status": "Fees Due",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-22",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/26622d7a-0b2f-4cb7-9ff9-23c6bcc86a4f"
       }
     ],
     "74414224130000100": [
@@ -12293,24 +12521,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-01",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/a6d38671-4cbb-426d-9941-cf1d27fd9478"
-      },
-      {
-        "permitNumber": "26081090-COM-ANC",
-        "parcelId": "74424312030020250",
-        "address": "1901  Village Blvd  West Palm Beach FL 33409",
-        "city": "West Palm Beach",
-        "type": "Shed - Commercial",
-        "subtype": "Shed",
-        "description": "",
-        "status": "Requires Resubmit",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/c824aba8-7377-475c-a826-8da993412069"
       }
     ],
     "74434334010010010": [
@@ -22973,24 +23183,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-24",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/64a224b6-9684-4759-a783-38938e04f6b1"
-      },
-      {
-        "permitNumber": "26081092-COM-BLDG",
-        "parcelId": "7443432234",
-        "address": "622 N Flagler Dr West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Interior (<5000 sq ft) - Commercial",
-        "subtype": "Interior (<5000 sq ft)",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": "2026-09-25",
-        "finalDate": null,
-        "expirationDate": "2027-03-24",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/d911b505-77e1-441b-89ea-6fc8095746fa"
       }
     ],
     "74434328270000280": [
@@ -28871,26 +29063,6 @@
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/d4d756b1-0b75-4c52-b2e6-c04e8398d1a8"
       }
     ],
-    "74434321170010000": [
-      {
-        "permitNumber": "26100697-SE-PRIVATE",
-        "parcelId": "74434321170010000",
-        "address": "650  Okeechobee Blvd  West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Special Events - Private Property",
-        "subtype": "Special Event Permit - Private Property",
-        "description": "",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-13",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/aaa1b9d5-d396-42ed-a566-3209966271d5"
-      }
-    ],
     "74434307080000110": [
       {
         "permitNumber": "26100696-RES-GAS",
@@ -33018,7 +33190,7 @@
         "type": "Pool/Spa/Fountain - Residential",
         "subtype": "Pool/Spa/Fountain",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -41133,24 +41305,6 @@
         "finalDate": null,
         "expirationDate": "2027-04-06",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/97037917-0d44-4b97-9216-ac0a28bfbec1"
-      },
-      {
-        "permitNumber": "26081094-RES-BLDG",
-        "parcelId": "74424320090001160",
-        "address": "2168  Big Wood Cay  West Palm Beach FL 33411",
-        "city": "West Palm Beach",
-        "type": "Roofing - Residential",
-        "subtype": "Roofing",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": "2026-08-25",
-        "finalDate": null,
-        "expirationDate": "2027-02-21",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/d55e9ebd-9738-4285-aa88-8c07c70634ab"
       }
     ],
     "74434404210020830": [
@@ -57545,24 +57699,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1ceb3ad4-a4c4-40d2-aed7-db6def63e341"
-      },
-      {
-        "permitNumber": "26081096-RES-POOL",
-        "parcelId": "74434319030250150",
-        "address": "206  Lyman Pl  West Palm Beach FL 33409",
-        "city": "West Palm Beach",
-        "type": "Pool/Spa/Fountain - Residential",
-        "subtype": "Pool/Spa/Fountain",
-        "description": "",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/090aa492-0829-4941-8cb0-6736fb724fe9"
       }
     ],
     "74434404260020040": [
@@ -58995,44 +59131,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1d97819a-eda7-4a18-bf62-4f1e7798e995"
-      }
-    ],
-    "74434328150010130": [
-      {
-        "permitNumber": "26090801-SE-PRIVATE",
-        "parcelId": "74434328150010130",
-        "address": "939  Belvedere Rd  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Special Events - Private Property",
-        "subtype": "Special Event Permit - Private Property",
-        "description": "",
-        "status": "Requires Resubmit",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-15",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/4dbd89e5-90ba-4522-a02f-d10fa2e69db1"
-      },
-      {
-        "permitNumber": "26081448-SE-PRIVATE",
-        "parcelId": "74434328150010130",
-        "address": "939  Belvedere Rd  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Special Events - Private Property",
-        "subtype": "Special Event Permit - Private Property",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-25",
-        "issuedDate": "2026-09-09",
-        "finalDate": null,
-        "expirationDate": "2027-03-08",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ac3b7648-5b35-47cf-a15f-056f798d375b"
       }
     ],
     "74434304040150010": [
@@ -63549,26 +63647,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/59516479-02b8-4899-b102-9aa67fd42ecc"
-      }
-    ],
-    "74434322120040090": [
-      {
-        "permitNumber": "26090406-REVISION",
-        "parcelId": "74434322120040090",
-        "address": "500 N Dixie Hwy  West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Building Revisions - Commercial Revision",
-        "subtype": "Commercial Revision",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-08",
-        "issuedDate": "2026-09-30",
-        "finalDate": "2026-09-30",
-        "expirationDate": null,
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/d981913e-a51f-4f2b-9481-dc4301ccfa64"
       }
     ],
     "74434316100020060": [
@@ -70109,24 +70187,6 @@
         "finalDate": "2026-09-03",
         "expirationDate": "2027-03-02",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/00697792-c622-44db-b80a-9e04aac44a57"
-      },
-      {
-        "permitNumber": "26081093-RES-BLDG",
-        "parcelId": "74424321160011650",
-        "address": "7821  Pine Island Way  West Palm Beach FL 33411",
-        "city": "West Palm Beach",
-        "type": "Roofing - Residential",
-        "subtype": "Roofing",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": "2026-08-25",
-        "finalDate": "2026-10-06",
-        "expirationDate": "2027-04-05",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/55bd5c0e-3314-462a-85fe-770caf01203a"
       }
     ],
     "74414225050000430": [
@@ -72465,24 +72525,6 @@
         "finalDate": "2026-08-24",
         "expirationDate": "2027-02-22",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/31a49c55-3e4c-4da5-b0fe-7899b571dc6e"
-      },
-      {
-        "permitNumber": "26081091-COM-ELEC",
-        "parcelId": "74434321010100090",
-        "address": "318 S Dixie Hwy  West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Electrical Sub-Permit - Commercial",
-        "subtype": "Sub-Permit",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": "2026-08-21",
-        "finalDate": null,
-        "expirationDate": "2027-03-01",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/20f6bcd2-99a6-435d-9af3-72e83ecc0d77"
       }
     ],
     "74414224060000540": [
@@ -73553,46 +73595,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-21",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/48e14c7c-9759-4b37-ae43-176168c084df"
-      }
-    ],
-    "74434403000000024": [
-      {
-        "permitNumber": "26081097-RES-MECH",
-        "parcelId": "74434403000000024",
-        "address": "126  Edmor Rd  West Palm Beach FL 33405",
-        "city": "West Palm Beach",
-        "type": "Mechanical Sub-Permit - Residential",
-        "subtype": "Sub-Permit",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": "2026-09-28",
-        "finalDate": null,
-        "expirationDate": "2027-03-27",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/ce5aef7e-a673-4732-a42b-a470de41a09a"
-      }
-    ],
-    "74434327140000010": [
-      {
-        "permitNumber": "26081095-RES-BLDG",
-        "parcelId": "74434327140000010",
-        "address": "215  Vallette Way  West Palm Beach FL 33401",
-        "city": "West Palm Beach",
-        "type": "Windows and Doors - Residential",
-        "subtype": "Windows and Doors",
-        "description": "",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-19",
-        "issuedDate": "2026-09-15",
-        "finalDate": null,
-        "expirationDate": "2027-03-14",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/f0af486c-5425-42c7-b526-3255163984a8"
       }
     ]
   }

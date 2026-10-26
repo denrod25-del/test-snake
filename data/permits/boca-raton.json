@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-10-25T07:45:47Z",
+  "generated": "2026-10-26T08:03:02Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,122 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06424711030001250": [
+      {
+        "permitNumber": "BPQ-2026-02512",
+        "parcelId": "06424711030001250",
+        "address": "2280 NW 36th St   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "REPLACING (2) SLIDING GLASS DOORS AND (1) WINDOW TO IMPACT",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/857c538d-f29a-47c3-85b8-a830b56299d1"
+      }
+    ],
+    "06434705020020100": [
+      {
+        "permitNumber": "BPC-2026-01999",
+        "parcelId": "06434705020020100",
+        "address": "5601 N Federal Hwy   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Flat wall sign with or without Electrical",
+        "subtype": "Sign Flat Wall w/Struct Electrical",
+        "description": "Change of copy on existing monument sign",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/be10eb71-6109-4bf3-953d-1ac0c96545c6"
+      },
+      {
+        "permitNumber": "BPC-2026-01965",
+        "parcelId": "06434705020020100",
+        "address": "5601 N Federal Hwy   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Flat wall sign with or without Electrical",
+        "subtype": "Sign Flat Wall w/Struct Electrical",
+        "description": "Illuminated wall sign",
+        "status": "In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-19",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8b493d3e-2605-40e6-ab00-13524d5111ac"
+      }
+    ],
+    "06424735200001050": [
+      {
+        "permitNumber": "BPQ-2026-02511",
+        "parcelId": "06424735200001050",
+        "address": "1846 SW 17th St   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "replace 2 garage doors 9x7 (2)",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c0e527cf-44f3-4466-9e5d-b44c0897c927"
+      }
+    ],
+    "06424704140000180": [
+      {
+        "permitNumber": "BPR-2026-02920",
+        "parcelId": "06424704140000180",
+        "address": "6569 NW 39th Ter   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Addition/Interior and/or Exterior Alteration - Building (Residential)",
+        "subtype": "Addition Int And/ Or Ext Alteration",
+        "description": "Installation of porcelain tiles on exterior front wall. Garage door cut concrete radius and make it a square header",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-25",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/9e8994e7-f2a7-455b-87ca-d2073f60fc8e"
+      },
+      {
+        "permitNumber": "BPQ-2026-02405",
+        "parcelId": "06424704140000180",
+        "address": "6569 NW 39th Ter   Boca Raton FL 33496",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "replace 1 garage door 16x8",
+        "status": "Issued",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-10",
+        "issuedDate": "2026-10-16",
+        "finalDate": null,
+        "expirationDate": "2027-04-14",
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/22c949d6-c33a-4d98-b2a1-6901b4aeeb1b"
       }
     ],
     "06434709050011607": [
@@ -8011,26 +8127,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/2f1c06d4-94d7-4397-be28-9eff35e0da0f"
       }
     ],
-    "06434705020020100": [
-      {
-        "permitNumber": "BPC-2026-01965",
-        "parcelId": "06434705020020100",
-        "address": "5601 N Federal Hwy   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Flat wall sign with or without Electrical",
-        "subtype": "Sign Flat Wall w/Struct Electrical",
-        "description": "Illuminated wall sign",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-19",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8b493d3e-2605-40e6-ab00-13524d5111ac"
-      }
-    ],
     "06424704220000120": [
       {
         "permitNumber": "BPR-2026-02858",
@@ -15872,7 +15968,7 @@
         "type": "Interior and Exterior Work - Building (Commercial)",
         "subtype": "Interior and Exterior Work",
         "description": "PRIVATE PROVIDER PLAN REVIEW AND INSPECTIONS: Commercial interior alteration / showroom renovation, including interior demolition, framing, drywall, flooring, MEP modifications, finishes, and related work per approved Architectural and MEP plans. No increase in floor area.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -16249,26 +16345,6 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/3047f312-4c37-4c3a-aadf-c9fb5ff086d2"
-      }
-    ],
-    "06424704140000180": [
-      {
-        "permitNumber": "BPQ-2026-02405",
-        "parcelId": "06424704140000180",
-        "address": "6569 NW 39th Ter   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "replace 1 garage door 16x8",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-10",
-        "issuedDate": "2026-10-16",
-        "finalDate": null,
-        "expirationDate": "2027-04-14",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/22c949d6-c33a-4d98-b2a1-6901b4aeeb1b"
       }
     ],
     "06424716100000280": [
@@ -20816,7 +20892,7 @@
         "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "Re-roof ",
         "description": "REROOF to Metal",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -23334,7 +23410,7 @@
         "type": "Mechanical HVAC Interior And Exterior Multifamily",
         "subtype": "Mechanical HVAC Int/Ext",
         "description": "Exact HVAC Change Out (like for like)",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -37658,7 +37734,7 @@
         "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
         "subtype": "Re-roof ",
         "description": "re-roof",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -39584,7 +39660,7 @@
         "type": "Interior and Exterior Work - Building (Residential)",
         "subtype": "Interior and Exterior Work",
         "description": "Remodel per plans",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -49479,7 +49555,7 @@
         "appliedDate": "2026-08-24",
         "issuedDate": "2026-08-31",
         "finalDate": null,
-        "expirationDate": "2027-03-29",
+        "expirationDate": "2027-04-23",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d726e99a-f795-4bc3-8653-0592c37455df"
       },
       {
@@ -55511,24 +55587,6 @@
         "finalDate": "2026-07-09",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5d66ca7d-d236-4272-9654-53e03cff37ae"
-      },
-      {
-        "permitNumber": "BPC-2026-01246",
-        "parcelId": "06434717090020010",
-        "address": "2120 N Dixie Hwy   Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Electrical Interior and/or Exterior - Building (Commercial)",
-        "subtype": "Electrical Interior and/or Exterior",
-        "description": "6 parking lot pole light",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-08",
-        "issuedDate": null,
-        "finalDate": "2026-07-08",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/42082cd8-125e-4d0d-945f-41d6d29f7b21"
       }
     ],
     "06434730100090210": [
@@ -56109,7 +56167,7 @@
         "appliedDate": "2026-08-13",
         "issuedDate": "2026-08-24",
         "finalDate": null,
-        "expirationDate": "2027-04-05",
+        "expirationDate": "2027-04-23",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a9b5f189-df78-46d6-b766-9afa5fda8767"
       },
       {
@@ -73661,24 +73719,6 @@
         "finalDate": "2026-07-09",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/3db097ae-01db-4697-b5af-39cddb6475fc"
-      },
-      {
-        "permitNumber": "BPC-2026-01245",
-        "parcelId": "06434732120011010",
-        "address": "950  Ponce De Leon Rd  1010 Unit: 1010 Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Environmental Miscellaneous",
-        "subtype": "Environmental Miscellaneous",
-        "description": "Removal of 4 Christmas Palms to due to damage from concrete restoration. Will be installing 14 palms/ornamental trees as well as 1,200, 7 gallon of clusia and other landscaping material.",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-08",
-        "issuedDate": null,
-        "finalDate": "2026-07-08",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/446fb93b-5ad4-43f5-813d-5f442225c248"
       }
     ],
     "06434719100000020": [
@@ -74287,46 +74327,6 @@
         "finalDate": "2026-10-22",
         "expirationDate": "2027-04-20",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8bf2ed18-bdd3-49f1-b90a-6533b672ae0d"
-      }
-    ],
-    "06424703040001380": [
-      {
-        "permitNumber": "BPR-2026-01863",
-        "parcelId": "06424703040001380",
-        "address": "6197 NW 32nd Ave Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Driveway/Sidewalk - Building (Residential)",
-        "subtype": "Driveway/Sidewalk",
-        "description": "PLACE CEMENT PAVERS ON THE DRIVEWAY",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-08",
-        "issuedDate": "2026-07-08",
-        "finalDate": "2026-09-28",
-        "expirationDate": "2027-03-24",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/64607689-44f7-4450-93e3-952a41d16057"
-      }
-    ],
-    "06434717190001570": [
-      {
-        "permitNumber": "BPM-2026-01761",
-        "parcelId": "06434717190001570",
-        "address": "400 NE 20th St  D110 Unit: D110 Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
-        "subtype": "Window/ door/ shutter ",
-        "description": "Replace 3 window openings all impact",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-08",
-        "issuedDate": "2026-07-15",
-        "finalDate": "2026-08-06",
-        "expirationDate": "2027-02-02",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/daee98c7-e446-4376-a25b-8d38a4dd08ce"
       }
     ]
   }
