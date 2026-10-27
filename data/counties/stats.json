@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T08:14:25Z",
+  "generated": "2026-10-27T08:01:50Z",
   "salesGenerated": "2026-10-26T07:12:25Z",
   "featuredSlugs": [
     "palm-beach",
@@ -90,13 +90,7 @@
       "county": "Broward",
       "slug": "broward",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-10-26",
-        "label": "October 26, 2026",
-        "shortLabel": "Oct 26",
-        "count": null,
-        "source": "manual_verified"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.browardclerk.org/Divisions/RealEstate/SurplusFunds",
       "permits": {
@@ -817,10 +811,10 @@
       "slug": "santa-rosa",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-10-26",
-        "label": "October 26, 2026",
-        "shortLabel": "Oct 26",
-        "count": 1,
+        "date": "2026-11-02",
+        "label": "November 2, 2026",
+        "shortLabel": "Nov 2",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
