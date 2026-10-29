@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-28T07:50:48Z",
+  "generated": "2026-10-29T07:50:08Z",
   "salesGenerated": "2026-10-26T07:12:25Z",
   "featuredSlugs": [
     "palm-beach",
@@ -217,10 +217,10 @@
       "slug": "duval",
       "region": "Northeast",
       "nextSale": {
-        "date": "2026-10-28",
-        "label": "October 28, 2026",
-        "shortLabel": "Oct 28",
-        "count": 5,
+        "date": "2027-01-13",
+        "label": "January 13, 2027",
+        "shortLabel": "Jan 13",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -385,10 +385,10 @@
       "slug": "highlands",
       "region": "Central",
       "nextSale": {
-        "date": "2026-10-28",
-        "label": "October 28, 2026",
-        "shortLabel": "Oct 28",
-        "count": 21,
+        "date": "2026-11-04",
+        "label": "November 4, 2026",
+        "shortLabel": "Nov 4",
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": false,
