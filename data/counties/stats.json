@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-29T07:50:08Z",
+  "generated": "2026-10-30T07:51:59Z",
   "salesGenerated": "2026-10-26T07:12:25Z",
   "featuredSlugs": [
     "palm-beach",
@@ -403,10 +403,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-10-29",
-        "label": "October 29, 2026",
-        "shortLabel": "Oct 29",
-        "count": 3,
+        "date": "2026-11-05",
+        "label": "November 5, 2026",
+        "shortLabel": "Nov 5",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -685,10 +685,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-10-29",
-        "label": "October 29, 2026",
-        "shortLabel": "Oct 29",
-        "count": 7,
+        "date": "2026-11-05",
+        "label": "November 5, 2026",
+        "shortLabel": "Nov 5",
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -739,10 +739,10 @@
       "slug": "pasco",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-10-29",
-        "label": "October 29, 2026",
-        "shortLabel": "Oct 29",
-        "count": 25,
+        "date": "2026-12-03",
+        "label": "December 3, 2026",
+        "shortLabel": "Dec 3",
+        "count": 40,
         "source": "scraper"
       },
       "surplusPortal": true,
