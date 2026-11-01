@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-10-31T07:40:28Z",
+  "generated": "2026-11-01T07:40:08Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,158 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06434732220000030": [
+      {
+        "permitNumber": "BPM-2026-02859",
+        "parcelId": "06434732220000030",
+        "address": "2531 S Ocean Blvd  0030 Unit: 0030 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior Multifamily",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "A/C CHANGE OUT",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-31",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/82d3690f-5b45-401a-8d93-24a41b5e4ad0"
+      },
+      {
+        "permitNumber": "BPR-2026-02899",
+        "parcelId": "06434732220000030",
+        "address": "2531 S Ocean Blvd  0030 Unit: 0030 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC - Building (Residential)",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "A/C CHANE OUT",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-22",
+        "issuedDate": null,
+        "finalDate": "2026-10-22",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/da07c1c7-ced9-42bc-ab30-7e07152b0048"
+      }
+    ],
+    "06434732220000020": [
+      {
+        "permitNumber": "BPM-2026-02858",
+        "parcelId": "06434732220000020",
+        "address": "2531 S Ocean Blvd  0020 Unit: 0020 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior Multifamily",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "A/C CHANGE OUT",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-31",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/77b4a8a1-166e-40b1-a4b0-bcb3a0d4fca1"
+      },
+      {
+        "permitNumber": "BPR-2026-02898",
+        "parcelId": "06434732220000020",
+        "address": "2531 S Ocean Blvd  0020 Unit: 0020 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC - Building (Residential)",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "A/C CHANGE OUT",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-22",
+        "issuedDate": null,
+        "finalDate": "2026-10-22",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/04599502-421c-4043-b597-df4ffb7335e9"
+      }
+    ],
+    "06434732220000010": [
+      {
+        "permitNumber": "BPM-2026-02857",
+        "parcelId": "06434732220000010",
+        "address": "2531 S Ocean Blvd  0010 Unit: 0010 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC Interior And Exterior Multifamily",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "A/C CHANGE OUT",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-31",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/8c242b30-11e3-4492-b7e0-5e2091fbab3e"
+      },
+      {
+        "permitNumber": "BPR-2026-02897",
+        "parcelId": "06434732220000010",
+        "address": "2531 S Ocean Blvd  0010 Unit: 0010 Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Mechanical HVAC - Building (Residential)",
+        "subtype": "Mechanical HVAC Int/Ext",
+        "description": "A/C CHANGE OUT",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-22",
+        "issuedDate": null,
+        "finalDate": "2026-10-22",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/ca577ca2-189b-419d-82d6-86eb0d3ca40f"
+      }
+    ],
+    "06424701010040102": [
+      {
+        "permitNumber": "BPC-2026-02071",
+        "parcelId": "06424701010040102",
+        "address": "6500 W Rogers Cir Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Paving/Resurfacing",
+        "subtype": "Paving/Resurfacing",
+        "description": "Asphalt - Remove and Replace; Concrete Curb - Remove and Replace; Sealcoat; Parking Signs and Posts; and Restripe",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-31",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/212bfe49-8f41-4d70-ad8a-0ce2e9b090ee"
+      },
+      {
+        "permitNumber": "BPM-2026-02849",
+        "parcelId": "06424701010040102",
+        "address": "6500 W Rogers Cir Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Paving/ Resurfacing Multifamily",
+        "subtype": "Paving/Resurfacing",
+        "description": "Asphalt - Remove and Replace; Concrete Curb - Remove and Replace; Sealcoat; Restripe; and Parking Signs & Posts",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-30",
+        "issuedDate": null,
+        "finalDate": "2026-10-30",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7301679a-68b7-4fd9-a61c-7b8ef285fd10"
       }
     ],
     "06424711010040040": [
@@ -1787,26 +1939,6 @@
         "finalDate": "2026-08-07",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5665aadd-2e8f-4df9-8102-9462ef46bc83"
-      }
-    ],
-    "06424701010040102": [
-      {
-        "permitNumber": "BPM-2026-02849",
-        "parcelId": "06424701010040102",
-        "address": "6500 W Rogers Cir Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Paving/ Resurfacing Multifamily",
-        "subtype": "Paving/Resurfacing",
-        "description": "Asphalt - Remove and Replace; Concrete Curb - Remove and Replace; Sealcoat; Restripe; and Parking Signs & Posts",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-30",
-        "issuedDate": null,
-        "finalDate": "2026-10-30",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7301679a-68b7-4fd9-a61c-7b8ef285fd10"
       }
     ],
     "06424723160040000": [
@@ -11467,24 +11599,6 @@
         "finalDate": "2026-10-23",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/74a923ff-350f-4345-9e02-7f9ef925de81"
-      },
-      {
-        "permitNumber": "BPC-2026-01292",
-        "parcelId": "06434706030130000",
-        "address": "645  Park of Commerce Way   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC Interior And Exterior",
-        "subtype": "Mechanical HVAC Int/Ext",
-        "description": "Remove and replace a 10 ton RTU",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-16",
-        "issuedDate": "2026-08-03",
-        "finalDate": null,
-        "expirationDate": "2027-01-30",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b33c85bc-5c68-4858-aaad-61615f5d8b01"
       }
     ],
     "06434717190001010": [
@@ -12227,46 +12341,6 @@
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c30db62f-5743-4d14-a366-5dcb20044620"
       }
     ],
-    "06434732220000030": [
-      {
-        "permitNumber": "BPR-2026-02899",
-        "parcelId": "06434732220000030",
-        "address": "2531 S Ocean Blvd  0030 Unit: 0030 Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC - Building (Residential)",
-        "subtype": "Mechanical HVAC Int/Ext",
-        "description": "A/C CHANE OUT",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-22",
-        "issuedDate": null,
-        "finalDate": "2026-10-22",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/da07c1c7-ced9-42bc-ab30-7e07152b0048"
-      }
-    ],
-    "06434732220000020": [
-      {
-        "permitNumber": "BPR-2026-02898",
-        "parcelId": "06434732220000020",
-        "address": "2531 S Ocean Blvd  0020 Unit: 0020 Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC - Building (Residential)",
-        "subtype": "Mechanical HVAC Int/Ext",
-        "description": "A/C CHANGE OUT",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-22",
-        "issuedDate": null,
-        "finalDate": "2026-10-22",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/04599502-421c-4043-b597-df4ffb7335e9"
-      }
-    ],
     "06434732210003050": [
       {
         "permitNumber": "BPM-2026-02792",
@@ -12285,26 +12359,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b13c6485-e9fc-46fd-a0c2-914a9270952a"
-      }
-    ],
-    "06434732220000010": [
-      {
-        "permitNumber": "BPR-2026-02897",
-        "parcelId": "06434732220000010",
-        "address": "2531 S Ocean Blvd  0010 Unit: 0010 Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC - Building (Residential)",
-        "subtype": "Mechanical HVAC Int/Ext",
-        "description": "A/C CHANGE OUT",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-22",
-        "issuedDate": null,
-        "finalDate": "2026-10-22",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/ca577ca2-189b-419d-82d6-86eb0d3ca40f"
       }
     ],
     "0642472313": [
@@ -59707,24 +59761,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-14",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a53612dc-345a-41a5-bd49-a91cc09b307d"
-      },
-      {
-        "permitNumber": "000334-2026",
-        "parcelId": "06434729050130081",
-        "address": "1300  Cocoanut Rd   Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Trade Permits - Natural and LP Gas",
-        "subtype": "Natural and LP Gas",
-        "description": "New 3 story sfr per plan",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-16",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/aacbe0db-1e43-45a6-8108-2c7153f473e7"
       }
     ],
     "06434632380040020": [
@@ -74031,66 +74067,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-01",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c5d98173-1f93-4314-8608-c8b40b72ad0c"
-      }
-    ],
-    "06434731110000030": [
-      {
-        "permitNumber": "BPR-2026-01946",
-        "parcelId": "06434731110000030",
-        "address": "860 SW 22nd St   Boca Raton FL 33486",
-        "city": "Boca Raton",
-        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
-        "subtype": "Swimming Pool/Spa",
-        "description": "RESURFACING POOL and TILE",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-16",
-        "issuedDate": "2026-09-02",
-        "finalDate": null,
-        "expirationDate": "2027-03-01",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d0ee36b-c4cf-49a3-a983-9733314cab6f"
-      }
-    ],
-    "06424703050000050": [
-      {
-        "permitNumber": "BPQ-2026-01736",
-        "parcelId": "06424703050000050",
-        "address": "3294 NW 53rd Cir   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Window/ door/ shutter ",
-        "description": "WINDOW CHANGEOUT AND REIVSING OPENINGS",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-16",
-        "issuedDate": "2026-10-07",
-        "finalDate": null,
-        "expirationDate": "2027-04-05",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/11ce42a1-c2ca-4913-af90-c138557c0f9c"
-      }
-    ],
-    "06434631290000450": [
-      {
-        "permitNumber": "BPQ-2026-01735",
-        "parcelId": "06434631290000450",
-        "address": "8336 NW 7th Ct Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Electrical Water Heater Changeout - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Water heater changeout (elect)",
-        "description": "Replace 50 Gallon electric water heater, expansion tank & re-circulating pump",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-16",
-        "issuedDate": "2026-08-20",
-        "finalDate": "2026-09-21",
-        "expirationDate": "2027-03-17",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/46133ce3-6ed6-44c5-a600-641c1f19227f"
       }
     ]
   }
