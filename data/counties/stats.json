@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-01T07:48:03Z",
-  "salesGenerated": "2026-10-26T07:12:25Z",
+  "generated": "2026-11-02T06:48:28Z",
+  "salesGenerated": "2026-11-02T06:48:27Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -16,7 +16,7 @@
         "date": "2026-12-01",
         "label": "December 1, 2026",
         "shortLabel": "Dec 1",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -46,7 +46,7 @@
         "date": "2026-11-03",
         "label": "November 3, 2026",
         "shortLabel": "Nov 3",
-        "count": 16,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-12-10",
         "label": "December 10, 2026",
         "shortLabel": "Dec 10",
-        "count": 23,
+        "count": 26,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -136,7 +136,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 32,
+        "count": 29,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -154,7 +154,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -238,7 +238,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 23,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -370,7 +370,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 19,
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -514,7 +514,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 33,
+        "count": 21,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -568,7 +568,7 @@
         "date": "2026-11-09",
         "label": "November 9, 2026",
         "shortLabel": "Nov 9",
-        "count": 7,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -600,7 +600,13 @@
       "county": "Martin",
       "slug": "martin",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-12-16",
+        "label": "December 16, 2026",
+        "shortLabel": "Dec 16",
+        "count": 19,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -616,7 +622,7 @@
         "date": "2026-11-12",
         "label": "November 12, 2026",
         "shortLabel": "Nov 12",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -688,7 +694,7 @@
         "date": "2026-11-05",
         "label": "November 5, 2026",
         "shortLabel": "Nov 5",
-        "count": 10,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -706,7 +712,7 @@
         "date": "2026-11-10",
         "label": "November 10, 2026",
         "shortLabel": "Nov 10",
-        "count": 23,
+        "count": 20,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -724,7 +730,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 34,
+        "count": 32,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -760,7 +766,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 27,
+        "count": 24,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -796,7 +802,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 58,
+        "count": 55,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -811,10 +817,10 @@
       "slug": "santa-rosa",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-11-02",
-        "label": "November 2, 2026",
-        "shortLabel": "Nov 2",
-        "count": 6,
+        "date": "2026-12-07",
+        "label": "December 7, 2026",
+        "shortLabel": "Dec 7",
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -832,7 +838,7 @@
         "date": "2026-11-04",
         "label": "November 4, 2026",
         "shortLabel": "Nov 4",
-        "count": 17,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -880,7 +886,7 @@
         "date": "2026-11-09",
         "label": "November 9, 2026",
         "shortLabel": "Nov 9",
-        "count": 14,
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -946,7 +952,7 @@
         "date": "2026-11-03",
         "label": "November 3, 2026",
         "shortLabel": "Nov 3",
-        "count": 24,
+        "count": 19,
         "source": "scraper"
       },
       "surplusPortal": true,
