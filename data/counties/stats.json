@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-03T07:52:14Z",
+  "generated": "2026-11-04T07:54:28Z",
   "salesGenerated": "2026-11-02T06:48:27Z",
   "featuredSlugs": [
     "palm-beach",
@@ -43,10 +43,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-11-03",
-        "label": "November 3, 2026",
-        "shortLabel": "Nov 3",
-        "count": 12,
+        "date": "2026-11-17",
+        "label": "November 17, 2026",
+        "shortLabel": "Nov 17",
+        "count": 13,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -115,10 +115,10 @@
       "slug": "charlotte",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-11-03",
-        "label": "November 3, 2026",
-        "shortLabel": "Nov 3",
-        "count": 37,
+        "date": "2026-11-17",
+        "label": "November 17, 2026",
+        "shortLabel": "Nov 17",
+        "count": 36,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -493,10 +493,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-11-03",
-        "label": "November 3, 2026",
-        "shortLabel": "Nov 3",
-        "count": 1,
+        "date": "2026-11-17",
+        "label": "November 17, 2026",
+        "shortLabel": "Nov 17",
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -648,13 +648,7 @@
       "county": "Nassau",
       "slug": "nassau",
       "region": "Northeast",
-      "nextSale": {
-        "date": "2026-11-03",
-        "label": "November 3, 2026",
-        "shortLabel": "Nov 3",
-        "count": 2,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -949,10 +943,10 @@
       "slug": "volusia",
       "region": "Central",
       "nextSale": {
-        "date": "2026-11-03",
-        "label": "November 3, 2026",
-        "shortLabel": "Nov 3",
-        "count": 19,
+        "date": "2026-11-17",
+        "label": "November 17, 2026",
+        "shortLabel": "Nov 17",
+        "count": 34,
         "source": "scraper"
       },
       "surplusPortal": true,
