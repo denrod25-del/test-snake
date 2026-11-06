@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-05T07:50:03Z",
+  "generated": "2026-11-06T07:50:33Z",
   "salesGenerated": "2026-11-02T06:48:27Z",
   "featuredSlugs": [
     "palm-beach",
@@ -391,10 +391,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-11-05",
-        "label": "November 5, 2026",
-        "shortLabel": "Nov 5",
-        "count": 9,
+        "date": "2026-11-12",
+        "label": "November 12, 2026",
+        "shortLabel": "Nov 12",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -667,10 +667,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-11-05",
-        "label": "November 5, 2026",
-        "shortLabel": "Nov 5",
-        "count": 7,
+        "date": "2026-11-19",
+        "label": "November 19, 2026",
+        "shortLabel": "Nov 19",
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -810,13 +810,7 @@
       "county": "Sarasota",
       "slug": "sarasota",
       "region": "Southwest",
-      "nextSale": {
-        "date": "2026-11-05",
-        "label": "November 5, 2026",
-        "shortLabel": "Nov 5",
-        "count": 21,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.sarasotaclerk.com/Home-and-Property/Tax-Deeds/Surplus-Funds-from-Tax-Deed-Sale",
       "permits": {
