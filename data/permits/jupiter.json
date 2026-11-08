@@ -1,12 +1,72 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-11-07T07:50:21Z",
+  "generated": "2026-11-08T07:49:09Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424101140000290": [
+      {
+        "permitNumber": "26-010051-ROOF-R",
+        "parcelId": "30424101140000290",
+        "address": "408  HIGHWOOD CIR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "metal and flat reroof",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f3ee8ebd-28d1-43dd-aee8-daae6c59b6cb"
+      }
+    ],
+    "30424101360000090": [
+      {
+        "permitNumber": "26-099003-BLDR",
+        "parcelId": "30424101360000090",
+        "address": "149  PENNOCK TRACE DR  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Renovation Primary Bath",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a97d73d4-b37b-4635-9f16-4ae0e6f48a62"
+      }
+    ],
+    "30424115020001530": [
+      {
+        "permitNumber": "26-099002-BLDR",
+        "parcelId": "30424115020001530",
+        "address": "1118  EGRET CIR N JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Remodel Primary Bath",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/65078738-3a96-40f5-bf38-1aa02064d764"
+      }
+    ],
     "30424112240010000": [
       {
         "permitNumber": "26-099001-WHEAT",
@@ -8701,24 +8761,6 @@
         "finalDate": null,
         "expirationDate": "2027-05-01",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/6ce25fd5-9a0b-400f-aa09-94cda723cc0e"
-      },
-      {
-        "permitNumber": "26-095351-PLUMR",
-        "parcelId": "30424114090001340",
-        "address": "3253  WYMBERLY DR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Plumbing",
-        "subtype": "Plumbing",
-        "description": "Backflow Replacement, Replacing with 1\" Watts 007 M1",
-        "status": "16 - Pending Documents",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5c9775f2-58a8-41ae-a815-3a3dedc374d4"
       }
     ],
     "30434108140001350": [
@@ -13185,24 +13227,6 @@
         "finalDate": "2026-09-04",
         "expirationDate": "2027-03-02",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bf1c379d-bf34-41e0-b58c-0ac83af7a046"
-      },
-      {
-        "permitNumber": "26-095352-AC",
-        "parcelId": "30424124040000760",
-        "address": "322  MARLBERRY CIR  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "A/C Changeout",
-        "subtype": "Change Out",
-        "description": "An exact replacement of the existing AC system with no duct work",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": "2026-06-02",
-        "finalDate": "2026-06-12",
-        "expirationDate": "2026-12-08",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/54814529-6eda-4a47-8495-7b0da976fc4b"
       }
     ],
     "30434116080011070": [
@@ -43921,24 +43945,6 @@
         "finalDate": "2026-07-14",
         "expirationDate": "2027-01-11",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3787c100-128c-4083-8a08-906b618011b3"
-      },
-      {
-        "permitNumber": "26-095350-GASR",
-        "parcelId": "30424113010010000",
-        "address": "365 W FREDERICK SMALL RD  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Gas Lines",
-        "subtype": "Gas Lines",
-        "description": "Canceled_WRONG PERMIT TYPE_new 26-095560-GASC_running up to 20\" of line to connect NG meter to generator",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": null,
-        "finalDate": "2026-06-03",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/bacdd593-0378-4204-883b-0053e85a3470"
       }
     ],
     "30434108060030470": [

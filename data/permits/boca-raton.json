@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-11-07T07:41:05Z",
+  "generated": "2026-11-08T07:40:24Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,46 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06434731060000010": [
+      {
+        "permitNumber": "BPC-2026-02135",
+        "parcelId": "06434731060000010",
+        "address": "100  Royal Palm Way  CA Unit: CA Boca Raton FL 33432",
+        "city": "Boca Raton",
+        "type": "Exterior Painting",
+        "subtype": "Exterior Painting",
+        "description": "painting OF THE EXERIOR OF THE BUILDING IN A DIFFERENT COLOR",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5da671a7-feb5-4afd-9c1c-119c92847470"
+      }
+    ],
+    "06424711020001620": [
+      {
+        "permitNumber": "BPR-2026-03052",
+        "parcelId": "06424711020001620",
+        "address": "2938 NW 24th Way   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Electrical Service/ Panel Work - Building (Residential)",
+        "subtype": "Electrical",
+        "description": "TO INSTALL A NEW EV CHARGER",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-07",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/9b6d1aa4-82c6-496c-9f78-dadc0e1cfcac"
       }
     ],
     "06434729450000150": [
@@ -15376,7 +15416,7 @@
         "type": "Electrical Interior and/or Exterior Multifamily",
         "subtype": "Electrical Interior and/or Exterior",
         "description": "service change like for like",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -65274,7 +65314,7 @@
         "type": "Fence/ Site Wall",
         "subtype": "Fence/Wall/ Gate",
         "description": "PVC SWING GATE, ALUM FRAME (1) SINGLE 12' X 6' W/ BOTTOM WHEEL, (1) DOUBLE 9' X 6', 4\" MD HD IRON POST 6' HT, YELLOW",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -73761,46 +73801,6 @@
         "finalDate": "2026-09-24",
         "expirationDate": "2027-03-22",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/86edbde5-bec6-41c4-be64-fda9398bceef"
-      }
-    ],
-    "06424704200000890": [
-      {
-        "permitNumber": "BPR-2026-02003",
-        "parcelId": "06424704200000890",
-        "address": "4097 NW Briarcliff Cir   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
-        "subtype": "Swimming Pool/Spa",
-        "description": "Pool resurfacing",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-22",
-        "issuedDate": "2026-08-14",
-        "finalDate": null,
-        "expirationDate": "2027-04-26",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7fe40588-2175-4526-b6d2-1f4a3a98b027"
-      }
-    ],
-    "06424704200000080": [
-      {
-        "permitNumber": "BPR-2026-02002",
-        "parcelId": "06424704200000080",
-        "address": "4183 NW Briarcliff Cir   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Swimming Pool/Spa/Fountain - Building (Residential)",
-        "subtype": "Swimming Pool/Spa",
-        "description": "Pool resurfacing, add pool sun shelf, steps with gas heater",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-22",
-        "issuedDate": "2026-08-14",
-        "finalDate": null,
-        "expirationDate": "2027-03-01",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/13b92dbe-b9d9-498a-828c-5f9a5ff92434"
       }
     ]
   }
