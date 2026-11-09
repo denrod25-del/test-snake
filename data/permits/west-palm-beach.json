@@ -1,12 +1,52 @@
 {
   "county": "West Palm Beach",
   "slug": "west-palm-beach",
-  "generated": "2026-11-08T07:37:10Z",
+  "generated": "2026-11-09T07:37:51Z",
   "source": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://westpalmbeachfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov SelfService scrape \u2014 no contractor/valuation in public API)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "74434304080750410": [
+      {
+        "permitNumber": "26110402-RES-BLDG",
+        "parcelId": "74434304080750410",
+        "address": "5507  Pinewood Ave  West Palm Beach FL 33407",
+        "city": "West Palm Beach",
+        "type": "Roofing - Residential",
+        "subtype": "Roofing",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-08",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/e4ee4e99-b78c-4b01-ac81-679d3a756120"
+      }
+    ],
+    "74424319050000240": [
+      {
+        "permitNumber": "26110401-RES-BLDG",
+        "parcelId": "74424319050000240",
+        "address": "9344  Heron Cove Dr  West Palm Beach FL 33411",
+        "city": "West Palm Beach",
+        "type": "Roofing - Residential",
+        "subtype": "Roofing",
+        "description": "",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-08",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1994589c-81b9-42d1-999a-cda7200505df"
+      }
+    ],
     "74434304360000210": [
       {
         "permitNumber": "26110400-PAVING",
@@ -31746,7 +31786,7 @@
         "type": "Generator - Commercial",
         "subtype": "Generator",
         "description": "",
-        "status": "Requires Resubmit",
+        "status": "In Review",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -34910,7 +34950,7 @@
         "type": "Roofing - Residential",
         "subtype": "Roofing",
         "description": "",
-        "status": "Fees Due",
+        "status": "Fees Paid",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -51151,24 +51191,6 @@
         "finalDate": null,
         "expirationDate": "2027-04-06",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/17266654-68ac-4e45-9633-525208eb9f94"
-      },
-      {
-        "permitNumber": "26090131-COM-PLUMB",
-        "parcelId": "74434316100020010",
-        "address": "800  23rd St  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Backflow \u2013 Commercial - Domestic",
-        "subtype": "Backflow - Domestic",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-02",
-        "issuedDate": "2026-09-16",
-        "finalDate": "2026-10-05",
-        "expirationDate": "2027-04-05",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/15e5e014-8e47-4ed2-8623-e5618aae8339"
       }
     ],
     "74434309010000263": [
@@ -73681,26 +73703,6 @@
         "finalDate": "2026-10-13",
         "expirationDate": "2027-04-12",
         "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/1724e50f-c583-4365-8838-f99435bfc9ac"
-      }
-    ],
-    "74434305020070020": [
-      {
-        "permitNumber": "26090133-REVISION",
-        "parcelId": "74434305020070020",
-        "address": "1431  39th St  West Palm Beach FL 33407",
-        "city": "West Palm Beach",
-        "type": "Building Revisions - Residential Revision",
-        "subtype": "Residential Revision",
-        "description": "",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-09-02",
-        "issuedDate": "2026-09-09",
-        "finalDate": "2026-09-09",
-        "expirationDate": "2026-09-09",
-        "url": "https://westpalmbeachfl-energovpub.tylerhost.net/apps/SelfService#/permit/5ecc8c38-234d-4a2c-ad77-1fa20b86ec3c"
       }
     ]
   }

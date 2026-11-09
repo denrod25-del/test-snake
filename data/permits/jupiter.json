@@ -1,12 +1,90 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-11-08T07:49:09Z",
+  "generated": "2026-11-09T07:49:53Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424108020001070": [
+      {
+        "permitNumber": "26-099006-BLDR",
+        "parcelId": "30424108020001070",
+        "address": "160  CARINA DR  JUPITER FL 33478",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "New screened enclosure with solid and screened roof and footers.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-08",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f31ce7d6-5be1-45c8-b3c8-d0e97bce3c88"
+      },
+      {
+        "permitNumber": "26-098924-BLDR",
+        "parcelId": "30424108020001070",
+        "address": "160 CARINA DR JUPITER FL 33478",
+        "city": "JUPITER",
+        "type": "Residential Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "REPLACING 3 WINDOW OPENINGS WITH HURRICANE IMPACT",
+        "status": "30 - In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-04",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a3b502d-8912-400e-9315-b9f84ebf06f4"
+      }
+    ],
+    "30424111220000280": [
+      {
+        "permitNumber": "26-099005-BLDR",
+        "parcelId": "30424111220000280",
+        "address": "159  SPOONBILL CT  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "Screened enclosure with screened roof and screen wall panels under house roof on existing foundation.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-08",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3ef58a78-3ac7-409d-8d2f-43f3e38636b0"
+      }
+    ],
+    "30424108020000210": [
+      {
+        "permitNumber": "26-099004-BLDR",
+        "parcelId": "30424108020000210",
+        "address": "221  CARINA DR  JUPITER FL 33478",
+        "city": "JUPITER",
+        "type": "Residential Alteration",
+        "subtype": "Alteration",
+        "description": "New pool enclosure with footers.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-08",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/54c3249b-3e22-4958-ad3d-8192882618ea"
+      }
+    ],
     "30424101140000290": [
       {
         "permitNumber": "26-010051-ROOF-R",
@@ -3433,26 +3511,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c201377a-5d45-4735-bf9a-db6d0fb21d9a"
-      }
-    ],
-    "30424108020001070": [
-      {
-        "permitNumber": "26-098924-BLDR",
-        "parcelId": "30424108020001070",
-        "address": "160 CARINA DR JUPITER FL 33478",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "REPLACING 3 WINDOW OPENINGS WITH HURRICANE IMPACT",
-        "status": "30 - In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-11-04",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a3b502d-8912-400e-9315-b9f84ebf06f4"
       }
     ],
     "30434120110134030": [
@@ -76653,66 +76711,6 @@
         "finalDate": "2026-09-24",
         "expirationDate": "2027-03-22",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3b4ae755-eb14-4221-a1f3-efebb703783f"
-      }
-    ],
-    "30424114100005070": [
-      {
-        "permitNumber": "26-095355-PLUMR",
-        "parcelId": "30424114100005070",
-        "address": "3314  GEIGER ST  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Plumbing",
-        "subtype": "Plumbing",
-        "description": "Backflow Replacement, Replacing with a 1\" WATTS  007M1",
-        "status": "16 - Pending Documents",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d079b3f0-b643-490c-aa34-92d92f7882a3"
-      }
-    ],
-    "30434120110205020": [
-      {
-        "permitNumber": "26-095354-AC",
-        "parcelId": "30434120110205020",
-        "address": "2001  MARINA ISLE WAY  Unit: 502 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "A/C Changeout",
-        "subtype": "Change Out",
-        "description": "Exact AC Change out, no duct work",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": "2026-05-29",
-        "finalDate": "2026-10-26",
-        "expirationDate": "2027-04-13",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/a1876938-7b6d-4680-ab29-47a6406577d7"
-      }
-    ],
-    "30424102210000530": [
-      {
-        "permitNumber": "26-095353-BLDR",
-        "parcelId": "30424102210000530",
-        "address": "5857  STONEWOOD CT  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Installation of Impact Windows",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-05-28",
-        "issuedDate": "2026-06-03",
-        "finalDate": null,
-        "expirationDate": "2026-11-30",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/167e0dfb-1eb8-48aa-884e-5437faf30719"
       }
     ]
   }
