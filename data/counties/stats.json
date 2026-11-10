@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-09T07:50:01Z",
+  "generated": "2026-11-10T07:51:53Z",
   "salesGenerated": "2026-11-09T06:49:52Z",
   "featuredSlugs": [
     "palm-beach",
@@ -553,10 +553,10 @@
       "slug": "manatee",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-11-09",
-        "label": "November 9, 2026",
-        "shortLabel": "Nov 9",
-        "count": 3,
+        "date": "2026-11-23",
+        "label": "November 23, 2026",
+        "shortLabel": "Nov 23",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -858,13 +858,7 @@
       "county": "St. Lucie",
       "slug": "st-lucie",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-11-09",
-        "label": "November 9, 2026",
-        "shortLabel": "Nov 9",
-        "count": 6,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.stlucieclerk.com/tax-deeds/surplus-funds",
       "permits": {
