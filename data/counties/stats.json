@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-10T07:51:53Z",
+  "generated": "2026-11-11T07:51:17Z",
   "salesGenerated": "2026-11-09T06:49:52Z",
   "featuredSlugs": [
     "palm-beach",
@@ -691,10 +691,10 @@
       "slug": "osceola",
       "region": "Central",
       "nextSale": {
-        "date": "2026-11-10",
-        "label": "November 10, 2026",
-        "shortLabel": "Nov 10",
-        "count": 16,
+        "date": "2026-12-15",
+        "label": "December 15, 2026",
+        "shortLabel": "Dec 15",
+        "count": 26,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -949,10 +949,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-11-10",
-        "label": "November 10, 2026",
-        "shortLabel": "Nov 10",
-        "count": 4,
+        "date": "2026-11-17",
+        "label": "November 17, 2026",
+        "shortLabel": "Nov 17",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": false,
