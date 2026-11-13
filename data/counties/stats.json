@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-12T07:50:14Z",
+  "generated": "2026-11-13T07:50:42Z",
   "salesGenerated": "2026-11-09T06:49:52Z",
   "featuredSlugs": [
     "palm-beach",
@@ -397,10 +397,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-11-12",
-        "label": "November 12, 2026",
-        "shortLabel": "Nov 12",
-        "count": 3,
+        "date": "2026-11-19",
+        "label": "November 19, 2026",
+        "shortLabel": "Nov 19",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -606,13 +606,7 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": {
-        "date": "2026-11-12",
-        "label": "November 12, 2026",
-        "shortLabel": "Nov 12",
-        "count": 2,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -829,10 +823,10 @@
       "slug": "seminole",
       "region": "Central",
       "nextSale": {
-        "date": "2026-11-12",
-        "label": "November 12, 2026",
-        "shortLabel": "Nov 12",
-        "count": 3,
+        "date": "2026-12-03",
+        "label": "December 3, 2026",
+        "shortLabel": "Dec 3",
+        "count": 11,
         "source": "scraper"
       },
       "surplusPortal": true,
