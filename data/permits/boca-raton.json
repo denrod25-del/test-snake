@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-11-14T07:37:29Z",
+  "generated": "2026-11-15T07:37:57Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,160 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06424723040120060": [
+      {
+        "permitNumber": "BPQ-2026-02734",
+        "parcelId": "06424723040120060",
+        "address": "2051 S Conference Dr   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Re-roof ",
+        "description": "Tile roof replacement",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-14",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/340098d3-65af-4bdb-92f2-acfc2611f097"
+      }
+    ],
+    "06434705020040230": [
+      {
+        "permitNumber": "BPQ-2026-02733",
+        "parcelId": "06434705020040230",
+        "address": "327  Kingsbridge St   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Re-roof ",
+        "description": "FLAT RE-ROOF",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-14",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b8c659c1-7fbb-4716-a8ea-5075ca861599"
+      },
+      {
+        "permitNumber": "BPR-2026-02836",
+        "parcelId": "06434705020040230",
+        "address": "327  Kingsbridge St   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
+        "subtype": "Interior Only Alteration",
+        "description": "Repair water damage drywall ceiling and wall insulation ceiling, wall. ONE room only.",
+        "status": "In Review",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-15",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a3a05011-0fe6-41be-8864-7dc38159c14f"
+      },
+      {
+        "permitNumber": "BPR-2026-02771",
+        "parcelId": "06434705020040230",
+        "address": "327  Kingsbridge St   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
+        "subtype": "Interior Only Alteration",
+        "description": "Drywall repair from water damage correcting code violation 2026-03063",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-09",
+        "issuedDate": null,
+        "finalDate": "2026-10-12",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b07a2a3a-5776-4d65-a4fd-c5764fffcce0"
+      },
+      {
+        "permitNumber": "BPR-2026-02770",
+        "parcelId": "06434705020040230",
+        "address": "327  Kingsbridge St   Boca Raton FL 33487",
+        "city": "Boca Raton",
+        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
+        "subtype": "Interior Only Alteration",
+        "description": "Drywall repair from water damage correcting code violation 2026-03063",
+        "status": "Withdrawn",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-10-09",
+        "issuedDate": null,
+        "finalDate": "2026-10-09",
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c8b5380a-428b-463d-aa5a-dd8b913937a5"
+      }
+    ],
+    "06424725300750030": [
+      {
+        "permitNumber": "BPR-2026-03121",
+        "parcelId": "06424725300750030",
+        "address": "642 SW 18th Ave   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Electrical Service/ Panel Work - Building (Residential)",
+        "subtype": "Electrical",
+        "description": "Replace Inside and Outside Electric panels with new 200A panels, outside 200A MB inside 200A ML. Rewire all existing circuits to new standard breakers.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-14",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/27e202a8-8fbf-4795-9dc6-19fbfec3b354"
+      }
+    ],
+    "06434717140040050": [
+      {
+        "permitNumber": "BPQ-2026-02732",
+        "parcelId": "06434717140040050",
+        "address": "741 NE Harbour Dr   Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Window/Door/Shutter - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
+        "subtype": "Window/ door/ shutter ",
+        "description": "REPLACE (3) 9X8 GARAGE DOORS",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-14",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/eb3f09ff-c3a2-4bbc-a5b3-99855f92cf3a"
+      }
+    ],
+    "06434709050011106": [
+      {
+        "permitNumber": "BPM-2026-02976",
+        "parcelId": "06434709050011106",
+        "address": "4301 N Ocean Blvd  1106 Unit: 1106 Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Electrical Water Heater Changeout Multifamily",
+        "subtype": "Water heater changeout (elect)",
+        "description": "Remove the old water heater and replace it with a new one in the same location.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-14",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/16c760d3-e3d1-4792-8ff2-996563f5afe8"
       }
     ],
     "06434719280010000": [
@@ -8895,24 +9049,6 @@
         "finalDate": null,
         "expirationDate": "2027-03-27",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/e301031f-e614-429f-a5ab-0b24a9245fc5"
-      },
-      {
-        "permitNumber": "BPC-2026-01401",
-        "parcelId": "06434729470010010",
-        "address": "501 E Camino Real Golf Course Unit: Golf Course Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Demolition of a Complete Structure Commercial",
-        "subtype": "Demolition",
-        "description": "Total Demolition of Old Golf Maintenance Facility incl. Slavs & Foundations per D-1.00",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-30",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b636a0c1-fa59-4cc2-bd71-82d497b055e0"
       }
     ],
     "06424710030010410": [
@@ -13725,7 +13861,7 @@
         "appliedDate": "2026-11-04",
         "issuedDate": "2026-11-04",
         "finalDate": null,
-        "expirationDate": "2027-05-03",
+        "expirationDate": "2027-05-13",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/31f990f9-ddf1-4b8d-ac65-91391102bd80"
       }
     ],
@@ -15793,24 +15929,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/e807d66c-6c25-4258-9fbc-add6a86ec67b"
-      },
-      {
-        "permitNumber": "FRS-2026-00362",
-        "parcelId": "06424712060010010",
-        "address": "5050  Conference Way N  Boca Raton FL 33431",
-        "city": "Boca Raton",
-        "type": "Fire Overtime Inspection",
-        "subtype": "FRS- Overtime Inspections",
-        "description": "Inspection of the access control mag locks for new storefront door",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-30",
-        "issuedDate": null,
-        "finalDate": "2026-07-30",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/9c41a9a2-c1be-470e-ab82-b21e7a1220e9"
       }
     ],
     "06424714240020010": [
@@ -29445,62 +29563,6 @@
         "finalDate": null,
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/3a120dc4-30fa-42d4-a394-f0eba0b381d9"
-      }
-    ],
-    "06434705020040230": [
-      {
-        "permitNumber": "BPR-2026-02836",
-        "parcelId": "06434705020040230",
-        "address": "327  Kingsbridge St   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
-        "subtype": "Interior Only Alteration",
-        "description": "Repair water damage drywall ceiling and wall insulation ceiling, wall. ONE room only.",
-        "status": "In Review",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-15",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/a3a05011-0fe6-41be-8864-7dc38159c14f"
-      },
-      {
-        "permitNumber": "BPR-2026-02771",
-        "parcelId": "06434705020040230",
-        "address": "327  Kingsbridge St   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
-        "subtype": "Interior Only Alteration",
-        "description": "Drywall repair from water damage correcting code violation 2026-03063",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-09",
-        "issuedDate": null,
-        "finalDate": "2026-10-12",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/b07a2a3a-5776-4d65-a4fd-c5764fffcce0"
-      },
-      {
-        "permitNumber": "BPR-2026-02770",
-        "parcelId": "06434705020040230",
-        "address": "327  Kingsbridge St   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
-        "subtype": "Interior Only Alteration",
-        "description": "Drywall repair from water damage correcting code violation 2026-03063",
-        "status": "Withdrawn",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-10-09",
-        "issuedDate": null,
-        "finalDate": "2026-10-09",
-        "expirationDate": null,
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c8b5380a-428b-463d-aa5a-dd8b913937a5"
       }
     ],
     "06424711100030020": [
@@ -43744,7 +43806,7 @@
         "type": "Interior and Exterior Work - Building (Residential)",
         "subtype": "Interior and Exterior Work",
         "description": "New carport and replace driveway with pavers",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -65775,7 +65837,7 @@
         "appliedDate": "2026-08-18",
         "issuedDate": "2026-08-18",
         "finalDate": null,
-        "expirationDate": "2027-02-14",
+        "expirationDate": "2027-05-13",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/5e73fd3f-c37c-4ae4-ad67-709b04377447"
       }
     ],
@@ -68557,24 +68619,6 @@
         "finalDate": "2026-08-05",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/73661f7e-cf9f-410d-9a1c-852faa12aa92"
-      },
-      {
-        "permitNumber": "000352-2026",
-        "parcelId": "06424701110020000",
-        "address": "6600 N Military Trl   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Trade Permits - Natural and LP Gas",
-        "subtype": "Natural and LP Gas",
-        "description": "New Single Story Pool Pavilion Building",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-30",
-        "issuedDate": "2026-08-12",
-        "finalDate": null,
-        "expirationDate": "2027-02-08",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/7ebdc68f-e6f8-4bf4-ba88-bc8d89c73d49"
       }
     ],
     "06424722210290020": [
@@ -74103,46 +74147,6 @@
         "finalDate": "2026-10-22",
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/feff5241-1f8f-435a-b3a3-1e49ac34c434"
-      }
-    ],
-    "06434705020180180": [
-      {
-        "permitNumber": "BPM-2026-02005",
-        "parcelId": "06434705020180180",
-        "address": "685  Hastings St   Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Windows, Doors, Garage Doors, Shutters Multifamily",
-        "subtype": "Window/ door/ shutter ",
-        "description": "remove and replace 5 openings with impact",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-30",
-        "issuedDate": "2026-08-26",
-        "finalDate": "2026-09-11",
-        "expirationDate": "2027-03-09",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d7919a2c-133c-4121-aec1-fbd0681e8d2e"
-      }
-    ],
-    "06434729050050010": [
-      {
-        "permitNumber": "BPM-2026-02006",
-        "parcelId": "06434729050050010",
-        "address": "1015 Spanish River Rd Boca Raton FL 33432",
-        "city": "Boca Raton",
-        "type": "Electrical Interior and/or Exterior Multifamily",
-        "subtype": "Electrical Interior and/or Exterior",
-        "description": "40 YEAR INSPECTION",
-        "status": "Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-07-30",
-        "issuedDate": "2026-09-29",
-        "finalDate": null,
-        "expirationDate": "2027-03-28",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/c0fa8e7f-55d9-495d-9da8-d7b27438917b"
       }
     ]
   }
