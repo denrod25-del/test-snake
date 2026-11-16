@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-15T07:46:38Z",
-  "salesGenerated": "2026-11-09T06:49:52Z",
+  "generated": "2026-11-16T06:58:03Z",
+  "salesGenerated": "2026-11-16T06:58:02Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -46,7 +46,7 @@
         "date": "2026-11-17",
         "label": "November 17, 2026",
         "shortLabel": "Nov 17",
-        "count": 13,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-12-10",
         "label": "December 10, 2026",
         "shortLabel": "Dec 10",
-        "count": 40,
+        "count": 38,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -118,7 +118,7 @@
         "date": "2026-11-17",
         "label": "November 17, 2026",
         "shortLabel": "Nov 17",
-        "count": 36,
+        "count": 32,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -132,7 +132,13 @@
       "county": "Citrus",
       "slug": "citrus",
       "region": "Central",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-12-16",
+        "label": "December 16, 2026",
+        "shortLabel": "Dec 16",
+        "count": 62,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://citrus.realtaxdeed.com/",
       "permits": {
@@ -148,7 +154,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 3,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -214,7 +220,7 @@
         "date": "2027-01-13",
         "label": "January 13, 2027",
         "shortLabel": "Jan 13",
-        "count": 2,
+        "count": 41,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -232,7 +238,7 @@
         "date": "2026-12-02",
         "label": "December 2, 2026",
         "shortLabel": "Dec 2",
-        "count": 30,
+        "count": 24,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -382,7 +388,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 28,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -400,7 +406,7 @@
         "date": "2026-11-19",
         "label": "November 19, 2026",
         "shortLabel": "Nov 19",
-        "count": 9,
+        "count": 7,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -490,7 +496,7 @@
         "date": "2026-11-17",
         "label": "November 17, 2026",
         "shortLabel": "Nov 17",
-        "count": 14,
+        "count": 11,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -556,7 +562,7 @@
         "date": "2026-11-23",
         "label": "November 23, 2026",
         "shortLabel": "Nov 23",
-        "count": 6,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -574,7 +580,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 105,
+        "count": 103,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -606,7 +612,13 @@
       "county": "Miami-Dade",
       "slug": "miami-dade",
       "region": "Southeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-11-19",
+        "label": "November 19, 2026",
+        "shortLabel": "Nov 19",
+        "count": null,
+        "source": "cadence"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://www.miamidadeclerk.gov/clerk/property-tax-deeds.page",
       "permits": {
@@ -630,7 +642,13 @@
       "county": "Nassau",
       "slug": "nassau",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2027-01-26",
+        "label": "January 26, 2027",
+        "shortLabel": "Jan 26",
+        "count": 1,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -670,7 +688,7 @@
         "date": "2026-11-19",
         "label": "November 19, 2026",
         "shortLabel": "Nov 19",
-        "count": 12,
+        "count": 10,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -706,7 +724,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 26,
+        "count": 22,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -724,7 +742,7 @@
         "date": "2026-12-03",
         "label": "December 3, 2026",
         "shortLabel": "Dec 3",
-        "count": 39,
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -742,7 +760,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 19,
+        "count": 14,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -760,7 +778,7 @@
         "date": "2026-11-19",
         "label": "November 19, 2026",
         "shortLabel": "Nov 19",
-        "count": 48,
+        "count": 41,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -778,7 +796,7 @@
         "date": "2026-11-18",
         "label": "November 18, 2026",
         "shortLabel": "Nov 18",
-        "count": 59,
+        "count": 47,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -826,7 +844,7 @@
         "date": "2026-12-03",
         "label": "December 3, 2026",
         "shortLabel": "Dec 3",
-        "count": 11,
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -916,7 +934,7 @@
         "date": "2026-11-17",
         "label": "November 17, 2026",
         "shortLabel": "Nov 17",
-        "count": 31,
+        "count": 25,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -943,10 +961,10 @@
       "slug": "walton",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-11-17",
-        "label": "November 17, 2026",
-        "shortLabel": "Nov 17",
-        "count": 1,
+        "date": "2026-12-15",
+        "label": "December 15, 2026",
+        "shortLabel": "Dec 15",
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": false,
