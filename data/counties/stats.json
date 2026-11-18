@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-17T07:48:05Z",
+  "generated": "2026-11-18T07:47:50Z",
   "salesGenerated": "2026-11-16T06:58:02Z",
   "featuredSlugs": [
     "palm-beach",
@@ -43,10 +43,10 @@
       "slug": "bay",
       "region": "Northwest",
       "nextSale": {
-        "date": "2026-11-17",
-        "label": "November 17, 2026",
-        "shortLabel": "Nov 17",
-        "count": 12,
+        "date": "2026-12-01",
+        "label": "December 1, 2026",
+        "shortLabel": "Dec 1",
+        "count": 3,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -114,13 +114,7 @@
       "county": "Charlotte",
       "slug": "charlotte",
       "region": "Southwest",
-      "nextSale": {
-        "date": "2026-11-17",
-        "label": "November 17, 2026",
-        "shortLabel": "Nov 17",
-        "count": 32,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": true,
       "surplusUrl": "https://taxdeeds.charlotteclerk.com/TaxDeed/Surplus",
       "permits": {
@@ -252,13 +246,7 @@
       "county": "Flagler",
       "slug": "flagler",
       "region": "Northeast",
-      "nextSale": {
-        "date": "2026-11-17",
-        "label": "November 17, 2026",
-        "shortLabel": "Nov 17",
-        "count": 1,
-        "source": "scraper"
-      },
+      "nextSale": null,
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -493,10 +481,10 @@
       "slug": "lee",
       "region": "Southwest",
       "nextSale": {
-        "date": "2026-11-17",
-        "label": "November 17, 2026",
-        "shortLabel": "Nov 17",
-        "count": 11,
+        "date": "2026-12-01",
+        "label": "December 1, 2026",
+        "shortLabel": "Dec 1",
+        "count": 49,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -931,10 +919,10 @@
       "slug": "volusia",
       "region": "Central",
       "nextSale": {
-        "date": "2026-11-17",
-        "label": "November 17, 2026",
-        "shortLabel": "Nov 17",
-        "count": 25,
+        "date": "2026-12-01",
+        "label": "December 1, 2026",
+        "shortLabel": "Dec 1",
+        "count": 19,
         "source": "scraper"
       },
       "surplusPortal": true,
