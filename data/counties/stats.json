@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-19T07:49:09Z",
+  "generated": "2026-11-20T07:46:52Z",
   "salesGenerated": "2026-11-16T06:58:02Z",
   "featuredSlugs": [
     "palm-beach",
@@ -391,10 +391,10 @@
       "slug": "hillsborough",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-11-19",
-        "label": "November 19, 2026",
-        "shortLabel": "Nov 19",
-        "count": 7,
+        "date": "2026-12-03",
+        "label": "December 3, 2026",
+        "shortLabel": "Dec 3",
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -601,9 +601,9 @@
       "slug": "miami-dade",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-11-19",
-        "label": "November 19, 2026",
-        "shortLabel": "Nov 19",
+        "date": "2026-11-26",
+        "label": "November 26, 2026",
+        "shortLabel": "Nov 26",
         "count": null,
         "source": "cadence"
       },
@@ -673,10 +673,10 @@
       "slug": "orange",
       "region": "Central",
       "nextSale": {
-        "date": "2026-11-19",
-        "label": "November 19, 2026",
-        "shortLabel": "Nov 19",
-        "count": 10,
+        "date": "2026-12-03",
+        "label": "December 3, 2026",
+        "shortLabel": "Dec 3",
+        "count": 15,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -763,10 +763,10 @@
       "slug": "polk",
       "region": "Central",
       "nextSale": {
-        "date": "2026-11-19",
-        "label": "November 19, 2026",
-        "shortLabel": "Nov 19",
-        "count": 41,
+        "date": "2026-12-17",
+        "label": "December 17, 2026",
+        "shortLabel": "Dec 17",
+        "count": 44,
         "source": "scraper"
       },
       "surplusPortal": true,
