@@ -1,12 +1,50 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-11-21T07:46:49Z",
+  "generated": "2026-11-22T07:48:05Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30424034130000170": [
+      {
+        "permitNumber": "26-099264-BLDR",
+        "parcelId": "30424034130000170",
+        "address": "133  MYSTIC LN  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Fence",
+        "subtype": "Fence",
+        "description": "Picket fence 4-0' Hight",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-21",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b447b102-551a-4c89-9d41-d9fe8dd413f7"
+      },
+      {
+        "permitNumber": "26-010058-ROOF-R",
+        "parcelId": "30424034130000170",
+        "address": "133  MYSTIC LN  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "Residential Re-roof",
+        "subtype": "Roof - Residential - Re-Roof",
+        "description": "Reroof tile to tile adhesive set",
+        "status": "52 - Fees Due",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-10",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5e9dd4aa-47a7-4df6-a62a-597f28226196"
+      }
+    ],
     "30424102030020090": [
       {
         "permitNumber": "26-099263-BLDR",
@@ -7233,26 +7271,6 @@
         "finalDate": null,
         "expirationDate": "2027-04-11",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/f6d861c9-8225-4e39-9f95-79e1707f0f7e"
-      }
-    ],
-    "30424034130000170": [
-      {
-        "permitNumber": "26-010058-ROOF-R",
-        "parcelId": "30424034130000170",
-        "address": "133  MYSTIC LN  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Re-roof",
-        "subtype": "Roof - Residential - Re-Roof",
-        "description": "Reroof tile to tile adhesive set",
-        "status": "52 - Fees Due",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-11-10",
-        "issuedDate": null,
-        "finalDate": null,
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5e9dd4aa-47a7-4df6-a62a-597f28226196"
       }
     ],
     "30424032040001270": [
@@ -76587,26 +76605,6 @@
         "finalDate": "2026-06-10",
         "expirationDate": null,
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9e30ee72-de90-4eee-8a6d-383081d091d4"
-      }
-    ],
-    "30424123070000251": [
-      {
-        "permitNumber": "26-095610-AC",
-        "parcelId": "30424123070000251",
-        "address": "4324  BLOWING POINT PL  JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "A/C Changeout",
-        "subtype": "Change Out",
-        "description": "Exact AC Changeout 3.5 Ton straight cool split system with 10kw heat strip. No ductwork or stand changes.",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-08",
-        "issuedDate": "2026-06-11",
-        "finalDate": "2026-06-24",
-        "expirationDate": "2026-12-21",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d48d5ec6-baae-4283-90af-087377362f25"
       }
     ]
   }
