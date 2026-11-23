@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-16T06:58:02Z",
+  "generated": "2026-11-23T06:53:17Z",
   "stats": {
     "scraped": 28,
     "manual": 0,
@@ -66,15 +66,9 @@
     ],
     "Bay": [
       {
-        "date": "2026-11-17",
-        "source": "scraper",
-        "count": 12,
-        "officialUrl": "https://bay.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/17/2026"
-      },
-      {
         "date": "2026-12-01",
         "source": "scraper",
-        "count": 3,
+        "count": 6,
         "officialUrl": "https://bay.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/01/2026"
       }
     ],
@@ -82,39 +76,33 @@
       {
         "date": "2026-12-10",
         "source": "scraper",
-        "count": 38,
+        "count": 33,
         "officialUrl": "https://brevard.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/10/2026"
       },
       {
         "date": "2027-01-14",
         "source": "scraper",
-        "count": 28,
+        "count": 31,
         "officialUrl": "https://brevard.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/14/2027"
       }
     ],
     "Charlotte": [
       {
-        "date": "2026-11-17",
+        "date": "2026-12-08",
         "source": "scraper",
-        "count": 32,
-        "officialUrl": "https://charlotte.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/17/2026"
+        "count": 24,
+        "officialUrl": "https://charlotte.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/08/2026"
       }
     ],
     "Citrus": [
       {
         "date": "2026-12-16",
         "source": "scraper",
-        "count": 62,
+        "count": 56,
         "officialUrl": "https://citrus.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/16/2026"
       }
     ],
     "Clay": [
-      {
-        "date": "2026-11-18",
-        "source": "scraper",
-        "count": 2,
-        "officialUrl": "https://clay.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/18/2026"
-      },
       {
         "date": "2026-12-02",
         "source": "scraper",
@@ -126,13 +114,19 @@
         "source": "scraper",
         "count": 2,
         "officialUrl": "https://clay.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/13/2027"
+      },
+      {
+        "date": "2027-02-17",
+        "source": "scraper",
+        "count": 1,
+        "officialUrl": "https://clay.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=02/17/2027"
       }
     ],
     "Duval": [
       {
         "date": "2027-01-13",
         "source": "scraper",
-        "count": 41,
+        "count": 115,
         "officialUrl": "https://duval.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/13/2027"
       }
     ],
@@ -140,25 +134,25 @@
       {
         "date": "2026-12-02",
         "source": "scraper",
-        "count": 24,
+        "count": 16,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/02/2026"
       },
       {
         "date": "2027-01-06",
         "source": "scraper",
-        "count": 36,
+        "count": 34,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/06/2027"
       },
       {
         "date": "2027-02-03",
         "source": "scraper",
-        "count": 45,
+        "count": 44,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=02/03/2027"
       },
       {
         "date": "2027-03-03",
         "source": "scraper",
-        "count": 39,
+        "count": 37,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=03/03/2027"
       },
       {
@@ -170,7 +164,7 @@
       {
         "date": "2027-05-05",
         "source": "scraper",
-        "count": 47,
+        "count": 43,
         "officialUrl": "https://escambia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=05/05/2027"
       },
       {
@@ -182,27 +176,27 @@
     ],
     "Flagler": [
       {
-        "date": "2026-11-17",
+        "date": "2027-01-12",
         "source": "scraper",
         "count": 1,
-        "officialUrl": "https://flagler.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/17/2026"
+        "officialUrl": "https://flagler.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/12/2027"
       }
     ],
     "Hernando": [
       {
+        "date": "2026-12-02",
+        "source": "scraper",
+        "count": 1,
+        "officialUrl": "https://hernando.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/02/2026"
+      },
+      {
         "date": "2026-12-09",
         "source": "scraper",
-        "count": 12,
+        "count": 9,
         "officialUrl": "https://hernando.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/09/2026"
       }
     ],
     "Highlands": [
-      {
-        "date": "2026-11-18",
-        "source": "scraper",
-        "count": 27,
-        "officialUrl": "https://highlands.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/18/2026"
-      },
       {
         "date": "2026-12-02",
         "source": "scraper",
@@ -224,17 +218,11 @@
       {
         "date": "2026-12-30",
         "source": "scraper",
-        "count": 27,
+        "count": 24,
         "officialUrl": "https://highlands.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/30/2026"
       }
     ],
     "Hillsborough": [
-      {
-        "date": "2026-11-19",
-        "source": "scraper",
-        "count": 7,
-        "officialUrl": "https://hillsborough.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/19/2026"
-      },
       {
         "date": "2026-12-03",
         "source": "scraper",
@@ -244,39 +232,45 @@
       {
         "date": "2026-12-10",
         "source": "scraper",
-        "count": 6,
+        "count": 5,
         "officialUrl": "https://hillsborough.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/10/2026"
       },
       {
         "date": "2026-12-17",
         "source": "scraper",
-        "count": 11,
+        "count": 9,
         "officialUrl": "https://hillsborough.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/17/2026"
       },
       {
         "date": "2027-01-07",
         "source": "scraper",
-        "count": 11,
+        "count": 12,
         "officialUrl": "https://hillsborough.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/07/2027"
+      },
+      {
+        "date": "2027-01-28",
+        "source": "scraper",
+        "count": 1,
+        "officialUrl": "https://hillsborough.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/28/2027"
+      },
+      {
+        "date": "2027-02-04",
+        "source": "scraper",
+        "count": 14,
+        "officialUrl": "https://hillsborough.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=02/04/2027"
       }
     ],
     "Lee": [
       {
-        "date": "2026-11-17",
-        "source": "scraper",
-        "count": 11,
-        "officialUrl": "https://lee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/17/2026"
-      },
-      {
         "date": "2026-12-01",
         "source": "scraper",
-        "count": 49,
+        "count": 41,
         "officialUrl": "https://lee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/01/2026"
       },
       {
         "date": "2026-12-08",
         "source": "scraper",
-        "count": 9,
+        "count": 8,
         "officialUrl": "https://lee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/08/2026"
       },
       {
@@ -288,35 +282,29 @@
       {
         "date": "2027-01-05",
         "source": "scraper",
-        "count": 94,
+        "count": 75,
         "officialUrl": "https://lee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/05/2027"
       },
       {
         "date": "2027-01-12",
         "source": "scraper",
-        "count": 70,
+        "count": 66,
         "officialUrl": "https://lee.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/12/2027"
       }
     ],
     "Manatee": [
       {
-        "date": "2026-11-23",
+        "date": "2026-12-07",
         "source": "scraper",
-        "count": 4,
-        "officialUrl": "https://manatee.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/23/2026"
+        "count": 9,
+        "officialUrl": "https://manatee.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/07/2026"
       }
     ],
     "Marion": [
       {
-        "date": "2026-11-18",
-        "source": "scraper",
-        "count": 103,
-        "officialUrl": "https://marion.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/18/2026"
-      },
-      {
         "date": "2026-12-09",
         "source": "scraper",
-        "count": 72,
+        "count": 71,
         "officialUrl": "https://marion.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/09/2026"
       }
     ],
@@ -332,61 +320,55 @@
       {
         "date": "2027-01-26",
         "source": "scraper",
-        "count": 1,
+        "count": 2,
         "officialUrl": "https://nassau.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/26/2027"
       }
     ],
     "Orange": [
       {
-        "date": "2026-11-19",
-        "source": "scraper",
-        "count": 10,
-        "officialUrl": "https://orange.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/19/2026"
-      },
-      {
         "date": "2026-12-03",
         "source": "scraper",
-        "count": 15,
+        "count": 11,
         "officialUrl": "https://orange.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/03/2026"
       },
       {
         "date": "2026-12-10",
         "source": "scraper",
-        "count": 13,
+        "count": 7,
         "officialUrl": "https://orange.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/10/2026"
+      },
+      {
+        "date": "2027-01-07",
+        "source": "scraper",
+        "count": 40,
+        "officialUrl": "https://orange.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/07/2027"
       }
     ],
     "Osceola": [
       {
         "date": "2026-12-15",
         "source": "scraper",
-        "count": 26,
+        "count": 27,
         "officialUrl": "https://osceola.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/15/2026"
       }
     ],
     "Palm Beach": [
       {
-        "date": "2026-11-18",
-        "source": "scraper",
-        "count": 22,
-        "officialUrl": "https://palmbeach.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/18/2026"
-      },
-      {
         "date": "2026-12-16",
         "source": "scraper",
-        "count": 38,
+        "count": 33,
         "officialUrl": "https://palmbeach.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/16/2026"
       },
       {
         "date": "2027-01-13",
         "source": "scraper",
-        "count": 68,
+        "count": 67,
         "officialUrl": "https://palmbeach.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/13/2027"
       },
       {
         "date": "2027-02-10",
         "source": "scraper",
-        "count": 66,
+        "count": 68,
         "officialUrl": "https://palmbeach.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=02/10/2027"
       }
     ],
@@ -400,36 +382,18 @@
     ],
     "Pinellas": [
       {
-        "date": "2026-11-18",
-        "source": "scraper",
-        "count": 14,
-        "officialUrl": "https://pinellas.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/18/2026"
-      },
-      {
         "date": "2026-12-16",
         "source": "scraper",
-        "count": 33,
+        "count": 31,
         "officialUrl": "https://pinellas.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/16/2026"
       }
     ],
     "Polk": [
       {
-        "date": "2026-11-19",
-        "source": "scraper",
-        "count": 41,
-        "officialUrl": "https://polk.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/19/2026"
-      },
-      {
         "date": "2026-12-17",
         "source": "scraper",
-        "count": 44,
+        "count": 37,
         "officialUrl": "https://polk.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/17/2026"
-      },
-      {
-        "date": "2027-02-18",
-        "source": "scraper",
-        "count": 1,
-        "officialUrl": "https://polk.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=02/18/2027"
       },
       {
         "date": "2027-03-18",
@@ -440,15 +404,9 @@
     ],
     "Putnam": [
       {
-        "date": "2026-11-18",
-        "source": "scraper",
-        "count": 47,
-        "officialUrl": "https://putnam.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/18/2026"
-      },
-      {
         "date": "2026-12-02",
         "source": "scraper",
-        "count": 86,
+        "count": 87,
         "officialUrl": "https://putnam.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/02/2026"
       },
       {
@@ -462,7 +420,7 @@
       {
         "date": "2026-12-07",
         "source": "scraper",
-        "count": 13,
+        "count": 12,
         "officialUrl": "https://santarosa.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/07/2026"
       },
       {
@@ -476,7 +434,7 @@
       {
         "date": "2026-12-03",
         "source": "scraper",
-        "count": 9,
+        "count": 4,
         "officialUrl": "https://seminole.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/03/2026"
       },
       {
@@ -488,21 +446,15 @@
       {
         "date": "2027-01-14",
         "source": "scraper",
-        "count": 10,
+        "count": 12,
         "officialUrl": "https://seminole.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/14/2027"
       }
     ],
     "Volusia": [
       {
-        "date": "2026-11-17",
-        "source": "scraper",
-        "count": 25,
-        "officialUrl": "https://volusia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=11/17/2026"
-      },
-      {
         "date": "2026-12-01",
         "source": "scraper",
-        "count": 19,
+        "count": 18,
         "officialUrl": "https://volusia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/01/2026"
       },
       {
@@ -514,13 +466,13 @@
       {
         "date": "2026-12-15",
         "source": "scraper",
-        "count": 2,
+        "count": 3,
         "officialUrl": "https://volusia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/15/2026"
       },
       {
         "date": "2027-01-05",
         "source": "scraper",
-        "count": 8,
+        "count": 6,
         "officialUrl": "https://volusia.realtaxdeed.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/05/2027"
       }
     ],
@@ -536,21 +488,19 @@
         "source": "scraper",
         "count": 1,
         "officialUrl": "https://walton.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=12/22/2026"
+      },
+      {
+        "date": "2027-01-12",
+        "source": "scraper",
+        "count": 3,
+        "officialUrl": "https://walton.realforeclose.com/index.cfm?zaction=AUCTION&Zmethod=PREVIEW&AuctionDate=01/12/2027"
       }
     ],
     "Miami-Dade": [
       {
-        "date": "2026-11-19",
-        "source": "cadence",
-        "verifiedAt": "2026-11-16",
-        "officialUrl": "https://miamidade.realtaxdeed.com",
-        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
-        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
-      },
-      {
         "date": "2026-11-26",
         "source": "cadence",
-        "verifiedAt": "2026-11-16",
+        "verifiedAt": "2026-11-23",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -558,7 +508,7 @@
       {
         "date": "2026-12-03",
         "source": "cadence",
-        "verifiedAt": "2026-11-16",
+        "verifiedAt": "2026-11-23",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -566,7 +516,7 @@
       {
         "date": "2026-12-10",
         "source": "cadence",
-        "verifiedAt": "2026-11-16",
+        "verifiedAt": "2026-11-23",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -574,7 +524,7 @@
       {
         "date": "2026-12-17",
         "source": "cadence",
-        "verifiedAt": "2026-11-16",
+        "verifiedAt": "2026-11-23",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
@@ -582,7 +532,15 @@
       {
         "date": "2026-12-24",
         "source": "cadence",
-        "verifiedAt": "2026-11-16",
+        "verifiedAt": "2026-11-23",
+        "officialUrl": "https://miamidade.realtaxdeed.com",
+        "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
+        "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."
+      },
+      {
+        "date": "2027-01-07",
+        "source": "cadence",
+        "verifiedAt": "2026-11-23",
         "officialUrl": "https://miamidade.realtaxdeed.com",
         "opening": "Wednesday sale \u00b7 9:00 AM ET (typical cadence)",
         "note": "Typical county sale cadence \u2014 confirm parcel list on official auction site before bidding."

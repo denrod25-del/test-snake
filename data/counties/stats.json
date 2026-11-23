@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-22T07:48:13Z",
-  "salesGenerated": "2026-11-16T06:58:02Z",
+  "generated": "2026-11-23T06:53:17Z",
+  "salesGenerated": "2026-11-23T06:53:17Z",
   "featuredSlugs": [
     "palm-beach",
     "broward",
@@ -46,7 +46,7 @@
         "date": "2026-12-01",
         "label": "December 1, 2026",
         "shortLabel": "Dec 1",
-        "count": 3,
+        "count": 6,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -76,7 +76,7 @@
         "date": "2026-12-10",
         "label": "December 10, 2026",
         "shortLabel": "Dec 10",
-        "count": 38,
+        "count": 33,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -114,7 +114,13 @@
       "county": "Charlotte",
       "slug": "charlotte",
       "region": "Southwest",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2026-12-08",
+        "label": "December 8, 2026",
+        "shortLabel": "Dec 8",
+        "count": 24,
+        "source": "scraper"
+      },
       "surplusPortal": true,
       "surplusUrl": "https://taxdeeds.charlotteclerk.com/TaxDeed/Surplus",
       "permits": {
@@ -130,7 +136,7 @@
         "date": "2026-12-16",
         "label": "December 16, 2026",
         "shortLabel": "Dec 16",
-        "count": 62,
+        "count": 56,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -214,7 +220,7 @@
         "date": "2027-01-13",
         "label": "January 13, 2027",
         "shortLabel": "Jan 13",
-        "count": 41,
+        "count": 115,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -232,7 +238,7 @@
         "date": "2026-12-02",
         "label": "December 2, 2026",
         "shortLabel": "Dec 2",
-        "count": 24,
+        "count": 16,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -246,7 +252,13 @@
       "county": "Flagler",
       "slug": "flagler",
       "region": "Northeast",
-      "nextSale": null,
+      "nextSale": {
+        "date": "2027-01-12",
+        "label": "January 12, 2027",
+        "shortLabel": "Jan 12",
+        "count": 1,
+        "source": "scraper"
+      },
       "surplusPortal": false,
       "surplusUrl": null,
       "permits": {
@@ -355,10 +367,10 @@
       "slug": "hernando",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-12-09",
-        "label": "December 9, 2026",
-        "shortLabel": "Dec 9",
-        "count": 12,
+        "date": "2026-12-02",
+        "label": "December 2, 2026",
+        "shortLabel": "Dec 2",
+        "count": 1,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -484,7 +496,7 @@
         "date": "2026-12-01",
         "label": "December 1, 2026",
         "shortLabel": "Dec 1",
-        "count": 49,
+        "count": 41,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -547,10 +559,10 @@
       "slug": "manatee",
       "region": "Tampa Bay",
       "nextSale": {
-        "date": "2026-11-23",
-        "label": "November 23, 2026",
-        "shortLabel": "Nov 23",
-        "count": 4,
+        "date": "2026-12-07",
+        "label": "December 7, 2026",
+        "shortLabel": "Dec 7",
+        "count": 9,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -568,7 +580,7 @@
         "date": "2026-12-09",
         "label": "December 9, 2026",
         "shortLabel": "Dec 9",
-        "count": 72,
+        "count": 71,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -634,7 +646,7 @@
         "date": "2027-01-26",
         "label": "January 26, 2027",
         "shortLabel": "Jan 26",
-        "count": 1,
+        "count": 2,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -676,7 +688,7 @@
         "date": "2026-12-03",
         "label": "December 3, 2026",
         "shortLabel": "Dec 3",
-        "count": 15,
+        "count": 11,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -694,7 +706,7 @@
         "date": "2026-12-15",
         "label": "December 15, 2026",
         "shortLabel": "Dec 15",
-        "count": 26,
+        "count": 27,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -712,7 +724,7 @@
         "date": "2026-12-16",
         "label": "December 16, 2026",
         "shortLabel": "Dec 16",
-        "count": 38,
+        "count": 33,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -748,7 +760,7 @@
         "date": "2026-12-16",
         "label": "December 16, 2026",
         "shortLabel": "Dec 16",
-        "count": 33,
+        "count": 31,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -766,7 +778,7 @@
         "date": "2026-12-17",
         "label": "December 17, 2026",
         "shortLabel": "Dec 17",
-        "count": 44,
+        "count": 37,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -784,7 +796,7 @@
         "date": "2026-12-02",
         "label": "December 2, 2026",
         "shortLabel": "Dec 2",
-        "count": 86,
+        "count": 87,
         "source": "scraper"
       },
       "surplusPortal": false,
@@ -802,7 +814,7 @@
         "date": "2026-12-07",
         "label": "December 7, 2026",
         "shortLabel": "Dec 7",
-        "count": 13,
+        "count": 12,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -832,7 +844,7 @@
         "date": "2026-12-03",
         "label": "December 3, 2026",
         "shortLabel": "Dec 3",
-        "count": 9,
+        "count": 4,
         "source": "scraper"
       },
       "surplusPortal": true,
@@ -922,7 +934,7 @@
         "date": "2026-12-01",
         "label": "December 1, 2026",
         "shortLabel": "Dec 1",
-        "count": 19,
+        "count": 18,
         "source": "scraper"
       },
       "surplusPortal": true,
