@@ -1,12 +1,132 @@
 {
   "county": "Jupiter",
   "slug": "jupiter",
-  "generated": "2026-11-22T07:48:05Z",
+  "generated": "2026-11-23T07:47:22Z",
   "source": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "portalUrl": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov self-hosted; tenant JupiterFLProd)",
   "permitCount": 4000,
   "permitsByParcel": {
+    "30434031190000140": [
+      {
+        "permitNumber": "26-099270-COMM",
+        "parcelId": "30434031190000140",
+        "address": "825  PARKWAY ST  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Remove and replace 2 windows and 1 door with impact.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b3ca8c3c-4e37-419b-b10f-ede7c0c68d01"
+      }
+    ],
+    "30434031190000130": [
+      {
+        "permitNumber": "26-099269-COMM",
+        "parcelId": "30434031190000130",
+        "address": "825  PARKWAY ST  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Remove and replace 2 windows and 1 door with impact.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/7b12ccc6-43d6-4db5-bdd8-eb2cf61b3314"
+      }
+    ],
+    "30434031190000120": [
+      {
+        "permitNumber": "26-099268-COMM",
+        "parcelId": "30434031190000120",
+        "address": "825  PARKWAY ST  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Remove and replace 2 windows and 1 door with impact.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b9e35dba-e46d-416f-8ab9-95084d74ccee"
+      }
+    ],
+    "30434031190000110": [
+      {
+        "permitNumber": "26-099267-COMM",
+        "parcelId": "30434031190000110",
+        "address": "825  PARKWAY ST  JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "Commercial Windows, Doors, Garage Doors",
+        "subtype": "Windows, Doors, Garage Doors",
+        "description": "Remove and replace 2 windows and 1 door with impact.",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2a03dcb6-92d6-4af4-aec9-e3da7ae9713c"
+      }
+    ],
+    "30424123060001480": [
+      {
+        "permitNumber": "26-099266-AC",
+        "parcelId": "30424123060001480",
+        "address": "126  COURTENAY CT  JUPITER FL 33458",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "(1) LENNOX 3-TON A/C CHANGE-OUT, LIKE FOR LIKE",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/c00d5643-2acc-4f7a-92c7-5dbb00053d90"
+      }
+    ],
+    "30434116050051010": [
+      {
+        "permitNumber": "26-099265-AC",
+        "parcelId": "30434116050051010",
+        "address": "501  SOUTH SEAS DR  Unit: 101 JUPITER FL 33477",
+        "city": "JUPITER",
+        "type": "A/C Changeout",
+        "subtype": "Change Out",
+        "description": "hvac equipment change out",
+        "status": "10 - Received JCDS",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/55ed9a24-d1ec-4ef5-a05a-4ce4ec45baef"
+      }
+    ],
     "30424034130000170": [
       {
         "permitNumber": "26-099264-BLDR",
@@ -5987,24 +6107,6 @@
         "finalDate": null,
         "expirationDate": "2026-12-21",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/321cc721-4f16-4022-ae4a-6ff950ec6c58"
-      },
-      {
-        "permitNumber": "26-095615-NIMPT",
-        "parcelId": "30434119100000020",
-        "address": "107 W BEARS CLUB DR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Impact Fee Schedule - Impact Fees - Effective January 1, 2026",
-        "subtype": "Impact Fees - Effective January 1, 2026",
-        "description": "Interior renovation, balcony railing, door changes",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-09",
-        "issuedDate": null,
-        "finalDate": "2026-08-27",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/d8894d69-fa95-4a77-a640-c634b7141eaa"
       }
     ],
     "30434116030035040": [
@@ -22901,24 +23003,6 @@
         "finalDate": null,
         "expirationDate": "2027-05-12",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/8a3aff9b-5f94-4759-9576-788863ad90c8"
-      },
-      {
-        "permitNumber": "26-095613-GASR",
-        "parcelId": "30424115020001550",
-        "address": "1122  EGRET CIR S PRIVATE PROVIDER JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Gas Lines",
-        "subtype": "Gas Lines",
-        "description": "PRIVATE PROVIDER INSPECTIONS_*** MASTER PERMIT #26-095514-GEN *** Natural gas hook up for generator",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-08",
-        "issuedDate": "2026-07-20",
-        "finalDate": "2026-08-14",
-        "expirationDate": "2027-02-02",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/3ca51675-e2dc-4598-b93a-571bc4e4feb6"
       }
     ],
     "30424124270022060": [
@@ -27059,24 +27143,6 @@
         "finalDate": null,
         "expirationDate": "2027-04-07",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/96fe81cb-6722-4744-a664-7c08cb06501a"
-      },
-      {
-        "permitNumber": "26-095612-BLDR",
-        "parcelId": "30424102030190080",
-        "address": "1108  MOHICAN BLVD  Private Provider (Inspections Only) JUPITER FL 33458",
-        "city": "JUPITER",
-        "type": "Residential Windows, Doors, Garage Doors",
-        "subtype": "Windows, Doors, Garage Doors",
-        "description": "Remove & replace 11 Windows IMPACT Size for size (*** PP INSPECTIONS ONLY***)",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-08",
-        "issuedDate": "2026-08-19",
-        "finalDate": "2026-10-05",
-        "expirationDate": "2027-03-31",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/0bcc1644-d6ab-4d3a-bc28-4988dd7f0e6c"
       }
     ],
     "30424104030240040": [
@@ -64751,24 +64817,6 @@
         "finalDate": "2026-11-18",
         "expirationDate": "2027-05-17",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/2208534c-2fa4-4325-a2d5-b1dc7f53eb40"
-      },
-      {
-        "permitNumber": "26-095611-ELEC-C",
-        "parcelId": "30434108150002010",
-        "address": "1300 S A1A   Unit: 201 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Electrical Sub Permit",
-        "subtype": "No Fee Sub-Permit",
-        "description": "*** MASTER PERMIT #26-095586-COMM ***  Interior renovation",
-        "status": "99 - Closed - JCDS",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-08",
-        "issuedDate": "2026-06-25",
-        "finalDate": "2026-10-29",
-        "expirationDate": "2027-04-26",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/03ef6517-79f4-469d-a4bf-e7f6a16e596b"
       }
     ],
     "30424113170001080": [
@@ -71035,24 +71083,6 @@
         "finalDate": "2026-09-10",
         "expirationDate": "2027-03-08",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/b6ee6154-a807-4a91-8288-970021078b44"
-      },
-      {
-        "permitNumber": "26-095614-COMM",
-        "parcelId": "30434105120031303",
-        "address": "300  OCEAN TRAIL WAY  Unit: 1303 JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Commercial Alteration",
-        "subtype": "Alteration",
-        "description": "Master Bathroom Renovation:\nDemo Master bathroom (shower walls, toilets, and floor tiles only.)\nInstall new shower valve and trim in the shower area.\nReplumb the shower with new P-trap with access from the resident below.\nValve and drain locations will remain unchanged.\nAll plumbing work to be performed by Top of the Line Sewer & Drain, Inc., a licensed plumber.\nInstall shower pan, backerboard, and a niche in the shower area.\nWaterproof the area and perform a flood test.\nInstall tiles on shower walls and floor. \nInstall a new toilet.",
-        "status": "70 - Issued",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-09",
-        "issuedDate": "2026-06-29",
-        "finalDate": "2026-10-05",
-        "expirationDate": "2027-03-31",
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/5b458d8c-c8fe-45db-82e8-84ebb544efe0"
       }
     ],
     "30424112190271010": [
@@ -76585,26 +76615,6 @@
         "finalDate": "2026-09-01",
         "expirationDate": "2027-03-01",
         "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/31e7a1db-2225-4495-a7b8-2c5951a17031"
-      }
-    ],
-    "30434105080010802": [
-      {
-        "permitNumber": "26-095616-ELECR-R",
-        "parcelId": "30434105080010802",
-        "address": "802  CLUBHOUSE CIR  JUPITER FL 33477",
-        "city": "JUPITER",
-        "type": "Residential Service Change",
-        "subtype": "Service Change",
-        "description": "INCORRECT PERMIT TYPE - NEW PERMIT # 26-096313-ELEC-C - Replacing the Panel like for like no new loads.",
-        "status": "99 - Closed - Cancelled",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-06-09",
-        "issuedDate": null,
-        "finalDate": "2026-06-10",
-        "expirationDate": null,
-        "url": "https://cds.jupiter.fl.us/EnerGov_Prod/SelfService#/permit/9e30ee72-de90-4eee-8a6d-383081d091d4"
       }
     ]
   }

@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-11-22T07:37:58Z",
+  "generated": "2026-11-23T07:37:52Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,26 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06434709050010506": [
+      {
+        "permitNumber": "BPM-2026-03033",
+        "parcelId": "06434709050010506",
+        "address": "4301 N Ocean Blvd  0506 Unit: 0506 Boca Raton FL 33431",
+        "city": "Boca Raton",
+        "type": "Electrical Water Heater Changeout Multifamily",
+        "subtype": "Water heater changeout (elect)",
+        "description": "Remove old water heater and replace it with a new one in the same location",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-22",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d1408f05-14ec-46b0-ae89-5fcc992ed317"
       }
     ],
     "06424723090100160": [
@@ -12686,7 +12706,7 @@
         "type": "Plumbing/Piping/Plumbing Fixtures - Building (Residential)",
         "subtype": "Plumbing Piping/ Fixtures",
         "description": "CIPP sewer lining of the sewer pipes",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -33476,7 +33496,7 @@
         "type": "Interior and Exterior Work - Building (Residential)",
         "subtype": "Interior and Exterior Work",
         "description": "Interior Alteration and Renovation of existing Kitchen and Bedrooms and Exterior Windows and Doors Replacement.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -61385,24 +61405,6 @@
         "finalDate": "2026-09-02",
         "expirationDate": null,
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/20f7df40-308a-49c3-859a-942f2dbde66e"
-      },
-      {
-        "permitNumber": "BPQ-2026-01888",
-        "parcelId": "06424704200000530",
-        "address": "4088 NW Briarcliff Cir   Boca Raton FL 33496",
-        "city": "Boca Raton",
-        "type": "Re-Roof - Building (SINGLE FAMILY RESIDENTIAL ONLY)",
-        "subtype": "Re-roof ",
-        "description": "replace cement tile x cement tile",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-06",
-        "issuedDate": "2026-08-24",
-        "finalDate": "2026-11-06",
-        "expirationDate": "2027-05-04",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/77160b1b-b6ce-4f46-a3f2-8c5e71a6b354"
       }
     ],
     "06424724050090070": [
@@ -64992,7 +64994,7 @@
         "type": "Interior and Exterior Work - Building (Residential)",
         "subtype": "Interior and Exterior Work",
         "description": "New rear porch to build up as per plan.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
