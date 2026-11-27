@@ -1,7 +1,7 @@
 {
   "county": "Boca Raton",
   "slug": "boca-raton",
-  "generated": "2026-11-26T07:38:03Z",
+  "generated": "2026-11-27T07:38:00Z",
   "source": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "portalUrl": "https://bocaratonfl-energovpub.tylerhost.net/Apps/SelfService#/home",
   "scope": "Every permit applied in the last 90 days (live Tyler EnerGov 'Boca eHub' \u2014 no contractor/valuation in public API)",
@@ -25,6 +25,26 @@
         "finalDate": null,
         "expirationDate": "2027-04-19",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/6d00a231-bd8e-4356-9b77-9458332f6a3b"
+      }
+    ],
+    "06424725300830190": [
+      {
+        "permitNumber": "BPR-2026-03219",
+        "parcelId": "06424725300830190",
+        "address": "1798 SW 13th Pl   Boca Raton FL 33486",
+        "city": "Boca Raton",
+        "type": "Fence/Site Wall - Building (Residential)",
+        "subtype": "Fence/Site Wall/ Gate",
+        "description": "Replace wood fence with 187 ft of 6-ft white PVC and one 10-ft double gate. Install 30 ft of chain link. Pool barrier.",
+        "status": "Submitted - Online",
+        "applicantName": null,
+        "contractor": null,
+        "valuation": null,
+        "appliedDate": "2026-11-26",
+        "issuedDate": null,
+        "finalDate": null,
+        "expirationDate": null,
+        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/d7925f4c-54dc-45f8-b9ec-10767ab7416f"
       }
     ],
     "06424714000007030": [
@@ -9370,7 +9390,7 @@
         "type": "Interior Renovation/ Alteration Residential - Building (Residential)",
         "subtype": "Interior Only Alteration",
         "description": "Interior renovation of existing kitchen and three (3) bathrooms, including replacement of cabinets, countertops, finishes, and plumbing fixtures in their existing locations. Installation of additional recessed LED lighting throughout the residence, including associated electrical work. No structural modifications or changes to the existing floor plan.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -33246,7 +33266,7 @@
         "type": "Environmental Miscellaneous Multifamily",
         "subtype": "Environmental",
         "description": "REMOVE HAZARDOUS TREE AND GRIND STUMP",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -60390,7 +60410,7 @@
         "type": "Windows, Doors, Garage Doors, Shutters - Building (Commercial)",
         "subtype": "Window/ door/ shutter",
         "description": "Case Number: CODE-2025-00160. Owner had a violation for install 2 new garage doors on Southside of the building. We are hired to correct the violation.",
-        "status": "In Review",
+        "status": "Resubmit Requested",
         "applicantName": null,
         "contractor": null,
         "valuation": null,
@@ -73985,26 +74005,6 @@
         "finalDate": null,
         "expirationDate": "2027-02-22",
         "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/57ce46bf-2270-4204-b87d-5fa33a1b971b"
-      }
-    ],
-    "06434705190004070": [
-      {
-        "permitNumber": "BPM-2026-02136",
-        "parcelId": "06434705190004070",
-        "address": "5301 NW 2nd Ave  4070 Unit: 4070 Boca Raton FL 33487",
-        "city": "Boca Raton",
-        "type": "Mechanical HVAC Interior And Exterior Multifamily",
-        "subtype": "Mechanical HVAC Int/Ext",
-        "description": "AC CHANGE OUT",
-        "status": "Complete",
-        "applicantName": null,
-        "contractor": null,
-        "valuation": null,
-        "appliedDate": "2026-08-12",
-        "issuedDate": "2026-08-26",
-        "finalDate": "2026-08-28",
-        "expirationDate": "2027-02-24",
-        "url": "https://bocaratonfl-energovpub.tylerhost.net/apps/SelfService#/permit/bf3ec0de-3246-4efe-a671-4b6de1141468"
       }
     ]
   }

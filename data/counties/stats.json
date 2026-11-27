@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-26T07:47:12Z",
+  "generated": "2026-11-27T07:48:14Z",
   "salesGenerated": "2026-11-23T06:53:17Z",
   "featuredSlugs": [
     "palm-beach",
@@ -613,9 +613,9 @@
       "slug": "miami-dade",
       "region": "Southeast",
       "nextSale": {
-        "date": "2026-11-26",
-        "label": "November 26, 2026",
-        "shortLabel": "Nov 26",
+        "date": "2026-12-03",
+        "label": "December 3, 2026",
+        "shortLabel": "Dec 3",
         "count": null,
         "source": "cadence"
       },
